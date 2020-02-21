@@ -9,7 +9,7 @@ class Stars2Animation extends Component {
             renderer: 'svg',
             loop: true,
             autoplay: false,
-            animationData: animationData,
+            animationData: animationData.default,
             rendererSettings: {
                 preserveAspectRatio: 'xMidYMid meet'
             }

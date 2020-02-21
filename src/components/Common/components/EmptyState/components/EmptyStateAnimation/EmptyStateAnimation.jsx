@@ -7,7 +7,7 @@ class EmptyStateAnimation extends Component {
         lottie.loadAnimation({
             container: document.getElementById('empty-state-animation'),
             renderer: 'svg',
-            animationData: animationData,
+            animationData: animationData.default,
             loop: true
         })
     }
