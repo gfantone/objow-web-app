@@ -1,0 +1,191 @@
+import React from 'react'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { Grid } from '@material-ui/core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
+import { Goal, GoalFilter } from '../../components'
+import { Card, GridLink, IconButton, Loader, MainLayoutComponent, TimeFilter, EmptyState } from '../../../../components'
+import * as teamCollaboratorGoalListActions from '../../../../services/TeamCollaboratorGoals/TeamCollaboratorGoalList/actions'
+import * as teamGoalSummaryListActions from '../../../../services/TeamGoalSummaries/TeamGoalSummaryList/actions'
+import '../../../../helpers/StringHelper'
+
+class TeamGoalList extends MainLayoutComponent {
+    constructor(props) {
+        super(props);
+        this.id = null;
+        this.current = true;
+        this.category = null;
+        this.year = null;
+        this.start = null;
+        this.end = null;
+        this.state = {
+            filterOpen: false
+        }
+    }
+
+    refresh(id, current, category, year, start, end) {
+        var url = `/goals/team/${id}?current=${current}`;
+        if (category) url += `&category=${category}`;
+        if (year) url += `&year=${year}`;
+        if (start) url += `&start=${start.getTime()}`;
+        if (end) url += `&end=${end.getTime()}`;
+        this.props.history.replace(url)
+    }
+
+    handleFilterOpen() {
+        this.setState({
+            ...this.state,
+            filterOpen: true
+        })
+    }
+
+    handleFilterClose() {
+        this.setState({
+            ...this.state,
+            filterOpen: false
+        })
+    }
+
+    handleTimeChange(current) {
+        this.refresh(this.id, current, this.category, this.year, this.start, this.end)
+    }
+
+    loadData(props) {
+        const id = props.match.params.id;
+        const params = new URLSearchParams(window.location.search);
+        const currentParam = params.get('current');
+        const current = currentParam ? currentParam.toBoolean() : this.current;
+        const category = params.get('category');
+        const year = params.get('year');
+        const startParam = params.get('start');
+        const start = startParam ? new Date(Number(startParam)) : null;
+        const endParam = params.get('end');
+        const end = endParam ? new Date(Number(endParam)) : null;
+        const currentStart = this.start ? this.start.getTime().toString() : null;
+        const currentEnd = this.end ? this.end.getTime().toString() : null;
+
+        if (id != this.id || current != this.current || category != this.category || year != this.year || startParam != currentStart || endParam != currentEnd) {
+            this.id = id;
+            this.current = current;
+            this.category = category;
+            this.year = year;
+            this.start = start;
+            this.end = end;
+            this.props.teamCollaboratorGoalListActions.getTeamCollaboratorGoalList(id, current, category, year, start, end);
+            this.props.teamGoalSummaryListActions.getTeamGoalSummaryListByTeam(id, current, category, year, start, end)
+        }
+    }
+
+    componentDidMount() {
+        const params = new URLSearchParams(window.location.search);
+        const currentParam = params.get('current');
+        const current = currentParam ? currentParam.toBoolean() : this.current;
+        if (this.props.auth.account.role.code == 'A') this.props.activateReturn();
+        this.props.handleTitle('Objectifs');
+        this.props.handleSubHeader(<TimeFilter initial={current} handleTimeChange={this.handleTimeChange.bind(this)} />);
+        this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}>
+            <FontAwesomeIcon icon={faSlidersH} />
+        </IconButton>);
+        this.loadData(this.props)
+    }
+
+    componentWillReceiveProps(props) {
+        this.loadData(props)
+    }
+
+    handleFilterChange(category, team, collaborator, year, start, end) {
+        if (!collaborator) {
+            const teamId = this.props.auth.account.role.code == 'M' ? this.id : team;
+            this.refresh(teamId, this.current, category, year, start, end)
+        } else {
+            var url = `/goals/collaborator/${collaborator}?current=${this.current}`;
+            if (category) url += `&category=${category}`;
+            if (year) url += `&year=${year}`;
+            if (start) url += `&start=${start.getTime()}`;
+            if (end) url += `&end=${end.getTime()}`;
+            this.props.history.push(url)
+        }
+    }
+
+    mergeGoals(collaboratorGoals, teamGoals) {
+        return collaboratorGoals.concat(teamGoals).sort((a, b) => {
+            const comparison = a.end - b.end;
+            return this.current ? comparison : comparison * -1
+        })
+    }
+
+    renderLoader() {
+        return <Loader centered />
+    }
+
+    renderEmptyState() {
+        return <EmptyState title='Aucun objectif trouvé' message="Si vous avez appliqué des filtres, changez-les pour afficher d'autres objectifs" />
+    }
+
+    renderData() {
+        const { goals: collaboratorGoals } = this.props.teamCollaboratorGoalList;
+        const { goals: teamGoals } = this.props.teamGoalSummaryList;
+        const goals = this.mergeGoals(collaboratorGoals, teamGoals);
+
+        return (
+            <Grid container spacing={2}>
+                { goals.map(goal => {
+                    const url = goal.type == 'C' ? `/goals/detail/team-collaborator/${goal.id}` : `/goals/detail/team/${goal.id}`;
+
+                    return (
+                        <GridLink key={goal.id} item xs={12} sm={6} md={4} component={Link} to={url}>
+                            <Card>
+                                <Goal goal={goal} />
+                            </Card>
+                        </GridLink>
+                    )
+                }) }
+            </Grid>
+        )
+    }
+
+    render() {
+        const { account } = this.props.auth;
+        const { goals: collaboratorGoals, loading: teamCollaboratorGoalListLoading } = this.props.teamCollaboratorGoalList;
+        const { goals: teamGoals, loading: teamGoalListLoading } = this.props.teamGoalSummaryList;
+        const loading = teamCollaboratorGoalListLoading || teamGoalListLoading;
+        const hasGoals = collaboratorGoals && teamGoals && (collaboratorGoals.length > 0 || teamGoals.length > 0);
+
+        // if (account.role.code == 'C' || account.role.code == 'M' && account.team != this.props.match.params.id) {
+        //     return <Redirect to='/goals' />
+        // }
+
+        return (
+            <div>
+                { loading && this.renderLoader() }
+                { !loading && hasGoals && this.renderData() }
+                { !loading && !hasGoals && this.renderEmptyState() }
+                <GoalFilter
+                    open={this.state.filterOpen}
+                    onClose={this.handleFilterClose.bind(this)}
+                    onChange={this.handleFilterChange.bind(this)}
+                    category={this.category}
+                    year={this.year}
+                    team={this.props.match.params.id}
+                    start={this.start}
+                    end={this.end}
+                />
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = ({ auth, teamCollaboratorGoalList, teamGoalSummaryList }) => ({
+    auth,
+    teamCollaboratorGoalList,
+    teamGoalSummaryList
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    teamCollaboratorGoalListActions: bindActionCreators(teamCollaboratorGoalListActions, dispatch),
+    teamGoalSummaryListActions: bindActionCreators(teamGoalSummaryListActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TeamGoalList)

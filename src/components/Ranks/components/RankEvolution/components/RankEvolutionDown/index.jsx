@@ -1,0 +1,1 @@
+export { default as RankEvolutionDown } from './RankEvolutionDown'

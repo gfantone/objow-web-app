@@ -1,0 +1,1 @@
+export {default as GoalIndications} from './GoalIndications'

@@ -1,0 +1,27 @@
+import { call, put, takeEvery } from 'redux-saga/effects'
+import { createChallengeSuccess, createChallengeError } from './actions'
+import * as types from './actionTypes'
+import api from '../../../data/api/api'
+
+function* createChallenge(action) {
+    try {
+        const { data: challenge } = yield call(api.challenges.create, action.challenge, action.teamId);
+        action.awards.map(award => {
+            award.challenge = challenge.id
+        });
+        action.goals.map(goal => {
+            goal.challenge = challenge.id
+        });
+        yield call(api.challengeAwards.bulkCreate, action.awards);
+        yield call(api.challenges.changeGoals, challenge.id, action.goals);
+        yield put(createChallengeSuccess())
+    } catch(e) {
+        yield put(createChallengeError())
+    }
+}
+
+function* watchChallengeCreation() {
+    yield takeEvery(types.CREATE_CHALLENGE, createChallenge)
+}
+
+export default watchChallengeCreation

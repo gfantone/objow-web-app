@@ -1,0 +1,29 @@
+import React, {Component} from 'react'
+import lottie from 'lottie-web'
+import * as animationData from '../../../../../assets/lottie/loading.json'
+
+class LoadingAnimation extends Component {
+    componentDidMount() {
+        const animation = lottie.loadAnimation({
+            container: document.getElementById('loading-animation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: false,
+            animationData: animationData,
+            rendererSettings: {
+                preserveAspectRatio: 'xMidYMid meet'
+            }
+        });
+        animation.addEventListener('DOMLoaded', function() {
+            animation.play()
+        })
+    }
+
+    render() {
+        return (
+            <div id='loading-animation' style={{width:150,height:100}} ref={ref => this.ref = ref}></div>
+        )
+    }
+}
+
+export default LoadingAnimation

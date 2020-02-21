@@ -1,0 +1,3 @@
+export const GET_KPI_LIST = 'GET_KPI_LIST'
+export const GET_KPI_LIST_SUCCESS = 'GET_KPI_LIST_SUCCESS'
+export const GET_KPI_LIST_ERROR = 'GET_KPI_LIST_ERROR'

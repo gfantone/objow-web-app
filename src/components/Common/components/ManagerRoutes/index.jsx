@@ -1,0 +1,1 @@
+export { default as ManagerRoutes } from './ManagerRoutes'
