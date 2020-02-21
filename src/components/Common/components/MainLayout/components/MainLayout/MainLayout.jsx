@@ -8,6 +8,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { faAngleLeft, faBars} from '@fortawesome/free-solid-svg-icons'
 import { AppBar, Drawer, DrawerContent, MainContainer, HeaderContainer, HeaderTitle, SubHeaderContainer, Toolbar } from './components'
 import { IconButton } from '../../../'
+import { useClearCache } from 'react-clear-cache'
 
 const drawerWidth = 304;
 const DEFAULT_BUTTONS = null;
@@ -65,6 +66,12 @@ const MainLayout = ({component: Component, history, ...rest}) => {
     const [maxWidth, setMaxWidth] = React.useState(DEFAULT_MAX_WIDTH);
     const [subHeader, setSubHeader] = React.useState(DEFAULT_SUB_HEADER);
     const [title, setTitle] = React.useState(DEFAULT_TITLE);
+    const { isLatestVersion } = useClearCache();
+
+    if (!isLatestVersion) {
+        localStorage.clear();
+        window.location = '/'
+    }
 
     function activateReturn() {
         if (history.length > 1) {

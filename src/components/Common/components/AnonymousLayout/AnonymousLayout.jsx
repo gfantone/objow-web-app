@@ -3,6 +3,7 @@ import {Route} from 'react-router-dom';
 import {Container, CssBaseline} from '@material-ui/core';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import {makeStyles} from '@material-ui/core/styles'
+import { useClearCache } from 'react-clear-cache'
 
 const theme = createMuiTheme({
     typography: {
@@ -28,6 +29,11 @@ const useStyles = makeStyles(theme => ({
 
 const Layout = ({component: Component, ...rest}) => {
     const classes = useStyles();
+    const { isLatestVersion, emptyCacheStorage } = useClearCache();
+
+    if (!isLatestVersion) {
+        emptyCacheStorage()
+    }
 
     return (
         <MuiThemeProvider theme={theme}>
