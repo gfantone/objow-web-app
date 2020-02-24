@@ -2,6 +2,7 @@ import { all } from 'redux-saga/effects'
 import watchAccountUpdate from './Account/AccountUpdate/sagas'
 import watchAdminReferenceData from './AdminReferenceData/sagas'
 import watchAuth from './Auth/sagas'
+import watchTermsAcceptance from './Account/TermsAcceptance/sagas'
 import watchBadgeDetail from './Badges/BadgeDetail/sagas'
 import watchBadgeLevelList from './BadgeLevels/BadgeLevelList/sagas'
 import watchBadgeLevelListCreation from './BadgeLevels/BadgeLevelListCreation/sagas'
@@ -139,6 +140,7 @@ function* rootSaga() {
         watchCategoryIconList(),
         watchChallengeTypeList(),
         watchChallengeTypeSummaryList(),
+        watchTermsAcceptance(),
         watchCurrentChallengeTypeList(),
         watchUsableChallengeTypeList(),
         watchChallengeTypeListUpdate(),

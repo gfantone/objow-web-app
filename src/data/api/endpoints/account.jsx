@@ -6,6 +6,10 @@ const account = {
     get() {
         return instance.get(baseUrl)
     },
+    acceptTerms(useTermsAccepted, privacyPolicyAccepted) {
+        const url = `${baseUrl}accept-terms/`;
+        return instance.put(url, { useTermsAccepted, privacyPolicyAccepted })
+    },
     update(account) {
         const url = `${baseUrl}infos/`;
         return instance.put(url, account)

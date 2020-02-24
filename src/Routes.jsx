@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Switch } from 'react-router-dom'
 import {AdminRoutes, AnonymousRoutes, FileRoutes, MainRoutes, ManagerRoutes} from './components'
 import * as scenes from './scenes'
+import IntermediateRoutes from "./components/Common/components/IntermadiateRoutes/IntermadiateRoutes";
 
 export default () => {
     return (
@@ -83,6 +84,8 @@ export default () => {
                 <MainRoutes exact path={'/contact'} component={scenes.Contact} />
                 {/* Anonymous routes */}
                 <AnonymousRoutes exact path='/login' component={scenes.Login} />
+                {/* Intermediate routes */}
+                <IntermediateRoutes exact path='/accept-terms' component={scenes.AcceptTerms} />
                 {/* File routes */}
                 <FileRoutes exact path={'/privacy-policy'} component={scenes.PrivacyPolicy} />
                 <FileRoutes exact path={'/use-terms'} component={scenes.UseTerms} />

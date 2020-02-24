@@ -4,6 +4,11 @@ const initialState = {
         loading: false,
         hasError: false
     },
+    termsAcceptance: {
+        success: false,
+        loading: false,
+        hasError: false
+    },
     adminReferenceData: {
         categories: [],
         categoryIcons: [],

@@ -3,12 +3,12 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {Grid} from '@material-ui/core'
 import Formsy from 'formsy-react'
-import {AndroidButton, IconButton, IosButton, Logo, TextField} from './components'
-import {Card, DefaultText, ErrorText, ProgressButton, WhiteText} from '../../components'
+import {AndroidButton, IconButton, IosButton, Logo, TextField} from '../../components'
+import {Card, DefaultText, ErrorText, ProgressButton, WhiteText} from '../../../../components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
-import * as authActions from '../../services/Auth/actions'
-import * as authErrors from '../../services/Auth/errors'
+import * as authActions from '../../../../services/Auth/actions'
+import * as authErrors from '../../../../services/Auth/errors'
 
 class Login extends Component {
     constructor(props) {
@@ -26,9 +26,9 @@ class Login extends Component {
 
     render() {
         const { loading, error } = this.props.auth;
-        const logoData = require('../../assets/logo.png');
-        const iosData = require('../../assets/img/mobile/ios.png');
-        const androidData = require('../../assets/img/mobile/android.png');
+        const logoData = require('../../../../assets/logo.png');
+        const iosData = require('../../../../assets/img/mobile/ios.png');
+        const androidData = require('../../../../assets/img/mobile/android.png');
         const { detect } = require('detect-browser');
         const browser = detect();
         const isMobileApp = browser.name == 'ios-webview' || browser.name == 'chromium-webview';

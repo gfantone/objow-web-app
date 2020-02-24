@@ -6,6 +6,7 @@ import badgeDetail from '../services/Badges/BadgeDetail/reducer'
 import badgeLevelList from '../services/BadgeLevels/BadgeLevelList/reducer'
 import badgeLevelListCreation from '../services/BadgeLevels/BadgeLevelListCreation/reducer'
 import badgeLevelListUpdate from '../services/BadgeLevels/BadgeLevelListUpdate/reducer'
+import termsAcceptance from "../services/Account/TermsAcceptance/reducer";
 import badgeLevelRemoving from '../services/BadgeLevels/BadgeLevelRemoving/reducer'
 import badgeLevelRemainingPoints from '../services/BadgeLevels/BadgeLevelRemainingPoints/reducer'
 import badgeList from '../services/Badges/BadgeList/reducer'
@@ -150,6 +151,7 @@ const rootReducer = combineReducers({
     challengeTypeSummaryList,
     challengeTypeListUpdate,
     challengeTypeUsablePoints,
+    termsAcceptance,
     coachingItemList,
     coachingItemListCreation,
     coachingItemListUpdate,
@@ -194,7 +196,7 @@ const rootReducer = combineReducers({
     goalTypeList,
     importLogList,
     kpiDetail,
-    kpiList, 
+    kpiList,
     levelList,
     levelListCreation,
     levelListUpdate,

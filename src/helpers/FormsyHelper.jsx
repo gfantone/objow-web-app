@@ -2,10 +2,10 @@ import * as Formsy from 'formsy-react'
 
 Formsy.addValidationRule('isConditionalRequired', function (values, value, condition) {
     return false
-})
+});
 
 Formsy.addValidationRule('isLessThan', function (values, value, otherField) {
-    const number = Number(otherField)
+    const number = Number(otherField);
     if (!Number.isNaN(number)) {
         return Number(value) < number
     } else if (otherField) {
@@ -13,10 +13,10 @@ Formsy.addValidationRule('isLessThan', function (values, value, otherField) {
     } else {
         return true
     }
-})
+});
 
 Formsy.addValidationRule('isLessThanOrEquals', function (values, value, otherField) {
-    const number = Number(otherField)
+    const number = Number(otherField);
     if (!Number.isNaN(number)) {
         return Number(value) <= number
     } else if (otherField) {
@@ -24,10 +24,10 @@ Formsy.addValidationRule('isLessThanOrEquals', function (values, value, otherFie
     } else {
         return true
     }
-})
+});
 
 Formsy.addValidationRule('isMoreThan', function (values, value, otherField) {
-    const number = Number(otherField)
+    const number = Number(otherField);
     if (!Number.isNaN(number)) {
         return Number(value) > number
     } else if (otherField) {
@@ -35,10 +35,10 @@ Formsy.addValidationRule('isMoreThan', function (values, value, otherField) {
     } else {
         return true
     }
-})
+});
 
 Formsy.addValidationRule('isMoreThanOrEquals', function (values, value, otherField) {
-    const number = Number(otherField)
+    const number = Number(otherField);
     if (!Number.isNaN(number)) {
         return Number(value) >= number
     } else if (otherField) {
@@ -46,4 +46,8 @@ Formsy.addValidationRule('isMoreThanOrEquals', function (values, value, otherFie
     } else {
         return true
     }
-})
+});
+
+Formsy.addValidationRule('isTrue', function (values, value, otherField) {
+    return value == true;
+});

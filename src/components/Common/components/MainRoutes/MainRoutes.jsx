@@ -9,15 +9,17 @@ const MainRoutes = ({component: Component, ...rest}) => {
 
     if (!account) {
         return <Redirect to='/login' />;
+    } else if (!account.useTermsAccepted || !account.privacyPolicyAccepted) {
+        return <Redirect to='/accept-terms' />
     }
 
     return (
         <MainLayout exact path={path} component={Component} />
     )
-}
+};
 
 const mapStateToProps = ({auth}) => ({
     auth
-})
+});
 
 export default connect(mapStateToProps)(MainRoutes)

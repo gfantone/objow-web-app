@@ -15,16 +15,19 @@ const styles = {
             backgroundColor: '#00E58D',
         }
     },
-    secondary: {
-        color: '#FFFFFF',
-        backgroundColor: 'rgba(0, 0, 0, 0.08)',
+    textPrimary: {
+        color: '#ffffff',
+        backgroundColor: 'rgba(255, 255, 255, 0.08)',
         '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.08)'
+            backgroundColor: 'rgba(255, 255, 255, 0.08)',
         }
     },
     textSecondary: {
         color: '#555555',
-        backgroundColor: 'rgba(0, 0, 0, 0.08)'
+        backgroundColor: 'rgba(0, 0, 0, 0.08)',
+        '&:hover': {
+            backgroundColor: 'rgba(0, 0, 0, 0.08)'
+        }
     }
 };
 
