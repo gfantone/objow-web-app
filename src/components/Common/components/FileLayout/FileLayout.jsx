@@ -6,6 +6,9 @@ import {CssBaseline} from "@material-ui/core";
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import {Document, Page, pdfjs} from "react-pdf";
 import {AppBar, HeaderContainer, HeaderTitle, Pagination, Toolbar} from './components'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faAngleLeft} from "@fortawesome/free-solid-svg-icons";
+import {IconButton} from "../IconButton";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -68,6 +71,10 @@ const FileLayout = ({component: Component, history, ...rest}) => {
     const [numPages, setNumPages] = React.useState(null);
     const [pageNumber, setPageNumber] = React.useState(1);
 
+    const goBack = () => {
+        history.goBack()
+    };
+
     const onDocumentLoadSuccess = ({ numPages }) => {
         setNumPages(numPages)
     };
@@ -85,6 +92,9 @@ const FileLayout = ({component: Component, history, ...rest}) => {
                         <AppBar>
                             <Toolbar>
                                 <HeaderContainer>
+                                    <IconButton size='small' onClick={goBack}>
+                                        <FontAwesomeIcon icon={faAngleLeft} />
+                                    </IconButton>
                                     <HeaderTitle noWrap variant='h6' align='center'>{title}</HeaderTitle>
                                 </HeaderContainer>
                             </Toolbar>
