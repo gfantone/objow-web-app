@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Switch } from 'react-router-dom'
-import { AdminRoutes, AnonymousRoutes, MainRoutes, ManagerRoutes } from './components'
+import {AdminRoutes, AnonymousRoutes, FileRoutes, MainRoutes, ManagerRoutes} from './components'
 import * as scenes from './scenes'
 
 export default () => {
@@ -83,6 +83,8 @@ export default () => {
                 <MainRoutes exact path={'/contact'} component={scenes.Contact} />
                 {/* Anonymous routes */}
                 <AnonymousRoutes exact path='/login' component={scenes.Login} />
+                {/* File routes */}
+                <FileRoutes exact path={'/use-terms'} component={scenes.UseTerms} />
             </Switch>
         </BrowserRouter>
     )

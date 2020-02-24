@@ -41,6 +41,7 @@ const Layout = ({component: Component, ...rest}) => {
                 <div className={classes.root}>
                     <CssBaseline />
                     <main className={classes.content}>
+                        Hello
                         <Container maxWidth='xs'>
                             <Component {...matchProps} />
                         </Container>
