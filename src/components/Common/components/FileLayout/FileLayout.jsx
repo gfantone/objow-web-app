@@ -85,7 +85,7 @@ const FileLayout = ({component: Component, history, ...rest}) => {
                         <AppBar>
                             <Toolbar>
                                 <HeaderContainer>
-                                    <HeaderTitle variant='h6' align='center'>{title}</HeaderTitle>
+                                    <HeaderTitle noWrap variant='h6' align='center'>{title}</HeaderTitle>
                                 </HeaderContainer>
                             </Toolbar>
                         </AppBar>

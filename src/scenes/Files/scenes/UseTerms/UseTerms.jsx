@@ -3,7 +3,7 @@ import terms from "../../../../assets/files/cgu.pdf";
 
 const UseTerms = ({ ...props }) => {
     useEffect(() => {
-        props.onTitle("Condition générales d'utilisation");
+        props.onTitle("Condition générales");
         props.onFile(terms)
     });
 

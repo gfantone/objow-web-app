@@ -84,6 +84,7 @@ export default () => {
                 {/* Anonymous routes */}
                 <AnonymousRoutes exact path='/login' component={scenes.Login} />
                 {/* File routes */}
+                <FileRoutes exact path={'/privacy-policy'} component={scenes.PrivacyPolicy} />
                 <FileRoutes exact path={'/use-terms'} component={scenes.UseTerms} />
             </Switch>
         </BrowserRouter>
