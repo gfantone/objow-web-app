@@ -81,7 +81,7 @@ export default () => {
                 <AdminRoutes exact path='/admin/reports/:id' component={scenes.AdminReportDetail} />
                 <AdminRoutes exact path='/admin/imports/logs' component={scenes.AdminImportLogList} />
                 {/* Other routes */}
-                <MainRoutes exact path={'/contact'} component={scenes.Contact} />
+                <MainRoutes exact path={'/help'} component={scenes.Contact} />
                 {/* Anonymous routes */}
                 <AnonymousRoutes exact path='/login' component={scenes.Login} />
                 {/* Intermediate routes */}

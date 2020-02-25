@@ -1,14 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Account, Divider, DrawerButton, List, Logo } from './components'
-import { faBook, faBullseye, faListUl, faRandom, faRocket, faSignOutAlt, faTools, faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons'
-import logoPath from '../../../../../../../../assets/logo.png'
+import { faBook, faBullseye, faListUl, faQuestion, faRandom, faRocket, faSignOutAlt, faTools, faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons'
 
 const DrawerContent = ({ onNavigate, ...props }) => {
-    const { account } = props.auth
-    const { images } = props.systemImageList
-    const isAdministrator = account.role.code == 'A'
-    var logo = images ? images.find(x => x.code == 'LOGO').src : null
+    const { account } = props.auth;
+    const { images } = props.systemImageList;
+    const isAdministrator = account.role.code == 'A';
+    var logo = images ? images.find(x => x.code == 'LOGO').src : null;
 
     if (!logo) {
         logo = '/assets/img/system/logo.png'
@@ -33,6 +32,8 @@ const DrawerContent = ({ onNavigate, ...props }) => {
                 <DrawerButton icon={faBook} text='Règles du jeu' src='/rules' onNavigate={onNavigate} />
                 {  isAdministrator && <Divider /> }
                 {  isAdministrator && <DrawerButton icon={faTools} text='Administration' src='/admin' onNavigate={onNavigate} /> }
+                {  isAdministrator && <Divider /> }
+                {  isAdministrator && <DrawerButton icon={faQuestion} text='Aide' src='/help' onNavigate={onNavigate} /> }
                 <Divider />
                 <DrawerButton icon={faSignOutAlt} text='Déconnexion' src='/logout' onNavigate={onNavigate} />
             </List>
@@ -43,11 +44,11 @@ const DrawerContent = ({ onNavigate, ...props }) => {
             </List>
         </div>
     )
-}
+};
 
 const mapStateToProps = ({ auth, systemImageList }) => ({
     auth,
     systemImageList
-})
+});
 
 export default connect(mapStateToProps)(DrawerContent)
