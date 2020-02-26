@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleRight, faBalanceScale, faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import {faAngleRight, faBalanceScale, faCalendarAlt, faFolderOpen} from '@fortawesome/free-solid-svg-icons'
 import { AnimationController, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow } from '../../../../components'
 
 const GoalIndication = ({ goal, ...props }) => {
@@ -58,7 +58,7 @@ const GoalIndication = ({ goal, ...props }) => {
                             </Grid>
                             <Grid item xs={12}>
                                 <DefaultText>
-                                    <FontAwesomeIcon icon={faBalanceScale} /> Du {goal.start.toDate2().toLocaleDateString()} au {goal.end.toDate2().toLocaleDateString()}
+                                    <FontAwesomeIcon icon={faCalendarAlt} /> Du {goal.start.toDate2().toLocaleDateString()} au {goal.end.toDate2().toLocaleDateString()}
                                 </DefaultText>
                             </Grid>
                             <Grid item xs={12}>
