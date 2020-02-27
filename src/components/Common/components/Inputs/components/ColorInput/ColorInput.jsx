@@ -19,24 +19,24 @@ const styles = {
         height: 50,
         cursor: 'pointer'
     }
-}
+};
 
 const ColorInput = ({ colors = [], initial, label, name, onChange, required, ...props }) => {
-    const { classes } = props
-    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null
-    const hasError = !(!props.isFormSubmitted && value == null || props.isValid)
-    const [value, setValue] = React.useState(initial)
-    const finalLabel = required ? `${label} *` : label
+    const { classes } = props;
+    const [value, setValue] = React.useState(initial);
+    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null;
+    const hasError = !(!props.isFormSubmitted && value == null || props.isValid);
+    const finalLabel = required ? `${label} *` : label;
 
     useEffect(() => {
         props.setValue(initial)
-    }, [])
+    }, []);
 
     const handleValue = value => () => {
-        props.setValue(value)
-        setValue(value)
+        props.setValue(value);
+        setValue(value);
         if (onChange) onChange(value)
-    }
+    };
 
     return (
         <div>
@@ -44,7 +44,7 @@ const ColorInput = ({ colors = [], initial, label, name, onChange, required, ...
             { hasError && <ErrorText>{finalLabel}</ErrorText> }
             <Grid container spacing={1}>
                 { colors.map((color) => {
-                    const selected = color.id == value
+                    const selected = color.id == value;
                     return (
                         <Grid key={color.id} item onClick={handleValue(color.id)}>
                             <div className={selected ? classes.selectedColor : classes.color} style={{backgroundColor: color.hex}}></div>
@@ -56,6 +56,6 @@ const ColorInput = ({ colors = [], initial, label, name, onChange, required, ...
             { hasError && <ErrorText>{errorMessage}</ErrorText> }
         </div>
     )
-}
+};
 
 export default withStyles(styles)(withFormsy(ColorInput))

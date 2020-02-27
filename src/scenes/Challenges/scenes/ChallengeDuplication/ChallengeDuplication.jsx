@@ -177,7 +177,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         const number = index + 1;
         const { categories } = this.props.categoryList;
         const { kpis } = this.props.kpiList;
-        const displayKpis = goal.category ? kpis.filter(x => x.category && x.category.id == goal.category) : null;
+        const displayKpis = goal.category ? kpis.filter(x => x.category && x.category.id == goal.category) : kpis;
         const kpi = goal.kpi ? kpis.find(x => x.id == goal.kpi) : null;
         const unit = kpi ? kpi.unit.name : null;
 

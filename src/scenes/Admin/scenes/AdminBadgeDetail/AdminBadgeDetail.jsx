@@ -24,8 +24,7 @@ class AdminBadgeDetail extends MainLayoutComponent {
         this.id = null;
         this.initialized = false;
         this.state = {
-            levels: [],
-            points: 0
+            levels: []
         };
         this.props.badgeLevelListCreationActions.clearBadgeLevelListCreation();
         this.props.badgeLevelListUpdateActions.clearBadgeLevelListUpdate();
@@ -47,17 +46,6 @@ class AdminBadgeDetail extends MainLayoutComponent {
         this.setState({
             ...this.state,
             levels: levels
-        })
-    };
-
-    handlePointsChange = index => value => {
-        const model = this.refs.form.getModel();
-        var pointList = model.points;
-        pointList.splice(index, 1);
-        const points = pointList.map(x => Number(x)).reduce((a, b) => a + b) + Number(value);
-        this.setState({
-            ...this.state,
-            points: points
         })
     };
 
@@ -167,7 +155,7 @@ class AdminBadgeDetail extends MainLayoutComponent {
                                                 />
                                             </Grid>
                                             <Grid item xs>
-                                                <TextField type='number' name={`points[${index}]`} label='Nbre de point si atteint' initial={level.points} disabled={disabled} onChange={this.handlePointsChange(index).bind(this)} fullWidth required
+                                                <TextField type='number' name={`points[${index}]`} label='Nbre de point si atteint' initial={level.points} disabled={disabled} fullWidth required
                                                     validations='isMoreThanOrEquals:0'
                                                     validationErrors={{
                                                         isDefaultRequiredValue: 'Ce champ est requis.',

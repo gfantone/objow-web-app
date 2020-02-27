@@ -33,10 +33,10 @@ const styles = {
 
 const ImageInput = ({ images = [], initial, label, name, onChange, required, ...props }) => {
     const { classes } = props;
-    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null;
-    const hasError = !(!props.isFormSubmitted && value == null || props.isValid);
     const [expanded, setExpanded] = React.useState(false);
     const [value, setValue] = React.useState(initial);
+    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null;
+    const hasError = !(!props.isFormSubmitted && value == null || props.isValid);
     const finalLabel = required ? `${label} *` : label;
 
     useEffect(() => {

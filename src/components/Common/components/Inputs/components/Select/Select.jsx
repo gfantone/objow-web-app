@@ -29,7 +29,7 @@ const CustomSelect = ({ disabled, emptyDisabled = false, emptyText, error, fullW
         const value = !emptyText || event.currentTarget.value != emptyText.toString().toUpperCase() ? event.currentTarget.value : null;
         setValue(value);
         props.setValue(value);
-        props.onChange(value)
+        if (props.onChange) props.onChange(value)
     };
 
     return (
