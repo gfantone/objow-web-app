@@ -21,9 +21,9 @@ const styles = {
 
 const IconInput = ({ icons = [], initial, label, name, onChange, required, ...props }) => {
     const { classes } = props
+    const [value, setValue] = React.useState(initial)
     const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null
     const hasError = !(!props.isFormSubmitted && value == null || props.isValid)
-    const [value, setValue] = React.useState(initial)
     const finalLabel = required ? `${label} *` : label
 
     useEffect(() => {
