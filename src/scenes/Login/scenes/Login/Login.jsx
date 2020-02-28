@@ -67,26 +67,26 @@ class Login extends Component {
                         <Grid item xs={12}>
                             <ProgressButton type='submit' text='Se connecter' centered loading={loading} />
                         </Grid>
-                        { !isMobileApp && <Grid item xs={12}>
-                            <Card>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <DefaultText>
-                                            Votre application Fire Tiger est disponible pour Iphone et Android.
-                                        </DefaultText>
-                                        <DefaultText>
-                                            Téléchargez-la dès maintenant :
-                                        </DefaultText>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <IosButton image={iosData} />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <AndroidButton image={androidData} />
-                                    </Grid>
-                                </Grid>
-                            </Card>
-                        </Grid> }
+                        {/*{ !isMobileApp && <Grid item xs={12}>*/}
+                        {/*    <Card>*/}
+                        {/*        <Grid container spacing={2}>*/}
+                        {/*            <Grid item xs={12}>*/}
+                        {/*                <DefaultText>*/}
+                        {/*                    Votre application Fire Tiger est disponible pour Iphone et Android.*/}
+                        {/*                </DefaultText>*/}
+                        {/*                <DefaultText>*/}
+                        {/*                    Téléchargez-la dès maintenant :*/}
+                        {/*                </DefaultText>*/}
+                        {/*            </Grid>*/}
+                        {/*            <Grid item xs={6}>*/}
+                        {/*                <IosButton image={iosData} />*/}
+                        {/*            </Grid>*/}
+                        {/*            <Grid item xs={6}>*/}
+                        {/*                <AndroidButton image={androidData} />*/}
+                        {/*            </Grid>*/}
+                        {/*        </Grid>*/}
+                        {/*    </Card>*/}
+                        {/*</Grid> }*/}
                         { !isMobileApp && <Grid item xs={12}>
                             <div>
                                 <Grid container justify='center'>

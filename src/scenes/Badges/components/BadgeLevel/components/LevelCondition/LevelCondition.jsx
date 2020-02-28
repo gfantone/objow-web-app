@@ -6,7 +6,7 @@ import { AccentText, DefaultText } from '../../../../../../components'
 
 const LevelCondition = ({ level, ...props }) => {
     const { collaborator } = props.collaboratorDetail;
-    const hasLevel = level.level <= collaborator.level.id;
+    const hasLevel = level.level <= collaborator.level.number;
     const icon = hasLevel ? faUnlock : faLock;
     const text = (
         <div>
