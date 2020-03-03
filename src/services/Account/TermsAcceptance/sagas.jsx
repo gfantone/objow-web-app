@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { acceptTermsSuccess, acceptTermsError } from './actions'
 import * as types from './actionTypes'
-import { loginSuccess } from '../../Auth/actions'
+import { getAccountDetailSuccess } from '../AccountDetail/actions'
 import api from '../../../data/api/api'
 
 function* acceptTerms(action) {
@@ -9,7 +9,7 @@ function* acceptTerms(action) {
         yield call(api.account.acceptTerms, action.useTermsAccepted, action.privacyPolicyAccepted);
         const { data: account } = yield call(api.account.get);
         yield put(acceptTermsSuccess());
-        yield put(loginSuccess(account))
+        yield put(getAccountDetailSuccess(account))
     } catch(e) {
         yield put(acceptTermsError())
     }

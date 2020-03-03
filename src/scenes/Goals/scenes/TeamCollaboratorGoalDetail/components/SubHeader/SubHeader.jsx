@@ -9,28 +9,28 @@ const styles = {
     root: {
         padding: 16
     }
-}
+};
 
 const SubHeader = ({ activateRank, onChange, ...props }) => {
-    const { classes } = props
-    const { account } = props.auth
-    const { goal, loading: teamCollaboratorGoalDetailLoading } = props.teamCollaboratorGoalDetail
-    const { loading: collaboratorGoalRankListLoading } = props.collaboratorGoalRankList
-    const loading = teamCollaboratorGoalDetailLoading || collaboratorGoalRankListLoading
-    const [value, setValue] = React.useState(0)
+    const { classes } = props;
+    const { account } = props.accountDetail;
+    const { goal, loading: teamCollaboratorGoalDetailLoading } = props.teamCollaboratorGoalDetail;
+    const { loading: collaboratorGoalRankListLoading } = props.collaboratorGoalRankList;
+    const loading = teamCollaboratorGoalDetailLoading || collaboratorGoalRankListLoading;
+    const [value, setValue] = React.useState(0);
 
     const handleChange = (e, value) => {
-        setValue(value)
+        setValue(value);
         if (onChange) onChange(value)
-    }
+    };
 
     const renderLoader = () => {
         return <Loader centered />
-    }
+    };
 
     const renderData = () => {
         return <Goal goal={goal} />
-    }
+    };
 
     return (
         <div>
@@ -45,12 +45,12 @@ const SubHeader = ({ activateRank, onChange, ...props }) => {
             </RoundedTabs> }
         </div>
     )
-}
+};
 
-const mapStateToProps = ({ auth, collaboratorGoalRankList, teamCollaboratorGoalDetail }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, collaboratorGoalRankList, teamCollaboratorGoalDetail }) => ({
+    accountDetail,
     collaboratorGoalRankList,
     teamCollaboratorGoalDetail
-})
+});
 
 export default connect(mapStateToProps)(withStyles(styles)(SubHeader))

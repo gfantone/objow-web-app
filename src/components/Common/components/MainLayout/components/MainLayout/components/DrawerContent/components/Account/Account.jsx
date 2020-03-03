@@ -25,7 +25,7 @@ const styles = {
 
 const Account = (props) => {
     const { classes } = props;
-    const { account } = props.auth;
+    const { account } = props.accountDetail;
     const isCollaborator = account.role.code == 'C';
     const isManager = account.role.code == 'M';
     const isAdministrator = account.role.code == 'A';
@@ -73,8 +73,8 @@ const Account = (props) => {
     )
 };
 
-const mapStateToProps = ({ auth }) => ({
-    auth
+const mapStateToProps = ({ accountDetail }) => ({
+    accountDetail
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Account))

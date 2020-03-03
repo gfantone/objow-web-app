@@ -8,24 +8,23 @@ export const login = (code, login, password) => {
         login,
         password
     }
-}
+};
 
-export const loginSuccess = (account) => {
+export const loginSuccess = () => {
     return {
-        type: types.LOGIN_SUCCESS,
-        account
+        type: types.LOGIN_SUCCESS
     }
-}
+};
 
 export const loginError = (error) => {
     return {
         type: types.LOGIN_ERROR,
         error
     }
-}
+};
 
 export const clearLogin = () => {
     return {
         type: types.CLEAR_LOGIN
     }
-}
+};

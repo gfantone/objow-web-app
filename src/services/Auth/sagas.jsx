@@ -2,6 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import { loginSuccess, loginError } from './actions'
 import { getAdminReferenceData } from '../AdminReferenceData/actions'
 import { getConfigList } from '../Configs/ConfigList/actions'
+import { getAccountDetailSuccess } from '../Account/AccountDetail/actions'
 import { getSystemImageListSuccess } from '../SystemImages/SystemImageList/actions'
 import * as errors from './errors'
 import * as types from './actionTypes'
@@ -25,7 +26,8 @@ function* authenticate(action) {
                 const { data: images } = yield call(api.systemImages.list);
                 yield put(getAdminReferenceData());
                 yield put(getConfigList());
-                yield put(loginSuccess(account));
+                yield put(loginSuccess());
+                yield put(getAccountDetailSuccess(account));
                 yield put(getSystemImageListSuccess(images));
                 if (window.ReactNativeWebView) {
                     setTimeout(function () {

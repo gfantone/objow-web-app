@@ -1,4 +1,5 @@
 import { all } from 'redux-saga/effects'
+import watchAccountDetail from './Account/AccountDetail/sagas'
 import watchAccountUpdate from './Account/AccountUpdate/sagas'
 import watchAdminReferenceData from './AdminReferenceData/sagas'
 import watchAuth from './Auth/sagas'
@@ -126,6 +127,7 @@ import watchUserGoalList from './UserGoals/UserGoalList/sagas'
 
 function* rootSaga() {
     yield all([
+        watchAccountDetail(),
         watchAccountUpdate(),
         watchAdminReferenceData(),
         watchAuth(),

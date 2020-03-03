@@ -1,4 +1,9 @@
 const initialState = {
+    accountDetail: {
+        account: null,
+        loading: false,
+        hasError: false
+    },
     accountUpdate: {
         success: false,
         loading: false,
@@ -19,7 +24,7 @@ const initialState = {
         hasError: false
     },
     auth: {
-        account: null,
+        success: false,
         loading: false,
         error: null
     },

@@ -22,7 +22,7 @@ const styles = {
 class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
     constructor(props) {
         super(props);
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         this.initialized = false;
         this.state = {
             page: account.hasChallengeRankAccess ? 0 : 1
@@ -49,7 +49,7 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const id = this.props.match.params.id;
         this.props.handleTitle('Challenges');
         this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasChallengeRankAccess} />);
@@ -77,7 +77,7 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { ranks } = this.props.collaboratorChallengeRankList;
         const { challenge } = this.props.teamCollaboratorChallengeDetail;
         const { goals } = this.props.teamCollaboratorChallengeGoalList;
@@ -91,8 +91,8 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, collaboratorChallengeRankList, teamCollaboratorChallengeDetail, teamCollaboratorChallengeGoalList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, collaboratorChallengeRankList, teamCollaboratorChallengeDetail, teamCollaboratorChallengeGoalList }) => ({
+    accountDetail,
     collaboratorChallengeRankList,
     teamCollaboratorChallengeDetail,
     teamCollaboratorChallengeGoalList

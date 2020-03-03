@@ -5,13 +5,13 @@ import {MainLayout} from '..'
 
 const AdminRoutes = ({ component: Component, ...rest }) => {
     const { path } = rest;
-    const { account } = rest.auth;
+    const { account } = rest.accountDetail;
 
     if (!account) {
         return <Redirect to='/login' />;
     }
 
-    const isAdministrator = account.role.code == 'A'
+    const isAdministrator = account.role.code == 'A';
 
     if (!isAdministrator) {
         return <Redirect to='/' />
@@ -20,10 +20,10 @@ const AdminRoutes = ({ component: Component, ...rest }) => {
     return (
         <MainLayout exact path={path} component={Component} />
     )
-}
+};
 
-const mapStateToProps = ({auth}) => ({
-    auth
-})
+const mapStateToProps = ({accountDetail}) => ({
+    accountDetail
+});
 
 export default connect(mapStateToProps)(AdminRoutes)

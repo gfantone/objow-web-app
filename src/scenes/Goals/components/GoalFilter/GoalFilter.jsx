@@ -74,7 +74,7 @@ class GoalFilter extends Component {
     }
 
     renderData() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { categories } = this.props.categoryList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
         const { periods: previousPeriods } = this.props.previousPeriodList;
@@ -121,7 +121,7 @@ class GoalFilter extends Component {
     }
 
     render() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { categories } = this.props.categoryList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
         const { periods: previousPeriods } = this.props.previousPeriodList;
@@ -135,8 +135,8 @@ class GoalFilter extends Component {
     }
 }
 
-const mapStateToProps = ({ auth, categoryList, teamList, currentPeriodDetail, previousPeriodList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, categoryList, teamList, currentPeriodDetail, previousPeriodList }) => ({
+    accountDetail,
     categoryList,
     teamList,
     currentPeriodDetail,

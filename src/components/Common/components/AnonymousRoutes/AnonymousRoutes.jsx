@@ -5,7 +5,7 @@ import { AnonymousLayout } from '../AnonymousLayout'
 
 const AnonymousRoutes = ({ component: Component, ...props }) => {
     const { path } = props;
-    const { account } = props.auth;
+    const { account } = props.accountDetail;
 
     if (account) {
         if (account.useTermsAccepted && account.privacyPolicyAccepted) {
@@ -18,8 +18,8 @@ const AnonymousRoutes = ({ component: Component, ...props }) => {
     return <AnonymousLayout exact path={path} component={Component} />
 };
 
-const mapStateToProps = ({ auth }) => ({
-    auth
+const mapStateToProps = ({ accountDetail }) => ({
+    accountDetail
 });
 
 export default connect(mapStateToProps)(AnonymousRoutes)

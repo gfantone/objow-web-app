@@ -15,7 +15,7 @@ class ChallengeHome extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         this.props.handleTitle('Les challenges');
         if (account.role.code == 'A') {
             this.props.handleButtons(<IconButton size='small' onClick={this.handleAdd.bind(this)}><FontAwesomeIcon icon={faPlus}/></IconButton>)
@@ -23,7 +23,7 @@ class ChallengeHome extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
 
         if (account.role.code == 'C') {
             return <Redirect to={`/challenges/collaborator/${account.id}`} />
@@ -41,8 +41,8 @@ class ChallengeHome extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth }) => ({
-    auth
+const mapStateToProps = ({ accountDetail }) => ({
+    accountDetail
 });
 
 export default connect(mapStateToProps)(withRouter(ChallengeHome))

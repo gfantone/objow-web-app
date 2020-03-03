@@ -68,7 +68,7 @@ class ChallengeFilter extends Component {
     }
 
     renderData() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { teams } = this.props.teamList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
         const { periods: previousPeriods } = this.props.previousPeriodList;
@@ -111,7 +111,7 @@ class ChallengeFilter extends Component {
     }
 
     render() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { teams } = this.props.teamList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
         const { periods: previousPeriods } = this.props.previousPeriodList;
@@ -124,8 +124,8 @@ class ChallengeFilter extends Component {
     }
 }
 
-const mapStateToProps = ({ auth, teamList, currentPeriodDetail, previousPeriodList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, teamList, currentPeriodDetail, previousPeriodList }) => ({
+    accountDetail,
     teamList,
     currentPeriodDetail,
     previousPeriodList

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import accountDetail from '../services/Account/AccountDetail/reducer'
 import accountUpdate from '../services/Account/AccountUpdate/reducer'
 import adminReferenceData from '../services/AdminReferenceData/reducer'
 import auth from '../services/Auth/reducer'
@@ -125,6 +126,7 @@ import userGoalDetail from '../services/UserGoals/UserGoalDetail/reducer'
 import userGoalList from '../services/UserGoals/UserGoalList/reducer'
 
 const rootReducer = combineReducers({
+    accountDetail,
     accountUpdate,
     adminReferenceData,
     auth,

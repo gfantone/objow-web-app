@@ -17,17 +17,17 @@ import * as userDetailActions from '../../../../services/Users/UserDetail/action
 
 class CoachingList extends MainLayoutComponent {
     constructor(props) {
-        super(props)
-        this.id = this.props.match.params.id
-        this.loading = false
+        super(props);
+        this.id = this.props.match.params.id;
+        this.loading = false;
         this.state = {
             items: []
         }
     }
 
     handleAddItem() {
-        var items = this.state.items
-        items.push({ id: `N${items.length}`, instruction: null, state: 1, collaborator: this.id, isNew: true })
+        var items = this.state.items;
+        items.push({ id: `N${items.length}`, instruction: null, state: 1, collaborator: this.id, isNew: true });
         this.setState({
             ...this.state,
             items: items
@@ -35,10 +35,10 @@ class CoachingList extends MainLayoutComponent {
     }
 
     handleChange = id => name => value => {
-        const { account } = this.props.auth
-        const items = this.state.items
-        const index = items.findIndex(item => item.id == id)
-        items[index][name] = value
+        const { account } = this.props.accountDetail;
+        const items = this.state.items;
+        const index = items.findIndex(item => item.id == id);
+        items[index][name] = value;
         if (name == 'state' && account.role.code == 'C' && account.canUpdateCoaching) {
             this.props.coachingItemUpdateActions.updateCoachingItem(id, value)
         }
@@ -46,53 +46,53 @@ class CoachingList extends MainLayoutComponent {
             ...this.state,
             items: items
         })
-    }
+    };
 
     handleRemoveItem = id => () => {
-        const items = this.state.items
-        const index = items.findIndex(item => item.id == id)
-        const item = items[index]
+        const items = this.state.items;
+        const index = items.findIndex(item => item.id == id);
+        const item = items[index];
         if (!item.isNew) {
             this.props.coachingItemRemovingActions.removeCoachingItem(item.id)
         }
-        items.splice(index, 1)
+        items.splice(index, 1);
         this.setState({
             ...this.state,
             items: items
         })
-    }
+    };
 
     handleSubmit(model) {
-        const { account } = this.props.auth
-        const isCollaborator = account.role.code == 'C'
+        const { account } = this.props.accountDetail;
+        const isCollaborator = account.role.code == 'C';
         if (!isCollaborator) {
-            this.loading = true
-            const oldItems = this.state.items.filter(item => !item.isNew)
-            const newItems = this.state.items.filter(item => item.isNew)
-            this.props.coachingItemListUpdateActions.updateCoachingItemList(oldItems)
+            this.loading = true;
+            const oldItems = this.state.items.filter(item => !item.isNew);
+            const newItems = this.state.items.filter(item => item.isNew);
+            this.props.coachingItemListUpdateActions.updateCoachingItemList(oldItems);
             this.props.coachingItemListCreationActions.createCoachingItemList(newItems)
         }
     }
 
     componentDidMount() {
-        const { account } = this.props.auth
-        const isCollaborator = account.role.code == 'C'
-        this.props.handleTitle('Coaching list')
-        this.props.handleSubHeader(<SubHeader />)
-        this.props.handleMaxWidth('md')
+        const { account } = this.props.accountDetail;
+        const isCollaborator = account.role.code == 'C';
+        this.props.handleTitle('Coaching list');
+        this.props.handleSubHeader(<SubHeader />);
+        this.props.handleMaxWidth('md');
         if (!isCollaborator) {
             if (account.canUpdateCoaching) {
                 this.props.handleButtons(<HeaderIconButton size='small' onClick={this.handleAddItem.bind(this)}><FontAwesomeIcon icon={faPlus} /></HeaderIconButton>)
             }
             this.props.activateReturn()
         }
-        this.loading = true
-        this.props.coachingItemListActions.getCoachingItemList(this.id)
+        this.loading = true;
+        this.props.coachingItemListActions.getCoachingItemList(this.id);
         this.props.userDetailActions.getUserDetail(this.id)
     }
 
     componentWillReceiveProps(props) {
-        const { items } = props.coachingItemList
+        const { items } = props.coachingItemList;
         if (this.loading && items) {
             this.setState({
                 ...this.state,
@@ -102,19 +102,19 @@ class CoachingList extends MainLayoutComponent {
     }
 
     renderEmptyState() {
-        const message = this.props.auth.account.role.code == 'C' ? 'Revenez plus tard lorsque votre manager vous coachera' : 'Créer une première instruction pour votre collaborateur'
+        const message = this.props.accountDetail.account.role.code == 'C' ? 'Revenez plus tard lorsque votre manager vous coachera' : 'Créer une première instruction pour votre collaborateur';
         return (
             <EmptyState title='Aucune instruction trouvée' message={message} />
         )
     }
 
     renderData() {
-        const { account } = this.props.auth
-        const { loading: coachingItemListCreationLoading } = this.props.coachingItemListCreation
-        const { loading: coachingItemListUpdateLoading } = this.props.coachingItemListUpdate
-        const loading = coachingItemListCreationLoading || coachingItemListUpdateLoading
-        const isCollaborator = account.role.code == 'C'
-        const canUpdateCoaching = !isCollaborator && account.canUpdateCoaching
+        const { account } = this.props.accountDetail;
+        const { loading: coachingItemListCreationLoading } = this.props.coachingItemListCreation;
+        const { loading: coachingItemListUpdateLoading } = this.props.coachingItemListUpdate;
+        const loading = coachingItemListCreationLoading || coachingItemListUpdateLoading;
+        const isCollaborator = account.role.code == 'C';
+        const canUpdateCoaching = !isCollaborator && account.canUpdateCoaching;
 
         return (
             <Formsy onSubmit={this.handleSubmit.bind(this)}>
@@ -154,8 +154,8 @@ class CoachingList extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth
-        const { items, loading } = this.props.coachingItemList
+        const { account } = this.props.accountDetail;
+        const { items, loading } = this.props.coachingItemList;
 
         if (!account.hasCoachingAccess) {
             return <Redirect to={'/'} />
@@ -170,13 +170,13 @@ class CoachingList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({auth, coachingItemList, coachingItemListCreation, coachingItemListUpdate, userDetail}) => ({
-    auth,
+const mapStateToProps = ({accountDetail, coachingItemList, coachingItemListCreation, coachingItemListUpdate, userDetail}) => ({
+    accountDetail,
     coachingItemList,
     coachingItemListCreation,
     coachingItemListUpdate,
     userDetail
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
     coachingItemListActions: bindActionCreators(coachingItemListActions, dispatch),
@@ -185,6 +185,6 @@ const mapDispatchToProps = (dispatch) => ({
     coachingItemRemovingActions: bindActionCreators(coachingItemRemovingActions, dispatch),
     userDetailActions: bindActionCreators(userDetailActions, dispatch),
     coachingItemUpdateActions: bindActionCreators(coachingItemUpdateActions, dispatch)
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoachingList)

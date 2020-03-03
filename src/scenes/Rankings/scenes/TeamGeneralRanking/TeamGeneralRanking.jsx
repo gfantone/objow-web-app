@@ -29,7 +29,7 @@ class TeamGeneralRanking extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { ranking, loading } = this.props.teamGeneralRankList;
 
         if (!account.hasGeneralRankAccess) {
@@ -46,8 +46,8 @@ class TeamGeneralRanking extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, teamGeneralRankList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, teamGeneralRankList }) => ({
+    accountDetail,
     teamGeneralRankList
 });
 
