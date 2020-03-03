@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import accountDetail from '../services/Account/AccountDetail/reducer'
 import accountUpdate from '../services/Account/AccountUpdate/reducer'
 import adminReferenceData from '../services/AdminReferenceData/reducer'
 import auth from '../services/Auth/reducer'
@@ -73,8 +74,6 @@ import kpiDetail from '../services/Kpis/KpiDetail/reducer'
 import kpiList from '../services/Kpis/KpiList/reducer'
 import levelList from '../services/Levels/LevelList/reducer'
 import levelListCreation from '../services/Levels/LevelListCreation/reducer'
-import levelListUpdate from '../services/Levels/LevelListUpdate/reducer'
-import levelListRemoving from '../services/Levels/LevelListRemoving/reducer'
 import managerGoalList from '../services/ManagerGoals/ManagerGoalList/reducer'
 import managerList from '../services/Managers/ManagerList/reducer'
 import nextCollaboratorBadgeDetail from '../services/CollaboratorBadges/NextCollaboratorBadgeDetail/reducer'
@@ -125,6 +124,7 @@ import userGoalDetail from '../services/UserGoals/UserGoalDetail/reducer'
 import userGoalList from '../services/UserGoals/UserGoalList/reducer'
 
 const rootReducer = combineReducers({
+    accountDetail,
     accountUpdate,
     adminReferenceData,
     auth,
@@ -199,8 +199,6 @@ const rootReducer = combineReducers({
     kpiList,
     levelList,
     levelListCreation,
-    levelListUpdate,
-    levelListRemoving,
     managerGoalList,
     managerList,
     nextCollaboratorBadgeDetail,

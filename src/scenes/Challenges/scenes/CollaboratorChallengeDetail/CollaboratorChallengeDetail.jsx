@@ -11,7 +11,7 @@ import * as collaboratorChallengeRankListActions from '../../../../services/Coll
 class CollaboratorChallengeDetail extends MainLayoutComponent {
     constructor(props) {
         super(props);
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         this.state = {
             page: account.hasChallengeRankAccess ? 0 : 1
         }
@@ -25,7 +25,7 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const id = this.props.match.params.id;
         this.props.handleTitle('Challenges');
         this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasChallengeRankAccess} />);
@@ -37,11 +37,11 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { challenge } = this.props.collaboratorChallengeDetail;
         const { goals } = this.props.collaboratorChallengeGoalList;
         const { ranks } = this.props.collaboratorChallengeRankList;
-        
+
         return (
             <div>
                 { account.hasChallengeRankAccess && this.state.page == 0 && ranks && <CollaboratorChallengeRankList ranks={ranks} /> }
@@ -51,8 +51,8 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, collaboratorChallengeDetail, collaboratorChallengeGoalList, collaboratorChallengeRankList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, collaboratorChallengeDetail, collaboratorChallengeGoalList, collaboratorChallengeRankList }) => ({
+    accountDetail,
     collaboratorChallengeDetail,
     collaboratorChallengeGoalList,
     collaboratorChallengeRankList

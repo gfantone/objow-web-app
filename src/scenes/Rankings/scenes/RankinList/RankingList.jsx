@@ -13,7 +13,7 @@ class RankingList extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth
+        const { account } = this.props.accountDetail;
 
         if (account.role.code == 'C') {
             return <Redirect to={`/rankings/collaborator/${account.id}`} />
@@ -28,8 +28,8 @@ class RankingList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth }) => ({
-    auth
-})
+const mapStateToProps = ({ accountDetail }) => ({
+    accountDetail
+});
 
 export default connect(mapStateToProps)(withRouter(RankingList))

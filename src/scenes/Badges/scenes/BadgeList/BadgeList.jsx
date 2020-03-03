@@ -79,7 +79,7 @@ class BadgeList extends MainLayoutComponent {
         this.props.handleTitle('Défis');
         this.props.handleSubHeader(<SubHeader initial={current} onChange={this.handleChange.bind(this)} />);
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
-        if (this.props.auth.account.role.code != 'C') {
+        if (this.props.accountDetail.account.role.code != 'C') {
             this.props.activateReturn()
         }
         this.loadData(this.props)
@@ -90,7 +90,7 @@ class BadgeList extends MainLayoutComponent {
     }
 
     handleFilterChange(collaborator, year) {
-        const collaboratorId = this.props.auth.account.role.code == 'C' ? this.id : collaborator;
+        const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
         this.refresh(collaboratorId, this.current, year)
     }
 
@@ -152,8 +152,8 @@ class BadgeList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, collaboratorBadgeLevelList, collaboratorDetail }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, collaboratorBadgeLevelList, collaboratorDetail }) => ({
+    accountDetail,
     collaboratorBadgeLevelList,
     collaboratorDetail
 });

@@ -13,7 +13,7 @@ class BadgeHome extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth
+        const { account } = this.props.accountDetail;
 
         return (
             <div>
@@ -25,8 +25,8 @@ class BadgeHome extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth }) => ({
-    auth
-})
+const mapStateToProps = ({ accountDetail }) => ({
+    accountDetail
+});
 
 export default connect(mapStateToProps)(BadgeHome)

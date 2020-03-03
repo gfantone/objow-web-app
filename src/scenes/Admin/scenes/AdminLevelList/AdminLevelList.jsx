@@ -1,5 +1,4 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
@@ -9,29 +8,25 @@ import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { AppBarSubTitle, Card, DefaultText, DefaultTitle, EmptyState, IconButton, InfoText, Loader, MainLayoutComponent, ProgressButton, TextField, HiddenInput } from '../../../../components'
 import * as levelListActions from '../../../../services/Levels/LevelList/actions'
 import * as levelListCreationActions from '../../../../services/Levels/LevelListCreation/actions'
-import * as levelListUpdateActions from '../../../../services/Levels/LevelListUpdate/actions'
-import * as levelListRemovingActions from '../../../../services/Levels/LevelListRemoving/actions'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import '../../../../helpers/FormsyHelper'
 import '../../../../helpers/NumberHelper'
+import {uuidv4} from '../../../../helpers/UUIDHelper'
 
 class AdminLevelList extends MainLayoutComponent {
     constructor(props) {
         super(props);
         this.initialized = false;
-        this.removedLevels = [];
         this.state = {
-            levels: [],
-            display: true
+            levels: []
         };
         this.props.levelListCreationActions.clearLevelListCreation();
-        this.props.levelListUpdateActions.clearLevelListUpdate();
         this.props.configListActions.clearConfigList()
     }
 
     handleAddLevel() {
         var levels = this.state.levels;
-        levels.push({ id: levels.length + 1, points: 0, players: 0, isNew: true });
+        levels.push({ key: uuidv4(), points: 0, players: 0 });
         this.setState({
             ...this.state,
             levels: levels
@@ -48,32 +43,24 @@ class AdminLevelList extends MainLayoutComponent {
         this.props.configListActions.getConfigList(periodId)
     }
 
-    componentWillReceiveProps(props) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         const { configs } = this.props.configList;
-        const { levels } = props.levelList;
+        const { levels } = this.props.levelList;
         if (!this.initialized && configs && levels) {
             this.initialized = true;
             this.setState({
                 ...this.state,
-                levels: levels
+                levels: levels.map(x => ({ key: uuidv4(), points: x.points, players: x.players }))
             })
         }
     }
 
     handleRemove = index => () => {
         var levels = this.state.levels;
-        var removedLevels = levels.splice(index, 1);
-        removedLevels = removedLevels.filter(level => !level.isNew);
-        this.removedLevels = removedLevels.concat(this.removedLevels);
+        levels.splice(index, 1);
         this.setState({
             ...this.state,
-            levels: levels,
-            display: false
-        }, () => {
-            this.setState({
-                ...this.state,
-                display: true
-            })
+            levels: levels
         })
     };
 
@@ -86,24 +73,17 @@ class AdminLevelList extends MainLayoutComponent {
             level.points = levelPoints[index];
             level.period = Number(this.props.match.params.periodId)
         });
-        const oldLevels = levels.filter(level => !level.isNew);
-        const newLevels = levels.filter(level => level.isNew);
-        this.props.levelListRemovingActions.removeLevelList(this.removedLevels);
-        this.props.levelListUpdateActions.updateLevelList(oldLevels);
-        this.props.levelListCreationActions.createLevelList(newLevels)
+        this.props.levelListCreationActions.createLevelList(levels)
     }
 
     renderLoader() {
-        return (
-            <Loader centered />
-        )
+        return <Loader centered />
     }
 
     renderForm() {
         const { configs } = this.props.configList;
         const { loading: levelListCreationLoading } = this.props.levelListCreation;
-        const { loading: levelListUpdateLoading } = this.props.levelListUpdate;
-        const loading = levelListCreationLoading || levelListUpdateLoading;
+        const loading = levelListCreationLoading;
         const config = configs.find(x => x.code == 'CPA');
 
         return (
@@ -116,12 +96,12 @@ class AdminLevelList extends MainLayoutComponent {
                             <HiddenInput name='reference' value={config ? config.value : 0} />
                         </Card>
                     </Grid>
-                    { this.state.display && this.state.levels.length > 0 && this.state.levels.map((level, index) => {
-                        const disabled = level.id == 1 || level.players > 0;
+                    { this.state.levels.length > 0 && this.state.levels.map((level, index) => {
+                        const disabled = index == 0 || level.players > 0;
                         const validations = index > 0 ? { isLessThanOrEquals: 'reference', isMoreThan: `levels[${index-1}]` } : { isLessThanOrEquals: 'reference', equals: 0 };
                         const number = level.number ? level.number : index + 1;
                         return (
-                            <Grid key={index} item xs={6} container spacing={1}>
+                            <Grid key={level.key} item xs={6} container spacing={1}>
                                 <Grid item xs={12}>
                                     <DefaultTitle>Level {number}</DefaultTitle>
                                 </Grid>
@@ -167,13 +147,11 @@ class AdminLevelList extends MainLayoutComponent {
     render() {
         const { configs, loading: configListLoading } = this.props.configList;
         const { levels, loading: levelListLoading } = this.props.levelList;
-        const { success: levelListCreationSuccess } = this.props.levelListCreation;
-        const { success: levelListUpdateSuccess } = this.props.levelListUpdate;
+        const { success } = this.props.levelListCreation;
         const loading = levelListLoading || configListLoading;
 
-        if (levelListCreationSuccess && levelListUpdateSuccess) {
+        if (success) {
             this.props.levelListCreationActions.clearLevelListCreation();
-            this.props.levelListUpdateActions.clearLevelListUpdate();
             this.props.configListActions.clearConfigList();
             this.props.history.goBack()
         }
@@ -187,20 +165,16 @@ class AdminLevelList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ configList, levelList, levelListCreation, levelListUpdate, levelListRemoving }) => ({
+const mapStateToProps = ({ configList, levelList, levelListCreation }) => ({
     configList,
     levelList,
-    levelListCreation,
-    levelListUpdate,
-    levelListRemoving
+    levelListCreation
 });
 
 const mapDispatchToProps = (dispatch) => ({
     configListActions: bindActionCreators(configListActions, dispatch),
     levelListActions: bindActionCreators(levelListActions, dispatch),
     levelListCreationActions: bindActionCreators(levelListCreationActions, dispatch),
-    levelListUpdateActions: bindActionCreators(levelListUpdateActions, dispatch),
-    levelListRemovingActions: bindActionCreators(levelListRemovingActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminLevelList)

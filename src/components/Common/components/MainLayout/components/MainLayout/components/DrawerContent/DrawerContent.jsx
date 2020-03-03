@@ -4,7 +4,7 @@ import { Account, Divider, DrawerButton, List, Logo } from './components'
 import { faBook, faBullseye, faListUl, faQuestion, faRandom, faRocket, faSignOutAlt, faTools, faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons'
 
 const DrawerContent = ({ onNavigate, ...props }) => {
-    const { account } = props.auth;
+    const { account } = props.accountDetail;
     const { images } = props.systemImageList;
     const isAdministrator = account.role.code == 'A';
     var logo = images ? images.find(x => x.code == 'LOGO').src : null;
@@ -46,8 +46,8 @@ const DrawerContent = ({ onNavigate, ...props }) => {
     )
 };
 
-const mapStateToProps = ({ auth, systemImageList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, systemImageList }) => ({
+    accountDetail,
     systemImageList
 });
 

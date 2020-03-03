@@ -1,4 +1,9 @@
 const initialState = {
+    accountDetail: {
+        account: null,
+        loading: false,
+        hasError: false
+    },
     accountUpdate: {
         success: false,
         loading: false,
@@ -19,7 +24,7 @@ const initialState = {
         hasError: false
     },
     auth: {
-        account: null,
+        success: false,
         loading: false,
         error: null
     },
@@ -355,16 +360,6 @@ const initialState = {
         hasError: false
     },
     levelListCreation: {
-        success: false,
-        loading: false,
-        hasError: false
-    },
-    levelListUpdate: {
-        success: false,
-        loading: false,
-        hasError: false
-    },
-    levelListRemoving: {
         success: false,
         loading: false,
         hasError: false

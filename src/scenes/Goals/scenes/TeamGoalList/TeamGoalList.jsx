@@ -82,7 +82,7 @@ class TeamGoalList extends MainLayoutComponent {
         const params = new URLSearchParams(window.location.search);
         const currentParam = params.get('current');
         const current = currentParam ? currentParam.toBoolean() : this.current;
-        if (this.props.auth.account.role.code == 'A') this.props.activateReturn();
+        if (this.props.accountDetail.account.role.code == 'A') this.props.activateReturn();
         this.props.handleTitle('Objectifs');
         this.props.handleSubHeader(<TimeFilter initial={current} handleTimeChange={this.handleTimeChange.bind(this)} />);
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}>
@@ -97,7 +97,7 @@ class TeamGoalList extends MainLayoutComponent {
 
     handleFilterChange(category, team, collaborator, year, start, end) {
         if (!collaborator) {
-            const teamId = this.props.auth.account.role.code == 'M' ? this.id : team;
+            const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team;
             this.refresh(teamId, this.current, category, year, start, end)
         } else {
             var url = `/goals/collaborator/${collaborator}?current=${this.current}`;
@@ -147,7 +147,7 @@ class TeamGoalList extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { goals: collaboratorGoals, loading: teamCollaboratorGoalListLoading } = this.props.teamCollaboratorGoalList;
         const { goals: teamGoals, loading: teamGoalListLoading } = this.props.teamGoalSummaryList;
         const loading = teamCollaboratorGoalListLoading || teamGoalListLoading;
@@ -177,8 +177,8 @@ class TeamGoalList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, teamCollaboratorGoalList, teamGoalSummaryList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, teamCollaboratorGoalList, teamGoalSummaryList }) => ({
+    accountDetail,
     teamCollaboratorGoalList,
     teamGoalSummaryList
 });

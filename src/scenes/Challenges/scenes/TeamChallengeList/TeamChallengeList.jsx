@@ -86,7 +86,7 @@ class TeamChallengeList extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { classes } = this.props;
         const params = new URLSearchParams(window.location.search);
         const currentParam = params.get('current');
@@ -113,7 +113,7 @@ class TeamChallengeList extends MainLayoutComponent {
 
     handleFilterChange(team, collaborator, year, start, end) {
         if (!collaborator) {
-            const teamId = this.props.auth.account.role.code == 'M' ? this.id : team;
+            const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team;
             this.refresh(teamId, this.current, year, start, end)
         } else {
             var url = `/challenges/collaborator/${collaborator}?current=${this.current}`;
@@ -183,8 +183,8 @@ class TeamChallengeList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, teamChallengeList, teamCollaboratorChallengeList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, teamChallengeList, teamCollaboratorChallengeList }) => ({
+    accountDetail,
     teamChallengeList,
     teamCollaboratorChallengeList
 });

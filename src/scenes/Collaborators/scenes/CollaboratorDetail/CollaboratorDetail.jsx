@@ -51,7 +51,7 @@ class CollaboratorDetail extends MainLayoutComponent {
     handleButtons() {
         const { collaborator } = this.props.collaboratorDetail;
         if (!this.buttonInitialized && collaborator) {
-            const { account } = this.props.auth;
+            const { account } = this.props.accountDetail;
             this.buttonInitialized = true;
             if (account.canUpdateCollaboratorPassword && (account.role.code == 'A' || account.role.code == 'M' && account.team && collaborator.team && account.team.id == collaborator.team.id)) {
                 const { classes } = this.props;
@@ -86,7 +86,7 @@ class CollaboratorDetail extends MainLayoutComponent {
     }
 
     handleFilterChange(collaborator, year) {
-        const collaboratorId = this.props.auth.account.role.code == 'C' ? this.id : collaborator;
+        const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
         this.refresh(collaboratorId, year)
     }
 
@@ -112,7 +112,7 @@ class CollaboratorDetail extends MainLayoutComponent {
     }
 
     renderData() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { badges } = this.props.currentCollaboratorBadgeSummaryList;
         const { collaborator } = this.props.collaboratorDetail;
         const levelProgression = collaborator.nextLevel ? Math.round((collaborator.generalRank.points / collaborator.nextLevel.points) * 100) : 100;
@@ -210,8 +210,8 @@ class CollaboratorDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, currentCollaboratorBadgeSummaryList, collaboratorDetail }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, currentCollaboratorBadgeSummaryList, collaboratorDetail }) => ({
+    accountDetail,
     currentCollaboratorBadgeSummaryList,
     collaboratorDetail
 });

@@ -36,9 +36,9 @@ class AccountDetail extends MainLayoutComponent {
             [name]: value
         })
     };
-    
+
     handleValidSubmit(model) {
-        const { account: oldAccount } = this.props.auth;
+        const { account: oldAccount } = this.props.accountDetail;
         const newAccount = new FormData();
         if (model.photo) {
             newAccount.append('photo', model.photo, model.photo.name)
@@ -51,13 +51,13 @@ class AccountDetail extends MainLayoutComponent {
         }
         this.props.accountUpdateActions.updateAccount(newAccount);
         if (model.password && model.password != '') {
-            this.props.userUpdatePasswordActions.updateUserPassword(this.props.auth.account.id, model.password)
+            this.props.userUpdatePasswordActions.updateUserPassword(this.props.accountDetail.account.id, model.password)
         }
     }
 
     render() {
         const { classes } = this.props;
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { loading } = this.props.accountUpdate;
         const photo = account.photo ? account.photo : '/assets/img/user/avatar.svg';
 
@@ -127,8 +127,8 @@ class AccountDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, accountUpdate }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, accountUpdate }) => ({
+    accountDetail,
     accountUpdate
 });
 
