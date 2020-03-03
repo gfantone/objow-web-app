@@ -5,7 +5,7 @@ import {MainLayout} from '..'
 
 const MainRoutes = ({component: Component, ...rest}) => {
     const { path } = rest;
-    const { account } = rest.auth;
+    const { account } = rest.accountDetail;
 
     if (!account) {
         return <Redirect to='/login' />;
@@ -18,8 +18,8 @@ const MainRoutes = ({component: Component, ...rest}) => {
     )
 };
 
-const mapStateToProps = ({auth}) => ({
-    auth
+const mapStateToProps = ({ accountDetail }) => ({
+    accountDetail
 });
 
 export default connect(mapStateToProps)(MainRoutes)

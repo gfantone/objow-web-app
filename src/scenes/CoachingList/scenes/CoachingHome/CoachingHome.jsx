@@ -13,7 +13,7 @@ class CoachingHome extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth
+        const { account } = this.props.accountDetail;
 
         if (!account.hasCoachingAccess) {
             return <Redirect to={'/'} />
@@ -32,8 +32,8 @@ class CoachingHome extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth }) => ({
-    auth
-})
+const mapStateToProps = ({ accountDetail }) => ({
+    accountDetail
+});
 
 export default connect(mapStateToProps)(CoachingHome)

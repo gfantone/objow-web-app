@@ -9,8 +9,8 @@ import * as teamGoalRankListActions from '../../../../services/TeamGoalRanks/Tea
 
 class TeamGoalDetail extends MainLayoutComponent {
     constructor(props) {
-        super(props)
-        const { account } = this.props.auth
+        super(props);
+        const { account } = this.props.accountDetail;
         this.state = {
             page: account.hasGoalRankAccess && account.hasTeamRankAccess ? 0 : 1
         }
@@ -21,23 +21,23 @@ class TeamGoalDetail extends MainLayoutComponent {
             ...this.state,
             page: page
         })
-    }
+    };
 
     componentDidMount() {
-        const { account } = this.props.auth
-        const id = this.props.match.params.id
-        this.props.handleTitle('Objectifs')
-        this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasGoalRankAccess && account.hasTeamRankAccess} />)
-        this.props.handleMaxWidth('md')
-        this.props.activateReturn()
-        this.props.teamGoalDetailActions.getTeamGoalDetail(id)
+        const { account } = this.props.accountDetail;
+        const id = this.props.match.params.id;
+        this.props.handleTitle('Objectifs');
+        this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasGoalRankAccess && account.hasTeamRankAccess} />);
+        this.props.handleMaxWidth('md');
+        this.props.activateReturn();
+        this.props.teamGoalDetailActions.getTeamGoalDetail(id);
         this.props.teamGoalRankListActions.getTeamGoalRankList(id)
     }
 
     render() {
-        const { account } = this.props.auth
-        const { goal } = this.props.teamGoalDetail
-        const { ranks } = this.props.teamGoalRankList
+        const { account } = this.props.accountDetail;
+        const { goal } = this.props.teamGoalDetail;
+        const { ranks } = this.props.teamGoalRankList;
 
         return (
             <div>
@@ -48,15 +48,15 @@ class TeamGoalDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, teamGoalDetail, teamGoalRankList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, teamGoalDetail, teamGoalRankList }) => ({
+    accountDetail,
     teamGoalDetail,
     teamGoalRankList
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
     teamGoalDetailActions: bindActionCreators(teamGoalDetailActions, dispatch),
     teamGoalRankListActions: bindActionCreators(teamGoalRankListActions, dispatch)
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(TeamGoalDetail)

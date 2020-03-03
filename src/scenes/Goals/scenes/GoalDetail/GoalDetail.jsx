@@ -7,23 +7,23 @@ import { GoalFilter, GoalIndications, PlayerGoalList, PlayerGoalRanking, TeamGoa
 
 class GoalDetail extends MainLayoutComponent {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             page: 0
         }
     }
-    
+
     componentDidMount() {
-        this.props.activateReturn()
-        this.props.handleTitle('Objectifs')
-        this.props.handleSubHeader(<GoalFilter handleFilterChange={this._handleFilterChanger} />)
-        this.props.handleMaxWidth('md')
+        this.props.activateReturn();
+        this.props.handleTitle('Objectifs');
+        this.props.handleSubHeader(<GoalFilter handleFilterChange={this._handleFilterChanger} />);
+        this.props.handleMaxWidth('md');
         this.props.actions.getUserGoalDetail(this.props.match.params.id)
     }
 
     _handleFilterChanger = (page) => {
         this.setState({page: page})
-    }
+    };
 
     _renderLoader() {
         return(
@@ -43,7 +43,7 @@ class GoalDetail extends MainLayoutComponent {
     }
 
     render() {
-        const {loading, goal, ranking, indications, playerGoals} = this.props.userGoalDetail
+        const {loading, goal, ranking, indications, playerGoals} = this.props.userGoalDetail;
 
         if (loading) {
             return this._renderLoader()
@@ -57,13 +57,13 @@ class GoalDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, userGoalDetail }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, userGoalDetail }) => ({
+    accountDetail,
     userGoalDetail
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
     actions: bindActionCreators(userGoalDetailActions, dispatch)
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalDetail)

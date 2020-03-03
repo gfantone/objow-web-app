@@ -5,10 +5,7 @@ import api from '../../../data/api/api'
 
 function* createLevelList(action) {
     try {
-        for (var i = 0; i < action.levels.length; i++) {
-            const level = action.levels[i];
-            yield call(api.levels.create, level.points, level.period)
-        }
+        yield call(api.levels.bulkCreate, action.levels);
         yield put(createLevelListSuccess())
     } catch(e) {
         yield put(createLevelListError())

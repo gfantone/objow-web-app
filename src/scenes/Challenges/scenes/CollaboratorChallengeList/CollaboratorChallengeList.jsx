@@ -90,11 +90,11 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     }
 
     handleFilterChange(team, collaborator, year, start, end) {
-        const collaboratorId = this.props.auth.account.role.code == 'C' ? this.id : collaborator;
+        const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
         if (collaboratorId) {
             this.refresh(collaboratorId, this.current, year, start, end)
         } else {
-            const teamId = this.props.auth.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team;
+            const teamId = this.props.accountDetail.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team;
             var url = `/challenges/team/${teamId}?current=${this.current}`;
             if (year) url += `&year=${year}`;
             if (start) url += `&start=${start.getTime()}`;
@@ -166,8 +166,8 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, collaboratorChallengeList, collaboratorDetail, teamChallengeList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, collaboratorChallengeList, collaboratorDetail, teamChallengeList }) => ({
+    accountDetail,
     collaboratorChallengeList,
     collaboratorDetail,
     teamChallengeList

@@ -22,7 +22,7 @@ const styles = {
 class TeamChallengeDetail extends MainLayoutComponent {
     constructor(props) {
         super(props);
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         this.initialized = false;
         this.state = {
             page: account.hasChallengeRankAccess && account.hasTeamRankAccess ? 0 : 1
@@ -47,7 +47,7 @@ class TeamChallengeDetail extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const id = this.props.match.params.id;
         this.props.handleTitle('Challenges');
         this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasChallengeRankAccess && account.hasTeamRankAccess} />);
@@ -61,7 +61,7 @@ class TeamChallengeDetail extends MainLayoutComponent {
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { challenge } = this.props.teamChallengeDetail;
         if (!this.initialized && challenge) {
-            const { account } = this.props.auth;
+            const { account } = this.props.accountDetail;
             const { classes } = this.props;
             this.initialized = true;
             if (account.role.code == 'A') {
@@ -78,7 +78,7 @@ class TeamChallengeDetail extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { challenge } = this.props.teamChallengeDetail;
         const { goals } = this.props.teamChallengeGoalList;
         const { ranks } = this.props.teamChallengeRankList;
@@ -92,8 +92,8 @@ class TeamChallengeDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, teamChallengeDetail, teamChallengeGoalList, teamChallengeRankList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, teamChallengeDetail, teamChallengeGoalList, teamChallengeRankList }) => ({
+    accountDetail,
     teamChallengeDetail,
     teamChallengeGoalList,
     teamChallengeRankList

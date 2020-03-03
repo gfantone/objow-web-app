@@ -15,17 +15,17 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center'
     }
-}
+};
 
 const GoalFilter = (props) => {
-    const { classes, handleFilterChange } = props
-    const { account } = props.auth
-    const { goal, loading } = props.userGoalDetail
-    const [value, setValue] = React.useState(0)
+    const { classes, handleFilterChange } = props;
+    const { account } = props.accountDetail;
+    const { goal, loading } = props.userGoalDetail;
+    const [value, setValue] = React.useState(0);
 
     function handleChange(e, value) {
-        let inProgress = value == 0
-        setValue(value)
+        let inProgress = value == 0;
+        setValue(value);
         handleFilterChange(value)
     }
 
@@ -54,11 +54,11 @@ const GoalFilter = (props) => {
             </RoundedTabs>
         </div>
     )
-}
+};
 
-const mapStateToProps = ({auth, userGoalDetail}) => ({
-    auth,
+const mapStateToProps = ({accountDetail, userGoalDetail}) => ({
+    accountDetail,
     userGoalDetail
-})
+});
 
 export default connect(mapStateToProps)(withStyles(styles)(GoalFilter))

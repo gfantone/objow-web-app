@@ -17,7 +17,7 @@ const styles = {
 
 const RankList = ({ challengeRank, generalRank, generalRankIcon, categoryRanks, onChallengeClick, onGeneralClick, onCategoryClick, ...props }) => {
     const { classes } = props;
-    const { account } = props.auth;
+    const { account } = props.accountDetail;
 
     return (
         <div>
@@ -51,8 +51,8 @@ const RankList = ({ challengeRank, generalRank, generalRankIcon, categoryRanks, 
     )
 };
 
-const mapStateToProps = ({ auth }) => ({
-    auth
+const mapStateToProps = ({ accountDetail }) => ({
+    accountDetail
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(RankList))

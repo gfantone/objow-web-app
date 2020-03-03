@@ -84,7 +84,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
         const params = new URLSearchParams(window.location.search);
         const currentParam = params.get('current');
         const current = currentParam ? currentParam.toBoolean() : this.current;
-        if (this.props.auth.account.role.code == 'A') this.props.activateReturn();
+        if (this.props.accountDetail.account.role.code == 'A') this.props.activateReturn();
         this.props.handleTitle('Objectifs');
         this.props.handleSubHeader(<TimeFilter initial={current} handleTimeChange={this.handleTimeChange.bind(this)} />);
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}>
@@ -98,11 +98,11 @@ class CollaboratorGoalList extends MainLayoutComponent {
     }
 
     handleFilterChange(category, team, collaborator, year, start, end) {
-        const collaboratorId = this.props.auth.account.role.code == 'C' ? this.id : collaborator;
+        const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
         if (collaboratorId) {
             this.refresh(collaboratorId, this.current, category, year, start, end)
         } else {
-            const teamId = this.props.auth.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team;
+            const teamId = this.props.accountDetail.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team;
             var url = `/goals/team/${teamId}?current=${this.current}`;
             if (category) url += `&category=${category}`;
             if (year) url += `&year=${year}`;
@@ -181,8 +181,8 @@ class CollaboratorGoalList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, collaboratorDetail, collaboratorGoalSummaryList, teamGoalSummaryList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, collaboratorDetail, collaboratorGoalSummaryList, teamGoalSummaryList }) => ({
+    accountDetail,
     collaboratorDetail,
     collaboratorGoalSummaryList,
     teamGoalSummaryList

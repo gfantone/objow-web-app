@@ -70,8 +70,8 @@ class NextBadgeDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, nextCollaboratorBadgeDetail }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, nextCollaboratorBadgeDetail }) => ({
+    accountDetail,
     nextCollaboratorBadgeDetail
 });
 

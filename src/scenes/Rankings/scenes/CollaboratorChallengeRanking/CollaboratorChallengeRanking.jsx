@@ -8,7 +8,7 @@ import * as collaboratorChallengeGeneralRankListActions from '../../../../servic
 
 class CollaboratorChallengeRanking extends MainLayoutComponent {
     componentDidMount() {
-        const isCollaborator = this.props.auth.account.role.code == 'C';
+        const isCollaborator = this.props.accountDetail.account.role.code == 'C';
         const title = isCollaborator ? 'Mes classemenst' : 'Les classements';
         this.props.handleTitle(title);
         this.props.handleSubHeader(<AppBarSubTitle title='Classement des challenges individuels' />);
@@ -31,7 +31,7 @@ class CollaboratorChallengeRanking extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { ranks, loading } = this.props.collaboratorChallengeGeneralRankList;
 
         if (!account.hasChallengeRankAccess) {
@@ -48,8 +48,8 @@ class CollaboratorChallengeRanking extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, collaboratorChallengeGeneralRankList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, collaboratorChallengeGeneralRankList }) => ({
+    accountDetail,
     collaboratorChallengeGeneralRankList
 });
 

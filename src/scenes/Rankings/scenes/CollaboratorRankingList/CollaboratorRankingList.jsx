@@ -47,7 +47,7 @@ class CollaboratorRankingList extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         this.props.handleTitle('Classements');
         if (account.hasTeamRankAccess) {
             const params = new URLSearchParams(window.location.search);
@@ -57,7 +57,7 @@ class CollaboratorRankingList extends MainLayoutComponent {
         }
         this.props.handleMaxWidth('md');
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
-        if (this.props.auth.account.role.code != 'C') {
+        if (this.props.accountDetail.account.role.code != 'C') {
             this.props.activateReturn()
         }
         this.loadData(this.props)
@@ -72,7 +72,7 @@ class CollaboratorRankingList extends MainLayoutComponent {
     }
 
     renderData() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { collaborator } = this.props.collaboratorDetail;
 
         return (
@@ -98,7 +98,7 @@ class CollaboratorRankingList extends MainLayoutComponent {
     }
 
     handleFilterChange(collaborator, year) {
-        const collaboratorId = this.props.auth.account.role.code == 'C' ? this.id : collaborator;
+        const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
         this.refresh(collaboratorId, this.page, year)
     }
 
@@ -123,8 +123,8 @@ class CollaboratorRankingList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, collaboratorDetail }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, collaboratorDetail }) => ({
+    accountDetail,
     collaboratorDetail
 });
 

@@ -9,8 +9,8 @@ import * as collaboratorGoalRankListActions from '../../../../services/Collabora
 
 class TeamCollaboratorGoalDetail extends MainLayoutComponent {
     constructor(props) {
-        super(props)
-        const { account } = this.props.auth
+        super(props);
+        const { account } = this.props.accountDetail;
         this.state = {
             page: account.hasGoalRankAccess ? 0 : 1
         }
@@ -24,20 +24,20 @@ class TeamCollaboratorGoalDetail extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        const { account } = this.props.auth
-        const id = this.props.match.params.id
-        this.props.handleTitle('Les objectifs')
-        this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasGoalRankAccess} />)
-        this.props.handleMaxWidth('md')
-        this.props.activateReturn()
-        this.props.teamCollaboratorGoalDetailActions.getTeamCollaboratorGoalDetail(id)
+        const { account } = this.props.accountDetail;
+        const id = this.props.match.params.id;
+        this.props.handleTitle('Les objectifs');
+        this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasGoalRankAccess} />);
+        this.props.handleMaxWidth('md');
+        this.props.activateReturn();
+        this.props.teamCollaboratorGoalDetailActions.getTeamCollaboratorGoalDetail(id);
         this.props.collaboratorGoalRankListActions.getCollaboratorGoalRankListByTeamCollaboratorGoal(id)
     }
-    
+
     render() {
-        const { account } = this.props.auth
-        const { goal } = this.props.teamCollaboratorGoalDetail
-        const { ranks } = this.props.collaboratorGoalRankList
+        const { account } = this.props.accountDetail;
+        const { goal } = this.props.teamCollaboratorGoalDetail;
+        const { ranks } = this.props.collaboratorGoalRankList;
 
         return (
             <div>
@@ -49,15 +49,15 @@ class TeamCollaboratorGoalDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, collaboratorGoalRankList, teamCollaboratorGoalDetail }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, collaboratorGoalRankList, teamCollaboratorGoalDetail }) => ({
+    accountDetail,
     collaboratorGoalRankList,
     teamCollaboratorGoalDetail
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
     teamCollaboratorGoalDetailActions: bindActionCreators(teamCollaboratorGoalDetailActions, dispatch),
     collaboratorGoalRankListActions: bindActionCreators(collaboratorGoalRankListActions, dispatch)
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(TeamCollaboratorGoalDetail)

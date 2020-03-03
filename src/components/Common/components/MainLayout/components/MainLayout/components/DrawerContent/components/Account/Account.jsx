@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Avatar, Grid } from '@material-ui/core'
@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import {AccentText, DefaultTitle, GridLink, InfoText, ProgressBar} from '../../../../../../../../..'
 import '../../../../../../../../../../helpers/NumberHelper'
+import * as accountDetailActions from '../../../../../../../../../../services/Account/AccountDetail/actions'
+import {bindActionCreators} from "redux";
 
 const styles = {
     root: {
@@ -23,14 +25,22 @@ const styles = {
     }
 };
 
-const Account = (props) => {
+const Account = ({...props}) => {
     const { classes } = props;
-    const { account } = props.auth;
+    const { account } = props.accountDetail;
     const isCollaborator = account.role.code == 'C';
     const isManager = account.role.code == 'M';
     const isAdministrator = account.role.code == 'A';
     const photo = account.photo ? account.photo : '/assets/img/user/avatar.svg';
     const percentage = isCollaborator ? (account.rank.points / account.nextLevel.points).toFullPercentage() : 0;
+    const [initialized, setInitialized] = React.useState(false);
+
+    useEffect(() => {
+        if (!initialized) {
+            setInitialized(true);
+            props.accountDetailActions.getAccountDetail();
+        }
+    });
 
     return (
         <div className={classes.root}>
@@ -73,8 +83,12 @@ const Account = (props) => {
     )
 };
 
-const mapStateToProps = ({ auth }) => ({
-    auth
+const mapStateToProps = ({ accountDetail }) => ({
+    accountDetail
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Account))
+const mapDispatchToProps = (dispatch) => ({
+    accountDetailActions: bindActionCreators(accountDetailActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Account))

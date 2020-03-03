@@ -29,7 +29,7 @@ class CollaboratorGeneralRanking extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { ranks, loading } = this.props.collaboratorGeneralRankList;
 
         if (!account.hasGeneralRankAccess) {
@@ -46,8 +46,8 @@ class CollaboratorGeneralRanking extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, collaboratorGeneralRankList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, collaboratorGeneralRankList }) => ({
+    accountDetail,
     collaboratorGeneralRankList
 });
 

@@ -230,7 +230,7 @@ class ChallengeDuplication extends MainLayoutComponent {
 
     renderData() {
         const { classes } = this.props;
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { types: awardTypes } = this.props.challengeAwardTypeList;
         const { challenge } = this.props.challengeDetail;
         const { images } = this.props.challengeImageList;
@@ -409,8 +409,8 @@ class ChallengeDuplication extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, categoryList, challengeAwardTypeList, challengeCreation, challengeDetail, challengeImageList, challengeTypeList, challengeTypeUsablePoints, kpiList, currentPeriodDetail }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, categoryList, challengeAwardTypeList, challengeCreation, challengeDetail, challengeImageList, challengeTypeList, challengeTypeUsablePoints, kpiList, currentPeriodDetail }) => ({
+    accountDetail,
     categoryList,
     challengeAwardTypeList,
     challengeCreation,

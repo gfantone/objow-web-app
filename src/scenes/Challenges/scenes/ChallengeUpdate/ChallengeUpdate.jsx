@@ -402,8 +402,8 @@ class ChallengeUpdate extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, categoryList, challengeAwardTypeList, challengeUpdate, challengeDetail, challengeImageList, challengeTypeList, challengeTypeUsablePoints, kpiList, currentPeriodDetail }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, categoryList, challengeAwardTypeList, challengeUpdate, challengeDetail, challengeImageList, challengeTypeList, challengeTypeUsablePoints, kpiList, currentPeriodDetail }) => ({
+    accountDetail,
     categoryList,
     challengeAwardTypeList,
     challengeUpdate,

@@ -29,7 +29,7 @@ class PlayerCategoryRanking extends MainLayoutComponent {
     }
 
     render() {
-        const { account } = this.props.auth;
+        const { account } = this.props.accountDetail;
         const { ranks, loading } = this.props.collaboratorCategoryRankList;
 
         if (!account.hasCategoryRankAccess) {
@@ -45,8 +45,8 @@ class PlayerCategoryRanking extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ auth, categoryDetail, collaboratorCategoryRankList }) => ({
-    auth,
+const mapStateToProps = ({ accountDetail, categoryDetail, collaboratorCategoryRankList }) => ({
+    accountDetail,
     categoryDetail,
     collaboratorCategoryRankList
 });
