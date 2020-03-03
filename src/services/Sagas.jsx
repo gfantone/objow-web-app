@@ -72,8 +72,6 @@ import watchKpiDetail from './Kpis/KpiDetail/sagas'
 import watchKpiList from './Kpis/KpiList/sagas'
 import watchLevelList from './Levels/LevelList/sagas'
 import watchLevelListCreation from './Levels/LevelListCreation/sagas'
-import watchLevelListUpdate from './Levels/LevelListUpdate/sagas'
-import watchLevelListRemoving from './Levels/LevelListRemoving/sagas'
 import watchManagerGoalList from './ManagerGoals/ManagerGoalList/sagas'
 import watchNextCollaboratorBadgeDetail from "./CollaboratorBadges/NextCollaboratorBadgeDetail/sagas";
 import watchEvolutionRequest from './Mail/EvolutionRequest/sagas'
@@ -209,8 +207,6 @@ function* rootSaga() {
         watchKpiList(),
         watchLevelList(),
         watchLevelListCreation(),
-        watchLevelListUpdate(),
-        watchLevelListRemoving(),
         watchManagerGoalList(),
         watchEvolutionRequest(),
         watchNextCollaboratorBadgeDetail(),

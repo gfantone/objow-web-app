@@ -74,8 +74,6 @@ import kpiDetail from '../services/Kpis/KpiDetail/reducer'
 import kpiList from '../services/Kpis/KpiList/reducer'
 import levelList from '../services/Levels/LevelList/reducer'
 import levelListCreation from '../services/Levels/LevelListCreation/reducer'
-import levelListUpdate from '../services/Levels/LevelListUpdate/reducer'
-import levelListRemoving from '../services/Levels/LevelListRemoving/reducer'
 import managerGoalList from '../services/ManagerGoals/ManagerGoalList/reducer'
 import managerList from '../services/Managers/ManagerList/reducer'
 import nextCollaboratorBadgeDetail from '../services/CollaboratorBadges/NextCollaboratorBadgeDetail/reducer'
@@ -201,8 +199,6 @@ const rootReducer = combineReducers({
     kpiList,
     levelList,
     levelListCreation,
-    levelListUpdate,
-    levelListRemoving,
     managerGoalList,
     managerList,
     nextCollaboratorBadgeDetail,

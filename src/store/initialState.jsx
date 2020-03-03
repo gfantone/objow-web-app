@@ -364,16 +364,6 @@ const initialState = {
         loading: false,
         hasError: false
     },
-    levelListUpdate: {
-        success: false,
-        loading: false,
-        hasError: false
-    },
-    levelListRemoving: {
-        success: false,
-        loading: false,
-        hasError: false
-    },
     managerGoalList: {
         goals: [],
         loading: false,
