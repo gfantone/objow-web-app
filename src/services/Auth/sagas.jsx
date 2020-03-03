@@ -26,8 +26,8 @@ function* authenticate(action) {
                 const { data: images } = yield call(api.systemImages.list);
                 yield put(getAdminReferenceData());
                 yield put(getConfigList());
-                yield put(loginSuccess());
                 yield put(getAccountDetailSuccess(account));
+                yield put(loginSuccess());
                 yield put(getSystemImageListSuccess(images));
                 if (window.ReactNativeWebView) {
                     setTimeout(function () {
