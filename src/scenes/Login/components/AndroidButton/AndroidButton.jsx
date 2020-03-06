@@ -6,7 +6,8 @@ const styles = {
         width: '100%',
         paddingTop: '31%',
         backgroundSize: 'contain',
-        backgroundPosition: 'right'
+        backgroundPosition: 'right',
+        cursor: 'pointer'
     }
 };
 
