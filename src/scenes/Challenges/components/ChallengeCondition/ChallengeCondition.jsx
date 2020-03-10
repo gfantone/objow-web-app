@@ -1,9 +1,9 @@
 import React from 'react'
-import {Grid, Tooltip} from '@material-ui/core'
+import {Grid} from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faEquals, faInfoCircle, faUser, faUsers} from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
-import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow} from '../../../../components'
+import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip} from '../../../../components'
 import '../../../../helpers/StringHelper'
 
 const ChallengeCondition = ({ challenge, goals, ...props }) => {
