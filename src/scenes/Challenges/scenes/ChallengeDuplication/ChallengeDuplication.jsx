@@ -127,7 +127,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         }, () => {
             if (this.state.start && this.state.end && this.state.type) {
                 const { types } = this.props.challengeTypeList;
-                const teamId = this.state.type == types.find(x => x.code == 'CM').id ? this.teamId : null;
+                const teamId = types.find(x => x.code == 'CM') && this.state.type == types.find(x => x.code == 'CM').id ? this.teamId : null;
                 this.props.challengeTypeUsablePointsActions.getChallengeTypeUsablePoints(this.state.type, this.state.start, this.state.end, teamId)
             }
         })
