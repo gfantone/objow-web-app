@@ -1,11 +1,11 @@
 import * as types from './actionTypes'
 
-export const getCollaboratorChallengeList = (collaboratorId, current, year, start, end) => {
+export const getCollaboratorChallengeList = (collaboratorId, time, year, start, end) => {
     return {
         type: types.GET_COLLABORATOR_CHALLENGE_LIST,
         collaboratorId,
         year,
-        current,
+        time,
         start,
         end
     }

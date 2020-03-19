@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* getCollaboratorChallengeList(action) {
     try {
-        const { data: challenges } = yield call(api.collaborators.collaboratorChallenges, action.collaboratorId, action.current, action.year, action.start, action.end);
+        const { data: challenges } = yield call(api.collaborators.collaboratorChallenges, action.collaboratorId, action.time, action.year, action.start, action.end);
         yield put(getCollaboratorChallengeListSuccess(challenges))
     } catch(e) {
         yield put(getCollaboratorChallengeListError())

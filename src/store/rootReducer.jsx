@@ -66,6 +66,8 @@ import goalDefinitionLevelListUpdate from '../services/GoalDefinitionLevels/Goal
 import goalPoints from '../services/GoalPoints/reducers'
 import goalDetail from '../services/Goals/GoalDetail/reducer'
 import evolutionRequest from '../services/Mail/EvolutionRequest/reducer'
+import goalAdviceList from '../services/GoalAdvices/GoalAdviceList/reducer'
+import goalAdviceListCreation from '../services/GoalAdvices/GoalAdviceListCreation/reducer'
 import goalList from '../services/Goals/GoalList/reducer'
 import goalListUpdate from '../services/Goals/GoalListUpdate/reducer'
 import goalTypeList from '../services/GoalTypes/GoalTypeList/reducer'
@@ -192,6 +194,8 @@ const rootReducer = combineReducers({
     goalPoints,
     goalDetail,
     goalList,
+    goalAdviceList,
+    goalAdviceListCreation,
     goalListUpdate,
     goalTypeList,
     importLogList,

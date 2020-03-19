@@ -8,14 +8,17 @@ function* getTeamCollaboratorGoalDetail(action) {
         var [
             { data: goal },
             { data: levels },
-            { data: definition }
+            { data: definition },
+            { data: advices }
         ] = yield all([
             call(api.teamCollaboratorGoalSummaries.detail, action.id),
             call(api.teamCollaboratorGoals.levels, action.id),
             call(api.teamCollaboratorGoals.definition, action.id),
-        ])
-        goal.levels = levels
-        goal.definition = definition
+            call(api.teamCollaboratorGoals.advices, action.id),
+        ]);
+        goal.levels = levels;
+        goal.definition = definition;
+        goal.advices = advices;
         yield put(getTeamCollaboratorGoalDetailSuccess(goal))
     } catch(e) {
         yield put(getTeamCollaboratorGoalDetailError())
