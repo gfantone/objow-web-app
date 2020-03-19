@@ -49,7 +49,7 @@ class ChallengeCreation extends MainLayoutComponent {
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
         this.props.challengeAwardTypeListActions.getChallengeAwardTypeList();
-        this.props.categoryListActions.getCategoryList();
+        this.props.categoryListActions.getActiveCategoryList();
         this.props.challengeImageListActions.getChallengeImageList();
         this.props.challengeTypeListActions.getUsableChallengeTypeList();
         this.props.kpiListActions.getKpiList();

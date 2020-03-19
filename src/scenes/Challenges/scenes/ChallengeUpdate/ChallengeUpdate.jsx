@@ -54,7 +54,7 @@ class ChallengeUpdate extends MainLayoutComponent {
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
         this.props.challengeAwardTypeListActions.getChallengeAwardTypeList();
-        this.props.categoryListActions.getCategoryList();
+        this.props.categoryListActions.getActiveCategoryList();
         this.props.challengeDetailActions.getChallengeDetail(id);
         this.props.challengeTypeUsablePointsActions.getChallengeTypeUsablePointsByChallenge(id);
         this.props.challengeImageListActions.getChallengeImageList();

@@ -84,7 +84,7 @@ const initialState = {
         hasError: false
     },
     categoryList: {
-        categories: [],
+        categories: null,
         loading: false,
         hasError: false
     },

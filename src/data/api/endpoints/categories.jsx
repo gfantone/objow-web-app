@@ -3,8 +3,9 @@ import instance from '../instance'
 const baseUrl = 'categories/';
 
 const categories = {
-    list() {
-        return instance.get(baseUrl)
+    active() {
+        const url = `${baseUrl}active/`;
+        return instance.get(url)
     },
     detail(id) {
         const url = `${baseUrl}${id}/`;
@@ -16,6 +17,10 @@ const categories = {
     },
     create(category) {
         return instance.post(baseUrl, category)
+    },
+    inactive() {
+        const url = `${baseUrl}inactive/`;
+        return instance.get(url)
     },
     teamRanks(id, periodId) {
         const url = `${baseUrl}${id}/team-ranks/?year=${periodId}`;

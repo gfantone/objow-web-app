@@ -38,7 +38,7 @@ import watchCollaboratorGeneralRankList from './CollaboratorGeneralRanks/Collabo
 import watchFreeCollaboratorList from './Collaborators/CollaboratorList/sagas'
 import watchCategoryCreation from './Categories/CategoryCreation/sagas'
 import watchCategoryDetail from './Categories/CategoryDetail/sagas'
-import watchCategoryList from './Categories/CategoryList/sagas'
+import {watchActiveCategoryList, watchInactiveCategoryList} from './Categories/CategoryList/sagas'
 import watchChallengeImageList from './ChallengeImages/ChallengeImageList/sagas'
 import watchCoachingItemUpdate from './CoachingItems/CoachingItemUpdate/sagas'
 import watchCoachingItemList from './CoachingItems/CoachingItemList/sagas'
@@ -168,7 +168,8 @@ function* rootSaga() {
         watchFreeCollaboratorList(),
         watchCategoryCreation(),
         watchCategoryDetail(),
-        watchCategoryList(),
+        watchActiveCategoryList(),
+        watchInactiveCategoryList(),
         watchChallengeImageList(),
         watchCoachingItemUpdate(),
         watchCoachingItemList(),

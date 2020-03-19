@@ -54,7 +54,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         this.props.handleButtons(<MenuIconButton size={'small'} onClick={this.handleAddGoal.bind(this)}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
-        this.props.categoryListActions.getCategoryList();
+        this.props.categoryListActions.getActiveCategoryList();
         this.props.challengeAwardTypeListActions.getChallengeAwardTypeList();
         this.props.challengeDetailActions.getChallengeDetail(this.props.match.params.id);
         this.props.challengeImageListActions.getChallengeImageList();
