@@ -3,6 +3,10 @@ import instance from '../instance'
 const baseUrl = 'team-collaborator-goals/';
 
 const teamCollaboratorGoals = {
+    advices(id) {
+        const url = `${baseUrl}${id}/advices/`;
+        return instance.get(url)
+    },
     update(id, target) {
         const url = `${baseUrl}${id}/`;
         return instance.patch(url, { target })

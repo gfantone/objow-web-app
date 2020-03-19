@@ -425,6 +425,16 @@ const initialState = {
         loading: false,
         hasError: false
     },
+    goalAdviceList: {
+        advices: null,
+        loading: false,
+        hasError: false
+    },
+    goalAdviceListCreation: {
+        success: false,
+        loading: false,
+        hasError: false
+    },
     colorList: {
         colors: null,
         loading: false,
