@@ -20,7 +20,7 @@ const SubHeader = ({ onChange, ...props }) => {
     return (
         <div>
             <div className={classes.root}>
-                <DefaultText align={'center'}>Gestion des utilisateurs</DefaultText>
+                <DefaultText align={'center'}>Configuration des catégories</DefaultText>
             </div>
             <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
                 <RoundedTab label='Actives' />

@@ -2,10 +2,9 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Tooltip } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolderPlus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { AppBarSubTitle, DataTable, IconButton, Loader, MainLayoutComponent } from '../../../../components'
 import * as goalDefinitionListActions from '../../../../services/GoalDefinitions/GoalDefinitionList/actions'
 
@@ -47,14 +46,7 @@ class AdminGoalList extends MainLayoutComponent {
         this.props.handleTitle('Administration');
         this.props.handleSubHeader(<AppBarSubTitle title='Configuration des objectifs' />);
         this.props.handleMaxWidth('lg');
-        this.props.handleButtons(<div>
-            <Tooltip title='Créer une catégorie'>
-                <IconButton size='small' onClick={this.handleCreateFolder.bind(this)} classes={{root: classes.iconMargin}}><FontAwesomeIcon icon={faFolderPlus} /></IconButton>
-            </Tooltip>
-            <Tooltip title='Créer un objectif'>
-                <IconButton size='small' onClick={this.handleCreate.bind(this)}><FontAwesomeIcon icon={faPlus} /></IconButton>
-            </Tooltip>
-        </div>);
+        this.props.handleButtons(<IconButton size='small' onClick={this.handleCreate.bind(this)}><FontAwesomeIcon icon={faPlus} /></IconButton>);
         this.props.actions.getGoalDefinitionList(this.props.match.params.periodId)
     }
 
