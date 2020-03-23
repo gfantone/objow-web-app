@@ -9,9 +9,9 @@ import {faPlus, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {uuidv4} from '../../../../../../helpers/UUIDHelper'
 import * as goalAdviceListCreationActions from '../../../../../../services/GoalAdvices/GoalAdviceListCreation/actions'
 
-const AdviceList = ({advices, goalId, ...props}) => {
+const AdviceList = ({advices, goal, type, ...props}) => {
     const [newAdvices, setNewAdvices] = React.useState(advices.map(x => ({key: uuidv4(), text: x.text})));
-    const {success, loading} = props.goalAdviceListCreation;
+    const {loading} = props.goalAdviceListCreation;
 
     const onAdd = () => {
         setNewAdvices(newAdvices => newAdvices.concat([{key: uuidv4(), text: ''}]))
@@ -22,8 +22,18 @@ const AdviceList = ({advices, goalId, ...props}) => {
     };
 
     const onSubmit = (model) => {
-        const advices = model.advices ? model.advices.map(x => ({text: x, goal: goalId})) : [];
-        props.goalAdviceListCreationActions.createGoalAdviceList(advices, goalId)
+        const advices = model.advices ? model.advices.map(x => ({text: x, goal: goal.goalId, team: goal.teamId})) : [];
+        switch (type) {
+            case 'C':
+                props.goalAdviceListCreationActions.createGoalAdviceListByCollaboratorGoal(advices, goal.id);
+                break;
+            case 'TC':
+                props.goalAdviceListCreationActions.createGoalAdviceListByTeamCollaboratorGoal(advices, goal.id);
+                break;
+            case 'T':
+                props.goalAdviceListCreationActions.createGoalAdviceListByTeamGoal(advices, goal.id);
+                break
+        }
     };
 
     return (

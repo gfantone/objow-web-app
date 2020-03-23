@@ -7,7 +7,7 @@ import { AdviceList, ReadonlyAdviceList } from './components'
 import { AnimationController, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow } from '../../../../components'
 import {getDifferenceWithToday} from '../../../../helpers/DateHelper'
 
-const GoalIndication = ({ goal, ...props }) => {
+const GoalIndication = ({ goal, type, ...props }) => {
     const {account} = props.accountDetail;
     const difference = getDifferenceWithToday(goal.end);
     const canEdit = (account.role.code == 'M' && goal.type == 'C' || account.role.code == 'A') && difference <= 0;
@@ -92,7 +92,7 @@ const GoalIndication = ({ goal, ...props }) => {
                 </Grid>
                 <Grid item xs={12}>
                     {!canEdit && <ReadonlyAdviceList advices={goal.advices}/>}
-                    {canEdit && <AdviceList advices={goal.advices} goalId={goal.goalId}/>}
+                    {canEdit && <AdviceList advices={goal.advices} goal={goal} type={type} />}
                 </Grid>
             </Grid>
         </div>

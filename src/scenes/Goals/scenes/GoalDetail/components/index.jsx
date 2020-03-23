@@ -1,5 +1,0 @@
-export * from './GoalFilter'
-export * from './GoalIndications'
-export * from './PlayerGoalList'
-export * from './PlayerGoalRanking'
-export * from './TeamGoalRanking'
