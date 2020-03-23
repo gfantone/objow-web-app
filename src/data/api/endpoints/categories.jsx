@@ -25,7 +25,11 @@ const categories = {
     teamRanks(id, periodId) {
         const url = `${baseUrl}${id}/team-ranks/?year=${periodId}`;
         return instance.get(url)
-    }
+    },
+    update(category) {
+        const url = `${baseUrl}${category.id}/`;
+        return instance.put(url, category)
+    },
 };
 
 export default categories

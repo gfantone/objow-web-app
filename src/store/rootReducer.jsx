@@ -14,6 +14,7 @@ import badgeList from '../services/Badges/BadgeList/reducer'
 import badgeUpdate from '../services/Badges/BadgeUpdate/reducer'
 import categoryCreation from '../services/Categories/CategoryCreation/reducer'
 import categoryDetail from '../services/Categories/CategoryDetail/reducer'
+import categoryUpdate from '../services/Categories/CategoryUpdate/reducer'
 import categoryIconList from '../services/CategoryIcons/CategoryIconList/reducer'
 import categoryList from '../services/Categories/CategoryList/reducer'
 import challengeAwardTypeList from '../services/ChallengeAwardTypes/ChallengeAwardTypeList/reducer'
@@ -146,6 +147,7 @@ const rootReducer = combineReducers({
     challengeAwardTypeList,
     challengeCreation,
     challengeUpdate,
+    categoryUpdate,
     challengeDetail,
     challengeImageList,
     challengeTypeList,

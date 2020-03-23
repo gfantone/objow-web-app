@@ -62,7 +62,7 @@ export default () => {
                 <AdminRoutes exact path='/admin/periods/:periodId/badges/:id' component={scenes.AdminBadgeDetail} />
                 <AdminRoutes exact path='/admin/categories' component={scenes.AdminCategoryList} />
                 <AdminRoutes exact path='/admin/categories/creation' component={scenes.AdminCategory} />
-                {/*<AdminRoutes exact path='/admin/categories/modification/:id' component={scenes.AdminCategoryUpdate} />*/}
+                <AdminRoutes exact path='/admin/categories/modification/:id' component={scenes.AdminCategoryUpdate} />
                 <AdminRoutes exact path='/admin/periods/:periodId/challenges' component={scenes.AdminChallenge} />
                 <AdminRoutes exact path='/admin/periods/:periodId/goals' component={scenes.AdminGoalList} />
                 <AdminRoutes exact path='/admin/periods/:periodId/goals/creation' component={scenes.AdminGoalCreation} />

@@ -5,15 +5,26 @@ import api from '../../../data/api/api'
 
 function* getCategoryIconList(action) {
     try {
-        let { data: icons } = yield call(api.categoryIcons.list)
+        let { data: icons } = yield call(api.categoryIcons.list);
         yield put(getCategoryIconListSuccess(icons))
     } catch(e) {
         yield put(getCategoryIconListError())
     }
 }
 
-function* watchCategoryIconList() {
+function* getUnusedCategoryIconList(action) {
+    try {
+        let { data: icons } = yield call(api.categoryIcons.unused);
+        yield put(getCategoryIconListSuccess(icons))
+    } catch(e) {
+        yield put(getCategoryIconListError())
+    }
+}
+
+export function* watchCategoryIconList() {
     yield takeEvery(types.GET_CATEGORY_ICON_LIST, getCategoryIconList)
 }
 
-export default watchCategoryIconList
+export function* watchUnusedCategoryIconList() {
+    yield takeEvery(types.GET_UNUSED_CATEGORY_ICON_LIST, getUnusedCategoryIconList)
+}

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
-import { IconInput } from './components'
+import { CategoryIconInput } from '../../components'
 import { AppBarSubTitle, Card, Loader, MainLayoutComponent, ProgressButton, TextField } from '../../../../components'
 import * as categoryCreationActions from '../../../../services/Categories/CategoryCreation/actions'
 import * as categoryIconListActions from '../../../../services/CategoryIcons/CategoryIconList/actions'
@@ -47,7 +47,7 @@ class AdminCategory extends MainLayoutComponent {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <IconInput name='icon' label='Icône' icons={icons} required
+                                    <CategoryIconInput name='icon' label='Icône' icons={icons} required
                                         validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
                                     />
                                 </Grid>

@@ -4,17 +4,23 @@ export const getCategoryIconList = () => {
     return {
         type: types.GET_CATEGORY_ICON_LIST
     }
-}
+};
+
+export const getUnusedCategoryIconList = () => {
+    return {
+        type: types.GET_UNUSED_CATEGORY_ICON_LIST
+    }
+};
 
 export const getCategoryIconListSuccess = (icons) => {
     return {
         type: types.GET_CATEGORY_ICON_LIST_SUCCESS,
         icons
     }
-}
+};
 
 export const getCategoryIconListError = () => {
     return {
         type: types.GET_CATEGORY_ICON_LIST_ERROR
     }
-}
+};

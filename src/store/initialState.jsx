@@ -78,6 +78,11 @@ const initialState = {
         loading: false,
         hasError: false
     },
+    categoryUpdate: {
+        success: false,
+        loading: false,
+        hasError: false
+    },
     categoryIconList: {
         icons: null,
         loading: false,
