@@ -11,6 +11,10 @@ const collaboratorGoals = {
         const url = `${baseUrl}bulk-update/`;
         return instance.put(url, goals)
     },
+    changeAdvices(id, advices) {
+        const url = `${baseUrl}${id}/change-advices/`;
+        return instance.post(url, advices)
+    },
     levels(id) {
         const url = `${baseUrl}${id}/levels/`;
         return instance.get(url)

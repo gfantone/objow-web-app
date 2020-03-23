@@ -3,7 +3,9 @@ import initialState from '../../../store/initialState';
 
 let GoalAdviceListCreation = (state = initialState.goalAdviceListCreation, action) => {
     switch (action.type) {
-        case types.CREATE_GOAL_ADVICE_LIST:
+        case types.CREATE_GOAL_ADVICE_LIST_BY_COLLABORATOR_GOAL:
+        case types.CREATE_GOAL_ADVICE_LIST_BY_TEAM_COLLABORATOR_GOAL:
+        case types.CREATE_GOAL_ADVICE_LIST_BY_TEAM_GOAL:
             return {...state, success: false, loading: true, hasError: false};
 
         case types.CREATE_GOAL_ADVICE_LIST_SUCCESS:

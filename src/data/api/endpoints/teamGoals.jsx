@@ -11,6 +11,10 @@ const teamGoals = {
         const url = `${baseUrl}bulk-update/`;
         return instance.put(url, goals)
     },
+    changeAdvices(id, advices) {
+        const url = `${baseUrl}${id}/change-advices/`;
+        return instance.post(url, advices)
+    },
     definition(id) {
         const url = `${baseUrl}${id}/definition/`;
         return instance.get(url)

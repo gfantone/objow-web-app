@@ -42,7 +42,7 @@ class TeamCollaboratorGoalDetail extends MainLayoutComponent {
         return (
             <div>
                 { account.hasGoalRankAccess && this.state.page == 0 && ranks && <CollaboratorGoalRankList ranks={ranks} /> }
-                { this.state.page == 1 && goal && <GoalIndication goal={goal} /> }
+                { this.state.page == 1 && goal && <GoalIndication goal={goal} type='TC' /> }
                 { this.state.page == 2 && goal && <CollaboratorGoalList /> }
             </div>
         )

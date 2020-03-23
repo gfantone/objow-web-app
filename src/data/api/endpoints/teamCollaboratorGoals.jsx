@@ -7,6 +7,10 @@ const teamCollaboratorGoals = {
         const url = `${baseUrl}${id}/advices/`;
         return instance.get(url)
     },
+    changeAdvices(id, advices) {
+        const url = `${baseUrl}${id}/change-advices/`;
+        return instance.post(url, advices)
+    },
     update(id, target) {
         const url = `${baseUrl}${id}/`;
         return instance.patch(url, { target })
