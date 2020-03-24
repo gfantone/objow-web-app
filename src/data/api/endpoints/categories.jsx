@@ -30,6 +30,10 @@ const categories = {
         const url = `${baseUrl}${category.id}/`;
         return instance.patch(url, category)
     },
+    updateActivation(id, isActive) {
+        const url = `${baseUrl}${id}/`;
+        return instance.patch(url, {isActive})
+    },
     usableIcons(id) {
         const url = `${baseUrl}${id}/usable-icons/`;
         return instance.get(url)

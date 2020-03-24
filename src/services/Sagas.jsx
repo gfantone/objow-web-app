@@ -12,6 +12,7 @@ import watchBadgeLevelRemoving from './BadgeLevels/BadgeLevelRemoving/sagas'
 import watchCategoryUpdate from "./Categories/CategoryUpdate/sagas";
 import watchBadgeLevelRemaining from './BadgeLevels/BadgeLevelRemainingPoints/sagas'
 import watchBadgeList from './Badges/BadgeList/sagas'
+import watchCategoryActivationUpdate from "./Categories/CategoryActivationUpdate/sagas";
 import watchBadgeUpdate from './Badges/BadgeUpdate/sagas'
 import {watchUsableCategoryIconList, watchUsableCategoryIconListForCategory} from './CategoryIcons/CategoryIconList/sagas'
 import watchCurrentCollaboratorBadgeSummaryList from './CollaboratorBadges/CurrentCollaboratorBadgeSummaryList/sagas'
@@ -162,6 +163,7 @@ function* rootSaga() {
         watchCollaboratorChalengeRankListByCollaboratorChallenge(),
         watchCollaboratorChalengeRankListByTeamCollaboratorChallenge(),
         watchCollaboratorDataList(),
+        watchCategoryActivationUpdate(),
         watchCollaboratorDataUpdate(),
         watchCollaboratorGeneralRankDetail(),
         watchCollaboratorGoalRankListByCollaboratorGOal(),

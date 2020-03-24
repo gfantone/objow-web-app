@@ -78,6 +78,11 @@ const initialState = {
         loading: false,
         hasError: false
     },
+    categoryActivationUpdate: {
+        success: false,
+        loading: false,
+        hasError: false
+    },
     categoryUpdate: {
         success: false,
         loading: false,
