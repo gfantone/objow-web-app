@@ -10,7 +10,7 @@ import {getDifferenceWithToday} from '../../../../helpers/DateHelper'
 const GoalIndication = ({ goal, type, ...props }) => {
     const {account} = props.accountDetail;
     const difference = getDifferenceWithToday(goal.end);
-    const canEdit = (account.role.code == 'M' && goal.type == 'C' || account.role.code == 'A') && difference <= 0;
+    const canEdit = (account.role.code == 'M' && account.team.id == goal.teamId || account.role.code == 'A') && difference <= 0;
 
     return (
         <div>
