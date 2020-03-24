@@ -1,63 +1,61 @@
-import React, {useEffect} from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import {SubHeader} from './components'
 import {DataTable, IconButton, Loader} from '../../../../components'
 import {CardMedia} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
+import {withStyles} from "@material-ui/core/styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 
-const useStyles = makeStyles({
+const styles = {
     icon: {
         height: 34,
         width: 34
     }
-});
+};
 
-var initialized = false;
+class AdminCategoryList extends Component {
+    state = {isActive: true};
 
-const AdminCategoryList = ({...props}) => {
-    const classes = useStyles();
-    const [isActive, setIsActive] = React.useState(true);
-    const {categories, loading} = props.categoryList;
-
-    const onAdd = () => {
-        initialized = false;
-        props.history.push(`/admin/categories/creation`)
+    onAdd() {
+        this.props.history.push(`/admin/categories/creation`)
     };
 
-    const onChange = (isActive) => {
-        initialized = false;
-        setIsActive(isActive)
-    };
-
-    const init = () => {
-        if (!initialized) {
-            initialized = true;
-            props.handleTitle('Administration');
-            props.handleSubHeader(<SubHeader onChange={onChange} />);
-            props.handleButtons(<IconButton size='small' onClick={onAdd}><FontAwesomeIcon icon={faPlus} /></IconButton>);
-            props.handleMaxWidth('sm');
-            props.activateReturn();
-            if (isActive) {
-                props.categoryListActions.getActiveCategoryList();
-            } else {
-                props.categoryListActions.getInactiveCategoryList();
-            }
+    loadData() {
+        if (this.state.isActive) {
+            this.props.categoryListActions.getActiveCategoryList();
+        } else {
+            this.props.categoryListActions.getInactiveCategoryList();
         }
+    }
+
+    onChange(isActive) {
+        this.setState({
+            ...this.state,
+            isActive: isActive
+        }, () => {
+            this.loadData()
+        });
     };
 
-    useEffect(() => {
-        init();
-    });
+    componentDidMount() {
+        this.props.handleTitle('Administration');
+        this.props.handleSubHeader(<SubHeader onChange={this.onChange.bind(this)} />);
+        this.props.handleButtons(<IconButton size='small' onClick={this.onAdd.bind(this)}><FontAwesomeIcon icon={faPlus} /></IconButton>);
+        this.props.handleMaxWidth('sm');
+        this.props.activateReturn();
+        this.loadData()
+    }
 
-    const renderLoader = () => {
+    renderLoader() {
         return <Loader centered />
     };
 
-    const renderData = () => {
+    renderData() {
+        const {classes} = this.props;
+        const {categories} = this.props.categoryList;
         const columns = [
             { name: 'id', options: {display: false} },
             { name: 'icon.name', label: 'Icône', options: {
@@ -71,20 +69,22 @@ const AdminCategoryList = ({...props}) => {
         const options = {
             selectableRows: 'none',
             onRowClick: (colData, cellMeta) => {
-                initialized = false;
-                props.history.push(`/admin/categories/modification/${colData[0]}`)
+                this.props.history.push(`/admin/categories/modification/${colData[0]}`)
             }
         };
         return <DataTable data={categories} columns={columns} options={options} />
     };
 
-    return (
-        <div>
-            {loading && renderLoader()}
-            {!loading && renderData()}
-        </div>
-    )
-};
+    render() {
+        const {categories, loading} = this.props.categoryList;
+        return (
+            <div>
+                {loading && this.renderLoader()}
+                {!loading && categories && this.renderData()}
+            </div>
+        )
+    }
+}
 
 const mapStateToProps = ({categoryList}) => ({
     categoryList
@@ -94,4 +94,4 @@ const mapDispatchToProps = (dispatch) => ({
     categoryListActions: bindActionCreators(categoryListActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminCategoryList)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AdminCategoryList))

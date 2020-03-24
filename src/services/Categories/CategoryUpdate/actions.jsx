@@ -12,3 +12,7 @@ export const updateCategorySuccess = () => ({
 export const updateCategoryError = () => ({
     type: types.UPDATE_CATEGORY_ERROR,
 });
+
+export const clearCategoryUpdate = () => ({
+    type: types.CLEAR_CATEGORY_UPDATE
+});

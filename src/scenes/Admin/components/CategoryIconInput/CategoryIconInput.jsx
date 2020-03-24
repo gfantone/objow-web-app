@@ -35,6 +35,7 @@ const CategoryIconInput = ({ icons = [], initial, label, name, onChange, require
     }, []);
 
     const handleValue = value => () => {
+        props.setValue(value);
         setValue(value);
         if (onChange) onChange(value)
     };
@@ -50,7 +51,6 @@ const CategoryIconInput = ({ icons = [], initial, label, name, onChange, require
                     return (
                         <Grid key={icon.id} item onClick={handleValue(icon.id)}>
                             <CardMedia image={iconData} className={selected ? classes.selectedIcon : classes.icon} />
-                            {/* <div className={selected ? classes.selectedColor : classes.color} style={{backgroundColor: color.hex}}></div> */}
                         </Grid>
                     )
                 }) }

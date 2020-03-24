@@ -3,28 +3,28 @@ import { getCategoryIconListSuccess, getCategoryIconListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
 
-function* getCategoryIconList(action) {
+function* getUsableList(action) {
     try {
-        let { data: icons } = yield call(api.categoryIcons.list);
+        let { data: icons } = yield call(api.categoryIcons.usable);
         yield put(getCategoryIconListSuccess(icons))
     } catch(e) {
         yield put(getCategoryIconListError())
     }
 }
 
-function* getUnusedCategoryIconList(action) {
+function* getUsableListForCategory(action) {
     try {
-        let { data: icons } = yield call(api.categoryIcons.unused);
+        let { data: icons } = yield call(api.categories.usableIcons, action.categoryId);
         yield put(getCategoryIconListSuccess(icons))
     } catch(e) {
         yield put(getCategoryIconListError())
     }
 }
 
-export function* watchCategoryIconList() {
-    yield takeEvery(types.GET_CATEGORY_ICON_LIST, getCategoryIconList)
+export function* watchUsableCategoryIconList() {
+    yield takeEvery(types.GET_USABLE_LIST, getUsableList)
 }
 
-export function* watchUnusedCategoryIconList() {
-    yield takeEvery(types.GET_UNUSED_CATEGORY_ICON_LIST, getUnusedCategoryIconList)
+export function* watchUsableCategoryIconListForCategory() {
+    yield takeEvery(types.GET_USABLE_LIST_FOR_CATEGORY, getUsableListForCategory)
 }

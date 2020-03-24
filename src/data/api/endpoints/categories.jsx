@@ -28,8 +28,12 @@ const categories = {
     },
     update(category) {
         const url = `${baseUrl}${category.id}/`;
-        return instance.put(url, category)
+        return instance.patch(url, category)
     },
+    usableIcons(id) {
+        const url = `${baseUrl}${id}/usable-icons/`;
+        return instance.get(url)
+    }
 };
 
 export default categories

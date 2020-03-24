@@ -3,11 +3,8 @@ import instance from '../instance'
 const baseUrl = 'category-icons/';
 
 const categoryIcons = {
-    list() {
-        return instance.get(baseUrl)
-    },
-    unused() {
-        const url = `${baseUrl}unused/`;
+    usable() {
+        const url = `${baseUrl}usable/`;
         return instance.get(url)
     }
 };

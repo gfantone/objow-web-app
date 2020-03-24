@@ -12,6 +12,9 @@ let CategoryUpdate = (state = initialState.categoryUpdate, action) => {
         case types.UPDATE_CATEGORY_ERROR:
             return {...state, success: false, loading: false, hasError: true};
 
+        case types.CLEAR_CATEGORY_UPDATE:
+            return {...state, success: false, loading: false, hasError: false};
+
         default:
             return state;
     }

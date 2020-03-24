@@ -3,8 +3,8 @@ import initialState from '../../../store/initialState';
 
 const CategoryIconList = (state = initialState.categoryIconList, action) => {
     switch (action.type) {
-        case types.GET_CATEGORY_ICON_LIST:
-        case types.GET_UNUSED_CATEGORY_ICON_LIST:
+        case types.GET_USABLE_LIST:
+        case types.GET_USABLE_LIST_FOR_CATEGORY:
             return {...state, icons: null, loading: true, hasError: false};
 
         case types.GET_CATEGORY_ICON_LIST_SUCCESS:

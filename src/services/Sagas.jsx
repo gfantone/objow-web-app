@@ -13,7 +13,7 @@ import watchCategoryUpdate from "./Categories/CategoryUpdate/sagas";
 import watchBadgeLevelRemaining from './BadgeLevels/BadgeLevelRemainingPoints/sagas'
 import watchBadgeList from './Badges/BadgeList/sagas'
 import watchBadgeUpdate from './Badges/BadgeUpdate/sagas'
-import {watchCategoryIconList, watchUnusedCategoryIconList} from './CategoryIcons/CategoryIconList/sagas'
+import {watchUsableCategoryIconList, watchUsableCategoryIconListForCategory} from './CategoryIcons/CategoryIconList/sagas'
 import watchCurrentCollaboratorBadgeSummaryList from './CollaboratorBadges/CurrentCollaboratorBadgeSummaryList/sagas'
 import watchChallengeAwardTypeList from './ChallengeAwardTypes/ChallengeAwardTypeList/sagas'
 import watchChallengeCreation from './Challanges/ChallangeCreaton/sagas'
@@ -140,8 +140,8 @@ function* rootSaga() {
         watchBadgeLevelRemaining(),
         watchBadgeList(),
         watchBadgeUpdate(),
-        watchCategoryIconList(),
-        watchUnusedCategoryIconList(),
+        watchUsableCategoryIconList(),
+        watchUsableCategoryIconListForCategory(),
         watchChallengeTypeList(),
         watchChallengeTypeSummaryList(),
         watchTermsAcceptance(),
