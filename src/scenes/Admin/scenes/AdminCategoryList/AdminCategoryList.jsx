@@ -57,12 +57,13 @@ class AdminCategoryList extends Component {
         const {classes} = this.props;
         const {categories} = this.props.categoryList;
         const columns = [
-            { name: 'id', options: {display: false} },
+            { name: 'id', options: {display: false, filter: false} },
             { name: 'icon.name', label: 'Icône', options: {
                 customBodyRender: value => {
                     const iconData = require(`../../../../assets/img/system/category/icons/${value}.svg`);
                     return <CardMedia image={iconData} className={classes.icon} />
-                }
+                },
+                filter: false
             } },
             { name: 'name', label: 'Nom' },
         ];
