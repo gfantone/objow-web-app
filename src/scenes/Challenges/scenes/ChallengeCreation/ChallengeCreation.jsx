@@ -1,15 +1,15 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {CardMedia, Grid, IconButton, Tooltip} from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfoCircle, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { ImageInput } from '../../components'
+import {withStyles} from '@material-ui/core/styles'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faInfoCircle, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import {ChallengeAwardList, ImageInput} from '../../components'
 import '../../../../helpers/FormsyHelper'
 import '../../helpers/ChallengeFormsyHelper'
-import { AppBarSubTitle, BlueText, Card, DatePicker, DefaultText, DefaultTitle, HiddenInput, IconButton as MenuIconButton, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField } from '../../../../components'
+import {AppBarSubTitle, BlueText, Card, DatePicker, DefaultText, DefaultTitle, HiddenInput, IconButton as MenuIconButton, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField} from '../../../../components'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as challengeAwardTypeListActions from '../../../../services/ChallengeAwardTypes/ChallengeAwardTypeList/actions'
 import * as challengeCreationActions from '../../../../services/Challanges/ChallangeCreaton/actions'
@@ -34,7 +34,6 @@ class ChallengeCreation extends MainLayoutComponent {
             start: null,
             end: null,
             type: null,
-            awardType: null,
             image: null,
             goals: [{ key: this.key, category: null, kpi: null, goalName: null, target: null, points: null }]
         };
@@ -98,13 +97,6 @@ class ChallengeCreation extends MainLayoutComponent {
             goals: goals
         })
     };
-
-    handleAwardTypeChange(type) {
-        this.setState({
-            ...this.state,
-            awardType: type
-        })
-    }
 
     handleImageChange(image) {
         this.setState({
@@ -244,7 +236,7 @@ class ChallengeCreation extends MainLayoutComponent {
         const isMaxAward = this.state.awardType == awardTypes[0].id;
         const usablePoints = points ? (!isMaxAward ? points.all : points.participant) : 0;
         const currentType = types.find(x => x.id == this.state.type);
-        const participantName = currentType && currentType.code == 'CT' ? 'équipe' : 'joueur';
+        const currentTypeCode = currentType ? currentType.code : null;
 
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
@@ -302,62 +294,8 @@ class ChallengeCreation extends MainLayoutComponent {
                             </Card>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} container spacing={1}>
-                        <Grid item xs={12}>
-                            <DefaultTitle>Récompenses</DefaultTitle>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Card>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        { challengeTypeUsablePointsLoading && <DefaultText>Calcul des pts utilisables...</DefaultText> }
-                                        { !challengeTypeUsablePointsLoading && <DefaultText>{usablePoints} pts utilisables</DefaultText> }
-                                        <HiddenInput name='usablePoints' value={usablePoints} />
-                                    </Grid>
-                                    <Grid item xs={3}>
-                                        <Select name='awardType' label='Type' options={awardTypes} initial={awardTypes[0].id} emptyDisabled onChange={this.handleAwardTypeChange.bind(this)} optionValueName='id' optionTextName='name' fullWidth required
-                                                validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
-                                        />
-                                    </Grid>
-                                    { isMaxAward && <Grid item xs={3}>
-                                        <TextField name='award[0]' label={`Maximum / ${participantName}`} fullWidth required
-                                            validations='isLessThanOrEquals:usablePoints'
-                                            validationErrors={{
-                                                isDefaultRequiredValue: 'Ce champ est requis.',
-                                                isLessThanOrEquals: 'La récompense est trop élevée'
-                                            }}
-                                        />
-                                    </Grid> }
-                                    { !isMaxAward && <Grid item xs={3}>
-                                        <TextField name='award[0]' label={`Gain ${participantName} #1`} fullWidth required
-                                            validations='isRankingValid'
-                                            validationErrors={{
-                                                isDefaultRequiredValue: 'Ce champ est requis.',
-                                                isRankingValid: 'La récompense est trop élevée'
-                                            }}
-                                        />
-                                    </Grid> }
-                                    { !isMaxAward && <Grid item xs={3}>
-                                        <TextField name='award[1]' label={`Gain ${participantName} #2`} fullWidth required
-                                            validations='isRankingValid'
-                                            validationErrors={{
-                                                isDefaultRequiredValue: 'Ce champ est requis.',
-                                                isRankingValid: 'La récompense est trop élevée'
-                                            }}
-                                        />
-                                    </Grid> }
-                                    { !isMaxAward && <Grid item xs={3}>
-                                        <TextField name='award[2]' label={`Gain ${participantName} #3`} fullWidth required
-                                            validations='isRankingValid'
-                                            validationErrors={{
-                                                isDefaultRequiredValue: 'Ce champ est requis.',
-                                                isRankingValid: 'La récompense est trop élevée'
-                                            }}
-                                        />
-                                    </Grid> }
-                                </Grid>
-                            </Card>
-                        </Grid>
+                    <Grid item xs={12}>
+                        <ChallengeAwardList awardTypes={awardTypes} challengeTypeCode={currentTypeCode} usablePoints={usablePoints} usablePointsLoading={challengeTypeUsablePointsLoading} />
                     </Grid>
                     <Grid item xs={12} container spacing={2}>
                         <Grid item xs={12}>
