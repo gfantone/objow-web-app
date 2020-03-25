@@ -66,6 +66,7 @@ class AdminAccessRightList extends MainLayoutComponent {
     renderData() {
         const { configs } = this.props.configList;
         const { loading } = this.props.configListUpdate;
+        const MNCA = configs.filter(c => c.code == 'MNCA')[0];
         const MCLR = configs.filter(c => c.code == 'MCLR')[0];
         const MCLE = configs.filter(c => c.code == 'MCLE')[0];
         const MGOR = configs.filter(c => c.code == 'MGOR')[0];
@@ -74,6 +75,7 @@ class AdminAccessRightList extends MainLayoutComponent {
         const MCAR = configs.filter(c => c.code == 'MCAR')[0];
         const MPWD = configs.filter(c => c.code == 'MPWD')[0];
         const MTER = configs.filter(c => c.code == 'MTER')[0];
+        const CNCA = configs.filter(c => c.code == 'CNCA')[0];
         const CCLR = configs.filter(c => c.code == 'CCLR')[0];
         const CCLE = configs.filter(c => c.code == 'CCLE')[0];
         const CGOR = configs.filter(c => c.code == 'CGOR')[0];
@@ -98,16 +100,17 @@ class AdminAccessRightList extends MainLayoutComponent {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Card>
-                                    <Switch name={MCLR.id} initial={MCLR.value.toBoolean()} label='Accès à la coaching list' />
-                                    <Switch name={MCLE.id} initial={MCLE.value.toBoolean()} label='Modifier la coaching list' />
-                                    <Switch name={MGOR.id} initial={MGOR.value.toBoolean()} label='Classement visible pour les objectifs' />
-                                    <Switch name={MCHR.id} initial={MCHR.value.toBoolean()} label='Classement visible pour les challenges' />
-                                    <Switch name={MGER.id} initial={MGER.value.toBoolean()} label='Classement général visible' onChange={this.handleChangeValue('activateManagerGeneralRanking').bind(this)} />
-                                    { this.state.activateManagerGeneralRanking && <TextField type={'number'} name={MGRR.id} initial={MGRR.value} label={'Classement général limité aux X premiers'} fullWidth /> }
-                                    <Switch name={MCAR.id} initial={MCAR.value.toBoolean()} label='Classement visible pour les catégories' onChange={this.handleChangeValue('activateManagerCategoryRanking').bind(this)} />
-                                    { this.state.activateManagerCategoryRanking && <TextField type={'number'} name={MCRR.id} initial={MCRR.value} label={'Classements des catégories limités aux X premiers'} fullWidth /> }
-                                    <Switch name={MPWD.id} initial={MPWD.value.toBoolean()} label='Réinitialisation MDP pour un collaborateur' />
-                                    <Switch name={MTER.id} initial={MTER.value.toBoolean()} label='Classement de mon équipe' />
+                                        <Switch name={MNCA.id} initial={MNCA.value.toBoolean()} label='Afficher les challenges futurs' />
+                                        <Switch name={MCLR.id} initial={MCLR.value.toBoolean()} label='Accès à la coaching list' />
+                                        <Switch name={MCLE.id} initial={MCLE.value.toBoolean()} label='Modifier la coaching list' />
+                                        <Switch name={MGOR.id} initial={MGOR.value.toBoolean()} label='Classement visible pour les objectifs' />
+                                        <Switch name={MCHR.id} initial={MCHR.value.toBoolean()} label='Classement visible pour les challenges' />
+                                        <Switch name={MGER.id} initial={MGER.value.toBoolean()} label='Classement général visible' onChange={this.handleChangeValue('activateManagerGeneralRanking').bind(this)} />
+                                        { this.state.activateManagerGeneralRanking && <TextField type={'number'} name={MGRR.id} initial={MGRR.value} label={'Classement général limité aux X premiers'} fullWidth /> }
+                                        <Switch name={MCAR.id} initial={MCAR.value.toBoolean()} label='Classement visible pour les catégories' onChange={this.handleChangeValue('activateManagerCategoryRanking').bind(this)} />
+                                        { this.state.activateManagerCategoryRanking && <TextField type={'number'} name={MCRR.id} initial={MCRR.value} label={'Classements des catégories limités aux X premiers'} fullWidth /> }
+                                        <Switch name={MPWD.id} initial={MPWD.value.toBoolean()} label='Réinitialisation MDP pour un collaborateur' />
+                                        <Switch name={MTER.id} initial={MTER.value.toBoolean()} label='Classement de mon équipe' />
                                     </Card>
                                 </Grid>
                             </Grid>
@@ -121,6 +124,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Card>
+                                        <Switch name={CNCA.id} initial={CNCA.value.toBoolean()} label='Afficher les challenges futurs' />
                                         <Switch name={CCLR.id} initial={CCLR.value.toBoolean()} label='Accès à la coaching list' />
                                         <Switch name={CCLE.id} initial={CCLE.value.toBoolean()} label='Modifier la coaching list' />
                                         <Switch name={CGOR.id} initial={CGOR.value.toBoolean()} label='Classement visible pour les objectifs' />

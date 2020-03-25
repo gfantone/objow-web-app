@@ -55,6 +55,8 @@ import watchConfigListUpdate from './Configs/ConfigListUpdate/sagas'
 import watchConfigUpdate from './Configs/ConfigUpdate/sagas'
 import watchCurrentCollaboratorBadgeDetail from "./CollaboratorBadges/CurrentCollaboratorBadgeDetail/sagas";
 import watchFreeColorList from './Colors/ColorList/sagas'
+import {watchGoalAdviceListByCollaboratorGoal, watchGoalAdviceListByTeamCollaboratorGoal, watchGoalAdviceListByTeamGoal} from './GoalAdvices/GoalAdviceList/sagas'
+import {watchGoalAdviceListCreationByCollaboratorGoal, watchGoalAdviceListCreationByTeamCollaboratorGoal, watchGoalAdviceListCreationByTeamGoal} from './GoalAdvices/GoalAdviceListCreation/sagas'
 import watchGoalListUpdate from './Goals/GoalListUpdate/sagas'
 import watchGoalDefinitionDetail from './GoalDefinitions/GoalDefinitionDetail/sagas'
 import watchGoalDefinitionCreation from './GoalDefinitions/GoalDefinitionCreation/sagas'
@@ -189,6 +191,12 @@ function* rootSaga() {
         watchConfigUpdate(),
         watchCurrentCollaboratorBadgeDetail(),
         watchFreeColorList(),
+        watchGoalAdviceListByCollaboratorGoal(),
+        watchGoalAdviceListByTeamCollaboratorGoal(),
+        watchGoalAdviceListByTeamGoal(),
+        watchGoalAdviceListCreationByCollaboratorGoal(),
+        watchGoalAdviceListCreationByTeamCollaboratorGoal(),
+        watchGoalAdviceListCreationByTeamGoal(),
         watchGoalListUpdate(),
         watchGoalDefinitionDetail(),
         watchGoalDefinitionCreation(),

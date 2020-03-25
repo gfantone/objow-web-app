@@ -1,16 +1,11 @@
 import React from 'react'
 import { Timer } from '..'
 import { AccentTag, DarkTag, LightTag, UltraLightTag } from '../../..'
+import {getDifferenceWithToday} from '../../../../../../helpers/DateHelper'
 import '../../../../../../helpers/NumberHelper'
 
 const TimerTag = ({ date }) => {
-    const day = 24 * 60 * 60 * 1000;
-    const now = new Date();
-    const target = new Date(date * 1000);
-    now.setHours(0, 0, 0, 0);
-    target.setMinutes(target.getMinutes() + target.getTimezoneOffset());
-    target.setHours(0, 0, 0, 0);
-    const difference = Math.round((now.getTime() - target.getTime()) / day);
+    const difference = getDifferenceWithToday(date);
     const text = `J${difference}`;
 
     return (

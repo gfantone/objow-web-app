@@ -3,9 +3,17 @@ import instance from '../instance'
 const baseUrl = 'collaborator-goals/';
 
 const collaboratorGoals = {
+    advices(id) {
+        const url = `${baseUrl}${id}/advices/`;
+        return instance.get(url)
+    },
     bulkUpdate(goals) {
         const url = `${baseUrl}bulk-update/`;
         return instance.put(url, goals)
+    },
+    changeAdvices(id, advices) {
+        const url = `${baseUrl}${id}/change-advices/`;
+        return instance.post(url, advices)
     },
     levels(id) {
         const url = `${baseUrl}${id}/levels/`;

@@ -26,7 +26,7 @@ const CustomTextField = ({ fullWidth, multiline, initial = null, label, name, re
 
     useEffect(() => {
         props.setValue(initial)
-    }, []);
+    }, [initial]);
 
     const handleChange = (event) => {
         const value = event.currentTarget.value;
