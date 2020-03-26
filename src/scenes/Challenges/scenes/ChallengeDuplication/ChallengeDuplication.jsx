@@ -309,9 +309,13 @@ class ChallengeDuplication extends MainLayoutComponent {
                             <Grid item xs={12}>
                                 <DefaultTitle>Indicateurs</DefaultTitle>
                             </Grid>
-                            { this.state.goals.map((goal, index) => {
-                                return this.renderGoal(index, goal)
-                            }) }
+                            <Grid item xs={12}>
+                                <Grid container spacing={2}>
+                                    { this.state.goals.map((goal, index) => {
+                                        return this.renderGoal(index, goal)
+                                    }) }
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
