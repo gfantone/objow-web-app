@@ -9,7 +9,6 @@ import watchBadgeLevelList from './BadgeLevels/BadgeLevelList/sagas'
 import watchBadgeLevelListCreation from './BadgeLevels/BadgeLevelListCreation/sagas'
 import watchBadgeLevelListRemoving from './BadgeLevels/BadgeLevelListRemoving/sagas'
 import watchBadgeLevelListUpdate from './BadgeLevels/BadgeLevelListUpdate/sagas'
-import watchBadgeLevelRemoving from './BadgeLevels/BadgeLevelRemoving/sagas'
 import watchCategoryUpdate from "./Categories/CategoryUpdate/sagas";
 import watchBadgeLevelRemaining from './BadgeLevels/BadgeLevelRemainingPoints/sagas'
 import watchBadgeList from './Badges/BadgeList/sagas'
@@ -139,7 +138,6 @@ function* rootSaga() {
         watchBadgeLevelListCreation(),
         watchBadgeLevelListRemoving(),
         watchBadgeLevelListUpdate(),
-        watchBadgeLevelRemoving(),
         watchBadgeLevelRemaining(),
         watchBadgeList(),
         watchBadgeUpdate(),
