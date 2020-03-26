@@ -43,6 +43,11 @@ const initialState = {
         loading: false,
         hasError: false
     },
+    badgeLevelListRemoving: {
+        success: false,
+        loading: false,
+        hasError: false
+    },
     badgeLevelListUpdate: {
         success: false,
         loading: false,

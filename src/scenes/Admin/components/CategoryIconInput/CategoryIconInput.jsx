@@ -2,13 +2,9 @@ import React, { useEffect } from 'react'
 import { withFormsy } from 'formsy-react'
 import { CardMedia, Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import { InfoText, ErrorText } from '../../../../components'
+import {ErrorText, InfoText, LabelText, LabelErrorText} from '../../../../components'
 
 const styles = {
-    label: {
-        transform: 'scale(0.75)',
-        transformOrigin: 'top left'
-    },
     icon: {
         width: 50,
         height: 50,
@@ -42,8 +38,8 @@ const CategoryIconInput = ({ icons = [], initial, label, name, onChange, require
 
     return (
         <div>
-            { !hasError && <InfoText className={classes.label}>{finalLabel}</InfoText> }
-            { hasError && <ErrorText className={classes.label}>{finalLabel}</ErrorText> }
+            { !hasError && <LabelText>{finalLabel}</LabelText> }
+            { hasError && <LabelErrorText>{finalLabel}</LabelErrorText> }
             <Grid container spacing={1}>
                 { icons.map((icon) => {
                     const iconData = require(`../../../../assets/img/system/category/icons/${icon.name}.svg`);

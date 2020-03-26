@@ -7,6 +7,7 @@ import watchTermsAcceptance from './Account/TermsAcceptance/sagas'
 import watchBadgeDetail from './Badges/BadgeDetail/sagas'
 import watchBadgeLevelList from './BadgeLevels/BadgeLevelList/sagas'
 import watchBadgeLevelListCreation from './BadgeLevels/BadgeLevelListCreation/sagas'
+import watchBadgeLevelListRemoving from './BadgeLevels/BadgeLevelListRemoving/sagas'
 import watchBadgeLevelListUpdate from './BadgeLevels/BadgeLevelListUpdate/sagas'
 import watchBadgeLevelRemoving from './BadgeLevels/BadgeLevelRemoving/sagas'
 import watchCategoryUpdate from "./Categories/CategoryUpdate/sagas";
@@ -136,6 +137,7 @@ function* rootSaga() {
         watchBadgeDetail(),
         watchBadgeLevelList(),
         watchBadgeLevelListCreation(),
+        watchBadgeLevelListRemoving(),
         watchBadgeLevelListUpdate(),
         watchBadgeLevelRemoving(),
         watchBadgeLevelRemaining(),

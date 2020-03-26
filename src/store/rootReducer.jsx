@@ -6,6 +6,7 @@ import auth from '../services/Auth/reducer'
 import badgeDetail from '../services/Badges/BadgeDetail/reducer'
 import badgeLevelList from '../services/BadgeLevels/BadgeLevelList/reducer'
 import badgeLevelListCreation from '../services/BadgeLevels/BadgeLevelListCreation/reducer'
+import badgeLevelListRemoving from '../services/BadgeLevels/BadgeLevelListRemoving/reducer'
 import badgeLevelListUpdate from '../services/BadgeLevels/BadgeLevelListUpdate/reducer'
 import termsAcceptance from "../services/Account/TermsAcceptance/reducer";
 import badgeLevelRemoving from '../services/BadgeLevels/BadgeLevelRemoving/reducer'
@@ -135,6 +136,7 @@ const rootReducer = combineReducers({
     badgeDetail,
     badgeLevelList,
     badgeLevelListCreation,
+    badgeLevelListRemoving,
     badgeLevelListUpdate,
     badgeLevelRemoving,
     badgeLevelRemainingPoints,
