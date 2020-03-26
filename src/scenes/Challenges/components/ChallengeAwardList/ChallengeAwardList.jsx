@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {Grid, IconButton} from '@material-ui/core'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +11,7 @@ import {Select} from "../../../../components/Common/components/Inputs/components
 import {TextField} from "../../../../components/Common/components/Inputs/components/TextField";
 import {uuidv4} from '../../../../helpers/UUIDHelper'
 
-const ChallengeAwardList = ({initialAwards = [], awardTypes, initialAwardTypeId = null, challengeTypeCode, readonly, usablePoints, usablePointsLoading, ...props}) => {
+const ChallengeAwardList = ({initialAwards = [], awardTypes, initialAwardTypeId = null, challengeTypeCode, readonly, ...props}) => {
     const getInitialAwards = () => {
         if (initialAwards && initialAwards.length > 0) {
             return initialAwards.map(x => ({key: uuidv4(), points: x.points}))
@@ -25,6 +26,8 @@ const ChallengeAwardList = ({initialAwards = [], awardTypes, initialAwardTypeId 
     const [awards, setAwards] = React.useState(getInitialAwards);
     const participantName = challengeTypeCode == 'CT' ? 'équipe' : 'joueur';
     const isMaxAward = awardType == maxAwardTypeId;
+    const {points, loading} = props.challengeTypeUsablePoints;
+    const usablePoints = points ? (!isMaxAward ? points.all : points.participant) : 0;
 
     const onAddClick = () => {
         setAwards(x => x.concat([{key: uuidv4(), points: null}]))
@@ -59,8 +62,8 @@ const ChallengeAwardList = ({initialAwards = [], awardTypes, initialAwardTypeId 
                     <Card>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                { usablePointsLoading && <DefaultText>Calcul des pts utilisables...</DefaultText> }
-                                { !usablePointsLoading && <DefaultText>{usablePoints} pts utilisables</DefaultText> }
+                                { loading && <DefaultText>Calcul des pts utilisables...</DefaultText> }
+                                { !loading && <DefaultText>{usablePoints} pts utilisables</DefaultText> }
                                 <HiddenInput name='usablePoints' value={usablePoints} />
                             </Grid>
                             <Grid item xs={3}>
@@ -99,4 +102,8 @@ const ChallengeAwardList = ({initialAwards = [], awardTypes, initialAwardTypeId 
     )
 };
 
-export default ChallengeAwardList
+const mapStateToProps = ({challengeTypeUsablePoints}) => ({
+    challengeTypeUsablePoints
+});
+
+export default connect(mapStateToProps)(ChallengeAwardList)
