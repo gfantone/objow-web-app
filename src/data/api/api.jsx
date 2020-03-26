@@ -3,7 +3,6 @@ import badgeLevels from './endpoints/badgeLevels'
 import badges from './endpoints/badges'
 import categories from './endpoints/categories'
 import categoryIcons from './endpoints/categoryIcons'
-import challengeAwards from "./endpoints/challengeAwards";
 import challengeAwardTypes from "./endpoints/challengeAwardTypes";
 import challenges from './endpoints/challenges'
 import challengeImages from './endpoints/challengeImages'
@@ -52,7 +51,6 @@ const api = {
     badges,
     categories,
     categoryIcons,
-    challengeAwards,
     challengeAwardTypes,
     challenges,
     challengeImages,

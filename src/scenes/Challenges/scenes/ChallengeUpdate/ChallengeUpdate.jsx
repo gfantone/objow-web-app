@@ -135,7 +135,6 @@ class ChallengeUpdate extends MainLayoutComponent {
     };
 
     handleSubmit() {
-        const { challenge: source } = this.props.challengeDetail;
         const model = this.refs.form.getModel();
         model.start.setHours(0, 0, 0, 0);
         model.end.setHours(23, 59, 59, 0);
@@ -155,7 +154,8 @@ class ChallengeUpdate extends MainLayoutComponent {
         }
         var awards = [];
         for (var i = 0; i < model.award.length; i++) {
-            awards.push({ id: source.awards[i].id, points: model.award[i] })
+            const rank = i + 1;
+            awards.push({rank: rank, points: model.award[i], challenge: challenge.id})
         }
         this.props.challengeUpdateActions.updateChallenge(challenge, awards, goals)
     }
@@ -296,7 +296,7 @@ class ChallengeUpdate extends MainLayoutComponent {
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                        <ChallengeAwardList awards={challenge.awards} awardTypes={awardTypes} challengeTypeCode={currentTypeCode} initialAwardTypeId={challenge.award_type} readonly usablePoints={usablePoints} usablePointsLoading={challengeTypeUsablePointsLoading} />
+                        <ChallengeAwardList initialAwards={challenge.awards} awardTypes={awardTypes} challengeTypeCode={currentTypeCode} initialAwardTypeId={challenge.award_type} readonly usablePoints={usablePoints} usablePointsLoading={challengeTypeUsablePointsLoading} />
                     </Grid>
                     <Grid item xs={12} container spacing={2}>
                         <Grid item xs={12}>

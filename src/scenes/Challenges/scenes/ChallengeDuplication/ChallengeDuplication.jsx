@@ -303,7 +303,7 @@ class ChallengeDuplication extends MainLayoutComponent {
                         </Grid>
                     </Grid>
                     <Grid item xs={12} container spacing={1}>
-                        <ChallengeAwardList awards={challenge.awards} awardTypes={awardTypes} challengeTypeCode={currentTypeCode} initialAwardTypeId={challenge.award_type} usablePoints={usablePoints} usablePointsLoading={challengeTypeUsablePointsLoading} />
+                        <ChallengeAwardList initialAwards={challenge.awards} awardTypes={awardTypes} challengeTypeCode={currentTypeCode} initialAwardTypeId={challenge.award_type} usablePoints={usablePoints} usablePointsLoading={challengeTypeUsablePointsLoading} />
                     </Grid>
                     <Grid item xs={12} container spacing={2}>
                         <Grid item xs={12}>
