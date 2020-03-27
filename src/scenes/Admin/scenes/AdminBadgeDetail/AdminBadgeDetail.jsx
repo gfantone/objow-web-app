@@ -1,16 +1,16 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { Grid } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {Grid, IconButton} from '@material-ui/core'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import Formsy from 'formsy-react'
-import { SubHeader } from './components'
-import { Card, DefaultText, DefaultTitle, IconButton, InfoText, MainLayoutComponent, ProgressButton, Select, TextField } from '../../../../components'
+import {SubHeader} from './components'
+import {Card, DefaultText, DefaultTitle, InfoText, LabelText, MainLayoutComponent, ProgressButton, Select, TextField} from '../../../../components'
 import * as badgeDetailActions from '../../../../services/Badges/BadgeDetail/actions'
 import * as badgeLevelListActions from '../../../../services/BadgeLevels/BadgeLevelList/actions'
 import * as badgeLevelListCreationActions from '../../../../services/BadgeLevels/BadgeLevelListCreation/actions'
+import * as badgeLevelListRemovingActions from '../../../../services/BadgeLevels/BadgeLevelListRemoving/actions'
 import * as badgeLevelListUpdateActions from '../../../../services/BadgeLevels/BadgeLevelListUpdate/actions'
 import * as badgeLevelRemainingPointsActions from '../../../../services/BadgeLevels/BadgeLevelRemainingPoints/actions'
 import * as badgeUpdateActions from '../../../../services/Badges/BadgeUpdate/actions'
@@ -26,7 +26,9 @@ class AdminBadgeDetail extends MainLayoutComponent {
         this.state = {
             levels: []
         };
+        this.removed_level_ids = [];
         this.props.badgeLevelListCreationActions.clearBadgeLevelListCreation();
+        this.props.badgeLevelListRemovingActions.clearBadgeLevelListRemoving();
         this.props.badgeLevelListUpdateActions.clearBadgeLevelListUpdate();
         this.props.badgeUpdateActions.clearBadgeUpdate()
     }
@@ -42,7 +44,11 @@ class AdminBadgeDetail extends MainLayoutComponent {
 
     handleRemove = index => () => {
         var levels = this.state.levels;
+        const removedLevel = levels[index];
         levels.splice(index, 1);
+        if (removedLevel.id) {
+            this.removed_level_ids.push(removedLevel.id)
+        }
         this.setState({
             ...this.state,
             levels: levels
@@ -63,6 +69,7 @@ class AdminBadgeDetail extends MainLayoutComponent {
         const newLevels = levels.filter(level => level.isNew);
         this.props.badgeLevelListCreationActions.createBadgeLevelList(newLevels);
         this.props.badgeLevelListUpdateActions.updateBadgeLevelList(oldLevels);
+        this.props.badgeLevelListRemovingActions.removeBadgeLevelList(this.removed_level_ids);
         this.props.badgeUpdateActions.updateBadge(this.id, model.description)
     }
 
@@ -102,9 +109,10 @@ class AdminBadgeDetail extends MainLayoutComponent {
         const { levels } = this.props.levelList;
         const { points: remainingPoints } = this.props.badgeLevelRemainingPoints;
         const { loading: badgeLevelListCreationLoading } = this.props.badgeLevelListCreation;
+        const { loading: badgeLevelListRemovingLoading } = this.props.badgeLevelListRemoving;
         const { loading: badgeLevelListUpdateLoading } = this.props.badgeLevelListUpdate;
         const { loading: badgeUpdateLoading } = this.props.badgeUpdate;
-        const loading = badgeLevelListCreationLoading || badgeLevelListUpdateLoading || badgeUpdateLoading;
+        const loading = badgeLevelListCreationLoading || badgeLevelListRemovingLoading || badgeLevelListUpdateLoading || badgeUpdateLoading;
 
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
@@ -132,6 +140,7 @@ class AdminBadgeDetail extends MainLayoutComponent {
                     { this.state.levels.map((level, index) => {
                         const number = index + 1;
                         const disabled = level.percentage > 0;
+                        const removeButtonVisibility = disabled ? 'collapse' : 'visible';
                         return (
                             <Grid key={level.id} item container xs={12} spacing={1}>
                                 <Grid item xs={12}>
@@ -164,8 +173,13 @@ class AdminBadgeDetail extends MainLayoutComponent {
                                                 />
                                             </Grid>
                                             <Grid item xs>
-                                                <DefaultText>% de joueur l'ayant atteint</DefaultText>
+                                                <LabelText noWrap>% de joueur l'ayant atteint</LabelText>
                                                 <InfoText>{level.percentage.toFullPercentage()} %</InfoText>
+                                            </Grid>
+                                            <Grid item style={{visibility: removeButtonVisibility}}>
+                                                <IconButton size='small' style={{marginTop: 16}} onClick={this.handleRemove(index).bind(this)}>
+                                                    <FontAwesomeIcon icon={faTrashAlt} />
+                                                </IconButton>
                                             </Grid>
                                         </Grid>
                                     </Card>
@@ -186,14 +200,16 @@ class AdminBadgeDetail extends MainLayoutComponent {
         const { levels: badgeLevels, loading: badgeLevelListLoading } = this.props.badgeLevelList;
         const { points, loading: badgeLevelRemainingPointsLoading } = this.props.badgeLevelRemainingPoints;
         const { success: badgeLevelListCreationSuccess } = this.props.badgeLevelListCreation;
+        const { success: badgeLevelListRemovingSuccess } = this.props.badgeLevelListRemoving;
         const { success: badgeLevelListUpdateSuccess } = this.props.badgeLevelListUpdate;
         const { success: badgeUpdateSuccess } = this.props.badgeUpdate;
         const { levels, loading: levelListLoading } = this.props.levelList;
         const loading = badgeDetailLoading || badgeLevelListLoading || levelListLoading || badgeLevelRemainingPointsLoading;
 
-        if (badgeLevelListCreationSuccess && badgeLevelListUpdateSuccess && badgeUpdateSuccess) {
+        if (badgeLevelListCreationSuccess && badgeLevelListUpdateSuccess && badgeLevelListRemovingSuccess && badgeUpdateSuccess) {
             this.props.badgeLevelListCreationActions.clearBadgeLevelListCreation();
             this.props.badgeLevelListUpdateActions.clearBadgeLevelListUpdate();
+            this.props.badgeLevelListRemovingActions.clearBadgeLevelListRemoving();
             this.props.badgeUpdateActions.clearBadgeUpdate();
             this.props.history.goBack()
         }
@@ -206,10 +222,11 @@ class AdminBadgeDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ badgeDetail, badgeLevelList, badgeLevelListCreation, badgeLevelListUpdate, badgeLevelRemainingPoints, badgeUpdate, levelList }) => ({
+const mapStateToProps = ({ badgeDetail, badgeLevelList, badgeLevelListCreation, badgeLevelListRemoving, badgeLevelListUpdate, badgeLevelRemainingPoints, badgeUpdate, levelList }) => ({
     badgeDetail,
     badgeLevelList,
     badgeLevelListCreation,
+    badgeLevelListRemoving,
     badgeLevelListUpdate,
     badgeLevelRemainingPoints,
     badgeUpdate,
@@ -220,6 +237,7 @@ const mapDispatchToProps = (dispatch) => ({
     badgeDetailActions: bindActionCreators(badgeDetailActions, dispatch),
     badgeLevelListActions: bindActionCreators(badgeLevelListActions, dispatch),
     badgeLevelListCreationActions: bindActionCreators(badgeLevelListCreationActions, dispatch),
+    badgeLevelListRemovingActions: bindActionCreators(badgeLevelListRemovingActions, dispatch),
     badgeLevelListUpdateActions: bindActionCreators(badgeLevelListUpdateActions, dispatch),
     badgeLevelRemainingPointsActions: bindActionCreators(badgeLevelRemainingPointsActions, dispatch),
     badgeUpdateActions: bindActionCreators(badgeUpdateActions, dispatch),

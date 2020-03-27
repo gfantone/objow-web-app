@@ -1,5 +1,4 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
@@ -25,7 +24,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         this.props.handleSubHeader(<AppBarSubTitle title="Création d'un objectif" />);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
-        this.props.categoryListActions.getCategoryList();
+        this.props.categoryListActions.getActiveCategoryList();
         this.props.goalTypeListActions.getGoalTypeList();
         this.props.kpiListActions.getKpiList();
         this.props.periodicityListActions.getPeriodicityList()

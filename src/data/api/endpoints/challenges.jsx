@@ -30,6 +30,10 @@ const challenges = {
         const url = `${baseUrl}${id}/awards/`;
         return instance.get(url)
     },
+    changeAwards(id, awards) {
+        const url = `${baseUrl}${id}/change-awards/`;
+        return instance.post(url, awards)
+    },
     goals(id) {
         const url = `${baseUrl}${id}/goals/`;
         return instance.get(url)

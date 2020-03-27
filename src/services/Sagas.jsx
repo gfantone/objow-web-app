@@ -7,12 +7,14 @@ import watchTermsAcceptance from './Account/TermsAcceptance/sagas'
 import watchBadgeDetail from './Badges/BadgeDetail/sagas'
 import watchBadgeLevelList from './BadgeLevels/BadgeLevelList/sagas'
 import watchBadgeLevelListCreation from './BadgeLevels/BadgeLevelListCreation/sagas'
+import watchBadgeLevelListRemoving from './BadgeLevels/BadgeLevelListRemoving/sagas'
 import watchBadgeLevelListUpdate from './BadgeLevels/BadgeLevelListUpdate/sagas'
-import watchBadgeLevelRemoving from './BadgeLevels/BadgeLevelRemoving/sagas'
+import watchCategoryUpdate from "./Categories/CategoryUpdate/sagas";
 import watchBadgeLevelRemaining from './BadgeLevels/BadgeLevelRemainingPoints/sagas'
 import watchBadgeList from './Badges/BadgeList/sagas'
+import watchCategoryActivationUpdate from "./Categories/CategoryActivationUpdate/sagas";
 import watchBadgeUpdate from './Badges/BadgeUpdate/sagas'
-import watchCategoryIconList from './CategoryIcons/CategoryIconList/sagas'
+import {watchUsableCategoryIconList, watchUsableCategoryIconListForCategory} from './CategoryIcons/CategoryIconList/sagas'
 import watchCurrentCollaboratorBadgeSummaryList from './CollaboratorBadges/CurrentCollaboratorBadgeSummaryList/sagas'
 import watchChallengeAwardTypeList from './ChallengeAwardTypes/ChallengeAwardTypeList/sagas'
 import watchChallengeCreation from './Challanges/ChallangeCreaton/sagas'
@@ -38,7 +40,7 @@ import watchCollaboratorGeneralRankList from './CollaboratorGeneralRanks/Collabo
 import watchFreeCollaboratorList from './Collaborators/CollaboratorList/sagas'
 import watchCategoryCreation from './Categories/CategoryCreation/sagas'
 import watchCategoryDetail from './Categories/CategoryDetail/sagas'
-import watchCategoryList from './Categories/CategoryList/sagas'
+import {watchActiveCategoryList, watchInactiveCategoryList} from './Categories/CategoryList/sagas'
 import watchChallengeImageList from './ChallengeImages/ChallengeImageList/sagas'
 import watchCoachingItemUpdate from './CoachingItems/CoachingItemUpdate/sagas'
 import watchCoachingItemList from './CoachingItems/CoachingItemList/sagas'
@@ -134,12 +136,13 @@ function* rootSaga() {
         watchBadgeDetail(),
         watchBadgeLevelList(),
         watchBadgeLevelListCreation(),
+        watchBadgeLevelListRemoving(),
         watchBadgeLevelListUpdate(),
-        watchBadgeLevelRemoving(),
         watchBadgeLevelRemaining(),
         watchBadgeList(),
         watchBadgeUpdate(),
-        watchCategoryIconList(),
+        watchUsableCategoryIconList(),
+        watchUsableCategoryIconListForCategory(),
         watchChallengeTypeList(),
         watchChallengeTypeSummaryList(),
         watchTermsAcceptance(),
@@ -160,6 +163,7 @@ function* rootSaga() {
         watchCollaboratorChalengeRankListByCollaboratorChallenge(),
         watchCollaboratorChalengeRankListByTeamCollaboratorChallenge(),
         watchCollaboratorDataList(),
+        watchCategoryActivationUpdate(),
         watchCollaboratorDataUpdate(),
         watchCollaboratorGeneralRankDetail(),
         watchCollaboratorGoalRankListByCollaboratorGOal(),
@@ -168,7 +172,8 @@ function* rootSaga() {
         watchFreeCollaboratorList(),
         watchCategoryCreation(),
         watchCategoryDetail(),
-        watchCategoryList(),
+        watchActiveCategoryList(),
+        watchInactiveCategoryList(),
         watchChallengeImageList(),
         watchCoachingItemUpdate(),
         watchCoachingItemList(),
@@ -176,6 +181,7 @@ function* rootSaga() {
         watchChallengeCreation(),
         watchChallengeUpdate(),
         watchChallengeDetail(),
+        watchCategoryUpdate(),
         watchCurrentCollaboratorBadgeSummaryList(),
         watchCoachingItemListCreation(),
         watchCoachingItemListUpdate(),

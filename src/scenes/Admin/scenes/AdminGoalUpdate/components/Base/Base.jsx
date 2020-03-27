@@ -19,13 +19,13 @@ class Base extends Component {
         }
     }
     componentDidMount() {
-        this.props.categoryListActions.getCategoryList();
+        this.props.categoryListActions.getActiveCategoryList();
         this.props.goalTypeListActions.getGoalTypeList();
         this.props.kpiListActions.getKpiList();
         this.props.periodicityListActions.getPeriodicityList();
         this.props.goalDefinitionDetailActions.getGoalDefinition(this.props.id)
     }
-    
+
 
     handleKpiChange(kpi) {
         // setSelectedKpi(kpi)

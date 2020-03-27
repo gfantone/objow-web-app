@@ -23,7 +23,7 @@ class GoalFilter extends Component {
     }
 
     componentDidMount() {
-        this.props.categoryListActions.getCategoryList();
+        this.props.categoryListActions.getActiveCategoryList();
         this.props.teamListActions.getTeamList();
         this.props.currentPeriodDetailActions.getCurrentPeriodDetail();
         this.props.previousPeriodListActions.getPreviousPeriodList()

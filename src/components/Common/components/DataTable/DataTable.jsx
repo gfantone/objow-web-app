@@ -10,7 +10,7 @@ const getMuiTheme = () => createMuiTheme({
                 boxShadow: '0 2px 16px 0 rgba(16,61,92,0.25)'
             },
             responsiveScroll: {
-                maxHeight: 'none'
+                maxHeight: 'none !important'
             }
         },
     }
@@ -47,7 +47,7 @@ const DataTable = (props) => {
             }
         }
     };
-    
+
     return (
         <MuiThemeProvider theme={getMuiTheme()}>
             <MUIDataTable data={data} columns={columns} options={fullOptions} />

@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* getCategoryDetail(action) {
     try {
-        let { data: category } = yield call(api.categories.detail, action.id)
+        let { data: category } = yield call(api.categories.detail, action.id);
         yield put(getCategoryDetailSuccess(category))
     } catch(e) {
         yield put(getCategoryDetailError())

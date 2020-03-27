@@ -6,14 +6,16 @@ import auth from '../services/Auth/reducer'
 import badgeDetail from '../services/Badges/BadgeDetail/reducer'
 import badgeLevelList from '../services/BadgeLevels/BadgeLevelList/reducer'
 import badgeLevelListCreation from '../services/BadgeLevels/BadgeLevelListCreation/reducer'
+import badgeLevelListRemoving from '../services/BadgeLevels/BadgeLevelListRemoving/reducer'
 import badgeLevelListUpdate from '../services/BadgeLevels/BadgeLevelListUpdate/reducer'
 import termsAcceptance from "../services/Account/TermsAcceptance/reducer";
-import badgeLevelRemoving from '../services/BadgeLevels/BadgeLevelRemoving/reducer'
 import badgeLevelRemainingPoints from '../services/BadgeLevels/BadgeLevelRemainingPoints/reducer'
 import badgeList from '../services/Badges/BadgeList/reducer'
 import badgeUpdate from '../services/Badges/BadgeUpdate/reducer'
 import categoryCreation from '../services/Categories/CategoryCreation/reducer'
 import categoryDetail from '../services/Categories/CategoryDetail/reducer'
+import categoryUpdate from '../services/Categories/CategoryUpdate/reducer'
+import categoryActivationUpdate from '../services/Categories/CategoryActivationUpdate/reducer'
 import categoryIconList from '../services/CategoryIcons/CategoryIconList/reducer'
 import categoryList from '../services/Categories/CategoryList/reducer'
 import challengeAwardTypeList from '../services/ChallengeAwardTypes/ChallengeAwardTypeList/reducer'
@@ -133,8 +135,8 @@ const rootReducer = combineReducers({
     badgeDetail,
     badgeLevelList,
     badgeLevelListCreation,
+    badgeLevelListRemoving,
     badgeLevelListUpdate,
-    badgeLevelRemoving,
     badgeLevelRemainingPoints,
     badgeList,
     badgeUpdate,
@@ -146,8 +148,10 @@ const rootReducer = combineReducers({
     challengeAwardTypeList,
     challengeCreation,
     challengeUpdate,
+    categoryUpdate,
     challengeDetail,
     challengeImageList,
+    categoryActivationUpdate,
     challengeTypeList,
     evolutionRequest,
     challengeTypeSummaryList,
