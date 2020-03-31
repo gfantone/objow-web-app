@@ -117,9 +117,6 @@ class AdminHome extends MainLayoutComponent {
                                 <Grid item xs={12}>
                                     <Card>
                                         <Grid container spacing={2}>
-                                            <GridLink item xs={12} component={Link} to={`/admin/categories`}>
-                                                <DefaultText>Catégories</DefaultText>
-                                            </GridLink>
                                             <Grid item xs={12}>
                                                 <Formsy>
                                                     <Select name={'year'} label={'Année à configurer'} options={periods} emptyDisabled initial={periodId} optionValueName={'id'} optionTextName={'name'} fullWidth onChange={this.handleYearChange.bind(this)} />
@@ -127,6 +124,9 @@ class AdminHome extends MainLayoutComponent {
                                             </Grid>
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/points`}>
                                                 <DefaultText>Répartition générale des points</DefaultText>
+                                            </GridLink>
+                                            <GridLink item xs={12} component={Link} to={`/admin/categories`}>
+                                                <DefaultText>Catégories</DefaultText>
                                             </GridLink>
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/goals`}>
                                                 <DefaultText>Objectifs</DefaultText>
