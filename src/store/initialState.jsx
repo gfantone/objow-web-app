@@ -646,6 +646,11 @@ const initialState = {
         loading: false,
         hasError: false
     },
+    userListImport: {
+        success: false,
+        loading: false,
+        error: null
+    },
     userGoalDetail: {
         goal: null,
         ranking: null,

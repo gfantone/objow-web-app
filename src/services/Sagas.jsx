@@ -121,6 +121,7 @@ import watchTeamPlayerGoalListUpdate from './TeamPlayerGoals/TeamPlayerGoalListU
 import watchUserCreation from './Users/UserCreation/sagas'
 import watchUserDetail from './Users/UserDetail/sagas'
 import watchUserList from './Users/UserList/sagas'
+import watchUserListImport from './Users/UserListImport/sagas'
 import watchUserUpdate from './Users/UserUpdate/sagas'
 import watchUserUpdateActivation from './Users/UserUpdateActivation/sagas'
 import watchUserUpdatePassword from './Users/UserUpdatePassword/sagas'
@@ -256,6 +257,7 @@ function* rootSaga() {
         watchUserCreation(),
         watchUserDetail(),
         watchUserList(),
+        watchUserListImport(),
         watchUserUpdate(),
         watchUserUpdateActivation(),
         watchUserUpdatePassword(),

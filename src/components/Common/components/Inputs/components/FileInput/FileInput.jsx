@@ -1,7 +1,14 @@
 import React from 'react'
 import { withFormsy } from 'formsy-react'
 
+const errorStyle = {
+    color: '#f44336'
+};
+
 const FileInput = ({ accept = null, multiple, name, ...props }) => {
+    const hasError = props.isFormSubmitted && !props.isValid;
+    const style = hasError ? errorStyle : null;
+
     const handleChange = (event) => {
         const files = event.currentTarget.files;
         if (files && files.length > 0) {
@@ -22,6 +29,7 @@ const FileInput = ({ accept = null, multiple, name, ...props }) => {
                 name={name}
                 multiple={multiple}
                 onChange={handleChange}
+                style={style}
             />
         </div>
     )

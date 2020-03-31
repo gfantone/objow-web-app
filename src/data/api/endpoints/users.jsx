@@ -3,17 +3,21 @@ import instance from '../instance'
 const baseUrl = 'users/';
 
 const users = {
-    list(isActive) {
-        const url = `${baseUrl}?isActive=${isActive}`;
-        return instance.get(url)
+    create(user) {
+        user.isActive = true;
+        return instance.post(baseUrl, user)
     },
     detail(id) {
         const url = `${baseUrl}${id}/`;
         return instance.get(url)
     },
-    create(user) {
-        user.isActive = true;
-        return instance.post(baseUrl, user)
+    import(request) {
+        const url = `${baseUrl}import/`;
+        return instance.post(url, request)
+    },
+    list(isActive) {
+        const url = `${baseUrl}?isActive=${isActive}`;
+        return instance.get(url)
     },
     update(user) {
         const url = `${baseUrl}${user.id}/`;
