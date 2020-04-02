@@ -11,5 +11,7 @@ pipelines:
         caches:
           - node
         script: # Modify the commands below to build your repository.
+          - pwd
+          - ls -al
           - yarn install
           - yarn build
