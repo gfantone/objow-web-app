@@ -20,3 +20,8 @@ pipelines:
           - tar -czvf packaged/package-${BITBUCKET_BUILD_NUMBER}.tar.gz -C build .
         artifacts:
           - packaged/**
+    - step:
+        name: Deploy to test
+        deployment: test
+        script:
+          - echo "Deploying to test environment"
