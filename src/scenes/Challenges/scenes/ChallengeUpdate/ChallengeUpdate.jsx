@@ -1,12 +1,12 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {CardMedia, Grid, IconButton, Tooltip} from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {withStyles} from '@material-ui/core/styles'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faInfoCircle, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
-import { ImageInput } from '../../components'
+import {ChallengeAwardList, ImageInput} from '../../components'
 import '../../../../helpers/NumberHelper'
 import '../../../../helpers/DateHelper'
 import '../../../../helpers/FormsyHelper'
@@ -38,7 +38,6 @@ class ChallengeUpdate extends MainLayoutComponent {
             start: null,
             end: null,
             type: null,
-            awardType: null,
             image: null,
             goals: [{ key: this.key, category: null, kpi: null, goalName: null, target: null, points: null }]
         };
@@ -54,7 +53,7 @@ class ChallengeUpdate extends MainLayoutComponent {
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
         this.props.challengeAwardTypeListActions.getChallengeAwardTypeList();
-        this.props.categoryListActions.getCategoryList();
+        this.props.categoryListActions.getActiveCategoryList();
         this.props.challengeDetailActions.getChallengeDetail(id);
         this.props.challengeTypeUsablePointsActions.getChallengeTypeUsablePointsByChallenge(id);
         this.props.challengeImageListActions.getChallengeImageList();
@@ -108,13 +107,6 @@ class ChallengeUpdate extends MainLayoutComponent {
         })
     };
 
-    handleAwardTypeChange(type) {
-        this.setState({
-            ...this.state,
-            awardType: type
-        })
-    }
-
     handleImageChange(image) {
         this.setState({
             ...this.state,
@@ -143,7 +135,6 @@ class ChallengeUpdate extends MainLayoutComponent {
     };
 
     handleSubmit() {
-        const { challenge: source } = this.props.challengeDetail;
         const model = this.refs.form.getModel();
         model.start.setHours(0, 0, 0, 0);
         model.end.setHours(23, 59, 59, 0);
@@ -163,7 +154,8 @@ class ChallengeUpdate extends MainLayoutComponent {
         }
         var awards = [];
         for (var i = 0; i < model.award.length; i++) {
-            awards.push({ id: source.awards[i].id, points: model.award[i] })
+            const rank = i + 1;
+            awards.push({rank: rank, points: model.award[i], challenge: challenge.id})
         }
         this.props.challengeUpdateActions.updateChallenge(challenge, awards, goals)
     }
@@ -233,7 +225,6 @@ class ChallengeUpdate extends MainLayoutComponent {
         const { challenge } = this.props.challengeDetail;
         const { images } = this.props.challengeImageList;
         const { loading } = this.props.challengeUpdate;
-        const { points, loading: challengeTypeUsablePointsLoading } = this.props.challengeTypeUsablePoints;
         var { types } = this.props.challengeTypeList;
         const { period } = this.props.currentPeriodDetail;
         const today = new Date();
@@ -242,132 +233,83 @@ class ChallengeUpdate extends MainLayoutComponent {
         const endMinDate = this.state.start ? this.state.start : today;
         const image = this.state.image ? images.find(x => x.id == this.state.image) : images.find(x => x.id == challenge.image.id);
         const imagePath = image ? image.path : null;
-        const isMaxAward = this.state.awardType == awardTypes[0].id;
-        const isRankingAward = this.state.awardType == awardTypes[1].id;
-        const usablePoints = points ? (!isMaxAward ? points.all : points.participant) : 0;
         const currentType = types.find(x => x.id == this.state.type);
-        const participantName = currentType && currentType.code == 'CT' ? 'équipe' : 'joueur';
+        const currentTypeCode = currentType ? currentType.code : null;
 
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
                 <Grid container spacing={4}>
-                    <Grid item xs={12} container spacing={1}>
-                        <Grid item xs={12}>
-                            <DefaultTitle>Informations</DefaultTitle>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Card>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={8}>
-                                        <div>
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={12}>
-                                                    <TextField name='name' label='Nom' fullWidth required initial={challenge.name}
-                                                               validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
-                                                    />
+                    <Grid item xs={12}>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <DefaultTitle>Informations</DefaultTitle>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Card>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={8}>
+                                            <div>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={12}>
+                                                        <TextField name='name' label='Nom' fullWidth required initial={challenge.name}
+                                                                   validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                        />
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <TextField name='description' label='Description' fullWidth multiline required initial={challenge.description}
+                                                                   validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                        />
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={12}>
-                                                    <TextField name='description' label='Description' fullWidth multiline required initial={challenge.description}
-                                                               validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
-                                                    />
+                                            </div>
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            { !imagePath && <Grid container justify={'center'} alignItems={'center'} style={{height: '100%'}}>
+                                                <Grid item>
+                                                    <InfoText align={'center'}>Aucune image sélectionée</InfoText>
                                                 </Grid>
-                                            </Grid>
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        { !imagePath && <Grid container justify={'center'} alignItems={'center'} style={{height: '100%'}}>
-                                            <Grid item>
-                                                <InfoText align={'center'}>Aucune image sélectionée</InfoText>
-                                            </Grid>
-                                        </Grid> }
-                                        { imagePath && <CardMedia image={imagePath} className={classes.image} /> }
-                                    </Grid>
-                                    <Grid item xs={3}>
-                                        <DatePicker name='start' label='Début' format='dd/MM/yyyy' initial={this.state.start} onChange={this.handlePeriodChange('start').bind(this)} minDate={startMinDate} maxDate={startMaxDate} clearable fullWidth required
+                                            </Grid> }
+                                            { imagePath && <CardMedia image={imagePath} className={classes.image} /> }
+                                        </Grid>
+                                        <Grid item xs={3}>
+                                            <DatePicker name='start' label='Début' format='dd/MM/yyyy' initial={this.state.start} onChange={this.handlePeriodChange('start').bind(this)} minDate={startMinDate} maxDate={startMaxDate} clearable fullWidth required
+                                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={3}>
+                                            <DatePicker name='end' label='Fin' format='dd/MM/yyyy' initial={this.state.end} onChange={this.handlePeriodChange('end').bind(this)} minDate={endMinDate} maxDate={period.end.toDate2()} clearable fullWidth required
+                                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <Select name='type' label='Type' options={types} initial={this.state.type} onChange={this.handlePeriodChange('type').bind(this)} optionValueName='id' optionTextName='name' fullWidth required disabled
                                                     validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
-                                        />
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <ImageInput name={'image'} label={'Sélectionner une image...'} images={images} onChange={this.handleImageChange.bind(this)} required initial={challenge.image.id} />
+                                        </Grid>
                                     </Grid>
-                                    <Grid item xs={3}>
-                                        <DatePicker name='end' label='Fin' format='dd/MM/yyyy' initial={this.state.end} onChange={this.handlePeriodChange('end').bind(this)} minDate={endMinDate} maxDate={period.end.toDate2()} clearable fullWidth required
-                                                    validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Select name='type' label='Type' options={types} initial={this.state.type} onChange={this.handlePeriodChange('type').bind(this)} optionValueName='id' optionTextName='name' fullWidth required disabled
-                                                validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <ImageInput name={'image'} label={'Sélectionner une image...'} images={images} onChange={this.handleImageChange.bind(this)} required initial={challenge.image.id} />
-                                    </Grid>
-                                </Grid>
-                            </Card>
+                                </Card>
+                            </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} container spacing={1}>
-                        <Grid item xs={12}>
-                            <DefaultTitle>Récompenses</DefaultTitle>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Card>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        { challengeTypeUsablePointsLoading && <DefaultText>Calcul des pts utilisables...</DefaultText> }
-                                        { !challengeTypeUsablePointsLoading && <DefaultText>{usablePoints} pts utilisables</DefaultText> }
-                                        <HiddenInput name='usablePoints' value={usablePoints} />
-                                    </Grid>
-                                    <Grid item xs={3}>
-                                        <Select name='awardType' label='Type' options={awardTypes} initial={challenge.award_type} emptyDisabled onChange={this.handleAwardTypeChange.bind(this)} optionValueName='id' optionTextName='name' fullWidth required disabled
-                                                validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
-                                        />
-                                    </Grid>
-                                    { isMaxAward && <Grid item xs={3}>
-                                        <TextField name='award[0]' label={`Maximum / ${participantName}`} fullWidth required initial={challenge.awards[0].points}
-                                                   validations='isLessThanOrEquals:usablePoints'
-                                                   validationErrors={{
-                                                       isDefaultRequiredValue: 'Ce champ est requis.',
-                                                       isLessThanOrEquals: 'La récompense est trop élevée'
-                                                   }}
-                                        />
-                                    </Grid> }
-                                    { isRankingAward && <Grid item xs={3}>
-                                        <TextField name='award[0]' label={`Gain ${participantName} #1`} fullWidth required initial={challenge.awards[0].points}
-                                                   validations='isRankingValid'
-                                                   validationErrors={{
-                                                       isDefaultRequiredValue: 'Ce champ est requis.',
-                                                       isRankingValid: 'La récompense est trop élevée'
-                                                   }}
-                                        />
-                                    </Grid> }
-                                    { isRankingAward && <Grid item xs={3}>
-                                        <TextField name='award[1]' label={`Gain ${participantName} #2`} fullWidth required initial={challenge.awards[1].points}
-                                                   validations='isRankingValid'
-                                                   validationErrors={{
-                                                       isDefaultRequiredValue: 'Ce champ est requis.',
-                                                       isRankingValid: 'La récompense est trop élevée'
-                                                   }}
-                                        />
-                                    </Grid> }
-                                    { isRankingAward && <Grid item xs={3}>
-                                        <TextField name='award[2]' label={`Gain ${participantName} #3`} fullWidth required initial={challenge.awards[2].points}
-                                                   validations='isRankingValid'
-                                                   validationErrors={{
-                                                       isDefaultRequiredValue: 'Ce champ est requis.',
-                                                       isRankingValid: 'La récompense est trop élevée'
-                                                   }}
-                                        />
-                                    </Grid> }
-                                </Grid>
-                            </Card>
-                        </Grid>
+                    <Grid item xs={12}>
+                        <ChallengeAwardList initialAwards={challenge.awards} awardTypes={awardTypes} challengeTypeCode={currentTypeCode} initialAwardTypeId={challenge.award_type} readonly />
                     </Grid>
-                    <Grid item xs={12} container spacing={2}>
-                        <Grid item xs={12}>
-                            <DefaultTitle>Indicateurs</DefaultTitle>
+                    <Grid item xs={12}>
+                        <Grid container spacing={1}>
+                            <Grid item xs={12}>
+                                <DefaultTitle>Indicateurs</DefaultTitle>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Grid container spacing={2}>
+                                    { this.state.goals.map((goal, index) => {
+                                        return this.renderGoal(index, goal)
+                                    }) }
+                                </Grid>
+                            </Grid>
                         </Grid>
-                        { this.state.goals.map((goal, index) => {
-                            return this.renderGoal(index, goal)
-                        }) }
                     </Grid>
                     <Grid item xs={12}>
                         <ProgressButton type='submit' text='Valider' loading={loading} centered />
@@ -402,7 +344,7 @@ class ChallengeUpdate extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ accountDetail, categoryList, challengeAwardTypeList, challengeUpdate, challengeDetail, challengeImageList, challengeTypeList, challengeTypeUsablePoints, kpiList, currentPeriodDetail }) => ({
+const mapStateToProps = ({ accountDetail, categoryList, challengeAwardTypeList, challengeUpdate, challengeDetail, challengeImageList, challengeTypeList, kpiList, currentPeriodDetail }) => ({
     accountDetail,
     categoryList,
     challengeAwardTypeList,
@@ -410,7 +352,6 @@ const mapStateToProps = ({ accountDetail, categoryList, challengeAwardTypeList, 
     challengeDetail,
     challengeImageList,
     challengeTypeList,
-    challengeTypeUsablePoints,
     kpiList,
     currentPeriodDetail
 });

@@ -1,4 +1,5 @@
 export * from './Challenge'
+export * from './ChallengeAwardList'
 export * from './ChallengeCard'
 export * from './ChallengeCondition'
 export * from './ChallengeFilter'

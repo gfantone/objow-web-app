@@ -3,17 +3,29 @@ import {getCategoryListSuccess, getCategoryListError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
 
-function* getCategoryList(action) {
+function* getActiveCategoryList(action) {
     try {
-        let {data: categories} = yield call(api.categories.list)
+        let {data: categories} = yield call(api.categories.active);
         yield put(getCategoryListSuccess(categories))
     } catch(e) {
         yield put(getCategoryListError())
     }
 }
 
-function* watchCategoryList() {
-    yield takeEvery(types.GET_CATEGORY_LIST, getCategoryList)
+function* getInactiveCategoryList(action) {
+    try {
+        let {data: categories} = yield call(api.categories.inactive);
+        yield put(getCategoryListSuccess(categories))
+    } catch(e) {
+        yield put(getCategoryListError())
+    }
 }
 
-export default watchCategoryList
+export function* watchActiveCategoryList() {
+    yield takeEvery(types.GET_ACTIVE_CATEGORY_LIST, getActiveCategoryList)
+}
+
+export function* watchInactiveCategoryList() {
+    yield takeEvery(types.GET_INACTIVE_CATEGORY_LIST, getInactiveCategoryList)
+}
+

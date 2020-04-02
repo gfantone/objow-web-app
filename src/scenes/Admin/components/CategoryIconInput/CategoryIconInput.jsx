@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { withFormsy } from 'formsy-react'
 import { CardMedia, Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import { InfoText, ErrorText } from '../../../../../../components'
+import {ErrorText, InfoText, LabelText, LabelErrorText} from '../../../../components'
 
 const styles = {
     icon: {
@@ -17,37 +17,36 @@ const styles = {
         width: 50,
         height: 50
     }
-}
+};
 
-const IconInput = ({ icons = [], initial, label, name, onChange, required, ...props }) => {
-    const { classes } = props
-    const [value, setValue] = React.useState(initial)
-    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null
-    const hasError = !(!props.isFormSubmitted && value == null || props.isValid)
-    const finalLabel = required ? `${label} *` : label
+const CategoryIconInput = ({ icons = [], initial, label, name, onChange, required, ...props }) => {
+    const { classes } = props;
+    const [value, setValue] = React.useState(initial);
+    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null;
+    const hasError = !(!props.isFormSubmitted && value == null || props.isValid);
+    const finalLabel = required ? `${label} *` : label;
 
     useEffect(() => {
         props.setValue(initial)
-    }, [])
+    }, []);
 
     const handleValue = value => () => {
-        props.setValue(value)
-        setValue(value)
+        props.setValue(value);
+        setValue(value);
         if (onChange) onChange(value)
-    }
+    };
 
     return (
         <div>
-            { !hasError && <InfoText>{finalLabel}</InfoText> }
-            { hasError && <ErrorText>{finalLabel}</ErrorText> }
+            { !hasError && <LabelText>{finalLabel}</LabelText> }
+            { hasError && <LabelErrorText>{finalLabel}</LabelErrorText> }
             <Grid container spacing={1}>
                 { icons.map((icon) => {
-                    const iconData = require(`../../../../../../assets/img/system/category/icons/${icon.name}.svg`)
-                    const selected = icon.id == value
+                    const iconData = require(`../../../../assets/img/system/category/icons/${icon.name}.svg`);
+                    const selected = icon.id == value;
                     return (
                         <Grid key={icon.id} item onClick={handleValue(icon.id)}>
                             <CardMedia image={iconData} className={selected ? classes.selectedIcon : classes.icon} />
-                            {/* <div className={selected ? classes.selectedColor : classes.color} style={{backgroundColor: color.hex}}></div> */}
                         </Grid>
                     )
                 }) }
@@ -56,6 +55,6 @@ const IconInput = ({ icons = [], initial, label, name, onChange, required, ...pr
             { hasError && <ErrorText>{errorMessage}</ErrorText> }
         </div>
     )
-}
+};
 
-export default withStyles(styles)(withFormsy(IconInput))
+export default withStyles(styles)(withFormsy(CategoryIconInput))

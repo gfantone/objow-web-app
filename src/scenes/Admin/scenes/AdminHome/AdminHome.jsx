@@ -122,22 +122,25 @@ class AdminHome extends MainLayoutComponent {
                                                     <Select name={'year'} label={'Année à configurer'} options={periods} emptyDisabled initial={periodId} optionValueName={'id'} optionTextName={'name'} fullWidth onChange={this.handleYearChange.bind(this)} />
                                                 </Formsy>
                                             </Grid>
-                                            <GridLink item xs ={12} component={Link} to={`/admin/periods/${periodId}/points`}>
+                                            <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/points`}>
                                                 <DefaultText>Répartition générale des points</DefaultText>
                                             </GridLink>
-                                            <GridLink item xs ={12} component={Link} to={`/admin/periods/${periodId}/goals`}>
+                                            <GridLink item xs={12} component={Link} to={`/admin/categories`}>
+                                                <DefaultText>Catégories</DefaultText>
+                                            </GridLink>
+                                            <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/goals`}>
                                                 <DefaultText>Objectifs</DefaultText>
                                             </GridLink>
-                                            <GridLink item xs ={12} component={Link} to={`/admin/periods/${periodId}/goal-levels`}>
+                                            <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/goal-levels`}>
                                                 <DefaultText>Points</DefaultText>
                                             </GridLink>
-                                            <GridLink item xs ={12} component={Link} to={`/admin/periods/${periodId}/challenges`}>
+                                            <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/challenges`}>
                                                 <DefaultText>Challenges</DefaultText>
                                             </GridLink>
-                                            <GridLink item xs ={12} component={Link} to={`/admin/periods/${periodId}/badges`}>
+                                            <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/badges`}>
                                                 <DefaultText>Défis</DefaultText>
                                             </GridLink>
-                                            <GridLink item xs ={12} component={Link} to={`/admin/periods/${periodId}/levels`}>
+                                            <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/levels`}>
                                                 <DefaultText>Level</DefaultText>
                                             </GridLink>
                                         </Grid>

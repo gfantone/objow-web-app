@@ -43,6 +43,11 @@ const initialState = {
         loading: false,
         hasError: false
     },
+    badgeLevelListRemoving: {
+        success: false,
+        loading: false,
+        hasError: false
+    },
     badgeLevelListUpdate: {
         success: false,
         loading: false,
@@ -50,11 +55,6 @@ const initialState = {
     },
     badgeLevelRemainingPoints: {
         points: null,
-        loading: false,
-        hasError: false
-    },
-    badgeLevelRemoving: {
-        success: false,
         loading: false,
         hasError: false
     },
@@ -78,13 +78,23 @@ const initialState = {
         loading: false,
         hasError: false
     },
+    categoryActivationUpdate: {
+        success: false,
+        loading: false,
+        hasError: false
+    },
+    categoryUpdate: {
+        success: false,
+        loading: false,
+        hasError: false
+    },
     categoryIconList: {
         icons: null,
         loading: false,
         hasError: false
     },
     categoryList: {
-        categories: [],
+        categories: null,
         loading: false,
         hasError: false
     },

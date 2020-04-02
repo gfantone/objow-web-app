@@ -39,12 +39,13 @@ class AdminBadgeList extends MainLayoutComponent {
         const { badges } = this.props.badgeList;
         const { points: remainingPoints } = this.props.badgeLevelRemainingPoints;
         var columns = [
-            { name: 'id', options: { display: false } },
+            { name: 'id', options: { display: false, filter: false } },
             { name: 'code', label: 'Icône', options: {
                 customBodyRender: value => {
                     const iconData = require(`../../../../assets/img/system/badge/icons/${value}.svg`);
                     return <CardMedia image={iconData} className={classes.icon} />
-                }
+                },
+                filter: false
             } },
             { name: 'privateTitle', label: 'Défis' },
             { name: 'levels', label: 'Nombre de rang' },
