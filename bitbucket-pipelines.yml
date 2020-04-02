@@ -16,3 +16,7 @@ pipelines:
           - ls -al
           - npm install
           - npm run-script build
+          - mkdir packaged
+          - tar -czvf packaged/package-${BITBUCKET_BUILD_NUMBER}.tar.gz -C build .
+        artifacts:
+          - packaged/**
