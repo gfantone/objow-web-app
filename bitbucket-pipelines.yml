@@ -15,24 +15,16 @@ pipelines:
           script:
             - npm install
             - CI=false npm run-script build
-            - mkdir packaged
-            - tar -czvf packaged/package-${BITBUCKET_BUILD_NUMBER}.tar.gz -C build .
           artifacts:
-            - packaged/**
+            - build/**
       - step:
           name: Deploy to internal test
           deployment: test
           script:
             - echo "Deploying to test environment"
-      - step:
-          name: Deploy notification for internal test
-          script:
-            - pipe: atlassian/email-notify:0.3.9
+            - pipe: atlassian/scp-deploy:0.3.10
               variables:
-                USERNAME: "jorislenclume@alwaysdata.net"
-                PASSWORD: "J0r1s@dev"
-                FROM: "no-reply@jorislenclume.com"
-                TO: "jlenclume@icloud.com"
-                HOST: "smtp-jorislenclume.alwaysdata.net"
-                PORT: "25"
-                TLS: "false"
+                USER: "jorislenclume"
+                SERVER: "ssh-jorislenclume.alwaysdata.net"
+                REMOTE_PATH: "/www/test/firetiger/app"
+                LOCAL_PATH: "build/*"
