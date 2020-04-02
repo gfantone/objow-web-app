@@ -37,4 +37,3 @@ pipelines:
                 PORT: "25"
                 TLS: "false"
                 SUBJECT: "[Message automatique] Notification de mise à jour"
-                BODY_PLAIN: "L'application de test vient d'être mise à jour."
