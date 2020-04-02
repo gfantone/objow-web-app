@@ -36,3 +36,4 @@ pipelines:
                 SERVER: "ssh-jorislenclume.alwaysdata.net"
                 REMOTE_PATH: "www/test/firetiger/app/"
                 LOCAL_PATH: "build/*"
+                EXTRA_ARGS: "-rp"
