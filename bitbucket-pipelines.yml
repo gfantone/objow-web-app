@@ -30,10 +30,10 @@ pipelines:
           deployment: test
           script:
             - echo "Deploying to test environment"
-            - pipe: atlassian/scp-deploy:0.3.10
+            - pipe: atlassian/rsync-deploy:0.4.1
               variables:
                 USER: "jorislenclume"
                 SERVER: "ssh-jorislenclume.alwaysdata.net"
                 REMOTE_PATH: "www/test/firetiger/app/"
                 LOCAL_PATH: "build/*"
-                EXTRA_ARGS: "-rp"
+                EXTRA_ARGS: "-av"
