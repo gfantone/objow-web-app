@@ -26,5 +26,5 @@ pipelines:
               variables:
                 USER: "jorislenclume"
                 SERVER: "ssh-jorislenclume.alwaysdata.net"
-                REMOTE_PATH: "/www/test/firetiger/app"
+                REMOTE_PATH: "$HOME/www/test/firetiger/app"
                 LOCAL_PATH: "build/*"
