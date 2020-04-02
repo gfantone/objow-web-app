@@ -8,10 +8,11 @@ image: node:10.15.3
 pipelines:
   default:
     - step:
+        name: Build
         caches:
           - node
         script: # Modify the commands below to build your repository.
           - pwd
           - ls -al
-          - yarn install
-          - yarn build
+          - npm install
+          - npm run-script build
