@@ -19,7 +19,6 @@ pipelines:
             - build/**
       - step:
           name: Clean internal test server
-          deployment: test
           script:
             - pipe: atlassian/ssh-run:0.2.4
               variables:
