@@ -24,3 +24,17 @@ pipelines:
           deployment: test
           script:
             - echo "Deploying to test environment"
+      - step:
+          name: Deploy notification for internal test
+          script:
+            - pipe: atlassian/email-notify:0.3.9
+              variables:
+                USERNAME: "jorislenclume@alwaysdata.net"
+                PASSWORD: "J0r1s@dev"
+                FROM: "no-reply@jorislenclume.com"
+                TO: "jlenclume@icloud.com"
+                HOST: "smtp-jorislenclume.alwaysdata.net"
+                PORT: "25"
+                TLS: "false"
+                SUBJECT: "[Message automatique] Notification de mise à jour"
+                BODY_PLAIN: "L'application de test vient d'être mise à jour."
