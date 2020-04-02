@@ -18,6 +18,15 @@ pipelines:
           artifacts:
             - build/**
       - step:
+          name: Clean internal test server
+          deployment: test
+          script:
+            - pipe: atlassian/ssh-run:0.2.4
+              variables:
+                SSH_USER: "jorislenclume"
+                SERVER: "ssh-jorislenclume.alwaysdata.net"
+                COMMAND: "rm -rf www/test/firetiger/app/*"
+      - step:
           name: Deploy to internal test
           deployment: test
           script:
