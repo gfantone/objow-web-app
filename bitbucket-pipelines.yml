@@ -36,4 +36,3 @@ pipelines:
                 HOST: "smtp-jorislenclume.alwaysdata.net"
                 PORT: "25"
                 TLS: "false"
-                SUBJECT: "[Message automatique] Notification de mise à jour"
