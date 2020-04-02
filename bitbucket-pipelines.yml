@@ -6,22 +6,21 @@
 image: node:12.16.1
 
 pipelines:
-  default:
-    - step:
-        name: Build
-        caches:
-          - node
-        script: # Modify the commands below to build your repository.
-          - pwd
-          - ls -al
-          - npm install
-          - CI=false npm run-script build
-          - mkdir packaged
-          - tar -czvf packaged/package-${BITBUCKET_BUILD_NUMBER}.tar.gz -C build .
-        artifacts:
-          - packaged/**
-    - step:
-        name: Deploy to test
-        deployment: test
-        script:
-          - echo "Deploying to test environment"
+  branches:
+    master:
+      - step:
+          name: Build for internal test
+          caches:
+            - node
+          script:
+            - npm install
+            - CI=false npm run-script build
+            - mkdir packaged
+            - tar -czvf packaged/package-${BITBUCKET_BUILD_NUMBER}.tar.gz -C build .
+          artifacts:
+            - packaged/**
+      - step:
+          name: Deploy to internal test
+          deployment: test
+          script:
+            - echo "Deploying to test environment"
