@@ -11,4 +11,4 @@ pipelines:
                variables:
                  SSH_USER: "jorislenclume"
                  SERVER: "ssh-jorislenclume.alwaysdata.net"
-                 COMMAND: "cd www/test/firetiger/app/ && yarn"
+                 COMMAND: "yarn"
