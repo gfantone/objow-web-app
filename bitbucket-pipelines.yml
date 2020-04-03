@@ -9,17 +9,6 @@ pipelines:
   branches:
     master:
       - step:
-          name: Build for internal test
-          caches:
-            - node
-          script:
-            - npm install
-            - CI=false npm run-script build
-            - CI=false npm run-script build
-            - ls -hal build
-          artifacts:
-            - build/**
-      - step:
           name: Deploy to internal test
           deployment: test
           script:
@@ -29,10 +18,4 @@ pipelines:
               variables:
                 SSH_USER: "jorislenclume"
                 SERVER: "ssh-jorislenclume.alwaysdata.net"
-                COMMAND: "rm -rf www/test/firetiger/app/*"
-            - pipe: atlassian/rsync-deploy:0.4.1
-              variables:
-                USER: "jorislenclume"
-                SERVER: "ssh-jorislenclume.alwaysdata.net"
-                REMOTE_PATH: "www/test/firetiger/app/"
-                LOCAL_PATH: "build/"
+                COMMAND: "git clone https://jorislenclume@bitbucket.org/jorislenclume/fire-tiger-web-app.git -b master www/test/firetiger/app/"
