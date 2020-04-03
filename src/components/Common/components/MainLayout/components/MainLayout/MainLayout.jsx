@@ -66,12 +66,12 @@ const MainLayout = ({component: Component, history, ...rest}) => {
     const [maxWidth, setMaxWidth] = React.useState(DEFAULT_MAX_WIDTH);
     const [subHeader, setSubHeader] = React.useState(DEFAULT_SUB_HEADER);
     const [title, setTitle] = React.useState(DEFAULT_TITLE);
-    const { isLatestVersion } = useClearCache();
+    // const { isLatestVersion } = useClearCache();
 
-    if (!isLatestVersion) {
-        localStorage.clear();
-        window.location = '/'
-    }
+    // if (!isLatestVersion) {
+    //     localStorage.clear();
+    //     window.location = '/'
+    // }
 
     function activateReturn() {
         if (history.length > 1) {
