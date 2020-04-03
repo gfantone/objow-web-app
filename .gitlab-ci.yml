@@ -6,8 +6,8 @@ build:
     stage: build
     script:
         - echo "Building deploy package"
-        - yarn install
-        - yarn build
+        - yarn
+        - CI=false yarn build
         - echo "Build successful"
     artifacts:
         expire_in: 1 hour
