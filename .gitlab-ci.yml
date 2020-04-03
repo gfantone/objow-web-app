@@ -1,7 +1,10 @@
 image: "node:12.16.1"
 
+before_script:
+    - apt-get install lftp
 stages:
     - build
+    - deploy
 build:
     stage: build
     script:
@@ -13,3 +16,9 @@ build:
         expire_in: 1 hour
         paths:
             - build
+deploy_internal:
+    stage: deploy
+    script:
+        - echo "Deploy package"
+        - lftp -e "mirror -R build/* www/test/firetiger/app/" -u $JORISLENCLUME_FTP_USER,$JORISLENCLUME_FTP_PASSWORD $JORISLENCLUME_FTP_UURL
+        - echo "Deploy successful"
