@@ -32,7 +32,6 @@ const Layout = ({component: Component, ...rest}) => {
     const { isLatestVersion, emptyCacheStorage } = useClearCache();
 
     if (!isLatestVersion) {
-        alert('clear cache...');
         emptyCacheStorage()
     }
 

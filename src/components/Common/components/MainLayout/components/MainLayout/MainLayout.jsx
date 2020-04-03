@@ -69,7 +69,6 @@ const MainLayout = ({component: Component, history, ...rest}) => {
     const { isLatestVersion } = useClearCache();
 
     if (!isLatestVersion) {
-        alert('logout...');
         localStorage.clear();
         window.location = '/'
     }
