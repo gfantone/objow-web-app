@@ -1,12 +1,9 @@
-image: "node:12.16.1"
-
-before_script:
-    - apt-get install lftp
 stages:
     - build
     - deploy
 build:
     stage: build
+    image: node:latest
     script:
         - echo "Building deploy package"
         - yarn
@@ -18,6 +15,7 @@ build:
             - build
 deploy_internal:
     stage: deploy
+    image: mwienk/docker-lftp:latest
     script:
         - echo "Deploy package"
         - lftp -e "mirror -R build/* www/test/firetiger/app/" -u $JORISLENCLUME_FTP_USER,$JORISLENCLUME_FTP_PASSWORD $JORISLENCLUME_FTP_UURL
