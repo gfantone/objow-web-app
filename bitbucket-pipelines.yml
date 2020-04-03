@@ -15,6 +15,7 @@ pipelines:
           script:
             - npm install
             - CI=false npm run-script build
+            - CI=false npm run-script build
             - ls -hal build
           artifacts:
             - build/**
