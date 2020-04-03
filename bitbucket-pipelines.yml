@@ -13,9 +13,9 @@ pipelines:
           caches:
             - node
           script:
-            - ls -hal build
             - npm install
             - CI=false npm run-script build
+            - ls -hal build
           artifacts:
             - build/**
       - step:
