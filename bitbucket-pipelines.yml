@@ -1,8 +1,3 @@
-# This is a sample build configuration for JavaScript.
-# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
-# Only use spaces to indent your .yml configuration.
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
 image: node:12.16.1
 
 pipelines:
@@ -16,24 +11,4 @@ pipelines:
                variables:
                  SSH_USER: "jorislenclume"
                  SERVER: "ssh-jorislenclume.alwaysdata.net"
-                 COMMAND: "rm -rf www/test/firetiger/app/ && mkdir www/test/firetiger/app/"
-             - pipe: atlassian/ssh-run:0.2.4
-               variables:
-                 SSH_USER: "jorislenclume"
-                 SERVER: "ssh-jorislenclume.alwaysdata.net"
-                 COMMAND: "git clone https://jorislenclume:R3sh1ram@bitbucket.org/jorislenclume/fire-tiger-web-app.git -b master www/test/firetiger/app/"
-             - pipe: atlassian/ssh-run:0.2.4
-               variables:
-                 SSH_USER: "jorislenclume"
-                 SERVER: "ssh-jorislenclume.alwaysdata.net"
-                 COMMAND: "npm install --global yarn"
-             - pipe: atlassian/ssh-run:0.2.4
-               variables:
-                 SSH_USER: "jorislenclume"
-                 SERVER: "ssh-jorislenclume.alwaysdata.net"
                  COMMAND: "cd www/test/firetiger/app/ && yarn"
-             - pipe: atlassian/ssh-run:0.2.4
-               variables:
-                 SSH_USER: "jorislenclume"
-                 SERVER: "ssh-jorislenclume.alwaysdata.net"
-                 COMMAND: "cd www/test/firetiger/app/ && yarn build"
