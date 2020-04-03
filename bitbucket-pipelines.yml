@@ -12,8 +12,28 @@ pipelines:
           name: Deploy to internal test
           deployment: test
           script:
-            - pipe: atlassian/ssh-run:0.2.4
-              variables:
-                SSH_USER: "jorislenclume"
-                SERVER: "ssh-jorislenclume.alwaysdata.net"
-                COMMAND: "cd www/test/firetiger/app/ && git pull origin https://jorislenclume:R3sh1ram@bitbucket.org/jorislenclume/fire-tiger-web-app.git -b master"
+             - pipe: atlassian/ssh-run:0.2.4
+               variables:
+                 SSH_USER: "jorislenclume"
+                 SERVER: "ssh-jorislenclume.alwaysdata.net"
+                 COMMAND: "rm -rf www/test/firetiger/app/ && mkdir www/test/firetiger/app/"
+             - pipe: atlassian/ssh-run:0.2.4
+               variables:
+                 SSH_USER: "jorislenclume"
+                 SERVER: "ssh-jorislenclume.alwaysdata.net"
+                 COMMAND: "git clone https://jorislenclume:R3sh1ram@bitbucket.org/jorislenclume/fire-tiger-web-app.git -b master"
+             - pipe: atlassian/ssh-run:0.2.4
+               variables:
+                 SSH_USER: "jorislenclume"
+                 SERVER: "ssh-jorislenclume.alwaysdata.net"
+                 COMMAND: "npm install --global yarn"
+             - pipe: atlassian/ssh-run:0.2.4
+               variables:
+                 SSH_USER: "jorislenclume"
+                 SERVER: "ssh-jorislenclume.alwaysdata.net"
+                 COMMAND: "cd www/test/firetiger/app/ && yarn"
+             - pipe: atlassian/ssh-run:0.2.4
+               variables:
+                 SSH_USER: "jorislenclume"
+                 SERVER: "ssh-jorislenclume.alwaysdata.net"
+                 COMMAND: "cd www/test/firetiger/app/ && yarn build"
