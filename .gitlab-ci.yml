@@ -17,6 +17,8 @@ build:
 deploy_internal:
     stage: deploy
     image: mwienk/docker-lftp:latest
+    only:
+        - master
     script:
         - echo "Deploy package"
         - lftp -e "set ftp:ssl-allow false; mirror -eRnv build www/test/firetiger/app; exit;" -u $JORISLENCLUME_FTP_USER,$JORISLENCLUME_FTP_PASSWORD $JORISLENCLUME_FTP_UURL
