@@ -15,24 +15,23 @@ pipelines:
           script:
             - npm install
             - CI=false npm run-script build
+            - ls -hal build
           artifacts:
             - build/**
-      - step:
-          name: Clean internal test server
-          script:
-            - pipe: atlassian/ssh-run:0.2.4
-              variables:
-                SSH_USER: "jorislenclume"
-                SERVER: "ssh-jorislenclume.alwaysdata.net"
-                COMMAND: "rm -rf www/test/firetiger/app/*"
       - step:
           name: Deploy to internal test
           deployment: test
           script:
             - echo "Deploying to test environment"
-            - pipe: atlassian/scp-deploy:0.3.10
+            - ls -hal build
+            - pipe: atlassian/ssh-run:0.2.4
+              variables:
+                SSH_USER: "jorislenclume"
+                SERVER: "ssh-jorislenclume.alwaysdata.net"
+                COMMAND: "rm -rf www/test/firetiger/app/*"
+            - pipe: atlassian/rsync-deploy:0.4.1
               variables:
                 USER: "jorislenclume"
                 SERVER: "ssh-jorislenclume.alwaysdata.net"
                 REMOTE_PATH: "www/test/firetiger/app/"
-                LOCAL_PATH: "build/*"
+                LOCAL_PATH: "build/"
