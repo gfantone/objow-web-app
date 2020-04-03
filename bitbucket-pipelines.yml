@@ -13,7 +13,7 @@ pipelines:
           caches:
             - node
           script:
-            - ls -hal
+            - ls -hal build
             - npm install
             - CI=false npm run-script build
           artifacts:
@@ -23,7 +23,7 @@ pipelines:
           deployment: test
           script:
             - echo "Deploying to test environment"
-            - ls -hal
+            - ls -hal build
             - pipe: atlassian/ssh-run:0.2.4
               variables:
                 SSH_USER: "jorislenclume"
