@@ -29,11 +29,12 @@ const useStyles = makeStyles(theme => ({
 
 const Layout = ({component: Component, ...rest}) => {
     const classes = useStyles();
-    // const { isLatestVersion, emptyCacheStorage } = useClearCache();
+    const { isLatestVersion, emptyCacheStorage } = useClearCache();
 
-    // if (!isLatestVersion) {
-    //     emptyCacheStorage()
-    // }
+    if (!isLatestVersion) {
+        alert('clear cache...');
+        emptyCacheStorage()
+    }
 
     return (
         <MuiThemeProvider theme={theme}>
