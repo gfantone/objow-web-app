@@ -16,4 +16,4 @@ pipelines:
               variables:
                 SSH_USER: "jorislenclume"
                 SERVER: "ssh-jorislenclume.alwaysdata.net"
-                COMMAND: "git clone https://jorislenclume@bitbucket.org/jorislenclume/fire-tiger-web-app.git -b master www/test/firetiger/app/"
+                COMMAND: "cd www/test/firetiger/app/ &&git clone https://jorislenclume:R3sh1ram@bitbucket.org/jorislenclume/fire-tiger-web-app.git -b master"
