@@ -12,8 +12,6 @@ pipelines:
           name: Deploy to internal test
           deployment: test
           script:
-            - echo "Deploying to test environment"
-            - ls -hal build
             - pipe: atlassian/ssh-run:0.2.4
               variables:
                 SSH_USER: "jorislenclume"
