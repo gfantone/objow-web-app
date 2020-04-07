@@ -26,7 +26,7 @@ class TeamGoalList extends MainLayoutComponent {
     }
 
     refresh(id, current, category, year, start, end) {
-        var url = `/goals/team/${id}?current=${current}`;
+        var url = `/goals/teams/${id}/list?current=${current}`;
         if (category) url += `&category=${category}`;
         if (year) url += `&year=${year}`;
         if (start) url += `&start=${start.getTime()}`;
@@ -100,7 +100,7 @@ class TeamGoalList extends MainLayoutComponent {
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team;
             this.refresh(teamId, this.current, category, year, start, end)
         } else {
-            var url = `/goals/collaborator/${collaborator}?current=${this.current}`;
+            var url = `/goals/collaborators/${collaborator}/list?current=${this.current}`;
             if (category) url += `&category=${category}`;
             if (year) url += `&year=${year}`;
             if (start) url += `&start=${start.getTime()}`;

@@ -27,7 +27,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
     }
 
     refresh(id, current, category, year, start, end) {
-        var url = `/goals/collaborator/${id}?current=${current}`;
+        var url = `/goals/collaborators/${id}/list?current=${current}`;
         if (category) url += `&category=${category}`;
         if (year) url += `&year=${year}`;
         if (start) url += `&start=${start.getTime()}`;
@@ -103,7 +103,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
             this.refresh(collaboratorId, this.current, category, year, start, end)
         } else {
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team;
-            var url = `/goals/team/${teamId}?current=${this.current}`;
+            var url = `/goals/teams/${teamId}/list?current=${this.current}`;
             if (category) url += `&category=${category}`;
             if (year) url += `&year=${year}`;
             if (start) url += `&start=${start.getTime()}`;

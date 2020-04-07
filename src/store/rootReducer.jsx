@@ -127,6 +127,8 @@ import userUpdateActivation from '../services/Users/UserUpdateActivation/reducer
 import userUpdatePassword from '../services/Users/UserUpdatePassword/reducer'
 import userGoalDetail from '../services/UserGoals/UserGoalDetail/reducer'
 import userGoalList from '../services/UserGoals/UserGoalList/reducer'
+import collaboratorGoalCategoryList from "../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/reducer";
+import teamGoalCategoryList from "../services/TeamGoalCategories/TeamGoalCategoryList/reducer";
 
 const rootReducer = combineReducers({
     accountDetail,
@@ -256,7 +258,9 @@ const rootReducer = combineReducers({
     teamList,
     teamPlayerGoalDetail,
     teamPlayerGoalList,
-    teamPlayerGoalListUpdate
+    teamPlayerGoalListUpdate,
+    collaboratorGoalCategoryList,
+    teamGoalCategoryList
 });
 
 export default rootReducer

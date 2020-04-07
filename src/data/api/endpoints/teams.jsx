@@ -67,6 +67,11 @@ const teams = {
         if (category != null) url = `${url}&category=${category}`;
         return instance.get(url)
     },
+    goalCategories(id, year) {
+        var url = `${baseUrl}${id}/goal-categories/`;
+        if (year != null) url = `${url}?year=${year}`;
+        return instance.get(url)
+    },
     teamChallenges(id, time, year, start, end) {
         var url = `${baseUrl}${id}/team-challenges/?time=${time}`;
         if (year != null) url = `${url}&year=${year}`;

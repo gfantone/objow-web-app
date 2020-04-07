@@ -64,6 +64,11 @@ const collaborators = {
         if (year != null) url = `${url}?year=${year}`;
         return instance.get(url)
     },
+    goalCategories(id, year) {
+        var url = `${baseUrl}${id}/goal-categories/`;
+        if (year != null) url = `${url}?year=${year}`;
+        return instance.get(url)
+    },
     nextBagdes(id, year) {
         var url = `${baseUrl}${id}/next-badges/`;
         if (year != null) url = `${url}?year=${year}`;
