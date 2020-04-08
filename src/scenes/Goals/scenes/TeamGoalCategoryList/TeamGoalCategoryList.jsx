@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
@@ -7,11 +7,11 @@ import {IconButton} from "../../../../components/Common/components/IconButton";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSlidersH} from "@fortawesome/free-solid-svg-icons";
 import {Category} from '../../components'
-import {GridLink, Loader} from "../../../../components";
+import {GridLink, Loader, MainLayoutComponent} from "../../../../components";
 import {Grid} from "@material-ui/core";
 import {CategoryFilter} from "../../components/CategoryFilter";
 
-class TeamGoalCategoryList extends Component {
+class TeamGoalCategoryList extends MainLayoutComponent {
     constructor(props) {
         super(props);
         this.id = null;

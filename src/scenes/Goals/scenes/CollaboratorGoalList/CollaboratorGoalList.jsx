@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { Grid } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
-import { Goal, GoalFilter } from '../../components'
-import { Card, EmptyState, GridLink, IconButton, Loader, MainLayoutComponent, TimeFilter } from '../../../../components'
+import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {Grid} from '@material-ui/core'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSlidersH} from '@fortawesome/free-solid-svg-icons'
+import {Goal, GoalFilter} from '../../components'
+import {Card, EmptyState, GridLink, IconButton, Loader, MainLayoutComponent, TimeFilter} from '../../../../components'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import * as collaboratorGoalSummaryListActions from '../../../../services/CollaboratorGoalSummaries/CollaboratorGoalSummaryList/actions'
 import * as teamGoalListSummaryActions from '../../../../services/TeamGoalSummaries/TeamGoalSummaryList/actions'
@@ -21,17 +21,19 @@ class CollaboratorGoalList extends MainLayoutComponent {
         this.year = null;
         this.start = null;
         this.end = null;
+        this.name = null;
         this.state = {
             filterOpen: false
         }
     }
 
-    refresh(id, current, category, year, start, end) {
+    refresh(id, current, category, year, start, end, name) {
         var url = `/goals/collaborators/${id}/list?current=${current}`;
         if (category) url += `&category=${category}`;
         if (year) url += `&year=${year}`;
         if (start) url += `&start=${start.getTime()}`;
         if (end) url += `&end=${end.getTime()}`;
+        if (name) url += `&name=${name}`;
         this.props.history.replace(url)
     }
 
@@ -50,7 +52,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
     }
 
     handleTimeChange(current) {
-        this.refresh(this.id, current, this.category, this.year, this.start, this.end)
+        this.refresh(this.id, current, this.category, this.year, this.start, this.end, this.name)
     }
 
     loadData(props) {
@@ -66,17 +68,20 @@ class CollaboratorGoalList extends MainLayoutComponent {
         const end = endParam ? new Date(Number(endParam)) : null;
         const currentStart = this.start ? this.start.getTime().toString() : null;
         const currentEnd = this.end ? this.end.getTime().toString() : null;
+        const nameParam = params.get('name');
+        const name = nameParam ? decodeURIComponent(nameParam) : null;
 
-        if (id != this.id || current != this.current || category != this.category || year != this.year || startParam != currentStart || endParam != currentEnd) {
+        if (id != this.id || current != this.current || category != this.category || year != this.year || startParam != currentStart || endParam != currentEnd || name != this.name) {
             this.id = id;
             this.current = current;
             this.category = category;
             this.year = year;
             this.start = start;
             this.end = end;
+            this.name = name;
             this.props.collaboratorDetailActions.getCollaboratorDetail(id);
-            this.props.collaboratorGoalSummaryListActions.getCollaboratorGoalSummaryList(id, this.current, this.category, this.year, start, end);
-            this.props.teamGoalListSummaryActions.getTeamGoalSummaryListByCollaborator(id, this.current, this.category, this.year, start, end)
+            this.props.collaboratorGoalSummaryListActions.getCollaboratorGoalSummaryList(id, this.current, this.category, this.year, start, end, this.name);
+            this.props.teamGoalListSummaryActions.getTeamGoalSummaryListByCollaborator(id, this.current, this.category, this.year, start, end, this.name)
         }
     }
 
@@ -84,23 +89,31 @@ class CollaboratorGoalList extends MainLayoutComponent {
         const params = new URLSearchParams(window.location.search);
         const currentParam = params.get('current');
         const current = currentParam ? currentParam.toBoolean() : this.current;
-        if (this.props.accountDetail.account.role.code == 'A') this.props.activateReturn();
+        const name = params.get('name');
+        this.props.activateReturn();
+        this.props.activateSearch(name);
         this.props.handleTitle('Objectifs');
         this.props.handleSubHeader(<TimeFilter initial={current} handleTimeChange={this.handleTimeChange.bind(this)} />);
-        this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}>
-            <FontAwesomeIcon icon={faSlidersH} />
-        </IconButton>);
+        this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
         this.loadData(this.props)
     }
 
-    componentWillReceiveProps(props) {
-        this.loadData(props)
+    applySearch(prevProps) {
+        if (prevProps.search != this.props.search) {
+            const search = this.props.search ? encodeURIComponent(this.props.search) : null;
+            this.refresh(this.id, this.current, this.category, this.year, this.start, this.end, search)
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.loadData(this.props);
+        this.applySearch(prevProps)
     }
 
     handleFilterChange(category, team, collaborator, year, start, end) {
         const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
         if (collaboratorId) {
-            this.refresh(collaboratorId, this.current, category, year, start, end)
+            this.refresh(collaboratorId, this.current, category, year, start, end, this.name)
         } else {
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team;
             var url = `/goals/teams/${teamId}/list?current=${this.current}`;
@@ -108,6 +121,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
             if (year) url += `&year=${year}`;
             if (start) url += `&start=${start.getTime()}`;
             if (end) url += `&end=${end.getTime()}`;
+            if (this.name) url += `&name=${this.name}`;
             this.props.history.push(url)
         }
     }

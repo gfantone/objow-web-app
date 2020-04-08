@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
@@ -12,8 +12,9 @@ import {CategoryFilter} from "../../components/CategoryFilter";
 import {GridLink} from "../../../../components/Common/components/GridLink";
 import {Link} from "react-router-dom";
 import {Category} from "../../components/Category";
+import {MainLayoutComponent} from "../../../../components";
 
-class CollaboratorGoalCategoryList extends Component {
+class CollaboratorGoalCategoryList extends MainLayoutComponent {
     constructor(props) {
         super(props);
         this.id = null;
