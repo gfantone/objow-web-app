@@ -86,16 +86,17 @@ class TeamGoalCategoryList extends MainLayoutComponent {
     renderData() {
         const {categories} = this.props.teamGoalCategoryList;
         const all_category = {name: 'Toutes', icon: 'project'};
+        const allUrl = this.year ? `/goals/teams/${this.props.match.params.id}/list?year=${this.year}` : `/goals/teams/${this.props.match.params.id}/list`;
 
         return (
             <div>
                 <Grid container spacing={2}>
-                    <GridLink item xs={12} sm={6} md={4} component={Link} to={`/goals/teams/${this.props.match.params.id}/list`}>
+                    <GridLink item xs={12} sm={4} component={Link} to={allUrl}>
                         <Category category={all_category} />
                     </GridLink>
                     {categories.map(category => {
                         return (
-                            <GridLink key={category.id} item xs={12} sm={6} md={4} component={Link} to={`/goals/teams/${this.props.match.params.id}/list?category=${category.categoryId}`}>
+                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/goals/teams/${this.props.match.params.id}/list?category=${category.categoryId}&year=${category.periodId}`}>
                                 <Category category={category} />
                             </GridLink>
                         )
