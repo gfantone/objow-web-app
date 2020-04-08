@@ -9,6 +9,7 @@ import {faSlidersH} from "@fortawesome/free-solid-svg-icons";
 import {Category} from '../../components'
 import {GridLink, Loader, MainLayoutComponent} from "../../../../components";
 import {Grid} from "@material-ui/core";
+import withWidth, {isWidthUp} from "@material-ui/core/withWidth";
 import {CategoryFilter} from "../../components/CategoryFilter";
 
 class TeamGoalCategoryList extends MainLayoutComponent {
@@ -54,7 +55,6 @@ class TeamGoalCategoryList extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        const params = new URLSearchParams(window.location.search);
         if (this.props.accountDetail.account.role.code == 'A') this.props.activateReturn();
         this.props.handleTitle('Objectifs');
         this.props.handleMaxWidth('sm');
@@ -87,10 +87,11 @@ class TeamGoalCategoryList extends MainLayoutComponent {
         const {categories} = this.props.teamGoalCategoryList;
         const all_category = {name: 'Toutes', icon: 'project'};
         const allUrl = this.year ? `/goals/teams/${this.props.match.params.id}/list?year=${this.year}` : `/goals/teams/${this.props.match.params.id}/list`;
+        const spacing = isWidthUp('sm', this.props.width) ? 8 : 4;
 
         return (
             <div>
-                <Grid container spacing={2}>
+                <Grid container spacing={spacing}>
                     <GridLink item xs={12} sm={4} component={Link} to={allUrl}>
                         <Category category={all_category} />
                     </GridLink>
@@ -108,9 +109,10 @@ class TeamGoalCategoryList extends MainLayoutComponent {
 
     render() {
         const {categories, loading} = this.props.teamGoalCategoryList;
+        const marginTop = isWidthUp('sm', this.props.width) ? 48 : 16;
 
         return (
-            <div>
+            <div style={{marginTop: marginTop}}>
                 {loading && this.renderLoader()}
                 {!loading && categories && this.renderData()}
                 <CategoryFilter
@@ -134,4 +136,4 @@ const mapDispatchToProps = (dispatch) => ({
     teamGoalCategoryListActions: bindActionCreators(teamGoalCategoryListActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TeamGoalCategoryList)
+export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(TeamGoalCategoryList))

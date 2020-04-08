@@ -8,6 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSlidersH} from "@fortawesome/free-solid-svg-icons";
 import {Loader} from "../../../../components/Common/components/Loader";
 import {Grid} from "@material-ui/core";
+import withWidth, {isWidthUp} from "@material-ui/core/withWidth";
 import {CategoryFilter} from "../../components/CategoryFilter";
 import {GridLink} from "../../../../components/Common/components/GridLink";
 import {Link} from "react-router-dom";
@@ -91,10 +92,11 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
         const {categories} = this.props.collaboratorGoalCategoryList;
         const all_category = {name: 'Toutes', icon: 'project'};
         const allUrl = this.year ? `/goals/collaborators/${this.props.match.params.id}/list?year=${this.year}` : `/goals/collaborators/${this.props.match.params.id}/list`;
+        const spacing = isWidthUp('sm', this.props.width) ? 8 : 4;
 
         return (
             <div>
-                <Grid container spacing={2}>
+                <Grid container spacing={spacing}>
                     <GridLink item xs={12} sm={4} component={Link} to={allUrl}>
                         <Category category={all_category} />
                     </GridLink>
@@ -115,9 +117,10 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
         const {categories, loading} = this.props.collaboratorGoalCategoryList;
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
+        const marginTop = isWidthUp('sm', this.props.width) ? 48 : 16;
 
         return (
-            <div>
+            <div style={{marginTop: marginTop}}>
                 {loading && this.renderLoader()}
                 {!loading && categories && this.renderData()}
                 <CategoryFilter
@@ -144,4 +147,4 @@ const mapDispatchToProps = (dispatch) => ({
     collaboratorGoalCategoryListActions: bindActionCreators(collaboratorGoalCategoryListActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorGoalCategoryList)
+export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(CollaboratorGoalCategoryList))

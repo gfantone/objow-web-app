@@ -1,12 +1,12 @@
 import React from 'react'
-import { CardMedia, Grid } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
-import { DefaultText } from '../../../../components'
+import {CardMedia, Grid} from '@material-ui/core'
+import {withStyles} from '@material-ui/core/styles'
+import {BoldTitle} from '../../../../components'
 
 const styles = {
     icon: {
-        width: 60,
-        height: 60
+        width: 120,
+        height: 120
     }
 };
 
@@ -21,7 +21,7 @@ const Category = ({ category, ...props }) => {
                     <CardMedia image={iconData} className={classes.icon} />
                 </Grid>
                 <Grid item>
-                    <DefaultText align='center'>{category.name}</DefaultText>
+                    <BoldTitle align='center'>{category.name}</BoldTitle>
                 </Grid>
             </Grid>
         </div>
