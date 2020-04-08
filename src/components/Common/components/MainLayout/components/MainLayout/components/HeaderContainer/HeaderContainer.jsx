@@ -8,7 +8,8 @@ const styles = {
         paddingTop: 16,
         paddingBottom: 16,
         backgroundColor: '#103D5C',
-        display: 'flex'
+        display: 'flex',
+        position: 'relative'
     }
 };
 

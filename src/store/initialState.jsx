@@ -243,6 +243,16 @@ const initialState = {
         loading: false,
         hasError: false
     },
+    collaboratorGoalCategoryList: {
+        categories: null,
+        loading: false,
+        hasError: false
+    },
+    teamGoalCategoryList: {
+        categories: null,
+        loading: false,
+        hasError: false
+    },
     collaboratorGeneralRankList: {
         ranks: null,
         loading: false,

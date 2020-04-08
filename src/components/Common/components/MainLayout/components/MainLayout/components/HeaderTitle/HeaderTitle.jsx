@@ -5,9 +5,7 @@ const styles = {
     root: {
         fontSize: 17,
         color: '#FFFFFF',
-        textTransform: 'uppercase',
-        flexGrow: 1,
-        textAlign: 'center'
+        textTransform: 'uppercase'
     }
 };
 

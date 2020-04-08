@@ -1,12 +1,12 @@
 import React from 'react'
 import { Route, withRouter } from 'react-router-dom'
-import { CssBaseline, Hidden } from '@material-ui/core'
+import {CssBaseline, Hidden} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { faAngleLeft, faBars} from '@fortawesome/free-solid-svg-icons'
-import { AppBar, Drawer, DrawerContent, MainContainer, HeaderContainer, HeaderTitle, SubHeaderContainer, Toolbar } from './components'
+import { AppBar, AppBarSearch, Drawer, DrawerContent, MainContainer, HeaderContainer, HeaderContainerLeft, HeaderContainerRight, HeaderTitle, HeaderTitleContainer, Search, SubHeaderContainer, Toolbar } from './components'
 import { IconButton } from '../../../'
 import { useClearCache } from 'react-clear-cache'
 
@@ -16,6 +16,8 @@ const DEFAULT_MAX_WIDTH = 'lg';
 const DEFAULT_SUB_HEADER = null;
 const DEFAULT_TITLE = null;
 const DEFAULT_RETURN_ACTIVATION = false;
+const DEFAULT_SEARCH = null;
+const DEFAULT_SEARCH_ACTIVATION = false;
 
 const theme = createMuiTheme({
     typography: {
@@ -62,11 +64,13 @@ const MainLayout = ({component: Component, history, ...rest}) => {
     const classes = useStyles();
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [returnActivation, setReturnActivation] = React.useState(false);
+    const [search, setSearch] = React.useState(DEFAULT_SEARCH);
+    const [searchActivation, setSearchActivation] = React.useState(DEFAULT_SEARCH_ACTIVATION);
     const [buttons, setButtons] = React.useState(DEFAULT_BUTTONS);
     const [maxWidth, setMaxWidth] = React.useState(DEFAULT_MAX_WIDTH);
     const [subHeader, setSubHeader] = React.useState(DEFAULT_SUB_HEADER);
     const [title, setTitle] = React.useState(DEFAULT_TITLE);
-    const { isLatestVersion } = useClearCache();
+    const {isLatestVersion} = useClearCache();
 
     if (!isLatestVersion) {
         localStorage.clear();
@@ -77,6 +81,11 @@ const MainLayout = ({component: Component, history, ...rest}) => {
         if (history.length > 1) {
             setReturnActivation(true)
         }
+    }
+
+    function activateSearch(initial) {
+        setSearch(initial);
+        setSearchActivation(true);
     }
 
     function goBack() {
@@ -91,13 +100,19 @@ const MainLayout = ({component: Component, history, ...rest}) => {
         setMobileOpen(false)
     }
 
+    function handleSearch(event) {
+        setSearch(event.target.value);
+    }
+
     function clear() {
         setButtons(DEFAULT_BUTTONS);
         setMaxWidth(DEFAULT_MAX_WIDTH);
         setReturnActivation();
         setSubHeader(DEFAULT_SUB_HEADER);
         setTitle(DEFAULT_TITLE);
-        setReturnActivation(DEFAULT_RETURN_ACTIVATION)
+        setReturnActivation(DEFAULT_RETURN_ACTIVATION);
+        setSearch(DEFAULT_SEARCH);
+        setSearchActivation(DEFAULT_SEARCH_ACTIVATION);
     }
 
     return (
@@ -122,16 +137,27 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                             <div className={classes.main}>
                                 <Toolbar>
                                     <HeaderContainer>
-                                        { !returnActivation && <Hidden lgUp implementation='css'>
-                                            <IconButton size='small' onClick={handleDrawerToggle}>
-                                                <FontAwesomeIcon icon={faBars} />
-                                            </IconButton>
-                                        </Hidden> }
-                                        { returnActivation && <IconButton size='small' onClick={goBack}>
-                                            <FontAwesomeIcon icon={faAngleLeft} />
-                                        </IconButton> }
-                                        <HeaderTitle variant='h6' align='center'>{title}</HeaderTitle>
-                                        { buttons }
+                                        <HeaderTitleContainer>
+                                            <HeaderTitle>{title}</HeaderTitle>
+                                        </HeaderTitleContainer>
+                                        <HeaderContainerLeft>
+                                            { !returnActivation && <Hidden lgUp implementation='css'>
+                                                <IconButton size='small' onClick={handleDrawerToggle}>
+                                                    <FontAwesomeIcon icon={faBars} />
+                                                </IconButton>
+                                            </Hidden> }
+                                            { returnActivation && <IconButton size='small' onClick={goBack}>
+                                                <FontAwesomeIcon icon={faAngleLeft} />
+                                            </IconButton> }
+                                        </HeaderContainerLeft>
+                                        <HeaderContainerRight>
+                                            <div style={{display: 'flex'}}>
+                                                {searchActivation && <Hidden smDown>
+                                                    <AppBarSearch search={search} onChange={handleSearch} />
+                                                </Hidden>}
+                                                {buttons}
+                                            </div>
+                                            </HeaderContainerRight>
                                     </HeaderContainer>
                                     { subHeader && <SubHeaderContainer>
                                         { subHeader }
@@ -144,7 +170,9 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                         <div style={{ backgroundColor: '#f7f8fc' }}>
                             <div style={{ visibility: 'hidden' }}>
                                 <HeaderContainer>
-                                    <HeaderTitle variant='h6' align='center'>{title}</HeaderTitle>
+                                    <HeaderTitleContainer>
+                                        <HeaderTitle>{title}</HeaderTitle>
+                                    </HeaderTitleContainer>
                                 </HeaderContainer>
                                 <SubHeaderContainer>
                                     { subHeader }
@@ -153,12 +181,17 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                         </div>
                         <div className={classes.main}>
                             <MainContainer maxWidth={maxWidth}>
+                                {searchActivation && <Hidden mdUp>
+                                    <Search search={search} onChange={handleSearch} />
+                                </Hidden>}
                                 <Component
                                     handleButtons={setButtons}
                                     handleMaxWidth={setMaxWidth}
                                     activateReturn={activateReturn}
+                                    activateSearch={activateSearch}
                                     handleSubHeader={setSubHeader}
                                     handleTitle={setTitle}
+                                    search={search}
                                     clear={clear}
                                     {...matchProps}
                                 />

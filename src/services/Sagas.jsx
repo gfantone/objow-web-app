@@ -127,6 +127,8 @@ import watchUserUpdateActivation from './Users/UserUpdateActivation/sagas'
 import watchUserUpdatePassword from './Users/UserUpdatePassword/sagas'
 import watchUserGoalDetail from './UserGoals/UserGoalDetail/sagas'
 import watchUserGoalList from './UserGoals/UserGoalList/sagas'
+import watchCollaboratorGoalCategoryList from "./CollaboratorGoalCategories/CollaboratorGoalCategoryList/sagas";
+import watchTeamGoalCategoryList from "./TeamGoalCategories/TeamGoalCategoryList/sagas";
 
 function* rootSaga() {
     yield all([
@@ -276,7 +278,9 @@ function* rootSaga() {
         watchTeamList(),
         watchTeamPlayerGoalDetail(),
         watchTeamPlayerGoalList(),
-        watchTeamPlayerGoalListUpdate()
+        watchTeamPlayerGoalListUpdate(),
+        watchCollaboratorGoalCategoryList(),
+        watchTeamGoalCategoryList()
     ])
 }
 
