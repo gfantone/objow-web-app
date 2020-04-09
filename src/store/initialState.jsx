@@ -243,6 +243,16 @@ const initialState = {
         loading: false,
         hasError: false
     },
+    collaboratorGoalCategoryList: {
+        categories: null,
+        loading: false,
+        hasError: false
+    },
+    teamGoalCategoryList: {
+        categories: null,
+        loading: false,
+        hasError: false
+    },
     collaboratorGeneralRankList: {
         ranks: null,
         loading: false,
@@ -645,6 +655,11 @@ const initialState = {
         user: null,
         loading: false,
         hasError: false
+    },
+    userListImport: {
+        success: false,
+        loading: false,
+        error: null
     },
     userGoalDetail: {
         goal: null,

@@ -1,14 +1,17 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { SubHeader } from './components'
-import { DataTable, IconButton, Loader, MainLayoutComponent } from '../../../../components'
+import {connect} from 'react-redux'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faFileUpload, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {SubHeader, UserListImport} from './components'
+import {DataTable, IconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as userListActions from '../../../../services/Users/UserList/actions'
-import { bindActionCreators } from 'redux'
+import {bindActionCreators} from 'redux'
 import '../../../../helpers/NumberHelper'
+import {Tooltip} from "@material-ui/core";
 
 class AdminUserList extends MainLayoutComponent {
+    state = {importOpen: false};
+
     loadUserList(isActive) {
         this.props.userListActions.getUserList(isActive)
     }
@@ -24,13 +27,34 @@ class AdminUserList extends MainLayoutComponent {
     componentDidMount() {
         this.props.handleTitle('Administration');
         this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} />);
-        this.props.handleButtons(<IconButton size='small' onClick={this.handleCreateClick.bind(this)}><FontAwesomeIcon icon={faPlus} /></IconButton>);
+        this.props.handleButtons(<div>
+            <Tooltip title='Importer'>
+                <IconButton size='small' onClick={this.onOpen.bind(this)} style={{marginRight: 8}}><FontAwesomeIcon icon={faFileUpload} /></IconButton>
+            </Tooltip>
+            <Tooltip title='Créer'>
+                <IconButton size='small' onClick={this.handleCreateClick.bind(this)}><FontAwesomeIcon icon={faPlus} /></IconButton>
+            </Tooltip>
+        </div>);
         this.props.activateReturn();
         this.loadUserList(true)
     }
 
     renderLoader() {
         return <Loader centered />
+    }
+
+    onOpen() {
+        this.setState({
+            ...this.state,
+            importOpen: true
+        })
+    }
+
+    onClose() {
+        this.setState({
+            ...this.state,
+            importOpen: false
+        })
     }
 
     renderData() {
@@ -53,7 +77,12 @@ class AdminUserList extends MainLayoutComponent {
             selectableRows: 'none',
             onRowClick: (colData, cellMeta) => { history.push(`/admin/users/modification/${colData[0]}`) }
         };
-        return <DataTable data={users} columns={columns} options={options} />
+        return (
+            <div>
+                <DataTable data={users} columns={columns} options={options} />
+                <UserListImport open={this.state.importOpen} onClose={this.onClose.bind(this)} />
+            </div>
+        )
     }
 
     render() {
