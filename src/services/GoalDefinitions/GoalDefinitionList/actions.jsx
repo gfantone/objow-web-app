@@ -8,12 +8,6 @@ export const getGoalDefinitionList = (periodId, includeData = false) => {
     }
 };
 
-export const getCurrentGoalDefinitionList = () => {
-    return {
-        type: types.GET_CURRENT_GOAL_DEFINITION_LIST
-    }
-};
-
 export const getGoalDefinitionListSuccess = (definitions) => {
     return {
         type: types.GET_GOAL_DEFINITION_LIST_SUCCESS,
