@@ -1,11 +1,12 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { withStyles } from '@material-ui/core/styles'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { AppBarSubTitle, DataTable, IconButton, Loader, MainLayoutComponent } from '../../../../components'
+import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {withStyles} from '@material-ui/core/styles'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faPlus} from '@fortawesome/free-solid-svg-icons'
+import {SubHeader} from './components'
+import {DataTable, IconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as goalDefinitionListActions from '../../../../services/GoalDefinitions/GoalDefinitionList/actions'
 
 const styles = {
@@ -28,9 +29,20 @@ const styles = {
 };
 
 class AdminGoalList extends MainLayoutComponent {
-    constructor(props) {
-        super(props)
+    state = {isActive: true};
+
+    loadData() {
+        this.props.actions.getGoalDefinitionList(this.props.match.params.periodId, this.state.isActive)
     }
+
+    onChange(isActive) {
+        this.setState({
+            ...this.state,
+            isActive: isActive
+        }, () => {
+            this.loadData()
+        });
+    };
 
     handleCreate() {
         this.props.history.push(`/admin/periods/${this.props.match.params.periodId}/goals/creation`)
@@ -41,13 +53,12 @@ class AdminGoalList extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        const { classes } = this.props;
         this.props.activateReturn();
         this.props.handleTitle('Administration');
-        this.props.handleSubHeader(<AppBarSubTitle title='Configuration des objectifs' />);
+        this.props.handleSubHeader(<SubHeader onChange={this.onChange.bind(this)} />);
         this.props.handleMaxWidth('lg');
         this.props.handleButtons(<IconButton size='small' onClick={this.handleCreate.bind(this)}><FontAwesomeIcon icon={faPlus} /></IconButton>);
-        this.props.actions.getGoalDefinitionList(this.props.match.params.periodId)
+        this.loadData()
     }
 
     _renderLoader() {

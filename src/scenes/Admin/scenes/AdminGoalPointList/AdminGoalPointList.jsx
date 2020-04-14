@@ -38,7 +38,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.props.handleSubHeader(<AppBarSubTitle title='Configuration des points des objectifs' />);
         this.props.handleMaxWidth('lg');
         this.props.configListActions.getConfigList(periodId);
-        this.props.goalDefinitionListActions.getGoalDefinitionList(periodId, true);
+        this.props.goalDefinitionListActions.getGoalDefinitionList(periodId, true, true);
         this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPoints(periodId);
         this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPoints(periodId)
     }

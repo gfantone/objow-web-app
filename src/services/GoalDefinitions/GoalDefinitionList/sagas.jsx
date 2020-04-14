@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* getGoalDefinitions(action) {
     try {
-        var { data: definitions } = yield call(api.periods.goalDefinitions, action.periodId);
+        var { data: definitions } = yield call(api.periods.goalDefinitions, action.periodId, action.isActive);
         if (action.includeData) {
             const levelCountList = yield all(definitions.map(definition => call(api.goalDefinitions.levelCount, definition.id)));
             const pointList = yield all(definitions.map(definition => call(api.goalDefinitions.points, definition.id)));

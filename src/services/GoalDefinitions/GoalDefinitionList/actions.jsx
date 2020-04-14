@@ -1,9 +1,10 @@
 import * as types from './actionTypes';
 
-export const getGoalDefinitionList = (periodId, includeData = false) => {
+export const getGoalDefinitionList = (periodId, isActive, includeData = false) => {
     return {
         type: types.GET_GOAL_DEFINITION_LIST,
         periodId,
+        isActive,
         includeData
     }
 };
