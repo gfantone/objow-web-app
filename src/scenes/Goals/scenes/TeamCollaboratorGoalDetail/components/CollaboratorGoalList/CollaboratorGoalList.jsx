@@ -95,7 +95,7 @@ class CollaboratorGoalList extends Component {
         const { loading } = this.props.playerGoalListUpdate;
         const goalCount = goals.length;
         const isRate = parentGoal.isRate;
-        const maxTarget = parentGoal.target;
+        const maxTarget = parentGoal.maxTarget;
         var initialAllTarget = goals.map(goal => Number(goal.target)).reduce((a, b) => a + b);
         if (isRate) initialAllTarget = goalCount > 0 ? Math.ceil(initialAllTarget / goalCount) : 0;
         var allTarget = initialAllTarget;
