@@ -26,11 +26,6 @@ class Base extends Component {
         this.props.goalDefinitionDetailActions.getGoalDefinition(this.props.id)
     }
 
-
-    handleKpiChange(kpi) {
-        // setSelectedKpi(kpi)
-    }
-
     handleSubmit(model) {
         if (!model.editable) model.editable = false;
         model.period = this.props.period;
@@ -49,6 +44,7 @@ class Base extends Component {
         const { definition } = this.props.goalDefinitionDetail;
         const { loading } = this.props.goalDefinitionUpdate;
         const unit = definition.kpi.unit.name + (definition.kpi.unit.symbol ? ` (${definition.kpi.unit.symbol})` : '');
+        const readonly = !definition.isActive
 
         return (
             <div>
@@ -58,42 +54,42 @@ class Base extends Component {
                             <Card>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
-                                        <Select name='kpi' label='KPI' options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} initial={definition.kpi.id} fullWidth required />
+                                        <Select name='kpi' label='KPI' options={kpis} optionValueName='id' optionTextName='name' initial={definition.kpi.id} fullWidth disabled={readonly} required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <InfoText>Unité</InfoText>
                                         <DefaultText>{unit}</DefaultText>
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <TextField name='name' label='Intitulé' initial={definition.name} fullWidth required />
+                                        <TextField name='name' label='Intitulé' initial={definition.name} fullWidth disabled={readonly} required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <Select name='type' label='Type' options={types} optionValueName='id' optionTextName='description' initial={definition.type.id} fullWidth disabled required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <Select name='category' label='Catégorie' options={categories} optionValueName='id' optionTextName='name' initial={definition.category.id} fullWidth required />
+                                        <Select name='category' label='Catégorie' options={categories} optionValueName='id' optionTextName='name' initial={definition.category.id} fullWidth disabled={readonly} required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <Select name='periodicity' label='Périodicité' options={periodicities} optionValueName='id' optionTextName='description' initial={definition.periodicity.id} fullWidth disabled required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <TextField type='number' name='target' label='Obj. global annuel' initial={definition.target} fullWidth required />
+                                        <TextField type='number' name='target' label='Obj. global annuel' initial={definition.target} fullWidth disabled={readonly} required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <TextField type='number' name='default' label='Réalisé par défaut' initial={definition.default} fullWidth required />
+                                        <TextField type='number' name='default' label='Réalisé par défaut' initial={definition.default} fullWidth disabled={readonly} required />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField name='indication' label='Indications' initial={definition.indication} fullWidth multiline rowsMax={10} required />
+                                        <TextField name='indication' label='Indications' initial={definition.indication} fullWidth multiline rowsMax={10} disabled={readonly} required />
                                     </Grid>
                                     { definition.type.code == 'C' && <Grid item xs={12}>
-                                        <Switch name='editable' initial={definition.editable} label='Objectif modifiable par les managers' />
+                                        <Switch name='editable' initial={definition.editable} label='Objectif modifiable par les managers' disabled={readonly} />
                                     </Grid> }
                                 </Grid>
                             </Card>
                         </Grid>
-                        <Grid item xs={12}>
+                        {!readonly && <Grid item xs={12}>
                             <ProgressButton type='submit' text='Valider' loading={loading} centered />
-                        </Grid>
+                        </Grid>}
                     </Grid>
                 </Formsy>
             </div>

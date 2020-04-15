@@ -98,6 +98,7 @@ class GoalList extends Component {
         const remainingTarget = maxTarget - allTarget
         const canSubmit = remainingTarget >= 0
         const now = new Date()
+        const readonly = !parentGoal.isActive
 
         return (
             <div>
@@ -133,7 +134,7 @@ class GoalList extends Component {
                             const editable = (goal.start.toDate() <= now && now <= goal.end.toDate()) || goal.start.toDate() >= now
                             return (
                                 <Grid key={goal.id} item xs={3}>
-                                    <TextField type='number' name={goal.id} label={name} initial={goal.target} disabled={!editable} fullWidth required
+                                    <TextField type='number' name={goal.id} label={name} initial={goal.target} disabled={!editable || readonly} fullWidth required
                                         validations={{
                                             isInt: true,
                                             isMoreThanOrEquals: 0
@@ -148,10 +149,10 @@ class GoalList extends Component {
                             )
                         }) }
                     </Grid>
-                    <div className={classes.formFooter}>
+                    {!readonly && <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour la période sélectionnée</ErrorText> }
                         <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit} centered />
-                    </div>
+                    </div>}
                 </Formsy>
             </div>
         )

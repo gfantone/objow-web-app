@@ -9,7 +9,7 @@ const styles = {
     }
 }
 
-const SubHeader = ({ onChange, ...props }) => {
+const SubHeader = ({ onChange, readonly, ...props }) => {
     const { classes } = props
     const [value, setValue] = React.useState(0)
 
@@ -21,7 +21,7 @@ const SubHeader = ({ onChange, ...props }) => {
     return (
         <div>
             <div className={classes.root}>
-                <DefaultText align='center'>Modification d'un objectif</DefaultText>
+                <DefaultText align='center'>{!readonly ? 'Modification' : 'Visualisation'} d'un objectif</DefaultText>
             </div>
             <RoundedTabs value={value} onChange={handlePageChange} variant='fullWidth'>
                 <RoundedTab label='Base' />

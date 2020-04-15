@@ -77,6 +77,7 @@ class AdminGoalList extends MainLayoutComponent {
         const { definitions } = this.props.goalDefinitionList;
         var columns = [
             { name: 'id', label: 'Ref' },
+            { name: 'isActive', label: 'Ref', options: {display: false, filter: false} },
             { name: 'name', label: 'Nom' },
             { name: 'kpi.unit.name', label: 'Unité' },
             { name: 'type.description', label: 'Objectif' },
@@ -87,7 +88,7 @@ class AdminGoalList extends MainLayoutComponent {
         ];
         const options = {
             selectableRows: 'none',
-            onRowClick: (colData, cellMeta) => { this.props.history.push(`/admin/periods/${this.props.match.params.periodId}/goals/modification/${colData[0]}`) }
+            onRowClick: (colData, cellMeta) => { this.props.history.push(`/admin/periods/${this.props.match.params.periodId}/goals/modification/${colData[0]}`, colData[1]) }
         };
         return <DataTable data={definitions} columns={columns} options={options} />
     }
