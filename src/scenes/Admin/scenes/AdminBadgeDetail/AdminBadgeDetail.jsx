@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import Formsy from 'formsy-react'
 import {SubHeader} from './components'
-import {Card, DefaultText, DefaultTitle, InfoText, LabelText, MainLayoutComponent, ProgressButton, Select, TextField} from '../../../../components'
+import {Card, DefaultText, DefaultTitle, IconButton as AppBarIconButton, InfoText, LabelText, MainLayoutComponent, ProgressButton, Select, TextField} from '../../../../components'
 import * as badgeDetailActions from '../../../../services/Badges/BadgeDetail/actions'
 import * as badgeLevelListActions from '../../../../services/BadgeLevels/BadgeLevelList/actions'
 import * as badgeLevelListCreationActions from '../../../../services/BadgeLevels/BadgeLevelListCreation/actions'
@@ -79,7 +79,7 @@ class AdminBadgeDetail extends MainLayoutComponent {
         this.props.handleTitle('Administration');
         this.props.handleSubHeader(<SubHeader />);
         this.props.handleMaxWidth('md');
-        this.props.handleButtons(<IconButton size='small' onClick={this.handleAdd.bind(this)}><FontAwesomeIcon icon={faPlus} /></IconButton>);
+        this.props.handleButtons(<AppBarIconButton size='small' onClick={this.handleAdd.bind(this)}><FontAwesomeIcon icon={faPlus} /></AppBarIconButton>);
         this.props.activateReturn();
         this.props.levelListActions.getLevelList(periodId);
         this.props.badgeLevelListActions.getBadgeLevelList(this.id);
