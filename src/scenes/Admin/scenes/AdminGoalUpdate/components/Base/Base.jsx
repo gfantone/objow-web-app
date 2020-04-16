@@ -1,22 +1,24 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React, {Component} from 'react'
+import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
-import { Grid } from '@material-ui/core'
-import { Card, DefaultText, InfoText, Loader, ProgressButton, Select, Switch, TextField } from '../../../../../../components'
+import {Grid} from '@material-ui/core'
+import {Button, Card, DefaultText, Dialog, DialogActions, DialogContent, DialogTitle, InfoText, Loader, ProgressButton, Select, Switch, TextField} from '../../../../../../components'
 import * as categoryListActions from '../../../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../../../services/GoalTypes/GoalTypeList/actions'
 import * as kpiListActions from '../../../../../../services/Kpis/KpiList/actions'
 import * as periodicityListActions from '../../../../../../services/Periodicities/PeriodicityList/actions'
 import * as goalDefinitionDetailActions from '../../../../../../services/GoalDefinitions/GoalDefinitionDetail/actions'
 import * as goalDefinitionUpdateActions from '../../../../../../services/GoalDefinitions/GoalDefinitionUpdate/actions'
+import * as goalDefinitionActivationUpdateActions from '../../../../../../services/GoalDefinitions/GoalDefinitionActivationUpdate/actions'
 
 class Base extends Component {
+    state = {kpi: null, open: false}
+
     constructor(props) {
         super(props);
-        this.state = {
-            kpi: null
-        }
+        this.props.goalDefinitionActivationUpdateActions.clearGoalDefinitionActivationUpdate()
     }
     componentDidMount() {
         this.props.categoryListActions.getActiveCategoryList();
@@ -24,6 +26,20 @@ class Base extends Component {
         this.props.kpiListActions.getKpiList();
         this.props.periodicityListActions.getPeriodicityList();
         this.props.goalDefinitionDetailActions.getGoalDefinition(this.props.id)
+    }
+
+    onDisable() {
+        this.props.goalDefinitionActivationUpdateActions.updateGoalDefinitionActivation(this.props.id, false)
+    }
+
+    setOpen(open) {
+        const {loading} = this.props.goalDefinitionActivationUpdate;
+        if (!loading) {
+            this.setState({
+                ...this.state,
+                open: open
+            })
+        }
     }
 
     handleSubmit(model) {
@@ -42,7 +58,8 @@ class Base extends Component {
         const { kpis } = this.props.kpiList;
         const { periodicities } = this.props.periodicityList;
         const { definition } = this.props.goalDefinitionDetail;
-        const { loading } = this.props.goalDefinitionUpdate;
+        const { loading: updateLoading } = this.props.goalDefinitionUpdate;
+        const { loading: activationUpdateLoading } = this.props.goalDefinitionActivationUpdate;
         const unit = definition.kpi.unit.name + (definition.kpi.unit.symbol ? ` (${definition.kpi.unit.symbol})` : '');
         const readonly = !definition.isActive
 
@@ -88,10 +105,25 @@ class Base extends Component {
                             </Card>
                         </Grid>
                         {!readonly && <Grid item xs={12}>
-                            <ProgressButton type='submit' text='Valider' loading={loading} centered />
+                            <Grid container justify='space-between'>
+                                <Grid item>
+                                    <ProgressButton type='button' color='secondary' text='Archiver' disabled={updateLoading} centered onClick={() => this.setOpen(true)} />
+                                </Grid>
+                                <Grid item>
+                                    <ProgressButton type='submit' text='Valider' loading={updateLoading} centered />
+                                </Grid>
+                            </Grid>
                         </Grid>}
                     </Grid>
                 </Formsy>
+                <Dialog open={this.state.open} onClose={() => this.setOpen(false)}>
+                    <DialogTitle>Êtes-vous sûr de vouloir archiver l'objectif « {definition.name} » ?</DialogTitle>
+                    <DialogContent>Après l’archivage de cet objectif, il ne sera plus possible de le réactiver. Tous les points attribués sur les objectifs en cours et ultérieurs seront remis à disposition.</DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => this.setOpen(false)} color='secondary'>Non</Button>
+                        <ProgressButton type='button' text='Oui' loading={activationUpdateLoading} onClick={this.onDisable.bind(this)} />
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     }
@@ -103,6 +135,12 @@ class Base extends Component {
         const { periodicities, loading: periodicityListLoading } = this.props.periodicityList;
         const { definition, loading: goalDefinitionDetailLoading } = this.props.goalDefinitionDetail;
         const loading = categoryListLoading || goalTypeListLoading || kpiListLoading || periodicityListLoading || goalDefinitionDetailLoading;
+        const {success} = this.props.goalDefinitionActivationUpdate
+
+        if (success) {
+            this.props.goalDefinitionActivationUpdateActions.clearGoalDefinitionActivationUpdate()
+            this.props.history.goBack()
+        }
 
         return (
             <div>
@@ -113,12 +151,13 @@ class Base extends Component {
     }
 }
 
-const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionUpdate, goalDefinitionDetail }) => ({
+const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionUpdate, goalDefinitionActivationUpdate, goalDefinitionDetail }) => ({
     categoryList,
     goalTypeList,
     kpiList,
     periodicityList,
     goalDefinitionUpdate,
+    goalDefinitionActivationUpdate,
     goalDefinitionDetail
 });
 
@@ -128,7 +167,8 @@ const mapDispatchToProps = (dispatch) => ({
     kpiListActions: bindActionCreators(kpiListActions, dispatch),
     periodicityListActions: bindActionCreators(periodicityListActions, dispatch),
     goalDefinitionDetailActions: bindActionCreators(goalDefinitionDetailActions, dispatch),
-    goalDefinitionUpdateActions: bindActionCreators(goalDefinitionUpdateActions, dispatch)
+    goalDefinitionUpdateActions: bindActionCreators(goalDefinitionUpdateActions, dispatch),
+    goalDefinitionActivationUpdateActions: bindActionCreators(goalDefinitionActivationUpdateActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Base)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Base))
