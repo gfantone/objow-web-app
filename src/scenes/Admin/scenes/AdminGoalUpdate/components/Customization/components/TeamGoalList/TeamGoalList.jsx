@@ -109,6 +109,7 @@ class TeamGoalList extends Component {
         if (this.state.targetSum != null && isRate) allTarget = goalCount > 0 ? Math.ceil(this.state.targetSum / goalCount) : 0
         const remainingTarget = maxTarget - allTarget
         const canSubmit = remainingTarget >= 0
+        const readonly = !parentGoal.definition.isActive
 
         return (
             <div>
@@ -137,7 +138,7 @@ class TeamGoalList extends Component {
                         { goals.map((goal) => {
                             return (
                                 <Grid key={goal.id} item xs={3}>
-                                    <TextField type='number' name={goal.id} label={goal.team.name} initial={goal.target} fullWidth required
+                                    <TextField type='number' name={goal.id} label={goal.team.name} initial={goal.target} fullWidth required disabled={readonly}
                                         validations={{
                                             isInt: true,
                                             isMoreThanOrEquals: 0
@@ -152,10 +153,10 @@ class TeamGoalList extends Component {
                             )
                         }) }
                     </Grid>
-                    <div className={classes.formFooter}>
+                    {!readonly && <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour la période sélectionnée</ErrorText> }
                         <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit} centered />
-                    </div>
+                    </div>}
                 </Formsy>
             </div>
         )

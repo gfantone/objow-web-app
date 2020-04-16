@@ -42,8 +42,8 @@ const periods = {
         const url = `${baseUrl}current/`;
         return instance.get(url)
     },
-    goalDefinitions(id) {
-        const url = `${baseUrl}${id}/goal-definitions/`;
+    goalDefinitions(id, isActive) {
+        const url = `${baseUrl}${id}/goal-definitions/?isActive=${isActive}`;
         return instance.get(url)
     },
     levels(id) {

@@ -7,7 +7,7 @@ import {IconButton} from "../../../../components/Common/components/IconButton";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSlidersH} from "@fortawesome/free-solid-svg-icons";
 import {Category} from '../../components'
-import {GridLink, Loader, MainLayoutComponent} from "../../../../components";
+import {AppBarSubTitle, GridLink, Loader, MainLayoutComponent} from "../../../../components";
 import {Grid} from "@material-ui/core";
 import withWidth, {isWidthUp} from "@material-ui/core/withWidth";
 import {CategoryFilter} from "../../components/CategoryFilter";
@@ -57,6 +57,7 @@ class TeamGoalCategoryList extends MainLayoutComponent {
     componentDidMount() {
         if (this.props.accountDetail.account.role.code == 'A') this.props.activateReturn();
         this.props.handleTitle('Objectifs');
+        this.props.handleSubHeader(<AppBarSubTitle title='Sélection de la catégorie' />);
         this.props.handleMaxWidth('sm');
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}>
             <FontAwesomeIcon icon={faSlidersH} />

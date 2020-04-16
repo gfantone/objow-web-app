@@ -23,6 +23,11 @@ const initialState = {
         loading: false,
         hasError: false
     },
+    goalDefinitionActivationUpdate: {
+        success: false,
+        loading: false,
+        hasError: false
+    },
     auth: {
         success: false,
         loading: false,

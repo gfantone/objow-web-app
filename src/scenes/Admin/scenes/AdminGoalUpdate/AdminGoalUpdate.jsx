@@ -21,7 +21,7 @@ class AdminGoalUpdate extends MainLayoutComponent {
     componentDidMount() {
         this.id = this.props.match.params.id;
         this.props.handleTitle('Administration');
-        this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} />);
+        this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} readonly={!this.props.location.state} />);
         this.props.handleMaxWidth('md');
         this.props.activateReturn()
     }

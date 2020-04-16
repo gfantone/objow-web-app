@@ -117,6 +117,7 @@ class CollaboratorGoalList extends Component {
         if (this.state.targetSum != null && isRate) allTarget = goalCount > 0 ? Math.ceil(this.state.targetSum / goalCount) : 0;
         const remainingTarget = maxTarget - allTarget;
         const canSubmit = remainingTarget >= 0;
+        const readonly = !parentGoal.goal.definition.isActive
 
         return (
             <div>
@@ -150,7 +151,7 @@ class CollaboratorGoalList extends Component {
                                         <Avatar src={photo} className={classes.avatar} />
                                     </Grid>
                                     <Grid item xs>
-                                        <TextField type='number' name={goal.id} label={goal.collaborator.fullname} initial={goal.target} required
+                                        <TextField type='number' name={goal.id} label={goal.collaborator.fullname} initial={goal.target} required disabled={readonly}
                                             validations={{
                                                 isInt: true,
                                                 isMoreThanOrEquals: 0
@@ -166,10 +167,10 @@ class CollaboratorGoalList extends Component {
                             )
                         }) }
                     </Grid>
-                    <div className={classes.formFooter}>
+                    {!readonly && <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour la période sélectionnée</ErrorText> }
                         <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit} centered />
-                    </div>
+                    </div>}
                 </Formsy>
             </div>
         )

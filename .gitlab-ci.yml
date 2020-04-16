@@ -1,11 +1,27 @@
 stages:
     - build
     - deploy
-build:
+build_apptest:
     stage: build
     image: node:latest
     only:
-        - master
+        - release/apptest
+    script:
+        - echo "Building deploy package"
+        - yarn
+        - npm run-script generate-build-meta
+        - CI=false yarn build
+        - CI=false yarn build:external
+        - echo "Build successful"
+    artifacts:
+        expire_in: 1 hour
+        paths:
+            - build
+build_app:
+    stage: build
+    image: node:latest
+    only:
+        - release/app
     script:
         - echo "Building deploy package"
         - yarn
@@ -16,11 +32,20 @@ build:
         expire_in: 1 hour
         paths:
             - build
-deploy_internal:
+deploy_apptest:
     stage: deploy
     image: mwienk/docker-lftp:latest
     only:
-        - master
+        - release/apptest
+    script:
+        - echo "Deploy package"
+        - lftp -e "set ftp:ssl-allow false; mirror -eRnv build www/test/firetiger/app; exit;" -u $JORISLENCLUME_FTP_USER,$JORISLENCLUME_FTP_PASSWORD $JORISLENCLUME_FTP_UURL
+        - echo "Deploy successful"
+deploy_app:
+    stage: deploy
+    image: mwienk/docker-lftp:latest
+    only:
+        - release/app
     script:
         - echo "Deploy package"
         - lftp -e "set ftp:ssl-allow false; mirror -eRnv build www/test/firetiger/app; exit;" -u $JORISLENCLUME_FTP_USER,$JORISLENCLUME_FTP_PASSWORD $JORISLENCLUME_FTP_UURL

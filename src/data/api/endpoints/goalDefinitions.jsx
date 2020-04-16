@@ -22,6 +22,10 @@ const goalDefinitions = {
         const url = `${baseUrl}${id}/`;
         return instance.put(url, definition)
     },
+    updateActivation(id, isActive) {
+        const url = `${baseUrl}${id}/`;
+        return instance.patch(url, {isActive})
+    },
     goals(id, date) {
         var url = `${baseUrl}${id}/goals/`;
         if (date) url += `?date=${date.toISOString()}`;

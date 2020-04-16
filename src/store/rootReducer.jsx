@@ -61,6 +61,7 @@ import goalDefinitionDetail from '../services/GoalDefinitions/GoalDefinitionDeta
 import goalDefinitionCreation from '../services/GoalDefinitions/GoalDefinitionCreation/reducer'
 import goalDefinitionList from '../services/GoalDefinitions/GoalDefinitionList/reducer'
 import goalDefinitionUpdate from '../services/GoalDefinitions/GoalDefinitionUpdate/reducer'
+import goalDefinitionActivationUpdate from '../services/GoalDefinitions/GoalDefinitionActivationUpdate/reducer'
 import goalDefinitionLevelCollaboratorPoints from '../services/GoalDefinitionLevels/GoalDefinitionLevelCollaoratorPoints/reducer'
 import goalDefinitionLevelTeamPoints from '../services/GoalDefinitionLevels/GoalDefinitionLevelTeamPoints/reducer'
 import goalDefinitionLevelList from '../services/GoalDefinitionLevels/GoalDefinitionLevelList/reducer'
@@ -194,6 +195,7 @@ const rootReducer = combineReducers({
     goalDefinitionCreation,
     goalDefinitionList,
     goalDefinitionUpdate,
+    goalDefinitionActivationUpdate,
     goalDefinitionLevelCollaboratorPoints,
     goalDefinitionLevelTeamPoints,
     goalDefinitionLevelList,
