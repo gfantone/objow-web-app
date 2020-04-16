@@ -43,7 +43,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "build:external": "env-cmd -f .env.external react-scripts build",
-    "build:internal": "env-cmd -f .env.internal react-scripts build",
     "postbuild": "npm run generate-build-meta",
     "generate-build-meta": "./node_modules/react-clear-cache/bin/cli.js",
     "test": "react-scripts test",
