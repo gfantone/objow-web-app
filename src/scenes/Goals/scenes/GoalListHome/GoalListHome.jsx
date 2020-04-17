@@ -9,18 +9,18 @@ class GoalListHome extends MainLayoutComponent {
     }
 
     handleClick(id) {
-        this.props.history.push(`/goals/team/${id}`)
+        this.props.history.push(`/goals/teams/${id}/categories`)
     }
 
     render() {
         const { account } = this.props.accountDetail;
 
         if (account.role.code == 'C') {
-            return <Redirect to={`/goals/collaborator/${account.id}`} />
+            return <Redirect to={`/goals/collaborators/${account.id}/categories`} />
         }
 
         if (account.role.code == 'M' && account.team) {
-            return <Redirect to={`/goals/team/${account.team.id}`} />
+            return <Redirect to={`/goals/teams/${account.team.id}/categories`} />
         }
 
         if (account.role.code == 'A') {

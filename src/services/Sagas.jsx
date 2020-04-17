@@ -64,8 +64,9 @@ import watchGoalDefinitionDetail from './GoalDefinitions/GoalDefinitionDetail/sa
 import watchGoalDefinitionCreation from './GoalDefinitions/GoalDefinitionCreation/sagas'
 import watchGoalDefinitionLevelCollaboratorPoints from './GoalDefinitionLevels/GoalDefinitionLevelCollaoratorPoints/sagas'
 import watchGoalDefinitionLevelTeamPoints from './GoalDefinitionLevels/GoalDefinitionLevelTeamPoints/sagas'
-import {watchGoalDefinitionList, watchCurrentGoalDefinitionList} from './GoalDefinitions/GoalDefinitionList/sagas'
+import {watchGoalDefinitionList} from './GoalDefinitions/GoalDefinitionList/sagas'
 import watchGoalDefinitionUpdate from './GoalDefinitions/GoalDefinitionUpdate/sagas'
+import watchGoalDefinitionActivationUpdate from './GoalDefinitions/GoalDefinitionActivationUpdate/sagas'
 import watchGoalDefinitionLevelList from './GoalDefinitionLevels/GoalDefinitionLevelList/sagas'
 import watchGoalDefinitionLevelListUpdate from './GoalDefinitionLevels/GoalDefinitionLevelListUpdate/sagas'
 import watchGoalPoints from './GoalPoints/sagas'
@@ -121,11 +122,14 @@ import watchTeamPlayerGoalListUpdate from './TeamPlayerGoals/TeamPlayerGoalListU
 import watchUserCreation from './Users/UserCreation/sagas'
 import watchUserDetail from './Users/UserDetail/sagas'
 import watchUserList from './Users/UserList/sagas'
+import watchUserListImport from './Users/UserListImport/sagas'
 import watchUserUpdate from './Users/UserUpdate/sagas'
 import watchUserUpdateActivation from './Users/UserUpdateActivation/sagas'
 import watchUserUpdatePassword from './Users/UserUpdatePassword/sagas'
 import watchUserGoalDetail from './UserGoals/UserGoalDetail/sagas'
 import watchUserGoalList from './UserGoals/UserGoalList/sagas'
+import watchCollaboratorGoalCategoryList from "./CollaboratorGoalCategories/CollaboratorGoalCategoryList/sagas";
+import watchTeamGoalCategoryList from "./TeamGoalCategories/TeamGoalCategoryList/sagas";
 
 function* rootSaga() {
     yield all([
@@ -209,8 +213,8 @@ function* rootSaga() {
         watchGoalDefinitionLevelCollaboratorPoints(),
         watchGoalDefinitionLevelTeamPoints(),
         watchGoalDefinitionList(),
-        watchCurrentGoalDefinitionList(),
         watchGoalDefinitionUpdate(),
+        watchGoalDefinitionActivationUpdate(),
         watchGoalDefinitionLevelList(),
         watchGoalDefinitionLevelListUpdate(),
         watchGoalPoints(),
@@ -256,6 +260,7 @@ function* rootSaga() {
         watchUserCreation(),
         watchUserDetail(),
         watchUserList(),
+        watchUserListImport(),
         watchUserUpdate(),
         watchUserUpdateActivation(),
         watchUserUpdatePassword(),
@@ -274,7 +279,9 @@ function* rootSaga() {
         watchTeamList(),
         watchTeamPlayerGoalDetail(),
         watchTeamPlayerGoalList(),
-        watchTeamPlayerGoalListUpdate()
+        watchTeamPlayerGoalListUpdate(),
+        watchCollaboratorGoalCategoryList(),
+        watchTeamGoalCategoryList()
     ])
 }
 
