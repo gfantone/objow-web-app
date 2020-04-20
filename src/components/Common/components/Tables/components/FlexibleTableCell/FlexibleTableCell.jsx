@@ -3,12 +3,24 @@ import {TableCell} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
-    root: {
+    rootDefault: {
         fontSize: 13,
         color: '#555555',
         textTransform: 'uppercase',
         padding: 'initial',
-        whiteSpace: 'nowrap', 
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        [theme.breakpoints.down('xs')]: {
+            maxWidth: 0
+        }
+    },
+    rootPrimary: {
+        fontSize: 13,
+        color: '#00E58D',
+        textTransform: 'uppercase',
+        padding: 'initial',
+        whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         [theme.breakpoints.down('xs')]: {
@@ -17,11 +29,12 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const FlexibleTableCell = (props) => {
+const FlexibleTableCell = ({color, ...props}) => {
     const classes = useStyles()
+    const rootClass = color == 'primary' ? classes.rootPrimary : classes.rootDefault
 
     return (
-        <TableCell {...props} className={classes.root} />
+        <TableCell {...props} className={rootClass} />
     )
 }
 
