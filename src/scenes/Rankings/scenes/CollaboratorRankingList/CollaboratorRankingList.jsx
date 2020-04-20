@@ -19,7 +19,7 @@ class CollaboratorRankingList extends MainLayoutComponent {
     }
 
     refresh(collaboratorId, page, year) {
-        var url = `/rankings/collaborator/${collaboratorId}?page=${page}`;
+        var url = `/rankings/collaborators/${collaboratorId}/list?page=${page}`;
         if (year) url += `&year=${year}`;
         this.props.history.replace(url)
     }
@@ -29,7 +29,7 @@ class CollaboratorRankingList extends MainLayoutComponent {
     }
 
     loadData(props) {
-        const collaboratorId = props.match.params.id;
+        const collaboratorId = props.match.params.collaborator;
         const params = new URLSearchParams(window.location.search);
         const pageParam = params.get('page');
         const page = pageParam ? Number(pageParam) : 0;

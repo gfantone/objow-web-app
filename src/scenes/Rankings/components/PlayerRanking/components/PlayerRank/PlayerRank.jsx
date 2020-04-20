@@ -10,28 +10,29 @@ const styles = {
     }
 };
 
-const PlayerRank = ({ rank, ...props }) => {
+const PlayerRank = ({rank, selected, ...props}) => {
     const { classes } = props;
     const photo = rank.photo ? rank.photo : '/assets/img/user/avatar.svg';
+    const color = !selected ? 'default' : 'primary'
 
     return (
         <TableRow>
             <TableCell>
-                <TableChip size='small' label={rank.rank ? rank.rank : '-'} />
+                <TableChip size='small' color={color} label={rank.rank ? rank.rank : '-'} />
             </TableCell>
             <FixedTableCell>
                 <Avatar src={photo} className={classes.photo} />
             </FixedTableCell>
-            <FlexibleTableCell>
+            <FlexibleTableCell color={color}>
                 { rank.firstName } { rank.lastName }
             </FlexibleTableCell>
-            <TableCell align='right'>
+            <TableCell align='right' color={color}>
                 { rank.level }
             </TableCell>
-            <TableCell align='right'>
+            <TableCell align='right' color={color}>
                 { rank.victories }
             </TableCell>
-            <TableCell align='right'>
+            <TableCell align='right' color={color}>
                 { rank.points }
             </TableCell>
             <TableCell align='right'>

@@ -10,13 +10,13 @@ import {Redirect} from "react-router";
 
 class PlayerCategoryRanking extends MainLayoutComponent {
     componentDidMount() {
-        const id = this.props.match.params.id;
+        const categoryId = this.props.match.params.category;
         this.props.activateReturn();
         this.props.handleTitle('Classements');
         this.props.handleSubHeader(<SubHeader />);
         this.props.handleMaxWidth('md');
-        this.props.categoryDetailActions.getCategoryDetail(id);
-        this.props.collaboratorCategoryRankListActions.getCollaboratorCategoryRankListByCategory(id, this.props.match.params.periodId)
+        this.props.categoryDetailActions.getCategoryDetail(categoryId);
+        this.props.collaboratorCategoryRankListActions.getCollaboratorCategoryRankListByCategory(categoryId, this.props.match.params.period)
     }
 
     renderEmptyState() {
@@ -25,7 +25,7 @@ class PlayerCategoryRanking extends MainLayoutComponent {
 
     renderData() {
         const { ranks } = this.props.collaboratorCategoryRankList;
-        return <PlayerRanking ranking={ranks} />
+        return <PlayerRanking ranking={ranks} collaboratorId={this.props.match.params.collaborator} />
     }
 
     render() {

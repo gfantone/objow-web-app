@@ -1,12 +1,12 @@
 import React from 'react'
-import { TableBody } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-regular-svg-icons'
-import { faRandom, faSortAmountDown } from '@fortawesome/free-solid-svg-icons'
-import { PlayerRank } from './components'
-import { Table, TableHead, TableHeadCell, TableRow } from '../../../../components'
+import {TableBody} from '@material-ui/core'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faStar} from '@fortawesome/free-regular-svg-icons'
+import {faRandom, faSortAmountDown} from '@fortawesome/free-solid-svg-icons'
+import {PlayerRank} from './components'
+import {Table, TableHead, TableHeadCell, TableRow} from '../../../../components'
 
-const PlayerRanking = ({ ranking }) => {
+const PlayerRanking = ({ranking, collaboratorId}) => {
     return (
         <div>
             <Table>
@@ -28,7 +28,8 @@ const PlayerRanking = ({ ranking }) => {
                 </TableHead>
                 <TableBody>
                     { ranking.map(rank => {
-                        return <PlayerRank key={rank.id} rank={rank} />
+                        const selected = rank.collaboratorId == collaboratorId
+                        return <PlayerRank key={rank.id} rank={rank} selected={selected} />
                     }) }
                 </TableBody>
             </Table>

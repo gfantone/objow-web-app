@@ -47,13 +47,13 @@ export default () => {
                 <MainRoutes exact path='/rules' component={scenes.GameRules} />
                 {/* Rankings */}
                 <MainRoutes exact path='/rankings' component={scenes.RankingList} />
-                <MainRoutes exact path='/rankings/collaborator/:id' component={scenes.CollaboratorRankingList} />
-                <MainRoutes exact path='/rankings/general/collaborator/:period' component={scenes.CollaboratorGeneralRanking} />
-                <MainRoutes exact path='/rankings/collaborator/category/:id/:periodId' component={scenes.CollaboratorCategoryRanking} />
-                <MainRoutes exact path='/rankings/general/team/:period' component={scenes.TeamGeneralRanking} />
-                <MainRoutes exact path='/rankings/team/category/:id/:periodId' component={scenes.TeamCategoryRanking} />
-                <MainRoutes exact path='/rankings/challenge/collaborator/:period' component={scenes.CollaboratorChallengeRanking} />
-                <MainRoutes exact path='/rankings/challenge/team/:period' component={scenes.TeamChallengeRanking} />
+                <MainRoutes exact path='/rankings/collaborators/:collaborator/list' component={scenes.CollaboratorRankingList} />
+                <MainRoutes exact path='/rankings/collaborators/:collaborator/general/:period' component={scenes.CollaboratorGeneralRanking} />
+                <MainRoutes exact path='/rankings/collaborators/:collaborator/categories/:category/years/:period' component={scenes.CollaboratorCategoryRanking} />
+                <MainRoutes exact path='/rankings/collaborators/:collaborator/challenges/:period' component={scenes.CollaboratorChallengeRanking} />
+                <MainRoutes exact path='/rankings/teams/:team/general/:period' component={scenes.TeamGeneralRanking} />
+                <MainRoutes exact path='/rankings/teams/:team/categories/:category/years/:period' component={scenes.TeamCategoryRanking} />
+                <MainRoutes exact path='/rankings/teams/:team/challenges/:period' component={scenes.TeamChallengeRanking} />
                 {/* Teams */}
                 <MainRoutes exact path='/teams' component={scenes.TeamList} />
                 <MainRoutes exact path='/teams/:id' component={scenes.TeamDetail} />
