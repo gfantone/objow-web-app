@@ -37,15 +37,15 @@ class PlayerRankList extends Component {
     }
 
     handleGeneralClick = periodId => () => {
-        this.props.history.push(`/rankings/general/collaborator/${periodId}`)
+        this.props.history.push(`/rankings/collaborators/${this.props.match.params.collaborator}/general/${periodId}`)
     };
 
     handleCategoryClick(id, periodId) {
-        this.props.history.push(`/rankings/collaborator/category/${id}/${periodId}`)
+        this.props.history.push(`/rankings/collaborators/${this.props.match.params.collaborator}/categories/${id}/years/${periodId}`)
     }
 
     handleChallengeClick = periodId => () => {
-        this.props.history.push(`/rankings/challenge/collaborator/${periodId}`)
+        this.props.history.push(`/rankings/collaborators/${this.props.match.params.collaborator}/challenges/${periodId}`)
     };
 
     renderLoader() {
@@ -77,7 +77,7 @@ class PlayerRankList extends Component {
         const { rank: challengeRank, loading: collaboratorChallengeGeneralRankDetailLoading } = this.props.collaboratorChallengeGeneralRankDetail;
         const { rank: generalRank, loading: collaboratorGeneralRankDetailLoading } = this.props.collaboratorGeneralRankDetail;
         const loading = collaboratorCategoryRankListLoading || collaboratorChallengeGeneralRankDetailLoading || collaboratorGeneralRankDetailLoading;
-        
+
         return (
             <div>
                 { loading && this.renderLoader() }

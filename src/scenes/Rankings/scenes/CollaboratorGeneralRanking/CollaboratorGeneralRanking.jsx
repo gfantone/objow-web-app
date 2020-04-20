@@ -25,7 +25,7 @@ class CollaboratorGeneralRanking extends MainLayoutComponent {
 
     renderData() {
         const { ranks } = this.props.collaboratorGeneralRankList;
-        return <PlayerRanking ranking={ranks} />
+        return <PlayerRanking ranking={ranks} collaboratorId={this.props.match.params.collaborator} />
     }
 
     render() {

@@ -9,14 +9,14 @@ class RankingList extends MainLayoutComponent {
     }
 
     handleClick(id) {
-        this.props.history.push(`/rankings/collaborator/${id}`)
+        this.props.history.push(`/rankings/collaborators/${id}/list`)
     }
 
     render() {
         const { account } = this.props.accountDetail;
 
         if (account.role.code == 'C') {
-            return <Redirect to={`/rankings/collaborator/${account.id}`} />
+            return <Redirect to={`/rankings/collaborators/${account.id}/list`} />
         }
 
         return (

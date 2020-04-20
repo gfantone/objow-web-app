@@ -10,12 +10,12 @@ import {Redirect} from "react-router";
 
 class TeamCategoryRanking extends MainLayoutComponent {
     componentDidMount() {
-        const id = this.props.match.params.id;
+        const categoryId = this.props.match.params.category;
         this.props.activateReturn();
         this.props.handleTitle('Classements');
         this.props.handleSubHeader(<SubHeader />);
-        this.props.categoryDetailActions.getCategoryDetail(id);
-        this.props.teamCategoryRankListActions.getTeamCategoryRankListByCategory(id, this.props.match.params.periodId)
+        this.props.categoryDetailActions.getCategoryDetail(categoryId);
+        this.props.teamCategoryRankListActions.getTeamCategoryRankListByCategory(categoryId, this.props.match.params.period)
     }
 
     renderEmptyState() {
@@ -24,7 +24,7 @@ class TeamCategoryRanking extends MainLayoutComponent {
 
     renderData() {
         const { ranks } = this.props.teamCategoryRankList;
-        return <TeamRanking ranking={ranks} />
+        return <TeamRanking ranking={ranks} teamId={this.props.match.params.team} />
     }
 
     render() {

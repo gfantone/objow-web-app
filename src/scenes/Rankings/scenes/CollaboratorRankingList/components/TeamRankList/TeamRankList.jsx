@@ -37,15 +37,21 @@ class TeamRankList extends Component {
     }
 
     handleGeneralClick = periodId => () => {
-        this.props.history.push(`/rankings/general/team/${periodId}`)
+        const {collaborator} = this.props.collaboratorDetail
+        const teamId = collaborator.team ? collaborator.team.id : null
+        this.props.history.push(`/rankings/teams/${teamId}/general/${periodId}`)
     };
 
     handleCategoryClick(id, periodId) {
-        this.props.history.push(`/rankings/team/category/${id}/${periodId}`)
+        const {collaborator} = this.props.collaboratorDetail
+        const teamId = collaborator.team ? collaborator.team.id : null
+        this.props.history.push(`/rankings/teams/${teamId}/categories/${id}/years/${periodId}`)
     }
 
     handleChallengeClick = periodId => () => {
-        this.props.history.push(`/rankings/challenge/team/${periodId}`)
+        const {collaborator} = this.props.collaboratorDetail
+        const teamId = collaborator.team ? collaborator.team.id : null
+        this.props.history.push(`/rankings/teams/${teamId}/challenges/${periodId}`)
     };
 
     renderLoader() {
@@ -88,7 +94,8 @@ class TeamRankList extends Component {
     }
 }
 
-const mapStateToProps = ({ teamCategoryRankList, teamChallengeGeneralRankDetail, teamGeneralRankDetail }) => ({
+const mapStateToProps = ({collaboratorDetail, teamCategoryRankList, teamChallengeGeneralRankDetail, teamGeneralRankDetail}) => ({
+    collaboratorDetail,
     teamCategoryRankList,
     teamChallengeGeneralRankDetail,
     teamGeneralRankDetail

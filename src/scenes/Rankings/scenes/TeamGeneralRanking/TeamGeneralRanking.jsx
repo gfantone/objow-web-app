@@ -25,7 +25,7 @@ class TeamGeneralRanking extends MainLayoutComponent {
 
     renderData() {
         const { ranking } = this.props.teamGeneralRankList;
-        return <TeamRanking ranking={ranking} />
+        return <TeamRanking ranking={ranking} teamId={this.props.match.params.team} />
     }
 
     render() {
