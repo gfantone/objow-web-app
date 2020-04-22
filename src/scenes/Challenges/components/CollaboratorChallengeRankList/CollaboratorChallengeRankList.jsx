@@ -12,7 +12,7 @@ const styles = {
     }
 }
 
-const CollaboratorChallengeRankList = ({ ranks, ...props }) => {
+const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
     const { classes } = props
 
     return (
@@ -33,17 +33,19 @@ const CollaboratorChallengeRankList = ({ ranks, ...props }) => {
                 <TableBody>
                     { ranks.map(rank => {
                         const photo = rank.collaborator.photo ? rank.collaborator.photo : '/assets/img/user/avatar.svg'
+                        const selected = rank.collaborator ? rank.collaborator.id == collaboratorId : false
+                        const color = !selected ? 'default' : 'primary'
 
                         return (
                             <TableRow key={rank.id}>
                                 <TableCell>
-                                    <TableChip label={rank.rank ? rank.rank : '-'} />
+                                    <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
                                 </TableCell>
                                 <FixedTableCell>
                                     <Avatar src={photo} className={classes.photo} />
                                 </FixedTableCell>
-                                <FlexibleTableCell>{rank.collaborator.firstname} {rank.collaborator.lastname}</FlexibleTableCell>
-                                <TableCell>{rank.points}</TableCell>
+                                <FlexibleTableCell color={color}>{rank.collaborator.firstname} {rank.collaborator.lastname}</FlexibleTableCell>
+                                <TableCell color={color}>{rank.points}</TableCell>
                                 <TableCell>
                                     <RankEvolution evolution={rank.evolution} />
                                 </TableCell>

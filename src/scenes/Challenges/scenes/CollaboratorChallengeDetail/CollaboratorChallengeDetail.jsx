@@ -44,7 +44,7 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
 
         return (
             <div>
-                { account.hasChallengeRankAccess && this.state.page == 0 && ranks && <CollaboratorChallengeRankList ranks={ranks} /> }
+                { account.hasChallengeRankAccess && this.state.page == 0 && challenge && ranks && <CollaboratorChallengeRankList ranks={ranks} collaboratorId={challenge.collaboratorId} /> }
                 { this.state.page == 1 && challenge && goals && <ChallengeCondition challenge={challenge} goals={goals} /> }
             </div>
         )

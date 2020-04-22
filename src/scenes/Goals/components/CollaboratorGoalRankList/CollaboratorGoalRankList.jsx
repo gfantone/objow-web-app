@@ -13,7 +13,7 @@ const styles = {
     }
 }
 
-const CollaboratorGoalRankList = ({ ranks, ...props }) => {
+const CollaboratorGoalRankList = ({ranks, collaboratorId, ...props}) => {
     const { classes } = props
 
     return (
@@ -37,18 +37,20 @@ const CollaboratorGoalRankList = ({ ranks, ...props }) => {
                 <TableBody>
                     { ranks.map(rank => {
                         const photo = rank.collaborator.photo ? rank.collaborator.photo : '/assets/img/user/avatar.svg'
+                        const selected = rank.collaborator ? rank.collaborator.id == collaboratorId : false
+                        const color = !selected ? 'default' : 'primary'
 
                         return (
                             <TableRow key={rank.id}>
                                 <TableCell>
-                                    <TableChip label={rank.rank ? rank.rank : '-'} />
+                                    <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
                                 </TableCell>
                                 <FixedTableCell>
                                     <Avatar src={photo} className={classes.photo} />
                                 </FixedTableCell>
-                                <FlexibleTableCell>{rank.collaborator.firstname} {rank.collaborator.lastname}</FlexibleTableCell>
-                                <TableCell>{rank.progression.toPercentage()}</TableCell>
-                                <TableCell>{rank.points}</TableCell>
+                                <FlexibleTableCell color={color}>{rank.collaborator.firstname} {rank.collaborator.lastname}</FlexibleTableCell>
+                                <TableCell color={color}>{rank.progression.toPercentage()}</TableCell>
+                                <TableCell color={color}>{rank.points}</TableCell>
                                 <TableCell>
                                     <RankEvolution evolution={rank.evolution} />
                                 </TableCell>
