@@ -37,7 +37,7 @@ const CollaboratorGoalRankList = ({ranks, collaboratorId, ...props}) => {
                 <TableBody>
                     { ranks.map(rank => {
                         const photo = rank.collaborator.photo ? rank.collaborator.photo : '/assets/img/user/avatar.svg'
-                        const selected = rank.collaborator.id == collaboratorId
+                        const selected = rank.collaborator ? rank.collaborator.id == collaboratorId : false
                         const color = !selected ? 'default' : 'primary'
 
                         return (
