@@ -4,7 +4,7 @@ import { faBullseye, faRandom, faSortAmountDown } from '@fortawesome/free-solid-
 import { FullTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow } from '../../../../components'
 import '../../../../helpers/NumberHelper'
 
-const TeamGoalRankList = ({ ranks, ...props }) => {
+const TeamGoalRankList = ({ranks, teamId, ...props}) => {
     return (
         <div>
             <Table>
@@ -25,15 +25,18 @@ const TeamGoalRankList = ({ ranks, ...props }) => {
                 </TableHead>
                 <TableBody>
                     { ranks.map(rank => {
+                        const selected = rank.team ? rank.team.id == teamId : false
+                        const color = !selected ? 'default' : 'primary'
+
                         return (
                             <TableRow>
                                 <FullTableCell style={{backgroundColor: rank.team.color.hex, width: 4}} />
                                 <TableCell>
-                                    <TableChip label={rank.rank ? rank.rank : '-'} />
+                                    <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
                                 </TableCell>
-                                <TableCell>{rank.team.name}</TableCell>
-                                <TableCell>{rank.progression.toPercentage()}</TableCell>
-                                <TableCell>{rank.points}</TableCell>
+                                <TableCell color={color}>{rank.team.name}</TableCell>
+                                <TableCell color={color}>{rank.progression.toPercentage()}</TableCell>
+                                <TableCell color={color}>{rank.points}</TableCell>
                                 <TableCell>
                                     <RankEvolution evolution={rank.evolution} />
                                 </TableCell>
