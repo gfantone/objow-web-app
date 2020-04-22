@@ -85,7 +85,7 @@ class TeamChallengeDetail extends MainLayoutComponent {
 
         return (
             <div>
-                { account.hasChallengeRankAccess && account.hasTeamRankAccess && this.state.page == 0 && ranks && <TeamChallengeRankList ranks={ranks} /> }
+                { account.hasChallengeRankAccess && account.hasTeamRankAccess && this.state.page == 0 && challenge && ranks && <TeamChallengeRankList ranks={ranks} teamId={challenge.teamId} /> }
                 { this.state.page == 1 && challenge && goals && <ChallengeCondition challenge={challenge} goals={goals} /> }
             </div>
         )

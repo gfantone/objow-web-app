@@ -41,7 +41,7 @@ class CollaboratorGoalDetail extends MainLayoutComponent {
 
         return (
             <div>
-                { account.hasGoalRankAccess && this.state.page == 0 && ranks && <CollaboratorGoalRankList ranks={ranks} /> }
+                { account.hasGoalRankAccess && this.state.page == 0 && goal && ranks && <CollaboratorGoalRankList ranks={ranks} collaboratorId={goal.collaboratorId} /> }
                 { this.state.page == 1 && goal && <GoalIndication goal={goal} type='C' /> }
             </div>
         )
