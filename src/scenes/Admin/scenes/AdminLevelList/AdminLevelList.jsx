@@ -50,7 +50,7 @@ class AdminLevelList extends MainLayoutComponent {
             this.initialized = true;
             this.setState({
                 ...this.state,
-                levels: levels.map(x => ({ key: uuidv4(), points: x.points, players: x.players }))
+                levels: levels.map(x => ({ key: uuidv4(), number: x.number, points: x.points, players: x.players }))
             })
         }
     }
@@ -85,6 +85,9 @@ class AdminLevelList extends MainLayoutComponent {
         const { loading: levelListCreationLoading } = this.props.levelListCreation;
         const loading = levelListCreationLoading;
         const config = configs.find(x => x.code == 'CPA');
+        const reachedLevels = this.state.levels.filter(x => x.players > 0)
+        const reachedLevelNumbers = reachedLevels.map(x => Number(x.number))
+        const maxRankDisabled = Math.max(...reachedLevelNumbers)
 
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
@@ -97,7 +100,7 @@ class AdminLevelList extends MainLayoutComponent {
                         </Card>
                     </Grid>
                     { this.state.levels.length > 0 && this.state.levels.map((level, index) => {
-                        const disabled = index == 0 || level.players > 0;
+                        const disabled = level.number <= maxRankDisabled;
                         const validations = index > 0 ? { isLessThanOrEquals: 'reference', isMoreThan: `levels[${index-1}]` } : { isLessThanOrEquals: 'reference', equals: 0 };
                         const number = level.number ? level.number : index + 1;
                         return (
