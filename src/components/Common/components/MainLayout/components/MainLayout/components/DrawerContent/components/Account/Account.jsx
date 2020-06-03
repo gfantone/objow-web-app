@@ -32,7 +32,7 @@ const Account = ({...props}) => {
     const isManager = account.role.code == 'M';
     const isAdministrator = account.role.code == 'A';
     const photo = account.photo ? account.photo : '/assets/img/user/avatar.svg';
-    const percentage = isCollaborator ? (account.rank.points / account.nextLevel.points).toFullPercentage() : 0;
+    const percentage = isCollaborator && account.nextLevel ? (account.rank.points / account.nextLevel.points).toFullPercentage() : isCollaborator && !account.nextLevel ? 100 : 0;
     const [initialized, setInitialized] = React.useState(false);
 
     useEffect(() => {
