@@ -4,8 +4,8 @@ import badges from './endpoints/badges'
 import categories from './endpoints/categories'
 import categoryIcons from './endpoints/categoryIcons'
 import challengeAwardTypes from "./endpoints/challengeAwardTypes";
-import challenges from './endpoints/challenges'
 import challengeImages from './endpoints/challengeImages'
+import challenges from './endpoints/challenges'
 import challengeTypes from './endpoints/challengeTypes'
 import coachingItems from './endpoints/coachingItems'
 import collaboratorBadgeLevels from './endpoints/collaboratorBadgeLevels'
@@ -17,10 +17,10 @@ import collaboratorGoalSummaries from './endpoints/collaboratorGoalSummaries'
 import collaborators from './endpoints/collaborators'
 import configs from './endpoints/configs'
 import currentCollaboratorBadges from "./endpoints/currentCollaboratorBadges";
-import goals from './endpoints/goals'
-import goalDefinitions from './endpoints/goalDefinitions'
 import goalDefinitionLevels from './endpoints/goalDefinitionLevels'
+import goalDefinitions from './endpoints/goalDefinitions'
 import goalPoints from './endpoints/goalPoints'
+import goals from './endpoints/goals'
 import goalTypes from './endpoints/goalTypes'
 import importLogs from './endpoints/importLogs'
 import kpis from './endpoints/kpis'
@@ -28,8 +28,8 @@ import levels from './endpoints/levels'
 import mails from './endpoints/mails'
 import managers from './endpoints/managers'
 import nextCollaboratorBadges from "./endpoints/nextCollaboratorBadges";
-import periods from './endpoints/periods'
 import periodicities from './endpoints/periodicities'
+import periods from './endpoints/periods'
 import roles from './endpoints/roles'
 import systemImages from './endpoints/systemImages'
 import teamChallenges from './endpoints/teamChallenges'
@@ -52,8 +52,8 @@ const api = {
     categories,
     categoryIcons,
     challengeAwardTypes,
-    challenges,
     challengeImages,
+    challenges,
     challengeTypes,
     coachingItems,
     collaboratorBadgeLevels,
@@ -65,10 +65,10 @@ const api = {
     collaborators,
     configs,
     currentCollaboratorBadges,
-    goals,
-    goalDefinitions,
     goalDefinitionLevels,
+    goalDefinitions,
     goalPoints,
+    goals,
     goalTypes,
     importLogs,
     kpis,
@@ -76,8 +76,8 @@ const api = {
     mails,
     managers,
     nextCollaboratorBadges,
-    periods,
     periodicities,
+    periods,
     roles,
     systemImages,
     teamChallenges,
