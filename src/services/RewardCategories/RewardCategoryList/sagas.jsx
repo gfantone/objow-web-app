@@ -5,8 +5,8 @@ import api from '../../../data/api/api'
 
 function* getActiveRewardCategoryList(action) {
     try {
-        yield call(api.rewardCategories.actives)
-        yield put(getRewardCategoryListSuccess())
+        const {data: categories} = yield call(api.rewardCategories.actives)
+        yield put(getRewardCategoryListSuccess(categories))
     } catch(e) {
         yield put(getRewardCategoryListError())
     }
@@ -14,8 +14,8 @@ function* getActiveRewardCategoryList(action) {
 
 function* getInactiveRewardCategoryList(action) {
     try {
-        yield call(api.rewardCategories.inactives)
-        yield put(getRewardCategoryListSuccess())
+        const {data: categories} = yield call(api.rewardCategories.inactives)
+        yield put(getRewardCategoryListSuccess(categories))
     } catch(e) {
         yield put(getRewardCategoryListError())
     }
