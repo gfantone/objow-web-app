@@ -30,6 +30,7 @@ import managers from './endpoints/managers'
 import nextCollaboratorBadges from "./endpoints/nextCollaboratorBadges";
 import periodicities from './endpoints/periodicities'
 import periods from './endpoints/periods'
+import rewardCategoryIcons from './endpoints/rewardCategoryIcons'
 import roles from './endpoints/roles'
 import systemImages from './endpoints/systemImages'
 import teamChallenges from './endpoints/teamChallenges'
@@ -78,6 +79,7 @@ const api = {
     nextCollaboratorBadges,
     periodicities,
     periods,
+    rewardCategoryIcons,
     roles,
     systemImages,
     teamChallenges,
