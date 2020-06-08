@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux'
 import {CardMedia} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import {DataTable, Loader} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import {SubHeader} from './components'
 import * as rewardCategoryListActions from '../../../../services/RewardCategories/RewardCategoryList/actions'
 
@@ -44,13 +45,13 @@ class AdminRewardCategoryList extends Component {
         const {categories} = this.props.rewardCategoryList;
         const columns = [
             { name: 'id', options: {display: false, filter: false} },
-            { name: 'icon.path', label: 'Icône', options: {
+            { name: 'icon.path', label: Resources.ADMIN_REWARD_CATEGORY_LIST_ICON_COLUMN, options: {
                 customBodyRender: value => {
                     return <CardMedia image={value} className={classes.icon} />
                 },
                 filter: false
             } },
-            { name: 'name', label: 'Nom' },
+            { name: 'name', label: Resources.ADMIN_REWARD_CATEGORY_LIST_NAME_COLUMN },
         ];
         const options = {
             selectableRows: 'none',

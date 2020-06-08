@@ -1,5 +1,6 @@
 import React from 'react'
 import {DefaultText, RoundedTab, RoundedTabs} from "../../../../../../components";
+import * as Resources from "../../../../../../Resources";
 import {withStyles} from "@material-ui/core/styles";
 
 const styles = {
@@ -20,11 +21,11 @@ const SubHeader = ({onChange, ...props}) => {
     return (
         <div>
             <div className={classes.root}>
-                <DefaultText align={'center'}>Configuration des catégories de récompenses</DefaultText>
+                <DefaultText align={'center'}>{Resources.ADMIN_REWARD_CATEGORY_LIST_SUBTITLE}</DefaultText>
             </div>
             <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
-                <RoundedTab label='Actives' />
-                <RoundedTab label='Archivées' />
+                <RoundedTab label={Resources.ADMIN_REWARD_CATEGORY_LIST_ACTIVE_TAB} />
+                <RoundedTab label={Resources.ADMIN_REWARD_CATEGORY_LIST_INACTIVE_TAB} />
             </RoundedTabs>
         </div>
     )
