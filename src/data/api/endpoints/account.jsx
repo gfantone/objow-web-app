@@ -12,7 +12,7 @@ const account = {
     },
     update(account) {
         const url = `${baseUrl}infos/`;
-        return instance.put(url, account)
+        return instance.patch(url, account)
     },
     team() {
         const url = `${baseUrl}team/`;

@@ -39,17 +39,12 @@ class AccountDetail extends MainLayoutComponent {
 
     handleValidSubmit(model) {
         const { account: oldAccount } = this.props.accountDetail;
-        const newAccount = new FormData();
+        const newAccountPhoto = new FormData();
         if (model.photo) {
-            newAccount.append('photo', model.photo, model.photo.name)
+            newAccountPhoto.append('photo', model.photo, model.photo.name)
         }
-        newAccount.append('firstname', model.firstname);
-        newAccount.append('lastname', model.lastname);
-        newAccount.append('email', model.email);
-        if (oldAccount.role.code != 'A') {
-            newAccount.append('citation', model.citation);
-        }
-        this.props.accountUpdateActions.updateAccount(newAccount);
+        const newAccount = {firstname: model.firstname, lastname: model.lastname, email: model.email, citation: oldAccount.role.code != 'A' ? model.citation : null}
+        this.props.accountUpdateActions.updateAccount(newAccount, newAccountPhoto);
         if (model.password && model.password != '') {
             this.props.userUpdatePasswordActions.updateUserPassword(this.props.accountDetail.account.id, model.password)
         }

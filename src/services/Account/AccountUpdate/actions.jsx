@@ -1,9 +1,9 @@
 import * as types from './actionTypes'
 
-export const updateAccount = (account) => {
+export const updateAccount = (account, photo) => {
     return {
         type: types.UPDATE_ACCOUNT,
-        account
+        account, photo
     }
 }
 
