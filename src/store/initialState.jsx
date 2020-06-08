@@ -91,6 +91,7 @@ const initialState = {
     playerGoalListUpdate: {success: false, loading: false, hasError: false},
     playerRankList: {generalRank: null, categoryRanks: [], loading: false, hasError: false},
     previousPeriodList: {periods: null, loading: false, hasError: false},
+    rewardCategoryCreation: {success: false, loading: false, hasError: false},
     rewardCategoryIconList: {icons: null, loading: false, hasError: false},
     roleList: {roles: null, loading: false, hasError: false},
     systemImageList: {images: null, loading: false, hasError: false},

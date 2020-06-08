@@ -89,7 +89,8 @@ import periodList from '../services/Periods/PeriodList/reducer'
 import playerGoalList from '../services/PlayerGoals/PlayerGoalList/reducer'
 import playerGoalListUpdate from '../services/PlayerGoals/PlayerGoalListUpdate/reducer'
 import previousPeriodList from '../services/Periods/PreviousPeriodList/reducer'
-import rewardCategoryIconList from '../services/RewardCategoryIcons/RewardCategoryIconList/reducers';
+import rewardCategoryCreation from '../services/RewardCategories/RewardCategoryCreation/reducer';
+import rewardCategoryIconList from '../services/RewardCategoryIcons/RewardCategoryIconList/reducer';
 import roleList from '../services/Roles/RoleList/reducer'
 import systemImageList from '../services/SystemImages/SystemImageList/reducer'
 import systemImageUpdate from '../services/SystemImages/SystemImageUpdate/reducer'
@@ -223,6 +224,7 @@ const rootReducer = combineReducers({
     playerGoalList,
     playerGoalListUpdate,
     previousPeriodList,
+    rewardCategoryCreation,
     rewardCategoryIconList,
     roleList,
     systemImageList,
