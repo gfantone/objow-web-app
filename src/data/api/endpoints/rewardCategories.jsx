@@ -13,6 +13,10 @@ const rewardCategories = {
     inactives() {
         const url = `${baseUrl}inactives/`
         return instance.get(url)
+    },
+    update(category) {
+        const url = `${baseUrl}${category.id}/`
+        return instance.put(url, category)
     }
 }
 

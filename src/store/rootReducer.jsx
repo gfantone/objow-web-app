@@ -92,6 +92,7 @@ import previousPeriodList from '../services/Periods/PreviousPeriodList/reducer'
 import rewardCategoryCreation from '../services/RewardCategories/RewardCategoryCreation/reducer';
 import rewardCategoryIconList from '../services/RewardCategoryIcons/RewardCategoryIconList/reducer';
 import rewardCategoryList from '../services/RewardCategories/RewardCategoryList/reducer';
+import rewardCategoryUpdate from '../services/RewardCategories/RewardCategoryUpdate/reducer';
 import roleList from '../services/Roles/RoleList/reducer'
 import systemImageList from '../services/SystemImages/SystemImageList/reducer'
 import systemImageUpdate from '../services/SystemImages/SystemImageUpdate/reducer'
@@ -228,6 +229,7 @@ const rootReducer = combineReducers({
     rewardCategoryCreation,
     rewardCategoryIconList,
     rewardCategoryList,
+    rewardCategoryUpdate,
     roleList,
     systemImageList,
     systemImageUpdate,
