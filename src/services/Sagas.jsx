@@ -91,7 +91,7 @@ import watchPlayerGoalList from './PlayerGoals/PlayerGoalList/sagas'
 import watchPlayerGoalListUpdate from './PlayerGoals/PlayerGoalListUpdate/sagas'
 import watchRewardCategoryCreation from "./RewardCategories/RewardCategoryCreation/sagas";
 import {watchActiveRewardCategoryList, watchInactiveRewardCategoryList} from "./RewardCategories/RewardCategoryList/sagas";
-import watchRewardCategoryIconList from "./RewardCategoryIcons/RewardCategoryIconList/sagas";
+import watchUsableRewardCategoryIconList from "./RewardCategoryIcons/RewardCategoryIconList/sagas";
 import watchRoleList from './Roles/RoleList/sagas'
 import watchSystemImageList from './SystemImages/SystemImageList/sagas'
 import watchSystemImageUpdate from './SystemImages/SystemImageUpdate/sagas'
@@ -240,7 +240,6 @@ function* rootSaga() {
         watchPlayerGoalListUpdate(),
         watchPreviousPeriodList(),
         watchRewardCategoryCreation(),
-        watchRewardCategoryIconList(),
         watchRoleList(),
         watchSystemImageList(),
         watchSystemImageUpdate(),
@@ -280,6 +279,7 @@ function* rootSaga() {
         watchUsableCategoryIconList(),
         watchUsableCategoryIconListForCategory(),
         watchUsableChallengeTypeList(),
+        watchUsableRewardCategoryIconList(),
         watchUserCreation(),
         watchUserDetail(),
         watchUserGoalDetail(),

@@ -3,17 +3,17 @@ import {getRewardCategoryIconListSuccess, getRewardCategoryIconListError} from '
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
 
-function* getRewardCategoryIconList(action) {
+function* getUsableRewardCategoryIconList(action) {
     try {
-        const { data: icons } = yield call(api.rewardCategoryIcons.list)
+        const { data: icons } = yield call(api.rewardCategoryIcons.usable)
         yield put(getRewardCategoryIconListSuccess(icons))
     } catch(e) {
         yield put(getRewardCategoryIconListError())
     }
 }
 
-function* watchRewardCategoryIconList() {
-    yield takeEvery(types.GET_REWARD_CATEGORY_ICON_LIST_ERROR, getRewardCategoryIconList)
+function* watchUsableRewardCategoryIconList() {
+    yield takeEvery(types.GET_USABLE_REWARD_CATEGORY_ICON_LIST, getUsableRewardCategoryIconList)
 }
 
-export default watchRewardCategoryIconList
+export default watchUsableRewardCategoryIconList

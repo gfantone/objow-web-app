@@ -19,7 +19,7 @@ const styles = {
     }
 };
 
-const CategoryIconInput = ({ icons = [], initial, label, name, onChange, required, ...props }) => {
+const RewardCategoryIconInput = ({ icons = [], initial, label, name, onChange, required, ...props }) => {
     const { classes } = props;
     const [value, setValue] = React.useState(initial);
     const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null;
@@ -42,11 +42,10 @@ const CategoryIconInput = ({ icons = [], initial, label, name, onChange, require
             { hasError && <LabelErrorText>{finalLabel}</LabelErrorText> }
             <Grid container spacing={1}>
                 { icons.map((icon) => {
-                    const iconData = require(`../../../../assets/img/system/category/icons/${icon.name}.svg`);
                     const selected = icon.id == value;
                     return (
                         <Grid key={icon.id} item onClick={handleValue(icon.id)}>
-                            <CardMedia image={iconData} className={selected ? classes.selectedIcon : classes.icon} />
+                            <CardMedia image={icon.path} className={selected ? classes.selectedIcon : classes.icon} />
                         </Grid>
                     )
                 }) }
@@ -57,4 +56,4 @@ const CategoryIconInput = ({ icons = [], initial, label, name, onChange, require
     )
 };
 
-export default withStyles(styles)(withFormsy(CategoryIconInput))
+export default withStyles(styles)(withFormsy(RewardCategoryIconInput))

@@ -1,10 +1,11 @@
 import instance from '../instance'
 
-const baseUrl = 'reward-category-icons'
+const baseUrl = 'reward-category-icons/'
 
 const rewardCategoryIcons = {
-    list() {
-        return instance.get(baseUrl)
+    usable() {
+        const url = `${baseUrl}usable/`
+        return instance.get(url)
     }
 }
 

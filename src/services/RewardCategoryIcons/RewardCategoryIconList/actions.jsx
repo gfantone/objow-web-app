@@ -1,7 +1,7 @@
 import * as types from './actionTypes'
 
-export const getRewardCategoryIconList = () => ({
-    type: types.GET_REWARD_CATEGORY_ICON_LIST
+export const getUsableRewardCategoryIconList = () => ({
+    type: types.GET_USABLE_REWARD_CATEGORY_ICON_LIST
 })
 
 export const getRewardCategoryIconListSuccess = (icons) => ({

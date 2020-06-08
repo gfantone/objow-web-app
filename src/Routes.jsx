@@ -83,6 +83,7 @@ export default () => {
                 <AdminRoutes exact path='/admin/users/creation' component={scenes.AdminUserCreation} />
                 <AdminRoutes exact path='/admin/reports' component={scenes.AdminReportList} />
                 <AdminRoutes exact path='/admin/reward-categories' component={scenes.AdminRewardCategoryList} />
+                <AdminRoutes exact path='/admin/reward-categories/creation' component={scenes.AdminRewardCategoryCreation} />
                 <AdminRoutes exact path='/admin/reports/:id' component={scenes.AdminReportDetail} />
                 <AdminRoutes exact path='/admin/imports/logs' component={scenes.AdminImportLogList} />
                 {/* Other routes */}
