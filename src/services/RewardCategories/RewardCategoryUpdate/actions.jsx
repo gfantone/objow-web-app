@@ -13,6 +13,6 @@ export const updateRewardCategoryError = () => ({
     type: types.UPDATE_REWARD_CATEGORY_ERROR
 })
 
-export const cleatRewardCategoryUpdate = () => ({
+export const clearRewardCategoryUpdate = () => ({
     type: types.CLEAR_REWARD_CATEGORY_UPDATE
 })

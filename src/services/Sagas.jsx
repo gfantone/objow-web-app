@@ -89,9 +89,10 @@ import watchPeriodicityList from './Periodicities/PeriodicityList/sagas'
 import watchPeriodList from "./Periods/PeriodList/sagas";
 import watchPlayerGoalList from './PlayerGoals/PlayerGoalList/sagas'
 import watchPlayerGoalListUpdate from './PlayerGoals/PlayerGoalListUpdate/sagas'
+import watchRewardCategory from "./RewardCategories/RewardCategory/sagas";
 import watchRewardCategoryCreation from "./RewardCategories/RewardCategoryCreation/sagas";
 import {watchActiveRewardCategoryList, watchInactiveRewardCategoryList} from "./RewardCategories/RewardCategoryList/sagas";
-import watchUsableRewardCategoryIconList from "./RewardCategoryIcons/RewardCategoryIconList/sagas";
+import {watchUsableRewardCategoryIconList, watchUsableRewardCategoryIconListForRewardCategory} from "./RewardCategoryIcons/RewardCategoryIconList/sagas";
 import watchRewardCategoryUpdate from "./RewardCategories/RewardCategoryUpdate/sagas";
 import watchRoleList from './Roles/RoleList/sagas'
 import watchSystemImageList from './SystemImages/SystemImageList/sagas'
@@ -240,6 +241,7 @@ function* rootSaga() {
         watchPlayerGoalList(),
         watchPlayerGoalListUpdate(),
         watchPreviousPeriodList(),
+        watchRewardCategory(),
         watchRewardCategoryCreation(),
         watchRewardCategoryUpdate(),
         watchRoleList(),
@@ -282,6 +284,7 @@ function* rootSaga() {
         watchUsableCategoryIconListForCategory(),
         watchUsableChallengeTypeList(),
         watchUsableRewardCategoryIconList(),
+        watchUsableRewardCategoryIconListForRewardCategory(),
         watchUserCreation(),
         watchUserDetail(),
         watchUserGoalDetail(),

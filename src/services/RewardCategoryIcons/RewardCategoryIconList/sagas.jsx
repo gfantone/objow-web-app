@@ -12,8 +12,19 @@ function* getUsableRewardCategoryIconList(action) {
     }
 }
 
-function* watchUsableRewardCategoryIconList() {
+function* getUsableRewardCategoryIconListForRewardCategory(action) {
+    try {
+        const { data: icons } = yield call(api.rewardCategories.usableIcons, action.categoryId)
+        yield put(getRewardCategoryIconListSuccess(icons))
+    } catch(e) {
+        yield put(getRewardCategoryIconListError())
+    }
+}
+
+export function* watchUsableRewardCategoryIconList() {
     yield takeEvery(types.GET_USABLE_REWARD_CATEGORY_ICON_LIST, getUsableRewardCategoryIconList)
 }
 
-export default watchUsableRewardCategoryIconList
+export function* watchUsableRewardCategoryIconListForRewardCategory() {
+    yield takeEvery(types.GET_USABLE_REWARD_CATEGORY_ICON_LIST_FOR_REWARD_CATEGORY, getUsableRewardCategoryIconListForRewardCategory)
+}

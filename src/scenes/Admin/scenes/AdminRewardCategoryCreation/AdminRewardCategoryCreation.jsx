@@ -1,21 +1,22 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from "formsy-react";
 import {Grid} from "@material-ui/core";
 import {RewardCategoryIconInput} from "../../components";
-import {AppBarSubTitle, Card, Loader, ProgressButton, TextField} from '../../../../components'
+import {AppBarSubTitle, Card, Loader, MainLayoutComponent, ProgressButton, TextField} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as rewardCategoryCreationActions from '../../../../services/RewardCategories/RewardCategoryCreation/actions'
 import * as rewardCategoryIconListActions from '../../../../services/RewardCategoryIcons/RewardCategoryIconList/actions'
 
 
-class AdminRewardCategoryCreation extends Component {
+class AdminRewardCategoryCreation extends MainLayoutComponent {
     componentDidMount() {
         this.props.handleTitle(Resources.ADMIN_TITLE)
         this.props.handleSubHeader(<AppBarSubTitle title={Resources.ADMIN_REWARD_CATEGORY_CREATION_SUBTITLE} />)
         this.props.handleMaxWidth('sm');
         this.props.activateReturn();
+        this.props.rewardCategoryCreationActions.clearRewardCategoryCreation();
         this.props.rewardCategoryIconListActions.getUsableRewardCategoryIconList()
     }
 
@@ -24,7 +25,7 @@ class AdminRewardCategoryCreation extends Component {
     };
 
     onSubmit(model) {
-        const category = {id: this.props.match.params.id, name: model.name, icon: model.icon};
+        const category = {name: model.name, icon: model.icon};
         this.props.rewardCategoryCreationActions.createRewardCategory(category)
     };
 

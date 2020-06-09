@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {CardMedia} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
-import {DataTable, IconButton, Loader} from '../../../../components'
+import {DataTable, IconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import {SubHeader} from './components'
 import * as rewardCategoryListActions from '../../../../services/RewardCategories/RewardCategoryList/actions'
@@ -17,7 +17,7 @@ const styles = {
     }
 };
 
-class AdminRewardCategoryList extends Component {
+class AdminRewardCategoryList extends MainLayoutComponent {
     loadData(isActive) {
         if (isActive) {
             this.props.rewardCategoryListActions.getActiveRewardCategoryList()
@@ -63,7 +63,7 @@ class AdminRewardCategoryList extends Component {
         const options = {
             selectableRows: 'none',
             onRowClick: (colData, cellMeta) => {
-                // this.props.history.push(`/admin/categories/modification/${colData[0]}`)
+                this.props.history.push(`/admin/reward-categories/modification/${colData[0]}`)
             }
         };
         return <DataTable data={categories} columns={columns} options={options} />
