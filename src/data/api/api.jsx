@@ -32,6 +32,7 @@ import periodicities from './endpoints/periodicities'
 import periods from './endpoints/periods'
 import rewardCategories from "./endpoints/rewardCategories";
 import rewardCategoryIcons from './endpoints/rewardCategoryIcons'
+import rewards from "./endpoints/rewards";
 import roles from './endpoints/roles'
 import systemImages from './endpoints/systemImages'
 import teamChallenges from './endpoints/teamChallenges'
@@ -82,6 +83,7 @@ const api = {
     periods,
     rewardCategories,
     rewardCategoryIcons,
+    rewards,
     roles,
     systemImages,
     teamChallenges,
