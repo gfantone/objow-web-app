@@ -34,6 +34,7 @@ import rewardCategories from "./endpoints/rewardCategories";
 import rewardCategoryIcons from './endpoints/rewardCategoryIcons'
 import rewardImages from './endpoints/rewardImages'
 import rewards from "./endpoints/rewards";
+import rewardTypes from "./endpoints/rewardTypes";
 import roles from './endpoints/roles'
 import systemImages from './endpoints/systemImages'
 import teamChallenges from './endpoints/teamChallenges'
@@ -86,6 +87,7 @@ const api = {
     rewardCategoryIcons,
     rewardImages,
     rewards,
+    rewardTypes,
     roles,
     systemImages,
     teamChallenges,

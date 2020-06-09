@@ -98,6 +98,7 @@ const initialState = {
     rewardCategoryUpdate: {success: false, loading: false, hasError: false},
     rewardCreation: {success: false, loading: false, hasError: false},
     rewardImageList: {images: null, loading: false, hasError: false},
+    rewardTypeList: {types: null, loading: false, hasError: false},
     roleList: {roles: null, loading: false, hasError: false},
     systemImageList: {images: null, loading: false, hasError: false},
     systemImageUpdate: {success: false, loading: false, hasError: false},
