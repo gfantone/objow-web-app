@@ -3,7 +3,8 @@ import {withFormsy} from 'formsy-react'
 import {CardMedia, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {InfoText, ErrorText} from "../../../../components/Common/components/Texts/components";
+import {InfoText, ErrorText} from "../../../../components";
+import * as Resources from '../../../../Resources'
 
 const styles = {
     image: {
@@ -63,6 +64,9 @@ const ImageInput = ({ images = [], initial, label, name, onChange, required, ...
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.panelDetails}>
                     <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <InfoText>{Resources.REWARD_IMAGE_INPUT_INFOS}</InfoText>
+                        </Grid>
                         { images.map((image) => {
                             const imageClass = value == image.id ? classes.selectedImage : classes.image;
                             return (

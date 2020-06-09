@@ -21,11 +21,13 @@ export const ADMIN_REWARD_CATEGORY_UPDATE_ICON_LABEL = "Icône"
 export const ADMIN_REWARD_CATEGORY_UPDATE_SUBMIT_BUTTON = "Valider"
 
 // COMMON
-export const COMMON_REQUIRED_ERROR = "Ce champ est requis."
+export const COMMON_IS_INT_ERROR = "La valeur doit être un nombre entier."
 export const COMMON_MAX_LENGTH_128_ERROR = "La valeur doit faire moins de 128 caractères."
+export const COMMON_REQUIRED_ERROR = "Ce champ est requis."
 
 // Reward
 export const REWARD_TITLE = "Récompenses"
+export const REWARD_IMAGE_INPUT_INFOS = "L’affichage de l’image s’adapte et varie en fonction de la taille de l’écran utilisé par l’utilisateur. Le format d’image recommandé pour un affichage optimal est le suivant : 1024x700."
 
 // Reward - Creation
 export const REWARD_CREATION_SUBTITLE = "Création d'une récompense"

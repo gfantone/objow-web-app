@@ -23,9 +23,6 @@ const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = 
     const [value, setValue] = React.useState(initial);
     const hasError = props.isFormSubmitted && !props.isValid;
     const errorMessage = hasError ? props.getErrorMessage : null;
-    if (hasError) {
-        alert(errorMessage)
-    }
 
     useEffect(() => {
         props.setValue(initial)
