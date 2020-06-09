@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
-import { withFormsy } from 'formsy-react'
-import { TextField } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
+import React, {useEffect} from 'react'
+import {withFormsy} from 'formsy-react'
+import {InputAdornment, TextField} from '@material-ui/core'
+import {withStyles} from '@material-ui/core/styles'
 
 const styles = {
     root: {
@@ -18,7 +18,7 @@ const styles = {
     }
 };
 
-const CustomTextField = ({ fullWidth, multiline, initial = null, label, name, required, disabled, type = 'text', ...props }) => {
+const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = null, label, name, required, disabled, type = 'text', ...props }) => {
     const { classes } = props;
     const [value, setValue] = React.useState(initial);
     const hasError = props.isFormSubmitted && !props.isValid;
@@ -49,6 +49,9 @@ const CustomTextField = ({ fullWidth, multiline, initial = null, label, name, re
                 type={type}
                 onChange={handleChange}
                 value={value}
+                InputProps={{
+                    endAdornment: endAdornment ? <InputAdornment position="end">{endAdornment}</InputAdornment> : null,
+                }}
                 InputLabelProps={{
                     shrink: true,
                     className: classes.label

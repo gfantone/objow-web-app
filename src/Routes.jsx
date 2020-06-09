@@ -54,6 +54,8 @@ export default () => {
                 <MainRoutes exact path='/rankings/teams/:team/general/:period' component={scenes.TeamGeneralRanking} />
                 <MainRoutes exact path='/rankings/teams/:team/categories/:category/years/:period' component={scenes.TeamCategoryRanking} />
                 <MainRoutes exact path='/rankings/teams/:team/challenges/:period' component={scenes.TeamChallengeRanking} />
+                {/* Rewards */}
+                <AdminRoutes exact path='/rewards/creation' component={scenes.RewardCreation} />
                 {/* Teams */}
                 <MainRoutes exact path='/teams' component={scenes.TeamList} />
                 <MainRoutes exact path='/teams/:id' component={scenes.TeamDetail} />

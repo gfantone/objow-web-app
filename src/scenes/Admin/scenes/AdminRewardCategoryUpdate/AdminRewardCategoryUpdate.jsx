@@ -46,7 +46,7 @@ class AdminRewardCategoryUpdate extends MainLayoutComponent {
                                                validations='maxLength:128'
                                                validationErrors={{
                                                    isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                                   maxLength: Resources.ADMIN_REWARD_CATEGORY_UPDATE_NAME_LENGTH_ERROR
+                                                   maxLength: Resources.COMMON_MAX_LENGTH_128_ERROR
                                                }}
                                     />
                                 </Grid>
