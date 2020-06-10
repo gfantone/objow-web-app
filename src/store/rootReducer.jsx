@@ -97,6 +97,7 @@ import rewardCategoryUpdate from '../services/RewardCategories/RewardCategoryUpd
 import rewardCreation from '../services/Rewards/RewardCreation/reducer';
 import rewardImageList from '../services/RewardImages/RewardImageList/reducer'
 import rewardTypeList from '../services/RewardTypes/RewardTypeList/reducer'
+import rewardUpdate from '../services/Rewards/RewardUpdate/reducer'
 import roleList from '../services/Roles/RoleList/reducer'
 import systemImageList from '../services/SystemImages/SystemImageList/reducer'
 import systemImageUpdate from '../services/SystemImages/SystemImageUpdate/reducer'
@@ -238,6 +239,7 @@ const rootReducer = combineReducers({
     rewardCreation,
     rewardImageList,
     rewardTypeList,
+    rewardUpdate,
     roleList,
     systemImageList,
     systemImageUpdate,
