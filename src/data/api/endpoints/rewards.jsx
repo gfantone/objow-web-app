@@ -13,6 +13,10 @@ const rewards = {
     update(reward) {
         const url = `${baseUrl}${reward.id}/`
         return instance.put(url, reward)
+    },
+    updateActivation(id, isActive) {
+        const url = `${baseUrl}${id}/`
+        return instance.patch(url, {isActive})
     }
 }
 

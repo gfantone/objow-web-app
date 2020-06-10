@@ -5,6 +5,12 @@ export const updateReward = (reward) => ({
     reward
 })
 
+export const updateRewardActivation = (id, isActive) => ({
+    type: types.UPDATE_REWARD_ACTIVATION,
+    id,
+    isActive
+})
+
 export const updateRewardSuccess = () => ({
     type: types.UPDATE_REWARD_SUCCESS,
 })

@@ -2,10 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
-import {CardMedia, Grid} from '@material-ui/core'
+import {CardMedia, Grid, Tooltip} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {ImageInput} from '../../components'
-import {AppBarSubTitle, Card, DefaultTitle, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField} from '../../../../components'
+import {AppBarSubTitle, Card, DefaultTitle, IconButton, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as rewardCategoryListActions from '../../../../services/RewardCategories/RewardCategoryList/actions'
 import * as rewardDetailActions from '../../../../services/Rewards/RewardDetail/actions'
@@ -23,10 +25,15 @@ const styles = {
 class RewardUpdate extends MainLayoutComponent {
     state = {image: null}
 
+    handleDisable() {
+        this.props.rewardUpdateActions.updateRewardActivation(this.props.match.params.id, false)
+    }
+
     componentDidMount() {
         this.initialized = false
         this.props.handleTitle(Resources.REWARD_TITLE)
         this.props.handleSubHeader(<AppBarSubTitle title={Resources.REWARD_UPDATE_SUBTITLE} />)
+        this.props.handleButtons(<IconButton size='small' onClick={this.handleDisable.bind(this)}><FontAwesomeIcon icon={faTrashAlt} /></IconButton>);
         this.props.handleMaxWidth('md')
         this.props.activateReturn()
         this.props.rewardCategoryListActions.getActiveRewardCategoryList()

@@ -12,8 +12,19 @@ function* updateReward(action) {
     }
 }
 
-function* watchRewardUpdate() {
+function* updateRewardActivation(action) {
+    try {
+        yield call(api.rewards.updateActivation, action.id, action.isActive)
+        yield put(updateRewardSuccess())
+    } catch(e) {
+        yield put(updateRewardError())
+    }
+}
+
+export function* watchRewardUpdate() {
     yield takeEvery(types.UPDATE_REWARD, updateReward)
 }
 
-export default watchRewardUpdate
+export function* watchRewardActivationUpdate() {
+    yield takeEvery(types.UPDATE_REWARD_ACTIVATION, updateRewardActivation)
+}

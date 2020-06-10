@@ -98,7 +98,7 @@ import watchRewardCreation from "./Rewards/RewardCreation/sagas";
 import watchRewardDetail from "./Rewards/RewardDetail/sagas";
 import watchRewardImageList from "./RewardImages/RewardImageList/sagas";
 import watchRewardTypeList from "./RewardTypes/RewardTypeList/sagas";
-import watchRewardUpdate from "./Rewards/RewardUpdate/sagas";
+import {watchRewardUpdate, watchRewardActivationUpdate} from "./Rewards/RewardUpdate/sagas";
 import watchRoleList from './Roles/RoleList/sagas'
 import watchSystemImageList from './SystemImages/SystemImageList/sagas'
 import watchSystemImageUpdate from './SystemImages/SystemImageUpdate/sagas'
@@ -254,6 +254,7 @@ function* rootSaga() {
         watchRewardImageList(),
         watchRewardTypeList(),
         watchRewardUpdate(),
+        watchRewardActivationUpdate(),
         watchRoleList(),
         watchSystemImageList(),
         watchSystemImageUpdate(),

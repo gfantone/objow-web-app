@@ -4,6 +4,7 @@ import initialState from '../../../store/initialState';
 const RewardUpdate = (state = initialState.rewardUpdate, action) => {
     switch (action.type) {
         case types.UPDATE_REWARD:
+        case types.UPDATE_REWARD_ACTIVATION:
             return {...state, success: false, loading: true, hasError: false}
 
         case types.UPDATE_REWARD_SUCCESS:
