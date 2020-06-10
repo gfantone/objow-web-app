@@ -5,6 +5,12 @@ export const updateRewardCategory = (category) => ({
     category
 })
 
+export const updateRewardCategoryActivation = (id, isActive) => ({
+    type: types.UPDATE_REWARD_CATEGORY_ACTIVATION,
+    id,
+    isActive
+})
+
 export const updateRewardCategorySuccess = () => ({
     type: types.UPDATE_REWARD_CATEGORY_SUCCESS
 })

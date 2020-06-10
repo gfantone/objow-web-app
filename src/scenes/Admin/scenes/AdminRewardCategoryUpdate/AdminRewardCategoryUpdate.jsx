@@ -4,14 +4,17 @@ import {bindActionCreators} from 'redux'
 import Formsy from "formsy-react";
 import {Grid} from "@material-ui/core";
 import {RewardCategoryIconInput} from "../../components";
-import {AppBarSubTitle, Card, Loader, MainLayoutComponent, ProgressButton, TextField} from '../../../../components'
+import {AppBarSubTitle, Button, Card, Dialog, DialogActions, DialogContent, DialogTitle, Loader, MainLayoutComponent, ProgressButton, TextField} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as rewardCategoryActions from '../../../../services/RewardCategories/RewardCategory/actions'
 import * as rewardCategoryIconListActions from '../../../../services/RewardCategoryIcons/RewardCategoryIconList/actions'
 import * as rewardCategoryUpdateActions from '../../../../services/RewardCategories/RewardCategoryUpdate/actions'
 
 class AdminRewardCategoryUpdate extends MainLayoutComponent {
+    state = {open: false}
+
     componentDidMount() {
+        this.isUpdate = true
         const id = this.props.match.params.id
         this.props.handleTitle(Resources.ADMIN_TITLE)
         this.props.handleSubHeader(<AppBarSubTitle title={Resources.ADMIN_REWARD_CATEGORY_UPDATE_SUBTITLE} />)
@@ -25,9 +28,24 @@ class AdminRewardCategoryUpdate extends MainLayoutComponent {
         return <Loader centered />
     }
 
+    handleArchive() {
+        this.isUpdate = false
+        this.props.rewardCategoryUpdateActions.updateRewardCategoryActivation(this.props.match.params.id, false)
+    }
+
     handleSubmit(model) {
         const category = {id: this.props.match.params.id, name: model.name, icon: model.icon};
         this.props.rewardCategoryUpdateActions.updateRewardCategory(category)
+    }
+
+    setOpen(open) {
+        const {loading} = this.props.rewardCategoryUpdate;
+        if (!loading) {
+            this.setState({
+                ...this.state,
+                open: open
+            })
+        }
     }
 
     renderForm() {
@@ -36,35 +54,52 @@ class AdminRewardCategoryUpdate extends MainLayoutComponent {
         const {loading} = this.props.rewardCategoryUpdate;
 
         return (
-            <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
-                <Grid container spacing={4}>
-                    <Grid item xs={12}>
-                        <Card>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <TextField name='name' label={Resources.ADMIN_REWARD_CATEGORY_UPDATE_NAME_LABEL} initial={category.name} fullWidth required
-                                               validations='maxLength:128'
-                                               validationErrors={{
-                                                   isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                                   maxLength: Resources.COMMON_MAX_LENGTH_128_ERROR
-                                               }}
-                                    />
+            <div>
+                <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
+                    <Grid container spacing={4}>
+                        <Grid item xs={12}>
+                            <Card>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <TextField name='name' label={Resources.ADMIN_REWARD_CATEGORY_UPDATE_NAME_LABEL} initial={category.name} fullWidth required
+                                                   validations='maxLength:128'
+                                                   validationErrors={{
+                                                       isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                       maxLength: Resources.COMMON_MAX_LENGTH_128_ERROR
+                                                   }}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <RewardCategoryIconInput name='icon' label={Resources.ADMIN_REWARD_CATEGORY_UPDATE_ICON_LABEL} initial={category.icon ? category.icon.id : null} icons={icons} required
+                                                                 validationErrors={{
+                                                                     isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                                 }}
+                                        />
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <RewardCategoryIconInput name='icon' label={Resources.ADMIN_REWARD_CATEGORY_UPDATE_ICON_LABEL} initial={category.icon ? category.icon.id : null} icons={icons} required
-                                                             validationErrors={{
-                                                                 isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                                             }}
-                                    />
+                            </Card>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Grid container justify={category.isActive ? 'space-between' : 'center'}>
+                                {category.isActive && <Grid item>
+                                    <ProgressButton type='button' text='Archiver' color='secondary' centered onClick={() => this.setOpen(true)} />
+                                </Grid>}
+                                <Grid item>
+                                    <ProgressButton type='submit' text={Resources.ADMIN_REWARD_CATEGORY_UPDATE_SUBMIT_BUTTON} centered loading={this.isUpdate && loading} />
                                 </Grid>
                             </Grid>
-                        </Card>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <ProgressButton type='submit' text={Resources.ADMIN_REWARD_CATEGORY_UPDATE_SUBMIT_BUTTON} centered loading={loading} />
-                    </Grid>
-                </Grid>
-            </Formsy>
+                </Formsy>
+                {category.isActive && <Dialog open={this.state.open} onClose={() => this.setOpen(false)}>
+                    <DialogTitle>Êtes-vous sûr de vouloir archiver la catégorie de récompenses « {category.name} » ?</DialogTitle>
+                    <DialogContent>Après l’archivage de cette catégorie de récompenses, il ne sera plus possible de la réactiver.</DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => this.setOpen(false)} color='secondary'>Non</Button>
+                        <ProgressButton type='button' text='Oui' loading={loading} onClick={this.handleArchive.bind(this)} />
+                    </DialogActions>
+                </Dialog>}
+            </div>
         )
     }
 

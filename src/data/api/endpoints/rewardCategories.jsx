@@ -22,6 +22,10 @@ const rewardCategories = {
         const url = `${baseUrl}${category.id}/`
         return instance.put(url, category)
     },
+    updateActivation(id, isActive) {
+        const url = `${baseUrl}${id}/`
+        return instance.patch(url, {isActive})
+    },
     usableIcons(id) {
         const url = `${baseUrl}${id}/usable-icons/`
         return instance.get(url)

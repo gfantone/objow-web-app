@@ -93,7 +93,7 @@ import watchRewardCategory from "./RewardCategories/RewardCategory/sagas";
 import watchRewardCategoryCreation from "./RewardCategories/RewardCategoryCreation/sagas";
 import {watchActiveRewardCategoryList, watchInactiveRewardCategoryList} from "./RewardCategories/RewardCategoryList/sagas";
 import {watchUsableRewardCategoryIconList, watchUsableRewardCategoryIconListForRewardCategory} from "./RewardCategoryIcons/RewardCategoryIconList/sagas";
-import watchRewardCategoryUpdate from "./RewardCategories/RewardCategoryUpdate/sagas";
+import {watchRewardCategoryUpdate, watchRewardCategoryActivationUpdate} from "./RewardCategories/RewardCategoryUpdate/sagas";
 import watchRewardCreation from "./Rewards/RewardCreation/sagas";
 import watchRewardDetail from "./Rewards/RewardDetail/sagas";
 import watchRewardImageList from "./RewardImages/RewardImageList/sagas";
@@ -249,6 +249,7 @@ function* rootSaga() {
         watchRewardCategory(),
         watchRewardCategoryCreation(),
         watchRewardCategoryUpdate(),
+        watchRewardCategoryActivationUpdate(),
         watchRewardCreation(),
         watchRewardDetail(),
         watchRewardImageList(),

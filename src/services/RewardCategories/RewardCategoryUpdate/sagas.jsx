@@ -12,8 +12,19 @@ function* updateRewardCategory(action) {
     }
 }
 
-function* watchRewardCategoryUpdate() {
+function* updateRewardCategoryActivation(action) {
+    try {
+        yield call(api.rewardCategories.updateActivation, action.id, action.isActive)
+        yield put(updateRewardCategorySuccess())
+    } catch(e) {
+        yield put(updateRewardCategoryError())
+    }
+}
+
+export function* watchRewardCategoryUpdate() {
     yield takeEvery(types.UPDATE_REWARD_CATEGORY, updateRewardCategory)
 }
 
-export default watchRewardCategoryUpdate
+export function* watchRewardCategoryActivationUpdate() {
+    yield takeEvery(types.UPDATE_REWARD_CATEGORY_ACTIVATION, updateRewardCategoryActivation)
+}
