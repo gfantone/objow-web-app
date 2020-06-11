@@ -1,3 +1,5 @@
 export * from './RewardCreation'
 export * from './RewardDuplication'
+export * from './RewardHome'
+export * from './RewardManagement'
 export * from './RewardUpdate'

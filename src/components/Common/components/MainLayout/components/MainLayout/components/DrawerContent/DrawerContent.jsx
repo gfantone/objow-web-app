@@ -1,7 +1,8 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { Account, Divider, DrawerButton, List, Logo } from './components'
-import { faBook, faBullseye, faListUl, faQuestion, faRandom, faRocket, faSignOutAlt, faTools, faTrophy, faUsers } from '@fortawesome/free-solid-svg-icons'
+import {connect} from 'react-redux'
+import {Account, Divider, DrawerButton, List, Logo} from './components'
+import {faBook, faBullseye, faGift, faListUl, faQuestion, faRandom, faRocket, faSignOutAlt, faTools, faTrophy, faUsers} from '@fortawesome/free-solid-svg-icons'
+import * as Resources from '../../../../../../../../Resources'
 
 const DrawerContent = ({ onNavigate, ...props }) => {
     const { account } = props.accountDetail;
@@ -17,25 +18,27 @@ const DrawerContent = ({ onNavigate, ...props }) => {
         <div>
             <Account onNavigate={onNavigate} />
             <List>
-                <DrawerButton icon={faBullseye} text='Objectifs' src='/goals' onNavigate={onNavigate} />
+                <DrawerButton icon={faBullseye} text={Resources.DRAWER_GOALS_BUTTON} src='/goals' onNavigate={onNavigate} />
                 <Divider />
-                <DrawerButton icon={faRocket} text='Challenges' src='/challenges' onNavigate={onNavigate} />
+                <DrawerButton icon={faRocket} text={Resources.DRAWER_CHALLENGES_BUTTON} src='/challenges' onNavigate={onNavigate} />
                 <Divider />
-                <DrawerButton icon={faTrophy} text='Défis' src='/badges' onNavigate={onNavigate} />
+                <DrawerButton icon={faTrophy} text={Resources.DRAWER_BADGES_BUTTON} src='/badges' onNavigate={onNavigate} />
                 { account.hasCoachingAccess && <Divider /> }
-                { account.hasCoachingAccess && <DrawerButton icon={faListUl} text='Coaching list' src='/coaching' onNavigate={onNavigate} /> }
+                { account.hasCoachingAccess && <DrawerButton icon={faListUl} text={Resources.DRAWER_COACHING_LIST_BUTTON} src='/coaching' onNavigate={onNavigate} /> }
                 { (account.hasGeneralRankAccess || account.hasCategoryRankAccess || account.hasChallengeRankAccess) && <Divider /> }
-                { (account.hasGeneralRankAccess || account.hasCategoryRankAccess || account.hasChallengeRankAccess) && <DrawerButton icon={faRandom} text='Classements' src='/rankings' onNavigate={onNavigate} /> }
+                { (account.hasGeneralRankAccess || account.hasCategoryRankAccess || account.hasChallengeRankAccess) && <DrawerButton icon={faRandom} text={Resources.DRAWER_RANKINGS_BUTTON} src='/rankings' onNavigate={onNavigate} /> }
                 <Divider />
-                <DrawerButton icon={faUsers} text='Équipes' src='/teams' onNavigate={onNavigate} />
+                <DrawerButton icon={faUsers} text={Resources.DRAWER_TEAMS_BUTTON} src='/teams' onNavigate={onNavigate} />
                 <Divider />
-                <DrawerButton icon={faBook} text='Règles du jeu' src='/rules' onNavigate={onNavigate} />
+                <DrawerButton icon={faGift} text={Resources.DRAWER_REWARDS_BUTTON} src='/rewards' onNavigate={onNavigate} />
+                <Divider />
+                <DrawerButton icon={faBook} text={Resources.DRAWER_RULES_BUTTON} src='/rules' onNavigate={onNavigate} />
                 {  isAdministrator && <Divider /> }
-                {  isAdministrator && <DrawerButton icon={faTools} text='Administration' src='/admin' onNavigate={onNavigate} /> }
+                {  isAdministrator && <DrawerButton icon={faTools} text={Resources.DRAWER_ADMIN_BUTTON} src='/admin' onNavigate={onNavigate} /> }
                 {  isAdministrator && <Divider /> }
-                {  isAdministrator && <DrawerButton icon={faQuestion} text='Aide' src='/help' onNavigate={onNavigate} /> }
+                {  isAdministrator && <DrawerButton icon={faQuestion} text={Resources.DRAWER_HELP_BUTTON} src='/help' onNavigate={onNavigate} /> }
                 <Divider />
-                <DrawerButton icon={faSignOutAlt} text='Déconnexion' src='/logout' onNavigate={onNavigate} />
+                <DrawerButton icon={faSignOutAlt} text={Resources.DRAWER_LOGOUT_BUTTON} src='/logout' onNavigate={onNavigate} />
             </List>
             <List>
                 <Logo image={logo} />

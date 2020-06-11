@@ -20,10 +20,28 @@ export const ADMIN_REWARD_CATEGORY_UPDATE_NAME_LABEL = "Nom"
 export const ADMIN_REWARD_CATEGORY_UPDATE_ICON_LABEL = "Icône"
 export const ADMIN_REWARD_CATEGORY_UPDATE_SUBMIT_BUTTON = "Valider"
 
-// COMMON
+// Common
 export const COMMON_IS_INT_ERROR = "La valeur doit être un nombre entier."
 export const COMMON_MAX_LENGTH_128_ERROR = "La valeur doit faire moins de 128 caractères."
 export const COMMON_REQUIRED_ERROR = "Ce champ est requis."
+
+// Drawer
+export const DRAWER_LEVEL_LABEL = "Level {0}"
+export const DRAWER_POINTS_LABEL = "{0} PTS"
+export const DRAWER_MANAGER_LABEL = "Manager"
+export const DRAWER_ADMINISTRATOR_LABEL = "Administrateur"
+export const DRAWER_INFOS_BUTTON = "Mes infos"
+export const DRAWER_GOALS_BUTTON = "Objectifs"
+export const DRAWER_CHALLENGES_BUTTON = "Challenges"
+export const DRAWER_BADGES_BUTTON = "Défis"
+export const DRAWER_COACHING_LIST_BUTTON = "Coaching list"
+export const DRAWER_RANKINGS_BUTTON = "Classements"
+export const DRAWER_TEAMS_BUTTON = "Équipes"
+export const DRAWER_REWARDS_BUTTON = "Récompenses"
+export const DRAWER_RULES_BUTTON = "Règles du jeu"
+export const DRAWER_ADMIN_BUTTON = "Administration"
+export const DRAWER_HELP_BUTTON = "Aide"
+export const DRAWER_LOGOUT_BUTTON = "Déconnexion"
 
 // Reward
 export const REWARD_TITLE = "Récompenses"
@@ -64,6 +82,11 @@ export const REWARD_DUPLICATION_DELIVERY_PLACE_LABEL = "Lieu"
 export const REWARD_DUPLICATION_DELIVERY_MODE_LABEL = "Mode de livraison"
 export const REWARD_DUPLICATION_DELIVERY_TIME_LABEL = "Temps de livraison"
 export const REWARD_DUPLICATION_SUBMIT_BUTTON = "Valider"
+
+// Reward - Management
+export const REWARD_MANAGEMENT_SUBTITLE = "Gestion des récompenses"
+export const REWARD_MANAGEMENT_COLLABORATOR_TAB = "Joueurs"
+export const REWARD_MANAGEMENT_TEAM_TAB = "Équipes"
 
 // Reward - Update
 export const REWARD_UPDATE_SUBTITLE = "Modification d'une récompense"
