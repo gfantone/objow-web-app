@@ -70,6 +70,10 @@ const periods = {
         const url = `${baseUrl}${id}/team-general-ranking/`;
         return instance.get(url)
     },
+    teamGlobalPointSummary(id) {
+        const url = `${baseUrl}${id}/team-global-point-summary/`
+        return instance.get(url)
+    },
     teamGoalUsedPoints(id) {
         const url = `${baseUrl}${id}/team-goal-used-points/`;
         return instance.get(url)

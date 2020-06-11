@@ -117,6 +117,7 @@ import watchTeamCollaboratorGoalDetail from './TeamCollaboratorGoals/TeamCollabo
 import watchTeamCollaboratorGoalList from './TeamCollaboratorGoals/TeamCollaboratorGoalList/sagas'
 import watchTeamGeneralRankDetail from './TeamGeneralRanks/TeamGeneralRankDetail/sagas'
 import watchTeamGeneralRankList from './TeamGeneralRanks/TeamGeneralRankList/sagas'
+import watchTeamGlobalPointSummaryDetail from "./TeamGlobalPointSummaries/TeamGlobalPointSummaryDetail/sagas";
 import watchTeamGoalDetail from './TeamGoals/TeamGoalDetail/sagas'
 import watchTeamGoalRankList from './TeamGoalRanks/TeamGoalRankList/sagas'
 import watchTeamGoalListByDefinition from './TeamGoals/TeamGoalList/sagas'
@@ -280,6 +281,7 @@ function* rootSaga() {
         watchTeamDetailByAccount(),
         watchTeamGeneralRankDetail(),
         watchTeamGeneralRankList(),
+        watchTeamGlobalPointSummaryDetail(),
         watchTeamGoalCategoryList(),
         watchTeamGoalDetail(),
         watchTeamGoalListByDefinition(),

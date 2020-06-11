@@ -121,6 +121,7 @@ const initialState = {
     teamDetail: {team: null, loading: false, hasError: false},
     teamGeneralRankDetail: {rank: null, loading: false, hasError: false},
     teamGeneralRankList: {ranking: [], loading: false, hasError: false},
+    teamGlobalPointSummaryDetail: {summary: null, loading: false, hasError: false},
     teamGoalCategoryList: {categories: null, loading: false, hasError: false},
     teamGoalDetail: {goal: null, laoding: false, hasError: false},
     teamGoalList: {goals: null, loading: false, hasError: false},
