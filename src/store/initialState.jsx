@@ -52,6 +52,7 @@ const initialState = {
     collaboratorGoalRankList: {ranks: null, loading: false, hasError: false},
     collaboratorGoalSummaryList: {goals: null, loading: false, hasError: false},
     collaboratorList: {collaborators: null, loading: false, hasError: false},
+    collaboratorRewardOrderCount: {orders: null, loading: false, hasError: false},
     colorList: {colors: null, loading: false, hasError: false},
     configDetail: {config: null, loading : false, hasError: false},
     configList: {configs: null, loading: false, hasError: false},

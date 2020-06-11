@@ -51,6 +51,7 @@ import collaboratorGoalList from '../services/CollaboratorGoals/CollaboratorGoal
 import collaboratorGoalRankList from '../services/CollaboratorGoalRanks/CollaboratorGoalRankList/reducer'
 import collaboratorGoalSummaryList from '../services/CollaboratorGoalSummaries/CollaboratorGoalSummaryList/reducer'
 import collaboratorList from '../services/Collaborators/CollaboratorList/reducer'
+import collaboratorRewardOrderCount from '../services/CollaboratorRewardOrders/CollaboratorRewardOrderCount/reducer'
 import colorList from '../services/Colors/ColorList/reducer'
 import configDetail from '../services/Configs/ConfigDetail/reducer'
 import configList from '../services/Configs/ConfigList/reducer'
@@ -196,6 +197,7 @@ const rootReducer = combineReducers({
     collaboratorGoalRankList,
     collaboratorGoalSummaryList,
     collaboratorList,
+    collaboratorRewardOrderCount,
     colorList,
     configDetail,
     configList,
