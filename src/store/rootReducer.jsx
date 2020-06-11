@@ -44,6 +44,7 @@ import collaboratorDataUpdate from '../services/CollaboratorData/CollaboratorDat
 import collaboratorDetail from '../services/Collaborators/CollaboratorDetail/reducer'
 import collaboratorGeneralRankDetail from '../services/CollaboratorGeneralRanks/CollaboratorGeneralRankDetail/reducer'
 import collaboratorGeneralRankList from '../services/CollaboratorGeneralRanks/CollaboratorGeneralRankList/reducer'
+import collaboratorGlobalPointSummaryDetail from '../services/CollaboratorGlobalPointSummaries/CollaboratorGlobalPointSummaryDetail/reducer'
 import collaboratorGoalCategoryList from "../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/reducer";
 import collaboratorGoalDetail from '../services/CollaboratorGoals/CollaboratorGoalDetail/reducer'
 import collaboratorGoalList from '../services/CollaboratorGoals/CollaboratorGoalList/reducer'
@@ -187,6 +188,7 @@ const rootReducer = combineReducers({
     collaboratorDetail,
     collaboratorGeneralRankDetail,
     collaboratorGeneralRankList,
+    collaboratorGlobalPointSummaryDetail,
     collaboratorGoalCategoryList,
     collaboratorGoalDetail,
     collaboratorGoalList,

@@ -24,19 +24,20 @@ import {watchChallengeTypeList, watchCurrentChallengeTypeList, watchUsableChalle
 import watchChallengeTypeSummaryList from './ChallengeTypeSummaries/ChallengeTypeSummaryList/sagas'
 import watchChallengeTypeListUpdate from './ChallengeTypes/ChallengeTypeListUpdate/sagas'
 import {watchChallengeTypeUsablePoints, watchChallengeTypeUsablePointsByChallenge} from "./ChallengeTypes/ChallengeTypeUsablePoints/sagas";
-import { watchCollaboratorBadgeLevelList, watchCollaboratorNextBadgeLevelList } from './CollaboratorBadgeLevels/CollaboratorBadgeLevelList/sagas'
-import { watchCollaboratorCategoryRankListByCategory, watchCollaboratorCategoryRankListByCollaborator } from './CollaboratorCategoryRanks/CollaboratorCategoryRankList/sagas'
+import {watchCollaboratorBadgeLevelList, watchCollaboratorNextBadgeLevelList} from './CollaboratorBadgeLevels/CollaboratorBadgeLevelList/sagas'
+import {watchCollaboratorCategoryRankListByCategory, watchCollaboratorCategoryRankListByCollaborator} from './CollaboratorCategoryRanks/CollaboratorCategoryRankList/sagas'
 import watchCollaboratorChallengeGeneralRankDetail from './CollaboratorChallengeGeneralRanks/CollaboratorChallengeGeneralRankDetail/sagas'
 import watchCollaboratorChallengeGeneralRankList from './CollaboratorChallengeGeneralRanks/CollaboratorChallengeGeneralRankList/sagas'
 import watchCollaboratorChallengeDetail from './CollaboratorChallenges/CollaboratorChallengeDetail/sagas'
 import watchCollaboratorChallengeGoalList from './CollaboratorChallengeGoals/CollaboratorChallengeGoalList/sagas'
 import watchCollaboratorChallengeList from './CollaboratorChallenges/CollaboratorChallengeList/sagas'
-import { watchCollaboratorChalengeRankListByCollaboratorChallenge, watchCollaboratorChalengeRankListByTeamCollaboratorChallenge } from './CollaboratorChallengeRanks/CollaboratorChallengeRankList/sagas'
+import {watchCollaboratorChalengeRankListByCollaboratorChallenge, watchCollaboratorChalengeRankListByTeamCollaboratorChallenge} from './CollaboratorChallengeRanks/CollaboratorChallengeRankList/sagas'
 import watchCollaboratorDataList from './CollaboratorData/CollaboratorDataList/sagas'
 import watchCollaboratorDataUpdate from './CollaboratorData/CollaboratorDataUpdate/sagas'
 import watchCollaboratorGeneralRankDetail from './CollaboratorGeneralRanks/CollaboratorGeneralRankDetail/sagas'
-import { watchCollaboratorGoalRankListByCollaboratorGOal, watchCollaboratorGoalRankListByTeamCollaboratorGoal } from './CollaboratorGoalRanks/CollaboratorGoalRankList/sagas'
 import watchCollaboratorGeneralRankList from './CollaboratorGeneralRanks/CollaboratorGeneralRankList/sagas'
+import watchCollaboratorGlobalPointSummaryDetail from "./CollaboratorGlobalPointSummaries/CollaboratorGlobalPointSummaryDetail/sagas";
+import {watchCollaboratorGoalRankListByCollaboratorGOal, watchCollaboratorGoalRankListByTeamCollaboratorGoal} from './CollaboratorGoalRanks/CollaboratorGoalRankList/sagas'
 import watchFreeCollaboratorList from './Collaborators/CollaboratorList/sagas'
 import watchCategoryCreation from './Categories/CategoryCreation/sagas'
 import watchCategoryDetail from './Categories/CategoryDetail/sagas'
@@ -49,10 +50,10 @@ import watchCoachingItemListUpdate from './CoachingItems/CoachingItemListUpdate/
 import watchCoachingItemRemoving from './CoachingItems/CoachingItemRemoving/sagas'
 import watchCollaboratorDetail from './Collaborators/CollaboratorDetail/sagas'
 import watchCollaboratorGoalDetail from './CollaboratorGoals/CollaboratorGoalDetail/sagas'
-import { watchCollaboratorGoalListByTeamCollaboratorGoal } from './CollaboratorGoals/CollaboratorGoalList/sagas'
+import {watchCollaboratorGoalListByTeamCollaboratorGoal} from './CollaboratorGoals/CollaboratorGoalList/sagas'
 import watchCollaboratorGoalSummaryList from './CollaboratorGoalSummaries/CollaboratorGoalSummaryList/sagas'
 import watchConfigDetail from './Configs/ConfigDetail/sagas'
-import { watchConfigList, watchPermanentConfigList } from './Configs/ConfigList/sagas'
+import {watchConfigList, watchPermanentConfigList} from './Configs/ConfigList/sagas'
 import watchConfigListUpdate from './Configs/ConfigListUpdate/sagas'
 import watchConfigUpdate from './Configs/ConfigUpdate/sagas'
 import watchCurrentCollaboratorBadgeDetail from "./CollaboratorBadges/CurrentCollaboratorBadgeDetail/sagas";
@@ -102,11 +103,11 @@ import {watchRewardUpdate, watchRewardActivationUpdate} from "./Rewards/RewardUp
 import watchRoleList from './Roles/RoleList/sagas'
 import watchSystemImageList from './SystemImages/SystemImageList/sagas'
 import watchSystemImageUpdate from './SystemImages/SystemImageUpdate/sagas'
-import { watchTeamCategoryRankListByCategory, watchTeamCategoryRankListByTeam } from './TeamCategoryRanks/TeamCategoryRankList/sagas'
+import {watchTeamCategoryRankListByCategory, watchTeamCategoryRankListByTeam} from './TeamCategoryRanks/TeamCategoryRankList/sagas'
 import watchTeamChallengeGeneralRankDetail from './TeamChallengeGeneralRanks/TeamChallengeGeneralRankDetail/sagas'
 import watchTeamChallengeGeneralRankList from './TeamChallengeGeneralRanks/TeamChallengeGeneralRankList/sagas'
 import watchTeamChallengeDetail from './TeamChallenges/TeamChallengeDetail/sagas'
-import { watchTeamChallengeListByCollaborator, watchTeamChallengeListByTeam } from './TeamChallenges/TeamChallengeList/sagas'
+import {watchTeamChallengeListByCollaborator, watchTeamChallengeListByTeam} from './TeamChallenges/TeamChallengeList/sagas'
 import watchTeamChallengeGoalList from './TeamChallengeGoals/TeamChallengeGoalList/sagas'
 import watchTeamChallengeRankList from './TeamChallengeRanks/TeamChallengeRankList/sagas'
 import watchTeamCollaboratorChallengeDetail from './TeamCollaboratorChallenges/TeamCollaboratorChallengeDetail/sagas'
@@ -119,12 +120,12 @@ import watchTeamGeneralRankList from './TeamGeneralRanks/TeamGeneralRankList/sag
 import watchTeamGoalDetail from './TeamGoals/TeamGoalDetail/sagas'
 import watchTeamGoalRankList from './TeamGoalRanks/TeamGoalRankList/sagas'
 import watchTeamGoalListByDefinition from './TeamGoals/TeamGoalList/sagas'
-import { watchTeamGoalSummaryListByCollaborator, watchTeamGoalSummaryListByTeam } from './TeamGoalSummaries/TeamGoalSummaryList/sagas'
+import {watchTeamGoalSummaryListByCollaborator, watchTeamGoalSummaryListByTeam} from './TeamGoalSummaries/TeamGoalSummaryList/sagas'
 import watchTeamGoalListUpdate from './TeamGoals/TeamGoalListUpdate/sagas'
 import watchTeamCreation from './Teams/TeamCreation/sagas'
 import watchTeamUpdate from './Teams/TeamUpdate/sagas'
 import watchTeamRemoving from './Teams/TeamRemoving/sagas'
-import { watchTeamDetail, watchTeamDetailByAccount } from './Teams/TeamDetail/sagas'
+import {watchTeamDetail, watchTeamDetailByAccount} from './Teams/TeamDetail/sagas'
 import watchTeamList from './Teams/TeamList/sagas'
 import watchTeamPlayerGoalDetail from './TeamPlayerGoals/TeamPlayerGoalDetail/sagas'
 import watchTeamPlayerGoalList from './TeamPlayerGoals/TeamPlayerGoalList/sagas'
@@ -191,6 +192,7 @@ function* rootSaga() {
         watchCollaboratorDetail(),
         watchCollaboratorGeneralRankDetail(),
         watchCollaboratorGeneralRankList(),
+        watchCollaboratorGlobalPointSummaryDetail(),
         watchCollaboratorGoalCategoryList(),
         watchCollaboratorGoalDetail(),
         watchCollaboratorGoalListByTeamCollaboratorGoal(),

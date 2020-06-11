@@ -45,6 +45,7 @@ const initialState = {
     collaboratorDetail: {collaborator: null, loading: false, hasError: false},
     collaboratorGeneralRankDetail: {rank: null, loading: false, hasError: false},
     collaboratorGeneralRankList: {ranks: null, loading: false, hasError: false},
+    collaboratorGlobalPointSummaryDetail: {summary: null, loading: false, hasError: false},
     collaboratorGoalCategoryList: {categories: null, loading: false, hasError: false},
     collaboratorGoalDetail: {goal: null, loading: false, hasError: false},
     collaboratorGoalList: {goals: null, loading: false, hasError: false},

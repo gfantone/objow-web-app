@@ -30,6 +30,10 @@ const periods = {
         const url = `${baseUrl}${id}/collaborator-general-ranking/`;
         return instance.get(url)
     },
+    collaboratorGlobalPointSummary(id) {
+        const url = `${baseUrl}${id}/collaborator-global-point-summary/`
+        return instance.get(url)
+    },
     collaboratorGoalUsedPoints(id) {
         const url = `${baseUrl}${id}/collaborator-goal-used-points/`;
         return instance.get(url)
