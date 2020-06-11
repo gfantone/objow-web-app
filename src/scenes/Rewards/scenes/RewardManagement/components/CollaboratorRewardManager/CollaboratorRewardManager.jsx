@@ -6,12 +6,16 @@ import {PointSummary} from '..'
 import {AdministratorCollaboratorSelector, DefaultTitle, Loader} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import * as collaboratorGlobalPointSummaryDetailActions from '../../../../../../services/CollaboratorGlobalPointSummaries/CollaboratorGlobalPointSummaryDetail/actions'
+import * as collaboratorRewardOrderCountActions from '../../../../../../services/CollaboratorRewardOrders/CollaboratorRewardOrderCount/actions'
 
 const CollaboratorRewardManager = ({...props}) => {
-    const {summary, loading} = props.collaboratorGlobalPointSummaryDetail
+    const {summary, loading: collaboratorGlobalPointSummaryDetailLoading} = props.collaboratorGlobalPointSummaryDetail
+    const {orders, loading: collaboratorRewardOrderCountLoading} = props.collaboratorRewardOrderCount
+    const loading = collaboratorGlobalPointSummaryDetailLoading || collaboratorRewardOrderCountLoading
 
     useEffect(() => {
         props.collaboratorGlobalPointSummaryDetailActions.getCollaboratorGlobalPointSummary(1)
+        props.collaboratorRewardOrderCountActions.countWaitingCollaboratorRewardOrders()
     }, [])
 
     function renderLoader() {
@@ -27,7 +31,7 @@ const CollaboratorRewardManager = ({...props}) => {
             <div>
                 <Grid container spacing={4}>
                     <Grid item xs={12}>
-                        <PointSummary points={summary.points} usedPoints={summary.usedPoints} waitingPoints={summary.waitingPoints} orders={999} />
+                        <PointSummary points={summary.points} usedPoints={summary.usedPoints} waitingPoints={summary.waitingPoints} orders={orders} />
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container spacing={1}>
@@ -47,18 +51,19 @@ const CollaboratorRewardManager = ({...props}) => {
     return (
         <div>
             {loading && renderLoader()}
-            {!loading && summary && renderData()}
+            {!loading && summary && orders != null && renderData()}
         </div>
     )
 }
 
-const mapStateToProps = ({collaboratorGlobalPointSummaryDetail, teamList}) => ({
+const mapStateToProps = ({collaboratorGlobalPointSummaryDetail, collaboratorRewardOrderCount}) => ({
     collaboratorGlobalPointSummaryDetail,
-    teamList
+    collaboratorRewardOrderCount
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    collaboratorGlobalPointSummaryDetailActions: bindActionCreators(collaboratorGlobalPointSummaryDetailActions, dispatch)
+    collaboratorGlobalPointSummaryDetailActions: bindActionCreators(collaboratorGlobalPointSummaryDetailActions, dispatch),
+    collaboratorRewardOrderCountActions: bindActionCreators(collaboratorRewardOrderCountActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorRewardManager)

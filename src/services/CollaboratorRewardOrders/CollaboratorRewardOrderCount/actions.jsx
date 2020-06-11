@@ -1,6 +1,6 @@
 import * as types from './actionTypes'
 
-export const countWaitingCollaboratorRewardOrder = () => ({
+export const countWaitingCollaboratorRewardOrders = () => ({
     type: types.COUNT_WAITING_COLLABORATOR_REWARD_ORDER
 })
 
