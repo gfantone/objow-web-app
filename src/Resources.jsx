@@ -20,6 +20,10 @@ export const ADMIN_REWARD_CATEGORY_UPDATE_NAME_LABEL = "Nom"
 export const ADMIN_REWARD_CATEGORY_UPDATE_ICON_LABEL = "Icône"
 export const ADMIN_REWARD_CATEGORY_UPDATE_SUBMIT_BUTTON = "Valider"
 
+// Administrator collaborator selector
+export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
+export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
+
 // Common
 export const COMMON_IS_INT_ERROR = "La valeur doit être un nombre entier."
 export const COMMON_MAX_LENGTH_128_ERROR = "La valeur doit faire moins de 128 caractères."
@@ -85,7 +89,18 @@ export const REWARD_DUPLICATION_SUBMIT_BUTTON = "Valider"
 
 // Reward - Management
 export const REWARD_MANAGEMENT_SUBTITLE = "Gestion des récompenses"
+export const REWARD_MANAGEMENT_INFO_AREA = "Informations générales"
+export const REWARD_MANAGEMENT_POINTS_LABEL = "Total points gagnés"
+export const REWARD_MANAGEMENT_POINTS_VALUE = "{0} PTS"
+export const REWARD_MANAGEMENT_USED_POINTS_LABEL = "Total points consommés"
+export const REWARD_MANAGEMENT_USED_POINTS_VALUE = "{0} PTS"
+export const REWARD_MANAGEMENT_WAITING_POINTS_LABEL = "Points en attente de validation"
+export const REWARD_MANAGEMENT_WAITING_POINTS_VALUE = "{0} PTS"
+export const REWARD_MANAGEMENT_USABLE_POINTS_LABEL = "Solde de points"
+export const REWARD_MANAGEMENT_USABLE_POINTS_VALUE = "{0} PTS"
+export const REWARD_MANAGEMENT_ORDERS_BUTTON = "Commandes à valider"
 export const REWARD_MANAGEMENT_COLLABORATOR_TAB = "Joueurs"
+export const REWARD_MANAGEMENT_COLLABORATOR_SELECTOR_AREA = "Sélection d'un joueur"
 export const REWARD_MANAGEMENT_TEAM_TAB = "Équipes"
 
 // Reward - Update
