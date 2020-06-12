@@ -58,10 +58,12 @@ export default () => {
                 <AdminRoutes exact path='/rewards' component={scenes.RewardHome} />
                 <AdminRoutes exact path='/rewards/creation' component={scenes.RewardCreation} />
                 <AdminRoutes exact path='/rewards/collaborators/:id' component={scenes.CollaboratorRewardList} />
+                <AdminRoutes exact path='/rewards/teams/:id' component={scenes.TeamRewardList} />
                 <AdminRoutes exact path='/rewards/duplication/:id' component={scenes.RewardDuplication} />
                 <AdminRoutes exact path='/rewards/management' component={scenes.RewardManagement} />
                 <AdminRoutes exact path='/rewards/modification/:id' component={scenes.RewardUpdate} />
                 <AdminRoutes exact path='/rewards/tracking/collaborators' component={scenes.CollaboratorRewardOrderTracking} />
+                <AdminRoutes exact path='/rewards/tracking/teams' component={scenes.TeamRewardOrderTracking} />
                 {/* Teams */}
                 <MainRoutes exact path='/teams' component={scenes.TeamList} />
                 <MainRoutes exact path='/teams/:id' component={scenes.TeamDetail} />

@@ -102,6 +102,7 @@ export const REWARD_MANAGEMENT_ORDERS_BUTTON = "Commandes à valider"
 export const REWARD_MANAGEMENT_COLLABORATOR_TAB = "Joueurs"
 export const REWARD_MANAGEMENT_COLLABORATOR_SELECTOR_AREA = "Sélection d'un joueur"
 export const REWARD_MANAGEMENT_TEAM_TAB = "Équipes"
+export const REWARD_MANAGEMENT_TEAM_SELECTOR_AREA = "Sélection d'une équipe"
 
 // Reward - Update
 export const REWARD_UPDATE_SUBTITLE = "Modification d'une récompense"
@@ -120,3 +121,7 @@ export const REWARD_UPDATE_DELIVERY_PLACE_LABEL = "Lieu"
 export const REWARD_UPDATE_DELIVERY_MODE_LABEL = "Mode de livraison"
 export const REWARD_UPDATE_DELIVERY_TIME_LABEL = "Temps de livraison"
 export const REWARD_UPDATE_SUBMIT_BUTTON = "Valider"
+
+// Team selector
+export const TEAM_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
+export const TEAM_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
