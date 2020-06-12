@@ -23,8 +23,8 @@ const CollaboratorRewardManagement = ({...props}) => {
         return <Loader centered />
     }
 
-    function handleTeamClick(teamId) {
-        alert('hello' + teamId)
+    function handleCollaboratorClick(collaboratorId) {
+        props.history.push(`/rewards/collaborators/${collaboratorId}`)
     }
 
     function handleTrackingClick() {
@@ -44,7 +44,7 @@ const CollaboratorRewardManagement = ({...props}) => {
                                 <DefaultTitle>{Resources.REWARD_MANAGEMENT_COLLABORATOR_SELECTOR_AREA}</DefaultTitle>
                             </Grid>
                             <Grid item xs={12}>
-                                <AdministratorCollaboratorSelector onClick={handleTeamClick} />
+                                <AdministratorCollaboratorSelector onClick={handleCollaboratorClick} />
                             </Grid>
                         </Grid>
                     </Grid>
