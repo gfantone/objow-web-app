@@ -24,6 +24,10 @@ export const ADMIN_REWARD_CATEGORY_UPDATE_SUBMIT_BUTTON = "Valider"
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
 
+// Collaborator reward list
+export const COLLABORATOR_REWARD_LIST_COLLABORATOR_TAB = "Joueur"
+export const COLLABORATOR_REWARD_LIST_TEAM_TAB = "Équipe"
+
 // Common
 export const COMMON_IS_INT_ERROR = "La valeur doit être un nombre entier."
 export const COMMON_MAX_LENGTH_128_ERROR = "La valeur doit faire moins de 128 caractères."
@@ -83,11 +87,6 @@ export const REWARD_CREATION_DELIVERY_MODE_LABEL = "Mode de livraison"
 export const REWARD_CREATION_DELIVERY_TIME_LABEL = "Temps de livraison"
 export const REWARD_CREATION_SUBMIT_BUTTON = "Valider"
 
-// Reward - Creation
-export const COLLABORATOR_REWARD_LIST_COLLABORATOR_TAB = "Joueur"
-export const COLLABORATOR_REWARD_LIST_TEAM_TAB = "Équipe"
-export const COLLABORATOR_REWARD_LIST_REWARD_AREA = "Récompenses"
-
 // Reward - Duplication
 export const REWARD_DUPLICATION_SUBTITLE = "Duplication d'une récompense"
 export const REWARD_DUPLICATION_INFOS_AREA = "Informations"
@@ -133,6 +132,13 @@ export const REWARD_UPDATE_DELIVERY_PLACE_LABEL = "Lieu"
 export const REWARD_UPDATE_DELIVERY_MODE_LABEL = "Mode de livraison"
 export const REWARD_UPDATE_DELIVERY_TIME_LABEL = "Temps de livraison"
 export const REWARD_UPDATE_SUBMIT_BUTTON = "Valider"
+
+// Team reward list
+export const TEAM_REWARD_LIST_COLLABORATOR_TAB = "Équipe"
+export const TEAM_REWARD_LIST_TEAM_TAB = "Joueurs"
+
+// Team reward store
+export const TEAM_REWARD_STORE_COLLABORATOR_SELECTOR_AREA = "Sélection d'un joueur"
 
 // Team selector
 export const TEAM_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
