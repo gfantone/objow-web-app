@@ -133,6 +133,7 @@ import teamList from '../services/Teams/TeamList/reducer'
 import teamPlayerGoalDetail from '../services/TeamPlayerGoals/TeamPlayerGoalDetail/reducer'
 import teamPlayerGoalList from '../services/TeamPlayerGoals/TeamPlayerGoalList/reducer'
 import teamPlayerGoalListUpdate from '../services/TeamPlayerGoals/TeamPlayerGoalListUpdate/reducer'
+import teamPointSummaryDetail from '../services/TeamPointSummaries/TeamPointSummaryDetail/reducer'
 import teamRemoving from '../services/Teams/TeamRemoving/reducer'
 import teamRewardOrderCount from '../services/TeamRewardOrders/TeamRewardOrderCount/reducer'
 import teamUpdate from '../services/Teams/TeamUpdate/reducer'
@@ -282,6 +283,7 @@ const rootReducer = combineReducers({
     teamPlayerGoalDetail,
     teamPlayerGoalList,
     teamPlayerGoalListUpdate,
+    teamPointSummaryDetail,
     teamRemoving,
     teamRewardOrderCount,
     teamUpdate,
