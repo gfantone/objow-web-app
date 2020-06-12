@@ -39,6 +39,7 @@ import watchCollaboratorGeneralRankList from './CollaboratorGeneralRanks/Collabo
 import watchCollaboratorGlobalPointSummaryDetail from "./CollaboratorGlobalPointSummaries/CollaboratorGlobalPointSummaryDetail/sagas";
 import {watchCollaboratorGoalRankListByCollaboratorGOal, watchCollaboratorGoalRankListByTeamCollaboratorGoal} from './CollaboratorGoalRanks/CollaboratorGoalRankList/sagas'
 import watchFreeCollaboratorList from './Collaborators/CollaboratorList/sagas'
+import watchCollaboratorPointSummaryDetail from "./CollaboratorPointSummaries/CollaboratorPointSummaryDetail/sagas";
 import watchCategoryCreation from './Categories/CategoryCreation/sagas'
 import watchCategoryDetail from './Categories/CategoryDetail/sagas'
 import {watchActiveCategoryList, watchInactiveCategoryList} from './Categories/CategoryList/sagas'
@@ -204,6 +205,7 @@ function* rootSaga() {
         watchCollaboratorGoalRankListByTeamCollaboratorGoal(),
         watchCollaboratorGoalSummaryList(),
         watchCollaboratorNextBadgeLevelList(),
+        watchCollaboratorPointSummaryDetail(),
         watchCollaboratorRewardList(),
         watchWaitingCollaboratorRewardOrderCount(),
         watchConfigDetail(),
