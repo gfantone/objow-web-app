@@ -4,7 +4,7 @@ import {PointSummary, RewardList} from "../../../../components";
 
 const CollaboratorRewardList = ({rewards, summary, ...props}) => {
     function handleRewardClick(id) {
-
+        alert(id)
     }
 
     return (

@@ -15,9 +15,9 @@ const RewardList = ({onRewardClick, rewards, ...props}) => {
                     <Grid container spacing={2}>
                         {rewards.map(reward => {
                             return (
-                                <Grid key={reward.id} item xs={12} sm={6} md={4} onClick={() => onRewardClick(reward.id)}>
+                                <Grid key={reward.id} item xs={12} sm={6} md={4}>
                                     <Card>
-                                        <Reward reward={reward} disableAddButton={!onRewardClick} />
+                                        <Reward reward={reward} onRewardClick={onRewardClick} />
                                     </Card>
                                 </Grid>
                             )

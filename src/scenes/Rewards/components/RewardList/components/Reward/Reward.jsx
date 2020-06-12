@@ -45,7 +45,7 @@ const styles = {
     }
 }
 
-const Reward = ({disableAddButton = false, reward, ...props}) => {
+const Reward = ({onRewardClick, reward, ...props}) => {
     const {classes} = props
 
     return (
@@ -69,10 +69,10 @@ const Reward = ({disableAddButton = false, reward, ...props}) => {
                         </Grid>
                     </Grid>
                 </Grid>
-                {!disableAddButton && <Grid item xs={12}>
+                {onRewardClick && <Grid item xs={12}>
                     <Grid container spacing={12} direction='column' alignItems='flex-end'>
                         <Grid item>
-                            <Button>{Resources.REWARD_ADD_BUTTON}</Button>
+                            <Button onClick={() => onRewardClick(reward.id)}>{Resources.REWARD_ADD_BUTTON}</Button>
                         </Grid>
                     </Grid>
                 </Grid>}
