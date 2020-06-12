@@ -3,8 +3,7 @@ import initialState from '../../../store/initialState';
 
 const RewardList = (state = initialState.rewardList, action) => {
     switch (action.type) {
-        case types.GET_COLLABORATOR_REWARD_LIST:
-        case types.GET_TEAM_REWARD_LIST:
+        case types.GET_ACTIVE_REWARD_LIST:
             return {...state, rewards: null, loading: true, hasError: false}
 
         case types.GET_REWARD_LIST_SUCCESS:

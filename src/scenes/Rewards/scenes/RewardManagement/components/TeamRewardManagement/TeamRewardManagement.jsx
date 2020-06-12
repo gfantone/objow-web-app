@@ -3,7 +3,7 @@ import {withRouter} from 'react-router'
 import {connect} from 'react-redux'
 import {bindActionCreators} from "redux";
 import {Grid} from '@material-ui/core'
-import {PointSummary} from '..'
+import {PointSummary} from '../../../../components'
 import {DefaultTitle, Loader, TeamSelector} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import * as teamGlobalPointSummaryDetailActions from '../../../../../../services/TeamGlobalPointSummaries/TeamGlobalPointSummaryDetail/actions'

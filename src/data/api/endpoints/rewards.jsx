@@ -3,8 +3,8 @@ import instance from '../instance'
 const baseUrl = 'rewards/'
 
 const rewards = {
-    collaborators() {
-        const url = `${baseUrl}collaborators/`
+    active() {
+        const url = `${baseUrl}active/`
         return instance.get(url)
     },
     create(reward) {
@@ -12,10 +12,6 @@ const rewards = {
     },
     get(id) {
         const url = `${baseUrl}${id}/`
-        return instance.get(url)
-    },
-    teams() {
-        const url = `${baseUrl}teams/`
         return instance.get(url)
     },
     update(reward) {

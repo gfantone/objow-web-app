@@ -3,28 +3,17 @@ import {getRewardListSuccess, getRewardListError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
 
-function* getCollaboratorRewardList(action) {
+function* getActiveRewardList(action) {
     try {
-        const {data: rewards} = yield call(api.rewards.collaborators)
+        const {data: rewards} = yield call(api.rewards.active)
         yield put(getRewardListSuccess(rewards))
     } catch(e) {
         yield put(getRewardListError())
     }
 }
 
-function* getTeamRewardList(action) {
-    try {
-        const {data: rewards} = yield call(api.rewards.teams)
-        yield put(getRewardListSuccess(rewards))
-    } catch(e) {
-        yield put(getRewardListError())
-    }
+export function* watchActiveRewardList() {
+    yield takeEvery(types.GET_ACTIVE_REWARD_LIST, getActiveRewardList)
 }
 
-export function* watchCollaboratorRewardList() {
-    yield takeEvery(types.GET_COLLABORATOR_REWARD_LIST, getCollaboratorRewardList)
-}
-
-export function* watchTeamRewardList() {
-    yield takeEvery(types.GET_TEAM_REWARD_LIST, getTeamRewardList)
-}
+export default watchActiveRewardList

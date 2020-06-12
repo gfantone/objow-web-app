@@ -99,7 +99,7 @@ import {watchUsableRewardCategoryIconList, watchUsableRewardCategoryIconListForR
 import {watchRewardCategoryUpdate, watchRewardCategoryActivationUpdate} from "./RewardCategories/RewardCategoryUpdate/sagas";
 import watchRewardCreation from "./Rewards/RewardCreation/sagas";
 import watchRewardDetail from "./Rewards/RewardDetail/sagas";
-import {watchCollaboratorRewardList, watchTeamRewardList} from './Rewards/RewardList/sagas'
+import watchActiveRewardList from './Rewards/RewardList/sagas'
 import watchRewardImageList from "./RewardImages/RewardImageList/sagas";
 import watchRewardTypeList from "./RewardTypes/RewardTypeList/sagas";
 import {watchRewardUpdate, watchRewardActivationUpdate} from "./Rewards/RewardUpdate/sagas";
@@ -155,6 +155,7 @@ function* rootSaga() {
         watchAccountUpdate(),
         watchActiveCategoryList(),
         watchActiveRewardCategoryList(),
+        watchActiveRewardList(),
         watchAdminReferenceData(),
         watchAuth(),
         watchBadgeDetail(),
@@ -208,7 +209,6 @@ function* rootSaga() {
         watchCollaboratorGoalSummaryList(),
         watchCollaboratorNextBadgeLevelList(),
         watchCollaboratorPointSummaryDetail(),
-        watchCollaboratorRewardList(),
         watchWaitingCollaboratorRewardOrderCount(),
         watchConfigDetail(),
         watchConfigList(),
@@ -306,7 +306,6 @@ function* rootSaga() {
         watchTeamPointSummaryDetailByCollaborator(),
         watchTeamPointSummaryDetailByTeam(),
         watchTeamRemoving(),
-        watchTeamRewardList(),
         watchTeamUpdate(),
         watchTermsAcceptance(),
         watchUsableCategoryIconList(),
