@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import {withRouter} from 'react-router'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {Grid} from '@material-ui/core'
@@ -26,12 +27,16 @@ const CollaboratorRewardManagement = ({...props}) => {
         alert('hello' + teamId)
     }
 
+    function handleTrackingClick() {
+        props.history.push('/rewards/tracking/collaborators')
+    }
+
     function renderData() {
         return (
             <div>
                 <Grid container spacing={4}>
                     <Grid item xs={12}>
-                        <PointSummary points={summary.points} usedPoints={summary.usedPoints} waitingPoints={summary.waitingPoints} orders={orders} />
+                        <PointSummary points={summary.points} usedPoints={summary.usedPoints} waitingPoints={summary.waitingPoints} orders={orders} onTrackingClick={handleTrackingClick} />
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container spacing={1}>
@@ -66,4 +71,4 @@ const mapDispatchToProps = (dispatch) => ({
     collaboratorRewardOrderCountActions: bindActionCreators(collaboratorRewardOrderCountActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorRewardManagement)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CollaboratorRewardManagement))

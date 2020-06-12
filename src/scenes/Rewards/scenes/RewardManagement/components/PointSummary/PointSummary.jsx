@@ -4,7 +4,7 @@ import {AccentText, Badge, BoldSpan, Button, Card, DefaultText, DefaultTitle, Er
 import '../../../../../../helpers/StringHelper'
 import * as Resources from '../../../../../../Resources'
 
-const PointSummary = ({points, usedPoints, waitingPoints, orders, ...props}) => {
+const PointSummary = ({points, usedPoints, waitingPoints, onTrackingClick, orders, ...props}) => {
     const usablePoints = points - usedPoints - waitingPoints
     const usablePointsText = Resources.REWARD_MANAGEMENT_USABLE_POINTS_VALUE.format(usablePoints)
 
@@ -38,7 +38,7 @@ const PointSummary = ({points, usedPoints, waitingPoints, orders, ...props}) => 
                                     </Grid>
                                     <Grid item>
                                         <Badge badgeContent={orders} color='secondary'>
-                                            <Button>{Resources.REWARD_MANAGEMENT_ORDERS_BUTTON}</Button>
+                                            <Button onClick={onTrackingClick}>{Resources.REWARD_MANAGEMENT_ORDERS_BUTTON}</Button>
                                         </Badge>
                                     </Grid>
                                 </Grid>
