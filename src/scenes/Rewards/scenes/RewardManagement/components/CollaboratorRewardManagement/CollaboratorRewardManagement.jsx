@@ -8,7 +8,7 @@ import * as Resources from '../../../../../../Resources'
 import * as collaboratorGlobalPointSummaryDetailActions from '../../../../../../services/CollaboratorGlobalPointSummaries/CollaboratorGlobalPointSummaryDetail/actions'
 import * as collaboratorRewardOrderCountActions from '../../../../../../services/CollaboratorRewardOrders/CollaboratorRewardOrderCount/actions'
 
-const CollaboratorRewardManager = ({...props}) => {
+const CollaboratorRewardManagement = ({...props}) => {
     const {summary, loading: collaboratorGlobalPointSummaryDetailLoading} = props.collaboratorGlobalPointSummaryDetail
     const {orders, loading: collaboratorRewardOrderCountLoading} = props.collaboratorRewardOrderCount
     const loading = collaboratorGlobalPointSummaryDetailLoading || collaboratorRewardOrderCountLoading
@@ -66,4 +66,4 @@ const mapDispatchToProps = (dispatch) => ({
     collaboratorRewardOrderCountActions: bindActionCreators(collaboratorRewardOrderCountActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorRewardManager)
+export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorRewardManagement)
