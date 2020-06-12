@@ -4,6 +4,10 @@ export const getCollaboratorRewardList = () => ({
     type: types.GET_COLLABORATOR_REWARD_LIST
 })
 
+export const getTeamRewardList = () => ({
+    type: types.GET_TEAM_REWARD_LIST
+})
+
 export const getRewardListSuccess = (rewards) => ({
     type: types.GET_REWARD_LIST_SUCCESS,
     rewards

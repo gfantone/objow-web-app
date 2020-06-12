@@ -14,6 +14,10 @@ const rewards = {
         const url = `${baseUrl}${id}/`
         return instance.get(url)
     },
+    teams() {
+        const url = `${baseUrl}teams/`
+        return instance.get(url)
+    },
     update(reward) {
         const url = `${baseUrl}${reward.id}/`
         return instance.put(url, reward)

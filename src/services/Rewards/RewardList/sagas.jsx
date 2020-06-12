@@ -12,6 +12,19 @@ function* getCollaboratorRewardList(action) {
     }
 }
 
+function* getTeamRewardList(action) {
+    try {
+        const {data: rewards} = yield call(api.rewards.teams)
+        yield put(getRewardListSuccess(rewards))
+    } catch(e) {
+        yield put(getRewardListError())
+    }
+}
+
 export function* watchCollaboratorRewardList() {
     yield takeEvery(types.GET_COLLABORATOR_REWARD_LIST, getCollaboratorRewardList)
+}
+
+export function* watchTeamRewardList() {
+    yield takeEvery(types.GET_TEAM_REWARD_LIST, getTeamRewardList)
 }
