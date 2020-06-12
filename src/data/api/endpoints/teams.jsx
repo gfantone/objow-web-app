@@ -89,6 +89,11 @@ const teams = {
         if (name != null && name !== '') url = `${url}&name=${name}`;
         return instance.get(url)
     },
+    teamPointSummary(id, periodId) {
+        var url = `${baseUrl}${id}team-point-summary/`
+        if (periodId != null) url = `${url}?period=${periodId}`
+        return instance.get(url)
+    }
 };
 
 export default teams
