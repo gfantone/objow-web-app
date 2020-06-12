@@ -118,6 +118,7 @@ import teamCollaboratorChallengeGoalList from '../services/TeamCollaboratorChall
 import teamCollaboratorChallengeList from '../services/TeamCollaboratorChallenges/TeamCollaboratorChallengeList/reducer'
 import teamCollaboratorGoalDetail from '../services/TeamCollaboratorGoals/TeamCollaboratorGoalDetail/reducer'
 import teamCollaboratorGoalList from '../services/TeamCollaboratorGoals/TeamCollaboratorGoalList/reducer'
+import teamCollaboratorPointSummaryDetail from '../services/TeamCollaboratorPointSummaries/TeamCollaboratorPointSummaryDetail/reducer'
 import teamCreation from '../services/Teams/TeamCreation/reducer'
 import teamDetail from '../services/Teams/TeamDetail/reducer'
 import teamGeneralRankDetail from '../services/TeamGeneralRanks/TeamGeneralRankDetail/reducer'
@@ -268,6 +269,7 @@ const rootReducer = combineReducers({
     teamCollaboratorChallengeList,
     teamCollaboratorGoalDetail,
     teamCollaboratorGoalList,
+    teamCollaboratorPointSummaryDetail,
     teamCreation,
     teamDetail,
     teamGeneralRankDetail,

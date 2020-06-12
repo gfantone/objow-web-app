@@ -120,6 +120,7 @@ const initialState = {
     teamCollaboratorChallengeList: {challenges: null, loading: false, hasError: false},
     teamCollaboratorGoalDetail: {goal: null, loading: false, hasError: false},
     teamCollaboratorGoalList: {goals: null, loading: false, hasError: false},
+    teamCollaboratorPointSummaryDetail: {summary: null, loading: false, hasError: false},
     teamCreation: {success: false, loading: false, hasError: false},
     teamDetail: {team: null, loading: false, hasError: false},
     teamGeneralRankDetail: {rank: null, loading: false, hasError: false},
