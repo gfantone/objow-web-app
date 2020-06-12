@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {CollaboratorRewardList, SubHeader} from './components'
+import {CollaboratorRewardList, SubHeader, TeamRewardList} from './components'
 import {MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
@@ -54,6 +54,7 @@ class CollaboratorRewardStore extends MainLayoutComponent {
         return (
             <div>
                 {canRenderData && this.state.page ===0 && <CollaboratorRewardList summary={collaboratorSummary} rewards={collaboratorRewards} />}
+                {canRenderData && this.state.page ===1 && <TeamRewardList summary={teamSummary} rewards={teamRewards} />}
             </div>
         )
     }
