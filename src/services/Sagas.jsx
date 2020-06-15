@@ -1,4 +1,4 @@
-import { all } from 'redux-saga/effects'
+import {all} from 'redux-saga/effects'
 import watchAccountDetail from './Account/AccountDetail/sagas'
 import watchAccountUpdate from './Account/AccountUpdate/sagas'
 import watchAdminReferenceData from './AdminReferenceData/sagas'
@@ -40,6 +40,7 @@ import watchCollaboratorGlobalPointSummaryDetail from "./CollaboratorGlobalPoint
 import {watchCollaboratorGoalRankListByCollaboratorGOal, watchCollaboratorGoalRankListByTeamCollaboratorGoal} from './CollaboratorGoalRanks/CollaboratorGoalRankList/sagas'
 import watchFreeCollaboratorList from './Collaborators/CollaboratorList/sagas'
 import watchCollaboratorPointSummaryDetail from "./CollaboratorPointSummaries/CollaboratorPointSummaryDetail/sagas";
+import {watchValidatedCollaboratorRewardOrderSummaryList, watchWaitingCollaboratorRewardOrderSummaryList} from './CollaboratorRewardOrderSummaries/CollaboratorRewardOrderSummaryList/sagas'
 import watchCategoryCreation from './Categories/CategoryCreation/sagas'
 import watchCategoryDetail from './Categories/CategoryDetail/sagas'
 import {watchActiveCategoryList, watchInactiveCategoryList} from './Categories/CategoryList/sagas'
@@ -322,6 +323,8 @@ function* rootSaga() {
         watchUserUpdate(),
         watchUserUpdateActivation(),
         watchUserUpdatePassword(),
+        watchValidatedCollaboratorRewardOrderSummaryList(),
+        watchWaitingCollaboratorRewardOrderSummaryList(),
         watchWaitingTeamRewardOrderCount()
     ])
 }
