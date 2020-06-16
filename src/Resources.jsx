@@ -28,6 +28,17 @@ export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_MESSAGE = "Les équ
 export const COLLABORATOR_REWARD_LIST_COLLABORATOR_TAB = "Joueur"
 export const COLLABORATOR_REWARD_LIST_TEAM_TAB = "Équipe"
 
+// Collaborator reward order tracking
+export const COLLABORATOR_REWARD_ORDER_TRACKING_ID_COLUMN = "Ref"
+export const COLLABORATOR_REWARD_ORDER_TRACKING_NAME_COLUMN = "Nom"
+export const COLLABORATOR_REWARD_ORDER_TRACKING_EMAIL_COLUMN = "Email"
+export const COLLABORATOR_REWARD_ORDER_TRACKING_TEAM_COLUMN = "Équipe"
+export const COLLABORATOR_REWARD_ORDER_TRACKING_WAITING_POINTS_COLUMN = "Pts à valider"
+export const COLLABORATOR_REWARD_ORDER_TRACKING_VALIDATED_POINTS_COLUMN = "Pts validés"
+export const COLLABORATOR_REWARD_ORDER_TRACKING_VALUE_COLUMN = "Montant total"
+export const COLLABORATOR_REWARD_ORDER_TRACKING_ORDER_DATE_COLUMN = "Date de commande"
+export const COLLABORATOR_REWARD_ORDER_TRACKING_VALIDATION_DATE_COLUMN = "Date de validation"
+
 // Common
 export const COMMON_IS_INT_ERROR = "La valeur doit être un nombre entier."
 export const COMMON_MAX_LENGTH_128_ERROR = "La valeur doit faire moins de 128 caractères."
@@ -143,3 +154,8 @@ export const TEAM_REWARD_STORE_COLLABORATOR_SELECTOR_AREA = "Sélection d'un jou
 // Team selector
 export const TEAM_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
 export const TEAM_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
+
+// Tracking sub header
+export const TRACKING_SUB_HEADER_VALIDATED_TITLE = "Suivi des commandes"
+export const TRACKING_SUB_HEADER_VALIDATED_TAB = "À traiter"
+export const TRACKING_SUB_HEADER_WAITING_TAB = "Validées"
