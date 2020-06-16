@@ -28,7 +28,6 @@ class CollaboratorRewardOrderTracking extends MainLayoutComponent {
             </div>
         )
     }
-
 }
 
 export default CollaboratorRewardOrderTracking

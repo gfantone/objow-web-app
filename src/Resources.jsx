@@ -151,6 +151,15 @@ export const TEAM_REWARD_LIST_TEAM_TAB = "Joueurs"
 // Team reward store
 export const TEAM_REWARD_STORE_COLLABORATOR_SELECTOR_AREA = "Sélection d'un joueur"
 
+// Team reward order tracking
+export const TEAM_REWARD_ORDER_TRACKING_ID_COLUMN = "Ref"
+export const TEAM_REWARD_ORDER_TRACKING_TEAM_COLUMN = "Équipe"
+export const TEAM_REWARD_ORDER_TRACKING_WAITING_POINTS_COLUMN = "Pts à valider"
+export const TEAM_REWARD_ORDER_TRACKING_VALIDATED_POINTS_COLUMN = "Pts validés"
+export const TEAM_REWARD_ORDER_TRACKING_VALUE_COLUMN = "Montant total"
+export const TEAM_REWARD_ORDER_TRACKING_ORDER_DATE_COLUMN = "Date de commande"
+export const TEAM_REWARD_ORDER_TRACKING_VALIDATION_DATE_COLUMN = "Date de validation"
+
 // Team selector
 export const TEAM_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
 export const TEAM_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"

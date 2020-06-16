@@ -8,8 +8,9 @@ export const getWaitingTeamRewardOrderSummaryList = () => ({
     type: types.GET_WAITING_TEAM_REWARD_ORDER_SUMMARY_LIST
 })
 
-export const getTeamRewardOrderSummaryListSuccess = () => ({
-    type: types.GET_TEAM_REWARD_ORDER_SUMMARY_LIST_SUCCESS
+export const getTeamRewardOrderSummaryListSuccess = (orders) => ({
+    type: types.GET_TEAM_REWARD_ORDER_SUMMARY_LIST_SUCCESS,
+    orders
 })
 
 export const getTeamRewardOrderSummaryListError = () => ({

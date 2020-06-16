@@ -1,6 +1,6 @@
 import instance from '../instance'
 
-const baseUrl = `team-reward-order-summaries`
+const baseUrl = `team-reward-order-summaries/`
 
 const teamRewardOrderSummaries = {
     validated() {
