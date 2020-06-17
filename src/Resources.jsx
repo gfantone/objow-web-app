@@ -45,6 +45,12 @@ export const COLLABORATOR_REWARD_ORDER_TRACKING_VALUE_COLUMN = "Montant total"
 export const COLLABORATOR_REWARD_ORDER_TRACKING_ORDER_DATE_COLUMN = "Date de commande"
 export const COLLABORATOR_REWARD_ORDER_TRACKING_VALIDATION_DATE_COLUMN = "Date de validation"
 
+// Collaborator reward order validation
+export const COLLABORATOR_REWARD_ORDER_VALIDATION_TITLE = "Validation d'une commande"
+export const COLLABORATOR_REWARD_ORDER_VALIDATION_REWARDS_AREA = "Commande n°{0} de {1}"
+export const COLLABORATOR_REWARD_ORDER_VALIDATION_POINTS_AREA = "Total commande"
+export const COLLABORATOR_REWARD_ORDER_VALIDATION_POINTS_AREA_YEAR = "Année {0}"
+
 // Common
 export const COMMON_IS_INT_ERROR = "La valeur doit être un nombre entier."
 export const COMMON_MAX_LENGTH_128_ERROR = "La valeur doit faire moins de 128 caractères."
@@ -138,7 +144,7 @@ export const REWARD_ORDER_ITEM_LIST_VALUE_LABEL = "Valeur"
 export const REWARD_ORDER_ITEM_LIST_VALUE_VALUE = "{0} €"
 export const REWARD_ORDER_ITEM_LIST_POINTS_VALUE = "{0} PTS"
 
-// Reward order summaries
+// Reward order summary
 export const REWARD_ORDER_SUMMARY_RECIPIENT_POINTS_LABEL = "Solde de points actuel"
 export const REWARD_ORDER_SUMMARY_RECIPIENT_POINTS_VALUE = "{0} Pts"
 export const REWARD_ORDER_SUMMARY_ORDER_POINTS_LABEL = "Total commande"
@@ -147,6 +153,17 @@ export const REWARD_ORDER_SUMMARY_ORDER_VALUE_LABEL = "Total valeur"
 export const REWARD_ORDER_SUMMARY_ORDER_VALUE_VALUE = "{0} €"
 export const REWARD_ORDER_SUMMARY_REMAINING_POINTS_LABEL = "Prochain solde de points"
 export const REWARD_ORDER_SUMMARY_REMAINING_POINTS_VALUE = "{0} Pts"
+export const REWARD_ORDER_SUMMARY_ORDER_BUTTON = "Commander"
+export const REWARD_ORDER_SUMMARY_VALIDATE_BUTTON = "Valider"
+export const REWARD_ORDER_SUMMARY_REFUSE_BUTTON = "Refuser"
+export const REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_TITLE = "Êtes-vous sûr de vouloir valider la commande N°{0} d'un total de {1} Pts pour une valeur de {2} € ?"
+export const REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_MESSAGE = "Une fois validée, vous ne pourrez plus annuler la commande, les points seront retirés du solde de points disponible et la valeur de cette commande devra être déclarée et soumise à cotisations patronales et/ou salariales."
+export const REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_YES_BUTTON = "Oui"
+export const REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_NO_BUTTON = "Non"
+export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_TITLE = "Êtes-vous sûr de vouloir refuser la commande N°{0} d'un total de {1} Pts pour une valeur de {2} € ?"
+export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_MESSAGE = "Une fois refusée, il ne sera plus possible de la réactiver, les points seront réattribués au solde de point disponible. Il sera de votre responsabilité d'informer l'utilisateur de la raison du refus."
+export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_YES_BUTTON = "Oui"
+export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_NO_BUTTON = "Non"
 
 // Reward - Update
 export const REWARD_UPDATE_SUBTITLE = "Modification d'une récompense"

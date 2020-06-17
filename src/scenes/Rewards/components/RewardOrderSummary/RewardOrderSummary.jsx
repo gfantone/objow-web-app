@@ -1,7 +1,7 @@
 import React from 'react'
 import {Divider, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
-import {AccentText, BoldSpan, Card, DefaultText, ErrorText} from '../../../../components'
+import {AccentText, BoldSpan, Button, Card, DefaultText, Dialog, DialogActions, DialogContent, DialogTitle, ErrorText, ProgressButton, RedButton} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 
@@ -12,9 +12,24 @@ const styles = {
     }
 }
 
-const RewardOrderSummary = ({recipientPoints, orderPoints, orderValue, ...props}) => {
+const RewardOrderSummary = ({recipientPoints, onOrderClick, onRefuseClick, onValidateClick, orderId, orderPoints, orderValue, refuseLoading, validateLoading, ...props}) => {
     const {classes} = props
     const remainingPoints = recipientPoints - orderPoints
+    const [orderOpen, setOrderOpen] = React.useState(false)
+    const [validateOpen, setValidateOpen] = React.useState(false)
+    const [refuseOpen, setRefuseOpen] = React.useState(false)
+
+    function changeOrderOpen(open) {
+        setOrderOpen(open)
+    }
+
+    function changeRefuseOpen(open) {
+        setRefuseOpen(open)
+    }
+
+    function changeValidateOpen(open) {
+        setValidateOpen(open)
+    }
 
     return (
         <div>
@@ -43,8 +58,37 @@ const RewardOrderSummary = ({recipientPoints, orderPoints, orderValue, ...props}
                         {remainingPoints >= 0 && <AccentText>{Resources.REWARD_ORDER_SUMMARY_REMAINING_POINTS_LABEL} : <BoldSpan>{Resources.REWARD_ORDER_SUMMARY_REMAINING_POINTS_VALUE.format(remainingPoints)}</BoldSpan></AccentText>}
                         {remainingPoints < 0 && <ErrorText>{Resources.REWARD_ORDER_SUMMARY_REMAINING_POINTS_LABEL} : <BoldSpan>{Resources.REWARD_ORDER_SUMMARY_REMAINING_POINTS_VALUE.format(remainingPoints)}</BoldSpan></ErrorText>}
                     </Grid>
+                    {onValidateClick && onRefuseClick && <Grid item xs={12}>
+                        <Grid container spacing={2}>
+                            <Grid item>
+                                <Button onClick={() => changeValidateOpen(true)}>{Resources.REWARD_ORDER_SUMMARY_VALIDATE_BUTTON}</Button>
+                            </Grid>
+                            <Grid item>
+                                <RedButton onClick={() => changeRefuseOpen(true)}>{Resources.REWARD_ORDER_SUMMARY_REFUSE_BUTTON}</RedButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>}
+                    {onOrderClick && <Grid item xs={12}>
+                        <Button onClick={() => changeOrderOpen(true)}>{Resources.REWARD_ORDER_SUMMARY_ORDER_BUTTON}</Button>
+                    </Grid>}
                 </Grid>
             </Card>
+            {onRefuseClick &&  <Dialog open={refuseOpen} onClose={() => changeRefuseOpen(false)}>
+                <DialogTitle>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_TITLE.format(orderId, orderPoints, orderValue)}</DialogTitle>
+                <DialogContent>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_MESSAGE}</DialogContent>
+                <DialogActions>
+                    <Button onClick={() => changeRefuseOpen(false)} color='secondary'>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_NO_BUTTON}</Button>
+                    <ProgressButton type='button' text={Resources.REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_YES_BUTTON} loading={refuseLoading} onClick={onRefuseClick} />
+                </DialogActions>
+            </Dialog>}
+            {onValidateClick &&  <Dialog open={validateOpen} onClose={() => changeValidateOpen(false)}>
+                <DialogTitle>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_TITLE.format(orderId, orderPoints, orderValue)}</DialogTitle>
+                <DialogContent>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_MESSAGE}</DialogContent>
+                <DialogActions>
+                    <Button onClick={() => changeValidateOpen(false)} color='secondary'>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_NO_BUTTON}</Button>
+                    <ProgressButton type='button' text={Resources.REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_YES_BUTTON} loading={validateLoading} onClick={onValidateClick} />
+                </DialogActions>
+            </Dialog>}
         </div>
     )
 }

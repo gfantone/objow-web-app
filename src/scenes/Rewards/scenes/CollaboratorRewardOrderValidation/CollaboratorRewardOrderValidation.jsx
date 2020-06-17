@@ -8,12 +8,20 @@ import {AppBarSubTitle, DefaultTitle, InfoText, Loader, MainLayoutComponent} fro
 import * as Resources from '../../../../Resources'
 import * as collaboratorRewardOrderDetailActions from '../../../../services/CollaboratorRewardOrders/CollaboratorRewardOrderDetail/actions'
 
-class CollaboratorRewardOrderSummary extends MainLayoutComponent {
+class CollaboratorRewardOrderValidation extends MainLayoutComponent {
     componentDidMount() {
         this.props.handleTitle(Resources.REWARD_TITLE)
-        this.props.handleSubHeader(<AppBarSubTitle title={Resources.COLLABORATOR_REWARD_ORDER_SUMMARY_TITLE} />)
+        this.props.handleSubHeader(<AppBarSubTitle title={Resources.COLLABORATOR_REWARD_ORDER_VALIDATION_TITLE} />)
         this.props.collaboratorRewardOrderDetailActions.getCollaboratorRewardOrder(this.props.match.params.id)
         this.props.activateReturn()
+    }
+
+    handleRefuseClick() {
+        alert('refused')
+    }
+
+    handleValidateClick() {
+        alert('validated')
     }
 
     renderLoader() {
@@ -33,7 +41,7 @@ class CollaboratorRewardOrderSummary extends MainLayoutComponent {
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
                                 <InfoText style={{visibility: 'hidden'}}>Fake</InfoText>
-                                <DefaultTitle>{Resources.COLLABORATOR_REWARD_ORDER_SUMMARY_REWARDS_AREA.format(order.id, name)}</DefaultTitle>
+                                <DefaultTitle>{Resources.COLLABORATOR_REWARD_ORDER_VALIDATION_REWARDS_AREA.format(order.id, name)}</DefaultTitle>
                             </Grid>
                             <Grid item xs={12}>
                                 <RewardOrderItemList items={order.items} />
@@ -43,11 +51,11 @@ class CollaboratorRewardOrderSummary extends MainLayoutComponent {
                     <Grid item xs={12} md={5}>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
-                                <DefaultTitle>{Resources.COLLABORATOR_REWARD_ORDER_SUMMARY_POINTS_AREA}</DefaultTitle>
-                                <InfoText>{Resources.COLLABORATOR_REWARD_ORDER_SUMMARY_POINTS_AREA_YEAR.format(order.counter.period.name)}</InfoText>
+                                <DefaultTitle>{Resources.COLLABORATOR_REWARD_ORDER_VALIDATION_POINTS_AREA}</DefaultTitle>
+                                <InfoText>{Resources.COLLABORATOR_REWARD_ORDER_VALIDATION_POINTS_AREA_YEAR.format(order.counter.period.name)}</InfoText>
                             </Grid>
                             <Grid item xs={12}>
-                                <RewardOrderSummary recipientPoints={order.oldPointBalance} orderPoints={orderPoints} orderValue={orderValue} />
+                                <RewardOrderSummary recipientPoints={order.oldPointBalance} orderId={order.id} orderPoints={orderPoints} orderValue={orderValue} onRefuseClick={this.handleRefuseClick.bind(this)} onValidateClick={this.handleValidateClick.bind(this)} />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -59,7 +67,7 @@ class CollaboratorRewardOrderSummary extends MainLayoutComponent {
     render() {
         const {order, loading} = this.props.collaboratorRewardOrderDetail
 
-        if (!loading && order && order.id == this.props.match.params.id && (order.isValid == null || order.isValid === false)) {
+        if (!loading && order && order.id == this.props.match.params.id && (order.isValid === true || order.isValid === false)) {
             return <Redirect to='/' />
         }
 
@@ -80,4 +88,4 @@ const mapDispatchToProps = (dispatch) => ({
     collaboratorRewardOrderDetailActions: bindActionCreators(collaboratorRewardOrderDetailActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorRewardOrderSummary)
+export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorRewardOrderValidation)

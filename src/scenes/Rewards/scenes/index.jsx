@@ -1,5 +1,6 @@
 export * from './CollaboratorRewardOrderSummary'
 export * from './CollaboratorRewardOrderTracking'
+export * from './CollaboratorRewardOrderValidation'
 export * from './CollaboratorRewardStore'
 export * from './RewardCreation'
 export * from './RewardDuplication'
