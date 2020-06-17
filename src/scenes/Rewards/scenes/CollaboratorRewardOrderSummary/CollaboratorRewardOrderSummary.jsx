@@ -6,13 +6,13 @@ import {Grid} from '@material-ui/core'
 import {RewardOrderItemList, RewardOrderSummary} from '../../components'
 import {AppBarSubTitle, DefaultTitle, InfoText, Loader, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
-import * as teamRewardOrderDetailActions from '../../../../services/TeamRewardOrders/TeamRewardOrderDetail/actions'
+import * as collaboratorRewardOrderDetailActions from '../../../../services/CollaboratorRewardOrders/CollaboratorRewardOrderDetail/actions'
 
-class TeamRewardSummary extends MainLayoutComponent {
+class CollaboratorRewardOrderSummary extends MainLayoutComponent {
     componentDidMount() {
         this.props.handleTitle(Resources.REWARD_TITLE)
-        this.props.handleSubHeader(<AppBarSubTitle title={Resources.TEAM_REWARD_ORDER_SUMMARY_TITLE} />)
-        this.props.teamRewardOrderDetailActions.getTeamRewardOrder(this.props.match.params.id)
+        this.props.handleSubHeader(<AppBarSubTitle title={Resources.COLLABORATOR_REWARD_ORDER_SUMMARY_TITLE} />)
+        this.props.collaboratorRewardOrderDetailActions.getCollaboratorRewardOrder(this.props.match.params.id)
         this.props.activateReturn()
     }
 
@@ -21,8 +21,8 @@ class TeamRewardSummary extends MainLayoutComponent {
     }
 
     renderData() {
-        const {order} = this.props.teamRewardOrderDetail
-        const name = order.counter.team.name
+        const {order} = this.props.collaboratorRewardOrderDetail
+        const name = `${order.counter.collaborator.firstname} ${order.counter.collaborator.lastname}`
         const orderPoints = order.items.map(x => x.quantity * x.reward.points).reduce((a, b) => a + b)
         const orderValue = order.items.map(x => x.quantity * x.reward.value).reduce((a, b) => a + b)
 
@@ -33,7 +33,7 @@ class TeamRewardSummary extends MainLayoutComponent {
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
                                 <InfoText style={{visibility: 'hidden'}}>Fake</InfoText>
-                                <DefaultTitle>{Resources.TEAM_REWARD_ORDER_SUMMARY_REWARDS_AREA.format(order.id, name)}</DefaultTitle>
+                                <DefaultTitle>{Resources.COLLABORATOR_REWARD_ORDER_SUMMARY_REWARDS_AREA.format(order.id, name)}</DefaultTitle>
                             </Grid>
                             <Grid item xs={12}>
                                 <RewardOrderItemList items={order.items} />
@@ -43,8 +43,8 @@ class TeamRewardSummary extends MainLayoutComponent {
                     <Grid item xs={12} md={5}>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
-                                <DefaultTitle>{Resources.TEAM_REWARD_ORDER_SUMMARY_POINTS_AREA}</DefaultTitle>
-                                <InfoText>{Resources.TEAM_REWARD_ORDER_SUMMARY_POINTS_AREA_YEAR.format(order.counter.period.name)}</InfoText>
+                                <DefaultTitle>{Resources.COLLABORATOR_REWARD_ORDER_SUMMARY_POINTS_AREA}</DefaultTitle>
+                                <InfoText>{Resources.COLLABORATOR_REWARD_ORDER_SUMMARY_POINTS_AREA_YEAR.format(order.counter.period.name)}</InfoText>
                             </Grid>
                             <Grid item xs={12}>
                                 <RewardOrderSummary recipientPoints={order.oldPointBalance} orderPoints={orderPoints} orderValue={orderValue} />
@@ -57,7 +57,7 @@ class TeamRewardSummary extends MainLayoutComponent {
     }
 
     render() {
-        const {order, loading} = this.props.teamRewardOrderDetail
+        const {order, loading} = this.props.collaboratorRewardOrderDetail
 
         if (order && (order.isValid == null || order.isValid === false)) {
             return <Redirect to='/' />
@@ -72,12 +72,12 @@ class TeamRewardSummary extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({teamRewardOrderDetail}) => ({
-    teamRewardOrderDetail
+const mapStateToProps = ({collaboratorRewardOrderDetail}) => ({
+    collaboratorRewardOrderDetail
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    teamRewardOrderDetailActions: bindActionCreators(teamRewardOrderDetailActions, dispatch)
+    collaboratorRewardOrderDetailActions: bindActionCreators(collaboratorRewardOrderDetailActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TeamRewardSummary)
+export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorRewardOrderSummary)
