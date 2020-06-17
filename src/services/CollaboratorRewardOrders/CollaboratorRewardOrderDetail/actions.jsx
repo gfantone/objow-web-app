@@ -1,8 +1,9 @@
 import * as types from './actionTypes'
 
-export const getCollaboratorRewardOrder = (id) => ({
+export const getCollaboratorRewardOrder = (id, withPointSummary = false) => ({
     type: types.GET_COLLABORATOR_REWARD_ORDER,
-    id
+    id,
+    withPointSummary
 })
 
 export const getCollaboratorRewardOrderSuccess = (order) => ({
@@ -12,4 +13,8 @@ export const getCollaboratorRewardOrderSuccess = (order) => ({
 
 export const getCollaboratorRewardOrderError = () => ({
     type: types.GET_COLLABORATOR_REWARD_ORDER_ERROR
+})
+
+export const clearCollaboratorRewardOrderDetail = () => ({
+    type: types.CLEAR_COLLABORATOR_REWARD_ORDER_DETAIL
 })

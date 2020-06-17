@@ -1,8 +1,9 @@
 import * as types from './actionTypes'
 
-export const updateCollaboratorRewardOrderValidation = (id, isValid) => ({
-    type: types.UPDATE_COLLABORATOR_REWARD_ORDER_VALIDATION,
+export const updateCollaboratorRewardOrder = (id, oldPointBalance, isValid) => ({
+    type: types.UPDATE_COLLABORATOR_REWARD_ORDER,
     id,
+    oldPointBalance,
     isValid
 })
 

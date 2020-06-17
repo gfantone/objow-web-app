@@ -9,6 +9,10 @@ function* getCollaboratorRewardOrder(action) {
             call(api.collaboratorRewardOrders.detail, action.id),
             call(api.collaboratorRewardOrders.items, action.id)
         ])
+        if (action.withPointSummary) {
+            const {data: pointSummary} = yield call(api.collaborators.collaboratorPointSummary, order.counter.collaborator.id, order.counter.period.id)
+            order.pointSummary = pointSummary
+        }
         order.items = items
         yield put(getCollaboratorRewardOrderSuccess(order))
     } catch(e) {

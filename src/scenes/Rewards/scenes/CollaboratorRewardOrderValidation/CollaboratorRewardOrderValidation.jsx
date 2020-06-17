@@ -7,21 +7,27 @@ import {RewardOrderItemList, RewardOrderSummary} from '../../components'
 import {AppBarSubTitle, DefaultTitle, InfoText, Loader, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorRewardOrderDetailActions from '../../../../services/CollaboratorRewardOrders/CollaboratorRewardOrderDetail/actions'
+import * as collaboratorRewardOrderUpdateActions from '../../../../services/CollaboratorRewardOrders/CollaboratorRewardOrderUpdate/actions'
 
 class CollaboratorRewardOrderValidation extends MainLayoutComponent {
     componentDidMount() {
         this.props.handleTitle(Resources.REWARD_TITLE)
         this.props.handleSubHeader(<AppBarSubTitle title={Resources.COLLABORATOR_REWARD_ORDER_VALIDATION_TITLE} />)
-        this.props.collaboratorRewardOrderDetailActions.getCollaboratorRewardOrder(this.props.match.params.id)
         this.props.activateReturn()
+        this.props.collaboratorRewardOrderDetailActions.getCollaboratorRewardOrder(this.props.match.params.id, true)
+        this.props.collaboratorRewardOrderUpdateActions.clearCollaboratorRewardOrderUpdate()
     }
 
     handleRefuseClick() {
-        alert('refused')
+        const {order} = this.props.collaboratorRewardOrderDetail
+        const recipientPoints = order.pointSummary ? order.pointSummary.points - order.pointSummary.usedPoints - order.pointSummary.waitingPoints : 0
+        this.props.collaboratorRewardOrderUpdateActions.updateCollaboratorRewardOrder(this.props.match.params.id, recipientPoints, false)
     }
 
     handleValidateClick() {
-        alert('validated')
+        const {order} = this.props.collaboratorRewardOrderDetail
+        const recipientPoints = order.pointSummary ? order.pointSummary.points - order.pointSummary.usedPoints - order.pointSummary.waitingPoints : 0
+        this.props.collaboratorRewardOrderUpdateActions.updateCollaboratorRewardOrder(this.props.match.params.id, recipientPoints, true)
     }
 
     renderLoader() {
@@ -30,7 +36,9 @@ class CollaboratorRewardOrderValidation extends MainLayoutComponent {
 
     renderData() {
         const {order} = this.props.collaboratorRewardOrderDetail
+        const {loading} = this.props.collaboratorRewardOrderUpdate
         const name = `${order.counter.collaborator.firstname} ${order.counter.collaborator.lastname}`
+        const recipientPoints = order.pointSummary ? order.pointSummary.points - order.pointSummary.usedPoints - order.pointSummary.waitingPoints : 0
         const orderPoints = order.items.map(x => x.quantity * x.reward.points).reduce((a, b) => a + b)
         const orderValue = order.items.map(x => x.quantity * x.reward.value).reduce((a, b) => a + b)
 
@@ -55,7 +63,15 @@ class CollaboratorRewardOrderValidation extends MainLayoutComponent {
                                 <InfoText>{Resources.COLLABORATOR_REWARD_ORDER_VALIDATION_POINTS_AREA_YEAR.format(order.counter.period.name)}</InfoText>
                             </Grid>
                             <Grid item xs={12}>
-                                <RewardOrderSummary recipientPoints={order.oldPointBalance} orderId={order.id} orderPoints={orderPoints} orderValue={orderValue} onRefuseClick={this.handleRefuseClick.bind(this)} onValidateClick={this.handleValidateClick.bind(this)} />
+                                <RewardOrderSummary
+                                    recipientPoints={recipientPoints}
+                                    orderId={order.id}
+                                    orderPoints={orderPoints}
+                                    orderValue={orderValue}
+                                    onRefuseClick={this.handleRefuseClick.bind(this)}
+                                    onValidateClick={this.handleValidateClick.bind(this)}
+                                    updateLoading={loading}
+                                />
                             </Grid>
                         </Grid>
                     </Grid>
@@ -66,9 +82,15 @@ class CollaboratorRewardOrderValidation extends MainLayoutComponent {
 
     render() {
         const {order, loading} = this.props.collaboratorRewardOrderDetail
+        const {success} = this.props.collaboratorRewardOrderUpdate
 
         if (!loading && order && order.id == this.props.match.params.id && (order.isValid === true || order.isValid === false)) {
             return <Redirect to='/' />
+        }
+
+        if (success) {
+            this.props.collaboratorRewardOrderUpdateActions.clearCollaboratorRewardOrderUpdate()
+            this.props.history.goBack()
         }
 
         return (
@@ -80,12 +102,14 @@ class CollaboratorRewardOrderValidation extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({collaboratorRewardOrderDetail}) => ({
-    collaboratorRewardOrderDetail
+const mapStateToProps = ({collaboratorRewardOrderDetail, collaboratorRewardOrderUpdate}) => ({
+    collaboratorRewardOrderDetail,
+    collaboratorRewardOrderUpdate
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    collaboratorRewardOrderDetailActions: bindActionCreators(collaboratorRewardOrderDetailActions, dispatch)
+    collaboratorRewardOrderDetailActions: bindActionCreators(collaboratorRewardOrderDetailActions, dispatch),
+    collaboratorRewardOrderUpdateActions: bindActionCreators(collaboratorRewardOrderUpdateActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorRewardOrderValidation)

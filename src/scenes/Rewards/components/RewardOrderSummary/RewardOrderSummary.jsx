@@ -12,7 +12,7 @@ const styles = {
     }
 }
 
-const RewardOrderSummary = ({recipientPoints, onOrderClick, onRefuseClick, onValidateClick, orderId, orderPoints, orderValue, refuseLoading, validateLoading, ...props}) => {
+const RewardOrderSummary = ({recipientPoints, onOrderClick, onRefuseClick, onValidateClick, orderId, orderPoints, orderValue, updateLoading, ...props}) => {
     const {classes} = props
     const remainingPoints = recipientPoints - orderPoints
     const [orderOpen, setOrderOpen] = React.useState(false)
@@ -78,7 +78,7 @@ const RewardOrderSummary = ({recipientPoints, onOrderClick, onRefuseClick, onVal
                 <DialogContent>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_MESSAGE}</DialogContent>
                 <DialogActions>
                     <Button onClick={() => changeRefuseOpen(false)} color='secondary'>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_NO_BUTTON}</Button>
-                    <ProgressButton type='button' text={Resources.REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_YES_BUTTON} loading={refuseLoading} onClick={onRefuseClick} />
+                    <ProgressButton type='button' text={Resources.REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_YES_BUTTON} loading={updateLoading} onClick={onRefuseClick} />
                 </DialogActions>
             </Dialog>}
             {onValidateClick &&  <Dialog open={validateOpen} onClose={() => changeValidateOpen(false)}>
@@ -86,7 +86,7 @@ const RewardOrderSummary = ({recipientPoints, onOrderClick, onRefuseClick, onVal
                 <DialogContent>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_MESSAGE}</DialogContent>
                 <DialogActions>
                     <Button onClick={() => changeValidateOpen(false)} color='secondary'>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_NO_BUTTON}</Button>
-                    <ProgressButton type='button' text={Resources.REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_YES_BUTTON} loading={validateLoading} onClick={onValidateClick} />
+                    <ProgressButton type='button' text={Resources.REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_YES_BUTTON} loading={updateLoading} onClick={onValidateClick} />
                 </DialogActions>
             </Dialog>}
         </div>

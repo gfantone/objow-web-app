@@ -11,9 +11,9 @@ const collaboratorRewardOrders = {
         const url = `${baseUrl}${id}/items/`
         return instance.get(url)
     },
-    updateValidation(id, isValid) {
+    update(id, oldPointBalance, isValid) {
         const url = `${baseUrl}${id}/`
-        return instance.patch(url, {isValid})
+        return instance.patch(url, {oldPointBalance, isValid})
     },
     waitingCount() {
         const url = `${baseUrl}waiting-count/`

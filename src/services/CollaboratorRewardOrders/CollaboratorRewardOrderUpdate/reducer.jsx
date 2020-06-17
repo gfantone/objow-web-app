@@ -3,7 +3,7 @@ import initialState from '../../../store/initialState';
 
 const CollaboratorRewardOrderUpdate = (state = initialState.collaboratorRewardOrderUpdate, action) => {
     switch (action.type) {
-        case types.UPDATE_COLLABORATOR_REWARD_ORDER_VALIDATION:
+        case types.UPDATE_COLLABORATOR_REWARD_ORDER:
             return {...state, success: false, loading: true, hasError: false}
 
         case types.UPDATE_COLLABORATOR_REWARD_ORDER_SUCCESS:
