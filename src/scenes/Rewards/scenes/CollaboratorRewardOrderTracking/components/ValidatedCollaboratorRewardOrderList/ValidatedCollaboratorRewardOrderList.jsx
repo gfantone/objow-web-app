@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import {withRouter} from 'react-router'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {DataTable, Loader} from '../../../../../../components'
@@ -27,7 +28,7 @@ const ValidatedCollaboratorRewardOrderList = ({...props}) => {
     ]
     const options = {
         selectableRows: 'none',
-        onRowClick: (colData, cellMeta) => { this.props.history.push(`/admin/reports/${colData[0]}`) }
+        onRowClick: (colData, cellMeta) => {props.history.push(`/rewards/collaborator-orders/${colData[0]}/summary`)}
     }
 
     useEffect(() => {
@@ -58,4 +59,4 @@ const mapDispatchToProps = (dispatch) => ({
     collaboratorRewardOrderSummaryListActions: bindActionCreators(collaboratorRewardOrderSummaryListActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ValidatedCollaboratorRewardOrderList)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ValidatedCollaboratorRewardOrderList))

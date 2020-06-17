@@ -31,6 +31,7 @@ export const COLLABORATOR_REWARD_LIST_TEAM_TAB = "Équipe"
 // Collaborator reward summary
 export const COLLABORATOR_REWARD_SUMMARY_REWARDS_AREA = "Commande n°{0} de {1}"
 export const COLLABORATOR_REWARD_SUMMARY_POINTS_AREA = "Total commande"
+export const COLLABORATOR_REWARD_SUMMARY_POINTS_AREA_YEAR = "Année {0}"
 
 // Collaborator reward summary
 export const COLLABORATOR_REWARD_ORDER_SUMMARY_TITLE = "Récapitulatif d'une commande"

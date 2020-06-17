@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* getCollaboratorRewardOrder(action) {
     try {
-        var [{data: order}, {date: items}] = yield all([
+        var [{data: order}, {data: items}] = yield all([
             call(api.collaboratorRewardOrders.detail, action.id),
             call(api.collaboratorRewardOrders.items, action.id)
         ])
