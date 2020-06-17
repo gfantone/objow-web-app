@@ -1,0 +1,125 @@
+import React from 'react'
+import {CardMedia, Divider, Grid} from '@material-ui/core'
+import {withStyles} from '@material-ui/core/styles'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faFolderOpen} from "@fortawesome/free-solid-svg-icons";
+import {AccentTag, Card, DefaultText, TableChip} from '../../../../components'
+import * as Resources from '../../../../Resources'
+import '../../../../helpers/StringHelper'
+
+const styles = {
+    divider: {
+        marginLeft: -16,
+        marginRight: -16
+    },
+    icon: {
+        width: 39,
+        height: 39
+    },
+    image: {
+        width: 230,
+        height: 100
+    },
+    name: {
+        overflow: "hidden",
+        position: "relative",
+        lineHeight: "1.5em",
+        maxHeight: "3em",
+        textAlign: "justify",
+        "&&:before": {
+            content: '"..."',
+            position: "absolute",
+            right: 0,
+            bottom: 1,
+            paddingLeft: 2,
+            background: "white"
+        },
+        "&&:after": {
+            content: '""',
+            position: "absolute",
+            right: 0,
+            width: "1em",
+            height: "1em",
+            marginTop: "0.2em",
+            background: "white"
+        }
+    },
+    points: {
+        marginTop: 11
+    }
+}
+
+const RewardOrderItemList = ({items, ...props}) => {
+    const {classes} = props
+    return (
+        <div>
+            <Card>
+                <Grid container spacing={2}>
+                    {items.map((item, index) => {
+                        const totalPoints = item.quantity * item.reward.points
+
+                        return (
+                            <React.Fragment>
+                                {index > 0 && <Grid key={`D${item.reward.id}`} item xs={12}>
+                                    <Divider className={classes.divider} />
+                                </Grid>}
+                                <Grid key={`R${item.reward.id}`} item xs={12}>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs>
+                                            <Grid container spacing={2}>
+                                                <Grid item>
+                                                    <CardMedia image={item.reward.image.path} className={classes.image} />
+                                                </Grid>
+                                                <Grid item xs>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={12}>
+                                                            <DefaultText className={classes.name}>{item.reward.name}</DefaultText>
+                                                            {/*<DefaultText className={classes.name}>azdj azdjh adj djd djh dajhde ejh erverhv ervjher vjehrv ervjh evjher vjehv erjvh evjh evjher vejrhv erjv ev azdj azdjh adj djd djh dajhde ejh erverhv ervjher vjehrv ervjh evjher vjehv erjvh evjh evjher vejrhv erjv ev</DefaultText>*/}
+                                                        </Grid>
+                                                        <Grid item>
+                                                            <AccentTag className={classes.points}>{Resources.REWARD_ORDER_ITEM_LIST_POINTS_VALUE.format(item.reward.points)}</AccentTag>
+                                                        </Grid>
+                                                        <Grid item>
+                                                            <CardMedia image={item.reward.category.icon.path} className={classes.icon} />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item>
+                                            <Grid container spacing={1} direction='column' alignItems='center'>
+                                                <Grid item>
+                                                    <DefaultText>{Resources.REWARD_ORDER_ITEM_LIST_QUANTITY_LABEL}</DefaultText>
+                                                </Grid>
+                                                <Grid item>
+                                                    <TableChip label={item.quantity} />
+                                                </Grid>
+                                                <Grid item>
+                                                    <AccentTag>{Resources.REWARD_ORDER_ITEM_LIST_POINTS_VALUE.format(totalPoints)}</AccentTag>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <Grid container spacing={2}>
+                                                <Grid item>
+                                                    <DefaultText>
+                                                        <FontAwesomeIcon icon={faFolderOpen} /> {item.reward.category.name}
+                                                    </DefaultText>
+                                                </Grid>
+                                                <Grid item>
+                                                    <DefaultText>{Resources.REWARD_ORDER_ITEM_LIST_VALUE_LABEL} : {Resources.REWARD_ORDER_ITEM_LIST_VALUE_VALUE.format(item.reward.value)}</DefaultText>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </React.Fragment>
+                        )
+                    })}
+                </Grid>
+            </Card>
+        </div>
+    )
+}
+
+export default withStyles(styles)(RewardOrderItemList)

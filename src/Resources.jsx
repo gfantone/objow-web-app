@@ -28,6 +28,13 @@ export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_MESSAGE = "Les équ
 export const COLLABORATOR_REWARD_LIST_COLLABORATOR_TAB = "Joueur"
 export const COLLABORATOR_REWARD_LIST_TEAM_TAB = "Équipe"
 
+// Collaborator reward summary
+export const COLLABORATOR_REWARD_SUMMARY_REWARDS_AREA = "Commande n°{0} de {1}"
+export const COLLABORATOR_REWARD_SUMMARY_POINTS_AREA = "Total commande"
+
+// Collaborator reward summary
+export const COLLABORATOR_REWARD_ORDER_SUMMARY_TITLE = "Récapitulatif d'une commande"
+
 // Collaborator reward order tracking
 export const COLLABORATOR_REWARD_ORDER_TRACKING_ID_COLUMN = "Ref"
 export const COLLABORATOR_REWARD_ORDER_TRACKING_NAME_COLUMN = "Nom"
@@ -125,6 +132,22 @@ export const REWARD_MANAGEMENT_COLLABORATOR_TAB = "Joueurs"
 export const REWARD_MANAGEMENT_COLLABORATOR_SELECTOR_AREA = "Sélection d'un joueur"
 export const REWARD_MANAGEMENT_TEAM_TAB = "Équipes"
 export const REWARD_MANAGEMENT_TEAM_SELECTOR_AREA = "Sélection d'une équipe"
+
+// Reward order item list
+export const REWARD_ORDER_ITEM_LIST_QUANTITY_LABEL = "Quantité"
+export const REWARD_ORDER_ITEM_LIST_VALUE_LABEL = "Valeur"
+export const REWARD_ORDER_ITEM_LIST_VALUE_VALUE = "{0} €"
+export const REWARD_ORDER_ITEM_LIST_POINTS_VALUE = "{0} PTS"
+
+// Reward order summaries
+export const REWARD_ORDER_SUMMARY_RECIPIENT_POINTS_LABEL = "Solde de points actuel"
+export const REWARD_ORDER_SUMMARY_RECIPIENT_POINTS_VALUE = "{0} Pts"
+export const REWARD_ORDER_SUMMARY_ORDER_POINTS_LABEL = "Total commande"
+export const REWARD_ORDER_SUMMARY_ORDER_POINTS_VALUE = "{0} Pts"
+export const REWARD_ORDER_SUMMARY_ORDER_VALUE_LABEL = "Total valeur"
+export const REWARD_ORDER_SUMMARY_ORDER_VALUE_VALUE = "{0} €"
+export const REWARD_ORDER_SUMMARY_REMAINING_POINTS_LABEL = "Prochain solde de points"
+export const REWARD_ORDER_SUMMARY_REMAINING_POINTS_VALUE = "{0} Pts"
 
 // Reward - Update
 export const REWARD_UPDATE_SUBTITLE = "Modification d'une récompense"
