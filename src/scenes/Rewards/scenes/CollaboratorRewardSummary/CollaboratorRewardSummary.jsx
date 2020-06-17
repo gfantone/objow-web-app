@@ -44,7 +44,7 @@ class CollaboratorRewardSummary extends MainLayoutComponent {
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
                                 <DefaultTitle>{Resources.COLLABORATOR_REWARD_SUMMARY_POINTS_AREA}</DefaultTitle>
-                                <InfoText>{Resources.COLLABORATOR_REWARD_SUMMARY_POINTS_AREA_YEAR.format(2016)}</InfoText>
+                                <InfoText>{Resources.COLLABORATOR_REWARD_SUMMARY_POINTS_AREA_YEAR.format(order.counter.period.name)}</InfoText>
                             </Grid>
                             <Grid item xs={12}>
                                 <RewardOrderSummary recipientPoints={order.oldPointBalance} orderPoints={orderPoints} orderValue={orderValue} />
