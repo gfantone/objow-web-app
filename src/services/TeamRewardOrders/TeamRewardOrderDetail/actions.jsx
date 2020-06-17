@@ -1,8 +1,9 @@
 import * as types from './actionTypes'
 
-export const getTeamRewardOrder = (id) => ({
+export const getTeamRewardOrder = (id, withPointSummary = false) => ({
     type: types.GET_TEAM_REWARD_ORDER,
-    id
+    id,
+    withPointSummary
 })
 
 export const getTeamRewardOrderSuccess = (order) => ({

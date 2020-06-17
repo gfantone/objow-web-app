@@ -205,6 +205,12 @@ export const TEAM_REWARD_ORDER_TRACKING_VALUE_COLUMN = "Montant total"
 export const TEAM_REWARD_ORDER_TRACKING_ORDER_DATE_COLUMN = "Date de commande"
 export const TEAM_REWARD_ORDER_TRACKING_VALIDATION_DATE_COLUMN = "Date de validation"
 
+// Team reward order validation
+export const TEAM_REWARD_ORDER_VALIDATION_TITLE = "Validation d'une commande"
+export const TEAM_REWARD_ORDER_VALIDATION_REWARDS_AREA = "Commande n°{0} de {1}"
+export const TEAM_REWARD_ORDER_VALIDATION_POINTS_AREA = "Total commande"
+export const TEAM_REWARD_ORDER_VALIDATION_POINTS_AREA_YEAR = "Année {0}"
+
 // Team selector
 export const TEAM_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
 export const TEAM_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"

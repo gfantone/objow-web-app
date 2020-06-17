@@ -9,6 +9,10 @@ function* getTeamRewardOrder(action) {
             call(api.teamRewardOrders.detail, action.id),
             call(api.teamRewardOrders.items, action.id)
         ])
+        if (action.withPointSummary) {
+            const {data: pointSummary} = yield call(api.teams.teamPointSummary, order.counter.team.id, order.counter.period.id)
+            order.pointSummary = pointSummary
+        }
         order.items = items
         yield put(getTeamRewardOrderSuccess(order))
     } catch(e) {

@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {DataTable, Loader} from '../../../../../../components'
@@ -25,7 +26,7 @@ const WaitingTeamRewardOrderList = ({...props}) => {
     ]
     const options = {
         selectableRows: 'none',
-        onRowClick: (colData, cellMeta) => { this.props.history.push(`/admin/reports/${colData[0]}`) }
+        onRowClick: (colData, cellMeta) => { props.history.push(`/rewards/team-orders/${colData[0]}/validation`) }
     }
 
     useEffect(() => {
@@ -56,4 +57,4 @@ const mapDispatchToProps = (dispatch) => ({
     teamRewardOrderSummaryListActions: bindActionCreators(teamRewardOrderSummaryListActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(WaitingTeamRewardOrderList)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(WaitingTeamRewardOrderList))

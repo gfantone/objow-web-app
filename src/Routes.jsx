@@ -65,6 +65,7 @@ export default () => {
                 <AdminRoutes exact path='/rewards/modification/:id' component={scenes.RewardUpdate} />
                 <ManagerRoutes exact path='/rewards/teams/:id' component={scenes.TeamRewardStore} />
                 <AdminRoutes exact path='/rewards/team-orders/:id/summary' component={scenes.TeamRewardOrderSummary} />
+                <AdminRoutes exact path='/rewards/team-orders/:id/validation' component={scenes.TeamRewardOrderValidation} />
                 <AdminRoutes exact path='/rewards/tracking/collaborators' component={scenes.CollaboratorRewardOrderTracking} />
                 <AdminRoutes exact path='/rewards/tracking/teams' component={scenes.TeamRewardOrderTracking} />
                 {/* Teams */}
