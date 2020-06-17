@@ -54,6 +54,7 @@ const initialState = {
     collaboratorList: {collaborators: null, loading: false, hasError: false},
     collaboratorPointSummaryDetail: {summary: null, loading: false, hasError: false},
     collaboratorRewardOrderCount: {orders: null, loading: false, hasError: false},
+    collaboratorRewardOrderDetail: {order: null, loading: false, hasError: false},
     collaboratorRewardOrderSummaryList: {orders: null, loading: false, hasError: false},
     colorList: {colors: null, loading: false, hasError: false},
     configDetail: {config: null, loading : false, hasError: false},
