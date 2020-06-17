@@ -142,6 +142,7 @@ import teamRemoving from '../services/Teams/TeamRemoving/reducer'
 import teamRewardOrderCount from '../services/TeamRewardOrders/TeamRewardOrderCount/reducer'
 import teamRewardOrderDetail from '../services/TeamRewardOrders/TeamRewardOrderDetail/reducer'
 import teamRewardOrderSummaryList from "../services/TeamRewardOrderSummaries/TeamRewardOrderSummaryList/reducer";
+import teamRewardOrderUpdate from "../services/TeamRewardOrders/TeamRewardOrderUpdate/reducer";
 import teamUpdate from '../services/Teams/TeamUpdate/reducer'
 import termsAcceptance from "../services/Account/TermsAcceptance/reducer";
 import userCreation from '../services/Users/UserCreation/reducer'
@@ -298,6 +299,7 @@ const rootReducer = combineReducers({
     teamRewardOrderCount,
     teamRewardOrderDetail,
     teamRewardOrderSummaryList,
+    teamRewardOrderUpdate,
     teamUpdate,
     termsAcceptance,
     userCreation,

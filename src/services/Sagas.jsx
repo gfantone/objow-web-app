@@ -142,6 +142,7 @@ import {watchTeamPointSummaryDetailByCollaborator, watchTeamPointSummaryDetailBy
 import watchWaitingTeamRewardOrderCount from "./TeamRewardOrders/TeamRewardOrderCount/sagas";
 import watchTeamRewardOrderDetail from "./TeamRewardOrders/TeamRewardOrderDetail/sagas";
 import {watchValidatedTeamRewardOrderSummaryList, watchWaitingTeamRewardOrderSummaryList} from './TeamRewardOrderSummaries/TeamRewardOrderSummaryList/sagas'
+import watchTeamRewardOrderUpdate from "./TeamRewardOrders/TeamRewardOrderUpdate/sagas";
 import watchUserCreation from './Users/UserCreation/sagas'
 import watchUserDetail from './Users/UserDetail/sagas'
 import watchUserList from './Users/UserList/sagas'
@@ -314,6 +315,7 @@ function* rootSaga() {
         watchTeamPointSummaryDetailByTeam(),
         watchTeamRemoving(),
         watchTeamRewardOrderDetail(),
+        watchTeamRewardOrderUpdate(),
         watchTeamUpdate(),
         watchTermsAcceptance(),
         watchUsableCategoryIconList(),

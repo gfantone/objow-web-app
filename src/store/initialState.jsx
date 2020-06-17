@@ -145,6 +145,7 @@ const initialState = {
     teamRewardOrderCount: {orders: null, loading: false, hasError: false},
     teamRewardOrderDetail: {order: null, loading: false, hasError: false},
     teamRewardOrderSummaryList: {orders: null, loading: false, hasError: false},
+    teamRewardOrderUpdate: {success: false, loading: false, hasError: false},
     teamUpdate: {success: false, loading: false, hasError: false},
     termsAcceptance: {success: false, loading: false, hasError: false},
     userCreation: {success: false, loading: false, hasError: false},

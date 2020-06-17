@@ -11,6 +11,10 @@ const teamRewardOrders = {
         const url = `${baseUrl}${id}/items/`
         return instance.get(url)
     },
+    update(id, oldPointBalance, isValid) {
+        const url = `${baseUrl}${id}/`
+        return instance.patch(url, {oldPointBalance, isValid})
+    },
     waitingCount() {
         const url = `${baseUrl}waiting-count/`
         return instance.get(url)

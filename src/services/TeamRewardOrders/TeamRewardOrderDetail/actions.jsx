@@ -13,3 +13,7 @@ export const getTeamRewardOrderSuccess = (order) => ({
 export const getTeamRewardOrderError = () => ({
     type: types.GET_TEAM_REWARD_ORDER_ERROR
 })
+
+export const clearTeamRewardOrderDetail = () => ({
+    type: types.CLEAR_TEAM_REWARD_ORDER_DETAIL
+})
