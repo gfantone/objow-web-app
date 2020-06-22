@@ -4,7 +4,7 @@ import {Reward} from './components'
 import {Card, DefaultTitle} from '../../../../components'
 import * as Resources from '../../../../Resources'
 
-const RewardList = ({onRewardClick, rewards, ...props}) => {
+const RewardList = ({onAddClick, rewards, ...props}) => {
     return (
         <div>
             <Grid container spacing={1}>
@@ -17,7 +17,7 @@ const RewardList = ({onRewardClick, rewards, ...props}) => {
                             return (
                                 <Grid key={reward.id} item xs={12} sm={6} md={4}>
                                     <Card>
-                                        <Reward reward={reward} onRewardClick={onRewardClick} />
+                                        <Reward reward={reward} onAddClick={onAddClick} />
                                     </Card>
                                 </Grid>
                             )

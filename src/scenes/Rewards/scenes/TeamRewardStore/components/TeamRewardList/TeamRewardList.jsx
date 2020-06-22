@@ -1,12 +1,9 @@
 import React from 'react'
+import {withRouter} from 'react-router-dom'
 import Grid from "@material-ui/core/Grid";
 import {PointSummary, RewardList} from "../../../../components";
 
-const TeamRewardList = ({rewards, summary, ...props}) => {
-    function handleRewardClick(id) {
-        alert(id)
-    }
-
+const TeamRewardList = ({onAddClick, rewards, summary, ...props}) => {
     return (
         <div>
             <Grid container spacing={4}>
@@ -14,11 +11,11 @@ const TeamRewardList = ({rewards, summary, ...props}) => {
                     <PointSummary points={summary.points} usedPoints={summary.usedPoints} waitingPoints={summary.waitingPoints} />
                 </Grid>
                 <Grid item xs={12}>
-                    <RewardList rewards={rewards} onRewardClick={handleRewardClick} />
+                    <RewardList rewards={rewards} onAddClick={onAddClick} />
                 </Grid>
             </Grid>
         </div>
     )
 }
 
-export default TeamRewardList
+export default withRouter(TeamRewardList)

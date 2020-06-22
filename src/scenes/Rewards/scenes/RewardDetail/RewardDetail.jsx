@@ -1,4 +1,5 @@
 import React from 'react'
+import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {CardMedia, Grid, Step} from '@material-ui/core'
@@ -43,7 +44,12 @@ class RewardDetail extends MainLayoutComponent {
 
     render() {
         const {classes} = this.props
+        const {account} = this.props.accountDetail
         const {reward, loading} = this.props.rewardDetail
+
+        if (reward && !reward.isActive) {
+            return <Redirect to='/' />
+        }
 
         return (
             <div>
@@ -75,7 +81,7 @@ class RewardDetail extends MainLayoutComponent {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        <Grid item>
+                                        {(account.role.code === 'C' && reward.type.code === 'P' || account.role.code === 'M' && reward.type.code === 'T') && <Grid item>
                                             <Grid container spacing={1} direction='column' alignItems='center'>
                                                 <Grid item>
                                                     <DefaultText>Quantité</DefaultText>
@@ -84,7 +90,7 @@ class RewardDetail extends MainLayoutComponent {
                                                     <Quantity initial={DEFAULT_QUANTITY} onChange={this.handleQuantityChange.bind(this)} />
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
+                                        </Grid>}
                                         <Grid item xs={12}>
                                             <Linkify>
                                                 <InfoText>
@@ -153,7 +159,8 @@ class RewardDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({rewardDetail}) => ({
+const mapStateToProps = ({accountDetail, rewardDetail}) => ({
+    accountDetail,
     rewardDetail
 })
 

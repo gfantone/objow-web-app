@@ -33,6 +33,10 @@ class TeamRewardStore extends MainLayoutComponent {
         this.props.teamPointSummaryDetailActions.getTeamPointSummaryByTeam(id, 1)
     }
 
+    handleAddClick(reward) {
+        alert('Add')
+    }
+
     render() {
         const {loading: teamDetailLoading} = this.props.teamDetail
         const {summary: collaboratorSummary, loading: teamCollaboratorPointSummaryDetailLoading} = this.props.teamCollaboratorPointSummaryDetail
@@ -44,8 +48,8 @@ class TeamRewardStore extends MainLayoutComponent {
 
         return (
             <div>
-                {canRenderData && this.state.page ===0 && <TeamRewardList summary={teamSummary} rewards={teamRewards} />}
-                {canRenderData && this.state.page ===1 && <CollaboratorRewardList summary={collaboratorSummary} />}
+                {canRenderData && this.state.page ===0 && <TeamRewardList summary={teamSummary} rewards={teamRewards} onAddClick={this.handleAddClick.bind(this)} />}
+                {canRenderData && this.state.page ===1 && <CollaboratorRewardList summary={collaboratorSummary} onAddClick={this.handleAddClick.bind(this)} />}
             </div>
         )
     }

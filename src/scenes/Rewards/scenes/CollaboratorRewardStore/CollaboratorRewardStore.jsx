@@ -41,6 +41,10 @@ class CollaboratorRewardStore extends MainLayoutComponent {
         )
     }
 
+    handleAddClick(reward) {
+        alert('Add')
+    }
+
     render() {
         const {loading: collaboratorDetailLoading} = this.props.collaboratorDetail
         const {summary: collaboratorSummary, loading: collaboratorPointSummaryDetailLoading} = this.props.collaboratorPointSummaryDetail
@@ -53,8 +57,8 @@ class CollaboratorRewardStore extends MainLayoutComponent {
 
         return (
             <div>
-                {canRenderData && this.state.page ===0 && <CollaboratorRewardList summary={collaboratorSummary} rewards={collaboratorRewards} />}
-                {canRenderData && this.state.page ===1 && <TeamRewardList summary={teamSummary} rewards={teamRewards} />}
+                {canRenderData && this.state.page ===0 && <CollaboratorRewardList summary={collaboratorSummary} rewards={collaboratorRewards} onAddClick={this.handleAddClick.bind(this)} />}
+                {canRenderData && this.state.page ===1 && <TeamRewardList summary={teamSummary} rewards={teamRewards} onAddClick={this.handleAddClick.bind(this)} />}
             </div>
         )
     }

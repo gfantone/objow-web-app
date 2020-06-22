@@ -1,5 +1,7 @@
 import React from 'react'
-import {CardMedia, Grid} from '@material-ui/core'
+import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {ButtonBase, CardMedia, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {RewardImage} from './components'
 import {AccentTag, Button, DefaultText} from '../../../../../../components'
@@ -45,34 +47,41 @@ const styles = {
     }
 }
 
-const Reward = ({onRewardClick, reward, ...props}) => {
+const Reward = ({detailDisabled = false, onAddClick, reward, ...props}) => {
     const {classes} = props
+    const {account} = props.accountDetail
 
     return (
         <div>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <div className={classes.imageContainer}>
-                        <div className={classes.timerContainer}>
-                            <AccentTag>{Resources.REWARD_POINT_TAG.format(reward.points)}</AccentTag>
-                        </div>
-                        <RewardImage image={reward.image.path} />
-                    </div>
-                </Grid>
-                <Grid item xs={12}>
-                    <Grid container spacing={2}>
-                        <Grid item>
-                            <CardMedia image={reward.category.icon.path} className={classes.icon} />
+                    <ButtonBase disabled={detailDisabled} disableRipple onClick={() => props.history.push(`/rewards/detail/${reward.id}`)} style={{width: '100%'}}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <div className={classes.imageContainer}>
+                                    <div className={classes.timerContainer}>
+                                        <AccentTag>{Resources.REWARD_POINT_TAG.format(reward.points)}</AccentTag>
+                                    </div>
+                                    <RewardImage image={reward.image.path} />
+                                </div>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Grid container spacing={2}>
+                                    <Grid item>
+                                        <CardMedia image={reward.category.icon.path} className={classes.icon} />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <DefaultText className={classes.name}>{reward.name}</DefaultText>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                         </Grid>
-                        <Grid item xs>
-                            <DefaultText className={classes.name}>{reward.name}</DefaultText>
-                        </Grid>
-                    </Grid>
+                    </ButtonBase>
                 </Grid>
-                {onRewardClick && <Grid item xs={12}>
+                {onAddClick && (account.role.code === 'C' && reward.type.code === 'P' || account.role.code === 'M' && reward.type.code === 'T') && <Grid item xs={12}>
                     <Grid container spacing={12} direction='column' alignItems='flex-end'>
                         <Grid item>
-                            <Button onClick={() => onRewardClick(reward.id)}>{Resources.REWARD_ADD_BUTTON}</Button>
+                            <Button onClick={() => onAddClick(reward)}>{Resources.REWARD_ADD_BUTTON}</Button>
                         </Grid>
                     </Grid>
                 </Grid>}
@@ -81,4 +90,8 @@ const Reward = ({onRewardClick, reward, ...props}) => {
     )
 }
 
-export default withStyles(styles)(Reward)
+const mapStateToProps = ({accountDetail}) => ({
+    accountDetail
+})
+
+export default withStyles(styles)(connect(mapStateToProps)(withRouter(Reward)))

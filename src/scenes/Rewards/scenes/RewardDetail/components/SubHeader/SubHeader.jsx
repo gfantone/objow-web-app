@@ -2,8 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {withStyles} from '@material-ui/core/styles'
 import {Reward} from '../../../../components'
-import {Loader, Button} from '../../../../../../components'
-import * as Resources from '../../../../../../Resources'
+import {Loader} from '../../../../../../components'
 
 const styles = {
     button: {
@@ -30,13 +29,8 @@ const SubHeader = ({onAddClick, ...props}) => {
 
     function renderData() {
         return (
-            <div>
-                <div className={classes.root}>
-                    <Reward reward={reward} />
-                </div>
-                <div className={classes.buttonContainer}>
-                    <Button className={classes.button} onClick={onAddClick}>{Resources.REWARD_DETAIL_ADD_BUTTON}</Button>
-                </div>
+            <div className={classes.root}>
+                <Reward reward={reward} onAddClick={onAddClick} detailDisabled />
             </div>
         )
     }
