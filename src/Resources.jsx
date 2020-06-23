@@ -338,6 +338,11 @@ export const REWARD_UPDATE_DELIVERY_MODE_LABEL = "Mode de livraison"
 export const REWARD_UPDATE_DELIVERY_TIME_LABEL = "Temps de livraison"
 export const REWARD_UPDATE_SUBMIT_BUTTON = "Valider"
 
+// Team
+export const TEAM_COLLABORATORS_TEXT = "{0} joueurs"
+export const TEAM_MANAGER_TEXT = "De {0} {1}"
+export const TEAM_NO_MANAGER_TEXT = "Aucun manager"
+
 // Team reward list
 export const TEAM_REWARD_LIST_COLLABORATOR_TAB = "Équipe"
 export const TEAM_REWARD_LIST_TEAM_TAB = "Joueurs"
