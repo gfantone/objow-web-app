@@ -4,11 +4,12 @@ import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
 import { Team } from './components'
 import { EmptyState, Loader, MainLayoutComponent } from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 
 class TeamList extends MainLayoutComponent {
     componentDidMount() {
-        this.props.handleTitle('Équipes')
+        this.props.handleTitle(Resources.TEAM_TITLE)
         this.props.teamListActions.getTeamList()
     }
 
@@ -21,7 +22,7 @@ class TeamList extends MainLayoutComponent {
     }
 
     renderEmptyState() {
-        return <EmptyState title="Aucune équipe trouvée" message="Les équipes n'ont pas encore été créées" />
+        return <EmptyState title={Resources.TEAM_LIST_EMPTY_STATE_TITLE} message={Resources.TEAM_LIST_EMPTY_STATE_MESSAGE} />
     }
 
     renderData() {

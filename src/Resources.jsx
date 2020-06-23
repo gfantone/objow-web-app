@@ -339,9 +339,22 @@ export const REWARD_UPDATE_DELIVERY_TIME_LABEL = "Temps de livraison"
 export const REWARD_UPDATE_SUBMIT_BUTTON = "Valider"
 
 // Team
+export const TEAM_TITLE = "Équipes"
 export const TEAM_COLLABORATORS_TEXT = "{0} joueurs"
 export const TEAM_MANAGER_TEXT = "De {0} {1}"
 export const TEAM_NO_MANAGER_TEXT = "Aucun manager"
+
+// Team - Detail
+export const TEAM_DETAIL_COLLABORATORS_TEXT = "{0} joueurs"
+export const TEAM_DETAIL_MANAGER_TEXT = "De {0} {1}"
+export const TEAM_DETAIL_NO_MANAGER_TEXT = "Aucun manager"
+export const TEAM_DETAIL_POINTS_TEXT = "{0} PTS"
+export const TEAM_DETAIL_VICTORIES_TEXT = "{0} victoires"
+export const TEAM_DETAIL_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
+
+// Team - List
+export const TEAM_LIST_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
+export const TEAM_LIST_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
 
 // Team reward list
 export const TEAM_REWARD_LIST_COLLABORATOR_TAB = "Équipe"
