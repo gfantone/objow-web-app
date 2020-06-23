@@ -8,6 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSlidersH} from "@fortawesome/free-solid-svg-icons";
 import {Category} from '../../components'
 import {AppBarSubTitle, GridLink, Loader, MainLayoutComponent} from "../../../../components";
+import * as Resources from "../../../../Resources";
 import {Grid} from "@material-ui/core";
 import withWidth, {isWidthUp} from "@material-ui/core/withWidth";
 import {CategoryFilter} from "../../components/CategoryFilter";
@@ -56,8 +57,8 @@ class TeamGoalCategoryList extends MainLayoutComponent {
 
     componentDidMount() {
         if (this.props.accountDetail.account.role.code == 'A') this.props.activateReturn();
-        this.props.handleTitle('Objectifs');
-        this.props.handleSubHeader(<AppBarSubTitle title='Sélection de la catégorie' />);
+        this.props.handleTitle(Resources.GOAL_SHORT_TITLE);
+        this.props.handleSubHeader(<AppBarSubTitle title={Resources.TEAM_GOAL_CATEGORY_LIST_TITLE} />);
         this.props.handleMaxWidth('sm');
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}>
             <FontAwesomeIcon icon={faSlidersH} />
@@ -86,7 +87,7 @@ class TeamGoalCategoryList extends MainLayoutComponent {
 
     renderData() {
         const {categories} = this.props.teamGoalCategoryList;
-        const all_category = {name: 'Toutes', icon: 'project'};
+        const all_category = {name: Resources.TEAM_GOAL_CATEGORY_LIST_ALL_LABEL, icon: 'project'};
         const allUrl = this.year ? `/goals/teams/${this.props.match.params.id}/list?year=${this.year}` : `/goals/teams/${this.props.match.params.id}/list`;
         const spacing = isWidthUp('sm', this.props.width) ? 8 : 4;
 

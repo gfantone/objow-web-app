@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBullseye, faSortAmountDown, faRandom } from '@fortawesome/free-solid-svg-icons'
 import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow } from '../../../../components'
+import * as Resources from '../../../../Resources'
 import '../../../../helpers/NumberHelper'
 
 const styles = {
@@ -24,11 +25,11 @@ const CollaboratorGoalRankList = ({ranks, collaboratorId, ...props}) => {
                         <TableHeadCell>
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
-                        <TableHeadCell colSpan={2}>Joueurs</TableHeadCell>
+                        <TableHeadCell colSpan={2}>{Resources.COLLABORATOR_GOAL_RANK_LIST_PLAYER_COLUMN}</TableHeadCell>
                         <TableHeadCell>
                             <FontAwesomeIcon icon={faBullseye} />
                         </TableHeadCell>
-                        <TableHeadCell>PTS</TableHeadCell>
+                        <TableHeadCell>{Resources.COLLABORATOR_GOAL_RANK_LIST_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell>
                             <FontAwesomeIcon icon={faRandom} />
                         </TableHeadCell>

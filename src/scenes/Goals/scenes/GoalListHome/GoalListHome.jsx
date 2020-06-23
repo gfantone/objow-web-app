@@ -2,10 +2,11 @@ import React from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { MainLayoutComponent, TeamSelector } from '../../../../components'
+import * as Resources from '../../../../Resources'
 
 class GoalListHome extends MainLayoutComponent {
     componentDidMount() {
-        this.props.handleTitle('Les objectifs')
+        this.props.handleTitle(Resources.GOAL_LONG_TITLE)
     }
 
     handleClick(id) {

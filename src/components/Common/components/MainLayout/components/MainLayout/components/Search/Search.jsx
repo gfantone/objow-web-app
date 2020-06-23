@@ -2,6 +2,7 @@ import React from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import {Search as SearchIcon} from "@material-ui/icons";
 import {InputBase} from "@material-ui/core";
+import * as Resources from '../../../../../../../../Resources'
 
 const useStyles = makeStyles({
     search: {
@@ -41,7 +42,7 @@ const Search = ({onChange, search, ...props}) => {
             </div>
             <InputBase
                 value={search}
-                placeholder="Rechercher..."
+                placeholder={Resources.MAIN_LAYOUT_SEARCH_PLACEHOLDER}
                 classes={{
                     root: classes.inputRoot,
                     input: classes.inputInput,

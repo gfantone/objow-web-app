@@ -65,6 +65,7 @@ export const COLLABORATOR_REWARD_ORDER_VALIDATION_POINTS_AREA_YEAR = "Année {0}
 // Common
 export const COMMON_EMAIL_ERROR = "L'email n'est pas valide."
 export const COMMON_IS_INT_ERROR = "La valeur doit être un nombre entier."
+export const COMMON_IS_MORE_THAN_OR_EQUALS_0_ERROR = "La valeur doit être supérieure ou égal à 0."
 export const COMMON_MAX_LENGTH_128_ERROR = "La valeur doit faire moins de 128 caractères."
 export const COMMON_PASSWORD_NOT_MATCH_ERROR = "Les mots de passe ne correspondent pas."
 export const COMMON_REQUIRED_ERROR = "Ce champ est requis."
@@ -86,6 +87,112 @@ export const DRAWER_RULES_BUTTON = "Règles du jeu"
 export const DRAWER_ADMIN_BUTTON = "Administration"
 export const DRAWER_HELP_BUTTON = "Aide"
 export const DRAWER_LOGOUT_BUTTON = "Déconnexion"
+
+// Goal
+export const GOAL_LONG_TITLE = "Les objectifs"
+export const GOAL_SHORT_TITLE = "Objectifs"
+export const GOAL_YEAR_PERIOD = "Année {0}"
+export const GOAL_SEMESTER_PERIOD = "Semestre {0}"
+export const GOAL_QUARTER_PERIOD = "Trimestre {0} ({1})"
+export const GOAL_WEEK_PERIOD = "Semaine {0} ({1})"
+export const GOAL_OTHER_PERIOD = "Du {0} au {1}"
+export const GOAL_COUNTER_TEXT = "Réalisé : {0}"
+export const GOAL_TARGET_TEXT = "/ Objectif : {0}"
+export const GOAL_TIMER_TAG = "J{0}"
+export const GOAL_PROGRESSION_TEXT = "{0}%"
+export const GOAL_FIRST_RANK_TEXT = "{0} er"
+export const GOAL_OTHER_RANK_TEXT = "{0} ème"
+export const GOAL_MAX_RANK_TEXT = "/ {0}"
+export const GOAL_PLAYER_TEXT = "{0} joueurs"
+export const GOAL_TEAM_TEXT = "{0} équipes"
+export const GOAL_POINTS_TEXT = "{0} PTS"
+export const GOAL_MAX_POINTS_TEXT = "/ {0} MAX"
+export const GOAL_COLLABORATOR_TAG = "Solo"
+export const GOAL_TEAM_TAG = "Équipe"
+
+// Goal - Category filter
+export const GOAL_CATEGORY_FILTER_TITLE = "Filtres"
+export const GOAL_CATEGORY_FILTER_TEAM_LABEL = "Équipe"
+export const GOAL_CATEGORY_FILTER_COLLABORATOR_LABEL = "Collaborateur"
+export const GOAL_CATEGORY_FILTER_COLLABORATOR_ALL_OPTION = "Tous"
+export const GOAL_CATEGORY_FILTER_PERIOD_LABEL = "Année"
+export const GOAL_CATEGORY_FILTER_CANCEL_BUTTON = "Annuler"
+export const GOAL_CATEGORY_FILTER_SUBMIT_BUTTON = "Filtrer"
+
+// Goal - Collaborator category list
+export const COLLABORATOR_GOAL_CATEGORY_LIST_TITLE = "Sélection de la catégorie"
+export const COLLABORATOR_GOAL_CATEGORY_LIST_ALL_LABEL = "Toutes"
+
+// Goal - Collaborator goal detail
+export const COLLABORATOR_GOAL_DETAIL_RANK_TAB = "Classement"
+export const COLLABORATOR_GOAL_DETAIL_INDICATION_TAB = "Indications"
+
+// Goal - Collaborator goal list
+export const COLLABORATOR_GOAL_LIST_EMPTY_STATE_TITLE = "Aucun objectif trouvé"
+export const COLLABORATOR_GOAL_LIST_EMPTY_STATE_MESSAGE = "Si vous avez appliqué des filtres, changez-les pour afficher d'autres objectifs"
+
+// Goal - Collaborator rank list
+export const COLLABORATOR_GOAL_RANK_LIST_PLAYER_COLUMN = "Joueurs"
+export const COLLABORATOR_GOAL_RANK_LIST_POINTS_COLUMN = "PTS"
+
+// Goal - Edition
+export const COLLABORATOR_GOAL_LIST_EDITION_TITLE = "Indicateurs"
+export const COLLABORATOR_GOAL_LIST_EDITION_MAX_TARGET_LABEL = "Objectif alloué pour la période sélectionnée"
+export const COLLABORATOR_GOAL_LIST_EDITION_ALL_TARGET_LABEL = "Objectif utilisé"
+export const COLLABORATOR_GOAL_LIST_EDITION_REMAINING_TARGET_LABEL = "Objectif restant"
+export const COLLABORATOR_GOAL_LIST_EDITION_EMPTY_STATE_TITLE = "Aucun objectif trouvé"
+export const COLLABORATOR_GOAL_LIST_EDITION_EMPTY_STATE_MESSAGE = "Si vous avez appliqué des filtres, changez-les pour afficher d'autres objectifs"
+export const COLLABORATOR_GOAL_LIST_EDITION_ERROR_TEXT = "Veuillez respecter l'objectif total alloué pour la période sélectionnée"
+export const COLLABORATOR_GOAL_LIST_EDITION_SUBMIT_BUTTON = "Valider"
+
+// Goal - Indication
+export const GOAL_INDICATION_LEVEL_AREA = "Paliers"
+export const GOAL_INDICATION_LEVEL_PROGRESSION_TEXT = "{0} %"
+export const GOAL_INDICATION_LEVEL_POINTS_TEXT = "{0} PTS"
+export const GOAL_INDICATION_DESCRIPTION_AREA = "Description"
+export const GOAL_INDICATION_UNIT_WITH_SYMBOL_TEXT = "Unité : {0} ({1})"
+export const GOAL_INDICATION_UNIT_WITHOUT_SYMBOL_TEXT = "Unité : {0}"
+export const GOAL_INDICATION_PERIOD_TEXT = "Du {0} au {1}"
+export const GOAL_INDICATION_COACHING_AREA = "Les conseils du coach"
+export const GOAL_INDICATION_COACHING_EMPTY_STATE = "Aucun conseil trouvé"
+export const GOAL_INDICATION_COACHING_SUBMIT_BUTTON = "Valider"
+
+// Goal - Filter
+export const GOAL_FILTER_TITLE = "Filtres"
+export const GOAL_FILTER_CATEGORY_LABEL = "Catégorie"
+export const GOAL_FILTER_CATEGORY_ALL_OPTION = "Toutes"
+export const GOAL_FILTER_TEAM_LABEL = "Équipe"
+export const GOAL_FILTER_COLLABORATOR_LABEL = "Collaborateur"
+export const GOAL_FILTER_COLLABORATOR_ALL_OPTION = "Tous"
+export const GOAL_FILTER_PERIOD_LABEL = "Année"
+export const GOAL_FILTER_START_LABEL = "Date de début"
+export const GOAL_FILTER_END_LABEL = "Date de fin"
+export const GOAL_FILTER_CANCEL_BUTTON = "Annuler"
+export const GOAL_FILTER_SUBMIT_BUTTON = "Filtrer"
+
+// Goal - Team category list
+export const TEAM_GOAL_CATEGORY_LIST_TITLE = "Sélection de la catégorie"
+export const TEAM_GOAL_CATEGORY_LIST_ALL_LABEL = "Toutes"
+
+// Goal - Team collaborator goal detail
+export const TEAM_COLLABORATOR_GOAL_DETAIL_RANK_TAB = "Classement"
+export const TEAM_COLLABORATOR_GOAL_DETAIL_INDICATION_TAB = "Indications"
+export const TEAM_COLLABORATOR_GOAL_DETAIL_EDIT_TAB = "Édition"
+
+// Goal - Team goal detail
+export const TEAM_GOAL_DETAIL_RANK_TAB = "Classement"
+export const TEAM_GOAL_DETAIL_INDICATION_TAB = "Indications"
+
+// Goal - Team goal list
+export const TEAM_GOAL_LIST_EMPTY_STATE_TITLE = "Aucun objectif trouvé"
+export const TEAM_GOAL_LIST_EMPTY_STATE_MESSAGE = "Si vous avez appliqué des filtres, changez-les pour afficher d'autres objectifs"
+
+// Goal - Team rank list
+export const TEAM_GOAL_RANK_LIST_TEAM_COLUMN = "Équipes"
+export const TEAM_GOAL_RANK_LIST_POINTS_COLUMN = "PTS"
+
+// Main layout
+export const MAIN_LAYOUT_SEARCH_PLACEHOLDER = "Rechercher..."
 
 // Point summary
 export const POINT_SUMMARY_TITLE = "Informations générales"
@@ -248,6 +355,9 @@ export const TEAM_REWARD_ORDER_VALIDATION_POINTS_AREA_YEAR = "Année {0}"
 // Team selector
 export const TEAM_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
 export const TEAM_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
+
+export const TIME_FILTER_CURRENT_TAB = "En cours"
+export const TIME_FILTER_PAST_TAB = "Passés"
 
 // Tracking sub header
 export const TRACKING_SUB_HEADER_VALIDATED_TITLE = "Suivi des commandes"

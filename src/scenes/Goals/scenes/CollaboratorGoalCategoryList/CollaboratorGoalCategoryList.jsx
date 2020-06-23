@@ -14,6 +14,7 @@ import {GridLink} from "../../../../components/Common/components/GridLink";
 import {Link} from "react-router-dom";
 import {Category} from "../../components/Category";
 import {AppBarSubTitle, MainLayoutComponent} from "../../../../components";
+import * as Resources from "../../../../Resources";
 
 class CollaboratorGoalCategoryList extends MainLayoutComponent {
     constructor(props) {
@@ -61,7 +62,7 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
     componentDidMount() {
         if (this.props.accountDetail.account.role.code == 'A') this.props.activateReturn();
         this.props.handleTitle('Objectifs');
-        this.props.handleSubHeader(<AppBarSubTitle title='Sélection de la catégorie' />);
+        this.props.handleSubHeader(<AppBarSubTitle title={Resources.COLLABORATOR_GOAL_CATEGORY_LIST_TITLE} />);
         this.props.handleMaxWidth('sm');
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}>
             <FontAwesomeIcon icon={faSlidersH} />
@@ -91,7 +92,7 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
 
     renderData() {
         const {categories} = this.props.collaboratorGoalCategoryList;
-        const all_category = {name: 'Toutes', icon: 'project'};
+        const all_category = {name: Resources.COLLABORATOR_GOAL_CATEGORY_LIST_ALL_LABEL, icon: 'project'};
         const allUrl = this.year ? `/goals/collaborators/${this.props.match.params.id}/list?year=${this.year}` : `/goals/collaborators/${this.props.match.params.id}/list`;
         const spacing = isWidthUp('sm', this.props.width) ? 8 : 4;
 
