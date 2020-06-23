@@ -2,11 +2,12 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {DefaultText, Linkify, Loader, MainLayoutComponent} from '../../components'
+import * as Resources from '../../Resources'
 import * as configListActions from '../../services/Configs/ConfigList/actions'
 
 class GameRules extends MainLayoutComponent {
     componentDidMount() {
-        this.props.handleTitle('Règles du jeu');
+        this.props.handleTitle(Resources.GAME_RULES_TITLE);
         this.props.handleMaxWidth('md');
         this.props.configListActions.getPermanentConfigList()
     }

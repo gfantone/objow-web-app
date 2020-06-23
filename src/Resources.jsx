@@ -88,6 +88,9 @@ export const DRAWER_ADMIN_BUTTON = "Administration"
 export const DRAWER_HELP_BUTTON = "Aide"
 export const DRAWER_LOGOUT_BUTTON = "Déconnexion"
 
+// Game rules
+export const GAME_RULES_TITLE = "Règles du jeu"
+
 // Goal
 export const GOAL_LONG_TITLE = "Les objectifs"
 export const GOAL_SHORT_TITLE = "Objectifs"
