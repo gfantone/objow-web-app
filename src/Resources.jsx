@@ -1,3 +1,14 @@
+// Account
+
+export const ACCOUNT_TITLE = "Mon profil"
+export const ACCOUNT_FIRST_NAME_LABEL = "Prénom"
+export const ACCOUNT_LAST_NAME_LABEL = "Nom"
+export const ACCOUNT_EMAIL_LABEL = "Email"
+export const ACCOUNT_CITATION_LABEL = "Citation"
+export const ACCOUNT_PASSWORD_LABEL = "Nouveau mot de passe"
+export const ACCOUNT_CONFIRM_PASSWORD_LABEL = "Confirmation du mot de passe"
+export const ACCOUNT_SUBMIT_BUTTON = "Valider"
+
 // Admin
 export const ADMIN_TITLE = "Administration"
 
@@ -52,8 +63,10 @@ export const COLLABORATOR_REWARD_ORDER_VALIDATION_POINTS_AREA = "Total commande"
 export const COLLABORATOR_REWARD_ORDER_VALIDATION_POINTS_AREA_YEAR = "Année {0}"
 
 // Common
+export const COMMON_EMAIL_ERROR = "L'email n'est pas valide."
 export const COMMON_IS_INT_ERROR = "La valeur doit être un nombre entier."
 export const COMMON_MAX_LENGTH_128_ERROR = "La valeur doit faire moins de 128 caractères."
+export const COMMON_PASSWORD_NOT_MATCH_ERROR = "Les mots de passe ne correspondent pas."
 export const COMMON_REQUIRED_ERROR = "Ce champ est requis."
 
 // Drawer
@@ -111,7 +124,6 @@ export const REWARD_CREATION_DELIVERY_TIME_LABEL = "Temps de livraison"
 export const REWARD_CREATION_SUBMIT_BUTTON = "Valider"
 
 // Reward - Detail
-export const REWARD_DETAIL_ADD_BUTTON = "Ajouter"
 export const REWARD_DETAIL_DESCRIPTION_AREA = "Description"
 export const REWARD_DETAIL_VALUE_TEXT = "Valeur : {0} €"
 export const REWARD_DETAIL_DELIVERY_TITLE = "Livraison"

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
@@ -9,6 +8,7 @@ import * as roleListActions from '../../../../services/Roles/RoleList/actions'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as userCreationActions from '../../../../services/Users/UserCreation/actions'
 import '../../../../helpers/FormsyHelper'
+import * as Resources from "../../../../Resources";
 
 class AdminUserCreation extends MainLayoutComponent {
     constructor(props) {
@@ -67,18 +67,18 @@ class AdminUserCreation extends MainLayoutComponent {
                             <Grid container spacing={2}>
                                 <Grid item xs={6}>
                                     <TextField name='firstname' label='Prénom' fullWidth required
-                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <TextField name='lastname' label='Nom' fullWidth required
-                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField name='email' label='Email' validations="isEmail" fullWidth required
                                         validationErrors={{
-                                            isDefaultRequiredValue: 'Ce champ est requis.',
+                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                             isEmail: "L'email n'est pas valide."
                                         }}
                                     />
@@ -87,7 +87,7 @@ class AdminUserCreation extends MainLayoutComponent {
                                     <Select name='role' label='Type' options={roles} optionValueName='id' optionTextName='name' fullWidth required
                                         onChange={this.handleValueChange('role').bind(this)}
                                         validationErrors={{
-                                            isDefaultRequiredValue: 'Ce champ est requis.'
+                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR
                                         }}
                                     />
                                 </Grid>
@@ -96,14 +96,14 @@ class AdminUserCreation extends MainLayoutComponent {
                                 </Grid>
                                 <Grid item xs={6}>
                                     <TextField type='password' name='password' label='Mot de passe' fullWidth required
-                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <TextField type='password' name='paswwordConfirm' label='Confirmation du mot de passe' fullWidth
                                         validations='equalsField:password'
                                         validationErrors={{
-                                            isDefaultRequiredValue: 'Ce champ est requis.',
+                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                             equalsField: 'Les mots de passe ne correspondent pas'
                                         }}
                                     />

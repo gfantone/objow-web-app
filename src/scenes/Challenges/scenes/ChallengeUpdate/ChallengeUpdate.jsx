@@ -21,6 +21,7 @@ import * as challengeTypeListActions from '../../../../services/ChallengeTypes/C
 import * as challengeTypeUsablePointsActions from '../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
 import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
+import * as Resources from "../../../../Resources";
 
 const styles = {
     image: {
@@ -252,12 +253,12 @@ class ChallengeUpdate extends MainLayoutComponent {
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12}>
                                                         <TextField name='name' label='Nom' fullWidth required initial={challenge.name}
-                                                                   validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                                   validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12}>
                                                         <TextField name='description' label='Description' fullWidth multiline required initial={challenge.description}
-                                                                   validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                                   validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                                         />
                                                     </Grid>
                                                 </Grid>
@@ -273,17 +274,17 @@ class ChallengeUpdate extends MainLayoutComponent {
                                         </Grid>
                                         <Grid item xs={3}>
                                             <DatePicker name='start' label='Début' format='dd/MM/yyyy' initial={this.state.start} onChange={this.handlePeriodChange('start').bind(this)} minDate={startMinDate} maxDate={startMaxDate} clearable fullWidth required
-                                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             />
                                         </Grid>
                                         <Grid item xs={3}>
                                             <DatePicker name='end' label='Fin' format='dd/MM/yyyy' initial={this.state.end} onChange={this.handlePeriodChange('end').bind(this)} minDate={endMinDate} maxDate={period.end.toDate2()} clearable fullWidth required
-                                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
                                             <Select name='type' label='Type' options={types} initial={this.state.type} onChange={this.handlePeriodChange('type').bind(this)} optionValueName='id' optionTextName='name' fullWidth required disabled
-                                                    validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                    validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>

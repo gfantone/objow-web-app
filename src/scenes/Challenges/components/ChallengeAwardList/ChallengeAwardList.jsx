@@ -10,6 +10,7 @@ import {HiddenInput} from "../../../../components/Common/components/Inputs/compo
 import {Select} from "../../../../components/Common/components/Inputs/components/Select";
 import {TextField} from "../../../../components/Common/components/Inputs/components/TextField";
 import {uuidv4} from '../../../../helpers/UUIDHelper'
+import * as Resources from "../../../../Resources";
 
 const ChallengeAwardList = ({initialAwards = [], awardTypes, initialAwardTypeId = null, challengeTypeCode, readonly, ...props}) => {
     const getInitialAwards = () => {
@@ -68,14 +69,14 @@ const ChallengeAwardList = ({initialAwards = [], awardTypes, initialAwardTypeId 
                             </Grid>
                             <Grid item xs={3}>
                                 <Select name='awardType' label='Type' options={awardTypes} initial={finalInitialAwardTypeId} emptyDisabled onChange={onAwardTypeChange} optionValueName='id' optionTextName='name' fullWidth required disabled={readonly}
-                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                 />
                             </Grid>
                             {awards.map((award, index) => {
                                 const number = index + 1;
                                 const label = isMaxAward ? `Maximum / ${participantName}` : `Gain ${participantName} #${number}`;
                                 const validations = isMaxAward ? 'isLessThanOrEquals:usablePoints' : 'isRankingValid';
-                                const validationErrors = isMaxAward ? {isDefaultRequiredValue: 'Ce champ est requis.', isLessThanOrEquals: 'La récompense est trop élevée',} : {isDefaultRequiredValue: 'Ce champ est requis.', isRankingValid: 'La récompense est trop élevée'};
+                                const validationErrors = isMaxAward ? {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isLessThanOrEquals: 'La récompense est trop élevée',} : {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isRankingValid: 'La récompense est trop élevée'};
                                 return (
                                     <Grid key={award.key} item xs={3}>
                                         <Grid container spacing={1} alignItems='flex-end'>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
@@ -12,6 +11,7 @@ import * as collaboratorListActions from '../../../../services/Collaborators/Col
 import * as colorListActions from '../../../../services/Colors/ColorList/actions'
 import * as managerListActions from '../../../../services/Managers/ManagerList/actions'
 import * as teamCreationActions from '../../../../services/Teams/TeamCreation/actions'
+import * as Resources from "../../../../Resources";
 
 const styles = {
     photo: {
@@ -125,17 +125,17 @@ class AdminTeamCreation extends MainLayoutComponent {
                                 <Grid container spacing={2}>
                                     <Grid item xs={6}>
                                         <TextField name='name' label='Nom' fullWidth required
-                                            validationErrors={{ isDefaultRequiredValue: 'Ce champ est requis.' }}
+                                            validationErrors={{ isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR }}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
                                         <Select name='manager' label='Manager' options={managers} optionValueName='id' optionTextName='fullname' fullWidth required
-                                            validationErrors={{ isDefaultRequiredValue: 'Ce champ est requis.' }}
+                                            validationErrors={{ isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR }}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <ColorInput name='color' label='Couleur' colors={colors} required
-                                            validationErrors={{ isDefaultRequiredValue: 'Ce champ est requis.' }}
+                                            validationErrors={{ isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR }}
                                         />
                                     </Grid>
                                 </Grid>

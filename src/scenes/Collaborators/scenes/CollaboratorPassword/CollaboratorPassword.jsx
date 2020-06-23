@@ -5,6 +5,7 @@ import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
 import { Card, MainLayoutComponent, ProgressButton, TextField } from '../../../../components'
 import * as userUpdatePasswordActions from '../../../../services/Users/UserUpdatePassword/actions'
+import * as Resources from "../../../../Resources";
 
 class CollaboratorPassword extends MainLayoutComponent {
     constructor(props) {
@@ -37,7 +38,7 @@ class CollaboratorPassword extends MainLayoutComponent {
                                     <Grid item xs={6}>
                                         <TextField type='password' name='password' label='Mot de passe' fullWidth required
                                             validationErrors={{
-                                                isDefaultRequiredValue: 'Ce champ est requis.',
+                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                             }}
                                         />
                                     </Grid>
@@ -45,7 +46,7 @@ class CollaboratorPassword extends MainLayoutComponent {
                                         <TextField type='password' name='confirmPassword' label='Confirmation du mot de passe' fullWidth required
                                             validations='equalsField:password'
                                             validationErrors={{
-                                                isDefaultRequiredValue: 'Ce champ est requis.',
+                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                 equalsField: 'Les mots de passe ne correspondent pas'
                                             }}
                                         />
