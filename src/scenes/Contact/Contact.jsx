@@ -2,11 +2,12 @@ import React, {useEffect} from 'react'
 import {Grid} from '@material-ui/core'
 import {EvolutionRequest, IncidentReporting} from './components'
 import {Card, DefaultTitle, Select} from "../../components";
+import * as Resources from "../../Resources";
 import Formsy from 'formsy-react'
 
 const types = [
-    {id: 1, text: 'Demander une évolution'},
-    {id: 2, text: 'Déclarer un incident'}
+    {id: 1, text: Resources.CONTACT_FORM_TYPE_EVOLUTION_OPTION},
+    {id: 2, text: Resources.CONTACT_FORM_TYPE_INCIDENT_OPTION}
 ];
 
 const Contact = ({...props}) => {
@@ -14,7 +15,7 @@ const Contact = ({...props}) => {
 
     useEffect(() => {
         props.clear();
-        props.handleTitle('Aide');
+        props.handleTitle(Resources.CONTACT_TITLE);
         props.handleMaxWidth('md')
     });
 
@@ -29,12 +30,12 @@ const Contact = ({...props}) => {
                     <div>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
-                                <DefaultTitle>Comment pouvons-nous vous aider ?</DefaultTitle>
+                                <DefaultTitle>{Resources.CONTACT_QUESTION}</DefaultTitle>
                             </Grid>
                             <Grid item xs={12}>
                                 <Card>
                                     <Formsy>
-                                        <Select name='type' label="Motif" options={types} optionValueName='id' optionTextName='text' onChange={handleTypeChange} fullWidth />
+                                        <Select name='type' label={Resources.CONTACT_FORM_TYPE_LABEL} options={types} optionValueName='id' optionTextName='text' onChange={handleTypeChange} fullWidth />
                                     </Formsy>
                                 </Card>
                             </Grid>

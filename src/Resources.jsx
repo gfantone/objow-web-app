@@ -70,6 +70,17 @@ export const COMMON_MAX_LENGTH_128_ERROR = "La valeur doit faire moins de 128 ca
 export const COMMON_PASSWORD_NOT_MATCH_ERROR = "Les mots de passe ne correspondent pas."
 export const COMMON_REQUIRED_ERROR = "Ce champ est requis."
 
+// Contact
+export const CONTACT_TITLE = "Aide"
+export const CONTACT_QUESTION = "Comment pouvons-nous vous aider ?"
+export const CONTACT_FORM_TYPE_LABEL = "Motif"
+export const CONTACT_FORM_TYPE_EVOLUTION_OPTION = "Demander une évolution"
+export const CONTACT_FORM_TYPE_INCIDENT_OPTION = "Déclarer un incident"
+export const CONTACT_EVOLUTION_FORM_TITLE = "Remplissez ce formulaire pour votre demande d'évolution"
+export const CONTACT_EVOLUTION_FORM_MESSAGE_LABEL = "Message"
+export const CONTACT_EVOLUTION_FORM_SUBMIT_BUTTON = "Envoyer"
+export const CONTACT_INCIDENT_FORM_TITLE = "Remplissez ce formulaire pour votre déclaration d'indicent"
+
 // Drawer
 export const DRAWER_LEVEL_LABEL = "Level {0}"
 export const DRAWER_POINTS_LABEL = "{0} PTS"
