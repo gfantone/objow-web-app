@@ -1,16 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {CollaboratorRewardList, SubHeader, TeamRewardList} from './components'
+import {StoreCollaboratorDepartment, SubHeader} from './components'
 import {MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
-import * as collaboratorPointSummaryDetailActions from '../../../../services/CollaboratorPointSummaries/CollaboratorPointSummaryDetail/actions'
-import * as rewardListActions from '../../../../services/Rewards/RewardList/actions'
-import * as teamPointSummaryDetailActions from '../../../../services/TeamPointSummaries/TeamPointSummaryDetail/actions'
+import {StoreTeamDepartment} from "../../components/StoreTeamDepartment";
 
 class CollaboratorRewardStore extends MainLayoutComponent {
-    state = {page: 0}
+    state = {page: 0, period: null}
 
     handlePageChange(page) {
         this.setState({
@@ -24,21 +22,21 @@ class CollaboratorRewardStore extends MainLayoutComponent {
         const {account} = this.props.accountDetail
         this.props.handleTitle(Resources.REWARD_TITLE)
         this.props.handleSubHeader(<SubHeader page={this.state.page} onChange={this.handlePageChange.bind(this)} />)
-        if (account.role.code != 'C') {
+        if (account.role.code !== 'C') {
             this.props.activateReturn()
         }
         this.props.collaboratorDetailActions.getCollaboratorDetail(id)
-        this.props.collaboratorPointSummaryDetailActions.getCollaboratorPointSummary(id, 1)
-        this.props.rewardListActions.getActiveRewardList()
-        this.props.teamPointSummaryDetailActions.getTeamPointSummaryByCollaborator(id, 1)
     }
 
-    renderData() {
-        return (
-            <div>
-                {this.state.page === 0 && <CollaboratorRewardList collaboratorId={5} />}
-            </div>
-        )
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const params = new URLSearchParams(window.location.search)
+        const period = Number(params.get('period'))
+        if (period !== this.state.period) {
+            this.setState(({
+                ...this.state,
+                period: period
+            }))
+        }
     }
 
     handleAddClick(reward) {
@@ -46,38 +44,25 @@ class CollaboratorRewardStore extends MainLayoutComponent {
     }
 
     render() {
-        const {loading: collaboratorDetailLoading} = this.props.collaboratorDetail
-        const {summary: collaboratorSummary, loading: collaboratorPointSummaryDetailLoading} = this.props.collaboratorPointSummaryDetail
-        const {rewards, loading: rewardListLoading} = this.props.rewardList
-        const {summary: teamSummary, loading: teamPointSummaryDetailLoading} = this.props.teamPointSummaryDetail
-        const loading = collaboratorDetailLoading || collaboratorPointSummaryDetailLoading || rewardListLoading || teamPointSummaryDetailLoading
-        const collaboratorRewards = rewards ? rewards.filter(x => x.type.code === 'P') : null
-        const teamRewards = rewards ? rewards.filter(x => x.type.code === 'T') : null
-        const canRenderData = !loading && collaboratorSummary && rewards && teamSummary
+        const {collaborator, loading} = this.props.collaboratorDetail
 
         return (
             <div>
-                {canRenderData && this.state.page ===0 && <CollaboratorRewardList summary={collaboratorSummary} rewards={collaboratorRewards} onAddClick={this.handleAddClick.bind(this)} />}
-                {canRenderData && this.state.page ===1 && <TeamRewardList summary={teamSummary} rewards={teamRewards} onAddClick={this.handleAddClick.bind(this)} />}
+                {!loading && collaborator && this.state.page === 0 && <StoreCollaboratorDepartment id={collaborator.id} periodId={this.state.period} onAddClick={this.handleAddClick.bind(this)} />}
+                {!loading && collaborator && collaborator.team && this.state.page === 1 && <StoreTeamDepartment id={collaborator.team.id} periodId={this.state.period} onAddClick={this.handleAddClick.bind(this)} />}
             </div>
         )
     }
 
 }
 
-const mapStateToProps = ({accountDetail, collaboratorDetail, collaboratorPointSummaryDetail, rewardList, teamPointSummaryDetail}) => ({
+const mapStateToProps = ({accountDetail, collaboratorDetail}) => ({
     accountDetail,
-    collaboratorDetail,
-    collaboratorPointSummaryDetail,
-    rewardList,
-    teamPointSummaryDetail
+    collaboratorDetail
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    collaboratorDetailActions: bindActionCreators(collaboratorDetailActions, dispatch),
-    collaboratorPointSummaryDetailActions: bindActionCreators(collaboratorPointSummaryDetailActions, dispatch),
-    rewardListActions: bindActionCreators(rewardListActions, dispatch),
-    teamPointSummaryDetailActions: bindActionCreators(teamPointSummaryDetailActions, dispatch)
+    collaboratorDetailActions: bindActionCreators(collaboratorDetailActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorRewardStore)

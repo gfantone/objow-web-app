@@ -1,16 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {CollaboratorRewardList, SubHeader, TeamRewardList} from './components'
+import {StoreTeamCollaboratorDepartment, SubHeader} from './components'
+import {StoreTeamDepartment} from '../../components'
 import {MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamDetailActions from '../../../../services/Teams/TeamDetail/actions'
-import * as teamCollaboratorPointSummaryDetailActions from '../../../../services/TeamCollaboratorPointSummaries/TeamCollaboratorPointSummaryDetail/actions'
-import * as rewardListActions from '../../../../services/Rewards/RewardList/actions'
-import * as teamPointSummaryDetailActions from '../../../../services/TeamPointSummaries/TeamPointSummaryDetail/actions'
 
 class TeamRewardStore extends MainLayoutComponent {
-    state = {page: 0}
+    state = {page: 0, period: null}
 
     handlePageChange(page) {
         this.setState({
@@ -28,9 +26,17 @@ class TeamRewardStore extends MainLayoutComponent {
             this.props.activateReturn()
         }
         this.props.teamDetailActions.getTeamDetail(id)
-        this.props.teamCollaboratorPointSummaryDetailActions.getTeamCollaboratorPointSummary(id, 1)
-        this.props.rewardListActions.getActiveRewardList()
-        this.props.teamPointSummaryDetailActions.getTeamPointSummaryByTeam(id, 1)
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const params = new URLSearchParams(window.location.search)
+        const period = Number(params.get('period'))
+        if (period !== this.state.period) {
+            this.setState(({
+                ...this.state,
+                period: period
+            }))
+        }
     }
 
     handleAddClick(reward) {
@@ -38,37 +44,26 @@ class TeamRewardStore extends MainLayoutComponent {
     }
 
     render() {
-        const {loading: teamDetailLoading} = this.props.teamDetail
-        const {summary: collaboratorSummary, loading: teamCollaboratorPointSummaryDetailLoading} = this.props.teamCollaboratorPointSummaryDetail
-        const {rewards, loading: rewardListLoading} = this.props.rewardList
-        const {summary: teamSummary, loading: teamPointSummaryDetailLoading} = this.props.teamPointSummaryDetail
-        const loading = teamDetailLoading || teamCollaboratorPointSummaryDetailLoading || rewardListLoading || teamPointSummaryDetailLoading
-        const teamRewards = rewards ? rewards.filter(x => x.type.code === 'T') : null
-        const canRenderData = !loading && collaboratorSummary && rewards && teamSummary
+        const id = this.props.match.params.id
+        const {team, loading} = this.props.teamDetail
 
         return (
             <div>
-                {canRenderData && this.state.page ===0 && <TeamRewardList summary={teamSummary} rewards={teamRewards} onAddClick={this.handleAddClick.bind(this)} />}
-                {canRenderData && this.state.page ===1 && <CollaboratorRewardList summary={collaboratorSummary} onAddClick={this.handleAddClick.bind(this)} />}
+                {!loading && team && this.state.page === 0 && <StoreTeamDepartment id={id} periodId={this.state.period} onAddClick={this.handleAddClick.bind(this)} />}
+                {!loading && team && this.state.page === 1 && <StoreTeamCollaboratorDepartment id={id} periodId={this.state.period} />}
             </div>
         )
     }
 
 }
 
-const mapStateToProps = ({accountDetail, rewardList, teamCollaboratorPointSummaryDetail, teamDetail, teamPointSummaryDetail}) => ({
+const mapStateToProps = ({accountDetail, teamDetail}) => ({
     accountDetail,
-    rewardList,
-    teamCollaboratorPointSummaryDetail,
     teamDetail,
-    teamPointSummaryDetail
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    rewardListActions: bindActionCreators(rewardListActions, dispatch),
-    teamCollaboratorPointSummaryDetailActions: bindActionCreators(teamCollaboratorPointSummaryDetailActions, dispatch),
-    teamDetailActions: bindActionCreators(teamDetailActions, dispatch),
-    teamPointSummaryDetailActions: bindActionCreators(teamPointSummaryDetailActions, dispatch)
+    teamDetailActions: bindActionCreators(teamDetailActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TeamRewardStore)

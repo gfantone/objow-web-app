@@ -12,11 +12,7 @@ const style = {
 
 const SubHeader = ({ page, onChange, ...props }) => {
     const {classes} = props
-    const {team, loading: teamDetailLoading} = props.teamDetail
-    const {loading: teamCollaboratorPointSummaryDetailLoading} = props.teamCollaboratorPointSummaryDetail
-    const {loading: rewardListLoading} = props.rewardList
-    const {loading: teamPointSummaryDetailLoading} = props.teamPointSummaryDetail
-    const loading = teamDetailLoading || teamCollaboratorPointSummaryDetailLoading || rewardListLoading || teamPointSummaryDetailLoading
+    const {team, loading} = props.teamDetail
     const [value, setValue] = React.useState(page)
 
     function handleChange(e, value) {
@@ -48,17 +44,14 @@ const SubHeader = ({ page, onChange, ...props }) => {
 
     return (
         <div>
-            { loading && renderLoader() }
-            { !loading && team && renderData() }
+            {loading && renderLoader()}
+            {!loading && team && renderData()}
         </div>
     )
 }
 
-const mapStateToProps = ({teamDetail, teamCollaboratorPointSummaryDetail, rewardList, teamPointSummaryDetail}) => ({
-    teamDetail,
-    teamCollaboratorPointSummaryDetail,
-    rewardList,
-    teamPointSummaryDetail
+const mapStateToProps = ({teamDetail}) => ({
+    teamDetail
 })
 
 export default connect(mapStateToProps)(withStyles(style)(SubHeader))

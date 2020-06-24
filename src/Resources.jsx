@@ -365,7 +365,7 @@ export const TEAM_REWARD_LIST_COLLABORATOR_TAB = "Équipe"
 export const TEAM_REWARD_LIST_TEAM_TAB = "Joueurs"
 
 // Team reward store
-export const TEAM_REWARD_STORE_COLLABORATOR_SELECTOR_AREA = "Sélection d'un joueur"
+export const STORE_TEAM_COLLABORATOR_DEPARTMENT_COLLABORATOR_SELECTOR_AREA = "Sélection d'un joueur"
 
 // Team reward order summary
 export const TEAM_REWARD_ORDER_SUMMARY_TITLE = "Récapitulatif d'une commande"

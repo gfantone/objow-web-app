@@ -1,3 +1,2 @@
-export * from './CollaboratorRewardList'
+export * from './StoreTeamCollaboratorDepartment'
 export * from './SubHeader'
-export * from './TeamRewardList'
