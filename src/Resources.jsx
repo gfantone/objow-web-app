@@ -292,6 +292,10 @@ export const REWARD_MANAGEMENT_COLLABORATOR_TAB = "Joueurs"
 export const REWARD_MANAGEMENT_COLLABORATOR_SELECTOR_AREA = "Sélection d'un joueur"
 export const REWARD_MANAGEMENT_TEAM_TAB = "Équipes"
 export const REWARD_MANAGEMENT_TEAM_SELECTOR_AREA = "Sélection d'une équipe"
+export const REWARD_MANAGEMENT_FILTER_TITLE = "Filtres"
+export const REWARD_MANAGEMENT_PERIOD_LABEL = "Année"
+export const REWARD_MANAGEMENT_SUBMIT_BUTTON = "Filtrer"
+export const REWARD_MANAGEMENT_CANCEL_BUTTON = "Annuler"
 
 // Reward order item list
 export const REWARD_ORDER_ITEM_LIST_QUANTITY_LABEL = "Quantité"

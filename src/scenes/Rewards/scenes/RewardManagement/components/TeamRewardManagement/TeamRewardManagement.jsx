@@ -9,18 +9,20 @@ import * as Resources from '../../../../../../Resources'
 import * as teamGlobalPointSummaryDetailActions from '../../../../../../services/TeamGlobalPointSummaries/TeamGlobalPointSummaryDetail/actions'
 import * as teamRewardOrderCountActions from '../../../../../../services/TeamRewardOrders/TeamRewardOrderCount/actions'
 
-const TeamRewardManagement = ({...props}) => {
+const TeamRewardManagement = ({periodId, ...props}) => {
     const {summary, loading: teamGlobalPointSummaryDetailLoading} = props.teamGlobalPointSummaryDetail
     const {orders, loading: teamRewardOrderCountLoading} = props.teamRewardOrderCount
     const loading = teamGlobalPointSummaryDetailLoading || teamRewardOrderCountLoading
 
     useEffect(() => {
-        props.teamGlobalPointSummaryDetailActions.getTeamGlobalPointSummary(1)
+        props.teamGlobalPointSummaryDetailActions.getTeamGlobalPointSummary(periodId)
         props.teamRewardOrderCountActions.countWaitingTeamRewardOrders()
-    }, [])
+    }, [periodId])
 
     function handleTeamClick(teamId) {
-        props.history.push(`/rewards/teams/${teamId}`)
+        var url = `/rewards/teams/${teamId}`
+        if (periodId) url += `?period=${periodId}`
+        props.history.push(url)
     }
     function handleTrackingClick() {
         props.history.push('/rewards/tracking/teams')

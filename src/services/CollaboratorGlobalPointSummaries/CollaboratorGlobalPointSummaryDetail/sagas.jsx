@@ -5,7 +5,12 @@ import api from '../../../data/api/api'
 
 function* getCollaboratorGlobalPointSummary(action) {
     try {
-        const {data: summary} = yield call(api.periods.collaboratorGlobalPointSummary, action.periodId);
+        var periodId = action.periodId
+        if (!periodId) {
+            const {data: period} = yield call(api.periods.current)
+            periodId = period.id
+        }
+        const {data: summary} = yield call(api.periods.collaboratorGlobalPointSummary, periodId);
         yield put(getCollaboratorGlobalPointSummarySuccess(summary))
     } catch(e) {
         yield put(getCollaboratorGlobalPointSummaryError())

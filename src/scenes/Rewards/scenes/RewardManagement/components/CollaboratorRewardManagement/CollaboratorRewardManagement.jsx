@@ -9,22 +9,24 @@ import * as Resources from '../../../../../../Resources'
 import * as collaboratorGlobalPointSummaryDetailActions from '../../../../../../services/CollaboratorGlobalPointSummaries/CollaboratorGlobalPointSummaryDetail/actions'
 import * as collaboratorRewardOrderCountActions from '../../../../../../services/CollaboratorRewardOrders/CollaboratorRewardOrderCount/actions'
 
-const CollaboratorRewardManagement = ({...props}) => {
+const CollaboratorRewardManagement = ({periodId, ...props}) => {
     const {summary, loading: collaboratorGlobalPointSummaryDetailLoading} = props.collaboratorGlobalPointSummaryDetail
     const {orders, loading: collaboratorRewardOrderCountLoading} = props.collaboratorRewardOrderCount
     const loading = collaboratorGlobalPointSummaryDetailLoading || collaboratorRewardOrderCountLoading
 
     useEffect(() => {
-        props.collaboratorGlobalPointSummaryDetailActions.getCollaboratorGlobalPointSummary(1)
+        props.collaboratorGlobalPointSummaryDetailActions.getCollaboratorGlobalPointSummary(periodId)
         props.collaboratorRewardOrderCountActions.countWaitingCollaboratorRewardOrders()
-    }, [])
+    }, [periodId])
 
     function renderLoader() {
         return <Loader centered />
     }
 
     function handleCollaboratorClick(collaboratorId) {
-        props.history.push(`/rewards/collaborators/${collaboratorId}`)
+        var url = `/rewards/collaborators/${collaboratorId}`
+        if (periodId) url += `?period=${periodId}`
+        props.history.push(url)
     }
 
     function handleTrackingClick() {

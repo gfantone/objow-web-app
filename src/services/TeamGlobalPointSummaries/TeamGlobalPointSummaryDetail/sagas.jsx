@@ -5,7 +5,12 @@ import api from '../../../data/api/api'
 
 function* getTeamGlobalPointSummary(action) {
     try {
-        const {data: summary} = yield call(api.periods.teamGlobalPointSummary, action.periodId);
+        var periodId = action.periodId
+        if (!periodId) {
+            const {data: period} = yield call(api.periods.current)
+            periodId = period.id
+        }
+        const {data: summary} = yield call(api.periods.teamGlobalPointSummary, periodId);
         yield put(getTeamGlobalPointSummarySuccess(summary))
     } catch(e) {
         yield put(getTeamGlobalPointSummaryError())
