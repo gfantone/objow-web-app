@@ -4,7 +4,7 @@ import initialState from '../../../store/initialState';
 const CollaboratorRewardOrderCount = (state = initialState.collaboratorRewardOrderCount, action) => {
     switch (action.type) {
         case types.COUNT_WAITING_COLLABORATOR_REWARD_ORDER:
-            return { ...state, orders: null, loading: true, hasError: false }
+            return { ...state, loading: true, hasError: false }
 
         case types.COUNT_COLLABORATOR_REWARD_ORDER_SUCCESS:
             return { ...state, orders: action.orders, loading: false, hasError: false }
