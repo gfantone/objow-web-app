@@ -123,8 +123,18 @@ class CollaboratorRewardStore extends MainLayoutComponent {
 
         return (
             <div>
-                {!loading && collaborator && this.state.page === 0 && <StoreCollaboratorDepartment categoryId={this.state.categoryId} collaboratorId={collaborator.id} periodId={this.state.periodId} onAddClick={this.handleAddClick.bind(this)} />}
-                {!loading && collaborator && collaborator.team && this.state.page === 1 && <StoreTeamDepartment categoryId={this.state.categoryId} periodId={this.state.periodId} teamId={collaborator.team.id} onAddClick={this.handleAddClick.bind(this)} />}
+                {!loading && collaborator && this.state.page === 0 && <StoreCollaboratorDepartment
+                    categoryId={this.state.categoryId}
+                    collaboratorId={collaborator.id}
+                    periodId={this.state.periodId}
+                    onAddClick={this.handleAddClick.bind(this)}
+                />}
+                {!loading && collaborator && collaborator.team && this.state.page === 1 && <StoreTeamDepartment
+                    categoryId={this.state.categoryId}
+                    periodId={this.state.periodId}
+                    teamId={collaborator.team.id}
+                    onAddClick={this.handleAddClick.bind(this)}
+                />}
                 <StoreFilter
                     open={this.state.filterOpen}
                     categoryId={this.state.categoryId}
