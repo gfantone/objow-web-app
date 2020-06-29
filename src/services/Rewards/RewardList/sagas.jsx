@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* getActiveRewardList(action) {
     try {
-        const {data: rewards} = yield call(api.rewards.active)
+        const {data: rewards} = yield call(api.rewards.active, action.categoryId)
         yield put(getRewardListSuccess(rewards))
     } catch(e) {
         yield put(getRewardListError())

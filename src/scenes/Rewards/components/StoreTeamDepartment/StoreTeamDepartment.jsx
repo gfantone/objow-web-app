@@ -6,16 +6,16 @@ import {Loader} from '../../../../components'
 import * as rewardListActions from '../../../../services/Rewards/RewardList/actions'
 import * as teamPointSummaryDetailActions from '../../../../services/TeamPointSummaries/TeamPointSummaryDetail/actions'
 
-const StoreTeamDepartment = ({id, onAddClick, periodId, ...props}) => {
+const StoreTeamDepartment = ({categoryId, onAddClick, periodId, teamId, ...props}) => {
     const {rewards, loading: rewardListLoading} = props.rewardList
     const {summary, loading: teamPointSummaryDetailLoading} = props.teamPointSummaryDetail
     const teamRewards = rewards ? rewards.filter(x => x.type.code === 'T') : null
     const loading = rewardListLoading || teamPointSummaryDetailLoading
 
     useEffect(() => {
-        props.rewardListActions.getActiveRewardList()
-        props.teamPointSummaryDetailActions.getTeamPointSummaryByTeam(id, periodId)
-    }, [])
+        props.rewardListActions.getActiveRewardList(categoryId)
+        props.teamPointSummaryDetailActions.getTeamPointSummaryByTeam(teamId, periodId)
+    }, [categoryId, periodId, teamId])
 
     function renderLoader() {
         return <Loader centered />

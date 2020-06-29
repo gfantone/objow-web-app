@@ -1,7 +1,8 @@
 import * as types from './actionTypes'
 
-export const getActiveRewardList = () => ({
-    type: types.GET_ACTIVE_REWARD_LIST
+export const getActiveRewardList = (categoryId) => ({
+    type: types.GET_ACTIVE_REWARD_LIST,
+    categoryId
 })
 
 export const getRewardListSuccess = (rewards) => ({

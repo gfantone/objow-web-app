@@ -324,6 +324,17 @@ export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_MESSAGE = "Une fois refusée, i
 export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_YES_BUTTON = "Oui"
 export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_NO_BUTTON = "Non"
 
+// Reward - Store filter
+export const REWARD_STORE_FILTER_TITLE = "Filtres"
+export const REWARD_STORE_FILTER_CATEGORY_LABEL = "Catégorie"
+export const REWARD_STORE_FILTER_CATEGORY_ALL_OPTION = "Toutes"
+export const REWARD_STORE_FILTER_TEAM_LABEL = "Équipe"
+export const REWARD_STORE_FILTER_COLLABORATOR_LABEL = "Collaborator"
+export const REWARD_STORE_FILTER_COLLABORATOR_ALL_OPTION = "Tous"
+export const REWARD_STORE_FILTER_PERIOD_LABEL = "Année"
+export const REWARD_STORE_FILTER_SUBMIT_BUTTON = "Filtrer"
+export const REWARD_STORE_FILTER_CANCEL_BUTTON = "Annuler"
+
 // Reward - Update
 export const REWARD_UPDATE_SUBTITLE = "Modification d'une récompense"
 export const REWARD_UPDATE_INFOS_AREA = "Informations"

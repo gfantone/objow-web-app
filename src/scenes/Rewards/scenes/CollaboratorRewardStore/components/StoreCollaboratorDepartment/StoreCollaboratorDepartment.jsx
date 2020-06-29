@@ -6,16 +6,16 @@ import {Loader} from '../../../../../../components'
 import * as rewardListActions from '../../../../../../services/Rewards/RewardList/actions'
 import * as collaboratorPointSummaryDetailActions from '../../../../../../services/CollaboratorPointSummaries/CollaboratorPointSummaryDetail/actions'
 
-const StoreCollaboratorDepartment = ({id, onAddClick, periodId, ...props}) => {
+const StoreCollaboratorDepartment = ({categoryId, collaboratorId, onAddClick, periodId, ...props}) => {
     const {summary, loading: collaboratorPointSummaryDetailLoading} = props.collaboratorPointSummaryDetail
     const {rewards, loading: rewardListLoading} = props.rewardList
     const collaboratorRewards = rewards ? rewards.filter(x => x.type.code === 'P') : null
     const loading = collaboratorPointSummaryDetailLoading || rewardListLoading
 
     useEffect(() => {
-        props.rewardListActions.getActiveRewardList()
-        props.collaboratorPointSummaryDetailActions.getCollaboratorPointSummary(id, periodId)
-    }, [])
+        props.rewardListActions.getActiveRewardList(categoryId)
+        props.collaboratorPointSummaryDetailActions.getCollaboratorPointSummary(collaboratorId, periodId)
+    }, [categoryId, collaboratorId, periodId])
 
     function renderLoader() {
         return <Loader centered />
