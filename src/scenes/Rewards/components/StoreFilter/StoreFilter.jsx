@@ -11,6 +11,7 @@ import * as rewardCategoryListActions from '../../../../services/RewardCategorie
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 
 const StoreFilter = ({categoryId, collaboratorId, onChange, onClose, open, periodId, teamId, ...props}) => {
+    const {account} = props.accountDetail
     const {categories} = props.rewardCategoryList
     const {period: currentPeriod} = props.currentPeriodDetail
     const {periods: previousPeriods} = props.previousPeriodList
@@ -19,6 +20,8 @@ const StoreFilter = ({categoryId, collaboratorId, onChange, onClose, open, perio
     const periods = currentPeriod && previousPeriods ? [currentPeriod].concat(previousPeriods) : null
     const selectedTeam = teams ? teams.filter(x => x.id === selectedTeamId)[0] : null
     const collaborators = selectedTeam ? selectedTeam.collaborators : null
+    const hasAdministrator = account.role.code === 'A'
+    const hasManager = account.role.code === 'M'
 
     useEffect(() => {
         props.rewardCategoryListActions.getActiveRewardCategoryList()
@@ -46,12 +49,12 @@ const StoreFilter = ({categoryId, collaboratorId, onChange, onClose, open, perio
                             <Grid item xs={12}>
                                 <Select name='category' label={Resources.REWARD_STORE_FILTER_CATEGORY_LABEL} options={categories ? categories : []} optionValueName='id' optionTextName='name' emptyText={Resources.REWARD_STORE_FILTER_CATEGORY_ALL_OPTION} fullWidth initial={categoryId} />
                             </Grid>
-                            <Grid item xs={12}>
+                            {hasAdministrator && <Grid item xs={12}>
                                 <Select name='team' label={Resources.REWARD_STORE_FILTER_TEAM_LABEL} options={teams ? teams : []} optionValueName='id' optionTextName='name' emptyDisabled fullWidth initial={teamId} onChange={handleTeamChange} />
-                            </Grid>
-                            <Grid item xs={12}>
+                            </Grid>}
+                            {(hasAdministrator || hasManager) && <Grid item xs={12}>
                                 <Select name='collaborator' label={Resources.REWARD_STORE_FILTER_COLLABORATOR_LABEL} options={collaborators ? collaborators : []} optionValueName='id' optionTextName='fullname' emptyText={Resources.REWARD_STORE_FILTER_COLLABORATOR_ALL_OPTION} fullWidth initial={collaboratorId} />
-                            </Grid>
+                            </Grid>}
                             <Grid item xs={12}>
                                 <Select name='period' label={Resources.REWARD_STORE_FILTER_PERIOD_LABEL} options={periods ? periods : []} optionValueName='id' optionTextName='name' emptyDisabled fullWidth initial={periodId ? periodId : currentPeriod ? currentPeriod.id : null} />
                             </Grid>
