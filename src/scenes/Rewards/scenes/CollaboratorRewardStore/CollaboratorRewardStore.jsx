@@ -81,7 +81,7 @@ class CollaboratorRewardStore extends MainLayoutComponent {
         var url = `/rewards/teams/${finalTeamId}`
         if (categoryId || periodId) url += '?'
         if (categoryId) url += `category=${categoryId}`
-        if (categoryId && periodId) url += '?'
+        if (categoryId && periodId) url += '&'
         if (periodId) url += `period=${periodId}`
         this.props.history.push(url)
     }
@@ -89,14 +89,9 @@ class CollaboratorRewardStore extends MainLayoutComponent {
     refresh(category, team, collaborator, period) {
         var url = `/rewards/collaborators/${collaborator}`
         var hasFirstParam = false
-        if (category || team || period) url += '?'
+        if (category || period) url += '?'
         if (category) {
             url += `category=${category}`
-            hasFirstParam = true
-        }
-        if (team) {
-            if (hasFirstParam) url += '&'
-            url += `team=${team}`
             hasFirstParam = true
         }
         if (period) {
@@ -108,7 +103,7 @@ class CollaboratorRewardStore extends MainLayoutComponent {
 
     handleFilterChange(category, team, collaborator, period) {
         const {account} = this.props.accountDetail
-        const collaboratorId = account.role.code === 'C' ? this.id : collaborator;
+        const collaboratorId = account.role.code === 'C' ? this.props.match.params.id : collaborator;
         if (collaboratorId) {
             this.refresh(category, team, collaboratorId, period)
         } else {
@@ -118,8 +113,6 @@ class CollaboratorRewardStore extends MainLayoutComponent {
 
     render() {
         const {collaborator, loading} = this.props.collaboratorDetail
-        const collaboratorId = collaborator ? collaborator.id : null
-        const teamId = collaborator && collaborator.team ? collaborator.team.id : null
 
         return (
             <div>
@@ -135,15 +128,15 @@ class CollaboratorRewardStore extends MainLayoutComponent {
                     teamId={collaborator.team.id}
                     onAddClick={this.handleAddClick.bind(this)}
                 />}
-                <StoreFilter
+                {collaborator && <StoreFilter
                     open={this.state.filterOpen}
-                    categoryId={this.state.categoryId}
-                    teamId={teamId}
-                    collaboratorId={collaboratorId}
-                    periodId={this.state.periodId}
+                    initialCategory={this.state.categoryId}
+                    initialTeam={collaborator.team ? collaborator.team.id : null}
+                    initialCollaborator={collaborator.id}
+                    initialPeriod={this.state.periodId}
                     onChange={this.handleFilterChange.bind(this)}
                     onClose={this.handleFilterClose.bind(this)}
-                />
+                />}
             </div>
         )
     }

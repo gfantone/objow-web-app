@@ -8,15 +8,20 @@ import {DefaultTitle, Loader, ManagerCollaboratorSelector} from '../../../../../
 import * as Resources from '../../../../../../Resources'
 import * as teamCollaboratorPointSummaryDetailActions from '../../../../../../services/TeamCollaboratorPointSummaries/TeamCollaboratorPointSummaryDetail/actions'
 
-const StoreTeamCollaboratorDepartment = ({id, periodId, ...props}) => {
+const StoreTeamCollaboratorDepartment = ({category, period, team, ...props}) => {
     const {summary, loading} = props.teamCollaboratorPointSummaryDetail
 
     useEffect(() => {
-        props.teamCollaboratorPointSummaryDetailActions.getTeamCollaboratorPointSummary(id, periodId)
+        props.teamCollaboratorPointSummaryDetailActions.getTeamCollaboratorPointSummary(team, period)
     }, [])
 
     function handleCollaboratorClick(id) {
-        props.history.push(`/rewards/collaborators/${id}`)
+        var url = `/rewards/collaborators/${id}`
+        if (category || period) url += '?'
+        if (category) url += `category=${category}`
+        if (category && period) url += '&'
+        if (period) url += `period=${period}`
+        props.history.push(url)
     }
 
     function renderLoader() {
