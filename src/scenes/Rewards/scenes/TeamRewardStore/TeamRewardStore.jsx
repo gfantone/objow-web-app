@@ -26,25 +26,34 @@ class TeamRewardStore extends MainLayoutComponent {
         })
     }
 
+    refresh(page, category, period, team) {
+        const {account} = this.props.accountDetail
+        const teamId = account.role.code === 'M' ? this.props.match.params.id : team
+        var url = `/rewards/teams/${teamId}?page=${page}`
+        if (category) url += `&category=${category}`
+        if (period) url += `&period=${period}`
+        this.props.history.replace(url)
+    }
+
     handlePageChange(page) {
-        this.setState({
-            ...this.state,
-            page: page
-        })
+        this.refresh(page, this.state.categoryId, this.state.periodId, this.state.teamId)
     }
 
     loadData() {
         const teamId = Number(this.props.match.params.id)
         const teamHasChanged = teamId !== this.state.teamId
         const params = new URLSearchParams(window.location.search)
+        const pageParam = params.get('page')
+        const newPage = pageParam ? Number(pageParam) : this.state.page
         const categoryParam = params.get('category')
         const categoryId = categoryParam ? Number(categoryParam) : null
         const periodParam = params.get('period')
         const periodId = periodParam ? Number(periodParam) : null
 
-        if (categoryId !== this.state.categoryId || teamHasChanged || periodId !== this.state.periodId) {
+        if (newPage !== this.state.page || categoryId !== this.state.categoryId || teamHasChanged || periodId !== this.state.periodId) {
             this.setState({
                 ...this.state,
+                page: newPage,
                 categoryId: categoryId,
                 teamId: teamId,
                 periodId: periodId
@@ -55,9 +64,12 @@ class TeamRewardStore extends MainLayoutComponent {
     }
 
     componentDidMount() {
+        const params = new URLSearchParams(window.location.search)
+        const pageParam = params.get('page')
+        const initialPage = pageParam ? Number(pageParam) : this.state.page
         const {account} = this.props.accountDetail
         this.props.handleTitle(Resources.REWARD_TITLE)
-        this.props.handleSubHeader(<SubHeader page={this.state.page} onChange={this.handlePageChange.bind(this)} />)
+        this.props.handleSubHeader(<SubHeader page={initialPage} onChange={this.handlePageChange.bind(this)} />)
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
         if (account.role.code === 'A') {
             this.props.activateReturn()
@@ -82,26 +94,9 @@ class TeamRewardStore extends MainLayoutComponent {
         this.props.history.push(url)
     }
 
-    refresh(category, period, team) {
-        const {account} = this.props.accountDetail
-        const teamId = account.role.code === 'M' ? this.props.match.params.id : team
-        var url = `/rewards/teams/${teamId}`
-        var hasFirstParam = false
-        if (category || period) url += '?'
-        if (category) {
-            url += `category=${category}`
-            hasFirstParam = true
-        }
-        if (period) {
-            if (hasFirstParam) url += '&'
-            url += `period=${period}`
-        }
-        this.props.history.replace(url)
-    }
-
     handleFilterChange(category, team, collaborator, period) {
         if (!collaborator) {
-            this.refresh(category, period, team)
+            this.refresh(this.state.page, category, period, team)
         } else {
             this.goToCollaboratorView(category, collaborator, period)
         }
