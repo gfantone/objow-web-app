@@ -13,11 +13,11 @@ const styles = {
         height: 34,
         width: 34
     }
-};
+}
 
 const RankList = ({ challengeRank, generalRank, generalRankIcon, categoryRanks, onChallengeClick, onGeneralClick, onCategoryClick, ...props }) => {
-    const { classes } = props;
-    const { account } = props.accountDetail;
+    const { classes } = props
+    const { account } = props.accountDetail
 
     return (
         <div>
@@ -40,8 +40,7 @@ const RankList = ({ challengeRank, generalRank, generalRankIcon, categoryRanks, 
                 <TableBody>
                     { account.hasGeneralRankAccess && generalRank && <Rank image={<FontAwesomeIcon icon={generalRankIcon} className={classes.icon} />} name='Classement général' rank={generalRank} onClick={onGeneralClick} /> }
                     { account.hasCategoryRankAccess && categoryRanks.map(rank => {
-                        const iconDate = require(`../../../../../../assets/img/system/category/icons/${rank.category.icon.name}.svg`);
-                        const icon = <CardMedia image={iconDate} className={classes.icon} />;
+                        const icon = <CardMedia image={rank.category.icon.path} className={classes.icon} />
                         return <Rank key={rank.id} image={icon} name={rank.category.name} rank={rank} onClick={() => onCategoryClick(rank.category.id, rank.periodId)} />
                     }) }
                     { account.hasCategoryRankAccess && challengeRank && <Rank image={<FontAwesomeIcon icon={faRocket} className={classes.icon} />} name='Challenges' rank={challengeRank} onClick={onChallengeClick} /> }
@@ -49,10 +48,10 @@ const RankList = ({ challengeRank, generalRank, generalRankIcon, categoryRanks, 
             </Table>
         </div>
     )
-};
+}
 
 const mapStateToProps = ({ accountDetail }) => ({
     accountDetail
-});
+})
 
 export default connect(mapStateToProps)(withStyles(styles)(RankList))

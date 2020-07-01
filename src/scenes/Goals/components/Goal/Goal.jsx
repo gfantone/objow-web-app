@@ -32,18 +32,17 @@ const styles = {
     subInfo: {
         marginLeft: 4
     }
-};
+}
 
 const Goal = ({ goal, ...props }) => {
-    const { classes } = props;
-    const iconData = require(`../../../../assets/img/system/category/icons/${goal.icon}.svg`);
-    const progression = Math.round((goal.counter / goal.target) * 100);
+    const { classes } = props
+    const progression = Math.round((goal.counter / goal.target) * 100)
 
     return (
         <div>
             <Grid container>
                 <Grid item>
-                    <CardMedia image={iconData} className={classes.icon} />
+                    <CardMedia image={goal.icon} className={classes.icon} />
                 </Grid>
                 <Grid item xs zeroMinWidth>
                     <DefaultTitle className={classes.name} noWrap>{goal.name}</DefaultTitle>
@@ -92,10 +91,10 @@ const Goal = ({ goal, ...props }) => {
             </Grid>
         </div>
     )
-};
+}
 
 const mapStateToProps = ({accountDetail}) => ({
     accountDetail
-});
+})
 
 export default connect(mapStateToProps)(withStyles(styles)(Goal))

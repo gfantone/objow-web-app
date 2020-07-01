@@ -3,29 +3,29 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as teamGoalCategoryListActions from '../../../../services/TeamGoalCategories/TeamGoalCategoryList/actions'
-import {IconButton} from "../../../../components/Common/components/IconButton";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSlidersH} from "@fortawesome/free-solid-svg-icons";
+import {IconButton} from "../../../../components/Common/components/IconButton"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faSlidersH} from "@fortawesome/free-solid-svg-icons"
 import {Category} from '../../components'
-import {AppBarSubTitle, GridLink, Loader, MainLayoutComponent} from "../../../../components";
-import * as Resources from "../../../../Resources";
-import {Grid} from "@material-ui/core";
-import withWidth, {isWidthUp} from "@material-ui/core/withWidth";
-import {CategoryFilter} from "../../components/CategoryFilter";
+import {AppBarSubTitle, GridLink, Loader, MainLayoutComponent} from "../../../../components"
+import * as Resources from "../../../../Resources"
+import {Grid} from "@material-ui/core"
+import withWidth, {isWidthUp} from "@material-ui/core/withWidth"
+import {CategoryFilter} from "../../components/CategoryFilter"
 
 class TeamGoalCategoryList extends MainLayoutComponent {
     constructor(props) {
-        super(props);
-        this.id = null;
-        this.year = null;
+        super(props)
+        this.id = null
+        this.year = null
         this.state = {
             filterOpen: false
         }
     }
 
     refresh(id, year) {
-        var url = `/goals/teams/${id}/categories`;
-        if (year) url += `?year=${year}`;
+        var url = `/goals/teams/${id}/categories`
+        if (year) url += `?year=${year}`
         this.props.history.replace(url)
     }
 
@@ -44,25 +44,25 @@ class TeamGoalCategoryList extends MainLayoutComponent {
     }
 
     loadData(props) {
-        const id = props.match.params.id;
-        const params = new URLSearchParams(window.location.search);
-        const year = params.get('year');
+        const id = props.match.params.id
+        const params = new URLSearchParams(window.location.search)
+        const year = params.get('year')
 
         if (id != this.id || year != this.year) {
-            this.id = id;
-            this.year = year;
-            this.props.teamGoalCategoryListActions.getTeamGoalCategoryList(id, this.year);
+            this.id = id
+            this.year = year
+            this.props.teamGoalCategoryListActions.getTeamGoalCategoryList(id, this.year)
         }
     }
 
     componentDidMount() {
-        if (this.props.accountDetail.account.role.code == 'A') this.props.activateReturn();
-        this.props.handleTitle(Resources.GOAL_SHORT_TITLE);
-        this.props.handleSubHeader(<AppBarSubTitle title={Resources.TEAM_GOAL_CATEGORY_LIST_TITLE} />);
-        this.props.handleMaxWidth('sm');
+        if (this.props.accountDetail.account.role.code == 'A') this.props.activateReturn()
+        this.props.handleTitle(Resources.GOAL_SHORT_TITLE)
+        this.props.handleSubHeader(<AppBarSubTitle title={Resources.TEAM_GOAL_CATEGORY_LIST_TITLE} />)
+        this.props.handleMaxWidth('sm')
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}>
             <FontAwesomeIcon icon={faSlidersH} />
-        </IconButton>);
+        </IconButton>)
         this.loadData(this.props)
     }
 
@@ -72,11 +72,11 @@ class TeamGoalCategoryList extends MainLayoutComponent {
 
     handleFilterChange(team, collaborator, year) {
         if (!collaborator) {
-            const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team;
+            const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team
             this.refresh(teamId, year)
         } else {
-            var url = `/goals/collaborators/${collaborator}/categories`;
-            if (year) url += `?year=${year}`;
+            var url = `/goals/collaborators/${collaborator}/categories`
+            if (year) url += `?year=${year}`
             this.props.history.push(url)
         }
     }
@@ -86,10 +86,11 @@ class TeamGoalCategoryList extends MainLayoutComponent {
     }
 
     renderData() {
-        const {categories} = this.props.teamGoalCategoryList;
-        const all_category = {name: Resources.TEAM_GOAL_CATEGORY_LIST_ALL_LABEL, icon: 'project'};
-        const allUrl = this.year ? `/goals/teams/${this.props.match.params.id}/list?year=${this.year}` : `/goals/teams/${this.props.match.params.id}/list`;
-        const spacing = isWidthUp('sm', this.props.width) ? 8 : 4;
+        const {categories} = this.props.teamGoalCategoryList
+        const all_icon = require(`../../../../assets/img/system/categories/all.svg`)
+        const all_category = {name: Resources.TEAM_GOAL_CATEGORY_LIST_ALL_LABEL, icon: all_icon}
+        const allUrl = this.year ? `/goals/teams/${this.props.match.params.id}/list?year=${this.year}` : `/goals/teams/${this.props.match.params.id}/list`
+        const spacing = isWidthUp('sm', this.props.width) ? 8 : 4
 
         return (
             <div>
@@ -110,8 +111,8 @@ class TeamGoalCategoryList extends MainLayoutComponent {
     }
 
     render() {
-        const {categories, loading} = this.props.teamGoalCategoryList;
-        const marginTop = isWidthUp('sm', this.props.width) ? 48 : 16;
+        const {categories, loading} = this.props.teamGoalCategoryList
+        const marginTop = isWidthUp('sm', this.props.width) ? 48 : 16
 
         return (
             <div style={{marginTop: marginTop}}>
@@ -132,10 +133,10 @@ class TeamGoalCategoryList extends MainLayoutComponent {
 const mapStateToProps = ({accountDetail, teamGoalCategoryList}) => ({
     accountDetail,
     teamGoalCategoryList
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
     teamGoalCategoryListActions: bindActionCreators(teamGoalCategoryListActions, dispatch)
-});
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(TeamGoalCategoryList))
