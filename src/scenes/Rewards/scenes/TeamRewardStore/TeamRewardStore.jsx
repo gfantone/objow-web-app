@@ -10,7 +10,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSlidersH} from "@fortawesome/free-solid-svg-icons";
 
 class TeamRewardStore extends MainLayoutComponent {
-    state = {categoryId: null, filterOpen: false, page: 0, periodId: null, teamId: null}
+    state = {categoryId: null, filterOpen: false, name: null, page: 0, periodId: null, teamId: null}
 
     handleFilterOpen() {
         this.setState({
@@ -26,17 +26,18 @@ class TeamRewardStore extends MainLayoutComponent {
         })
     }
 
-    refresh(page, category, period, team) {
+    refresh(page, category, period, team, name) {
         const {account} = this.props.accountDetail
         const teamId = account.role.code === 'M' ? this.props.match.params.id : team
         var url = `/rewards/teams/${teamId}?page=${page}`
         if (category) url += `&category=${category}`
         if (period) url += `&period=${period}`
+        if (name) url += `&name=${name}`
         this.props.history.replace(url)
     }
 
     handlePageChange(page) {
-        this.refresh(page, this.state.categoryId, this.state.periodId, this.state.teamId)
+        this.refresh(page, this.state.categoryId, this.state.periodId, this.state.teamId, this.state.name)
     }
 
     loadData() {
@@ -49,14 +50,17 @@ class TeamRewardStore extends MainLayoutComponent {
         const categoryId = categoryParam ? Number(categoryParam) : null
         const periodParam = params.get('period')
         const periodId = periodParam ? Number(periodParam) : null
+        const nameParam = params.get('name');
+        const name = nameParam ? decodeURIComponent(nameParam) : null;
 
-        if (newPage !== this.state.page || categoryId !== this.state.categoryId || teamHasChanged || periodId !== this.state.periodId) {
+        if (newPage !== this.state.page || categoryId !== this.state.categoryId || teamHasChanged || periodId !== this.state.periodId || name !== this.state.name) {
             this.setState({
                 ...this.state,
                 page: newPage,
                 categoryId: categoryId,
                 teamId: teamId,
-                periodId: periodId
+                periodId: periodId,
+                name: name
             }, () => {
                 if (teamHasChanged) this.props.teamDetailActions.getTeamDetail(teamId)
             })
@@ -67,38 +71,50 @@ class TeamRewardStore extends MainLayoutComponent {
         const params = new URLSearchParams(window.location.search)
         const pageParam = params.get('page')
         const initialPage = pageParam ? Number(pageParam) : this.state.page
+        const name = params.get('name');
         const {account} = this.props.accountDetail
         this.props.handleTitle(Resources.REWARD_TITLE)
         this.props.handleSubHeader(<SubHeader page={initialPage} onChange={this.handlePageChange.bind(this)} />)
-        this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
+        this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>)
+        this.props.activateSearch(name)
         if (account.role.code === 'A') {
             this.props.activateReturn()
         }
         this.loadData()
     }
 
+    applySearch(prevProps) {
+        if (prevProps.search !== this.props.search) {
+            const search = this.props.search ? encodeURIComponent(this.props.search) : null;
+            this.refresh(this.state.page, this.state.categoryId, this.state.periodId, this.state.teamId, search)
+        }
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         this.loadData()
+        this.applySearch(prevProps)
     }
 
     handleAddClick(reward) {
         alert('Add')
     }
 
-    goToCollaboratorView(categoryId, collaboratorId, periodId) {
+    goToCollaboratorView(categoryId, collaboratorId, periodId, name) {
         var url = `/rewards/collaborators/${collaboratorId}`
         if (categoryId || periodId) url += '?'
         if (categoryId) url += `category=${categoryId}`
         if (categoryId && periodId) url += '&'
         if (periodId) url += `period=${periodId}`
+        if ((categoryId || periodId) && name) url += '&'
+        if (name) url += `name=${name}`
         this.props.history.push(url)
     }
 
     handleFilterChange(category, team, collaborator, period) {
         if (!collaborator) {
-            this.refresh(this.state.page, category, period, team)
+            this.refresh(this.state.page, category, period, team, this.state.name)
         } else {
-            this.goToCollaboratorView(category, collaborator, period)
+            this.goToCollaboratorView(category, collaborator, period, this.state.name)
         }
     }
 
@@ -108,12 +124,14 @@ class TeamRewardStore extends MainLayoutComponent {
         return (
             <div>
                 {!loading && team && this.state.page === 0 && <StoreTeamDepartment
+                    name={this.state.name}
                     categoryId={this.state.categoryId}
                     periodId={this.state.periodId}
                     teamId={team.id}
                     onAddClick={this.handleAddClick.bind(this)}
                 />}
                 {!loading && team && this.state.page === 1 && <StoreTeamCollaboratorDepartment
+                    name={this.state.name}
                     category={this.state.categoryId}
                     period={this.state.periodId}
                     team={team.id}

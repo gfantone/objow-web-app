@@ -3,9 +3,13 @@ import instance from '../instance'
 const baseUrl = 'rewards/'
 
 const rewards = {
-    active(categoryId) {
+    active(name, categoryId) {
+        const hasName = name != null && name !== ''
         var url = `${baseUrl}active/`
-        if (categoryId) url += `?category=${categoryId}`
+        if (hasName || categoryId) url += '?'
+        if (hasName) url = `${url}name=${name}`
+        if (hasName && categoryId) url += '&'
+        if (categoryId) url += `category=${categoryId}`
         return instance.get(url)
     },
     create(reward) {

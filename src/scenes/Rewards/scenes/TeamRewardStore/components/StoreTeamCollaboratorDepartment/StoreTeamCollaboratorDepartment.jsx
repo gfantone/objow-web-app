@@ -8,7 +8,7 @@ import {DefaultTitle, Loader, ManagerCollaboratorSelector} from '../../../../../
 import * as Resources from '../../../../../../Resources'
 import * as teamCollaboratorPointSummaryDetailActions from '../../../../../../services/TeamCollaboratorPointSummaries/TeamCollaboratorPointSummaryDetail/actions'
 
-const StoreTeamCollaboratorDepartment = ({category, period, team, ...props}) => {
+const StoreTeamCollaboratorDepartment = ({category, name, period, team, ...props}) => {
     const {summary, loading} = props.teamCollaboratorPointSummaryDetail
 
     useEffect(() => {
@@ -17,10 +17,12 @@ const StoreTeamCollaboratorDepartment = ({category, period, team, ...props}) => 
 
     function handleCollaboratorClick(id) {
         var url = `/rewards/collaborators/${id}`
-        if (category || period) url += '?'
+        if (category || period || name) url += '?'
         if (category) url += `category=${category}`
         if (category && period) url += '&'
         if (period) url += `period=${period}`
+        if ((category || period) && name) url += '&'
+        if (name) url += `name=${name}`
         props.history.push(url)
     }
 
