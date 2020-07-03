@@ -303,6 +303,21 @@ export const REWARD_ORDER_ITEM_LIST_VALUE_LABEL = "Valeur"
 export const REWARD_ORDER_ITEM_LIST_VALUE_VALUE = "{0} €"
 export const REWARD_ORDER_ITEM_LIST_POINTS_VALUE = "{0} PTS"
 
+// Reward - Order list export
+export const REWARD_ORDER_LIST_EXPORT_TITLE = "Export des commandes validées"
+export const REWARD_ORDER_LIST_EXPORT_CATEGORY_LABEL = "Catégorie"
+export const REWARD_ORDER_LIST_EXPORT_CATEGORY_ALL_OPTION = "Toutes"
+export const REWARD_ORDER_LIST_EXPORT_TEAM_LABEL = "Équipe"
+export const REWARD_ORDER_LIST_EXPORT_TEAM_ALL_OPTION = "Toutes"
+export const REWARD_ORDER_LIST_EXPORT_COLLABORATOR_LABEL = "Collaborateur"
+export const REWARD_ORDER_LIST_EXPORT_COLLABORATOR_ALL_OPTION = "Tous"
+export const REWARD_ORDER_LIST_EXPORT_PERIOD_LABEL = "Année"
+export const REWARD_ORDER_LIST_EXPORT_PERIOD_ALL_OPTION = "Toutes"
+export const REWARD_ORDER_LIST_EXPORT_VALIDATION_START_LABEL = "Date de début"
+export const REWARD_ORDER_LIST_EXPORT_VALIDATION_END_LABEL = "Date de fin"
+export const REWARD_ORDER_LIST_EXPORT_SUBMIT_BUTTON = "Exporter"
+export const REWARD_ORDER_LIST_EXPORT_CANCEL_BUTTON = "Annuler"
+
 // Reward order summary
 export const REWARD_ORDER_SUMMARY_RECIPIENT_POINTS_LABEL = "Solde de points actuel"
 export const REWARD_ORDER_SUMMARY_RECIPIENT_POINTS_VALUE = "{0} Pts"

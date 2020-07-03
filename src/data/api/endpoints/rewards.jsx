@@ -1,4 +1,5 @@
 import instance from '../instance'
+import '../../../helpers/DateHelper'
 
 const baseUrl = 'rewards/'
 
@@ -16,36 +17,36 @@ const rewards = {
         return instance.post(baseUrl, reward)
     },
     exportOrders(categoryId, teamId, collaboratorId, periodId, validationStart, validationEnd) {
-        var url = `${baseUrl}`
+        var url = `${baseUrl}export-orders/`
         var hasParam = false
         if (categoryId || teamId || collaboratorId || periodId || validationStart || validationEnd) url += '?'
         if (categoryId) {
-            url += `?category=${categoryId}`
+            url += `category=${categoryId}`
             hasParam = true
         }
         if (teamId) {
             if (hasParam) url += '&'
-            url += `?team=${teamId}`
+            url += `team=${teamId}`
             hasParam = true
         }
         if (collaboratorId) {
             if (hasParam) url += '&'
-            url += `?collaborator=${collaboratorId}`
+            url += `collaborator=${collaboratorId}`
             hasParam = true
         }
         if (periodId) {
             if (hasParam) url += '&'
-            url += `?period=${periodId}`
+            url += `period=${periodId}`
             hasParam = true
         }
         if (validationStart) {
             if (hasParam) url += '&'
-            url += `?validationStart=${validationStart}`
+            url += `validationStart=${validationStart.toUTCJSON2()}`
             hasParam = true
         }
         if (validationEnd) {
             if (hasParam) url += '&'
-            url += `?validationEnd=${validationEnd}`
+            url += `validationEnd=${validationEnd.toUTCJSON2()}`
             hasParam = true
         }
         return instance.get(url)

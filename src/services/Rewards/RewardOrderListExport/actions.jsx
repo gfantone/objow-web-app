@@ -10,10 +10,15 @@ export const exportRewardOrderList = (categoryId, teamId, collaboratorId, period
     validationEnd
 })
 
-export const exportRewardOrderListSuccess = () => ({
-    type: types.EXPORT_REWARD_ORDER_LIST_SUCCESS
+export const exportRewardOrderListSuccess = (file) => ({
+    type: types.EXPORT_REWARD_ORDER_LIST_SUCCESS,
+    file
 })
 
 export const exportRewardOrderListError = () => ({
     type: types.EXPORT_REWARD_ORDER_LIST_ERROR
+})
+
+export const clearRewardOrderListExport = () => ({
+    type: types.CLEAR_REWARD_ORDER_LIST_EXPORT
 })

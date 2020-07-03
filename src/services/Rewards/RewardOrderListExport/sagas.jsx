@@ -5,8 +5,8 @@ import api from '../../../data/api/api'
 
 function* exportRewardOrderList(action) {
     try {
-        yield call(api.rewards.exportOrders, action.categoryId, action.teamId, action.collaboratorId, action.periodId, action.validationStart, action.validationEnd)
-        yield put(exportRewardOrderListSuccess())
+        const {data: file} = yield call(api.rewards.exportOrders, action.categoryId, action.teamId, action.collaboratorId, action.periodId, action.validationStart, action.validationEnd)
+        yield put(exportRewardOrderListSuccess(file))
     } catch(e) {
         yield put(exportRewardOrderListError())
     }

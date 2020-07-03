@@ -20,6 +20,11 @@ Date.prototype.toUTCJSON = function() {
     return date.toJSON()
 };
 
+Date.prototype.toUTCJSON2 = function() {
+    const date = new Date(this.getTime())
+    return date.toJSON()
+}
+
 Date.prototype.getWeekNumber = function() {
     var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
     var dayNum = d.getUTCDay() || 7;
