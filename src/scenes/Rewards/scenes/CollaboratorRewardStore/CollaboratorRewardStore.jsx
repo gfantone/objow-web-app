@@ -2,13 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {StoreCollaboratorDepartment, SubHeader} from './components'
-import {StoreFilter} from '../../components'
+import {ShoppingCartButton, StoreFilter} from '../../components'
 import {IconButton, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
-import {StoreTeamDepartment} from "../../components/StoreTeamDepartment";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSlidersH} from "@fortawesome/free-solid-svg-icons";
+import {StoreTeamDepartment} from "../../components/StoreTeamDepartment"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faSlidersH} from "@fortawesome/free-solid-svg-icons"
 
 class CollaboratorRewardStore extends MainLayoutComponent {
     state = {categoryId: null, collaboratorId: null, filterOpen: false, name: null, page: 0, periodId: null}
@@ -49,7 +49,7 @@ class CollaboratorRewardStore extends MainLayoutComponent {
         const categoryId = categoryParam ? Number(categoryParam) : null
         const periodParam = params.get('period')
         const periodId = periodParam ? Number(periodParam) : null
-        const nameParam = params.get('name');
+        const nameParam = params.get('name')
         const name = nameParam ? decodeURIComponent(nameParam) : null
 
         if (newPage !== this.state.page || categoryId !== this.state.categoryId || collaboratorHasChanged || periodId !== this.state.periodId || name !== this.state.name) {
@@ -70,11 +70,14 @@ class CollaboratorRewardStore extends MainLayoutComponent {
         const params = new URLSearchParams(window.location.search)
         const pageParam = params.get('page')
         const initialPage = pageParam ? Number(pageParam) : this.state.page
-        const name = params.get('name');
+        const name = params.get('name')
         const {account} = this.props.accountDetail
         this.props.handleTitle(Resources.REWARD_TITLE)
         this.props.handleSubHeader(<SubHeader page={initialPage} onChange={this.handlePageChange.bind(this)} />)
-        this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
+        this.props.handleButtons(<div style={{display: 'contents'}}>
+            <IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>
+            {account.role.code !== 'A' && <ShoppingCartButton style={{marginLeft: 8}} />}
+        </div>)
         this.props.activateSearch(name)
         if (account.role.code !== 'C') {
             this.props.activateReturn()
@@ -84,7 +87,7 @@ class CollaboratorRewardStore extends MainLayoutComponent {
 
     applySearch(prevProps) {
         if (prevProps.search !== this.props.search) {
-            const search = this.props.search ? encodeURIComponent(this.props.search) : null;
+            const search = this.props.search ? encodeURIComponent(this.props.search) : null
             this.refresh(this.state.page, this.state.categoryId, this.state.collaboratorId, this.state.periodId, search)
         }
     }
@@ -101,7 +104,7 @@ class CollaboratorRewardStore extends MainLayoutComponent {
     goToTeamView(categoryId, teamId, periodId, name) {
         const {account} = this.props.accountDetail
         const {collaborator: currentCollaborator} = this.props.collaboratorDetail
-        const finalTeamId = account.role.code === 'M' ? currentCollaborator.team.id : teamId;
+        const finalTeamId = account.role.code === 'M' ? currentCollaborator.team.id : teamId
         var url = `/rewards/teams/${finalTeamId}`
         if (categoryId || periodId) url += '?'
         if (categoryId) url += `category=${categoryId}`
@@ -114,7 +117,7 @@ class CollaboratorRewardStore extends MainLayoutComponent {
 
     handleFilterChange(category, team, collaborator, period) {
         const {account} = this.props.accountDetail
-        const collaboratorId = account.role.code === 'C' ? this.props.match.params.id : collaborator;
+        const collaboratorId = account.role.code === 'C' ? this.props.match.params.id : collaborator
         if (collaboratorId) {
             this.refresh(this.state.page, category, collaboratorId, period, this.state.name)
         } else {

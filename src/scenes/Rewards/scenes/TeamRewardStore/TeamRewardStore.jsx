@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {StoreTeamCollaboratorDepartment, SubHeader} from './components'
-import {StoreFilter, StoreTeamDepartment} from '../../components'
+import {ShoppingCartButton, StoreFilter, StoreTeamDepartment} from '../../components'
 import {IconButton, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamDetailActions from '../../../../services/Teams/TeamDetail/actions'
@@ -75,7 +75,10 @@ class TeamRewardStore extends MainLayoutComponent {
         const {account} = this.props.accountDetail
         this.props.handleTitle(Resources.REWARD_TITLE)
         this.props.handleSubHeader(<SubHeader page={initialPage} onChange={this.handlePageChange.bind(this)} />)
-        this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>)
+        this.props.handleButtons(<div style={{display: 'contents'}}>
+            <IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>
+            {account.role.code !== 'A' && <ShoppingCartButton style={{marginLeft: 8}} />}
+        </div>)
         this.props.activateSearch(name)
         if (account.role.code === 'A') {
             this.props.activateReturn()

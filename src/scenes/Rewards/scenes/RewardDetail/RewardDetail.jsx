@@ -11,6 +11,7 @@ import {BoldSpan, Card, Chip, DefaultText, DefaultTitle, InfoText, Linkify, Main
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 import * as rewardDetailActions from '../../../../services/Rewards/RewardDetail/actions'
+import {ShoppingCartButton} from "../../components/ShoppingCartButton";
 
 const styles = {
     image: {
@@ -29,8 +30,12 @@ class RewardDetail extends MainLayoutComponent {
     }
 
     componentDidMount() {
+        const {account} = this.props.accountDetail
         this.props.handleTitle(Resources.REWARD_TITLE)
         this.props.handleSubHeader(<SubHeader onAddClick={this.handleAddClick.bind(this)} />)
+        this.props.handleButtons(<div style={{display: 'contents'}}>
+            {account.role.code !== 'A' && <ShoppingCartButton style={{marginLeft: 8}} />}
+        </div>)
         this.props.activateReturn()
         this.props.rewardDetailActions.getReward(this.props.match.params.id)
     }

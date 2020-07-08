@@ -108,6 +108,7 @@ import rewardOrderListExport from '../services/Rewards/RewardOrderListExport/red
 import rewardTypeList from '../services/RewardTypes/RewardTypeList/reducer'
 import rewardUpdate from '../services/Rewards/RewardUpdate/reducer'
 import roleList from '../services/Roles/RoleList/reducer'
+import shoppingCart from '../services/ShoppingCart/reducer'
 import systemImageList from '../services/SystemImages/SystemImageList/reducer'
 import systemImageUpdate from '../services/SystemImages/SystemImageUpdate/reducer'
 import teamCategoryRankList from '../services/TeamCategoryRanks/TeamCategoryRankList/reducer'
@@ -266,6 +267,7 @@ const rootReducer = combineReducers({
     rewardTypeList,
     rewardUpdate,
     roleList,
+    shoppingCart,
     systemImageList,
     systemImageUpdate,
     teamCategoryRankList,
