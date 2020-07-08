@@ -5,10 +5,10 @@ import {bindActionCreators} from 'redux'
 import {CardMedia, Grid, Step} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faFolderOpen} from '@fortawesome/free-solid-svg-icons'
+import {faCopy, faEdit, faFolderOpen} from '@fortawesome/free-solid-svg-icons'
 import {SubHeader} from './components'
 import {ShoppingCartAddingConfirmation, ShoppingCartButton} from '../../components'
-import {BoldSpan, Card, Chip, DefaultText, DefaultTitle, InfoText, Linkify, MainLayoutComponent, Quantity, StepConnector, StepLabel, Stepper} from '../../../../components'
+import {BoldSpan, Card, Chip, DefaultText, DefaultTitle, IconButton, InfoText, Linkify, MainLayoutComponent, Quantity, StepConnector, StepLabel, Stepper} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 import * as rewardDetailActions from '../../../../services/Rewards/RewardDetail/actions'
@@ -33,14 +33,17 @@ class RewardDetail extends MainLayoutComponent {
     }
 
     componentDidMount() {
+        const id = this.props.match.params.id
         const {account} = this.props.accountDetail
         this.props.handleTitle(Resources.REWARD_TITLE)
         this.props.handleSubHeader(<SubHeader onAddClick={this.handleAddClick.bind(this)} />)
         this.props.handleButtons(<div style={{display: 'contents'}}>
-            {account.role.code !== 'A' && <ShoppingCartButton style={{marginLeft: 8}} />}
+            {account.role.code === 'A' && <IconButton size='small' onClick={() => this.props.history.push(`/rewards/duplication/${id}`)} style={{marginRight: 8}}><FontAwesomeIcon icon={faCopy} /></IconButton>}
+            {account.role.code === 'A' && <IconButton size='small' onClick={() => this.props.history.push(`/rewards/modification/${id}`)}><FontAwesomeIcon icon={faEdit} /></IconButton>}
+            {account.role.code !== 'A' && <ShoppingCartButton />}
         </div>)
         this.props.activateReturn()
-        this.props.rewardDetailActions.getReward(this.props.match.params.id)
+        this.props.rewardDetailActions.getReward(id)
     }
 
     handleQuantityChange(quantity) {
