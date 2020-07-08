@@ -55,8 +55,8 @@ const rewards = {
         const url = `${baseUrl}${id}/`
         return instance.get(url)
     },
-    update(reward) {
-        const url = `${baseUrl}${reward.id}/`
+    update(id, reward) {
+        const url = `${baseUrl}${id}/`
         return instance.put(url, reward)
     },
     updateActivation(id, isActive) {

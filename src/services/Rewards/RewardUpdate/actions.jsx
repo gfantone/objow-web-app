@@ -1,7 +1,8 @@
 import * as types from './actionTypes'
 
-export const updateReward = (reward) => ({
+export const updateReward = (id, reward) => ({
     type: types.UPDATE_REWARD,
+    id,
     reward
 })
 

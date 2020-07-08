@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* updateReward(action) {
     try {
-        yield call(api.rewards.update, action.reward)
+        yield call(api.rewards.update, action.id, action.reward)
         yield put(updateRewardSuccess())
     } catch(e) {
         yield put(updateRewardError())

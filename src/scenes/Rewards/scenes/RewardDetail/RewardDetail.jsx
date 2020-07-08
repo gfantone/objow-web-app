@@ -46,6 +46,7 @@ class RewardDetail extends MainLayoutComponent {
         const {classes} = this.props
         const {account} = this.props.accountDetail
         const {reward, loading} = this.props.rewardDetail
+        const image = reward ? (reward.image ? reward.image.path : reward.customImage) : null
 
         if (reward && !reward.isActive) {
             return <Redirect to='/' />
@@ -111,7 +112,7 @@ class RewardDetail extends MainLayoutComponent {
                                     </Grid>
                                 </Grid>
                                 <Grid item>
-                                    <CardMedia image={reward.image.path} className={classes.image} />
+                                    <CardMedia image={image} className={classes.image} />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <DefaultText>

@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
-import {CardMedia, Grid, Tooltip} from '@material-ui/core'
+import {CardMedia, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
@@ -49,7 +49,7 @@ class RewardUpdate extends MainLayoutComponent {
             this.initialized = true
             this.setState({
                 ...this.state,
-                image: reward.image.id
+                image: reward.image ? reward.image.path : reward.customImage
             })
         }
     }
@@ -58,16 +58,49 @@ class RewardUpdate extends MainLayoutComponent {
         return <Loader centered />
     }
 
-    handleImageChange(image) {
+    setImage(image) {
         this.setState({
             ...this.state,
             image: image
         })
     }
 
+    handleImageChange(image) {
+        if (image instanceof Blob) {
+            var reader = new FileReader()
+            reader.onloadend = function (e) {
+                this.setImage(reader.result)
+            }.bind(this)
+            reader.readAsDataURL(image)
+        } else {
+            const {images} = this.props.rewardImageList
+            const selectedImage = images.find(x => x.id === image)
+            const path = selectedImage ? selectedImage.path : null
+            this.setImage(path)
+        }
+    }
+
     handleSubmit(model) {
-        model.id = this.props.match.params.id
-        this.props.rewardUpdateActions.updateReward(model)
+        const data = new FormData()
+        data.append('name', model.name)
+        data.append('description', model.description)
+        data.append('category', model.category)
+        data.append('type', model.type)
+        data.append('value', model.value)
+        data.append('points', model.points)
+        if (Number.isInteger(model.image)) {
+            data.append('image', model.image)
+        }
+        if (model.image instanceof Blob) {
+            data.append('customImage', model.image, model.image.name)
+        }
+        data.append('deliveryPlace', model.deliveryPlace)
+        data.append('deliveryMode', model.deliveryMode)
+        if (model.deliveryType) {
+            data.append('deliveryType', model.deliveryType)
+        }
+        data.append('isActive', true)
+        this.props.rewardUpdateActions.updateReward(this.props.match.params.id, data)
     }
 
     renderForm() {
@@ -77,8 +110,6 @@ class RewardUpdate extends MainLayoutComponent {
         const {images} = this.props.rewardImageList
         const {types} = this.props.rewardTypeList
         const {loading} = this.props.rewardUpdate
-        const image = this.state.image ? images.find(x => x.id == this.state.image) : null;
-        const imagePath = image ? image.path : null;
 
         return (
             <div>
@@ -112,12 +143,12 @@ class RewardUpdate extends MainLayoutComponent {
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={4}>
-                                                { !imagePath && <Grid container justify={'center'} alignItems={'center'} style={{height: '100%'}}>
+                                                { !this.state.image && <Grid container justify={'center'} alignItems={'center'} style={{height: '100%'}}>
                                                     <Grid item>
                                                         <InfoText align={'center'}>{Resources.REWARD_UPDATE_EMPTY_IMAGE_TEXT}</InfoText>
                                                     </Grid>
                                                 </Grid> }
-                                                { imagePath && <CardMedia image={imagePath} className={classes.image} /> }
+                                                { this.state.image && <CardMedia image={this.state.image} className={classes.image} /> }
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <Select name='category' label={Resources.REWARD_UPDATE_CATEGORY_LABEL} options={categories} optionValueName={'id'} optionTextName={'name'} initial={reward.category.id} fullWidth required
@@ -152,7 +183,7 @@ class RewardUpdate extends MainLayoutComponent {
                                                 />
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <ImageInput name='image' label={Resources.REWARD_UPDATE_IMAGE_LABEL} images={images} initial={reward.image.id} onChange={this.handleImageChange.bind(this)} required />
+                                                <ImageInput name='image' label={Resources.REWARD_UPDATE_IMAGE_LABEL} images={images} initial={reward.image ? reward.image.id : reward.customImage} onChange={this.handleImageChange.bind(this)} required />
                                             </Grid>
                                         </Grid>
                                     </Card>

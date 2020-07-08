@@ -50,6 +50,7 @@ const styles = {
 const Reward = ({detailDisabled = false, onAddClick, reward, ...props}) => {
     const {classes} = props
     const {account} = props.accountDetail
+    const image = reward.image ? reward.image.path : reward.customImage
 
     return (
         <div>
@@ -62,7 +63,7 @@ const Reward = ({detailDisabled = false, onAddClick, reward, ...props}) => {
                                     <div className={classes.timerContainer}>
                                         <AccentTag>{Resources.REWARD_POINT_TAG.format(reward.points)}</AccentTag>
                                     </div>
-                                    <RewardImage image={reward.image.path} />
+                                    <RewardImage image={image} />
                                 </div>
                             </Grid>
                             <Grid item xs={12}>

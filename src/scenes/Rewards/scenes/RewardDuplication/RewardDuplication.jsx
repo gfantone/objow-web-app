@@ -42,7 +42,7 @@ class RewardDuplication extends MainLayoutComponent {
             this.initialized = true
             this.setState({
                 ...this.state,
-                image: reward.image.id
+                image: reward.image ? reward.image.path : reward.customImage
             })
         }
     }
@@ -51,15 +51,62 @@ class RewardDuplication extends MainLayoutComponent {
         return <Loader centered />
     }
 
-    handleImageChange(image) {
+    setImage(image) {
         this.setState({
             ...this.state,
             image: image
         })
     }
 
+    handleImageChange(image) {
+        if (image instanceof Blob) {
+            var reader = new FileReader()
+            reader.onloadend = function (e) {
+                this.setImage(reader.result)
+            }.bind(this)
+            reader.readAsDataURL(image)
+        } else {
+            const {images} = this.props.rewardImageList
+            const selectedImage = images.find(x => x.id === image)
+            const path = selectedImage ? selectedImage.path : null
+            this.setImage(path)
+        }
+    }
+
     handleSubmit(model) {
-        this.props.rewardCreationActions.createReward(model)
+        const data = new FormData()
+        data.append('name', model.name)
+        data.append('description', model.description)
+        data.append('category', model.category)
+        data.append('type', model.type)
+        data.append('value', model.value)
+        data.append('points', model.points)
+        if (Number.isInteger(model.image)) {
+            data.append('image', model.image)
+        } else if (model.image instanceof Blob) {
+            data.append('customImage', model.image, model.image.name)
+        }
+        data.append('deliveryPlace', model.deliveryPlace)
+        data.append('deliveryMode', model.deliveryMode)
+        if (model.deliveryType) data.append('deliveryType', model.deliveryType)
+        data.append('isActive', true)
+
+        if (typeof model.image === 'string' || model.image instanceof String) {
+            var filename = model.image.split('/').pop()
+            var blob = null
+            var xhr = new XMLHttpRequest()
+            xhr.open("GET", model.image)
+            xhr.responseType = "blob"
+            xhr.onload = function()
+            {
+                blob = xhr.response
+                data.append('customImage', blob, filename)
+                this.props.rewardCreationActions.createReward(data)
+            }.bind(this)
+            xhr.send()
+        } else {
+            this.props.rewardCreationActions.createReward(data)
+        }
     }
 
     renderForm() {
@@ -69,8 +116,6 @@ class RewardDuplication extends MainLayoutComponent {
         const {images} = this.props.rewardImageList
         const {types} = this.props.rewardTypeList
         const {loading} = this.props.rewardCreation
-        const image = this.state.image ? images.find(x => x.id == this.state.image) : null;
-        const imagePath = image ? image.path : null;
 
         return (
             <div>
@@ -104,12 +149,12 @@ class RewardDuplication extends MainLayoutComponent {
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={4}>
-                                                { !imagePath && <Grid container justify={'center'} alignItems={'center'} style={{height: '100%'}}>
+                                                {!this.state.image && <Grid container justify={'center'} alignItems={'center'} style={{height: '100%'}}>
                                                     <Grid item>
                                                         <InfoText align={'center'}>{Resources.REWARD_DUPLICATION_EMPTY_IMAGE_TEXT}</InfoText>
                                                     </Grid>
-                                                </Grid> }
-                                                { imagePath && <CardMedia image={imagePath} className={classes.image} /> }
+                                                </Grid>}
+                                                {this.state.image && <CardMedia image={this.state.image} className={classes.image} />}
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <Select name='category' label={Resources.REWARD_DUPLICATION_CATEGORY_LABEL} options={categories} optionValueName={'id'} optionTextName={'name'} initial={reward.category.id} fullWidth required
@@ -144,7 +189,7 @@ class RewardDuplication extends MainLayoutComponent {
                                                 />
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <ImageInput name='image' label={Resources.REWARD_DUPLICATION_IMAGE_LABEL} images={images} initial={reward.image.id} onChange={this.handleImageChange.bind(this)} required />
+                                                <ImageInput name='image' label={Resources.REWARD_DUPLICATION_IMAGE_LABEL} images={images} initial={reward.image ? reward.image.id : reward.customImage} onChange={this.handleImageChange.bind(this)} required />
                                             </Grid>
                                         </Grid>
                                     </Card>
