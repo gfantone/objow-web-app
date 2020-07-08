@@ -8,7 +8,7 @@ import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 
 const ShoppingCartButton = ({style, ...props}) => {
     const {items} = props.shoppingCart
-    const nbItems = items.length
+    const nbItems = items.length > 0 ? items.map(x => x.quantity).reduce((a, b) => a + b) : 0
 
     function handleClick() {
         props.history.push('/rewards/shopping-cart')

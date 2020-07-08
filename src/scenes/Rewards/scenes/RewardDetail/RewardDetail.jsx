@@ -7,11 +7,12 @@ import {withStyles} from '@material-ui/core/styles'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faFolderOpen} from '@fortawesome/free-solid-svg-icons'
 import {SubHeader} from './components'
+import {ShoppingCartAddingConfirmation, ShoppingCartButton} from '../../components'
 import {BoldSpan, Card, Chip, DefaultText, DefaultTitle, InfoText, Linkify, MainLayoutComponent, Quantity, StepConnector, StepLabel, Stepper} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 import * as rewardDetailActions from '../../../../services/Rewards/RewardDetail/actions'
-import {ShoppingCartButton} from "../../components/ShoppingCartButton";
+import * as shoppingCartActions from '../../../../services/ShoppingCart/actions'
 
 const styles = {
     image: {
@@ -26,7 +27,9 @@ class RewardDetail extends MainLayoutComponent {
     state = {quantity: DEFAULT_QUANTITY}
 
     handleAddClick() {
-        alert(this.state.quantity)
+        const {reward} = this.props.rewardDetail
+        const item = {reward: reward, quantity: this.state.quantity}
+        this.props.shoppingCartActions.addToShoppingCart(item)
     }
 
     componentDidMount() {
@@ -160,6 +163,7 @@ class RewardDetail extends MainLayoutComponent {
                         </Card>
                     </Grid>
                 </Grid>}
+                <ShoppingCartAddingConfirmation />
             </div>
         )
     }
@@ -171,7 +175,8 @@ const mapStateToProps = ({accountDetail, rewardDetail}) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    rewardDetailActions: bindActionCreators(rewardDetailActions, dispatch)
+    rewardDetailActions: bindActionCreators(rewardDetailActions, dispatch),
+    shoppingCartActions: bindActionCreators(shoppingCartActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(RewardDetail))

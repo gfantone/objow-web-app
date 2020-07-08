@@ -10,6 +10,10 @@ export const changeShoppingCart = (items) => ({
     items
 })
 
+export const clearLastItem = () => ({
+    type: types.CLEAR_LAST_ITEM
+})
+
 export const clearShoppingCart = () => ({
     type: types.CLEAR_SHOPPING_CART
 })

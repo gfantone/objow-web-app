@@ -339,6 +339,11 @@ export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_MESSAGE = "Une fois refusée, i
 export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_YES_BUTTON = "Oui"
 export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_NO_BUTTON = "Non"
 
+// Reward - Shopping cart adding confirmation
+export const REWARD_SHOPPING_CART_ADDING_CONFIRMATION_MESSAGE = 'Vous venez d’ajouter ce produit à votre panier :'
+export const REWARD_SHOPPING_CART_ADDING_CONFIRMATION_SHOPPING_CART_BUTTON = 'Aller au panier'
+export const REWARD_SHOPPING_CART_ADDING_CONFIRMATION_CLOSE_BUTTON = 'Continuer vos achats'
+
 // Reward - Store filter
 export const REWARD_STORE_FILTER_TITLE = "Filtres"
 export const REWARD_STORE_FILTER_CATEGORY_LABEL = "Catégorie"

@@ -1,14 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faSlidersH} from "@fortawesome/free-solid-svg-icons"
 import {StoreCollaboratorDepartment, SubHeader} from './components'
-import {ShoppingCartButton, StoreFilter} from '../../components'
+import {ShoppingCartAddingConfirmation, ShoppingCartButton, StoreFilter, StoreTeamDepartment} from '../../components'
 import {IconButton, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
-import {StoreTeamDepartment} from "../../components/StoreTeamDepartment"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {faSlidersH} from "@fortawesome/free-solid-svg-icons"
+import * as shoppingCartActions from '../../../../services/ShoppingCart/actions'
 
 class CollaboratorRewardStore extends MainLayoutComponent {
     state = {categoryId: null, collaboratorId: null, filterOpen: false, name: null, page: 0, periodId: null}
@@ -98,7 +98,8 @@ class CollaboratorRewardStore extends MainLayoutComponent {
     }
 
     handleAddClick(reward) {
-        alert('Add')
+        const item = {reward: reward, quantity: 1}
+        this.props.shoppingCartActions.addToShoppingCart(item)
     }
 
     goToTeamView(categoryId, teamId, periodId, name) {
@@ -153,6 +154,7 @@ class CollaboratorRewardStore extends MainLayoutComponent {
                     onChange={this.handleFilterChange.bind(this)}
                     onClose={this.handleFilterClose.bind(this)}
                 />}
+                <ShoppingCartAddingConfirmation />
             </div>
         )
     }
@@ -165,7 +167,8 @@ const mapStateToProps = ({accountDetail, collaboratorDetail}) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    collaboratorDetailActions: bindActionCreators(collaboratorDetailActions, dispatch)
+    collaboratorDetailActions: bindActionCreators(collaboratorDetailActions, dispatch),
+    shoppingCartActions: bindActionCreators(shoppingCartActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorRewardStore)

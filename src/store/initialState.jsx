@@ -110,7 +110,7 @@ const initialState = {
     rewardUpdate: {success: false, loading: false, hasError: false},
     rewardTypeList: {types: null, loading: false, hasError: false},
     roleList: {roles: null, loading: false, hasError: false},
-    shoppingCart: {items: []},
+    shoppingCart: {items: [], lastItem: null},
     systemImageList: {images: null, loading: false, hasError: false},
     systemImageUpdate: {success: false, loading: false, hasError: false},
     teamCategoryRankList: {ranks: null, loading: false, hasError: false},

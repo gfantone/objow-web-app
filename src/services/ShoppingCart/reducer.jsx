@@ -6,13 +6,16 @@ let RoleList = (state = initialState.shoppingCart, action) => {
         case types.ADD_TO_SHOPPING_CART:
             const items = state.items
             items.push(action.item)
-            return {...state, items: items}
+            return {...state, items: items, lastItem: action.item}
 
         case types.CHANGE_SHOPPING_CART:
             return {...state, items: action.items}
 
+        case types.CLEAR_LAST_ITEM:
+            return {...state, lastItem: null}
+
         case types.CLEAR_SHOPPING_CART:
-            return {...state, items: []}
+            return {...state, items: [], lastItem: null}
 
         default:
             return state
