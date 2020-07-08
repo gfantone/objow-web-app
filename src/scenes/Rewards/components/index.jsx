@@ -1,6 +1,6 @@
 export * from './ImageInput'
 export * from './PointSummary'
-export * from './RewardList'
+export * from './Reward'
 export * from './RewardOrderItemList'
 export * from './RewardOrderListExport'
 export * from './RewardOrderSummary'

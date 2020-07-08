@@ -4,9 +4,9 @@ import {connect} from 'react-redux'
 import {ButtonBase, CardMedia, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {RewardImage} from './components'
-import {AccentTag, Button, DefaultText} from '../../../../../../components'
-import * as Resources from '../../../../../../Resources'
-import '../../../../../../helpers/StringHelper'
+import {AccentTag, Button, DefaultText} from '../../../../components'
+import * as Resources from '../../../../Resources'
+import '../../../../helpers/StringHelper'
 
 const styles = {
     icon: {
