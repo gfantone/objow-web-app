@@ -1,5 +1,8 @@
 // Account
 
+import {Button} from "./components/Common/components/Buttons/components/Button";
+import React from "react";
+
 export const ACCOUNT_TITLE = "Mon profil"
 export const ACCOUNT_FIRST_NAME_LABEL = "Prénom"
 export const ACCOUNT_LAST_NAME_LABEL = "Nom"
@@ -302,6 +305,8 @@ export const REWARD_ORDER_ITEM_LIST_QUANTITY_LABEL = "Quantité"
 export const REWARD_ORDER_ITEM_LIST_VALUE_LABEL = "Valeur"
 export const REWARD_ORDER_ITEM_LIST_VALUE_VALUE = "{0} €"
 export const REWARD_ORDER_ITEM_LIST_POINTS_VALUE = "{0} PTS"
+export const REWARD_ORDER_ITEM_LIST_EMPTY_TEXT = "Vide"
+export const REWARD_ORDER_ITEM_LIST_CLOSE_BUTTON = "Continuer vos achats"
 
 // Reward - Order list export
 export const REWARD_ORDER_LIST_EXPORT_TITLE = "Export des commandes validées"
@@ -330,6 +335,12 @@ export const REWARD_ORDER_SUMMARY_REMAINING_POINTS_VALUE = "{0} Pts"
 export const REWARD_ORDER_SUMMARY_ORDER_BUTTON = "Commander"
 export const REWARD_ORDER_SUMMARY_VALIDATE_BUTTON = "Valider"
 export const REWARD_ORDER_SUMMARY_REFUSE_BUTTON = "Refuser"
+
+export const REWARD_ORDER_SUMMARY_CONFIRM_ORDER_TITLE = "Êtes-vous sûr de vouloir valider votre commande de {0} Pts pour une valeur de {1} € ?"
+export const REWARD_ORDER_SUMMARY_CONFIRM_ORDER_MESSAGE = "Une fois validée, vous ne pourrez plus annuler votre commande, les points seront retirés de votre solde de point et la valeur de votre commande sera déclarée et soumise à cotisation patronales et/ou salariales."
+export const REWARD_ORDER_SUMMARY_CONFIRM_ORDER_YES_BUTTON = "Oui"
+export const REWARD_ORDER_SUMMARY_CONFIRM_ORDER_NO_BUTTON = "Non"
+
 export const REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_TITLE = "Êtes-vous sûr de vouloir valider la commande N°{0} d'un total de {1} Pts pour une valeur de {2} € ?"
 export const REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_MESSAGE = "Une fois validée, vous ne pourrez plus annuler la commande, les points seront retirés du solde de points disponible et la valeur de cette commande devra être déclarée et soumise à cotisations patronales et/ou salariales."
 export const REWARD_ORDER_SUMMARY_CONFIRM_VALIDATE_YES_BUTTON = "Oui"
@@ -338,6 +349,11 @@ export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_TITLE = "Êtes-vous sûr de vou
 export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_MESSAGE = "Une fois refusée, il ne sera plus possible de la réactiver, les points seront réattribués au solde de point disponible. Il sera de votre responsabilité d'informer l'utilisateur de la raison du refus."
 export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_YES_BUTTON = "Oui"
 export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_NO_BUTTON = "Non"
+
+// Reward - Shopping cart
+export const REWARD_SHOPPING_CART_REWARDS_AREA = "Votre panier"
+export const REWARD_SHOPPING_CART_POINTS_AREA = "Total panier"
+export const REWARD_SHOPPING_CART_POINTS_AREA_YEAR = "Année {0}"
 
 // Reward - Shopping cart adding confirmation
 export const REWARD_SHOPPING_CART_ADDING_CONFIRMATION_MESSAGE = 'Vous venez d’ajouter ce produit à votre panier :'

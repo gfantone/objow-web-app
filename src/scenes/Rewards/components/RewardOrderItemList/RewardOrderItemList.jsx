@@ -1,9 +1,10 @@
 import React from 'react'
-import {CardMedia, Divider, Grid} from '@material-ui/core'
+import {withRouter} from 'react-router-dom'
+import {CardMedia, Divider, Grid, IconButton} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faFolderOpen} from "@fortawesome/free-solid-svg-icons";
-import {AccentTag, Card, DefaultText, TableChip} from '../../../../components'
+import {faFolderOpen, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import {AccentTag, Button, Card, DefaultText, Quantity} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 
@@ -49,13 +50,27 @@ const styles = {
     }
 }
 
-const RewardOrderItemList = ({items, ...props}) => {
+const RewardOrderItemList = ({items, onItemChange, ...props}) => {
     const {classes} = props
+    const hasItems = items.length > 0
+
+    const handleItemChange = reward => quantity => {
+        if (onItemChange) onItemChange(reward, quantity)
+    }
+
+    const handleRemoveItem = reward => () => {
+        if (onItemChange) onItemChange(reward, 0)
+    }
+
+    function handleReturnClick() {
+        props.history.goBack()
+    }
+
     return (
         <div>
             <Card>
                 <Grid container spacing={2}>
-                    {items.map((item, index) => {
+                    {hasItems && items.map((item, index) => {
                         const totalPoints = item.quantity * item.reward.points
 
                         return (
@@ -74,7 +89,6 @@ const RewardOrderItemList = ({items, ...props}) => {
                                                     <Grid container spacing={2}>
                                                         <Grid item xs={12}>
                                                             <DefaultText className={classes.name}>{item.reward.name}</DefaultText>
-                                                            {/*<DefaultText className={classes.name}>azdj azdjh adj djd djh dajhde ejh erverhv ervjher vjehrv ervjh evjher vjehv erjvh evjh evjher vejrhv erjv ev azdj azdjh adj djd djh dajhde ejh erverhv ervjher vjehrv ervjh evjher vjehv erjvh evjh evjher vejrhv erjv ev</DefaultText>*/}
                                                         </Grid>
                                                         <Grid item>
                                                             <AccentTag className={classes.points}>{Resources.REWARD_ORDER_ITEM_LIST_POINTS_VALUE.format(item.reward.points)}</AccentTag>
@@ -92,13 +106,18 @@ const RewardOrderItemList = ({items, ...props}) => {
                                                     <DefaultText>{Resources.REWARD_ORDER_ITEM_LIST_QUANTITY_LABEL}</DefaultText>
                                                 </Grid>
                                                 <Grid item>
-                                                    <TableChip label={item.quantity} />
+                                                    <Quantity initial={item.quantity} minimum={0} onChange={onItemChange ? handleItemChange(item.reward) : null} />
                                                 </Grid>
                                                 <Grid item>
                                                     <AccentTag>{Resources.REWARD_ORDER_ITEM_LIST_POINTS_VALUE.format(totalPoints)}</AccentTag>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
+                                        {onItemChange && <Grid item>
+                                            <IconButton size='small' onClick={handleRemoveItem(item.reward)}>
+                                                <FontAwesomeIcon icon={faTrashAlt} />
+                                            </IconButton>
+                                        </Grid>}
                                         <Grid item xs={12}>
                                             <Grid container spacing={2}>
                                                 <Grid item>
@@ -116,10 +135,16 @@ const RewardOrderItemList = ({items, ...props}) => {
                             </React.Fragment>
                         )
                     })}
+                    {!hasItems && <Grid item xs={12}>
+                        <DefaultText>{Resources.REWARD_ORDER_ITEM_LIST_EMPTY_TEXT}</DefaultText>
+                    </Grid>}
+                    {onItemChange && <Grid item xs={12}>
+                        <Button onClick={handleReturnClick}>{Resources.REWARD_ORDER_ITEM_LIST_CLOSE_BUTTON}</Button>
+                    </Grid>}
                 </Grid>
             </Card>
         </div>
     )
 }
 
-export default withStyles(styles)(RewardOrderItemList)
+export default withStyles(styles)(withRouter(RewardOrderItemList))

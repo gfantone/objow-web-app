@@ -7,7 +7,10 @@ import {StoreTeamCollaboratorDepartment, SubHeader} from './components'
 import {ShoppingCartAddingConfirmation, ShoppingCartButton, StoreFilter, StoreTeamDepartment} from '../../components'
 import {IconButton, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
+import * as rewardListActions from '../../../../services/Rewards/RewardList/actions'
+import * as teamCollaboratorPointSummaryDetailActions from '../../../../services/TeamCollaboratorPointSummaries/TeamCollaboratorPointSummaryDetail/actions'
 import * as teamDetailActions from '../../../../services/Teams/TeamDetail/actions'
+import * as teamPointSummaryDetailActions from '../../../../services/TeamPointSummaries/TeamPointSummaryDetail/actions'
 import * as shoppingCartActions from '../../../../services/ShoppingCart/actions'
 
 class TeamRewardStore extends MainLayoutComponent {
@@ -64,6 +67,9 @@ class TeamRewardStore extends MainLayoutComponent {
                 name: name
             }, () => {
                 if (teamHasChanged) this.props.teamDetailActions.getTeamDetail(teamId)
+                this.props.rewardListActions.getActiveRewardList(name, categoryId)
+                this.props.teamCollaboratorPointSummaryDetailActions.getTeamCollaboratorPointSummary(teamId, periodId)
+                this.props.teamPointSummaryDetailActions.getTeamPointSummaryByTeam(teamId, periodId)
             })
         }
     }
@@ -101,7 +107,7 @@ class TeamRewardStore extends MainLayoutComponent {
 
     handleAddClick(reward) {
         const item = {reward: reward, quantity: 1}
-        this.props.shoppingCartActions.addToShoppingCart(item)
+        this.props.shoppingCartActions.addItem(item)
     }
 
     goToCollaboratorView(categoryId, collaboratorId, periodId, name) {
@@ -128,13 +134,7 @@ class TeamRewardStore extends MainLayoutComponent {
 
         return (
             <div>
-                {!loading && team && this.state.page === 0 && <StoreTeamDepartment
-                    name={this.state.name}
-                    categoryId={this.state.categoryId}
-                    periodId={this.state.periodId}
-                    teamId={team.id}
-                    onAddClick={this.handleAddClick.bind(this)}
-                />}
+                {!loading && team && this.state.page === 0 && <StoreTeamDepartment onAddClick={this.handleAddClick.bind(this)} />}
                 {!loading && team && this.state.page === 1 && <StoreTeamCollaboratorDepartment
                     name={this.state.name}
                     category={this.state.categoryId}
@@ -163,7 +163,10 @@ const mapStateToProps = ({accountDetail, teamDetail}) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+    rewardListActions: bindActionCreators(rewardListActions, dispatch),
+    teamCollaboratorPointSummaryDetailActions: bindActionCreators(teamCollaboratorPointSummaryDetailActions, dispatch),
     teamDetailActions: bindActionCreators(teamDetailActions, dispatch),
+    teamPointSummaryDetailActions: bindActionCreators(teamPointSummaryDetailActions, dispatch),
     shoppingCartActions: bindActionCreators(shoppingCartActions, dispatch)
 })
 

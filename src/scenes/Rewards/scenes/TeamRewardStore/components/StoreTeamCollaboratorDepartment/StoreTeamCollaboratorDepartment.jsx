@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {withRouter} from 'react-router-dom'
@@ -8,12 +8,8 @@ import {DefaultTitle, Loader, ManagerCollaboratorSelector} from '../../../../../
 import * as Resources from '../../../../../../Resources'
 import * as teamCollaboratorPointSummaryDetailActions from '../../../../../../services/TeamCollaboratorPointSummaries/TeamCollaboratorPointSummaryDetail/actions'
 
-const StoreTeamCollaboratorDepartment = ({category, name, period, team, ...props}) => {
+const StoreTeamCollaboratorDepartment = ({category, name, period, ...props}) => {
     const {summary, loading} = props.teamCollaboratorPointSummaryDetail
-
-    useEffect(() => {
-        props.teamCollaboratorPointSummaryDetailActions.getTeamCollaboratorPointSummary(team, period)
-    }, [])
 
     function handleCollaboratorClick(id) {
         var url = `/rewards/collaborators/${id}`

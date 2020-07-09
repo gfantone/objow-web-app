@@ -5,10 +5,13 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faSlidersH} from "@fortawesome/free-solid-svg-icons"
 import {StoreCollaboratorDepartment, SubHeader} from './components'
 import {ShoppingCartAddingConfirmation, ShoppingCartButton, StoreFilter, StoreTeamDepartment} from '../../components'
-import {IconButton, MainLayoutComponent} from '../../../../components'
+import {IconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
+import * as collaboratorPointSummaryDetailActions from '../../../../services/CollaboratorPointSummaries/CollaboratorPointSummaryDetail/actions'
+import * as rewardListActions from '../../../../services/Rewards/RewardList/actions'
 import * as shoppingCartActions from '../../../../services/ShoppingCart/actions'
+import * as teamPointSummaryDetailActions from '../../../../services/TeamPointSummaries/TeamPointSummaryDetail/actions'
 
 class CollaboratorRewardStore extends MainLayoutComponent {
     state = {categoryId: null, collaboratorId: null, filterOpen: false, name: null, page: 0, periodId: null}
@@ -62,6 +65,9 @@ class CollaboratorRewardStore extends MainLayoutComponent {
                 name: name
             }, () => {
                 if (collaboratorHasChanged) this.props.collaboratorDetailActions.getCollaboratorDetail(collaboratorId)
+                this.props.collaboratorPointSummaryDetailActions.getCollaboratorPointSummary(collaboratorId, periodId)
+                this.props.rewardListActions.getActiveRewardList(name, categoryId)
+                this.props.teamPointSummaryDetailActions.getTeamPointSummaryByCollaborator(collaboratorId, periodId)
             })
         }
     }
@@ -99,7 +105,7 @@ class CollaboratorRewardStore extends MainLayoutComponent {
 
     handleAddClick(reward) {
         const item = {reward: reward, quantity: 1}
-        this.props.shoppingCartActions.addToShoppingCart(item)
+        this.props.shoppingCartActions.addItem(item)
     }
 
     goToTeamView(categoryId, teamId, periodId, name) {
@@ -126,25 +132,17 @@ class CollaboratorRewardStore extends MainLayoutComponent {
         }
     }
 
+    renderLoader() {
+        return <Loader centered />
+    }
+
     render() {
         const {collaborator, loading} = this.props.collaboratorDetail
 
         return (
             <div>
-                {!loading && collaborator && this.state.page === 0 && <StoreCollaboratorDepartment
-                    name={this.state.name}
-                    categoryId={this.state.categoryId}
-                    collaboratorId={collaborator.id}
-                    periodId={this.state.periodId}
-                    onAddClick={this.handleAddClick.bind(this)}
-                />}
-                {!loading && collaborator && collaborator.team && this.state.page === 1 && <StoreTeamDepartment
-                    name={this.state.name}
-                    categoryId={this.state.categoryId}
-                    periodId={this.state.periodId}
-                    teamId={collaborator.team.id}
-                    onAddClick={this.handleAddClick.bind(this)}
-                />}
+                {!loading && collaborator && this.state.page === 0 && <StoreCollaboratorDepartment onAddClick={this.handleAddClick.bind(this)} />}
+                {!loading && collaborator && collaborator.team && this.state.page === 1 && <StoreTeamDepartment onAddClick={this.handleAddClick.bind(this)} />}
                 {collaborator && <StoreFilter
                     open={this.state.filterOpen}
                     initialCategory={this.state.categoryId}
@@ -168,7 +166,10 @@ const mapStateToProps = ({accountDetail, collaboratorDetail}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     collaboratorDetailActions: bindActionCreators(collaboratorDetailActions, dispatch),
-    shoppingCartActions: bindActionCreators(shoppingCartActions, dispatch)
+    collaboratorPointSummaryDetailActions: bindActionCreators(collaboratorPointSummaryDetailActions, dispatch),
+    rewardListActions: bindActionCreators(rewardListActions, dispatch),
+    shoppingCartActions: bindActionCreators(shoppingCartActions, dispatch),
+    teamPointSummaryDetailActions: bindActionCreators(teamPointSummaryDetailActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorRewardStore)

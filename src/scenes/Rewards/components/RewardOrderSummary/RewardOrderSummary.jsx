@@ -12,7 +12,7 @@ const styles = {
     }
 }
 
-const RewardOrderSummary = ({recipientPoints, onOrderClick, onRefuseClick, onValidateClick, orderId, orderPoints, orderValue, updateLoading, ...props}) => {
+const RewardOrderSummary = ({recipientPoints, onOrderClick, onRefuseClick, onValidateClick, orderId, orderLoading, orderPoints, orderValue, updateLoading, ...props}) => {
     const {classes} = props
     const remainingPoints = recipientPoints - orderPoints
     const [orderOpen, setOrderOpen] = React.useState(false)
@@ -69,10 +69,18 @@ const RewardOrderSummary = ({recipientPoints, onOrderClick, onRefuseClick, onVal
                         </Grid>
                     </Grid>}
                     {onOrderClick && <Grid item xs={12}>
-                        <Button onClick={() => changeOrderOpen(true)}>{Resources.REWARD_ORDER_SUMMARY_ORDER_BUTTON}</Button>
+                        <Button disabled={remainingPoints < 0} onClick={() => changeOrderOpen(true)}>{Resources.REWARD_ORDER_SUMMARY_ORDER_BUTTON}</Button>
                     </Grid>}
                 </Grid>
             </Card>
+            {onOrderClick &&  <Dialog open={orderOpen} onClose={() => changeOrderOpen(false)}>
+                <DialogTitle>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_ORDER_TITLE.format(orderPoints, orderValue)}</DialogTitle>
+                <DialogContent>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_ORDER_MESSAGE}</DialogContent>
+                <DialogActions>
+                    <Button onClick={() => changeOrderOpen(false)} color='secondary'>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_ORDER_NO_BUTTON}</Button>
+                    <ProgressButton type='button' text={Resources.REWARD_ORDER_SUMMARY_CONFIRM_ORDER_YES_BUTTON} loading={orderLoading} onClick={onOrderClick} />
+                </DialogActions>
+            </Dialog>}
             {onRefuseClick &&  <Dialog open={refuseOpen} onClose={() => changeRefuseOpen(false)}>
                 <DialogTitle>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_TITLE.format(orderId, orderPoints, orderValue)}</DialogTitle>
                 <DialogContent>{Resources.REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_MESSAGE}</DialogContent>

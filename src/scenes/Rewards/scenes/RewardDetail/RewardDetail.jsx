@@ -29,7 +29,7 @@ class RewardDetail extends MainLayoutComponent {
     handleAddClick() {
         const {reward} = this.props.rewardDetail
         const item = {reward: reward, quantity: this.state.quantity}
-        this.props.shoppingCartActions.addToShoppingCart(item)
+        this.props.shoppingCartActions.addItem(item)
     }
 
     componentDidMount() {
@@ -99,7 +99,7 @@ class RewardDetail extends MainLayoutComponent {
                                                     <DefaultText>Quantité</DefaultText>
                                                 </Grid>
                                                 <Grid item>
-                                                    <Quantity initial={DEFAULT_QUANTITY} onChange={this.handleQuantityChange.bind(this)} />
+                                                    <Quantity initial={DEFAULT_QUANTITY} minimum={1} onChange={this.handleQuantityChange.bind(this)} />
                                                 </Grid>
                                             </Grid>
                                         </Grid>}

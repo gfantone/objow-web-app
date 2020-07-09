@@ -1,13 +1,14 @@
 import * as types from './actionTypes'
 
-export const addToShoppingCart = (item) => ({
+export const addItem = (item) => ({
     type: types.ADD_TO_SHOPPING_CART,
     item
 })
 
-export const changeShoppingCart = (items) => ({
+export const changeItem = (reward, quantity) => ({
     type: types.CHANGE_SHOPPING_CART,
-    items
+    reward,
+    quantity
 })
 
 export const clearLastItem = () => ({

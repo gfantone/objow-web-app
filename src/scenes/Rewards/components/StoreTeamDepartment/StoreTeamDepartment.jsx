@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {RewardStore} from '..'
@@ -6,16 +6,11 @@ import {Loader} from '../../../../components'
 import * as rewardListActions from '../../../../services/Rewards/RewardList/actions'
 import * as teamPointSummaryDetailActions from '../../../../services/TeamPointSummaries/TeamPointSummaryDetail/actions'
 
-const StoreTeamDepartment = ({categoryId, name, onAddClick, periodId, teamId, ...props}) => {
+const StoreTeamDepartment = ({onAddClick, ...props}) => {
     const {rewards, loading: rewardListLoading} = props.rewardList
     const {summary, loading: teamPointSummaryDetailLoading} = props.teamPointSummaryDetail
     const teamRewards = rewards ? rewards.filter(x => x.type.code === 'T') : null
     const loading = rewardListLoading || teamPointSummaryDetailLoading
-
-    useEffect(() => {
-        props.rewardListActions.getActiveRewardList(name, categoryId)
-        props.teamPointSummaryDetailActions.getTeamPointSummaryByTeam(teamId, periodId)
-    }, [categoryId, name, periodId, teamId])
 
     function renderLoader() {
         return <Loader centered />
