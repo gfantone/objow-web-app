@@ -35,6 +35,7 @@ import {watchCollaboratorChalengeRankListByCollaboratorChallenge, watchCollabora
 import watchCollaboratorDataList from './CollaboratorData/CollaboratorDataList/sagas'
 import watchCollaboratorDataUpdate from './CollaboratorData/CollaboratorDataUpdate/sagas'
 import watchCollaboratorGeneralRankDetail from './CollaboratorGeneralRanks/CollaboratorGeneralRankDetail/sagas'
+import watchCollaboratorRewardOrderCreation from "./CollaboratorRewardOrders/CollaboratorRewardOrderCreation/sagas";
 import watchCollaboratorGeneralRankList from './CollaboratorGeneralRanks/CollaboratorGeneralRankList/sagas'
 import watchCollaboratorGlobalPointSummaryDetail from "./CollaboratorGlobalPointSummaries/CollaboratorGlobalPointSummaryDetail/sagas";
 import {watchCollaboratorGoalRankListByCollaboratorGOal, watchCollaboratorGoalRankListByTeamCollaboratorGoal} from './CollaboratorGoalRanks/CollaboratorGoalRankList/sagas'
@@ -216,6 +217,7 @@ function* rootSaga() {
         watchCollaboratorGoalSummaryList(),
         watchCollaboratorNextBadgeLevelList(),
         watchCollaboratorPointSummaryDetail(),
+        watchCollaboratorRewardOrderCreation(),
         watchCollaboratorRewardOrderDetail(),
         watchCollaboratorRewardOrderValidationUpdate(),
         watchWaitingCollaboratorRewardOrderCount(),

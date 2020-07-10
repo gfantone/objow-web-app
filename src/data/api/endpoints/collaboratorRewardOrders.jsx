@@ -3,6 +3,9 @@ import instance from '../instance'
 const baseUrl = 'collaborator-reward-orders/'
 
 const collaboratorRewardOrders = {
+    create(order) {
+        return instance.post(baseUrl, order)
+    },
     detail(id) {
         const url = `${baseUrl}${id}/`
         return instance.get(url)

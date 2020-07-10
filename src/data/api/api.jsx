@@ -14,6 +14,7 @@ import collaboratorChallengeSummaries from './endpoints/collaboratorChallengeSum
 import collaboratorData from './endpoints/collaboratorData'
 import collaboratorGoals from './endpoints/collaboratorGoals'
 import collaboratorGoalSummaries from './endpoints/collaboratorGoalSummaries'
+import collaboratorRewardOrderItems from "./endpoints/collaboratorRewardOrderItems";
 import collaboratorRewardOrders from "./endpoints/collaboratorRewardOrders";
 import collaboratorRewardOrderSummaries from "./endpoints/collaboratorRewardOrderSummaries";
 import collaborators from './endpoints/collaborators'
@@ -71,6 +72,7 @@ const api = {
     collaboratorData,
     collaboratorGoals,
     collaboratorGoalSummaries,
+    collaboratorRewardOrderItems,
     collaboratorRewardOrders,
     collaboratorRewardOrderSummaries,
     collaborators,
