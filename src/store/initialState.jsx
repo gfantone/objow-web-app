@@ -146,6 +146,7 @@ const initialState = {
     teamRankList: {generalRank: null, categoryRanks: [], loading: false, hasError: false},
     teamRemoving: {success: false, loading: false, hasError: false},
     teamRewardOrderCount: {orders: null, loading: false, hasError: false},
+    teamRewardOrderCreation: {success: false, loading: false, hasError: false},
     teamRewardOrderDetail: {order: null, loading: false, hasError: false},
     teamRewardOrderSummaryList: {orders: null, loading: false, hasError: false},
     teamRewardOrderUpdate: {success: false, loading: false, hasError: false},

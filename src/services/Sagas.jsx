@@ -129,6 +129,7 @@ import watchTeamGeneralRankList from './TeamGeneralRanks/TeamGeneralRankList/sag
 import watchTeamGlobalPointSummaryDetail from "./TeamGlobalPointSummaries/TeamGlobalPointSummaryDetail/sagas";
 import watchTeamGoalDetail from './TeamGoals/TeamGoalDetail/sagas'
 import watchTeamGoalRankList from './TeamGoalRanks/TeamGoalRankList/sagas'
+import watchTeamRewardOrderCreation from "./TeamRewardOrders/TeamRewardOrderCreation/sagas";
 import watchTeamGoalListByDefinition from './TeamGoals/TeamGoalList/sagas'
 import {watchTeamGoalSummaryListByCollaborator, watchTeamGoalSummaryListByTeam} from './TeamGoalSummaries/TeamGoalSummaryList/sagas'
 import watchTeamGoalListUpdate from './TeamGoals/TeamGoalListUpdate/sagas'
@@ -318,6 +319,7 @@ function* rootSaga() {
         watchTeamPointSummaryDetailByCollaborator(),
         watchTeamPointSummaryDetailByTeam(),
         watchTeamRemoving(),
+        watchTeamRewardOrderCreation(),
         watchTeamRewardOrderDetail(),
         watchTeamRewardOrderUpdate(),
         watchTeamUpdate(),

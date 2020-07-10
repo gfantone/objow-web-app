@@ -48,6 +48,7 @@ import teamCollaboratorGoals from './endpoints/teamCollaboratorGoals'
 import teamCollaboratorGoalSummaries from './endpoints/teamCollaboratorGoalSummaries'
 import teamGoals from './endpoints/teamGoals'
 import teamGoalSummaries from './endpoints/teamGoalSummaries'
+import teamRewardOrderItems from "./endpoints/teamRewardOrderItems";
 import teamRewardOrders from "./endpoints/teamRewardOrders";
 import teamRewardOrderSummaries from "./endpoints/teamRewardOrderSummaries";
 import teams from './endpoints/teams'
@@ -106,6 +107,7 @@ const api = {
     teamCollaboratorGoalSummaries,
     teamGoals,
     teamGoalSummaries,
+    teamRewardOrderItems,
     teamRewardOrders,
     teamRewardOrderSummaries,
     teams,

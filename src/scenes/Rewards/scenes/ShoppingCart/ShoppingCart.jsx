@@ -8,12 +8,14 @@ import {DefaultTitle, InfoText, MainLayoutComponent} from '../../../../component
 import * as Resources from '../../../../Resources'
 import * as collaboratorRewardOrderCreationActions from '../../../../services/CollaboratorRewardOrders/CollaboratorRewardOrderCreation/actions'
 import * as shoppingCartActions from '../../../../services/ShoppingCart/actions'
+import * as teamRewardOrderCreationActions from '../../../../services/TeamRewardOrders/TeamRewardOrderCreation/actions'
 
 class ShoppingCart extends MainLayoutComponent {
     componentDidMount() {
         this.props.handleTitle(Resources.REWARD_TITLE)
         this.props.activateReturn()
         this.props.collaboratorRewardOrderCreationActions.clearCollaboratorRewardOrderCreation()
+        this.props.teamRewardOrderCreationActions.clearTeamRewardOrderCreation()
     }
 
     calculateRecipientPoints() {
@@ -50,7 +52,9 @@ class ShoppingCart extends MainLayoutComponent {
         const orderItems = items.map(x => ({reward: x.reward.id, quantity: x.quantity}))
         if (account.role.code === 'C') {
             this.props.collaboratorRewardOrderCreationActions.createCollaboratorRewardOrder(order, orderItems)
-        } else {}
+        } else {
+            this.props.teamRewardOrderCreationActions.createTeamRewardOrder(order, orderItems)
+        }
     }
 
     render() {
@@ -59,13 +63,14 @@ class ShoppingCart extends MainLayoutComponent {
         const {summary: collaboratorPointSummary} = this.props.collaboratorPointSummaryDetail
         const {summary: teamPointSummary} = this.props.teamPointSummaryDetail
         const {success: collaboratorRewardOrderCreationSuccess, loading: collaboratorRewardOrderCreationLoading} = this.props.collaboratorRewardOrderCreation
+        const {success: teamRewardOrderCreationSuccess, loading: teamRewardOrderCreationLoading} = this.props.teamRewardOrderCreation
         const recipientPoints = this.calculateRecipientPoints()
         const hasItems = items.length > 0
         const orderPoints = hasItems ? items.map(x => x.quantity * x.reward.points).reduce((a, b) => a + b) : 0
         const orderValue = hasItems ? items.map(x => x.quantity * x.reward.value).reduce((a, b) => a + b) : 0
         const periodName = account.role.code === 'C' ? collaboratorPointSummary.period.name : account.role.code === 'M' ? teamPointSummary.period.name : ''
-        const success = collaboratorRewardOrderCreationSuccess
-        const loading = collaboratorRewardOrderCreationLoading
+        const success = collaboratorRewardOrderCreationSuccess || teamRewardOrderCreationSuccess
+        const loading = collaboratorRewardOrderCreationLoading || teamRewardOrderCreationLoading
 
         if (account.role.code === 'A') {
             return <Redirect to='/' />
@@ -73,6 +78,7 @@ class ShoppingCart extends MainLayoutComponent {
 
         if (success) {
             this.props.collaboratorRewardOrderCreationActions.clearCollaboratorRewardOrderCreation()
+            this.props.teamRewardOrderCreationActions.clearTeamRewardOrderCreation()
             this.props.shoppingCartActions.clearShoppingCart()
             this.props.history.goBack()
         }
@@ -108,17 +114,19 @@ class ShoppingCart extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({accountDetail, collaboratorPointSummaryDetail, collaboratorRewardOrderCreation, shoppingCart, teamPointSummaryDetail}) => ({
+const mapStateToProps = ({accountDetail, collaboratorPointSummaryDetail, collaboratorRewardOrderCreation, shoppingCart, teamPointSummaryDetail, teamRewardOrderCreation}) => ({
     accountDetail,
     collaboratorPointSummaryDetail,
     collaboratorRewardOrderCreation,
     shoppingCart,
-    teamPointSummaryDetail
+    teamPointSummaryDetail,
+    teamRewardOrderCreation
 })
 
 const mapDispatchToProps = (dispatch) => ({
     collaboratorRewardOrderCreationActions: bindActionCreators(collaboratorRewardOrderCreationActions, dispatch),
-    shoppingCartActions: bindActionCreators(shoppingCartActions, dispatch)
+    shoppingCartActions: bindActionCreators(shoppingCartActions, dispatch),
+    teamRewardOrderCreationActions: bindActionCreators(teamRewardOrderCreationActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCart)
