@@ -31,7 +31,7 @@ const ShoppingCartAddingConfirmation = ({...props}) => {
                             </DefaultText>
                         </Grid>
                         <Grid item xs={12}>
-                            <CardMedia image={lastItem ? lastItem.reward.image.path : ''} style={{height: 250}} />
+                            <CardMedia image={lastItem ? (lastItem.reward.customImage ? lastItem.reward.customImage : lastItem.reward.image.path) : ''} style={{height: 250}} />
                         </Grid>
                     </Grid>
                 </DialogContent>

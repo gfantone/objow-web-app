@@ -88,7 +88,7 @@ class RewardDuplication extends MainLayoutComponent {
         }
         data.append('deliveryPlace', model.deliveryPlace)
         data.append('deliveryMode', model.deliveryMode)
-        if (model.deliveryType) data.append('deliveryType', model.deliveryType)
+        if (model.deliveryTime) data.append('deliveryTime', model.deliveryTime)
         data.append('isActive', true)
 
         if (typeof model.image === 'string' || model.image instanceof String) {
