@@ -41,10 +41,10 @@ const DrawerContent = ({onNavigate, ...props }) => {
                 {(account.hasGeneralRankAccess || account.hasCategoryRankAccess || account.hasChallengeRankAccess) && <DrawerButton icon={faRandom} text={Resources.DRAWER_RANKINGS_BUTTON} src='/rankings' onNavigate={onNavigate} />}
                 <Divider />
                 <DrawerButton icon={faUsers} text={Resources.DRAWER_TEAMS_BUTTON} src='/teams' onNavigate={onNavigate} />
-                <Divider />
-                <Badge badgeContent={orders} color='secondary' style={{width: '100%'}}>
+                {account.hasRewardAccess && <Divider />}
+                {account.hasRewardAccess && <Badge badgeContent={orders} color='secondary' style={{width: '100%'}}>
                     <DrawerButton icon={faGift} text={Resources.DRAWER_REWARDS_BUTTON} src='/rewards' onNavigate={onNavigate} />
-                </Badge>
+                </Badge>}
                 <Divider />
                 <DrawerButton icon={faBook} text={Resources.DRAWER_RULES_BUTTON} src='/rules' onNavigate={onNavigate} />
                 {isAdministrator && <Divider />}

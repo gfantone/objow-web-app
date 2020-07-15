@@ -351,6 +351,10 @@ export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_MESSAGE = "Une fois refusée, i
 export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_YES_BUTTON = "Oui"
 export const REWARD_ORDER_SUMMARY_CONFIRM_REFUSE_NO_BUTTON = "Non"
 
+// Reward - settings
+export const REWARD_SETTINGS_COLLABORATOR_REWARD_ACTIVATION_OPTION = "Activer les récompenses « joueur »"
+export const REWARD_SETTINGS_TEAM_REWARD_ACTIVATION_OPTION = "Activer les récompenses « équipe »"
+
 // Reward - Shopping cart
 export const REWARD_SHOPPING_CART_REWARDS_AREA = "Votre panier"
 export const REWARD_SHOPPING_CART_POINTS_AREA = "Total panier"
@@ -409,8 +413,8 @@ export const TEAM_LIST_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
 export const TEAM_LIST_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
 
 // Team reward list
-export const TEAM_REWARD_LIST_COLLABORATOR_TAB = "Équipe"
-export const TEAM_REWARD_LIST_TEAM_TAB = "Joueurs"
+export const TEAM_REWARD_LIST_COLLABORATOR_TAB = "Joueurs"
+export const TEAM_REWARD_LIST_TEAM_TAB = "Équipe"
 
 // Team reward store
 export const STORE_TEAM_COLLABORATOR_DEPARTMENT_COLLABORATOR_SELECTOR_AREA = "Sélection d'un joueur"

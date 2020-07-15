@@ -10,10 +10,14 @@ const style = {
     }
 }
 
-const SubHeader = ({ page, onChange, ...props }) => {
+const SubHeader = ({page, onChange, ...props}) => {
     const {classes} = props
-    const {collaborator, loading} = props.collaboratorDetail
+    const {collaborator, loading: collaboratorDetailLoading} = props.collaboratorDetail
+    const {configs, loading: configListLoading} = props.configList
     const [value, setValue] = React.useState(page)
+    const collaboratorRewardActivation = configs ? configs.find(x => x.code === 'CRWA').value.toBoolean() : null
+    const teamRewardActivation = configs ? configs.find(x => x.code === 'TRWA').value.toBoolean() : null
+    const loading = collaboratorDetailLoading || configListLoading
 
     function handleChange(e, value) {
         setValue(value)
@@ -32,10 +36,10 @@ const SubHeader = ({ page, onChange, ...props }) => {
         return (
             <div>
                 <UserProfile user={collaborator} />
-                <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
-                    <RoundedTab label={Resources.COLLABORATOR_REWARD_LIST_COLLABORATOR_TAB} />
-                    <RoundedTab label={Resources.COLLABORATOR_REWARD_LIST_TEAM_TAB} />
-                </RoundedTabs>
+                {(collaboratorRewardActivation || teamRewardActivation) && <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
+                    {collaboratorRewardActivation && <RoundedTab label={Resources.COLLABORATOR_REWARD_LIST_COLLABORATOR_TAB} />}
+                    {teamRewardActivation && <RoundedTab label={Resources.COLLABORATOR_REWARD_LIST_TEAM_TAB} />}
+                </RoundedTabs>}
             </div>
         )
     }
@@ -43,13 +47,14 @@ const SubHeader = ({ page, onChange, ...props }) => {
     return (
         <div>
             { loading && renderLoader() }
-            { !loading && collaborator && renderData() }
+            { !loading && collaborator && configs && renderData() }
         </div>
     )
 }
 
-const mapStateToProps = ({collaboratorDetail}) => ({
-    collaboratorDetail
+const mapStateToProps = ({collaboratorDetail, configList}) => ({
+    collaboratorDetail,
+    configList
 })
 
 export default connect(mapStateToProps)(withStyles(style)(SubHeader))

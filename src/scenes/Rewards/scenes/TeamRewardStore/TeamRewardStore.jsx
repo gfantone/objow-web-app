@@ -7,6 +7,7 @@ import {StoreTeamCollaboratorDepartment, SubHeader} from './components'
 import {ShoppingCartAddingConfirmation, ShoppingCartButton, StoreFilter, StoreTeamDepartment} from '../../components'
 import {IconButton, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
+import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as rewardListActions from '../../../../services/Rewards/RewardList/actions'
 import * as teamCollaboratorPointSummaryDetailActions from '../../../../services/TeamCollaboratorPointSummaries/TeamCollaboratorPointSummaryDetail/actions'
 import * as teamDetailActions from '../../../../services/Teams/TeamDetail/actions'
@@ -66,7 +67,10 @@ class TeamRewardStore extends MainLayoutComponent {
                 periodId: periodId,
                 name: name
             }, () => {
-                if (teamHasChanged) this.props.teamDetailActions.getTeamDetail(teamId)
+                if (teamHasChanged) {
+                    this.props.configListActions.getPermanentConfigList()
+                    this.props.teamDetailActions.getTeamDetail(teamId)
+                }
                 this.props.rewardListActions.getActiveRewardList(name, categoryId)
                 this.props.teamCollaboratorPointSummaryDetailActions.getTeamCollaboratorPointSummary(teamId, periodId)
                 this.props.teamPointSummaryDetailActions.getTeamPointSummaryByTeam(teamId, periodId)
@@ -130,12 +134,16 @@ class TeamRewardStore extends MainLayoutComponent {
     }
 
     render() {
-        const {team, loading} = this.props.teamDetail
+        const {configs, loading: configListLoading} = this.props.configList
+        const {team, loading: teamDetailLoading} = this.props.teamDetail
+        const collaboratorRewardActivation = configs ? configs.find(x => x.code === 'CRWA').value.toBoolean() : null
+        const teamRewardActivation = configs ? configs.find(x => x.code === 'TRWA').value.toBoolean() : null
+        const loading = configListLoading || teamDetailLoading
 
         return (
             <div>
-                {!loading && team && this.state.page === 0 && <StoreTeamDepartment onAddClick={this.handleAddClick.bind(this)} />}
-                {!loading && team && this.state.page === 1 && <StoreTeamCollaboratorDepartment
+                {!loading && team && this.state.page === 0 && teamRewardActivation && <StoreTeamDepartment onAddClick={this.handleAddClick.bind(this)} />}
+                {!loading && team && (this.state.page === 1 || this.state.page === 0 && !teamRewardActivation) && collaboratorRewardActivation && <StoreTeamCollaboratorDepartment
                     name={this.state.name}
                     category={this.state.categoryId}
                     period={this.state.periodId}
@@ -157,12 +165,14 @@ class TeamRewardStore extends MainLayoutComponent {
 
 }
 
-const mapStateToProps = ({accountDetail, teamDetail}) => ({
+const mapStateToProps = ({accountDetail, configList, teamDetail}) => ({
     accountDetail,
+    configList,
     teamDetail,
 })
 
 const mapDispatchToProps = (dispatch) => ({
+    configListActions: bindActionCreators(configListActions, dispatch),
     rewardListActions: bindActionCreators(rewardListActions, dispatch),
     teamCollaboratorPointSummaryDetailActions: bindActionCreators(teamCollaboratorPointSummaryDetailActions, dispatch),
     teamDetailActions: bindActionCreators(teamDetailActions, dispatch),

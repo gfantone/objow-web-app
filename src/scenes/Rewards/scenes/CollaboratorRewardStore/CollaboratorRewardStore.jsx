@@ -9,6 +9,7 @@ import {IconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import * as collaboratorPointSummaryDetailActions from '../../../../services/CollaboratorPointSummaries/CollaboratorPointSummaryDetail/actions'
+import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as rewardListActions from '../../../../services/Rewards/RewardList/actions'
 import * as shoppingCartActions from '../../../../services/ShoppingCart/actions'
 import * as teamPointSummaryDetailActions from '../../../../services/TeamPointSummaries/TeamPointSummaryDetail/actions'
@@ -64,7 +65,10 @@ class CollaboratorRewardStore extends MainLayoutComponent {
                 periodId: periodId,
                 name: name
             }, () => {
-                if (collaboratorHasChanged) this.props.collaboratorDetailActions.getCollaboratorDetail(collaboratorId)
+                if (collaboratorHasChanged) {
+                    this.props.collaboratorDetailActions.getCollaboratorDetail(collaboratorId)
+                    this.props.configListActions.getPermanentConfigList()
+                }
                 this.props.collaboratorPointSummaryDetailActions.getCollaboratorPointSummary(collaboratorId, periodId)
                 this.props.rewardListActions.getActiveRewardList(name, categoryId)
                 this.props.teamPointSummaryDetailActions.getTeamPointSummaryByCollaborator(collaboratorId, periodId)
@@ -137,12 +141,16 @@ class CollaboratorRewardStore extends MainLayoutComponent {
     }
 
     render() {
-        const {collaborator, loading} = this.props.collaboratorDetail
+        const {collaborator, loading: collaboratorDetailLoading} = this.props.collaboratorDetail
+        const {configs, loading: configListLoading} = this.props.configList
+        const collaboratorRewardActivation = configs ? configs.find(x => x.code === 'CRWA').value.toBoolean() : null
+        const teamRewardActivation = configs ? configs.find(x => x.code === 'TRWA').value.toBoolean() : null
+        const loading = collaboratorDetailLoading || configListLoading
 
         return (
             <div>
-                {!loading && collaborator && this.state.page === 0 && <StoreCollaboratorDepartment onAddClick={this.handleAddClick.bind(this)} />}
-                {!loading && collaborator && collaborator.team && this.state.page === 1 && <StoreTeamDepartment onAddClick={this.handleAddClick.bind(this)} />}
+                {!loading && collaborator && configs && this.state.page === 0 && collaboratorRewardActivation && <StoreCollaboratorDepartment onAddClick={this.handleAddClick.bind(this)} />}
+                {!loading && collaborator && configs && collaborator.team && (this.state.page === 1 || this.state.page === 0 && !collaboratorRewardActivation) && teamRewardActivation && <StoreTeamDepartment onAddClick={this.handleAddClick.bind(this)} />}
                 {collaborator && <StoreFilter
                     open={this.state.filterOpen}
                     initialCategory={this.state.categoryId}
@@ -159,14 +167,16 @@ class CollaboratorRewardStore extends MainLayoutComponent {
 
 }
 
-const mapStateToProps = ({accountDetail, collaboratorDetail}) => ({
+const mapStateToProps = ({accountDetail, collaboratorDetail, configList}) => ({
     accountDetail,
-    collaboratorDetail
+    collaboratorDetail,
+    configList
 })
 
 const mapDispatchToProps = (dispatch) => ({
     collaboratorDetailActions: bindActionCreators(collaboratorDetailActions, dispatch),
     collaboratorPointSummaryDetailActions: bindActionCreators(collaboratorPointSummaryDetailActions, dispatch),
+    configListActions: bindActionCreators(configListActions, dispatch),
     rewardListActions: bindActionCreators(rewardListActions, dispatch),
     shoppingCartActions: bindActionCreators(shoppingCartActions, dispatch),
     teamPointSummaryDetailActions: bindActionCreators(teamPointSummaryDetailActions, dispatch)

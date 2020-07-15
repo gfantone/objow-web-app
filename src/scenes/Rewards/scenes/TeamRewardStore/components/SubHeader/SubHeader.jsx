@@ -12,8 +12,12 @@ const style = {
 
 const SubHeader = ({ page, onChange, ...props }) => {
     const {classes} = props
-    const {team, loading} = props.teamDetail
+    const {configs, loading: configListLoading} = props.configList
+    const {team, loading: teamDetailLoading} = props.teamDetail
     const [value, setValue] = React.useState(page)
+    const collaboratorRewardActivation = configs ? configs.find(x => x.code === 'CRWA').value.toBoolean() : null
+    const teamRewardActivation = configs ? configs.find(x => x.code === 'TRWA').value.toBoolean() : null
+    const loading = configListLoading || teamDetailLoading
 
     function handleChange(e, value) {
         setValue(value)
@@ -34,10 +38,10 @@ const SubHeader = ({ page, onChange, ...props }) => {
                 <div className={classes.root}>
                     <Team team={team} />
                 </div>
-                <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
-                    <RoundedTab label={Resources.TEAM_REWARD_LIST_COLLABORATOR_TAB} />
-                    <RoundedTab label={Resources.TEAM_REWARD_LIST_TEAM_TAB} />
-                </RoundedTabs>
+                {(collaboratorRewardActivation || teamRewardActivation) && <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
+                    {teamRewardActivation && <RoundedTab label={Resources.TEAM_REWARD_LIST_TEAM_TAB} />}
+                    {collaboratorRewardActivation && <RoundedTab label={Resources.TEAM_REWARD_LIST_COLLABORATOR_TAB} />}
+                </RoundedTabs>}
             </div>
         )
     }
@@ -50,7 +54,8 @@ const SubHeader = ({ page, onChange, ...props }) => {
     )
 }
 
-const mapStateToProps = ({teamDetail}) => ({
+const mapStateToProps = ({configList, teamDetail}) => ({
+    configList,
     teamDetail
 })
 
