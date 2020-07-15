@@ -44,7 +44,7 @@ const RewardOrderSummary = ({recipientPoints, onOrderClick, onRefuseClick, onVal
                                 <Divider className={classes.divider} />
                             </Grid>
                             <Grid item xs={12}>
-                                <DefaultText>{Resources.REWARD_ORDER_SUMMARY_ORDER_POINTS_LABEL} : <BoldSpan>{Resources.REWARD_ORDER_SUMMARY_ORDER_POINTS_VALUE.format(orderPoints)}</BoldSpan></DefaultText>
+                                <DefaultText>{onOrderClick ? Resources.REWARD_ORDER_SUMMARY_CART_POINTS_LABEL : Resources.REWARD_ORDER_SUMMARY_ORDER_POINTS_LABEL} : <BoldSpan>{Resources.REWARD_ORDER_SUMMARY_ORDER_POINTS_VALUE.format(orderPoints)}</BoldSpan></DefaultText>
                             </Grid>
                             <Grid item xs={12}>
                                 <Divider className={classes.divider} />
