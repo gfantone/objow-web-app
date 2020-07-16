@@ -22,7 +22,7 @@ const styles = {
 const CategoryIconInput = ({ icons = [], initial, label, name, onChange, required, ...props }) => {
     const { classes } = props
     const [value, setValue] = React.useState(initial)
-    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null
+    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.errorMessage : null
     const hasError = !(!props.isFormSubmitted && value == null || props.isValid)
     const finalLabel = required ? `${label} *` : label
 

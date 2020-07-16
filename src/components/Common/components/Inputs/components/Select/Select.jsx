@@ -18,7 +18,7 @@ const CustomSelect = ({ disabled, emptyDisabled = false, emptyText, error, fullW
     const { classes } = props;
     const [value, setValue] = React.useState(initial);
     const hasError = props.isFormSubmitted && !props.isValid;
-    const errorMessage = hasError ? props.getErrorMessage : null;
+    const errorMessage = hasError ? props.errorMessage : null;
     const finalLabel = label ? (required ? `${label} *` : label) : null;
 
     useEffect(() => {

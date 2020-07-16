@@ -51,7 +51,7 @@ const ImageInput = ({ images = [], initial, label, name, onChange, required, ...
     const customImageInput = React.useRef()
     const [expanded, setExpanded] = React.useState(false)
     const [value, setValue] = React.useState(initial)
-    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null
+    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.errorMessage : null
     const hasError = !(!props.isFormSubmitted && value == null || props.isValid)
     const finalLabel = required ? `${label} *` : label
 
