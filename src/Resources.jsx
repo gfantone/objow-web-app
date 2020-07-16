@@ -53,6 +53,14 @@ export const BADGE_LIST_EMPTY_STATE_TITLE = "Aucun défi trouvé"
 export const BADGE_LIST_CURRENT_TAB = "En cours"
 export const BADGE_LIST_COMPLETED_TAB = "Réussis"
 
+// Coaching list
+export const COACHING_LIST_LONG_TITLE = "Les coaching lists"
+export const COACHING_LIST_SHORT_TITLE = "Coaching list"
+export const COACHING_LIST_EMPTY_STATE_TITLE = "Aucune instruction trouvée"
+export const COACHING_LIST_EMPTY_STATE_COLLABORATOR_MESSAGE = "Revenez plus tard lorsque votre manager vous coachera"
+export const COACHING_LIST_EMPTY_STATE_MANAGER_MESSAGE = "Créer une première instruction pour votre collaborateur"
+export const COACHING_LIST_SUBMIT_BUTTON = "Valider"
+
 // Collaborator reward list
 export const COLLABORATOR_REWARD_LIST_COLLABORATOR_TAB = "Joueur"
 export const COLLABORATOR_REWARD_LIST_TEAM_TAB = "Équipe"
