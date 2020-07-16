@@ -7,6 +7,7 @@ import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { faRandom, faRocket, faSortAmountDown } from '@fortawesome/free-solid-svg-icons'
 import { Rank } from './components'
 import { Table, TableHead, TableHeadCell, TableRow } from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
 
 const styles = {
     icon: {
@@ -24,14 +25,14 @@ const RankList = ({ challengeRank, generalRank, generalRankIcon, categoryRanks, 
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableHeadCell colSpan={2} align='left'>Nom</TableHeadCell>
+                        <TableHeadCell colSpan={2} align='left'>{Resources.RANK_LIST_NAME_COLUMN}</TableHeadCell>
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faStar} />
                         </TableHeadCell>
-                        <TableHeadCell align='right'>PTS</TableHeadCell>
+                        <TableHeadCell align='right'>{Resources.RANK_LIST_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faRandom} />
                         </TableHeadCell>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { Category } from '../../../../components'
 import { Loader } from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
 
 const styles = {
     root: {
@@ -20,7 +21,7 @@ const SubHeader = (props) => {
     }
 
     function renderData() {
-        return <Category title='Classement individuel' category={category} />
+        return <Category title={Resources.COLLABORATOR_CATEGORY_RANKING_TITLE} category={category} />
     }
 
     return (

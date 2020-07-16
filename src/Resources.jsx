@@ -1,5 +1,6 @@
 // Account
 import React from "react";
+import {deepOrange} from "@material-ui/core/colors";
 
 export const ACCOUNT_TITLE = "Mon profil"
 export const ACCOUNT_FIRST_NAME_LABEL = "Prénom"
@@ -236,6 +237,66 @@ export const POINT_SUMMARY_WAITING_POINTS_VALUE = "{0} PTS"
 export const POINT_SUMMARY_USABLE_POINTS_LABEL = "Solde de points"
 export const POINT_SUMMARY_USABLE_POINTS_VALUE = "{0} PTS"
 export const POINT_SUMMARY_ORDERS_BUTTON = "Commandes à valider"
+
+// Ranking
+export const RANKING_LONG_TITLE = "Les classements"
+export const RANKING_OWNER_TITLE = "Mes classements"
+export const RANKING_SHORT_TITLE = "Classements"
+
+// Ranking - Collaborator category ranking
+export const COLLABORATOR_CATEGORY_RANKING_TITLE = "Classement individuel"
+export const COLLABORATOR_CATEGORY_RANKING_EMPTY_STATE_TITLE = "Aucun classement disponible"
+
+// Ranking - Collaborator challenge ranking
+export const COLLABORATOR_CHALLENGE_RANKING_TITLE = "Classement des challenges individuels"
+export const COLLABORATOR_CHALLENGE_RANKING_EMPTY_STATE_TITLE = "Aucun classement disponible"
+
+// Ranking - Collaborator general ranking
+export const COLLABORATOR_GENERAL_RANKING_TITLE = "Classement général individuel"
+export const COLLABORATOR_GENERAL_RANKING_EMPTY_STATE_TITLE = "Aucun classement disponible"
+
+// Ranking - collaborator ranking
+export const COLLABORATOR_RANKING_COLLABORATOR_COLUMN = "Joueurs"
+export const COLLABORATOR_RANKING_LEVEL_COLUMN = "LVL"
+export const COLLABORATOR_RANKING_POINTS_COLUMN = "PTS"
+
+// Ranking - collaborator ranking list
+export const COLLABORATOR_RANKING_LIST_COLLABORATOR_TAB = "Individuel"
+export const COLLABORATOR_RANKING_LIST_TEAM_TAB = "Équipe"
+
+// Ranking - Collaborator rank list
+export const COLLABORATOR_RANK_LIST_EMPTY_STATE_TITLE = "Aucun classement trouvé"
+
+// Ranking - Collaborator ranking list filter
+export const COLLABORATOR_RANKING_LIST_FILTER_TITLE = "Filtres"
+export const COLLABORATOR_RANKING_LIST_FILTER_TEAM_LABEL = "Équipe"
+export const COLLABORATOR_RANKING_LIST_FILTER_COLLABORATOR_LABEL = "Collaborateur"
+export const COLLABORATOR_RANKING_LIST_FILTER_PERIOD_LABEL = "Année"
+export const COLLABORATOR_RANKING_LIST_FILTER_SUBMIT_BUTTON = "Filtrer"
+export const COLLABORATOR_RANKING_LIST_FILTER_CANCEL_BUTTON = "Annuler"
+
+// Ranking - Rank list
+export const RANK_LIST_NAME_COLUMN = "Nom"
+export const RANK_LIST_POINTS_COLUMN = "PTS"
+
+// Ranking - Team category ranking
+export const TEAM_CATEGORY_RANKING_TITLE = "Classement d'équipe"
+export const TEAM_CATEGORY_RANKING_EMPTY_STATE_TITLE = "Aucun classement disponible"
+
+// Ranking - Team challenge ranking
+export const TEAM_CHALLENGE_RANKING_TITLE = "Classement des challenges d'équipe"
+export const TEAM_CHALLENGE_RANKING_EMPTY_STATE_TITLE = "Aucun classement disponible"
+
+// Ranking - Team general ranking
+export const TEAM_GENERAL_RANKING_TITLE = "Classement général d'équipe"
+export const TEAM_GENERAL_RANKING_EMPTY_STATE_TITLE = "Aucun classement disponible"
+
+// Ranking - Team ranking
+export const TEAM_RANKING_TEAM_COLUMN = "Équipes"
+export const TEAM_RANKING_POINTS_COLUMN = "PTS"
+
+// Ranking - Team rank list
+export const TEAM_RANK_LIST_EMPTY_STATE_TITLE = "Aucun classement trouvé"
 
 // Reward
 export const REWARD_TITLE = "Récompenses"

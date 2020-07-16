@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { SubHeader } from './components'
 import { PlayerRanking } from '../../components'
 import {EmptyState, MainLayoutComponent} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as categoryDetailActions from '../../../../services/Categories/CategoryDetail/actions'
 import * as collaboratorCategoryRankListActions from '../../../../services/CollaboratorCategoryRanks/CollaboratorCategoryRankList/actions'
 import {Redirect} from "react-router";
@@ -12,7 +13,7 @@ class PlayerCategoryRanking extends MainLayoutComponent {
     componentDidMount() {
         const categoryId = this.props.match.params.category;
         this.props.activateReturn();
-        this.props.handleTitle('Classements');
+        this.props.handleTitle(Resources.RANKING_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader />);
         this.props.handleMaxWidth('md');
         this.props.categoryDetailActions.getCategoryDetail(categoryId);
@@ -20,7 +21,7 @@ class PlayerCategoryRanking extends MainLayoutComponent {
     }
 
     renderEmptyState() {
-        return <EmptyState title={'Aucun classement disponible'} />
+        return <EmptyState title={Resources.COLLABORATOR_CATEGORY_RANKING_EMPTY_STATE_TITLE} />
     }
 
     renderData() {

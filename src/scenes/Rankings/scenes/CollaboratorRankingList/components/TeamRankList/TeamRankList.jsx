@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
 import { RankList } from '..'
 import {EmptyState, Loader} from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
 import * as teamCategoryRankListActions from '../../../../../../services/TeamCategoryRanks/TeamCategoryRankList/actions'
 import * as teamChallengeGeneralRankDetailActions from '../../../../../../services/TeamChallengeGeneralRanks/TeamChallengeGeneralRankDetail/actions'
 import * as teamGeneralRankDetailActions from '../../../../../../services/TeamGeneralRanks/TeamGeneralRankDetail/actions'
@@ -59,7 +60,7 @@ class TeamRankList extends Component {
     }
 
     renderEmptyState() {
-        return <EmptyState title={'Aucun classement trouvé'} />
+        return <EmptyState title={Resources.TEAM_RANK_LIST_EMPTY_STATE_TITLE} />
     }
 
     renderData() {
