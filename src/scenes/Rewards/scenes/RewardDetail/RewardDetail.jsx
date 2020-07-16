@@ -26,24 +26,48 @@ const DEFAULT_QUANTITY = 1
 class RewardDetail extends MainLayoutComponent {
     state = {quantity: DEFAULT_QUANTITY}
 
+    constructor(props) {
+        super(props)
+        this.id = null
+    }
+
     handleAddClick() {
         const {reward} = this.props.rewardDetail
         const item = {reward: reward, quantity: this.state.quantity}
         this.props.shoppingCartActions.addItem(item)
     }
 
-    componentDidMount() {
+    loadData() {
         const id = this.props.match.params.id
-        const {account} = this.props.accountDetail
+        if (this.id !== id) {
+            const {account} = this.props.accountDetail
+            this.id = id
+            this.props.handleButtons(<div style={{display: 'contents'}}>
+                {account.role.code === 'A' && <IconButton size='small' onClick={() => this.props.history.push(`/rewards/duplication/${id}`)} style={{marginRight: 8}}><FontAwesomeIcon icon={faCopy} /></IconButton>}
+                {account.role.code === 'A' && <IconButton size='small' onClick={() => this.props.history.push(`/rewards/modification/${id}`)}><FontAwesomeIcon icon={faEdit} /></IconButton>}
+                {account.role.code !== 'A' && <ShoppingCartButton />}
+            </div>)
+            this.props.rewardDetailActions.getReward(id)
+        }
+    }
+
+    componentDidMount() {
         this.props.handleTitle(Resources.REWARD_TITLE)
         this.props.handleSubHeader(<SubHeader onAddClick={this.handleAddClick.bind(this)} />)
-        this.props.handleButtons(<div style={{display: 'contents'}}>
-            {account.role.code === 'A' && <IconButton size='small' onClick={() => this.props.history.push(`/rewards/duplication/${id}`)} style={{marginRight: 8}}><FontAwesomeIcon icon={faCopy} /></IconButton>}
-            {account.role.code === 'A' && <IconButton size='small' onClick={() => this.props.history.push(`/rewards/modification/${id}`)}><FontAwesomeIcon icon={faEdit} /></IconButton>}
-            {account.role.code !== 'A' && <ShoppingCartButton />}
-        </div>)
         this.props.activateReturn()
-        this.props.rewardDetailActions.getReward(id)
+        this.loadData()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.loadData()
+    }
+
+    getLastReward(reward) {
+        var lastReward = reward
+        while (lastReward.new) {
+            lastReward = lastReward.new
+        }
+        return lastReward
     }
 
     handleQuantityChange(quantity) {
@@ -59,7 +83,10 @@ class RewardDetail extends MainLayoutComponent {
         const {reward, loading} = this.props.rewardDetail
         const image = reward ? (reward.image ? reward.image.path : reward.customImage) : null
 
-        if (reward && !reward.isActive) {
+        if (reward && !reward.isActive && reward.new) {
+            const lastReward = this.getLastReward(reward)
+            this.props.history.replace(`/rewards/detail/${lastReward.id}`)
+        } else if (reward && !reward.isActive && !reward.new) {
             return <Redirect to='/' />
         }
 

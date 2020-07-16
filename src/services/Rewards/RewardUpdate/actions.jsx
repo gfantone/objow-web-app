@@ -13,7 +13,7 @@ export const updateRewardActivation = (id, isActive) => ({
 })
 
 export const updateRewardSuccess = () => ({
-    type: types.UPDATE_REWARD_SUCCESS,
+    type: types.UPDATE_REWARD_SUCCESS
 })
 
 export const updateRewardError = () => ({
