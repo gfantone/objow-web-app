@@ -1,6 +1,4 @@
 // Account
-
-import {Button} from "./components/Common/components/Buttons/components/Button";
 import React from "react";
 
 export const ACCOUNT_TITLE = "Mon profil"
@@ -37,6 +35,22 @@ export const ADMIN_REWARD_CATEGORY_UPDATE_SUBMIT_BUTTON = "Valider"
 // Administrator collaborator selector
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
+
+// Badges
+export const BADGE_LONG_TITLE = "Les défis"
+export const BADGE_SHORT_TITLE = "Défis"
+
+// Badges - level
+export const BADGE_LEVEL_COUNTER_TEXT = "Réalisé : {0}"
+export const BADGE_LEVEL_TARGET_TEXT = "Objectif : {0}"
+export const BADGE_LEVEL_RANK_TEXT = "Rang {0}"
+export const BADGE_LEVEL_CONDITION_TEXT = "Condition : lvl {0}"
+export const BADGE_LEVEL_POINT_TEXT = "{0} PTS"
+
+// Badges - list
+export const BADGE_LIST_EMPTY_STATE_TITLE = "Aucun défi trouvé"
+export const BADGE_LIST_CURRENT_TAB = "En cours"
+export const BADGE_LIST_COMPLETED_TAB = "Réussis"
 
 // Collaborator reward list
 export const COLLABORATOR_REWARD_LIST_COLLABORATOR_TAB = "Joueur"

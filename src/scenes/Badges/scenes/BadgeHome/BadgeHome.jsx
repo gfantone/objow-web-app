@@ -2,10 +2,11 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { AdministratorCollaboratorSelector, MainLayoutComponent, ManagerCollaboratorSelector } from '../../../../components'
+import * as Resources from '../../../../Resources'
 
 class BadgeHome extends MainLayoutComponent {
     componentDidMount() {
-        this.props.handleTitle('Les défis')
+        this.props.handleTitle(Resources.BADGE_LONG_TITLE)
     }
 
     handleClick(id) {

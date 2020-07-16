@@ -7,6 +7,7 @@ import {SubHeader} from './components'
 import {Divider} from '../../components'
 import {DefaultTitle, MainLayoutComponent, InfoText} from '../../../../components'
 import * as nextCollaboratorBadgeDetailActions from '../../../../services/CollaboratorBadges/NextCollaboratorBadgeDetail/actions'
+import * as Resources from "../../../../Resources";
 
 const styles = {
     icon: {
@@ -30,7 +31,7 @@ class NextBadgeDetail extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        this.props.handleTitle('Défis');
+        this.props.handleTitle(Resources.BADGE_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader />);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
