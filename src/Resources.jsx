@@ -1,7 +1,4 @@
 // Account
-import React from "react";
-import {deepOrange} from "@material-ui/core/colors";
-
 export const ACCOUNT_TITLE = "Mon profil"
 export const ACCOUNT_FIRST_NAME_LABEL = "Prénom"
 export const ACCOUNT_LAST_NAME_LABEL = "Nom"
@@ -60,6 +57,31 @@ export const COACHING_LIST_EMPTY_STATE_TITLE = "Aucune instruction trouvée"
 export const COACHING_LIST_EMPTY_STATE_COLLABORATOR_MESSAGE = "Revenez plus tard lorsque votre manager vous coachera"
 export const COACHING_LIST_EMPTY_STATE_MANAGER_MESSAGE = "Créer une première instruction pour votre collaborateur"
 export const COACHING_LIST_SUBMIT_BUTTON = "Valider"
+
+// Collaborator
+export const COLLABORATOR_TITLE = "Collaborateurs"
+
+// Collaborator - Detail
+export const COLLABORATOR_DETAIL_PASSWORD_BUTTON = "Modifier le mot de passe"
+export const COLLABORATOR_DETAIL_FILTER_BUTTON = "Filtrer"
+export const COLLABORATOR_DETAIL_EMPTY_STATE_TITLE = "Aucune donnée disponible"
+export const COLLABORATOR_DETAIL_INFO_AREA = "Informations générales"
+export const COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL = "Level {0} / {1} PTS"
+export const COLLABORATOR_DETAIL_INFO_NEXT_LEVEL = "Level {0} / {1} PTS"
+export const COLLABORATOR_DETAIL_INFO_MAX_LEVEL = "Level max atteint"
+export const COLLABORATOR_DETAIL_INFO_FIRST_RANK_TEXT = "{0}er"
+export const COLLABORATOR_DETAIL_INFO_OTHER_RANK_TEXT = "{0}ème"
+export const COLLABORATOR_DETAIL_INFO_VICTORIES = "{0} victoire(s)"
+export const COLLABORATOR_DETAIL_BADGE_AREA = "Défis"
+export const COLLABORATOR_DETAIL_BADGE_RANK = "Rang {0}"
+
+// Collaborator - Filter
+export const COLLABORATOR_FILTER_TITLE = "Filtres"
+export const COLLABORATOR_FILTER_TEAM_LABEL = "Équipe"
+export const COLLABORATOR_FILTER_COLLABORATOR_LABEL = "Collaborateur"
+export const COLLABORATOR_FILTER_PERIOD_LABEL = "Année"
+export const COLLABORATOR_FILTER_CANCEL_BUTTON = "Annuler"
+export const COLLABORATOR_FILTER_SUBMIT_BUTTON = "Filtrer"
 
 // Collaborator reward list
 export const COLLABORATOR_REWARD_LIST_COLLABORATOR_TAB = "Joueur"
@@ -534,3 +556,6 @@ export const TIME_FILTER_PAST_TAB = "Passés"
 export const TRACKING_SUB_HEADER_VALIDATED_TITLE = "Suivi des commandes"
 export const TRACKING_SUB_HEADER_VALIDATED_TAB = "À traiter"
 export const TRACKING_SUB_HEADER_WAITING_TAB = "Validées"
+
+// User profile
+export const USER_PROFILE_NO_TEAM = "Aucune équipe"

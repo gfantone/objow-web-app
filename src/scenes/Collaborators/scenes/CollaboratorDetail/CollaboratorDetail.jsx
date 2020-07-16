@@ -9,6 +9,8 @@ import {faEdit, faFlagCheckered, faSlidersH} from '@fortawesome/free-solid-svg-i
 import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { Badge, CollaboratorFilter } from './components'
 import {AccentText, Card, DefaultText, DefaultTitle, EmptyState, IconButton, InfoText, MainLayoutComponent, ProgressBar} from '../../../../components'
+import * as Resources from '../../../../Resources'
+import '../../../../helpers/StringHelper'
 import * as currentCollaboratorBadgeSummaryListActions from '../../../../services/CollaboratorBadges/CurrentCollaboratorBadgeSummaryList/actions'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 
@@ -56,10 +58,10 @@ class CollaboratorDetail extends MainLayoutComponent {
             if (account.canUpdateCollaboratorPassword && (account.role.code == 'A' || account.role.code == 'M' && account.team && collaborator.team && account.team.id == collaborator.team.id)) {
                 const { classes } = this.props;
                 this.props.handleButtons(<div>
-                    <Tooltip title='Modifier le mot de passe'>
+                    <Tooltip title={Resources.COLLABORATOR_DETAIL_PASSWORD_BUTTON}>
                         <IconButton size='small' onClick={this.handleEditCollaborator.bind(this)} classes={{root: classes.iconMargin}}><FontAwesomeIcon icon={faEdit} /></IconButton>
                     </Tooltip>
-                    <Tooltip title='Filtrer'>
+                    <Tooltip title={Resources.COLLABORATOR_DETAIL_FILTER_BUTTON}>
                         <IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>
                     </Tooltip>
                 </div>)
@@ -108,7 +110,7 @@ class CollaboratorDetail extends MainLayoutComponent {
     }
 
     renderEmptyState() {
-        return <EmptyState title={'Aucune donnée disponible'} />
+        return <EmptyState title={Resources.COLLABORATOR_DETAIL_EMPTY_STATE_TITLE} />
     }
 
     renderData() {
@@ -116,7 +118,7 @@ class CollaboratorDetail extends MainLayoutComponent {
         const { badges } = this.props.currentCollaboratorBadgeSummaryList;
         const { collaborator } = this.props.collaboratorDetail;
         const levelProgression = collaborator.nextLevel ? Math.round((collaborator.generalRank.points / collaborator.nextLevel.points) * 100) : 100;
-        const nextLevelInfo = collaborator.nextLevel ? `Level ${collaborator.nextLevel.number} / ${collaborator.nextLevel.points} PTS` : 'Level max atteint';
+        const nextLevelInfo = collaborator.nextLevel ? Resources.COLLABORATOR_DETAIL_INFO_NEXT_LEVEL.format(collaborator.nextLevel.number, collaborator.nextLevel.points) : Resources.COLLABORATOR_DETAIL_INFO_MAX_LEVEL;
 
         return (
             <div>
@@ -128,7 +130,7 @@ class CollaboratorDetail extends MainLayoutComponent {
                     </Grid> }
                     <Grid item container spacing={1} xs={12}>
                         <Grid item xs={12}>
-                            <DefaultTitle>Informations générales</DefaultTitle>
+                            <DefaultTitle>{Resources.COLLABORATOR_DETAIL_INFO_AREA}</DefaultTitle>
                         </Grid>
                         <Grid item xs={12}>
                             <Card>
@@ -136,7 +138,7 @@ class CollaboratorDetail extends MainLayoutComponent {
                                     <Grid container item spacing={1} xs={12}>
                                         <Grid item container xs={12}>
                                             <Grid item xs>
-                                                <DefaultText>Level {collaborator.generalRank.level} / {collaborator.generalRank.points} PTS</DefaultText>
+                                                <DefaultText>{Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL.format(collaborator.generalRank.level, collaborator.generalRank.points)}</DefaultText>
                                             </Grid>
                                             <Grid item>
                                                 <AccentText>{nextLevelInfo}</AccentText>
@@ -149,12 +151,12 @@ class CollaboratorDetail extends MainLayoutComponent {
                                     <Grid container item spacing={2} xs={12}>
                                         { account.hasGeneralRankAccess && collaborator.generalRank.rank && <Grid item>
                                             <DefaultText>
-                                                <FontAwesomeIcon icon={faFlagCheckered} /> {collaborator.generalRank.rank}{ collaborator.generalRank.rank == 1 ? 'er' : 'ème' } <InfoText component='span'>/ {collaborator.collaborators}</InfoText>
+                                                <FontAwesomeIcon icon={faFlagCheckered} /> {collaborator.generalRank.rank == 1 ? Resources.COLLABORATOR_DETAIL_INFO_FIRST_RANK_TEXT.format(collaborator.generalRank.rank) : Resources.COLLABORATOR_DETAIL_INFO_OTHER_RANK_TEXT.format(collaborator.generalRank.rank)} <InfoText component='span'>/ {collaborator.collaborators}</InfoText>
                                             </DefaultText>
                                         </Grid> }
                                         <Grid item>
                                             <DefaultText>
-                                                <FontAwesomeIcon icon={faStar} /> {collaborator.generalRank.victories} victoire(s)
+                                                <FontAwesomeIcon icon={faStar} /> {Resources.COLLABORATOR_DETAIL_INFO_VICTORIES.format(collaborator.generalRank.victories)}
                                             </DefaultText>
                                         </Grid>
                                     </Grid>
@@ -164,7 +166,7 @@ class CollaboratorDetail extends MainLayoutComponent {
                     </Grid>
                     <Grid item container spacing={1} xs={12}>
                         <Grid item xs={12}>
-                            <DefaultTitle>Défis</DefaultTitle>
+                            <DefaultTitle>{Resources.COLLABORATOR_DETAIL_BADGE_AREA}</DefaultTitle>
                         </Grid>
                         <Grid item xs={12}>
                             <Card>
