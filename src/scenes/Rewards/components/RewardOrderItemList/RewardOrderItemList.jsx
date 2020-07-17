@@ -83,7 +83,7 @@ const RewardOrderItemList = ({items, onItemChange, ...props}) => {
                                         <Grid item xs>
                                             <Grid container spacing={2}>
                                                 <Grid item>
-                                                    <CardMedia image={item.reward.image.path} className={classes.image} />
+                                                    <CardMedia image={item.reward.customImage ? item.reward.customImage : item.reward.image.path} className={classes.image} />
                                                 </Grid>
                                                 <Grid item xs>
                                                     <Grid container spacing={2}>
