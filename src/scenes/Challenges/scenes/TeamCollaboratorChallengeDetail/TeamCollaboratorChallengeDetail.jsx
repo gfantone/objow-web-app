@@ -7,6 +7,7 @@ import { SubHeader } from './components'
 import '../../../../helpers/DateHelper'
 import { ChallengeCondition, CollaboratorChallengeRankList } from '../../components'
 import { IconButton, MainLayoutComponent } from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as collaboratorChallengeRankListActions from '../../../../services/CollaboratorChallengeRanks/CollaboratorChallengeRankList/actions'
 import * as teamCollaboratorChallengeDetailActions from '../../../../services/TeamCollaboratorChallenges/TeamCollaboratorChallengeDetail/actions'
 import * as teamCollaboratorChallengeGoalListActions from '../../../../services/TeamCollaboratorChallengeGoals/TeamCollaboratorChallengeGoalList/actions'
@@ -51,7 +52,7 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
     componentDidMount() {
         const { account } = this.props.accountDetail;
         const id = this.props.match.params.id;
-        this.props.handleTitle('Challenges');
+        this.props.handleTitle(Resources.CHALLENGE_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasChallengeRankAccess} />);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
@@ -66,10 +67,10 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
             const { classes } = this.props;
             this.initialized = true;
             this.props.handleButtons(<div>
-                <Tooltip title={'Dupliquer'}>
+                <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DUPLICATE_BUTTON}>
                     <IconButton size={'small'} onClick={this.handleDuplicate.bind(this)}><FontAwesomeIcon icon={faCopy}/></IconButton>
                 </Tooltip>
-                { challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={'Éditer'}>
+                { challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_UPDATE_BUTTON}>
                     <IconButton size={'small'} onClick={this.handleEdit.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faEdit}/></IconButton>
                 </Tooltip> }
             </div>);

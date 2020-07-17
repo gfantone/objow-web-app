@@ -5,6 +5,7 @@ import { SubHeader } from './components'
 import '../../../../helpers/DateHelper'
 import { ChallengeCondition, TeamChallengeRankList } from '../../components'
 import {IconButton, MainLayoutComponent} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as teamChallengeDetailActions from '../../../../services/TeamChallenges/TeamChallengeDetail/actions'
 import * as teamChallengeGoalListActions from '../../../../services/TeamChallengeGoals/TeamChallengeGoalList/actions'
 import * as teamChallengeRankListAction from '../../../../services/TeamChallengeRanks/TeamChallengeRankList/actions'
@@ -49,7 +50,7 @@ class TeamChallengeDetail extends MainLayoutComponent {
     componentDidMount() {
         const { account } = this.props.accountDetail;
         const id = this.props.match.params.id;
-        this.props.handleTitle('Challenges');
+        this.props.handleTitle(Resources.CHALLENGE_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasChallengeRankAccess && account.hasTeamRankAccess} />);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
@@ -66,10 +67,10 @@ class TeamChallengeDetail extends MainLayoutComponent {
             this.initialized = true;
             if (account.role.code == 'A') {
                 this.props.handleButtons(<div>
-                    <Tooltip title={'Dupliquer'}>
+                    <Tooltip title={Resources.TEAM_CHALLENGE_DETAIL_DUPLICATE_BUTTON}>
                         <IconButton size={'small'} onClick={this.handleDuplicate.bind(this)}><FontAwesomeIcon icon={faCopy}/></IconButton>
                     </Tooltip>
-                    {challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={'Éditer'}>
+                    {challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={Resources.TEAM_CHALLENGE_DETAIL_UPDATE_BUTTON}>
                         <IconButton size={'small'} onClick={this.handleEdit.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faEdit}/></IconButton>
                     </Tooltip>}
                 </div>);

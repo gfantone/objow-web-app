@@ -50,6 +50,155 @@ export const BADGE_LIST_EMPTY_STATE_TITLE = "Aucun défi trouvé"
 export const BADGE_LIST_CURRENT_TAB = "En cours"
 export const BADGE_LIST_COMPLETED_TAB = "Réussis"
 
+// Challenge
+export const CHALLENGE_LONG_TITLE = "Les challenges"
+export const CHALLENGE_SHORT_TITLE = "Challenges"
+export const CHALLENGE_FIRST_RANK = "{0)er"
+export const CHALLENGE_OTHER_RANK = "{0}ème"
+export const CHALLENGE_COLLABORATORS = "{0} joueurs"
+export const CHALLENGE_TEAMS = "{0} équipes"
+export const CHALLENGE_POINTS = "{0} PTS"
+export const CHALLENGE_MAX_POINTS = "{0} MAX"
+
+// Challenge - Award list
+export const CHALLENGE_AWARD_LIST_TITLE = "Récompenses"
+export const CHALLENGE_AWARD_LIST_POINTS_CALCULATION_MESSAGE = "Calcul des pts utilisables..."
+export const CHALLENGE_AWARD_LIST_USABLE_POINTS = "{0} pts utilisables"
+export const CHALLENGE_AWARD_LIST_TYPE_LABEL = "Type"
+export const CHALLENGE_AWARD_LIST_COLLABORATOR_MAX_POINT_LABEL = "Maximum / joueur"
+export const CHALLENGE_AWARD_LIST_TEAM_MAX_POINT_LABEL = "Maximum / équipe"
+export const CHALLENGE_AWARD_LIST_COLLABORATOR_POINT_LABEL = "Gain joueur #{0}"
+export const CHALLENGE_AWARD_LIST_TEAM_POINT_LABEL = "Gain équipe #{0}"
+
+// Challenge - Collaborator challenge detail
+export const COLLABORATOR_CHALLENGE_DETAIL_RANK_TAB = "Classements"
+export const COLLABORATOR_CHALLENGE_DETAIL_CONDITION_TAB = "Conditions"
+
+// Challenge - Collaborator challenge list
+export const COLLABORATOR_CHALLENGE_LIST_EMPTY_STATE_TITLE = "Aucun challenge trouvé"
+export const COLLABORATOR_CHALLENGE_LIST_EMPTY_STATE_MESSAGE = "Si vous avez appliqué des filtres, changez-les pour afficher d'autres challenges"
+
+// Challenge - Condition
+export const CHALLENGE_CONDITION_CONDITION_AREA = "Conditions"
+export const CHALLENGE_CONDITION_GOAL_INFO = "L’objectif fixé ici peut être atteint plusieurs fois. Chaque fois que celui-ci est atteint il rapporte le nombre de points associés"
+export const CHALLENGE_CONDITION_POINT_TARGET = "{0} PTS"
+export const CHALLENGE_CONDITION_POINT_COUNTER = "{0} PTS"
+export const CHALLENGE_CONDITION_DESCRIPTION_AREA = "Description"
+export const CHALLENGE_CONDITION_PERIOD = "Du {0} au {1}"
+export const CHALLENGE_CONDITION_TYPE = "Type : {0}"
+export const CHALLENGE_CONDITION_DESCRIPTION_LABEL = "Description"
+export const CHALLENGE_CONDITION_AWARD_AREA = "Gains en fin de challenge"
+export const CHALLENGE_CONDITION_COLLABORATOR_MAX_POINTS_LABEL = "Maximum / joueur"
+export const CHALLENGE_CONDITION_TEAM_MAX_POINTS_LABEL = "Maximum / équipe"
+export const CHALLENGE_CONDITION_COLLABORATOR_RANK = "Joueur #{0}"
+export const CHALLENGE_CONDITION_TEAM_RANK = "Équipe #{0}"
+export const CHALLENGE_CONDITION_AWARD_POINTS = "{0} PTS"
+
+// Challenge - Filter
+export const CHALLENGE_FILTER_TITLE = "Filtres"
+export const CHALLENGE_FILTER_TEAM_LABEL = "Équipe"
+export const CHALLENGE_FILTER_COLLABORATOR_LABEL = "Collaborateur"
+export const CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION = "Tous"
+export const CHALLENGE_FILTER_PERIOD_LABEL = "Année"
+export const CHALLENGE_FILTER_START_LABEL = "Date de début"
+export const CHALLENGE_FILTER_END_LABEL = "Date de fin"
+export const CHALLENGE_FILTER_CANCEL_BUTTON = "Annuler"
+export const CHALLENGE_FILTER_SUBMIT_BUTTON = "Filtrer"
+
+// Challenge - Team challenge ranking
+export const COLLABORATOR_CHALLENGE_RANKING_COLLABORATOR_COLUMN = "Joueurs"
+export const COLLABORATOR_CHALLENGE_RANKING_POINTS_COLUMN = "PTS"
+
+// Challenge - Creation
+export const CHALLENGE_CREATION_TITLE = "Création d'un challenge"
+export const CHALLENGE_CREATION_INFO_AREA = "Informations"
+export const CHALLENGE_CREATION_INFO_NAME_LABEL = "Nom"
+export const CHALLENGE_CREATION_INFO_DESCRIPTION_LABEL = "Description"
+export const CHALLENGE_CREATION_INFO_NO_IMAGE_TEXT = "Aucune image sélectionée"
+export const CHALLENGE_CREATION_INFO_START_LABEL = "Début"
+export const CHALLENGE_CREATION_INFO_END_LABEL = "Fin"
+export const CHALLENGE_CREATION_INFO_TYPE_LABEL = "Type"
+export const CHALLENGE_CREATION_INFO_IMAGE_LABEL = "Sélectionner une image..."
+export const CHALLENGE_CREATION_GOAL_AREA = "Indicateurs"
+export const CHALLENGE_CREATION_GOAL_TITLE = "Indicateur {0}"
+export const CHALLENGE_CREATION_GOAL_CATEGORY_LABEL = "Catégorie"
+export const CHALLENGE_CREATION_GOAL_KPI_LABEL = "Kpi"
+export const CHALLENGE_CREATION_GOAL_NAME_LABEL = "Intitulé"
+export const CHALLENGE_CREATION_GOAL_UNIT_LABEL = "Unité"
+export const CHALLENGE_CREATION_GOAL_TARGET_LABEL = "Objectif"
+export const CHALLENGE_CREATION_GOAL_TARGET_INFO_TEXT = "L’objectif fixé ici peut être atteint plusieurs fois. Chaque fois que celui-ci est atteint il rapporte le nombre de points associés."
+export const CHALLENGE_CREATION_GOAL_POINTS_LABEL = "Pts"
+export const CHALLENGE_CREATION_SUBMIT_BUTTON = "Valider"
+
+// Challenge - Duplication
+export const CHALLENGE_DUPLICATION_TITLE = "Duplication d'un challenge"
+export const CHALLENGE_DUPLICATION_INFO_AREA = "Informations"
+export const CHALLENGE_DUPLICATION_INFO_NAME_LABEL = "Nom"
+export const CHALLENGE_DUPLICATION_INFO_DESCRIPTION_LABEL = "Description"
+export const CHALLENGE_DUPLICATION_INFO_NO_IMAGE_TEXT = "Aucune image sélectionée"
+export const CHALLENGE_DUPLICATION_INFO_START_LABEL = "Début"
+export const CHALLENGE_DUPLICATION_INFO_END_LABEL = "Fin"
+export const CHALLENGE_DUPLICATION_INFO_TYPE_LABEL = "Type"
+export const CHALLENGE_DUPLICATION_INFO_IMAGE_LABEL = "Sélectionner une image..."
+export const CHALLENGE_DUPLICATION_GOAL_AREA = "Indicateurs"
+export const CHALLENGE_DUPLICATION_GOAL_TITLE = "Indicateur {0}"
+export const CHALLENGE_DUPLICATION_GOAL_CATEGORY_LABEL = "Catégorie"
+export const CHALLENGE_DUPLICATION_GOAL_KPI_LABEL = "Kpi"
+export const CHALLENGE_DUPLICATION_GOAL_NAME_LABEL = "Intitulé"
+export const CHALLENGE_DUPLICATION_GOAL_UNIT_LABEL = "Unité"
+export const CHALLENGE_DUPLICATION_GOAL_TARGET_LABEL = "Objectif"
+export const CHALLENGE_DUPLICATION_GOAL_TARGET_INFO_TEXT = "L’objectif fixé ici peut être atteint plusieurs fois. Chaque fois que celui-ci est atteint il rapporte le nombre de points associés."
+export const CHALLENGE_DUPLICATION_GOAL_POINTS_LABEL = "Pts"
+export const CHALLENGE_DUPLICATION_SUBMIT_BUTTON = "Valider"
+
+// Challenge - Team challenge detail
+export const TEAM_CHALLENGE_DETAIL_RANK_TAB = "Classements"
+export const TEAM_CHALLENGE_DETAIL_CONDITION_TAB = "Conditions"
+export const TEAM_CHALLENGE_DETAIL_DUPLICATE_BUTTON = "Dupliquer"
+export const TEAM_CHALLENGE_DETAIL_UPDATE_BUTTON = "Éditer"
+
+// Challenge - Team challenge list
+export const TEAM_CHALLENGE_LIST_CREATE_BUTTON = "Créer un challenge"
+export const TEAM_CHALLENGE_LIST_FILTER_BUTTON = "Filtrer"
+export const TEAM_CHALLENGE_LIST_EMPTY_STATE_TITLE = "Aucun challenge trouvé"
+export const TEAM_CHALLENGE_LIST_EMPTY_STATE_MESSAGE = "Si vous avez appliqué des filtres, changez-les pour afficher d'autres challenges"
+
+// Challenge - Team challenge ranking
+export const TEAM_CHALLENGE_RANKING_TEAM_COLUMN = "Équipes"
+export const TEAM_CHALLENGE_RANKING_POINTS_COLUMN = "PTS"
+
+// Challenge - Team collaborator challenge detail
+export const TEAM_COLLABORATOR_CHALLENGE_DETAIL_RANK_TAB = "Classements"
+export const TEAM_COLLABORATOR_CHALLENGE_DETAIL_CONDITION_TAB = "Conditions"
+export const TEAM_COLLABORATOR_CHALLENGE_DETAIL_DUPLICATE_BUTTON = "Dupliquer"
+export const TEAM_COLLABORATOR_CHALLENGE_DETAIL_UPDATE_BUTTON = "Éditer"
+
+// Challenge - Time filter
+export const CHALLENGE_TIME_FILTER_CURRENT_TAB = "En cours"
+export const CHALLENGE_TIME_FILTER_PREVIOUS_TAB = "Passés"
+export const CHALLENGE_TIME_FILTER_NEXT_TAB = "Futurs"
+
+// Challenge - Update
+export const CHALLENGE_UPDATE_TITLE = "Modification d'un challenge"
+export const CHALLENGE_UPDATE_INFO_AREA = "Informations"
+export const CHALLENGE_UPDATE_INFO_NAME_LABEL = "Nom"
+export const CHALLENGE_UPDATE_INFO_DESCRIPTION_LABEL = "Description"
+export const CHALLENGE_UPDATE_INFO_NO_IMAGE_TEXT = "Aucune image sélectionée"
+export const CHALLENGE_UPDATE_INFO_START_LABEL = "Début"
+export const CHALLENGE_UPDATE_INFO_END_LABEL = "Fin"
+export const CHALLENGE_UPDATE_INFO_TYPE_LABEL = "Type"
+export const CHALLENGE_UPDATE_INFO_IMAGE_LABEL = "Sélectionner une image..."
+export const CHALLENGE_UPDATE_GOAL_AREA = "Indicateurs"
+export const CHALLENGE_UPDATE_GOAL_TITLE = "Indicateur {0}"
+export const CHALLENGE_UPDATE_GOAL_CATEGORY_LABEL = "Catégorie"
+export const CHALLENGE_UPDATE_GOAL_KPI_LABEL = "Kpi"
+export const CHALLENGE_UPDATE_GOAL_NAME_LABEL = "Intitulé"
+export const CHALLENGE_UPDATE_GOAL_UNIT_LABEL = "Unité"
+export const CHALLENGE_UPDATE_GOAL_TARGET_LABEL = "Objectif"
+export const CHALLENGE_UPDATE_GOAL_TARGET_INFO_TEXT = "L’objectif fixé ici peut être atteint plusieurs fois. Chaque fois que celui-ci est atteint il rapporte le nombre de points associés."
+export const CHALLENGE_UPDATE_GOAL_POINTS_LABEL = "Pts"
+export const CHALLENGE_UPDATE_SUBMIT_BUTTON = "Valider"
+
 // Coaching list
 export const COACHING_LIST_LONG_TITLE = "Les coaching lists"
 export const COACHING_LIST_SHORT_TITLE = "Coaching list"

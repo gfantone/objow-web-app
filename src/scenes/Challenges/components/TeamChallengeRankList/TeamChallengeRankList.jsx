@@ -2,6 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRandom, faSortAmountDown } from '@fortawesome/free-solid-svg-icons'
 import { FullTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow } from '../../../../components'
+import * as Resources from '../../../../Resources'
 
 const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
     return (
@@ -12,8 +13,8 @@ const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
                         <TableHeadCell colSpan={2}>
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
-                        <TableHeadCell>Équipes</TableHeadCell>
-                        <TableHeadCell>PTS</TableHeadCell>
+                        <TableHeadCell>{Resources.TEAM_CHALLENGE_RANKING_TEAM_COLUMN}</TableHeadCell>
+                        <TableHeadCell>{Resources.TEAM_CHALLENGE_RANKING_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell>
                             <FontAwesomeIcon icon={faRandom} />
                         </TableHeadCell>

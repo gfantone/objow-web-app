@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import {Challenge, ChallengeCard, ChallengeFilter, TimeFilter} from '../../components'
 import { EmptyState, GridLink, IconButton, Loader, MainLayoutComponent } from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as collaboratorChallengeListActions from '../../../../services/CollaboratorChallenges/CollaboratorChallengeList/actions'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import * as teamChallengeListActions from '../../../../services/TeamChallenges/TeamChallengeList/actions'
@@ -78,7 +79,7 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     componentDidMount() {
         const params = new URLSearchParams(window.location.search);
         const page = Number(params.get('page'));
-        this.props.handleTitle('Challenges');
+        this.props.handleTitle(Resources.CHALLENGE_SHORT_TITLE);
         this.props.handleSubHeader(<TimeFilter initial={page} handleTimeChange={this.handleTimeChange.bind(this)} />);
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
         this.loadData(this.props)
@@ -114,7 +115,7 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     }
 
     renderEmptyState() {
-        return <EmptyState title='Aucun challenge trouvé' message="Si vous avez appliqué des filtres, changez-les pour afficher d'autres challenges" />
+        return <EmptyState title={Resources.COLLABORATOR_CHALLENGE_LIST_EMPTY_STATE_TITLE} message={Resources.COLLABORATOR_CHALLENGE_LIST_EMPTY_STATE_MESSAGE} />
     }
 
     renderData() {

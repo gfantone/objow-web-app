@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { Challenge, ChallengeCard, ChallengeFilter, TimeFilter } from '../../components'
 import { EmptyState, GridLink, IconButton, Loader, MainLayoutComponent } from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as teamChallengeListActions from '../../../../services/TeamChallenges/TeamChallengeList/actions'
 import * as teamCollaboratorChallengeListActions from '../../../../services/TeamCollaboratorChallenges/TeamCollaboratorChallengeList/actions'
 import '../../../../helpers/StringHelper'
@@ -90,13 +91,13 @@ class TeamChallengeList extends MainLayoutComponent {
         const { classes } = this.props;
         const params = new URLSearchParams(window.location.search);
         const page = Number(params.get('page'));
-        this.props.handleTitle('Challenges');
+        this.props.handleTitle(Resources.CHALLENGE_SHORT_TITLE);
         this.props.handleSubHeader(<TimeFilter initial={page} handleTimeChange={this.handleTimeChange.bind(this)} />);
         this.props.handleButtons(<div>
-            <Tooltip title='Créer un challenge'>
+            <Tooltip title={Resources.TEAM_CHALLENGE_LIST_CREATE_BUTTON}>
                 <IconButton size='small' onClick={this.handleCreateChallenge.bind(this)} classes={{root: classes.iconMargin}}><FontAwesomeIcon icon={faPlus} /></IconButton>
             </Tooltip>
-            <Tooltip title='Filtrer'>
+            <Tooltip title={Resources.TEAM_CHALLENGE_LIST_FILTER_BUTTON}>
                 <IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>
             </Tooltip>
         </div>);
@@ -135,7 +136,7 @@ class TeamChallengeList extends MainLayoutComponent {
     }
 
     renderEmptyState() {
-        return <EmptyState title='Aucun challenge trouvé' message="Si vous avez appliqué des filtres, changez-les pour afficher d'autres challenges" />
+        return <EmptyState title={Resources.TEAM_CHALLENGE_LIST_EMPTY_STATE_TITLE} message={Resources.TEAM_CHALLENGE_LIST_EMPTY_STATE_MESSAGE} />
     }
 
     renderData() {

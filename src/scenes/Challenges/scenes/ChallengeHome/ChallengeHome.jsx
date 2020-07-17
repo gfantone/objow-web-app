@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { IconButton, MainLayoutComponent, TeamSelector } from '../../../../components'
+import * as Resources from '../../../../Resources'
 
 class ChallengeHome extends MainLayoutComponent {
     handleAdd() {
@@ -16,7 +17,7 @@ class ChallengeHome extends MainLayoutComponent {
 
     componentDidMount() {
         const { account } = this.props.accountDetail;
-        this.props.handleTitle('Les challenges');
+        this.props.handleTitle(Resources.CHALLENGE_LONG_TITLE);
         if (account.role.code == 'A') {
             this.props.handleButtons(<IconButton size='small' onClick={this.handleAdd.bind(this)}><FontAwesomeIcon icon={faPlus}/></IconButton>)
         }
