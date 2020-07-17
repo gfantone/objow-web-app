@@ -1,14 +1,14 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {CardMedia, Divider, Grid, IconButton} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {makeStyles} from '@material-ui/core/styles'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFolderOpen, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {AccentTag, Button, Card, DefaultText, Quantity} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 
-const styles = {
+const useStyles = makeStyles(theme => ({
     divider: {
         marginLeft: -16,
         marginRight: -16
@@ -18,8 +18,11 @@ const styles = {
         height: 39
     },
     image: {
-        width: 230,
-        height: 100
+        height: 150,
+        [theme.breakpoints.up('sm')]: {
+            height: 100,
+            width: 230
+        }
     },
     name: {
         overflow: "hidden",
@@ -48,10 +51,10 @@ const styles = {
     points: {
         marginTop: 11
     }
-}
+}))
 
 const RewardOrderItemList = ({items, onItemChange, ...props}) => {
-    const {classes} = props
+    const classes = useStyles()
     const hasItems = items.length > 0
 
     const handleItemChange = reward => quantity => {
@@ -80,23 +83,19 @@ const RewardOrderItemList = ({items, onItemChange, ...props}) => {
                                 </Grid>}
                                 <Grid key={`R${item.reward.id}`} item xs={12}>
                                     <Grid container spacing={2}>
+                                        <Grid item xs={12} sm='auto'>
+                                            <CardMedia image={item.reward.customImage ? item.reward.customImage : item.reward.image.path} className={classes.image} />
+                                        </Grid>
                                         <Grid item xs>
                                             <Grid container spacing={2}>
-                                                <Grid item>
-                                                    <CardMedia image={item.reward.customImage ? item.reward.customImage : item.reward.image.path} className={classes.image} />
+                                                <Grid item xs={12}>
+                                                    <DefaultText className={classes.name}>{item.reward.name}</DefaultText>
                                                 </Grid>
-                                                <Grid item xs>
-                                                    <Grid container spacing={2}>
-                                                        <Grid item xs={12}>
-                                                            <DefaultText className={classes.name}>{item.reward.name}</DefaultText>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <AccentTag className={classes.points}>{Resources.REWARD_ORDER_ITEM_LIST_POINTS_VALUE.format(item.reward.points)}</AccentTag>
-                                                        </Grid>
-                                                        <Grid item>
-                                                            <CardMedia image={item.reward.category.icon.path} className={classes.icon} />
-                                                        </Grid>
-                                                    </Grid>
+                                                <Grid item>
+                                                    <AccentTag className={classes.points}>{Resources.REWARD_ORDER_ITEM_LIST_POINTS_VALUE.format(item.reward.points)}</AccentTag>
+                                                </Grid>
+                                                <Grid item>
+                                                    <CardMedia image={item.reward.category.icon.path} className={classes.icon} />
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -147,4 +146,4 @@ const RewardOrderItemList = ({items, onItemChange, ...props}) => {
     )
 }
 
-export default withStyles(styles)(withRouter(RewardOrderItemList))
+export default withRouter(RewardOrderItemList)
