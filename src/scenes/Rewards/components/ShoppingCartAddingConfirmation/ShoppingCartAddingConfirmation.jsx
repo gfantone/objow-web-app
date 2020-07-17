@@ -31,13 +31,19 @@ const ShoppingCartAddingConfirmation = ({...props}) => {
                             </DefaultText>
                         </Grid>
                         <Grid item xs={12}>
-                            <CardMedia image={lastItem ? (lastItem.reward.customImage ? lastItem.reward.customImage : lastItem.reward.image.path) : ''} style={{height: 250}} />
+                            <CardMedia image={lastItem ? (lastItem.reward.customImage ? lastItem.reward.customImage : lastItem.reward.image.path) : ''} style={{height: 200}} />
                         </Grid>
                     </Grid>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleShoppingCartClick}>{Resources.REWARD_SHOPPING_CART_ADDING_CONFIRMATION_SHOPPING_CART_BUTTON}</Button>
-                    <Button onClick={handleCloseClick}>{Resources.REWARD_SHOPPING_CART_ADDING_CONFIRMATION_CLOSE_BUTTON}</Button>
+                    <Grid container spacing={2} justify='flex-end'>
+                        <Grid item>
+                            <Button onClick={handleShoppingCartClick}>{Resources.REWARD_SHOPPING_CART_ADDING_CONFIRMATION_SHOPPING_CART_BUTTON}</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button onClick={handleCloseClick}>{Resources.REWARD_SHOPPING_CART_ADDING_CONFIRMATION_CLOSE_BUTTON}</Button>
+                        </Grid>
+                    </Grid>
                 </DialogActions>
             </Dialog>
         </div>
