@@ -2,24 +2,16 @@ import React from 'react'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {CardMedia, Grid, Step} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import {Grid, Hidden} from '@material-ui/core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCopy, faEdit, faFolderOpen} from '@fortawesome/free-solid-svg-icons'
-import {SubHeader} from './components'
+import {HorizontalExplanation, RewardDetailImage, SubHeader, VerticalExplanation} from './components'
 import {ShoppingCartAddingConfirmation, ShoppingCartButton} from '../../components'
-import {BoldSpan, Card, Chip, DefaultText, DefaultTitle, IconButton, InfoText, Linkify, MainLayoutComponent, Quantity, StepConnector, StepLabel, Stepper} from '../../../../components'
+import {BoldSpan, Card, DefaultText, DefaultTitle, IconButton, InfoText, Linkify, MainLayoutComponent, Quantity} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 import * as rewardDetailActions from '../../../../services/Rewards/RewardDetail/actions'
 import * as shoppingCartActions from '../../../../services/ShoppingCart/actions'
-
-const styles = {
-    image: {
-        width: 412,
-        height: 250
-    }
-}
 
 const DEFAULT_QUANTITY = 1
 
@@ -78,7 +70,6 @@ class RewardDetail extends MainLayoutComponent {
     }
 
     render() {
-        const {classes} = this.props
         const {account} = this.props.accountDetail
         const {reward, loading} = this.props.rewardDetail
         const image = reward ? (reward.image ? reward.image.path : reward.customImage) : null
@@ -149,8 +140,8 @@ class RewardDetail extends MainLayoutComponent {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <CardMedia image={image} className={classes.image} />
+                                <Grid item xs={12} md='auto'>
+                                    <RewardDetailImage image={image} />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <DefaultText>
@@ -158,36 +149,12 @@ class RewardDetail extends MainLayoutComponent {
                                     </DefaultText>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Stepper alternativeLabel nonLinear activeStep={3} connector={<StepConnector />}>
-                                        <Step>
-                                            <StepLabel optional={<DefaultText>{Resources.REWARD_DETAIL_OPERATION_STEP_1_DESCRIPTION}</DefaultText>} icon={<Chip label={Resources.REWARD_DETAIL_OPERATION_STEP_1_NUMBER} />}>
-                                                <DefaultText>
-                                                    <BoldSpan>{Resources.REWARD_DETAIL_OPERATION_STEP_1_TITLE}</BoldSpan>
-                                                </DefaultText>
-                                            </StepLabel>
-                                        </Step>
-                                        <Step>
-                                            <StepLabel optional={<DefaultText>{Resources.REWARD_DETAIL_OPERATION_STEP_2_DESCRIPTION}</DefaultText>} icon={<Chip label={Resources.REWARD_DETAIL_OPERATION_STEP_2_NUMBER} />}>
-                                                <DefaultText>
-                                                    <BoldSpan>{Resources.REWARD_DETAIL_OPERATION_STEP_2_TITLE}</BoldSpan>
-                                                </DefaultText>
-                                            </StepLabel>
-                                        </Step>
-                                        <Step>
-                                            <StepLabel optional={<DefaultText>{Resources.REWARD_DETAIL_OPERATION_STEP_3_DESCRIPTION}</DefaultText>} icon={<Chip label={Resources.REWARD_DETAIL_OPERATION_STEP_3_NUMBER} />}>
-                                                <DefaultText>
-                                                    <BoldSpan>{Resources.REWARD_DETAIL_OPERATION_STEP_3_TITLE}</BoldSpan>
-                                                </DefaultText>
-                                            </StepLabel>
-                                        </Step>
-                                        <Step>
-                                            <StepLabel optional={<DefaultText>{Resources.REWARD_DETAIL_OPERATION_STEP_4_DESCRIPTION}</DefaultText>} icon={<Chip label={Resources.REWARD_DETAIL_OPERATION_STEP_4_NUMBER} color='primary' />}>
-                                                <DefaultText>
-                                                    <BoldSpan>{Resources.REWARD_DETAIL_OPERATION_STEP_4_TITLE}</BoldSpan>
-                                                </DefaultText>
-                                            </StepLabel>
-                                        </Step>
-                                    </Stepper>
+                                    <Hidden smDown>
+                                        <HorizontalExplanation />
+                                    </Hidden>
+                                    <Hidden mdUp>
+                                        <VerticalExplanation />
+                                    </Hidden>
                                 </Grid>
                             </Grid>
                         </Card>
@@ -209,4 +176,4 @@ const mapDispatchToProps = (dispatch) => ({
     shoppingCartActions: bindActionCreators(shoppingCartActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(RewardDetail))
+export default connect(mapStateToProps, mapDispatchToProps)(RewardDetail)
