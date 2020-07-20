@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { withFormsy } from 'formsy-react'
 import { CardMedia, Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import {ErrorText, InfoText, LabelText, LabelErrorText} from '../../../../components'
+import {ErrorText, LabelText, LabelErrorText} from '../../../../components'
 
 const styles = {
     icon: {
@@ -17,24 +17,24 @@ const styles = {
         width: 50,
         height: 50
     }
-};
+}
 
 const CategoryIconInput = ({ icons = [], initial, label, name, onChange, required, ...props }) => {
-    const { classes } = props;
-    const [value, setValue] = React.useState(initial);
-    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null;
-    const hasError = !(!props.isFormSubmitted && value == null || props.isValid);
-    const finalLabel = required ? `${label} *` : label;
+    const { classes } = props
+    const [value, setValue] = React.useState(initial)
+    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.errorMessage : null
+    const hasError = !(!props.isFormSubmitted && value == null || props.isValid)
+    const finalLabel = required ? `${label} *` : label
 
     useEffect(() => {
         props.setValue(initial)
-    }, []);
+    }, [])
 
     const handleValue = value => () => {
-        props.setValue(value);
-        setValue(value);
+        props.setValue(value)
+        setValue(value)
         if (onChange) onChange(value)
-    };
+    }
 
     return (
         <div>
@@ -42,11 +42,10 @@ const CategoryIconInput = ({ icons = [], initial, label, name, onChange, require
             { hasError && <LabelErrorText>{finalLabel}</LabelErrorText> }
             <Grid container spacing={1}>
                 { icons.map((icon) => {
-                    const iconData = require(`../../../../assets/img/system/category/icons/${icon.name}.svg`);
-                    const selected = icon.id == value;
+                    const selected = icon.id == value
                     return (
                         <Grid key={icon.id} item onClick={handleValue(icon.id)}>
-                            <CardMedia image={iconData} className={selected ? classes.selectedIcon : classes.icon} />
+                            <CardMedia image={icon.path} className={selected ? classes.selectedIcon : classes.icon} />
                         </Grid>
                     )
                 }) }
@@ -55,6 +54,6 @@ const CategoryIconInput = ({ icons = [], initial, label, name, onChange, require
             { hasError && <ErrorText>{errorMessage}</ErrorText> }
         </div>
     )
-};
+}
 
 export default withStyles(styles)(withFormsy(CategoryIconInput))

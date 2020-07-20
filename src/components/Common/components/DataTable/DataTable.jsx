@@ -1,6 +1,6 @@
 import React from 'react'
 import MUIDataTable from 'mui-datatables'
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles'
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles'
 
 const getMuiTheme = () => createMuiTheme({
     overrides: {
@@ -14,10 +14,10 @@ const getMuiTheme = () => createMuiTheme({
             }
         },
     }
-});
+})
 
 const DataTable = (props) => {
-    const { data, columns, options } = props;
+    const { data, columns, options } = props
     const fullOptions = {...options,
         download: false,
         print: false,
@@ -46,13 +46,13 @@ const DataTable = (props) => {
                 title: 'Afficher colonnes'
             }
         }
-    };
+    }
 
     return (
         <MuiThemeProvider theme={getMuiTheme()}>
             <MUIDataTable data={data} columns={columns} options={fullOptions} />
         </MuiThemeProvider>
     )
-};
+}
 
 export default DataTable

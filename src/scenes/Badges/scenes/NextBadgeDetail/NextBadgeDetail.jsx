@@ -1,11 +1,13 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { CardMedia, Grid } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
-import { SubHeader } from './components'
-import { DefaultTitle, Divider, MainLayoutComponent, InfoText } from '../../../../components'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {CardMedia, Grid} from '@material-ui/core'
+import {withStyles} from '@material-ui/core/styles'
+import {SubHeader} from './components'
+import {Divider} from '../../components'
+import {DefaultTitle, MainLayoutComponent, InfoText} from '../../../../components'
 import * as nextCollaboratorBadgeDetailActions from '../../../../services/CollaboratorBadges/NextCollaboratorBadgeDetail/actions'
+import * as Resources from "../../../../Resources";
 
 const styles = {
     icon: {
@@ -29,7 +31,7 @@ class NextBadgeDetail extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        this.props.handleTitle('Défis');
+        this.props.handleTitle(Resources.BADGE_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader />);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
@@ -37,8 +39,8 @@ class NextBadgeDetail extends MainLayoutComponent {
     }
 
     renderData() {
-        const { classes } = this.props;
-        const { badge } = this.props.nextCollaboratorBadgeDetail;
+        const {classes} = this.props;
+        const {badge} = this.props.nextCollaboratorBadgeDetail;
         const iconData = require(`../../../../assets/img/system/badge/icons/${badge.code}.svg`);
 
         return (
@@ -60,17 +62,17 @@ class NextBadgeDetail extends MainLayoutComponent {
     }
 
     render() {
-        const { badge } = this.props.nextCollaboratorBadgeDetail;
+        const {badge} = this.props.nextCollaboratorBadgeDetail;
 
         return (
             <div>
-                { badge && this.renderData() }
+                {badge && this.renderData()}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ accountDetail, nextCollaboratorBadgeDetail }) => ({
+const mapStateToProps = ({accountDetail, nextCollaboratorBadgeDetail}) => ({
     accountDetail,
     nextCollaboratorBadgeDetail
 });

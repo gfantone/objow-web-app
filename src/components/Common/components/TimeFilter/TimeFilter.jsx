@@ -1,5 +1,6 @@
 import React from 'react'
 import {RoundedTabs, RoundedTab} from '..'
+import * as Resources from '../../../../Resources'
 
 const TimeFilter = ({ initial = true, ...props }) => {
     const { handleTimeChange } = props
@@ -14,8 +15,8 @@ const TimeFilter = ({ initial = true, ...props }) => {
     return (
         <div>
             <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
-                <RoundedTab label="En cours" />
-                <RoundedTab label="Passés" />
+                <RoundedTab label={Resources.TIME_FILTER_CURRENT_TAB} />
+                <RoundedTab label={Resources.TIME_FILTER_PAST_TAB} />
             </RoundedTabs>
         </div>
     )

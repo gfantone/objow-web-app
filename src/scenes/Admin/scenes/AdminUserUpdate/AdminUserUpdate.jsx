@@ -1,5 +1,4 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
@@ -12,6 +11,7 @@ import * as userUpdateActions from '../../../../services/Users/UserUpdate/action
 import * as userUpdateActivationActions from '../../../../services/Users/UserUpdateActivation/actions'
 import * as userUpdatePasswordActions from '../../../../services/Users/UserUpdatePassword/actions'
 import '../../../../helpers/FormsyHelper'
+import * as Resources from "../../../../Resources";
 
 class AdminUserUpdate extends MainLayoutComponent {
     constructor(props) {
@@ -88,18 +88,18 @@ class AdminUserUpdate extends MainLayoutComponent {
                             <Grid container spacing={2}>
                                 <Grid item xs={6}>
                                     <TextField name='firstname' label='Prénom' initial={user.firstname} fullWidth required
-                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <TextField name='lastname' label='Nom' initial={user.lastname} fullWidth required
-                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField name='email' label='Email' validations="isEmail" initial={user.email} fullWidth required
                                         validationErrors={{
-                                            isDefaultRequiredValue: 'Ce champ est requis.',
+                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                             isEmail: "L'email n'est pas valide."
                                         }}
                                     />
@@ -108,7 +108,7 @@ class AdminUserUpdate extends MainLayoutComponent {
                                     <Select name='role' label='Type' options={roles} optionValueName='id' optionTextName='name' initial={user.role ? user.role.id : null} fullWidth required
                                         onChange={this.handleValueChange('role').bind(this)}
                                         validationErrors={{
-                                            isDefaultRequiredValue: 'Ce champ est requis.'
+                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR
                                         }}
                                     />
                                 </Grid>
@@ -117,14 +117,14 @@ class AdminUserUpdate extends MainLayoutComponent {
                                 </Grid>
                                 <Grid item xs={6}>
                                     <TextField type='password' name='password' label='Nouveau mot de passe' fullWidth
-                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
                                     <TextField type='password' name='paswwordConfirm' label='Confirmation du mot de passe' fullWidth
                                         validations='equalsField:password'
                                         validationErrors={{
-                                            isDefaultRequiredValue: 'Ce champ est requis.',
+                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                             equalsField: 'Les mots de passe ne correspondent pas'
                                         }}
                                     />

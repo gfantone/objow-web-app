@@ -9,6 +9,7 @@ import * as playerGoalListActions from '../../../../../../../../services/PlayerG
 import * as playerGoalListUpdateActions from '../../../../../../../../services/PlayerGoals/PlayerGoalListUpdate/actions'
 import * as teamPlayerGoalDetailActions from '../../../../../../../../services/TeamPlayerGoals/TeamPlayerGoalDetail/actions'
 import '../../../../../../../../helpers/FormsyHelper'
+import * as Resources from "../../../../../../../../Resources";
 
 const styles = {
     title: {
@@ -157,7 +158,7 @@ class CollaboratorGoalList extends Component {
                                                 isMoreThanOrEquals: 0
                                             }}
                                             validationErrors={{
-                                                isDefaultRequiredValue: 'Ce champ est requis.',
+                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                 isInt: "L'objectif doit être un nombre entier.",
                                                 isMoreThanOrEquals: "L'objectif doit être supérieur ou égal à 0."
                                             }}

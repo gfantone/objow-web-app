@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faFolderOpen} from '@fortawesome/free-solid-svg-icons'
 import { AdviceList, ReadonlyAdviceList } from './components'
 import { AnimationController, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow } from '../../../../components'
+import * as Resources from '../../../../Resources'
 import {getDifferenceWithToday} from '../../../../helpers/DateHelper'
 
 const GoalIndication = ({ goal, type, ...props }) => {
@@ -18,7 +19,7 @@ const GoalIndication = ({ goal, type, ...props }) => {
                 <Grid item xs={12}>
                     <Grid container spacing={1}>
                         <Grid item xs={12}>
-                            <DefaultTitle>Paliers</DefaultTitle>
+                            <DefaultTitle>{Resources.GOAL_INDICATION_LEVEL_AREA}</DefaultTitle>
                         </Grid>
                         <Grid item xs={12}>
                             <Card marginDisabled>
@@ -33,13 +34,13 @@ const GoalIndication = ({ goal, type, ...props }) => {
                                                                 <TableChip label={index+1} />
                                                             </TableCell>
                                                             <TableCell>
-                                                                <DefaultText noWrap>{Math.round(level.percentage*100)} %</DefaultText>
+                                                                <DefaultText noWrap>{Resources.GOAL_INDICATION_LEVEL_PROGRESSION_TEXT.format(Math.round(level.percentage*100))}</DefaultText>
                                                             </TableCell>
                                                             <TableCell>
                                                                 <FontAwesomeIcon icon={faAngleRight} />
                                                             </TableCell>
                                                             <TableCell align='right'>
-                                                                <DefaultText noWrap>{level.points} PTS</DefaultText>
+                                                                <DefaultText noWrap>{Resources.GOAL_INDICATION_LEVEL_POINTS_TEXT.format(level.points)}</DefaultText>
                                                             </TableCell>
                                                         </TableRow>
                                                     )
@@ -58,7 +59,7 @@ const GoalIndication = ({ goal, type, ...props }) => {
                 <Grid item xs={12}>
                     <Grid container spacing={1}>
                         <Grid item xs={12}>
-                            <DefaultTitle>Description</DefaultTitle>
+                            <DefaultTitle>{Resources.GOAL_INDICATION_DESCRIPTION_AREA}</DefaultTitle>
                         </Grid>
                         <Grid item xs={12}>
                             <Card>
@@ -70,12 +71,12 @@ const GoalIndication = ({ goal, type, ...props }) => {
                                     </Grid>
                                     <Grid item xs>
                                         <DefaultText align='right'>
-                                            <FontAwesomeIcon icon={faBalanceScale} /> Unité : {goal.definition.kpi.unit.name} {goal.definition.kpi.unit.symbol ? `(${goal.definition.kpi.unit.symbol})` : null}
+                                            <FontAwesomeIcon icon={faBalanceScale} /> {goal.definition.kpi.unit.symbol ? Resources.GOAL_INDICATION_UNIT_WITH_SYMBOL_TEXT.format(goal.definition.kpi.unit.name, goal.definition.kpi.unit.symbol) : Resources.GOAL_INDICATION_UNIT_WITHOUT_SYMBOL_TEXT.format(goal.definition.kpi.unit.name)}
                                         </DefaultText>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <DefaultText>
-                                            <FontAwesomeIcon icon={faCalendarAlt} /> Du {goal.start.toDate2().toLocaleDateString()} au {goal.end.toDate2().toLocaleDateString()}
+                                            <FontAwesomeIcon icon={faCalendarAlt} /> {Resources.GOAL_INDICATION_PERIOD_TEXT.format(goal.start.toDate2().toLocaleDateString(), goal.end.toDate2().toLocaleDateString())}
                                         </DefaultText>
                                     </Grid>
                                     <Grid item xs={12}>

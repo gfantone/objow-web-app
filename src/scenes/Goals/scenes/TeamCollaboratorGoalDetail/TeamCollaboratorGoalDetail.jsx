@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { CollaboratorGoalList, SubHeader } from './components'
 import { CollaboratorGoalRankList, GoalIndication } from '../../components'
 import { MainLayoutComponent } from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as teamCollaboratorGoalDetailActions from '../../../../services/TeamCollaboratorGoals/TeamCollaboratorGoalDetail/actions'
 import * as collaboratorGoalRankListActions from '../../../../services/CollaboratorGoalRanks/CollaboratorGoalRankList/actions'
 
@@ -26,7 +27,7 @@ class TeamCollaboratorGoalDetail extends MainLayoutComponent {
     componentDidMount() {
         const { account } = this.props.accountDetail;
         const id = this.props.match.params.id;
-        this.props.handleTitle('Les objectifs');
+        this.props.handleTitle(Resources.GOAL_LONG_TITLE);
         this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasGoalRankAccess} />);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();

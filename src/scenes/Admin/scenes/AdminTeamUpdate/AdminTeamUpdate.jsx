@@ -13,6 +13,7 @@ import * as managerListActions from '../../../../services/Managers/ManagerList/a
 import * as teamDetailActions from '../../../../services/Teams/TeamDetail/actions'
 import * as teamUpdateActions from '../../../../services/Teams/TeamUpdate/actions'
 import * as teamRemovingActions from '../../../../services/Teams/TeamRemoving/actions'
+import * as Resources from "../../../../Resources";
 
 const styles = {
     photo: {
@@ -159,17 +160,17 @@ class AdminTeamUpdate extends MainLayoutComponent {
                                         <Grid container spacing={2}>
                                             <Grid item xs={6}>
                                                 <TextField name='name' label='Nom' initial={team.name} fullWidth required
-                                                    validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                    validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                                 />
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <Select name='manager' label='Manager' initial={team.manager ? team.manager.id : null} options={managers} optionValueName='id' optionTextName='fullname' fullWidth required
-                                                    validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                    validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                                 />
                                             </Grid>
                                             <Grid item xs={12}>
                                                 <ColorInput name='color' label='Couleur' initial={team.color.id} colors={colors} required
-                                                    validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                    validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                                 />
                                             </Grid>
                                         </Grid>

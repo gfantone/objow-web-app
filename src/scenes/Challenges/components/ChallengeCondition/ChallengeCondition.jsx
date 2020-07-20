@@ -2,18 +2,18 @@ import React from 'react'
 import {Grid} from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faEquals, faInfoCircle, faUser, faUsers} from '@fortawesome/free-solid-svg-icons'
-import { faStar } from '@fortawesome/free-regular-svg-icons'
+import {faStar} from '@fortawesome/free-regular-svg-icons'
 import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 
 const ChallengeCondition = ({ challenge, goals, ...props }) => {
-    const start = challenge.start.toDate2().toLocaleDateString();
-    const end = challenge.end.toDate2().toLocaleDateString();
-    const typeIcon = challenge.typeCode == 'CT' ? faUsers : faUser;
-    const participantName = challenge.typeCode == 'CT' ? 'équipe' : 'joueur';
+    const start = challenge.start.toDate2().toLocaleDateString()
+    const end = challenge.end.toDate2().toLocaleDateString()
+    const typeIcon = challenge.typeCode === 'CT' ? faUsers : faUser
 
     const renderMaximumAward = () => {
-        const award = challenge.awards[0];
+        const award = challenge.awards[0]
 
         return (
             <Grid container spacing={1}>
@@ -21,19 +21,19 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                     <TableChip label={'>'} />
                 </Grid>
                 <Grid item>
-                    <DefaultText>Maximum / {participantName}</DefaultText>
+                    <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_MAX_POINTS_LABEL : Resources.CHALLENGE_CONDITION_COLLABORATOR_MAX_POINTS_LABEL}</DefaultText>
                 </Grid>
                 <Grid item>
-                    <AccentTag>{award.points} PTS</AccentTag>
+                    <AccentTag>{Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}</AccentTag>
                 </Grid>
             </Grid>
         )
-    };
+    }
 
     const renderRankingAwards = () => {
         return (
             <Grid container spacing={1}>
-                { challenge.awards.map(award => {
+                {challenge.awards.map(award => {
                     return (
                         <Grid item xs={12}>
                             <div>
@@ -42,26 +42,26 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                         <TableChip label={'>'} />
                                     </Grid>
                                     <Grid item>
-                                        <DefaultText>{participantName} #{award.rank}</DefaultText>
+                                        <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultText>
                                     </Grid>
                                     <Grid item>
-                                        <AccentTag>{award.points} PTS</AccentTag>
+                                        <AccentTag>{Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}</AccentTag>
                                     </Grid>
                                 </Grid>
                             </div>
                         </Grid>
                     )
-                }) }
+                })}
             </Grid>
         )
-    };
+    }
 
     return (
         <div>
             <Grid container spacing={4}>
                 <Grid item xs={12} container spacing={1}>
                     <Grid item xs={12}>
-                        <DefaultTitle>Conditions</DefaultTitle>
+                        <DefaultTitle>{Resources.CHALLENGE_CONDITION_CONDITION_AREA}</DefaultTitle>
                     </Grid>
                     <Grid item xs={12}>
                         <Card marginDisabled>
@@ -86,7 +86,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                         <Grid item xs zeroMinWidth>
                                                                                             <DefaultText>
                                                                                                 {goal.name}&nbsp;
-                                                                                                <Tooltip title={'L’objectif fixé ici peut être atteint plusieurs fois. Chaque fois que celui-ci est atteint il rapporte le nombre de points associés'} placement={'right'}>
+                                                                                                <Tooltip title={Resources.CHALLENGE_CONDITION_GOAL_INFO} placement={'right'}>
                                                                                                     <BlueText style={{ width: 'fit-content' }} component={'span'}>
                                                                                                         <FontAwesomeIcon icon={faInfoCircle} />
                                                                                                     </BlueText>
@@ -116,7 +116,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                             </DefaultText>
                                                                                         </Grid>
                                                                                         <Grid item>
-                                                                                            <BlueTag>{goal.targetPoints} PTS</BlueTag>
+                                                                                            <BlueTag>{Resources.CHALLENGE_CONDITION_POINT_TARGET.format(goal.targetPoints)}</BlueTag>
                                                                                         </Grid>
                                                                                     </Grid>
                                                                                 </div>
@@ -136,7 +136,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                             </AccentText>
                                                                                         </Grid>
                                                                                         <Grid item>
-                                                                                            <AccentTag>{goal.points} PTS</AccentTag>
+                                                                                            <AccentTag>{Resources.CHALLENGE_CONDITION_POINT_COUNTER.format(goal.points)}</AccentTag>
                                                                                         </Grid>
                                                                                     </Grid>
                                                                                 </div>
@@ -167,7 +167,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                 </Grid>
                 <Grid item xs={12} container spacing={1}>
                     <Grid item xs={12}>
-                        <DefaultTitle>Description</DefaultTitle>
+                        <DefaultTitle>{Resources.CHALLENGE_CONDITION_DESCRIPTION_AREA}</DefaultTitle>
                     </Grid>
                     <Grid item xs={12}>
                         <Card>
@@ -177,7 +177,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <DefaultText>
-                                        <FontAwesomeIcon icon={faCalendarAlt} /> Du {start} au {end}
+                                        <FontAwesomeIcon icon={faCalendarAlt} /> {Resources.CHALLENGE_CONDITION_PERIOD.format(start, end)}
                                     </DefaultText>
                                 </Grid>
                                 <Grid item xs={12}>
@@ -187,17 +187,17 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <DefaultText>
-                                        <FontAwesomeIcon icon={faStar} /> Type : {challenge.awardName}
+                                        <FontAwesomeIcon icon={faStar} /> {Resources.CHALLENGE_CONDITION_TYPE.format(challenge.awardName)}
                                         { challenge.awardCode == 'M' && <InfoText>Dans ce challenge, les participants peuvent tous gagner des points, dans la limite du maximum défini.</InfoText> }
                                         { challenge.awardCode == 'R' && <InfoText>Dans ce challenge, les points réellement gagnés en fin de challenge sont les gains définis ci-après.</InfoText> }
                                     </DefaultText>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <DefaultText>
-                                        Description
+                                        {Resources.CHALLENGE_CONDITION_DESCRIPTION_LABEL}
                                         <InfoText>
                                             {challenge.description.split("\n").map((i, key) => {
-                                                return <div key={key}>{i}</div>;
+                                                return <div key={key}>{i}</div>
                                             })}
                                         </InfoText>
                                     </DefaultText>
@@ -208,7 +208,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                 </Grid>
                 <Grid item xs={12} container spacing={1}>
                     <Grid item xs={12}>
-                        <DefaultTitle>Gains en fin de challenge</DefaultTitle>
+                        <DefaultTitle>{Resources.CHALLENGE_CONDITION_AWARD_AREA}</DefaultTitle>
                     </Grid>
                     <Grid item xs={12}>
                         <Card>
@@ -220,6 +220,6 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
             </Grid>
         </div>
     )
-};
+}
 
 export default ChallengeCondition

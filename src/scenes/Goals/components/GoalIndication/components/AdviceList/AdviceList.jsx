@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {Grid, IconButton} from '@material-ui/core'
 import {Card, DefaultTitle, ProgressButton, TableChip, TextField} from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {uuidv4} from '../../../../../../helpers/UUIDHelper'
@@ -43,7 +44,7 @@ const AdviceList = ({advices, goal, type, ...props}) => {
                     <Grid item xs={12}>
                         <Grid container spacing={2}>
                             <Grid item>
-                                <DefaultTitle style={{marginTop: 2}}>Les conseils du coach</DefaultTitle>
+                                <DefaultTitle style={{marginTop: 2}}>{Resources.GOAL_INDICATION_COACHING_AREA}</DefaultTitle>
                             </Grid>
                             <Grid item>
                                 <IconButton size='small' onClick={onAdd}>
@@ -75,7 +76,7 @@ const AdviceList = ({advices, goal, type, ...props}) => {
                                     )
                                 })}
                                 <Grid item xs={12}>
-                                    <ProgressButton text='Valider' loading={loading} centered />
+                                    <ProgressButton text={Resources.GOAL_INDICATION_COACHING_SUBMIT_BUTTON} loading={loading} centered />
                                 </Grid>
                             </Grid>
                         </Card>

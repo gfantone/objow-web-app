@@ -5,19 +5,20 @@ import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
 import { SubHeader } from './components'
 import {Collaborator, EmptyState, GridLink, InfoText, MainLayoutComponent} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as teamDetailActions from '../../../../services/Teams/TeamDetail/actions'
 
 class TeamDetail extends MainLayoutComponent {
     componentDidMount() {
         const id = this.props.match.params.id;
-        this.props.handleTitle('Équipes');
+        this.props.handleTitle(Resources.TEAM_TITLE);
         this.props.handleSubHeader(<SubHeader />);
         this.props.activateReturn();
         this.props.teamDetailActions.getTeamDetail(id)
     }
 
     renderEmptyState() {
-        return <EmptyState title='Aucune équipe trouvée' message='' />
+        return <EmptyState title={Resources.TEAM_DETAIL_EMPTY_STATE_TITLE} message='' />
     }
 
     renderData() {

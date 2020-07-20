@@ -52,6 +52,11 @@ const collaborators = {
         if (name != null && name !== '') url = `${url}&name=${name}`;
         return instance.get(url)
     },
+    collaboratorPointSummary(id, periodId) {
+        var url = `${baseUrl}${id}/collaborator-point-summary/`
+        if (periodId != null) url = `${url}?period=${periodId}`
+        return instance.get(url)
+    },
     count() {
         const url = `${baseUrl}count/`;
         return instance.get(url)
@@ -98,6 +103,11 @@ const collaborators = {
         if (start != null) url = `${url}&start=${start.toUTCJSON()}`;
         if (end != null) url = `${url}&end=${end.toUTCJSON()}`;
         if (name != null && name !== '') url = `${url}&name=${name}`;
+        return instance.get(url)
+    },
+    teamPointSummary(id, periodId) {
+        var url = `${baseUrl}${id}/team-point-summary/`
+        if (periodId != null) url = `${url}?period=${periodId}`
         return instance.get(url)
     }
 };

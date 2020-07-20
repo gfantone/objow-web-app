@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 import * as authActions from '../../../../services/Auth/actions'
 import * as authErrors from '../../../../services/Auth/errors'
+import * as Resources from "../../../../Resources";
 
 class Login extends Component {
     constructor(props) {
@@ -45,17 +46,17 @@ class Login extends Component {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <TextField name='code' label='Code entreprise' fullWidth required
-                                            validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField name='email' label='Email' fullWidth required
-                                            validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField type='password' name='password' label='Mot de passe' fullWidth required
-                                            validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
                                 </Grid>

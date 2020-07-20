@@ -1,13 +1,13 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import Linkify from 'react-linkify'
-import { DefaultText, Loader, MainLayoutComponent } from '../../components'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {DefaultText, Linkify, Loader, MainLayoutComponent} from '../../components'
+import * as Resources from '../../Resources'
 import * as configListActions from '../../services/Configs/ConfigList/actions'
 
 class GameRules extends MainLayoutComponent {
     componentDidMount() {
-        this.props.handleTitle('Règles du jeu');
+        this.props.handleTitle(Resources.GAME_RULES_TITLE);
         this.props.handleMaxWidth('md');
         this.props.configListActions.getPermanentConfigList()
     }
@@ -17,33 +17,33 @@ class GameRules extends MainLayoutComponent {
     }
 
     renderData() {
-        const { configs } = this.props.configList;
+        const {configs} = this.props.configList;
         const config = configs.find(x => x.code == 'GR');
 
         return (
-            <Linkify properties={{target: '_blank'}}>
+            <Linkify>
                 <DefaultText align='justify'>
-                    { config.value.split('\n').map((item, key) => {
+                    {config.value.split('\n').map((item, key) => {
                         return <span key={key}>{item}<br /></span>
-                    }) }
+                    })}
                 </DefaultText>
             </Linkify>
         )
     }
 
     render() {
-        const { configs, loading } = this.props.configList;
+        const {configs, loading} = this.props.configList;
 
         return (
             <div>
-                { loading && this.renderLoader() }
-                { !loading && configs && this.renderData() }
+                {loading && this.renderLoader()}
+                {!loading && configs && this.renderData()}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ configList }) => ({
+const mapStateToProps = ({configList}) => ({
     configList
 });
 

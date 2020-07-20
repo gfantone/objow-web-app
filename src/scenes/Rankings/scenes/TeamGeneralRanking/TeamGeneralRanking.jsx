@@ -3,14 +3,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { TeamRanking } from '../../components'
 import {AppBarSubTitle, EmptyState, Loader, MainLayoutComponent} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as teamGeneralRankListActions from '../../../../services/TeamGeneralRanks/TeamGeneralRankList/actions'
 import {Redirect} from "react-router";
 
 class TeamGeneralRanking extends MainLayoutComponent {
     componentDidMount() {
         this.props.activateReturn();
-        this.props.handleTitle('Classements');
-        this.props.handleSubHeader(<AppBarSubTitle title="Classement général d'équipe" />);
+        this.props.handleTitle(Resources.RANKING_SHORT_TITLE);
+        this.props.handleSubHeader(<AppBarSubTitle title={Resources.TEAM_GENERAL_RANKING_TITLE} />);
         this.props.handleMaxWidth('md');
         this.props.teamGeneralRankListActions.getTeamGeneralRankList(this.props.match.params.period)
     }
@@ -20,7 +21,7 @@ class TeamGeneralRanking extends MainLayoutComponent {
     }
 
     renderEmptyState() {
-        return <EmptyState title={'Aucun classement disponible'} />
+        return <EmptyState title={Resources.TEAM_GENERAL_RANKING_EMPTY_STATE_TITLE} />
     }
 
     renderData() {

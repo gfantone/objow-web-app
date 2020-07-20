@@ -8,17 +8,16 @@ const styles = {
         width: 120,
         height: 120
     }
-};
+}
 
 const Category = ({ category, ...props }) => {
-    const { classes } = props;
-    const iconData = require(`../../../../assets/img/system/category/icons/${category.icon}.svg`);
+    const { classes } = props
 
     return (
         <div>
             <Grid container spacing={1} alignItems='center' direction='column'>
                 <Grid item>
-                    <CardMedia image={iconData} className={classes.icon} />
+                    <CardMedia image={category.icon} className={classes.icon} />
                 </Grid>
                 <Grid item>
                     <BoldTitle align='center'>{category.name}</BoldTitle>
@@ -26,6 +25,6 @@ const Category = ({ category, ...props }) => {
             </Grid>
         </div>
     )
-};
+}
 
 export default withStyles(styles)(Category)

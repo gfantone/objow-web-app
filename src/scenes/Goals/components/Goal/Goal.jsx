@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { CardMedia, Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { AccentText, DefaultText, DefaultTitle, ProgressBar, InfoText, TimerTag } from '../../../../components'
+import * as Resources from '../../../../Resources'
 import { Period } from './components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFireAlt, faFlagCheckered, faUser, faUsers } from '@fortawesome/free-solid-svg-icons'
@@ -31,18 +32,17 @@ const styles = {
     subInfo: {
         marginLeft: 4
     }
-};
+}
 
 const Goal = ({ goal, ...props }) => {
-    const { classes } = props;
-    const iconData = require(`../../../../assets/img/system/category/icons/${goal.icon}.svg`);
-    const progression = Math.round((goal.counter / goal.target) * 100);
+    const { classes } = props
+    const progression = Math.round((goal.counter / goal.target) * 100)
 
     return (
         <div>
             <Grid container>
                 <Grid item>
-                    <CardMedia image={iconData} className={classes.icon} />
+                    <CardMedia image={goal.icon} className={classes.icon} />
                 </Grid>
                 <Grid item xs zeroMinWidth>
                     <DefaultTitle className={classes.name} noWrap>{goal.name}</DefaultTitle>
@@ -55,11 +55,11 @@ const Goal = ({ goal, ...props }) => {
             <Grid container className={classes.progress}>
                 <Grid item>
                     <DefaultText>
-                        Réalisé : {goal.counter} <InfoText component='span'>/ Objectif : {goal.target}</InfoText>
+                        {Resources.GOAL_COUNTER_TEXT.format(goal.counter)} <InfoText component='span'>{Resources.GOAL_TARGET_TEXT.format(goal.target)}</InfoText>
                     </DefaultText>
                 </Grid>
                 <Grid item xs>
-                    <AccentText align='right'>{progression}%</AccentText>
+                    <AccentText align='right'>{Resources.GOAL_PROGRESSION_TEXT.format(progression)}</AccentText>
                 </Grid>
             </Grid>
             <Grid container className={classes.progressBar}>
@@ -70,31 +70,31 @@ const Goal = ({ goal, ...props }) => {
             <Grid container className={classes.infos}>
                 {goal.rank && <Grid item>
                     <DefaultText>
-                        <FontAwesomeIcon icon={faFlagCheckered} /> {goal.rank}{ goal.rank == 1 ? 'er' : 'ème' } <InfoText component='span'>/ {goal.participants}</InfoText>
+                        <FontAwesomeIcon icon={faFlagCheckered} /> {goal.rank == 1 ? Resources.GOAL_FIRST_RANK_TEXT.format(goal.rank) : Resources.GOAL_OTHER_RANK_TEXT.format(goal.rank)} <InfoText component='span'>{Resources.GOAL_MAX_RANK_TEXT.format(goal.participants)}</InfoText>
                     </DefaultText>
                 </Grid>}
                 {!goal.rank && <Grid item>
                     <DefaultText>
-                        <FontAwesomeIcon icon={faFlagCheckered} /> {goal.participants} {goal.type == 'C' ? 'joueurs' : 'équipes'}
+                        <FontAwesomeIcon icon={faFlagCheckered} /> {goal.type == 'C' ? Resources.GOAL_PLAYER_TEXT.format(goal.participants) : Resources.GOAL_TEAM_TEXT.format(goal.participants)}
                     </DefaultText>
                 </Grid>}
                 <Grid item className={classes.info}>
                     <DefaultText>
-                        <FontAwesomeIcon icon={faFireAlt} /> {goal.points} PTS <InfoText component='span'>/ {goal.maxPoints} MAX</InfoText>
+                        <FontAwesomeIcon icon={faFireAlt} /> {Resources.GOAL_POINTS_TEXT.format(goal.points)} <InfoText component='span'>{Resources.GOAL_MAX_POINTS_TEXT.format(goal.maxPoints)}</InfoText>
                     </DefaultText>
                 </Grid>
                 <Grid item className={classes.info} xs zeroMinWidth>
                     <DefaultText align='right' noWrap>
-                        <FontAwesomeIcon icon={goal.type == 'C' ? faUser : faUsers} /> { goal.type == 'C' ? 'Solo' : 'Équipe' }
+                        <FontAwesomeIcon icon={goal.type == 'C' ? faUser : faUsers} /> { goal.type == 'C' ? Resources.GOAL_COLLABORATOR_TAG : Resources.GOAL_TEAM_TAG }
                     </DefaultText>
                 </Grid>
             </Grid>
         </div>
     )
-};
+}
 
 const mapStateToProps = ({accountDetail}) => ({
     accountDetail
-});
+})
 
 export default connect(mapStateToProps)(withStyles(styles)(Goal))

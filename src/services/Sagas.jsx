@@ -1,4 +1,4 @@
-import { all } from 'redux-saga/effects'
+import {all} from 'redux-saga/effects'
 import watchAccountDetail from './Account/AccountDetail/sagas'
 import watchAccountUpdate from './Account/AccountUpdate/sagas'
 import watchAdminReferenceData from './AdminReferenceData/sagas'
@@ -24,20 +24,26 @@ import {watchChallengeTypeList, watchCurrentChallengeTypeList, watchUsableChalle
 import watchChallengeTypeSummaryList from './ChallengeTypeSummaries/ChallengeTypeSummaryList/sagas'
 import watchChallengeTypeListUpdate from './ChallengeTypes/ChallengeTypeListUpdate/sagas'
 import {watchChallengeTypeUsablePoints, watchChallengeTypeUsablePointsByChallenge} from "./ChallengeTypes/ChallengeTypeUsablePoints/sagas";
-import { watchCollaboratorBadgeLevelList, watchCollaboratorNextBadgeLevelList } from './CollaboratorBadgeLevels/CollaboratorBadgeLevelList/sagas'
-import { watchCollaboratorCategoryRankListByCategory, watchCollaboratorCategoryRankListByCollaborator } from './CollaboratorCategoryRanks/CollaboratorCategoryRankList/sagas'
+import {watchCollaboratorBadgeLevelList, watchCollaboratorNextBadgeLevelList} from './CollaboratorBadgeLevels/CollaboratorBadgeLevelList/sagas'
+import {watchCollaboratorCategoryRankListByCategory, watchCollaboratorCategoryRankListByCollaborator} from './CollaboratorCategoryRanks/CollaboratorCategoryRankList/sagas'
 import watchCollaboratorChallengeGeneralRankDetail from './CollaboratorChallengeGeneralRanks/CollaboratorChallengeGeneralRankDetail/sagas'
 import watchCollaboratorChallengeGeneralRankList from './CollaboratorChallengeGeneralRanks/CollaboratorChallengeGeneralRankList/sagas'
 import watchCollaboratorChallengeDetail from './CollaboratorChallenges/CollaboratorChallengeDetail/sagas'
 import watchCollaboratorChallengeGoalList from './CollaboratorChallengeGoals/CollaboratorChallengeGoalList/sagas'
 import watchCollaboratorChallengeList from './CollaboratorChallenges/CollaboratorChallengeList/sagas'
-import { watchCollaboratorChalengeRankListByCollaboratorChallenge, watchCollaboratorChalengeRankListByTeamCollaboratorChallenge } from './CollaboratorChallengeRanks/CollaboratorChallengeRankList/sagas'
+import {watchCollaboratorChalengeRankListByCollaboratorChallenge, watchCollaboratorChalengeRankListByTeamCollaboratorChallenge} from './CollaboratorChallengeRanks/CollaboratorChallengeRankList/sagas'
 import watchCollaboratorDataList from './CollaboratorData/CollaboratorDataList/sagas'
 import watchCollaboratorDataUpdate from './CollaboratorData/CollaboratorDataUpdate/sagas'
 import watchCollaboratorGeneralRankDetail from './CollaboratorGeneralRanks/CollaboratorGeneralRankDetail/sagas'
-import { watchCollaboratorGoalRankListByCollaboratorGOal, watchCollaboratorGoalRankListByTeamCollaboratorGoal } from './CollaboratorGoalRanks/CollaboratorGoalRankList/sagas'
+import watchCollaboratorRewardOrderCreation from "./CollaboratorRewardOrders/CollaboratorRewardOrderCreation/sagas";
 import watchCollaboratorGeneralRankList from './CollaboratorGeneralRanks/CollaboratorGeneralRankList/sagas'
+import watchCollaboratorGlobalPointSummaryDetail from "./CollaboratorGlobalPointSummaries/CollaboratorGlobalPointSummaryDetail/sagas";
+import {watchCollaboratorGoalRankListByCollaboratorGOal, watchCollaboratorGoalRankListByTeamCollaboratorGoal} from './CollaboratorGoalRanks/CollaboratorGoalRankList/sagas'
 import watchFreeCollaboratorList from './Collaborators/CollaboratorList/sagas'
+import watchCollaboratorPointSummaryDetail from "./CollaboratorPointSummaries/CollaboratorPointSummaryDetail/sagas";
+import watchCollaboratorRewardOrderDetail from "./CollaboratorRewardOrders/CollaboratorRewardOrderDetail/sagas";
+import watchCollaboratorRewardOrderValidationUpdate from "./CollaboratorRewardOrders/CollaboratorRewardOrderUpdate/sagas";
+import {watchValidatedCollaboratorRewardOrderSummaryList, watchWaitingCollaboratorRewardOrderSummaryList} from './CollaboratorRewardOrderSummaries/CollaboratorRewardOrderSummaryList/sagas'
 import watchCategoryCreation from './Categories/CategoryCreation/sagas'
 import watchCategoryDetail from './Categories/CategoryDetail/sagas'
 import {watchActiveCategoryList, watchInactiveCategoryList} from './Categories/CategoryList/sagas'
@@ -49,10 +55,11 @@ import watchCoachingItemListUpdate from './CoachingItems/CoachingItemListUpdate/
 import watchCoachingItemRemoving from './CoachingItems/CoachingItemRemoving/sagas'
 import watchCollaboratorDetail from './Collaborators/CollaboratorDetail/sagas'
 import watchCollaboratorGoalDetail from './CollaboratorGoals/CollaboratorGoalDetail/sagas'
-import { watchCollaboratorGoalListByTeamCollaboratorGoal } from './CollaboratorGoals/CollaboratorGoalList/sagas'
+import {watchCollaboratorGoalListByTeamCollaboratorGoal} from './CollaboratorGoals/CollaboratorGoalList/sagas'
 import watchCollaboratorGoalSummaryList from './CollaboratorGoalSummaries/CollaboratorGoalSummaryList/sagas'
+import watchWaitingCollaboratorRewardOrderCount from "./CollaboratorRewardOrders/CollaboratorRewardOrderCount/sagas";
 import watchConfigDetail from './Configs/ConfigDetail/sagas'
-import { watchConfigList, watchPermanentConfigList } from './Configs/ConfigList/sagas'
+import {watchConfigList, watchPermanentConfigList} from './Configs/ConfigList/sagas'
 import watchConfigListUpdate from './Configs/ConfigListUpdate/sagas'
 import watchConfigUpdate from './Configs/ConfigUpdate/sagas'
 import watchCurrentCollaboratorBadgeDetail from "./CollaboratorBadges/CurrentCollaboratorBadgeDetail/sagas";
@@ -64,7 +71,7 @@ import watchGoalDefinitionDetail from './GoalDefinitions/GoalDefinitionDetail/sa
 import watchGoalDefinitionCreation from './GoalDefinitions/GoalDefinitionCreation/sagas'
 import watchGoalDefinitionLevelCollaboratorPoints from './GoalDefinitionLevels/GoalDefinitionLevelCollaoratorPoints/sagas'
 import watchGoalDefinitionLevelTeamPoints from './GoalDefinitionLevels/GoalDefinitionLevelTeamPoints/sagas'
-import {watchGoalDefinitionList} from './GoalDefinitions/GoalDefinitionList/sagas'
+import watchGoalDefinitionList from './GoalDefinitions/GoalDefinitionList/sagas'
 import watchGoalDefinitionUpdate from './GoalDefinitions/GoalDefinitionUpdate/sagas'
 import watchGoalDefinitionActivationUpdate from './GoalDefinitions/GoalDefinitionActivationUpdate/sagas'
 import watchGoalDefinitionLevelList from './GoalDefinitionLevels/GoalDefinitionLevelList/sagas'
@@ -89,14 +96,26 @@ import watchPeriodicityList from './Periodicities/PeriodicityList/sagas'
 import watchPeriodList from "./Periods/PeriodList/sagas";
 import watchPlayerGoalList from './PlayerGoals/PlayerGoalList/sagas'
 import watchPlayerGoalListUpdate from './PlayerGoals/PlayerGoalListUpdate/sagas'
+import watchRewardCategory from "./RewardCategories/RewardCategory/sagas";
+import watchRewardCategoryCreation from "./RewardCategories/RewardCategoryCreation/sagas";
+import {watchActiveRewardCategoryList, watchInactiveRewardCategoryList} from "./RewardCategories/RewardCategoryList/sagas";
+import {watchUsableRewardCategoryIconList, watchUsableRewardCategoryIconListForRewardCategory} from "./RewardCategoryIcons/RewardCategoryIconList/sagas";
+import {watchRewardCategoryUpdate, watchRewardCategoryActivationUpdate} from "./RewardCategories/RewardCategoryUpdate/sagas";
+import watchRewardCreation from "./Rewards/RewardCreation/sagas";
+import watchRewardDetail from "./Rewards/RewardDetail/sagas";
+import watchActiveRewardList from './Rewards/RewardList/sagas'
+import watchRewardImageList from "./RewardImages/RewardImageList/sagas";
+import watchRewardOrderListExport from "./Rewards/RewardOrderListExport/sagas";
+import watchRewardTypeList from "./RewardTypes/RewardTypeList/sagas";
+import {watchRewardUpdate, watchRewardActivationUpdate} from "./Rewards/RewardUpdate/sagas";
 import watchRoleList from './Roles/RoleList/sagas'
 import watchSystemImageList from './SystemImages/SystemImageList/sagas'
 import watchSystemImageUpdate from './SystemImages/SystemImageUpdate/sagas'
-import { watchTeamCategoryRankListByCategory, watchTeamCategoryRankListByTeam } from './TeamCategoryRanks/TeamCategoryRankList/sagas'
+import {watchTeamCategoryRankListByCategory, watchTeamCategoryRankListByTeam} from './TeamCategoryRanks/TeamCategoryRankList/sagas'
 import watchTeamChallengeGeneralRankDetail from './TeamChallengeGeneralRanks/TeamChallengeGeneralRankDetail/sagas'
 import watchTeamChallengeGeneralRankList from './TeamChallengeGeneralRanks/TeamChallengeGeneralRankList/sagas'
 import watchTeamChallengeDetail from './TeamChallenges/TeamChallengeDetail/sagas'
-import { watchTeamChallengeListByCollaborator, watchTeamChallengeListByTeam } from './TeamChallenges/TeamChallengeList/sagas'
+import {watchTeamChallengeListByCollaborator, watchTeamChallengeListByTeam} from './TeamChallenges/TeamChallengeList/sagas'
 import watchTeamChallengeGoalList from './TeamChallengeGoals/TeamChallengeGoalList/sagas'
 import watchTeamChallengeRankList from './TeamChallengeRanks/TeamChallengeRankList/sagas'
 import watchTeamCollaboratorChallengeDetail from './TeamCollaboratorChallenges/TeamCollaboratorChallengeDetail/sagas'
@@ -104,21 +123,29 @@ import watchTeamCollaboratorChallengeGoalList from './TeamCollaboratorChallengeG
 import watchTeamCollaboratorChallengeList from './TeamCollaboratorChallenges/TeamCollaboratorChallengeList/sagas'
 import watchTeamCollaboratorGoalDetail from './TeamCollaboratorGoals/TeamCollaboratorGoalDetail/sagas'
 import watchTeamCollaboratorGoalList from './TeamCollaboratorGoals/TeamCollaboratorGoalList/sagas'
+import watchTeamCollaboratorPointSummaryDetail from "./TeamCollaboratorPointSummaries/TeamCollaboratorPointSummaryDetail/sagas";
 import watchTeamGeneralRankDetail from './TeamGeneralRanks/TeamGeneralRankDetail/sagas'
 import watchTeamGeneralRankList from './TeamGeneralRanks/TeamGeneralRankList/sagas'
+import watchTeamGlobalPointSummaryDetail from "./TeamGlobalPointSummaries/TeamGlobalPointSummaryDetail/sagas";
 import watchTeamGoalDetail from './TeamGoals/TeamGoalDetail/sagas'
 import watchTeamGoalRankList from './TeamGoalRanks/TeamGoalRankList/sagas'
+import watchTeamRewardOrderCreation from "./TeamRewardOrders/TeamRewardOrderCreation/sagas";
 import watchTeamGoalListByDefinition from './TeamGoals/TeamGoalList/sagas'
-import { watchTeamGoalSummaryListByCollaborator, watchTeamGoalSummaryListByTeam } from './TeamGoalSummaries/TeamGoalSummaryList/sagas'
+import {watchTeamGoalSummaryListByCollaborator, watchTeamGoalSummaryListByTeam} from './TeamGoalSummaries/TeamGoalSummaryList/sagas'
 import watchTeamGoalListUpdate from './TeamGoals/TeamGoalListUpdate/sagas'
 import watchTeamCreation from './Teams/TeamCreation/sagas'
 import watchTeamUpdate from './Teams/TeamUpdate/sagas'
 import watchTeamRemoving from './Teams/TeamRemoving/sagas'
-import { watchTeamDetail, watchTeamDetailByAccount } from './Teams/TeamDetail/sagas'
+import {watchTeamDetail, watchTeamDetailByAccount} from './Teams/TeamDetail/sagas'
 import watchTeamList from './Teams/TeamList/sagas'
 import watchTeamPlayerGoalDetail from './TeamPlayerGoals/TeamPlayerGoalDetail/sagas'
 import watchTeamPlayerGoalList from './TeamPlayerGoals/TeamPlayerGoalList/sagas'
 import watchTeamPlayerGoalListUpdate from './TeamPlayerGoals/TeamPlayerGoalListUpdate/sagas'
+import {watchTeamPointSummaryDetailByCollaborator, watchTeamPointSummaryDetailByTeam} from "./TeamPointSummaries/TeamPointSummaryDetail/sagas";
+import watchWaitingTeamRewardOrderCount from "./TeamRewardOrders/TeamRewardOrderCount/sagas";
+import watchTeamRewardOrderDetail from "./TeamRewardOrders/TeamRewardOrderDetail/sagas";
+import {watchValidatedTeamRewardOrderSummaryList, watchWaitingTeamRewardOrderSummaryList} from './TeamRewardOrderSummaries/TeamRewardOrderSummaryList/sagas'
+import watchTeamRewardOrderUpdate from "./TeamRewardOrders/TeamRewardOrderUpdate/sagas";
 import watchUserCreation from './Users/UserCreation/sagas'
 import watchUserDetail from './Users/UserDetail/sagas'
 import watchUserList from './Users/UserList/sagas'
@@ -135,6 +162,9 @@ function* rootSaga() {
     yield all([
         watchAccountDetail(),
         watchAccountUpdate(),
+        watchActiveCategoryList(),
+        watchActiveRewardCategoryList(),
+        watchActiveRewardList(),
         watchAdminReferenceData(),
         watchAuth(),
         watchBadgeDetail(),
@@ -145,143 +175,174 @@ function* rootSaga() {
         watchBadgeLevelRemaining(),
         watchBadgeList(),
         watchBadgeUpdate(),
-        watchUsableCategoryIconList(),
-        watchUsableCategoryIconListForCategory(),
-        watchChallengeTypeList(),
-        watchChallengeTypeSummaryList(),
-        watchTermsAcceptance(),
-        watchCurrentChallengeTypeList(),
-        watchUsableChallengeTypeList(),
-        watchChallengeTypeListUpdate(),
-        watchChallengeTypeUsablePoints(),
-        watchChallengeTypeUsablePointsByChallenge(),
-        watchCollaboratorBadgeLevelList(),
-        watchCollaboratorNextBadgeLevelList(),
-        watchCollaboratorCategoryRankListByCategory(),
-        watchCollaboratorCategoryRankListByCollaborator(),
-        watchCollaboratorChallengeGeneralRankDetail(),
-        watchCollaboratorChallengeGeneralRankList(),
-        watchCollaboratorChallengeDetail(),
-        watchCollaboratorChallengeGoalList(),
-        watchCollaboratorChallengeList(),
-        watchCollaboratorChalengeRankListByCollaboratorChallenge(),
-        watchCollaboratorChalengeRankListByTeamCollaboratorChallenge(),
-        watchCollaboratorDataList(),
         watchCategoryActivationUpdate(),
-        watchCollaboratorDataUpdate(),
-        watchCollaboratorGeneralRankDetail(),
-        watchCollaboratorGoalRankListByCollaboratorGOal(),
-        watchCollaboratorGoalRankListByTeamCollaboratorGoal(),
-        watchCollaboratorGeneralRankList(),
-        watchFreeCollaboratorList(),
         watchCategoryCreation(),
         watchCategoryDetail(),
-        watchActiveCategoryList(),
-        watchInactiveCategoryList(),
-        watchChallengeImageList(),
-        watchCoachingItemUpdate(),
-        watchCoachingItemList(),
+        watchCategoryUpdate(),
         watchChallengeAwardTypeList(),
         watchChallengeCreation(),
-        watchChallengeUpdate(),
         watchChallengeDetail(),
-        watchCategoryUpdate(),
-        watchCurrentCollaboratorBadgeSummaryList(),
+        watchChallengeImageList(),
+        watchChallengeTypeList(),
+        watchChallengeTypeListUpdate(),
+        watchChallengeTypeSummaryList(),
+        watchChallengeTypeUsablePoints(),
+        watchChallengeTypeUsablePointsByChallenge(),
+        watchChallengeUpdate(),
+        watchCoachingItemList(),
         watchCoachingItemListCreation(),
         watchCoachingItemListUpdate(),
         watchCoachingItemRemoving(),
+        watchCoachingItemUpdate(),
+        watchCollaboratorBadgeLevelList(),
+        watchCollaboratorCategoryRankListByCategory(),
+        watchCollaboratorCategoryRankListByCollaborator(),
+        watchCollaboratorChalengeRankListByCollaboratorChallenge(),
+        watchCollaboratorChalengeRankListByTeamCollaboratorChallenge(),
+        watchCollaboratorChallengeDetail(),
+        watchCollaboratorChallengeGeneralRankDetail(),
+        watchCollaboratorChallengeGeneralRankList(),
+        watchCollaboratorChallengeGoalList(),
+        watchCollaboratorChallengeList(),
+        watchCollaboratorDataList(),
+        watchCollaboratorDataUpdate(),
         watchCollaboratorDetail(),
+        watchCollaboratorGeneralRankDetail(),
+        watchCollaboratorGeneralRankList(),
+        watchCollaboratorGlobalPointSummaryDetail(),
+        watchCollaboratorGoalCategoryList(),
         watchCollaboratorGoalDetail(),
         watchCollaboratorGoalListByTeamCollaboratorGoal(),
+        watchCollaboratorGoalRankListByCollaboratorGOal(),
+        watchCollaboratorGoalRankListByTeamCollaboratorGoal(),
         watchCollaboratorGoalSummaryList(),
+        watchCollaboratorNextBadgeLevelList(),
+        watchCollaboratorPointSummaryDetail(),
+        watchCollaboratorRewardOrderCreation(),
+        watchCollaboratorRewardOrderDetail(),
+        watchCollaboratorRewardOrderValidationUpdate(),
+        watchWaitingCollaboratorRewardOrderCount(),
         watchConfigDetail(),
         watchConfigList(),
-        watchPermanentConfigList(),
         watchConfigListUpdate(),
         watchConfigUpdate(),
+        watchCurrentChallengeTypeList(),
         watchCurrentCollaboratorBadgeDetail(),
+        watchCurrentCollaboratorBadgeSummaryList(),
+        watchCurrentPeriodDetail(),
+        watchEvolutionRequest(),
+        watchFreeCollaboratorList(),
         watchFreeColorList(),
+        watchFreeManagerList(),
         watchGoalAdviceListByCollaboratorGoal(),
         watchGoalAdviceListByTeamCollaboratorGoal(),
         watchGoalAdviceListByTeamGoal(),
         watchGoalAdviceListCreationByCollaboratorGoal(),
         watchGoalAdviceListCreationByTeamCollaboratorGoal(),
         watchGoalAdviceListCreationByTeamGoal(),
-        watchGoalListUpdate(),
-        watchGoalDefinitionDetail(),
+        watchGoalDefinitionActivationUpdate(),
         watchGoalDefinitionCreation(),
+        watchGoalDefinitionDetail(),
         watchGoalDefinitionLevelCollaboratorPoints(),
+        watchGoalDefinitionLevelList(),
+        watchGoalDefinitionLevelListUpdate(),
         watchGoalDefinitionLevelTeamPoints(),
         watchGoalDefinitionList(),
         watchGoalDefinitionUpdate(),
-        watchGoalDefinitionActivationUpdate(),
-        watchGoalDefinitionLevelList(),
-        watchGoalDefinitionLevelListUpdate(),
-        watchGoalPoints(),
         watchGoalDetail(),
         watchGoalList(),
+        watchGoalListUpdate(),
+        watchGoalPoints(),
         watchGoalTypeList(),
+        watchImportLogList(),
+        watchInactiveCategoryList(),
+        watchInactiveRewardCategoryList(),
         watchKpiDetail(),
         watchKpiList(),
         watchLevelList(),
         watchLevelListCreation(),
         watchManagerGoalList(),
-        watchEvolutionRequest(),
         watchNextCollaboratorBadgeDetail(),
-        watchFreeManagerList(),
-        watchImportLogList(),
-        watchCurrentPeriodDetail(),
         watchNextPeriodList(),
-        watchPreviousPeriodList(),
         watchPeriodicityList(),
         watchPeriodList(),
+        watchPermanentConfigList(),
         watchPlayerGoalList(),
         watchPlayerGoalListUpdate(),
-        watchUserGoalDetail(),
+        watchPreviousPeriodList(),
+        watchRewardCategory(),
+        watchRewardCategoryCreation(),
+        watchRewardCategoryUpdate(),
+        watchRewardCategoryActivationUpdate(),
+        watchRewardCreation(),
+        watchRewardDetail(),
+        watchRewardImageList(),
+        watchRewardOrderListExport(),
+        watchRewardTypeList(),
+        watchRewardUpdate(),
+        watchRewardActivationUpdate(),
         watchRoleList(),
         watchSystemImageList(),
         watchSystemImageUpdate(),
         watchTeamCategoryRankListByCategory(),
         watchTeamCategoryRankListByTeam(),
+        watchTeamChallengeDetail(),
         watchTeamChallengeGeneralRankDetail(),
         watchTeamChallengeGeneralRankList(),
-        watchTeamChallengeDetail(),
+        watchTeamChallengeGoalList(),
         watchTeamChallengeListByCollaborator(),
         watchTeamChallengeListByTeam(),
-        watchTeamChallengeGoalList(),
         watchTeamChallengeRankList(),
         watchTeamCollaboratorChallengeDetail(),
         watchTeamCollaboratorChallengeGoalList(),
         watchTeamCollaboratorChallengeList(),
         watchTeamCollaboratorGoalDetail(),
         watchTeamCollaboratorGoalList(),
+        watchTeamCollaboratorPointSummaryDetail(),
+        watchTeamCreation(),
+        watchTeamDetail(),
+        watchTeamDetailByAccount(),
         watchTeamGeneralRankDetail(),
         watchTeamGeneralRankList(),
+        watchTeamGlobalPointSummaryDetail(),
+        watchTeamGoalCategoryList(),
+        watchTeamGoalDetail(),
+        watchTeamGoalListByDefinition(),
+        watchTeamGoalListUpdate(),
+        watchTeamGoalRankList(),
+        watchTeamGoalSummaryListByCollaborator(),
+        watchTeamGoalSummaryListByTeam(),
+        watchTeamList(),
+        watchTeamPlayerGoalDetail(),
+        watchTeamPlayerGoalList(),
+        watchTeamPlayerGoalListUpdate(),
+        watchTeamPointSummaryDetailByCollaborator(),
+        watchTeamPointSummaryDetailByTeam(),
+        watchTeamRemoving(),
+        watchTeamRewardOrderCreation(),
+        watchTeamRewardOrderDetail(),
+        watchTeamRewardOrderUpdate(),
+        watchTeamUpdate(),
+        watchTermsAcceptance(),
+        watchUsableCategoryIconList(),
+        watchUsableCategoryIconListForCategory(),
+        watchUsableChallengeTypeList(),
+        watchUsableRewardCategoryIconList(),
+        watchUsableRewardCategoryIconListForRewardCategory(),
         watchUserCreation(),
         watchUserDetail(),
+        watchUserGoalDetail(),
+        watchUserGoalList(),
         watchUserList(),
         watchUserListImport(),
         watchUserUpdate(),
         watchUserUpdateActivation(),
         watchUserUpdatePassword(),
-        watchUserGoalList(),
-        watchTeamGoalDetail(),
-        watchTeamGoalRankList(),
-        watchTeamGoalListByDefinition(),
-        watchTeamGoalSummaryListByCollaborator(),
-        watchTeamGoalSummaryListByTeam(),
-        watchTeamGoalListUpdate(),
-        watchTeamCreation(),
-        watchTeamUpdate(),
-        watchTeamRemoving(),
-        watchTeamDetail(),
-        watchTeamDetailByAccount(),
-        watchTeamList(),
-        watchTeamPlayerGoalDetail(),
-        watchTeamPlayerGoalList(),
-        watchTeamPlayerGoalListUpdate(),
-        watchCollaboratorGoalCategoryList(),
-        watchTeamGoalCategoryList()
+        watchValidatedCollaboratorRewardOrderSummaryList(),
+        watchValidatedTeamRewardOrderSummaryList(),
+        watchWaitingCollaboratorRewardOrderSummaryList(),
+        watchWaitingTeamRewardOrderCount(),
+        watchWaitingTeamRewardOrderSummaryList()
     ])
 }
 

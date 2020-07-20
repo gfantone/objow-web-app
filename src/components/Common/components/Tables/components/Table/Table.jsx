@@ -11,14 +11,14 @@ const styles = {
     }
 }
 
-const CustomTable = ({ backgroundDisabled = false, ...props }) => {
-    const { classes } = props
+const CustomTable = ({backgroundDisabled = false, className, ...props}) => {
+    const {classes} = props
     const rootClass = !backgroundDisabled ? classes.root : null
 
     return (
         <Table classes={{
             root: rootClass
-        }}>
+        }} className={className}>
             { props.children }
         </Table>
     )

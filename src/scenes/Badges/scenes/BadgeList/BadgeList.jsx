@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
 import {Card, EmptyState, GridLink, IconButton, Loader, MainLayoutComponent} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import { SubHeader } from './components'
 import { BadgeFilter, BadgeLevel } from '../../components'
 import * as collaboratorBadgeLevelListActions from '../../../../services/CollaboratorBadgeLevels/CollaboratorBadgeLevelList/actions'
@@ -76,7 +77,7 @@ class BadgeList extends MainLayoutComponent {
         const params = new URLSearchParams(window.location.search);
         const currentParam = params.get('current');
         const current = currentParam ? currentParam.toBoolean() : this.current;
-        this.props.handleTitle('Défis');
+        this.props.handleTitle(Resources.BADGE_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader initial={current} onChange={this.handleChange.bind(this)} />);
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
         if (this.props.accountDetail.account.role.code != 'C') {
@@ -102,7 +103,7 @@ class BadgeList extends MainLayoutComponent {
 
     renderEmptyState() {
         return (
-            <EmptyState title='Aucun défi trouvé' message='' />
+            <EmptyState title={Resources.BADGE_LIST_EMPTY_STATE_TITLE} message='' />
         )
     }
 

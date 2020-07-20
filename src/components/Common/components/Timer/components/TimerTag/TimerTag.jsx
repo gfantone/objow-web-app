@@ -1,12 +1,13 @@
 import React from 'react'
 import { Timer } from '..'
 import { AccentTag, DarkTag, LightTag, UltraLightTag } from '../../..'
+import * as Resources from '../../../../../../Resources'
 import {getDifferenceWithToday} from '../../../../../../helpers/DateHelper'
 import '../../../../../../helpers/NumberHelper'
 
 const TimerTag = ({ date }) => {
     const difference = getDifferenceWithToday(date);
-    const text = `J${difference}`;
+    const text = Resources.GOAL_TIMER_TAG.format(difference)
 
     return (
         <div>

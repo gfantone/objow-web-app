@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { withFormsy } from 'formsy-react'
-import { FormControl, FormHelperText, Grid, InputLabel } from '@material-ui/core'
+import { Grid} from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { InfoText, ErrorText } from '../../../../..'
 
@@ -23,7 +23,7 @@ const styles = {
 
 const ColorInput = ({ colors = [], initial, label, name, onChange, required, ...props }) => {
     const { classes } = props
-    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.getErrorMessage : null
+    const errorMessage = !(!props.isFormSubmitted && value == null) ? props.errorMessage : null
     const hasError = !(!props.isFormSubmitted && value == null || props.isValid)
     const [value, setValue] = React.useState(initial)
     const finalLabel = required ? `${label} *` : label

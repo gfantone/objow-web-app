@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { Loader, RoundedTabs, RoundedTab, UserProfile } from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
 
 const styles = {
     root: {
@@ -34,8 +35,8 @@ const SubHeader = ({ initial = true, ...props }) => {
             <div>
                 <UserProfile user={collaborator} />
                 <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
-                    <RoundedTab label='En cours' />
-                    <RoundedTab label='Réussis' />
+                    <RoundedTab label={Resources.BADGE_LIST_CURRENT_TAB} />
+                    <RoundedTab label={Resources.BADGE_LIST_COMPLETED_TAB} />
                 </RoundedTabs>
             </div>
         )

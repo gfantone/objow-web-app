@@ -4,8 +4,8 @@ import badges from './endpoints/badges'
 import categories from './endpoints/categories'
 import categoryIcons from './endpoints/categoryIcons'
 import challengeAwardTypes from "./endpoints/challengeAwardTypes";
-import challenges from './endpoints/challenges'
 import challengeImages from './endpoints/challengeImages'
+import challenges from './endpoints/challenges'
 import challengeTypes from './endpoints/challengeTypes'
 import coachingItems from './endpoints/coachingItems'
 import collaboratorBadgeLevels from './endpoints/collaboratorBadgeLevels'
@@ -14,13 +14,16 @@ import collaboratorChallengeSummaries from './endpoints/collaboratorChallengeSum
 import collaboratorData from './endpoints/collaboratorData'
 import collaboratorGoals from './endpoints/collaboratorGoals'
 import collaboratorGoalSummaries from './endpoints/collaboratorGoalSummaries'
+import collaboratorRewardOrderItems from "./endpoints/collaboratorRewardOrderItems";
+import collaboratorRewardOrders from "./endpoints/collaboratorRewardOrders";
+import collaboratorRewardOrderSummaries from "./endpoints/collaboratorRewardOrderSummaries";
 import collaborators from './endpoints/collaborators'
 import configs from './endpoints/configs'
 import currentCollaboratorBadges from "./endpoints/currentCollaboratorBadges";
-import goals from './endpoints/goals'
-import goalDefinitions from './endpoints/goalDefinitions'
 import goalDefinitionLevels from './endpoints/goalDefinitionLevels'
+import goalDefinitions from './endpoints/goalDefinitions'
 import goalPoints from './endpoints/goalPoints'
+import goals from './endpoints/goals'
 import goalTypes from './endpoints/goalTypes'
 import importLogs from './endpoints/importLogs'
 import kpis from './endpoints/kpis'
@@ -28,8 +31,13 @@ import levels from './endpoints/levels'
 import mails from './endpoints/mails'
 import managers from './endpoints/managers'
 import nextCollaboratorBadges from "./endpoints/nextCollaboratorBadges";
-import periods from './endpoints/periods'
 import periodicities from './endpoints/periodicities'
+import periods from './endpoints/periods'
+import rewardCategories from "./endpoints/rewardCategories";
+import rewardCategoryIcons from './endpoints/rewardCategoryIcons'
+import rewardImages from './endpoints/rewardImages'
+import rewards from "./endpoints/rewards";
+import rewardTypes from "./endpoints/rewardTypes";
 import roles from './endpoints/roles'
 import systemImages from './endpoints/systemImages'
 import teamChallenges from './endpoints/teamChallenges'
@@ -40,6 +48,9 @@ import teamCollaboratorGoals from './endpoints/teamCollaboratorGoals'
 import teamCollaboratorGoalSummaries from './endpoints/teamCollaboratorGoalSummaries'
 import teamGoals from './endpoints/teamGoals'
 import teamGoalSummaries from './endpoints/teamGoalSummaries'
+import teamRewardOrderItems from "./endpoints/teamRewardOrderItems";
+import teamRewardOrders from "./endpoints/teamRewardOrders";
+import teamRewardOrderSummaries from "./endpoints/teamRewardOrderSummaries";
 import teams from './endpoints/teams'
 import tokens from './endpoints/tokens'
 import userGoals from './endpoints/userGoals'
@@ -52,8 +63,8 @@ const api = {
     categories,
     categoryIcons,
     challengeAwardTypes,
-    challenges,
     challengeImages,
+    challenges,
     challengeTypes,
     coachingItems,
     collaboratorBadgeLevels,
@@ -62,13 +73,16 @@ const api = {
     collaboratorData,
     collaboratorGoals,
     collaboratorGoalSummaries,
+    collaboratorRewardOrderItems,
+    collaboratorRewardOrders,
+    collaboratorRewardOrderSummaries,
     collaborators,
     configs,
     currentCollaboratorBadges,
-    goals,
-    goalDefinitions,
     goalDefinitionLevels,
+    goalDefinitions,
     goalPoints,
+    goals,
     goalTypes,
     importLogs,
     kpis,
@@ -76,8 +90,13 @@ const api = {
     mails,
     managers,
     nextCollaboratorBadges,
-    periods,
     periodicities,
+    periods,
+    rewardCategories,
+    rewardCategoryIcons,
+    rewardImages,
+    rewards,
+    rewardTypes,
     roles,
     systemImages,
     teamChallenges,
@@ -88,6 +107,9 @@ const api = {
     teamCollaboratorGoalSummaries,
     teamGoals,
     teamGoalSummaries,
+    teamRewardOrderItems,
+    teamRewardOrders,
+    teamRewardOrderSummaries,
     teams,
     tokens,
     userGoals,

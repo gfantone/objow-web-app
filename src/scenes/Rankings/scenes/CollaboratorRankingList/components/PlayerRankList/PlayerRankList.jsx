@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { RankList } from '..'
 import {EmptyState, Loader} from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
 import * as collaboratorCategoryRankListActions from '../../../../../../services/CollaboratorCategoryRanks/CollaboratorCategoryRankList/actions'
 import * as collaboratorChallengeGeneralRankDetailActions from '../../../../../../services/CollaboratorChallengeGeneralRanks/CollaboratorChallengeGeneralRankDetail/actions'
 import * as collaboratorGeneralRankDetailActions from '../../../../../../services/CollaboratorGeneralRanks/CollaboratorGeneralRankDetail/actions'
@@ -53,7 +54,7 @@ class PlayerRankList extends Component {
     }
 
     renderEmptyState() {
-        return <EmptyState title={'Aucun classement trouvé'} />
+        return <EmptyState title={Resources.COLLABORATOR_RANK_LIST_EMPTY_STATE_TITLE} />
     }
 
     renderData() {
