@@ -38,7 +38,7 @@ class CollaboratorRewardOrderValidation extends MainLayoutComponent {
         const {order} = this.props.collaboratorRewardOrderDetail
         const {loading} = this.props.collaboratorRewardOrderUpdate
         const name = `${order.counter.collaborator.firstname} ${order.counter.collaborator.lastname}`
-        const recipientPoints = order.pointSummary ? order.pointSummary.points - order.pointSummary.usedPoints - order.pointSummary.waitingPoints : 0
+        const recipientPoints = order.pointSummary ? order.pointSummary.points - order.pointSummary.usedPoints : 0
         const orderPoints = order.items.map(x => x.quantity * x.reward.points).reduce((a, b) => a + b)
         const orderValue = order.items.map(x => x.quantity * x.reward.value).reduce((a, b) => a + b)
 
