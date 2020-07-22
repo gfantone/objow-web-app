@@ -37,7 +37,7 @@ class TeamRewardOrderValidation extends MainLayoutComponent {
     renderData() {
         const {order} = this.props.teamRewardOrderDetail
         const {loading} = this.props.teamRewardOrderUpdate
-        const recipientPoints = order.pointSummary ? order.pointSummary.points - order.pointSummary.usedPoints - order.pointSummary.waitingPoints : 0
+        const recipientPoints = order.pointSummary ? order.pointSummary.points - order.pointSummary.usedPoints : 0
         const orderPoints = order.items.map(x => x.quantity * x.reward.points).reduce((a, b) => a + b)
         const orderValue = order.items.map(x => x.quantity * x.reward.value).reduce((a, b) => a + b)
 
