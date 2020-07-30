@@ -53,7 +53,7 @@ export const BADGE_LIST_COMPLETED_TAB = "Réussis"
 // Challenge
 export const CHALLENGE_LONG_TITLE = "Les challenges"
 export const CHALLENGE_SHORT_TITLE = "Challenges"
-export const CHALLENGE_FIRST_RANK = "{0)er"
+export const CHALLENGE_FIRST_RANK = "{0}er"
 export const CHALLENGE_OTHER_RANK = "{0}ème"
 export const CHALLENGE_COLLABORATORS = "{0} joueurs"
 export const CHALLENGE_TEAMS = "{0} équipes"
