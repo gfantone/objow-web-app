@@ -1,6 +1,6 @@
 import React from 'react'
-import { BrowserRouter, Switch } from 'react-router-dom'
-import {AdminRoutes, AnonymousRoutes, FileRoutes, MainRoutes, ManagerRoutes} from './components'
+import {BrowserRouter, Switch} from 'react-router-dom'
+import {AdminRoutes, AnonymousRoutes, FileRoutes, MaintenanceRoutes, MainRoutes, ManagerRoutes} from './components'
 import * as scenes from './scenes'
 import IntermediateRoutes from "./components/Common/components/IntermadiateRoutes/IntermadiateRoutes";
 
@@ -10,6 +10,7 @@ export default () => {
             <Switch>
                 {/* Main routes */}
                 <MainRoutes exact path='/' component={scenes.Main} />
+                {/*<MaintenanceRoutes component={scenes.Maintenance} />*/}
                 {/* Account */}
                 <MainRoutes exact path='/account' component={scenes.AccountDetail} />
                 {/* Collaboratos */}
