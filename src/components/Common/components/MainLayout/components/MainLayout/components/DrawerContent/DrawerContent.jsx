@@ -2,7 +2,6 @@ import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {Account, Divider, DrawerButton, List, Logo} from './components'
-import {Badge} from '../../../../../../..'
 import {faBook, faBullseye, faGift, faListUl, faQuestion, faRandom, faRocket, faSignOutAlt, faTools, faTrophy, faUsers} from '@fortawesome/free-solid-svg-icons'
 import * as Resources from '../../../../../../../../Resources'
 import * as collaboratorRewardOrdersActions from '../../../../../../../../services/CollaboratorRewardOrders/CollaboratorRewardOrderCount/actions'
@@ -42,9 +41,7 @@ const DrawerContent = ({onNavigate, ...props }) => {
                 <Divider />
                 <DrawerButton icon={faUsers} text={Resources.DRAWER_TEAMS_BUTTON} src='/teams' onNavigate={onNavigate} />
                 {account.hasRewardAccess && <Divider />}
-                {account.hasRewardAccess && <Badge badgeContent={orders} color='secondary' style={{width: '100%'}}>
-                    <DrawerButton icon={faGift} text={Resources.DRAWER_REWARDS_BUTTON} src='/rewards' onNavigate={onNavigate} />
-                </Badge>}
+                {account.hasRewardAccess && <DrawerButton icon={faGift} text={Resources.DRAWER_REWARDS_BUTTON} src='/rewards' onNavigate={onNavigate} badgeContent={orders} />}
                 <Divider />
                 <DrawerButton icon={faBook} text={Resources.DRAWER_RULES_BUTTON} src='/rules' onNavigate={onNavigate} />
                 {isAdministrator && <Divider />}
