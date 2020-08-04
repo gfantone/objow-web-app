@@ -80,7 +80,7 @@ class ShoppingCart extends MainLayoutComponent {
             this.props.collaboratorRewardOrderCreationActions.clearCollaboratorRewardOrderCreation()
             this.props.teamRewardOrderCreationActions.clearTeamRewardOrderCreation()
             this.props.shoppingCartActions.clearShoppingCart()
-            this.props.history.goBack()
+            this.props.history.push('/rewards')
         }
 
         return (
