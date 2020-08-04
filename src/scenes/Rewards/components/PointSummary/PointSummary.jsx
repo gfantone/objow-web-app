@@ -5,7 +5,7 @@ import {AccentText, Badge, BoldSpan, Button, Card, DefaultText, DefaultTitle, Er
 import '../../../../helpers/StringHelper'
 import * as Resources from '../../../../Resources'
 
-const PointSummary = ({points, usedPoints, waitingPoints, onTrackingClick, orders, ...props}) => {
+const PointSummary = ({points, usedPoints, validatedValues, waitingPoints, onTrackingClick, orders, ...props}) => {
     const usablePoints = points - usedPoints - waitingPoints
     const usablePointsText = Resources.POINT_SUMMARY_USABLE_POINTS_VALUE.format(usablePoints)
     const alignItems = isWidthUp('sm') ? 'flex-end' : 'flex-start'
@@ -26,6 +26,9 @@ const PointSummary = ({points, usedPoints, waitingPoints, onTrackingClick, order
                                     </Grid>
                                     <Grid item xs={12}>
                                         <DefaultText>{Resources.POINT_SUMMARY_USED_POINTS_LABEL} : <BoldSpan component='span'>{Resources.POINT_SUMMARY_USED_POINTS_VALUE.format(usedPoints)}</BoldSpan></DefaultText>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <DefaultText>{Resources.POINT_SUMMARY_VALIDATED_VALUES_LABEL} : <BoldSpan component='span'>{Resources.POINT_SUMMARY_VALIDATED_VALUES_VALUE.format(validatedValues)}</BoldSpan></DefaultText>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <DefaultText>{Resources.POINT_SUMMARY_WAITING_POINTS_LABEL} : <BoldSpan component='span'>{Resources.POINT_SUMMARY_WAITING_POINTS_VALUE.format(waitingPoints)}</BoldSpan></DefaultText>

@@ -12,7 +12,7 @@ const RewardStore = ({onAddClick, rewards, summary, ...props}) => {
         <div>
             <Grid container spacing={4}>
                 <Grid item xs={12}>
-                    <PointSummary points={summary.points} usedPoints={summary.usedPoints} waitingPoints={summary.waitingPoints} />
+                    <PointSummary points={summary.points} usedPoints={summary.usedPoints} validatedValues={summary.validatedValues} waitingPoints={summary.waitingPoints} />
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container spacing={1}>

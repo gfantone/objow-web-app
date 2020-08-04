@@ -38,7 +38,7 @@ const CollaboratorRewardManagement = ({periodId, ...props}) => {
             <div>
                 <Grid container spacing={4}>
                     <Grid item xs={12}>
-                        <PointSummary points={summary.points} usedPoints={summary.usedPoints} waitingPoints={summary.waitingPoints} orders={orders} onTrackingClick={handleTrackingClick} />
+                        <PointSummary points={summary.points} usedPoints={summary.usedPoints} validatedValues={summary.validatedValues} waitingPoints={summary.waitingPoints} orders={orders} onTrackingClick={handleTrackingClick} />
                     </Grid>
                     <Grid item xs={12}>
                         <Grid container spacing={1}>
