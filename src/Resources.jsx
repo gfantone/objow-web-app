@@ -411,6 +411,8 @@ export const POINT_SUMMARY_POINTS_LABEL = "Total points gagnés"
 export const POINT_SUMMARY_POINTS_VALUE = "{0} PTS"
 export const POINT_SUMMARY_USED_POINTS_LABEL = "Total points consommés"
 export const POINT_SUMMARY_USED_POINTS_VALUE = "{0} PTS"
+export const POINT_SUMMARY_VALIDATED_VALUES_LABEL = "Total valeur dépensée"
+export const POINT_SUMMARY_VALIDATED_VALUES_VALUE = "{0} €"
 export const POINT_SUMMARY_WAITING_POINTS_LABEL = "Points en attente de validation"
 export const POINT_SUMMARY_WAITING_POINTS_VALUE = "{0} PTS"
 export const POINT_SUMMARY_USABLE_POINTS_LABEL = "Solde de points"
@@ -503,6 +505,7 @@ export const REWARD_CREATION_SUBMIT_BUTTON = "Valider"
 
 // Reward - Detail
 export const REWARD_DETAIL_DESCRIPTION_AREA = "Description"
+export const REWARD_DETAIL_IMAGE_CLOSE_BUTTON = "Fermer"
 export const REWARD_DETAIL_VALUE_TEXT = "Valeur : {0} €"
 export const REWARD_DETAIL_DELIVERY_TITLE = "Livraison"
 export const REWARD_DETAIL_DELIVERY_PLACE_TEXT = "Lieu : {0}"
@@ -619,13 +622,17 @@ export const REWARD_SHOPPING_CART_ADDING_CONFIRMATION_MESSAGE = 'Vous venez d’
 export const REWARD_SHOPPING_CART_ADDING_CONFIRMATION_SHOPPING_CART_BUTTON = 'Aller au panier'
 export const REWARD_SHOPPING_CART_ADDING_CONFIRMATION_CLOSE_BUTTON = 'Continuer vos achats'
 
+// Reward - Store
+export const REWARD_STORE_EMPTY_STATE_TITLE = 'Aucune récompense trouvée'
+export const REWARD_STORE_EMPTY_STATE_MESSAGE = 'Si vous avez appliqué des filtres, changez-les pour afficher d’autres récompenses'
+
 // Reward - Store filter
 export const REWARD_STORE_FILTER_TITLE = "Filtres"
 export const REWARD_STORE_FILTER_CATEGORY_LABEL = "Catégorie"
 export const REWARD_STORE_FILTER_CATEGORY_ALL_OPTION = "Toutes"
 export const REWARD_STORE_FILTER_TEAM_LABEL = "Équipe"
 export const REWARD_STORE_FILTER_COLLABORATOR_LABEL = "Collaborateur"
-export const REWARD_STORE_FILTER_COLLABORATOR_ALL_OPTION = "Tous"
+export const REWARD_STORE_FILTER_COLLABORATOR_ALL_OPTION = "Équipe"
 export const REWARD_STORE_FILTER_PERIOD_LABEL = "Année"
 export const REWARD_STORE_FILTER_SUBMIT_BUTTON = "Filtrer"
 export const REWARD_STORE_FILTER_CANCEL_BUTTON = "Annuler"

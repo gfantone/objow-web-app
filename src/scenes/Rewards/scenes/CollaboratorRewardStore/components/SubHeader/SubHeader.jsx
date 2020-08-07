@@ -36,7 +36,7 @@ const SubHeader = ({page, onChange, ...props}) => {
         return (
             <div>
                 <UserProfile user={collaborator} />
-                {(collaboratorRewardActivation || teamRewardActivation) && <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
+                {(teamRewardActivation) && <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
                     {collaboratorRewardActivation && <RoundedTab label={Resources.COLLABORATOR_REWARD_LIST_COLLABORATOR_TAB} />}
                     {teamRewardActivation && <RoundedTab label={Resources.COLLABORATOR_REWARD_LIST_TEAM_TAB} />}
                 </RoundedTabs>}

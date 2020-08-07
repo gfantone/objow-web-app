@@ -2,21 +2,41 @@ import React from 'react'
 import {Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {Grid, Hidden} from '@material-ui/core'
+import {ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Hidden} from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCopy, faEdit, faFolderOpen} from '@fortawesome/free-solid-svg-icons'
 import {HorizontalExplanation, RewardDetailImage, SubHeader, VerticalExplanation} from './components'
 import {ShoppingCartAddingConfirmation, ShoppingCartButton} from '../../components'
-import {BoldSpan, Card, DefaultText, DefaultTitle, IconButton, InfoText, Linkify, MainLayoutComponent, Quantity} from '../../../../components'
+import {AccentText, BoldSpan, Card, DefaultText, DefaultTitle, IconButton, InfoText, Linkify, MainLayoutComponent, Quantity} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 import * as rewardDetailActions from '../../../../services/Rewards/RewardDetail/actions'
 import * as shoppingCartActions from '../../../../services/ShoppingCart/actions'
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const DEFAULT_QUANTITY = 1
 
+const styles = {
+    panel: {
+        backgroundColor: 'initial',
+        borderRadius: 'initial',
+        boxShadow: 'none'
+    },
+    panelSummary: {
+        margin: 'none',
+        padding: 'initial'
+    },
+    panelSummaryIcon: {
+        color: '#00E58D'
+    },
+    panelDetails: {
+        padding: 'initial'
+    }
+}
+
 class RewardDetail extends MainLayoutComponent {
-    state = {quantity: DEFAULT_QUANTITY}
+    state = {expanded: false, quantity: DEFAULT_QUANTITY}
 
     constructor(props) {
         super(props)
@@ -62,6 +82,13 @@ class RewardDetail extends MainLayoutComponent {
         return lastReward
     }
 
+    handleExpansionChange(event, expanded) {
+        this.setState({
+            ...this.state,
+            expanded: expanded
+        })
+    }
+
     handleQuantityChange(quantity) {
         this.setState({
             ...this.state,
@@ -70,6 +97,7 @@ class RewardDetail extends MainLayoutComponent {
     }
 
     render() {
+        const {classes} = this.props
         const {account} = this.props.accountDetail
         const {reward, loading} = this.props.rewardDetail
         const image = reward ? (reward.image ? reward.image.path : reward.customImage) : null
@@ -144,17 +172,19 @@ class RewardDetail extends MainLayoutComponent {
                                     <RewardDetailImage image={image} />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <DefaultText>
-                                        <BoldSpan>{Resources.REWARD_DETAIL_OPERATION_TITLE}</BoldSpan>
-                                    </DefaultText>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Hidden smDown>
-                                        <HorizontalExplanation />
-                                    </Hidden>
-                                    <Hidden mdUp>
-                                        <VerticalExplanation />
-                                    </Hidden>
+                                    <ExpansionPanel expanded={this.state.expanded} onChange={this.handleExpansionChange.bind(this)} className={classes.panel}>
+                                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon className={classes.panelSummaryIcon} />} className={classes.panelSummary}>
+                                            <AccentText><BoldSpan>{Resources.REWARD_DETAIL_OPERATION_TITLE}</BoldSpan></AccentText>
+                                        </ExpansionPanelSummary>
+                                        <ExpansionPanelDetails className={classes.panelDetails}>
+                                            <Hidden smDown>
+                                                <HorizontalExplanation />
+                                            </Hidden>
+                                            <Hidden mdUp>
+                                                <VerticalExplanation />
+                                            </Hidden>
+                                        </ExpansionPanelDetails>
+                                    </ExpansionPanel>
                                 </Grid>
                             </Grid>
                         </Card>
@@ -176,4 +206,4 @@ const mapDispatchToProps = (dispatch) => ({
     shoppingCartActions: bindActionCreators(shoppingCartActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RewardDetail)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(RewardDetail))
