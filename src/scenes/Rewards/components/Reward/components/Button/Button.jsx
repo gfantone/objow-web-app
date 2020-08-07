@@ -3,7 +3,7 @@ import {withStyles} from '@material-ui/core/styles'
 
 const styles = {
     root: {
-        fontSize: 11,
+        fontSize: 13,
         height: 28,
         color: '#FFFFFF',
         backgroundColor: '#00E58D',
@@ -12,6 +12,7 @@ const styles = {
         paddingTop: 0,
         paddingRight: 8,
         paddingBottom: 0,
+        textTransform: 'capitalize',
         '&:hover': {
             backgroundColor: '#00E58D',
         }

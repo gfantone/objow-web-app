@@ -22,7 +22,7 @@ const styles = {
         position: "relative",
         lineHeight: "1.5em",
         maxHeight: "3em",
-        textAlign: "justify",
+        textAlign: "left",
         "&&:before": {
             content: '"..."',
             position: "absolute",
@@ -44,7 +44,7 @@ const styles = {
     timerContainer: {
         position: 'absolute',
         right: 0,
-        top: 16
+        top: 0
     }
 }
 
