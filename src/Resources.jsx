@@ -505,6 +505,7 @@ export const REWARD_CREATION_SUBMIT_BUTTON = "Valider"
 
 // Reward - Detail
 export const REWARD_DETAIL_DESCRIPTION_AREA = "Description"
+export const REWARD_DETAIL_IMAGE_CLOSE_BUTTON = "Fermer"
 export const REWARD_DETAIL_VALUE_TEXT = "Valeur : {0} €"
 export const REWARD_DETAIL_DELIVERY_TITLE = "Livraison"
 export const REWARD_DETAIL_DELIVERY_PLACE_TEXT = "Lieu : {0}"
