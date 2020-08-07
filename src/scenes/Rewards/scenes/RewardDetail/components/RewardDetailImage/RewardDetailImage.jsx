@@ -4,9 +4,12 @@ import {CardMedia} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     image: {
-        height: 250,
+        borderRadius: 16,
+        height: 200,
+        maxWidth: 300,
+        width: '100%',
         [theme.breakpoints.up('md')]: {
-            width: 412,
+            width: 300
         }
     }
 }))
