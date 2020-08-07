@@ -621,6 +621,10 @@ export const REWARD_SHOPPING_CART_ADDING_CONFIRMATION_MESSAGE = 'Vous venez d’
 export const REWARD_SHOPPING_CART_ADDING_CONFIRMATION_SHOPPING_CART_BUTTON = 'Aller au panier'
 export const REWARD_SHOPPING_CART_ADDING_CONFIRMATION_CLOSE_BUTTON = 'Continuer vos achats'
 
+// Reward - Store
+export const REWARD_STORE_EMPTY_STATE_TITLE = 'Aucune récompense trouvée'
+export const REWARD_STORE_EMPTY_STATE_MESSAGE = 'Si vous avez appliqué des filtres, changez-les pour afficher d’autres récompenses'
+
 // Reward - Store filter
 export const REWARD_STORE_FILTER_TITLE = "Filtres"
 export const REWARD_STORE_FILTER_CATEGORY_LABEL = "Catégorie"

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
+import {Card} from '@material-ui/core'
+import {withStyles} from '@material-ui/core/styles'
 
 const styles = {
     card: {
@@ -12,14 +12,14 @@ const styles = {
     }
 }
 
-const CustomCard = ({ marginDisabled = false, ...props }) => {
-    const { classes } = props
+const CustomCard = ({className, marginDisabled = false, ...props}) => {
+    const {classes} = props
     const contentClass = !marginDisabled ? classes.content : null
 
     return (
-        <Card className={classes.card}>
+        <Card classes={{root: classes.card}} className={className}>
             <div className={contentClass}>
-                { props.children }
+                {props.children}
             </div>
         </Card>
     )
