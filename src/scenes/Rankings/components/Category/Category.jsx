@@ -12,13 +12,12 @@ const styles = {
 
 const Category = ({ category, title, ...props }) => {
     const { classes } = props
-    const iconData = require(`../../../../assets/img/system/category/icons/${category.icon.name}.svg`)
-    
+
     return (
         <div>
             <Grid container spacing={2} alignItems='center'>
                 <Grid item>
-                    <CardMedia image={iconData} className={classes.icon} />
+                    <CardMedia image={category.icon.path} className={classes.icon} />
                 </Grid>
                 <Grid item xs>
                     <DefaultText>

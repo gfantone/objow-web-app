@@ -7,6 +7,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSlidersH} from '@fortawesome/free-solid-svg-icons'
 import {Goal, GoalFilter} from '../../components'
 import {Card, EmptyState, GridLink, IconButton, Loader, MainLayoutComponent, TimeFilter} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import * as collaboratorGoalSummaryListActions from '../../../../services/CollaboratorGoalSummaries/CollaboratorGoalSummaryList/actions'
 import * as teamGoalListSummaryActions from '../../../../services/TeamGoalSummaries/TeamGoalSummaryList/actions'
@@ -92,7 +93,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
         const name = params.get('name');
         this.props.activateReturn();
         this.props.activateSearch(name);
-        this.props.handleTitle('Objectifs');
+        this.props.handleTitle(Resources.GOAL_SHORT_TITLE);
         this.props.handleSubHeader(<TimeFilter initial={current} handleTimeChange={this.handleTimeChange.bind(this)} />);
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
         this.loadData(this.props)
@@ -138,7 +139,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
     }
 
     renderEmptyState() {
-        return <EmptyState title='Aucun objectif trouvé' message="Si vous avez appliqué des filtres, changez-les pour afficher d'autres objectifs" />
+        return <EmptyState title={Resources.COLLABORATOR_GOAL_LIST_EMPTY_STATE_TITLE} message={Resources.COLLABORATOR_GOAL_LIST_EMPTY_STATE_MESSAGE} />
     }
 
     renderData() {

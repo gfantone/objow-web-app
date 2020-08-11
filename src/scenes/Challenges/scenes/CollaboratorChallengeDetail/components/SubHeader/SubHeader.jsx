@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { Challenge } from '../../../../components'
 import { Loader, RoundedTab, RoundedTabs } from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
 
 const styles = {
     loaderContainer: {
@@ -42,8 +43,8 @@ const SubHeader = ({ activateRank, onChange, ...props }) => {
                     <Challenge challenge={challenge} />
                 </div>
                 { activateRank && <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
-                    <RoundedTab label='Classements' />
-                    <RoundedTab label='Conditions' />
+                    <RoundedTab label={Resources.COLLABORATOR_CHALLENGE_DETAIL_RANK_TAB} />
+                    <RoundedTab label={Resources.COLLABORATOR_CHALLENGE_DETAIL_CONDITION_TAB} />
                 </RoundedTabs> }
             </div>
         )

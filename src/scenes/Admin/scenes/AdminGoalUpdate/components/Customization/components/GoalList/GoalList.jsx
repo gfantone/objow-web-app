@@ -10,6 +10,7 @@ import * as goalListUpdateActions from '../../../../../../../../services/Goals/G
 import '../../../../../../../../helpers/FormsyHelper'
 import '../../../../../../../../helpers/DateHelper'
 import '../../../../../../../../helpers/NumberHelper'
+import * as Resources from "../../../../../../../../Resources";
 
 const styles = {
     title: {
@@ -140,7 +141,7 @@ class GoalList extends Component {
                                             isMoreThanOrEquals: 0
                                         }}
                                         validationErrors={{
-                                            isDefaultRequiredValue: 'Ce champ est requis.',
+                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                             isInt: "L'objectif doit être un nombre entier.",
                                             isMoreThanOrEquals: "L'objectif doit être supérieur ou égal à 0."
                                         }}

@@ -1,9 +1,11 @@
 import React from 'react'
 import { AccentTag, DarkTag } from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
+import '../../../../../../helpers/StringHelper'
 
 const Points = ({ level, ...props }) => {
-    const text = `${level.points} PTS`;
-    const hasPoints = level.counter >= level.target;
+    const text = Resources.BADGE_LEVEL_POINT_TEXT.format(level.points)
+    const hasPoints = level.counter >= level.target
 
     return (
         <div>

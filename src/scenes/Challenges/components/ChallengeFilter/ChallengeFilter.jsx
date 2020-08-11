@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
 import { Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core'
 import { Button, DatePicker, Select } from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as previousPeriodListActions from '../../../../services/Periods/PreviousPeriodList/actions'
@@ -80,29 +81,29 @@ class ChallengeFilter extends Component {
             <div>
                 <Dialog open={this.props.open} onClose={this.props.onClose}>
                     <Formsy onSubmit={this.handleSubmit.bind(this)}>
-                        <DialogTitle>Filtres</DialogTitle>
+                        <DialogTitle>{Resources.CHALLENGE_FILTER_TITLE}</DialogTitle>
                         <DialogContent>
                             <Grid container spacing={2}>
                                 { account.role.code == 'A' && <Grid item xs={12}>
-                                    <Select name='team' label='Équipe' options={teams} emptyText='Toutes' optionValueName='id' optionTextName='name' fullWidth initial={this.state.team} onChange={this.handleChange('team').bind(this)} />
+                                    <Select name='team' label={Resources.CHALLENGE_FILTER_TEAM_LABEL} options={teams} optionValueName='id' optionTextName='name' emptyDisabled fullWidth initial={this.state.team} onChange={this.handleChange('team').bind(this)} />
                                 </Grid> }
                                 { account.role.code != 'C' && collaborators && <Grid item xs={12}>
-                                    <Select name='collaborator' label='Collaborateur' options={collaborators} emptyText='Tous' optionValueName='id' optionTextName='fullname' fullWidth initial={this.state.collaborator} onChange={this.handleChange('collaborator').bind(this)} />
+                                    <Select name='collaborator' label={Resources.CHALLENGE_FILTER_COLLABORATOR_LABEL} options={collaborators} emptyText={Resources.CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION} optionValueName='id' optionTextName='fullname' fullWidth initial={this.state.collaborator} onChange={this.handleChange('collaborator').bind(this)} />
                                 </Grid> }
                                 <Grid item xs={12}>
-                                    <Select name={'year'} label={'Année'} options={periods} optionValueName={'id'} optionTextName={'name'} emptyDisabled fullWidth initial={this.state.year} onChange={this.handleChange('year').bind(this)} />
+                                    <Select name={'year'} label={Resources.CHALLENGE_FILTER_PERIOD_LABEL} options={periods} optionValueName={'id'} optionTextName={'name'} emptyDisabled fullWidth initial={this.state.year} onChange={this.handleChange('year').bind(this)} />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <DatePicker name='start' label='Date de début' initial={this.state.start} format='dd/MM/yyyy' fullWidth clearable />
+                                    <DatePicker name='start' label={Resources.CHALLENGE_FILTER_START_LABEL} initial={this.state.start} format='dd/MM/yyyy' fullWidth clearable />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <DatePicker name='end' label='Date de fin' initial={this.state.end} format='dd/MM/yyyy' fullWidth clearable />
+                                    <DatePicker name='end' label={Resources.CHALLENGE_FILTER_END_LABEL} initial={this.state.end} format='dd/MM/yyyy' fullWidth clearable />
                                 </Grid>
                             </Grid>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={this.props.onClose} color='secondary'>Annuler</Button>
-                            <Button type='submit'>Filtrer</Button>
+                            <Button onClick={this.props.onClose} color='secondary'>{Resources.CHALLENGE_FILTER_CANCEL_BUTTON}</Button>
+                            <Button type='submit'>{Resources.CHALLENGE_FILTER_SUBMIT_BUTTON}</Button>
                         </DialogActions>
                     </Formsy>
                 </Dialog>

@@ -5,6 +5,7 @@ import {faStar} from '@fortawesome/free-regular-svg-icons'
 import {faRandom, faSortAmountDown} from '@fortawesome/free-solid-svg-icons'
 import {TeamRank} from './components'
 import {Table, TableHead, TableHeadCell, TableRow} from '../../../../components'
+import * as Resources from '../../../../Resources'
 
 const TeamRanking = ({ranking, teamId}) => {
     return (
@@ -15,11 +16,11 @@ const TeamRanking = ({ranking, teamId}) => {
                         <TableHeadCell align='left' colSpan={2}>
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
-                        <TableHeadCell>Équipes</TableHeadCell>
+                        <TableHeadCell>{Resources.TEAM_RANKING_TEAM_COLUMN}</TableHeadCell>
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faStar} />
                         </TableHeadCell>
-                        <TableHeadCell align='right'>PTS</TableHeadCell>
+                        <TableHeadCell align='right'>{Resources.TEAM_RANKING_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faRandom} />
                         </TableHeadCell>

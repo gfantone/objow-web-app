@@ -42,7 +42,7 @@ const theme = createMuiTheme({
 const CustomDatePicker = ({ clearable, disabled, format, initial = null, fullWidth, minDate, maxDate, label, required, name, onChange, ...props }) => {
     const [value, setValue] = React.useState(initial);
     const hasError = props.isFormSubmitted && !props.isValid;
-    const errorMessage = hasError ? props.getErrorMessage : null;
+    const errorMessage = hasError ? props.errorMessage : null;
 
     useEffect(() => {
         props.setValue(initial)

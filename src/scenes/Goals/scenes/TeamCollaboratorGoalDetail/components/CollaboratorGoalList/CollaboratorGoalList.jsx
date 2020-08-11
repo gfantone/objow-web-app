@@ -8,6 +8,7 @@ import { AccentText, Card, DefaultText, DefaultTitle, EmptyState, ErrorText, Inf
 import * as collaboratorGoalListActions from '../../../../../../services/CollaboratorGoals/CollaboratorGoalList/actions'
 import * as playerGoalListUpdateActions from '../../../../../../services/PlayerGoals/PlayerGoalListUpdate/actions'
 import '../../../../../../helpers/FormsyHelper'
+import * as Resources from "../../../../../../Resources";
 
 const styles = {
     title: {
@@ -57,7 +58,7 @@ class CollaboratorGoalList extends Component {
     renderEmptyState() {
         return (
             <div>
-                <EmptyState title='Aucun objectif trouvé' message="Si vous avez appliqué des filtres, changez-les pour afficher d'autres objectifs" />
+                <EmptyState title={Resources.COLLABORATOR_GOAL_LIST_EDITION_EMPTY_STATE_TITLE} message={Resources.COLLABORATOR_GOAL_LIST_EDITION_EMPTY_STATE_MESSAGE} />
             </div>
         )
     }
@@ -106,21 +107,21 @@ class CollaboratorGoalList extends Component {
 
         return (
             <div>
-                <DefaultTitle className={classes.title}>Indicateurs</DefaultTitle>
+                <DefaultTitle className={classes.title}>{Resources.COLLABORATOR_GOAL_LIST_EDITION_TITLE}</DefaultTitle>
                 <div className={classes.indicators}>
                     <Card>
                         <div className={classes.indicatorsContent}>
                             <Grid container justify='space-between'>
                                 <Grid item>
-                                    <DefaultText>Objectif alloué pour la période sélectionnée</DefaultText>
+                                    <DefaultText>{Resources.COLLABORATOR_GOAL_LIST_EDITION_MAX_TARGET_LABEL}</DefaultText>
                                     <InfoText>{maxTarget}</InfoText>
                                 </Grid>
                                 <Grid item>
-                                    <DefaultText>Objectif utilisé</DefaultText>
+                                    <DefaultText>{Resources.COLLABORATOR_GOAL_LIST_EDITION_ALL_TARGET_LABEL}</DefaultText>
                                     <InfoText>{allTarget}</InfoText>
                                 </Grid>
                                 <Grid item>
-                                    <DefaultText>Objectif restant</DefaultText>
+                                    <DefaultText>{Resources.COLLABORATOR_GOAL_LIST_EDITION_REMAINING_TARGET_LABEL}</DefaultText>
                                     { remainingTarget >= 0 && <AccentText>{remainingTarget}</AccentText> }
                                     { remainingTarget < 0 && <ErrorText>{remainingTarget}</ErrorText> }
                                 </Grid>
@@ -144,9 +145,9 @@ class CollaboratorGoalList extends Component {
                                                 isMoreThanOrEquals: 0
                                             }}
                                             validationErrors={{
-                                                isDefaultRequiredValue: 'Ce champ est requis.',
-                                                isInt: "L'objectif doit être un nombre entier.",
-                                                isMoreThanOrEquals: "L'objectif doit être supérieur ou égal à 0."
+                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                isInt: Resources.COMMON_IS_INT_ERROR,
+                                                isMoreThanOrEquals: Resources.COMMON_IS_MORE_THAN_OR_EQUALS_0_ERROR
                                             }}
                                         />
                                     </Grid>
@@ -155,8 +156,8 @@ class CollaboratorGoalList extends Component {
                         }) }
                     </Grid>
                     <div className={classes.formFooter}>
-                        { !canSubmit && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour la période sélectionnée</ErrorText> }
-                        <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit} centered />
+                        { !canSubmit && <ErrorText className={classes.error} align='center'>{Resources.COLLABORATOR_GOAL_LIST_EDITION_ERROR_TEXT}</ErrorText> }
+                        <ProgressButton type='submit' text={Resources.COLLABORATOR_GOAL_LIST_EDITION_SUBMIT_BUTTON} loading={loading} disabled={!canSubmit} centered />
                     </div>
                 </Formsy>
             </div>

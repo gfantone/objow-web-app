@@ -4,14 +4,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { PlayerRanking } from '../../components'
 import {AppBarSubTitle, EmptyState, Loader, MainLayoutComponent} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as collaboratorChallengeGeneralRankListActions from '../../../../services/CollaboratorChallengeGeneralRanks/CollaboratorChallengeGeneralRankList/actions'
 
 class CollaboratorChallengeRanking extends MainLayoutComponent {
     componentDidMount() {
         const isCollaborator = this.props.accountDetail.account.role.code == 'C';
-        const title = isCollaborator ? 'Mes classemenst' : 'Les classements';
+        const title = isCollaborator ? Resources.RANKING_OWNER_TITLE : Resources.RANKING_LONG_TITLE;
         this.props.handleTitle(title);
-        this.props.handleSubHeader(<AppBarSubTitle title='Classement des challenges individuels' />);
+        this.props.handleSubHeader(<AppBarSubTitle title={Resources.COLLABORATOR_CHALLENGE_RANKING_TITLE} />);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
         this.props.collaboratorChallengeGeneralRankListActions.getCollaboratorChallengeGeneralRankList(this.props.match.params.period)
@@ -22,7 +23,7 @@ class CollaboratorChallengeRanking extends MainLayoutComponent {
     }
 
     renderEmptyState() {
-        return <EmptyState title={'Aucun classement disponible'} />
+        return <EmptyState title={Resources.COLLABORATOR_CHALLENGE_RANKING_EMPTY_STATE_TITLE} />
     }
 
     renderData() {

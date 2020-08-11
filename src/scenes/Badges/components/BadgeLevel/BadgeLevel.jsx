@@ -3,7 +3,9 @@ import { CardMedia, Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { LevelCondition, Points } from './components'
 import { AccentText, DefaultText, DefaultTitle, InfoText, ProgressBar } from '../../../../components'
+import * as Resources from '../../../../Resources'
 import '../../../../helpers/NumberHelper'
+import '../../../../helpers/StringHelper'
 
 const styles = {
     icon: {
@@ -27,7 +29,7 @@ const BadgeLevel = ({ level, ...props }) => {
                     </Grid>
                     <Grid item xs zeroMinWidth>
                         <DefaultTitle noWrap>{level.publicTitle}</DefaultTitle>
-                        <InfoText>Rang {level.rank}</InfoText>
+                        <InfoText>{Resources.BADGE_LEVEL_RANK_TEXT.format(level.rank)}</InfoText>
                     </Grid>
                     <Grid item>
                         <Points level={level} />
@@ -40,7 +42,7 @@ const BadgeLevel = ({ level, ...props }) => {
                     <Grid item container xs={12}>
                         <Grid item xs>
                             <DefaultText>
-                                Réalisé : {counter} <InfoText component='span'>/ Objectif : {level.target}</InfoText>
+                                {Resources.BADGE_LEVEL_COUNTER_TEXT.format(counter)} <InfoText component='span'>/ {Resources.BADGE_LEVEL_TARGET_TEXT.format(level.target)}</InfoText>
                             </DefaultText>
                         </Grid>
                         <Grid item>

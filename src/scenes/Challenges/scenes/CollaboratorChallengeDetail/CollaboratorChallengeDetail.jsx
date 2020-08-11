@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { SubHeader } from './components'
 import { ChallengeCondition, CollaboratorChallengeRankList } from '../../components'
 import {MainLayoutComponent} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as collaboratorChallengeDetailActions from '../../../../services/CollaboratorChallenges/CollaboratorChallengeDetail/actions'
 import * as collaboratorChallengeGoalListActions from '../../../../services/CollaboratorChallengeGoals/CollaboratorChallengeGoalList/actions'
 import * as collaboratorChallengeRankListActions from '../../../../services/CollaboratorChallengeRanks/CollaboratorChallengeRankList/actions'
@@ -27,7 +28,7 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
     componentDidMount() {
         const { account } = this.props.accountDetail;
         const id = this.props.match.params.id;
-        this.props.handleTitle('Challenges');
+        this.props.handleTitle(Resources.CHALLENGE_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasChallengeRankAccess} />);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();

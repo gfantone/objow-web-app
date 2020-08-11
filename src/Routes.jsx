@@ -55,6 +55,22 @@ export default () => {
                 <MainRoutes exact path='/rankings/teams/:team/general/:period' component={scenes.TeamGeneralRanking} />
                 <MainRoutes exact path='/rankings/teams/:team/categories/:category/years/:period' component={scenes.TeamCategoryRanking} />
                 <MainRoutes exact path='/rankings/teams/:team/challenges/:period' component={scenes.TeamChallengeRanking} />
+                {/* Rewards */}
+                <MainRoutes exact path='/rewards' component={scenes.RewardHome} />
+                <AdminRoutes exact path='/rewards/creation' component={scenes.RewardCreation} />
+                <MainRoutes exact path='/rewards/collaborators/:id' component={scenes.CollaboratorRewardStore} />
+                <AdminRoutes exact path='/rewards/collaborator-orders/:id/summary' component={scenes.CollaboratorRewardOrderSummary} />
+                <AdminRoutes exact path='/rewards/collaborator-orders/:id/validation' component={scenes.CollaboratorRewardOrderValidation} />
+                <MainRoutes exact path='/rewards/detail/:id' component={scenes.RewardDetail} />
+                <AdminRoutes exact path='/rewards/duplication/:id' component={scenes.RewardDuplication} />
+                <AdminRoutes exact path='/rewards/management' component={scenes.RewardManagement} />
+                <AdminRoutes exact path='/rewards/modification/:id' component={scenes.RewardUpdate} />
+                <MainRoutes exact path='/rewards/shopping-cart' component={scenes.ShoppingCart} />
+                <ManagerRoutes exact path='/rewards/teams/:id' component={scenes.TeamRewardStore} />
+                <AdminRoutes exact path='/rewards/team-orders/:id/summary' component={scenes.TeamRewardOrderSummary} />
+                <AdminRoutes exact path='/rewards/team-orders/:id/validation' component={scenes.TeamRewardOrderValidation} />
+                <AdminRoutes exact path='/rewards/tracking/collaborators' component={scenes.CollaboratorRewardOrderTracking} />
+                <AdminRoutes exact path='/rewards/tracking/teams' component={scenes.TeamRewardOrderTracking} />
                 {/* Teams */}
                 <MainRoutes exact path='/teams' component={scenes.TeamList} />
                 <MainRoutes exact path='/teams/:id' component={scenes.TeamDetail} />
@@ -83,6 +99,9 @@ export default () => {
                 <AdminRoutes exact path='/admin/users/modification/:id' component={scenes.AdminUserUpdate} />
                 <AdminRoutes exact path='/admin/users/creation' component={scenes.AdminUserCreation} />
                 <AdminRoutes exact path='/admin/reports' component={scenes.AdminReportList} />
+                <AdminRoutes exact path='/admin/reward-categories' component={scenes.AdminRewardCategoryList} />
+                <AdminRoutes exact path='/admin/reward-categories/creation' component={scenes.AdminRewardCategoryCreation} />
+                <AdminRoutes exact path='/admin/reward-categories/modification/:id' component={scenes.AdminRewardCategoryUpdate} />
                 <AdminRoutes exact path='/admin/reports/:id' component={scenes.AdminReportDetail} />
                 <AdminRoutes exact path='/admin/imports/logs' component={scenes.AdminImportLogList} />
                 {/* Other routes */}

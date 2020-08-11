@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { SubHeader } from './components'
 import { TeamRanking } from '../../components'
 import {EmptyState, MainLayoutComponent} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as categoryDetailActions from '../../../../services/Categories/CategoryDetail/actions'
 import * as teamCategoryRankListActions from '../../../../services/TeamCategoryRanks/TeamCategoryRankList/actions'
 import {Redirect} from "react-router";
@@ -12,14 +13,14 @@ class TeamCategoryRanking extends MainLayoutComponent {
     componentDidMount() {
         const categoryId = this.props.match.params.category;
         this.props.activateReturn();
-        this.props.handleTitle('Classements');
+        this.props.handleTitle(Resources.RANKING_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader />);
         this.props.categoryDetailActions.getCategoryDetail(categoryId);
         this.props.teamCategoryRankListActions.getTeamCategoryRankListByCategory(categoryId, this.props.match.params.period)
     }
 
     renderEmptyState() {
-        return <EmptyState title={'Aucun classement disponible'} />
+        return <EmptyState title={Resources.TEAM_CATEGORY_RANKING_EMPTY_STATE_TITLE} />
     }
 
     renderData() {

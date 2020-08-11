@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortAmountDown, faRandom } from '@fortawesome/free-solid-svg-icons'
 import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow } from '../../../../components'
+import * as Resources from '../../../../Resources'
 
 const styles = {
     photo: {
@@ -23,8 +24,8 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
                         <TableHeadCell>
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
-                        <TableHeadCell colSpan={2}>Joueurs</TableHeadCell>
-                        <TableHeadCell>PTS</TableHeadCell>
+                        <TableHeadCell colSpan={2}>{Resources.COLLABORATOR_CHALLENGE_RANKING_COLLABORATOR_COLUMN}</TableHeadCell>
+                        <TableHeadCell>{Resources.COLLABORATOR_CHALLENGE_RANKING_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell>
                             <FontAwesomeIcon icon={faRandom} />
                         </TableHeadCell>

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {IconButton, Loader, MainLayoutComponent} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import { CollaboratorRankingListFilter, PlayerRankList, SubHeader, TeamRankList } from './components'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -48,7 +49,7 @@ class CollaboratorRankingList extends MainLayoutComponent {
 
     componentDidMount() {
         const { account } = this.props.accountDetail;
-        this.props.handleTitle('Classements');
+        this.props.handleTitle(Resources.RANKING_SHORT_TITLE);
         if (account.hasTeamRankAccess) {
             const params = new URLSearchParams(window.location.search);
             const pageParam = params.get('page');

@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
-import {DefaultText, DefaultTitle, ErrorText, InfoText, Loader, Team} from '../../../../../../components'
+import {DefaultText, DefaultTitle, ErrorText, InfoText, Loader} from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
+import '../../../../../../helpers/StringHelper'
 import {Avatar, Grid} from "@material-ui/core";
 import {Tag} from "../../../../../../components/Teams/components/Team/components/Tag";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -42,16 +44,14 @@ const SubHeader = ({ ...props }) => {
                                             <DefaultTitle noWrap>{team.name}</DefaultTitle>
                                         </Grid>
                                         <Grid item xs={12} zeroMinWidth>
-                                            { team.manager && <InfoText noWrap>De { team.manager.firstname } { team.manager.lastname }</InfoText> }
-                                            { !team.manager && <ErrorText noWrap>Aucun manager</ErrorText> }
+                                            { team.manager && <InfoText noWrap>{Resources.TEAM_DETAIL_MANAGER_TEXT.format(team.manager.firstname, team.manager.lastname)}</InfoText> }
+                                            { !team.manager && <ErrorText noWrap>{Resources.TEAM_DETAIL_NO_MANAGER_TEXT}</ErrorText> }
                                         </Grid>
                                     </Grid>
                                 </div>
                             </Grid>
                             <Grid item>
-                                <Tag color={team.color.hex}>
-                                    {players} joueurs
-                                </Tag>
+                                <Tag color={team.color.hex}>{Resources.TEAM_DETAIL_COLLABORATORS_TEXT.format(players)}</Tag>
                             </Grid>
                         </Grid>
                     </div>
@@ -61,12 +61,12 @@ const SubHeader = ({ ...props }) => {
                         <Grid container spacing={2}>
                             <Grid item>
                                 <DefaultText>
-                                    <FontAwesomeIcon icon={faFireAlt} /> {team.rank.points} PTS
+                                    <FontAwesomeIcon icon={faFireAlt} /> {Resources.TEAM_DETAIL_POINTS_TEXT.format(team.rank.points)}
                                 </DefaultText>
                             </Grid>
                             <Grid item>
                                 <DefaultText>
-                                    <FontAwesomeIcon icon={faStar} /> {team.rank.victories} victoires
+                                    <FontAwesomeIcon icon={faStar} /> {Resources.TEAM_DETAIL_VICTORIES_TEXT.format(team.rank.victories)}
                                 </DefaultText>
                             </Grid>
                         </Grid>

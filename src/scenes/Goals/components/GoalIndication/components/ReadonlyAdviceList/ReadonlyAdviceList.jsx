@@ -1,6 +1,7 @@
 import React from 'react'
 import {Grid} from '@material-ui/core'
 import {Card, DefaultText, DefaultTitle, InfoText, TableChip} from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
 
 const ReadonlyAdviceList = ({advices}) => {
     const renderData = () => {
@@ -27,14 +28,14 @@ const ReadonlyAdviceList = ({advices}) => {
     };
 
     const renderEmptyState = () => {
-        return <InfoText>Aucun conseil trouvé</InfoText>
+        return <InfoText>{Resources.GOAL_INDICATION_COACHING_EMPTY_STATE}</InfoText>
     };
 
     return (
         <div>
             <Grid container spacing={1}>
                 <Grid item xs={12}>
-                    <DefaultTitle>Les conseils du coach</DefaultTitle>
+                    <DefaultTitle>{Resources.GOAL_INDICATION_COACHING_AREA}</DefaultTitle>
                 </Grid>
                 <Grid item xs={12}>
                     <Card>

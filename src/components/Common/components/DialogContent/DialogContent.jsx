@@ -11,7 +11,8 @@ const styles = {
         fontSize: 13,
         textAlign: 'justify',
         textTransform: 'uppercase',
-        overflowX: 'hidden'
+        overflowX: 'hidden',
+        overflowY: 'hidden'
     }
 };
 

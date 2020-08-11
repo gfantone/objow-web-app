@@ -2,6 +2,7 @@ import React from 'react'
 import { Avatar, Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { DarkTag, DefaultTitle, InfoText } from '..'
+import * as Resources from '../../Resources'
 
 const styles = {
     root: {
@@ -36,7 +37,7 @@ const Collaborator = ({ user, ...props }) => {
                         </Grid>
                     </Grid>
                     <Grid xs={12}>
-                        <InfoText>{user.team ? user.team.name : 'Aucune équipe'}</InfoText>
+                        <InfoText>{user.team ? user.team.name : Resources.USER_PROFILE_NO_TEAM}</InfoText>
                     </Grid>
                 </Grid>
             </Grid>

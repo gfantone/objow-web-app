@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {RoundedTabs, RoundedTab} from '../../../../components'
+import * as Resources from '../../../../Resources'
 
 const TimeFilter = ({ initial = 0, ...props }) => {
     const { handleTimeChange } = props;
@@ -15,9 +16,9 @@ const TimeFilter = ({ initial = 0, ...props }) => {
     return (
         <div>
             <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
-                <RoundedTab label="En cours" />
-                <RoundedTab label="Passés" />
-                {(account.role.code != 'C' || account.hasNextChallengeAccess) && <RoundedTab label="Futurs" />}
+                <RoundedTab label={Resources.CHALLENGE_TIME_FILTER_CURRENT_TAB} />
+                <RoundedTab label={Resources.CHALLENGE_TIME_FILTER_PREVIOUS_TAB} />
+                {(account.role.code != 'C' || account.hasNextChallengeAccess) && <RoundedTab label={Resources.CHALLENGE_TIME_FILTER_NEXT_TAB} />}
             </RoundedTabs>
         </div>
     )

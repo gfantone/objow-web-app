@@ -12,6 +12,7 @@ import * as configListActions from '../../../../services/Configs/ConfigList/acti
 import '../../../../helpers/FormsyHelper'
 import '../../../../helpers/NumberHelper'
 import {uuidv4} from '../../../../helpers/UUIDHelper'
+import * as Resources from "../../../../Resources";
 
 class AdminLevelList extends MainLayoutComponent {
     constructor(props) {
@@ -115,7 +116,7 @@ class AdminLevelList extends MainLayoutComponent {
                                                 <TextField name={`levels[${index}]`} label='Points à atteindre' initial={level.points} fullWidth disabled={disabled} required
                                                     validations={validations}
                                                     validationErrors={{
-                                                        isDefaultRequiredValue: 'Ce champ est requis.',
+                                                        isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                         isLessThanOrEquals: 'La valeur doit être inférieure ou égale au total mis en jeu',
                                                         isMoreThan: 'La valeur doit être supérieure à la valeur du niveau précédent'
                                                     }}

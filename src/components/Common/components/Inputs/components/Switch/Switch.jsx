@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
-import { withFormsy } from 'formsy-react'
-import { FormControlLabel, Switch } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import React, {useEffect} from 'react'
+import {withFormsy} from 'formsy-react'
+import {FormControlLabel, Switch} from '@material-ui/core'
+import {makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -46,20 +46,20 @@ const useStyles = makeStyles(theme => ({
     focusVisible: {}
 }));
 
-const CustomSwitch = ({ disabled, initial = false, label, name, ...props }) => {
-    const classes = useStyles();
-    const [value, setValue] = React.useState(initial);
+const CustomSwitch = ({disabled, initial = false, label, name, onChange, ...props}) => {
+    const classes = useStyles()
+    const [value, setValue] = React.useState(initial)
 
     useEffect(() => {
         props.setValue(initial)
-    }, []);
+    }, [])
 
     const handleChange = (event) => {
-        const value = event.currentTarget.checked;
-        props.setValue(value);
-        setValue(value);
-        if (props.onChange) props.onChange(value)
-    };
+        const value = event.currentTarget.checked
+        props.setValue(value)
+        setValue(value)
+        if (onChange) onChange(value)
+    }
 
     return (
         <div>
@@ -79,6 +79,6 @@ const CustomSwitch = ({ disabled, initial = false, label, name, ...props }) => {
             />} />
         </div>
     )
-};
+}
 
 export default withFormsy(CustomSwitch)

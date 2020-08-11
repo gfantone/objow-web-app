@@ -17,6 +17,7 @@ import * as badgeUpdateActions from '../../../../services/Badges/BadgeUpdate/act
 import * as levelListActions from '../../../../services/Levels/LevelList/actions'
 import '../../../../helpers/FormsyHelper'
 import '../../../../helpers/NumberHelper'
+import * as Resources from "../../../../Resources";
 
 class AdminBadgeDetail extends MainLayoutComponent {
     constructor(props) {
@@ -153,21 +154,21 @@ class AdminBadgeDetail extends MainLayoutComponent {
                                                 <TextField type='number' name={`target[${index}]`} label='Objectif' initial={level.target} disabled={disabled} fullWidth required
                                                     validations='isMoreThanOrEquals:0'
                                                     validationErrors={{
-                                                        isDefaultRequiredValue: 'Ce champ est requis.',
+                                                        isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                         isMoreThanOrEquals: "L'objectif doit être supérieur ou égal à 0"
                                                     }}
                                                 />
                                             </Grid>
                                             <Grid item xs>
                                                 <Select name={`level[${index}]`} label='Condition' options={levels} optionValueName='id' optionTextName='number' optionTextPrefix='Lvl ' initial={level.level} disabled={disabled} fullWidth required
-                                                    validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                    validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                                 />
                                             </Grid>
                                             <Grid item xs>
                                                 <TextField type='number' name={`points[${index}]`} label='Nbre de point si atteint' initial={level.points} disabled={disabled} fullWidth required
                                                     validations='isMoreThanOrEquals:0'
                                                     validationErrors={{
-                                                        isDefaultRequiredValue: 'Ce champ est requis.',
+                                                        isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                         isMoreThanOrEquals: "Le nombre de points doit être supérieur ou égal à 0"
                                                     }}
                                                 />

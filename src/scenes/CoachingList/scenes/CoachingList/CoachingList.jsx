@@ -8,6 +8,7 @@ import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { Grid, IconButton, RadioGroup } from '@material-ui/core'
 import { SubHeader } from './components'
 import { EmptyState, GreenRadio, IconButton as HeaderIconButton, MainLayoutComponent, OrangeRadio, ProgressButton, RedRadio, TableChip, TextField } from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as coachingItemListActions from '../../../../services/CoachingItems/CoachingItemList/actions'
 import * as coachingItemListCreationActions from '../../../../services/CoachingItems/CoachingItemListCreation/actions'
 import * as coachingItemListUpdateActions from '../../../../services/CoachingItems/CoachingItemListUpdate/actions'
@@ -77,7 +78,7 @@ class CoachingList extends MainLayoutComponent {
     componentDidMount() {
         const { account } = this.props.accountDetail;
         const isCollaborator = account.role.code == 'C';
-        this.props.handleTitle('Coaching list');
+        this.props.handleTitle(Resources.COACHING_LIST_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader />);
         this.props.handleMaxWidth('md');
         if (!isCollaborator) {
@@ -102,9 +103,9 @@ class CoachingList extends MainLayoutComponent {
     }
 
     renderEmptyState() {
-        const message = this.props.accountDetail.account.role.code == 'C' ? 'Revenez plus tard lorsque votre manager vous coachera' : 'Créer une première instruction pour votre collaborateur';
+        const message = this.props.accountDetail.account.role.code == 'C' ? Resources.COACHING_LIST_EMPTY_STATE_COLLABORATOR_MESSAGE : Resources.COACHING_LIST_EMPTY_STATE_MANAGER_MESSAGE;
         return (
-            <EmptyState title='Aucune instruction trouvée' message={message} />
+            <EmptyState title={Resources.COACHING_LIST_EMPTY_STATE_TITLE} message={message} />
         )
     }
 
@@ -146,7 +147,7 @@ class CoachingList extends MainLayoutComponent {
                         }) }
                     </Grid>
                     { canUpdateCoaching && account.canUpdateCoaching && <Grid item xs={12}>
-                        <ProgressButton type='submit' text='Valider' loading={loading} centered />
+                        <ProgressButton type='submit' text={Resources.COACHING_LIST_SUBMIT_BUTTON} loading={loading} centered />
                     </Grid> }
                 </Grid>
             </Formsy>

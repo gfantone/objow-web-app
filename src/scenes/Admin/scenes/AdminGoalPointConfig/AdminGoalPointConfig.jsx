@@ -1,5 +1,4 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
@@ -15,6 +14,7 @@ import * as goalDefinitionLevelListUpdateActions from '../../../../services/Goal
 import './helpers/GoalDefinitionLevelFormsyHelper'
 import '../../../../helpers/FormsyHelper'
 import '../../../../helpers/NumberHelper'
+import * as Resources from "../../../../Resources";
 
 class AdminGoalPointConfig extends MainLayoutComponent {
     constructor(props) {
@@ -129,7 +129,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                                 <TextField type='number' name={`percentage[${index}]`} label="% d'atteinte de l'objectif" initial={level.percentage.toFullPercentage()} fullWidth required
                                                     validations={percentageValidations}
                                                     validationErrors={{
-                                                        isDefaultRequiredValue: 'Ce champ est requis.',
+                                                        isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                         isMoreThanOrEquals: 'Le pourcentage doit être supérieur ou égal 0',
                                                         isMoreThan: 'Le pourcentage doit être supérieur à celui du palier précédent'
                                                     }}
@@ -139,7 +139,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                                 <TextField type='number' name={`points[${index}]`} label='Points' initial={level.points} fullWidth required
                                                     validations={pointValidations}
                                                     validationErrors={{
-                                                        isDefaultRequiredValue: 'Ce champ est requis.',
+                                                        isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                         isMoreThanOrEquals: 'Le nombre de points doit être supérieur ou égal à 0',
                                                         isMoreThan: 'Le nombre de points doit être supérieur à celui du palier précédent',
                                                         isGoalDefinitionLevelValid: 'Le nombre de points restant est insuffisant'

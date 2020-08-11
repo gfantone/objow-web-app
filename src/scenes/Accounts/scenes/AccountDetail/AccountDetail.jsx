@@ -1,10 +1,11 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
-import { Avatar, Grid } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
-import { Card, FileInput, MainLayoutComponent, ProgressButton, TextField } from '../../../../components'
+import {Avatar, Grid} from '@material-ui/core'
+import {withStyles} from '@material-ui/core/styles'
+import {Card, FileInput, MainLayoutComponent, ProgressButton, TextField} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as accountUpdateActions from '../../../../services/Account/AccountUpdate/actions'
 import * as userUpdatePasswordActions from '../../../../services/Users/UserUpdatePassword/actions'
 import '../../../../helpers/FormsyHelper'
@@ -25,7 +26,7 @@ class AccountDetail extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        this.props.handleTitle('Mon profil');
+        this.props.handleTitle(Resources.ACCOUNT_TITLE);
         this.props.handleMaxWidth('sm');
         this.props.activateReturn()
     }
@@ -74,38 +75,38 @@ class AccountDetail extends MainLayoutComponent {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <TextField name='firstname' label='Prénom' initial={account.firstname} fullWidth required
-                                            validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                        <TextField name='firstname' label={Resources.ACCOUNT_FIRST_NAME_LABEL} initial={account.firstname} fullWidth required
+                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <TextField name='lastname' label='Nom' initial={account.lastname} fullWidth required
-                                            validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                        <TextField name='lastname' label={Resources.ACCOUNT_LAST_NAME_LABEL} initial={account.lastname} fullWidth required
+                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField name='email' label='Email' validations="isEmail" initial={account.email} fullWidth required
+                                        <TextField name='email' label={Resources.ACCOUNT_EMAIL_LABEL} validations="isEmail" initial={account.email} fullWidth required
                                             validationErrors={{
-                                                isDefaultRequiredValue: 'Ce champ est requis.',
-                                                isEmail: "L'email n'est pas valide."
+                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                isEmail: Resources.COMMON_EMAIL_ERROR
                                             }}
                                         />
                                     </Grid>
                                     { account.role.code != 'A' && <Grid item xs={12}>
-                                        <TextField name='citation' label='Citation' initial={account.citation} fullWidth multiline />
+                                        <TextField name='citation' label={Resources.ACCOUNT_CITATION_LABEL} initial={account.citation} fullWidth multiline />
                                     </Grid> }
                                     <Grid item xs={6}>
-                                        <TextField type='password' name='password' label='Nouveau mot de passe' fullWidth
+                                        <TextField type='password' name='password' label={Resources.ACCOUNT_PASSWORD_LABEL} fullWidth
                                             onChange={this.handleValueChange('password').bind(this)}
-                                            validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <TextField type='password' name='paswwordConfirm' label='Confirmation du mot de passe' fullWidth
+                                        <TextField type='password' name='paswwordConfirm' label={Resources.ACCOUNT_CONFIRM_PASSWORD_LABEL} fullWidth
                                             validations='equalsField:password'
                                             validationErrors={{
-                                                isDefaultRequiredValue: 'Ce champ est requis.',
-                                                equalsField: 'Les mots de passe ne correspondent pas'
+                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                equalsField: Resources.COMMON_PASSWORD_NOT_MATCH_ERROR
                                             }}
                                         />
                                     </Grid>
@@ -113,7 +114,7 @@ class AccountDetail extends MainLayoutComponent {
                             </Card>
                         </Grid>
                         <Grid item xs={12}>
-                            <ProgressButton type='submit' text='Valider' centered loading={loading} />
+                            <ProgressButton type='submit' text={Resources.ACCOUNT_SUBMIT_BUTTON} centered loading={loading} />
                         </Grid>
                     </Grid>
                 </Formsy>

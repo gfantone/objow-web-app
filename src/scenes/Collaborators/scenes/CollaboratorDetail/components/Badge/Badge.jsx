@@ -2,6 +2,8 @@ import React from 'react'
 import { CardMedia, Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { AccentText, DefaultText } from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
+import '../../../../../../helpers/StringHelper'
 
 const styles = {
     icon: {
@@ -24,7 +26,7 @@ const Badge = ({ badge, ...props }) => {
                     <DefaultText align='center'>{badge.publicTitle}</DefaultText>
                 </Grid>
                 <Grid item>
-                    <AccentText>Rang {badge.rank}</AccentText>
+                    <AccentText>{Resources.COLLABORATOR_DETAIL_BADGE_RANK.format(badge.rank)}</AccentText>
                 </Grid>
             </Grid>
         </div>

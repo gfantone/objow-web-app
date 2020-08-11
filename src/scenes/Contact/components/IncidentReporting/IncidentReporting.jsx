@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import {Card, DefaultTitle} from "../../../../components";
+import * as Resources from "../../../../Resources";
 
 const useStyles = makeStyles({
     iframe: {
@@ -18,7 +19,7 @@ const IncidentReporting = ({ ...props }) => {
         <div>
             <Grid container spacing={1}>
                 <Grid item xs={12}>
-                    <DefaultTitle>Remplissez ce formulaire pour votre déclaration d'indicent</DefaultTitle>
+                    <DefaultTitle>{Resources.CONTACT_INCIDENT_FORM_TITLE}</DefaultTitle>
                 </Grid>
                 <Grid item xs={12}>
                     <Card>

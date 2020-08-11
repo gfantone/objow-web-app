@@ -8,8 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faInfoCircle, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {ChallengeAwardList, ImageInput} from '../../components'
 import '../../../../helpers/FormsyHelper'
+import '../../../../helpers/StringHelper'
 import '../../helpers/ChallengeFormsyHelper'
 import {AppBarSubTitle, BlueText, Card, DatePicker, DefaultText, DefaultTitle, HiddenInput, IconButton as MenuIconButton, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as challengeAwardTypeListActions from '../../../../services/ChallengeAwardTypes/ChallengeAwardTypeList/actions'
 import * as challengeCreationActions from '../../../../services/Challanges/ChallangeCreaton/actions'
@@ -48,8 +50,8 @@ class ChallengeDuplication extends MainLayoutComponent {
         const params = new URLSearchParams(window.location.search);
         const teamParam = params.get('team');
         this.teamId = teamParam ? Number(teamParam) : null;
-        this.props.handleTitle('Les challenges');
-        this.props.handleSubHeader(<AppBarSubTitle title="Duplication d'un challenge" />);
+        this.props.handleTitle(Resources.CHALLENGE_LONG_TITLE);
+        this.props.handleSubHeader(<AppBarSubTitle title={Resources.CHALLENGE_DUPLICATION_TITLE} />);
         this.props.handleButtons(<MenuIconButton size={'small'} onClick={this.handleAddGoal.bind(this)}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
@@ -179,7 +181,7 @@ class ChallengeDuplication extends MainLayoutComponent {
                     <Grid container spacing={2}>
                         <Grid item xs={12} container>
                             <Grid item xs>
-                                <DefaultTitle>Indicateur {number}</DefaultTitle>
+                                <DefaultTitle>{Resources.CHALLENGE_DUPLICATION_GOAL_TITLE.format(number)}</DefaultTitle>
                                 <HiddenInput name={`number[${index}]`} value={number} />
                             </Grid>
                             { this.state.goals.length > 1 && <Grid item>
@@ -189,30 +191,30 @@ class ChallengeDuplication extends MainLayoutComponent {
                             </Grid> }
                         </Grid>
                         <Grid item xs={12}>
-                            <Select name='category' label='Catégorie' emptyText={'Toutes'} options={categories} optionValueName='id' optionTextName='name' onChange={this.handleCategoryChange(index).bind(this)} fullWidth initial={goal.category} />
+                            <Select name='category' label={Resources.CHALLENGE_DUPLICATION_GOAL_CATEGORY_LABEL} emptyText={'Toutes'} options={categories} optionValueName='id' optionTextName='name' onChange={this.handleCategoryChange(index).bind(this)} fullWidth initial={goal.category} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Select name={`kpi[${index}]`} label='Kpi' options={displayKpis} initial={kpi ? kpi.id : null} optionValueName='id' optionTextName='name' onChange={this.handleValueChange(index)('kpi').bind(this)} fullWidth required />
+                            <Select name={`kpi[${index}]`} label={Resources.CHALLENGE_DUPLICATION_GOAL_KPI_LABEL} options={displayKpis} initial={kpi ? kpi.id : null} optionValueName='id' optionTextName='name' onChange={this.handleValueChange(index)('kpi').bind(this)} fullWidth required />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField name={`goalName[${index}]`} label='Intitulé' onChange={this.handleValueChange(index)('goalName').bind(this)} fullWidth required initial={goal.goalName} />
+                            <TextField name={`goalName[${index}]`} label={Resources.CHALLENGE_DUPLICATION_GOAL_NAME_LABEL} onChange={this.handleValueChange(index)('goalName').bind(this)} fullWidth required initial={goal.goalName} />
                         </Grid>
                         <Grid item xs>
-                            <DefaultText>Unité</DefaultText>
+                            <DefaultText>{Resources.CHALLENGE_DUPLICATION_GOAL_UNIT_LABEL}</DefaultText>
                             <InfoText>{unit}</InfoText>
                         </Grid>
                         <Grid item xs>
-                            <TextField name={`target[${index}]`} label='Objectif' onChange={this.handleValueChange(index)('target').bind(this)} fullWidth required initial={goal.target} />
+                            <TextField name={`target[${index}]`} label={Resources.CHALLENGE_DUPLICATION_GOAL_TARGET_LABEL} onChange={this.handleValueChange(index)('target').bind(this)} fullWidth required initial={goal.target} />
                         </Grid>
                         <Grid item>
-                            <Tooltip title={'L’objectif fixé ici peut être atteint plusieurs fois. Chaque fois que celui-ci est atteint il rapporte le nombre de points associés.'}>
+                            <Tooltip title={Resources.CHALLENGE_DUPLICATION_GOAL_TARGET_INFO_TEXT}>
                                 <BlueText style={{ marginTop: 20 }}>
                                     <FontAwesomeIcon icon={faInfoCircle} />
                                 </BlueText>
                             </Tooltip>
                         </Grid>
                         <Grid item xs>
-                            <TextField name={`points[${index}]`} label='Pts' onChange={this.handleValueChange(index)('target').bind(this)} fullWidth required initial={goal.points} />
+                            <TextField name={`points[${index}]`} label={Resources.CHALLENGE_DUPLICATION_GOAL_POINTS_LABEL} onChange={this.handleValueChange(index)('target').bind(this)} fullWidth required initial={goal.points} />
                         </Grid>
                     </Grid>
                 </Card>
@@ -249,7 +251,7 @@ class ChallengeDuplication extends MainLayoutComponent {
                     <Grid item xs={12}>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
-                                <DefaultTitle>Informations</DefaultTitle>
+                                <DefaultTitle>{Resources.CHALLENGE_DUPLICATION_INFO_AREA}</DefaultTitle>
                             </Grid>
                             <Grid item xs={12}>
                                 <Card>
@@ -258,13 +260,13 @@ class ChallengeDuplication extends MainLayoutComponent {
                                             <div>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12}>
-                                                        <TextField name='name' label='Nom' fullWidth required initial={challenge.name}
-                                                                   validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                        <TextField name='name' label={Resources.CHALLENGE_DUPLICATION_INFO_NAME_LABEL} fullWidth required initial={challenge.name}
+                                                                   validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12}>
-                                                        <TextField name='description' label='Description' fullWidth multiline required initial={challenge.description}
-                                                                   validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                        <TextField name='description' label={Resources.CHALLENGE_DUPLICATION_INFO_DESCRIPTION_LABEL} fullWidth multiline required initial={challenge.description}
+                                                                   validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                                         />
                                                     </Grid>
                                                 </Grid>
@@ -273,28 +275,28 @@ class ChallengeDuplication extends MainLayoutComponent {
                                         <Grid item xs={4}>
                                             { !imagePath && <Grid container justify={'center'} alignItems={'center'} style={{height: '100%'}}>
                                                 <Grid item>
-                                                    <InfoText align={'center'}>Aucune image sélectionée</InfoText>
+                                                    <InfoText align={'center'}>{Resources.CHALLENGE_DUPLICATION_INFO_NO_IMAGE_TEXT}</InfoText>
                                                 </Grid>
                                             </Grid> }
                                             { imagePath && <CardMedia image={imagePath} className={classes.image} /> }
                                         </Grid>
                                         <Grid item xs={3}>
-                                            <DatePicker name='start' label='Début' format='dd/MM/yyyy' initial={this.state.start} onChange={this.handlePeriodChange('start').bind(this)} minDate={startMinDate} maxDate={startMaxDate} clearable fullWidth required
-                                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                            <DatePicker name='start' label={Resources.CHALLENGE_DUPLICATION_INFO_START_LABEL} format='dd/MM/yyyy' initial={this.state.start} onChange={this.handlePeriodChange('start').bind(this)} minDate={startMinDate} maxDate={startMaxDate} clearable fullWidth required
+                                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             />
                                         </Grid>
                                         <Grid item xs={3}>
-                                            <DatePicker name='end' label='Fin' format='dd/MM/yyyy' initial={this.state.end} onChange={this.handlePeriodChange('end').bind(this)} minDate={endMinDate} maxDate={period.end.toDate2()} clearable fullWidth required
-                                                        validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                            <DatePicker name='end' label={Resources.CHALLENGE_DUPLICATION_INFO_END_LABEL} format='dd/MM/yyyy' initial={this.state.end} onChange={this.handlePeriodChange('end').bind(this)} minDate={endMinDate} maxDate={period.end.toDate2()} clearable fullWidth required
+                                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             />
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <Select name='type' label='Type' options={types} initial={this.state.type} onChange={this.handlePeriodChange('type').bind(this)} optionValueName='id' optionTextName='name' disabled={account.role.code == 'M'} fullWidth required
-                                                    validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                            <Select name='type' label={Resources.CHALLENGE_DUPLICATION_INFO_TYPE_LABEL} options={types} initial={this.state.type} onChange={this.handlePeriodChange('type').bind(this)} optionValueName='id' optionTextName='name' disabled={account.role.code == 'M'} fullWidth required
+                                                    validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <ImageInput name={'image'} label={'Sélectionner une image...'} images={images} onChange={this.handleImageChange.bind(this)} required initial={challenge.image.id} />
+                                            <ImageInput name={'image'} label={Resources.CHALLENGE_DUPLICATION_INFO_IMAGE_LABEL} images={images} onChange={this.handleImageChange.bind(this)} required initial={challenge.image.id} />
                                         </Grid>
                                     </Grid>
                                 </Card>
@@ -307,7 +309,7 @@ class ChallengeDuplication extends MainLayoutComponent {
                     <Grid item xs={12}>
                         <Grid container spacing={1}>
                             <Grid item xs={12}>
-                                <DefaultTitle>Indicateurs</DefaultTitle>
+                                <DefaultTitle>{Resources.CHALLENGE_DUPLICATION_GOAL_AREA}</DefaultTitle>
                             </Grid>
                             <Grid item xs={12}>
                                 <Grid container spacing={2}>
@@ -319,7 +321,7 @@ class ChallengeDuplication extends MainLayoutComponent {
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                        <ProgressButton type='submit' text='Valider' loading={loading} centered />
+                        <ProgressButton type='submit' text={Resources.CHALLENGE_DUPLICATION_SUBMIT_BUTTON} loading={loading} centered />
                     </Grid>
                 </Grid>
             </Formsy>

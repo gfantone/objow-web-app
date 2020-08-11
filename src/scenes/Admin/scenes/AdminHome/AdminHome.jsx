@@ -143,6 +143,9 @@ class AdminHome extends MainLayoutComponent {
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/levels`}>
                                                 <DefaultText>Level</DefaultText>
                                             </GridLink>
+                                            <GridLink item xs={12} component={Link} to={`/admin/reward-categories`}>
+                                                <DefaultText>Récompenses</DefaultText>
+                                            </GridLink>
                                         </Grid>
                                     </Card>
                                 </Grid>

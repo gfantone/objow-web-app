@@ -6,7 +6,9 @@ import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import {AccentText, DefaultTitle, GridLink, InfoText, ProgressBar} from '../../../../../../../../..'
+import * as Resources from '../../../../../../../../../../Resources'
 import '../../../../../../../../../../helpers/NumberHelper'
+import '../../../../../../../../../../helpers/StringHelper'
 import * as accountDetailActions from '../../../../../../../../../../services/Account/AccountDetail/actions'
 import {bindActionCreators} from "redux";
 
@@ -59,20 +61,20 @@ const Account = ({...props}) => {
                             </Grid>
                             <Grid item xs>
                                 <InfoText>
-                                    { isCollaborator && `Level ${account.level.number}` }
-                                    { isManager && 'Manager' }
-                                    { isAdministrator && 'Administrateur' }
+                                    { isCollaborator && Resources.DRAWER_LEVEL_LABEL.format(account.level.number) }
+                                    { isManager && Resources.DRAWER_MANAGER_LABEL }
+                                    { isAdministrator && Resources.DRAWER_ADMINISTRATOR_LABEL }
                                 </InfoText>
                             </Grid>
                             { isCollaborator && <Grid item>
-                                <AccentText>{account.rank.points} PTS</AccentText>
+                                <AccentText>{Resources.DRAWER_POINTS_LABEL.format(account.rank.points)}</AccentText>
                             </Grid> }
                             { isCollaborator && <Grid item xs={12}>
                                 <ProgressBar value={percentage} />
                             </Grid> }
                             <GridLink item xs={12} component={Link} to='/account' onClick={props.onNavigate} className={classes.infos}>
                                 <AccentText>
-                                    <FontAwesomeIcon icon={faEdit} /> Mes infos
+                                    <FontAwesomeIcon icon={faEdit} /> {Resources.DRAWER_INFOS_BUTTON}
                                 </AccentText>
                             </GridLink>
                         </Grid>

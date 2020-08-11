@@ -23,6 +23,8 @@ function* getGoalDefinitions(action) {
     }
 }
 
-export function* watchGoalDefinitionList() {
+function* watchGoalDefinitionList() {
     yield takeEvery(types.GET_GOAL_DEFINITION_LIST, getGoalDefinitions)
 }
+
+export default watchGoalDefinitionList

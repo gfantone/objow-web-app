@@ -12,6 +12,7 @@ import * as challengeTypeListUpdateActions from '../../../../../../services/Chal
 import * as configListActions from '../../../../../../services/Configs/ConfigList/actions'
 import * as configListUpdateActions from '../../../../../../services/Configs/ConfigListUpdate/actions'
 import './helpers/FormsyHelper'
+import * as Resources from "../../../../../../Resources";
 
 const styles = {
     title: {
@@ -288,7 +289,7 @@ class PlayerPointConfig extends Component {
                                         </Grid> }
                                         <Grid item>
                                             { this.state.global.points.display && <TextField name='global' type='number' label='PTS' initial={this.state.global.points.value} onChange={this.handleGlobalPointsChange.bind(this)} required
-                                                validationErrors={{isDefaultRequiredValue: 'Ce champ est requis.'}}
+                                                validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             /> }
                                         </Grid>
                                     </Grid>
@@ -312,7 +313,7 @@ class PlayerPointConfig extends Component {
                                             { this.state.goals.points.display && <TextField name='goals' type='number' label='Pts' initial={this.state.goals.points.value} onChange={this.handlePointsChange('goals').bind(this)} required
                                                 validations='isCollaboratorPointsValid'
                                                 validationErrors={{
-                                                    isDefaultRequiredValue: 'Ce champ est requis.',
+                                                    isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                     isCollaboratorPointsValid: 'Le somme des points est supérieur au maximum de points'
                                                 }}
                                             /> }
@@ -338,7 +339,7 @@ class PlayerPointConfig extends Component {
                                             { this.state.badges.points.display && <TextField name='badges' type='number' label='Pts' initial={this.state.badges.points.value} onChange={this.handlePointsChange('badges').bind(this)} required
                                                 validations='isCollaboratorPointsValid'
                                                 validationErrors={{
-                                                    isDefaultRequiredValue: 'Ce champ est requis.',
+                                                    isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                     isCollaboratorPointsValid: 'Le somme des points est supérieur au maximum de points'
                                                 }}
                                             /> }
@@ -364,7 +365,7 @@ class PlayerPointConfig extends Component {
                                             { this.state.managerChallenges.points.display && <TextField name='managerChallenges' type='number' label='Pts' initial={this.state.managerChallenges.points.value} onChange={this.handlePointsChange('managerChallenges').bind(this)} required
                                                 validations='isCollaboratorPointsValid'
                                                 validationErrors={{
-                                                    isDefaultRequiredValue: 'Ce champ est requis.',
+                                                    isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                     isCollaboratorPointsValid: 'Le somme des points est supérieur au maximum de points'
                                                 }}
                                             /> }
@@ -390,7 +391,7 @@ class PlayerPointConfig extends Component {
                                             { this.state.globalChallenges.points.display && <TextField name='globalChallenges' type='number' label='Pts' initial={this.state.globalChallenges.points.value} onChange={this.handlePointsChange('globalChallenges').bind(this)} required
                                                 validations='isCollaboratorPointsValid'
                                                 validationErrors={{
-                                                    isDefaultRequiredValue: 'Ce champ est requis.',
+                                                    isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                     isCollaboratorPointsValid: 'Le somme des points est supérieur au maximum de points'
                                                 }}
                                             /> }
