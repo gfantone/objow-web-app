@@ -20,14 +20,14 @@ class CollaboratorRewardOrderValidation extends MainLayoutComponent {
 
     handleRefuseClick() {
         const {order} = this.props.collaboratorRewardOrderDetail
-        const recipientPoints = order.pointSummary ? order.pointSummary.points - order.pointSummary.usedPoints - order.pointSummary.waitingPoints : 0
-        this.props.collaboratorRewardOrderUpdateActions.updateCollaboratorRewardOrder(this.props.match.params.id, recipientPoints, false)
+        const oldPointBalance = order.pointSummary ? order.pointSummary.points - order.pointSummary.usedPoints : 0
+        this.props.collaboratorRewardOrderUpdateActions.updateCollaboratorRewardOrder(this.props.match.params.id, oldPointBalance, false)
     }
 
     handleValidateClick() {
         const {order} = this.props.collaboratorRewardOrderDetail
-        const recipientPoints = order.pointSummary ? order.pointSummary.points - order.pointSummary.usedPoints - order.pointSummary.waitingPoints : 0
-        this.props.collaboratorRewardOrderUpdateActions.updateCollaboratorRewardOrder(this.props.match.params.id, recipientPoints, true)
+        const oldPointBalance = order.pointSummary ? order.pointSummary.points - order.pointSummary.usedPoints : 0
+        this.props.collaboratorRewardOrderUpdateActions.updateCollaboratorRewardOrder(this.props.match.params.id, oldPointBalance, true)
     }
 
     renderLoader() {
