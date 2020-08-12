@@ -9,7 +9,6 @@ import * as categoryListActions from '../../../../../../services/Categories/Cate
 import * as goalTypeListActions from '../../../../../../services/GoalTypes/GoalTypeList/actions'
 import * as kpiListActions from '../../../../../../services/Kpis/KpiList/actions'
 import * as periodicityListActions from '../../../../../../services/Periodicities/PeriodicityList/actions'
-import * as goalDefinitionDetailActions from '../../../../../../services/GoalDefinitions/GoalDefinitionDetail/actions'
 import * as goalDefinitionUpdateActions from '../../../../../../services/GoalDefinitions/GoalDefinitionUpdate/actions'
 import * as goalDefinitionActivationUpdateActions from '../../../../../../services/GoalDefinitions/GoalDefinitionActivationUpdate/actions'
 
@@ -17,15 +16,14 @@ class Base extends Component {
     state = {kpi: null, open: false}
 
     constructor(props) {
-        super(props);
+        super(props)
         this.props.goalDefinitionActivationUpdateActions.clearGoalDefinitionActivationUpdate()
     }
     componentDidMount() {
-        this.props.categoryListActions.getActiveCategoryList();
-        this.props.goalTypeListActions.getGoalTypeList();
-        this.props.kpiListActions.getKpiList();
-        this.props.periodicityListActions.getPeriodicityList();
-        this.props.goalDefinitionDetailActions.getGoalDefinition(this.props.id)
+        this.props.categoryListActions.getActiveCategoryList()
+        this.props.goalTypeListActions.getGoalTypeList()
+        this.props.kpiListActions.getKpiList()
+        this.props.periodicityListActions.getPeriodicityList()
     }
 
     onDisable() {
@@ -33,7 +31,7 @@ class Base extends Component {
     }
 
     setOpen(open) {
-        const {loading} = this.props.goalDefinitionActivationUpdate;
+        const {loading} = this.props.goalDefinitionActivationUpdate
         if (!loading) {
             this.setState({
                 ...this.state,
@@ -43,8 +41,8 @@ class Base extends Component {
     }
 
     handleSubmit(model) {
-        if (!model.editable) model.editable = false;
-        model.period = this.props.period;
+        if (!model.editable) model.editable = false
+        model.period = this.props.period
         this.props.goalDefinitionUpdateActions.updateGoalDefinition(this.props.id, model)
     }
 
@@ -53,14 +51,14 @@ class Base extends Component {
     }
 
     renderData() {
-        const { categories } = this.props.categoryList;
-        const { types } = this.props.goalTypeList;
-        const { kpis } = this.props.kpiList;
-        const { periodicities } = this.props.periodicityList;
-        const { definition } = this.props.goalDefinitionDetail;
-        const { loading: updateLoading } = this.props.goalDefinitionUpdate;
-        const { loading: activationUpdateLoading } = this.props.goalDefinitionActivationUpdate;
-        const unit = definition.kpi.unit.name + (definition.kpi.unit.symbol ? ` (${definition.kpi.unit.symbol})` : '');
+        const {categories} = this.props.categoryList
+        const {types} = this.props.goalTypeList
+        const {kpis} = this.props.kpiList
+        const {periodicities} = this.props.periodicityList
+        const {definition} = this.props.goalDefinitionDetail
+        const {loading: updateLoading} = this.props.goalDefinitionUpdate
+        const {loading: activationUpdateLoading} = this.props.goalDefinitionActivationUpdate
+        const unit = definition.kpi.unit.name + (definition.kpi.unit.symbol ? ` (${definition.kpi.unit.symbol})` : '')
         const readonly = !definition.isActive
 
         return (
@@ -129,12 +127,11 @@ class Base extends Component {
     }
 
     render() {
-        const { categories, loading: categoryListLoading } = this.props.categoryList;
-        const { types, loading: goalTypeListLoading } = this.props.goalTypeList;
-        const { kpis, loading: kpiListLoading } = this.props.kpiList;
-        const { periodicities, loading: periodicityListLoading } = this.props.periodicityList;
-        const { definition, loading: goalDefinitionDetailLoading } = this.props.goalDefinitionDetail;
-        const loading = categoryListLoading || goalTypeListLoading || kpiListLoading || periodicityListLoading || goalDefinitionDetailLoading;
+        const {categories, loading: categoryListLoading} = this.props.categoryList
+        const {types, loading: goalTypeListLoading} = this.props.goalTypeList
+        const {kpis, loading: kpiListLoading} = this.props.kpiList
+        const {periodicities, loading: periodicityListLoading} = this.props.periodicityList
+        const loading = categoryListLoading || goalTypeListLoading || kpiListLoading || periodicityListLoading
         const {success} = this.props.goalDefinitionActivationUpdate
 
         if (success) {
@@ -145,13 +142,13 @@ class Base extends Component {
         return (
             <div>
                 { loading && this.renderLoader() }
-                { !loading && categories && types  && kpis && periodicities && definition && this.renderData() }
+                { !loading && categories && types  && kpis && periodicities && this.renderData() }
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionUpdate, goalDefinitionActivationUpdate, goalDefinitionDetail }) => ({
+const mapStateToProps = ({categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionUpdate, goalDefinitionActivationUpdate, goalDefinitionDetail}) => ({
     categoryList,
     goalTypeList,
     kpiList,
@@ -159,16 +156,15 @@ const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList,
     goalDefinitionUpdate,
     goalDefinitionActivationUpdate,
     goalDefinitionDetail
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
     categoryListActions: bindActionCreators(categoryListActions, dispatch),
     goalTypeListActions: bindActionCreators(goalTypeListActions, dispatch),
     kpiListActions: bindActionCreators(kpiListActions, dispatch),
     periodicityListActions: bindActionCreators(periodicityListActions, dispatch),
-    goalDefinitionDetailActions: bindActionCreators(goalDefinitionDetailActions, dispatch),
     goalDefinitionUpdateActions: bindActionCreators(goalDefinitionUpdateActions, dispatch),
     goalDefinitionActivationUpdateActions: bindActionCreators(goalDefinitionActivationUpdateActions, dispatch)
-});
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Base))

@@ -11,6 +11,12 @@ export const ACCOUNT_SUBMIT_BUTTON = "Valider"
 // Admin
 export const ADMIN_TITLE = "Administration"
 
+// Admin - Goal update
+export const ADMIN_GOAL_UPDATE_BASE_TITLE = "Modification de l'objectif « {0} »"
+export const ADMIN_GOAL_UPDATE_READONLY_TITLE = "Visualisation de l'objectif « {0} »"
+export const ADMIN_GOAL_UPDATE_BASE_TAB = "Base"
+export const ADMIN_GOAL_UPDATE_CUSTOM_TAB = "Personnalisation"
+
 // Admin - Reward categories
 export const ADMIN_REWARD_CATEGORY_LIST_SUBTITLE = "Configuration des catégories de récompenses"
 export const ADMIN_REWARD_CATEGORY_LIST_ACTIVE_TAB = "Actives"
