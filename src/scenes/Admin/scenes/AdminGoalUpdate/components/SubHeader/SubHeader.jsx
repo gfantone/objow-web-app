@@ -1,7 +1,9 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { withStyles } from '@material-ui/core/styles'
-import { DefaultText, RoundedTab, RoundedTabs } from '../../../../../../components'
+import {connect} from 'react-redux'
+import {withStyles} from '@material-ui/core/styles'
+import {DefaultText, Loader, RoundedTab, RoundedTabs} from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
+import '../../../../../../helpers/StringHelper'
 
 const styles = {
     root: {
@@ -10,7 +12,8 @@ const styles = {
 }
 
 const SubHeader = ({ onChange, readonly, ...props }) => {
-    const { classes } = props
+    const {classes} = props
+    const {definition, loading} = props.goalDefinitionDetail
     const [value, setValue] = React.useState(0)
 
     function handlePageChange(e, value) {
@@ -18,17 +21,37 @@ const SubHeader = ({ onChange, readonly, ...props }) => {
         if (onChange) onChange(value)
     }
 
+    function renderLoader() {
+        return <div className={classes.root}>
+            <Loader centered />
+        </div>
+    }
+
+    function renderData() {
+        return (
+            <div>
+                <div className={classes.root}>
+                    {!readonly && <DefaultText align='center'>{Resources.ADMIN_GOAL_UPDATE_BASE_TITLE.format(definition.name)}</DefaultText>}
+                    {readonly && <DefaultText align='center'>{Resources.ADMIN_GOAL_UPDATE_READONLY_TITLE.format(definition.name)}</DefaultText>}
+                </div>
+                <RoundedTabs value={value} onChange={handlePageChange} variant='fullWidth'>
+                    <RoundedTab label={Resources.ADMIN_GOAL_UPDATE_BASE_TAB} />
+                    <RoundedTab label={Resources.ADMIN_GOAL_UPDATE_CUSTOM_TAB} />
+                </RoundedTabs>
+            </div>
+        )
+    }
+
     return (
         <div>
-            <div className={classes.root}>
-                <DefaultText align='center'>{!readonly ? 'Modification' : 'Visualisation'} d'un objectif</DefaultText>
-            </div>
-            <RoundedTabs value={value} onChange={handlePageChange} variant='fullWidth'>
-                <RoundedTab label='Base' />
-                <RoundedTab label='Personnalisation' />
-            </RoundedTabs>
+            {loading && renderLoader()}
+            {!loading && definition && renderData()}
         </div>
     )
 }
 
-export default withStyles(styles)(SubHeader)
+const mapStateToProps = ({goalDefinitionDetail}) => ({
+    goalDefinitionDetail
+})
+
+export default withStyles(styles)(connect(mapStateToProps)(SubHeader))
