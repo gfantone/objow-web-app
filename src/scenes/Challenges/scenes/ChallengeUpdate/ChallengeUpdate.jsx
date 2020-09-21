@@ -61,7 +61,6 @@ class ChallengeUpdate extends MainLayoutComponent {
     }
 
     handleValidSubmit(model) {
-        // const model = this.refs.form.getModel();
         model.start.setHours(0, 0, 0, 0);
         model.end.setHours(23, 59, 59, 0);
         const challenge = {

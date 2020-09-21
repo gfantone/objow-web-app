@@ -24,7 +24,6 @@ const Infos = ({description, end, image, images, isUpdate, name, period, onEndCh
     const [selectedImageId, setSelectedImageId] = React.useState(image ? image.id : null)
     const selectedImage = images.find(x => x.id === selectedImageId)
     const selectedImagePath = selectedImage ? selectedImage.path : null
-    const selectedTypeId = type ? type.id : null
 
     function handleImageChange(id) {
         setSelectedImageId(Number(id))
@@ -108,7 +107,7 @@ const Infos = ({description, end, image, images, isUpdate, name, period, onEndCh
                                 <Select
                                     disabled={hasManager || isUpdate}
                                     fullWidth
-                                    initial={selectedTypeId}
+                                    initial={type}
                                     label={Resources.CHALLENGE_CREATION_INFO_TYPE_LABEL}
                                     name='type'
                                     options={types}

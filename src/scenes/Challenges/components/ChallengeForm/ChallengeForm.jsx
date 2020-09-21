@@ -9,10 +9,10 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
     const id = challenge ? challenge.id : null
     const name = challenge ? challenge.name : null
     const description = challenge ? challenge.description : null
-    const [start, setStart] = React.useState(challenge ? challenge.start.toDate2() : null)
-    const [end, setEnd] = React.useState(challenge ? challenge.end.toDate2() : null)
-    const [type, setType] = React.useState(challenge ? challenge.type : null)
-    const typeObject = types.find(x => x.id == type)
+    const [start, setStart] = React.useState(challenge && !isDuplication ? challenge.start.toDate2() : null)
+    const [end, setEnd] = React.useState(challenge && !isDuplication ? challenge.end.toDate2() : null)
+    const [type, setType] = React.useState(challenge ? challenge.type.id : null)
+    const typeObject = types.find(x => x.id === type)
     const typeId = typeObject ? typeObject.id : null
     const typeCode = typeObject ? typeObject.code : null
     const image = challenge ? challenge.image : null
@@ -22,10 +22,12 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
     var finalTypes = types
     const {account} = props.accountDetail
 
-    if (account.role.code === 'M') {
-        finalTypes = finalTypes.filter(x => x.code === 'CM')
-    } else if (account.role.code === 'A' && !team) {
-        finalTypes = finalTypes.filter(x => x.code !== 'CM')
+    if (!isUpdate) {
+        if (account.role.code === 'M') {
+            finalTypes = finalTypes.filter(x => x.code === 'CM')
+        } else if (account.role.code === 'A' && !team) {
+            finalTypes = finalTypes.filter(x => x.code !== 'CM')
+        }
     }
 
     const hasChallengeManager = finalTypes.find(x => x.code === 'CM') != null
@@ -72,6 +74,7 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
                         initialAwards={awards}
                         initialType={awardType}
                         isCreation={isCreation}
+                        isDuplication={isDuplication}
                         isUpdate={isUpdate}
                         start={start}
                         team={team}

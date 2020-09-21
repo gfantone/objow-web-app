@@ -7,9 +7,10 @@ import {faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {Card, DefaultText, DefaultTitle, HiddenInput, Select, TextField} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import * as challengeTypeUsablePointsActions from '../../../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
-import {uuidv4} from "../../../../../../helpers/UUIDHelper";
+import {uuidv4} from "../../../../../../helpers/UUIDHelper"
+import './helpers/FormsyHelper'
 
-const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialType, isCreation, isUpdate, start, team, types, ...props}) => {
+const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialType, isCreation, isDuplication, isUpdate, start, team, types, ...props}) => {
     const getInitialAwards = () => {
         if (initialAwards && initialAwards.length > 0) {
             return initialAwards.map(x => ({key: uuidv4(), points: x.points}))
@@ -27,7 +28,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     const usablePoints = points ? (!isMaxAward ? points.all : points.participant) : 0
 
     useEffect(() => {
-        if (isCreation && challengeTypeId && end && start) {
+        if ((isCreation || isDuplication) && challengeTypeId && end && start) {
             const teamFilter = hasChallengeManager && challengeTypeCode === 'CM' ? team : null
             props.challengeTypeUsablePointsActions.getChallengeTypeUsablePoints(challengeTypeId, start, end, teamFilter)
         } else if (isUpdate) {
