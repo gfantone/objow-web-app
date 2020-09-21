@@ -6,13 +6,12 @@ import * as Resources from '../../../../../../Resources'
 import {uuidv4} from "../../../../../../helpers/UUIDHelper"
 
 const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, ...props}) => {
-    const [currentGoals, setCurrentGoals] = React.useState(goals.map(x => ({key: uuidv4(), category: x.kpi.category ? x.kpi.category.id : null, kpi: x.kpi.id, goalName: x.name, target: x.target, points: x.points})))
+    const [currentGoals, setCurrentGoals] = React.useState(goals ? goals.map(x => ({key: uuidv4(), category: x.kpi.category ? x.kpi.category.id : null, kpi: x.kpi.id, goalName: x.name, target: x.target, points: x.points})) : [{key: uuidv4(), category: null, kpi: null, goalName: null, target: null, points: null}])
     const deletionDisabled = currentGoals.length === 1
 
     useEffect(() => {
         if (goalAdding) {
-            const key = uuidv4()
-            setCurrentGoals(goals => [...goals, {key: key, category: null, kpi: null, goalName: null, target: null, points: null}])
+            setCurrentGoals(goals => [...goals, {key: uuidv4(), category: null, kpi: null, goalName: null, target: null, points: null}])
             onGoalAdded()
         }
     }, [goalAdding])

@@ -1,10 +1,11 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {Grid} from '@material-ui/core'
 import {Awards, Goals, Infos} from './components'
 import {ProgressButton} from '../../../../components'
 import * as Resources from '../../../../Resources'
 
-const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images, isCreation = false, isDuplication = false, isUpdate = false, kpis, period, readonly, types, goalAdding, onGoalAdded, ...props}) => {
+const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images, isCreation, isDuplication, isUpdate, kpis, period, team, types, goalAdding, onGoalAdded, ...props}) => {
     const id = challenge ? challenge.id : null
     const name = challenge ? challenge.name : null
     const description = challenge ? challenge.description : null
@@ -12,11 +13,22 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
     const [end, setEnd] = React.useState(challenge ? challenge.end.toDate2() : null)
     const [type, setType] = React.useState(challenge ? challenge.type : null)
     const typeObject = types.find(x => x.id == type)
+    const typeId = typeObject ? typeObject.id : null
     const typeCode = typeObject ? typeObject.code : null
     const image = challenge ? challenge.image : null
     const awardType = challenge ? challenge.award_type : null
     const awards = challenge ? challenge.awards : []
     const goals = challenge ? challenge.goals : null
+    var finalTypes = types
+    const {account} = props.accountDetail
+
+    if (account.role.code === 'M') {
+        finalTypes = finalTypes.filter(x => x.code === 'CM')
+    } else if (account.role.code === 'A' && !team) {
+        finalTypes = finalTypes.filter(x => x.code !== 'CM')
+    }
+
+    const hasChallengeManager = finalTypes.find(x => x.code === 'CM') != null
 
     function handleEndChange(newEnd) {
         setEnd(newEnd)
@@ -39,12 +51,12 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
                         end={end}
                         image={image}
                         images={images}
+                        isUpdate={isUpdate}
                         name={name}
                         period={period}
-                        readonly={readonly}
                         start={start}
                         type={type}
-                        types={types}
+                        types={finalTypes}
                         onEndChange={handleEndChange}
                         onStartChange={handleStartChange}
                         onTypeChange={handleTypeChange}
@@ -53,12 +65,16 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
                 <Grid item xs={12}>
                     <Awards
                         challengeId={id}
-                        challengeType={typeCode}
+                        challengeTypeCode={typeCode}
+                        challengeTypeId={typeId}
                         end={end}
+                        hasChallengeManager={hasChallengeManager}
                         initialAwards={awards}
                         initialType={awardType}
-                        readonly={readonly}
+                        isCreation={isCreation}
+                        isUpdate={isUpdate}
                         start={start}
+                        team={team}
                         types={awardTypes}
                     />
                 </Grid>
@@ -83,4 +99,8 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
     )
 }
 
-export default ChallengeForm
+const mapStateToProps = ({accountDetail}) => ({
+    accountDetail
+})
+
+export default connect(mapStateToProps)(ChallengeForm)

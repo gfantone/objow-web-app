@@ -1,139 +1,67 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import Formsy from 'formsy-react'
-import {CardMedia, Grid, IconButton, Tooltip} from '@material-ui/core'
-import {withStyles} from '@material-ui/core/styles'
+import Formsy from "formsy-react"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faInfoCircle, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
-import {ChallengeAwardList, ImageInput} from '../../components'
-import '../../../../helpers/FormsyHelper'
-import '../../../../helpers/StringHelper'
-import '../../helpers/ChallengeFormsyHelper'
-import {AppBarSubTitle, BlueText, Card, DatePicker, DefaultText, DefaultTitle, HiddenInput, IconButton as MenuIconButton, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField} from '../../../../components'
+import {faPlus} from '@fortawesome/free-solid-svg-icons'
+import {ChallengeForm} from '../../components'
+import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
-import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
-import * as challengeAwardTypeListActions from '../../../../services/ChallengeAwardTypes/ChallengeAwardTypeList/actions'
+import * as categoryListActions from "../../../../services/Categories/CategoryList/actions"
+import * as challengeAwardTypeListActions from "../../../../services/ChallengeAwardTypes/ChallengeAwardTypeList/actions"
 import * as challengeCreationActions from '../../../../services/Challanges/ChallangeCreaton/actions'
-import * as challengeImageListActions from '../../../../services/ChallengeImages/ChallengeImageList/actions'
-import * as challengeTypeListActions from '../../../../services/ChallengeTypes/ChallengeTypeList/actions'
+import * as challengeDetailActions from "../../../../services/Challanges/ChallengeDetail/actions"
+import * as challengeImageListActions from "../../../../services/ChallengeImages/ChallengeImageList/actions"
+import * as challengeTypeListActions from "../../../../services/ChallengeTypes/ChallengeTypeList/actions"
 import * as challengeTypeUsablePointsActions from '../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
-import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
-import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
-
-const styles = {
-    image: {
-        height: '100%',
-        width: '100%'
-    }
-};
+import * as currentPeriodDetailActions from "../../../../services/Periods/CurrentPeriodDetail/actions"
+import * as kpiListActions from "../../../../services/Kpis/KpiList/actions"
 
 class ChallengeCreation extends MainLayoutComponent {
+    state = {goalAdding: false}
+
     constructor(props) {
-        super(props);
-        this.key = 1;
-        this.state = {
-            start: null,
-            end: null,
-            type: null,
-            image: null,
-            goals: [{ key: this.key, category: null, kpi: null, goalName: null, target: null, points: null }]
-        };
-        this.props.challengeCreationActions.clearChallengeCreation();
+        super(props)
+        this.props.challengeCreationActions.clearChallengeCreation()
         this.props.challengeTypeUsablePointsActions.clearChallengeTypeUsablePoints()
     }
 
-    componentDidMount() {
-        this.props.handleTitle(Resources.CHALLENGE_LONG_TITLE);
-        this.props.handleSubHeader(<AppBarSubTitle title={Resources.CHALLENGE_CREATION_TITLE} />);
-        this.props.handleButtons(<MenuIconButton size={'small'} onClick={this.handleAddGoal.bind(this)}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>);
-        this.props.handleMaxWidth('md');
-        this.props.activateReturn();
-        this.props.challengeAwardTypeListActions.getChallengeAwardTypeList();
-        this.props.categoryListActions.getActiveCategoryList();
-        this.props.challengeImageListActions.getChallengeImageList();
-        this.props.challengeTypeListActions.getUsableChallengeTypeList();
-        this.props.kpiListActions.getKpiList();
-        this.props.currentPeriodDetailActions.getCurrentPeriodDetail()
-    }
-
-    componentWillReceiveProps(props) {
-        const { account } = props.accountDetail;
-        const { types } = props.challengeTypeList;
-        const { types: awardTypes } = props.challengeAwardTypeList;
-        if (!this.state.type && account.role.code == 'M' && types) {
-            const selectedType = types.find(x => x.code == 'CM');
-            const selectedTypeId = selectedType ? selectedType.id : null;
-            this.handlePeriodChange('type')(selectedTypeId)
-        }
-        if (!this.state.awardType && awardTypes) {
-            this.state.awardType = awardTypes[0].id
-        }
-    }
-
     handleAddGoal() {
-        this.key += 1;
-        var goals = this.state.goals;
-        goals.push({ key: this.key, category: null, kpi: null, goalName: null, target: null, points: null });
         this.setState({
             ...this.state,
-            goals: goals
+            goalAdding: 1
         })
     }
 
-    handleRemoveGoal = index => () => {
-        var goals = this.state.goals;
-        goals.splice(index, 1);
-        this.setState({
-            ...this.state,
-            goals: goals
-        })
-    };
+    componentDidMount() {
+        this.props.handleTitle(Resources.CHALLENGE_LONG_TITLE)
+        this.props.handleSubHeader(<AppBarSubTitle title={Resources.CHALLENGE_CREATION_TITLE} />)
+        this.props.handleButtons(<MenuIconButton size={'small'} onClick={this.handleAddGoal.bind(this)}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>)
+        this.props.handleMaxWidth('md')
+        this.props.activateReturn()
+        this.props.categoryListActions.getActiveCategoryList()
+        this.props.challengeAwardTypeListActions.getChallengeAwardTypeList()
+        this.props.challengeImageListActions.getChallengeImageList()
+        this.props.challengeTypeListActions.getUsableChallengeTypeList()
+        this.props.currentPeriodDetailActions.getCurrentPeriodDetail()
+        this.props.kpiListActions.getKpiList()
+    }
 
-    handleCategoryChange = index => category => {
-        var goals = this.state.goals;
-        goals[index].category = category;
-        goals[index].kpi = null;
-        this.setState({
-            ...this.state,
-            goals: goals
-        })
-    };
+    renderLoader() {
+        return <Loader centered />
+    }
 
-    handleImageChange(image) {
+    handleGoalAdded() {
         this.setState({
-            ...this.state,
-            image: image
+            ...this.props.state,
+            goalAdding: false
         })
     }
 
-    handlePeriodChange = name => value => {
-        this.setState({
-            ...this.state,
-            [name]: value
-        }, () => {
-            if (this.state.start && this.state.end && this.state.type) {
-                const { types } = this.props.challengeTypeList;
-                const teamId = types.find(x => x.code == 'CM') && this.state.type == types.find(x => x.code == 'CM').id ? this.props.match.params.id : null;
-                this.props.challengeTypeUsablePointsActions.getChallengeTypeUsablePoints(this.state.type, this.state.start, this.state.end, teamId)
-            }
-        })
-    };
-
-    handleValueChange = index => name => value => {
-        var goals = this.state.goals;
-        goals[index][name] = value;
-        this.setState({
-            ...this.state,
-            goals: goals
-        })
-    };
-
-    handleSubmit() {
-        const { types } = this.props.challengeTypeList;
-        const model = this.refs.form.getModel();
-        model.start.setHours(0, 0, 0, 0);
-        model.end.setHours(23, 59, 59, 0);
+    handleValidSubmit(model) {
+        const { types } = this.props.challengeTypeList
+        model.start.setHours(0, 0, 0, 0)
+        model.end.setHours(23, 59, 59, 0)
         const challenge = {
             name: model.name,
             description: model.description,
@@ -142,228 +70,96 @@ class ChallengeCreation extends MainLayoutComponent {
             image: model.image,
             type: model.type,
             award_type: model.awardType
-        };
-        var goals = [];
+        }
+        var goals = []
         for (var i = 0; i < model.kpi.length; i++) {
             goals.push({ number: model.number[i], name: model.goalName[i], kpi: model.kpi[i], target: model.target[i], points: model.points[i] })
         }
-        var awards = [];
+        var awards = []
         for (var i = 0; i < model.award.length; i++) {
-            const rank = i + 1;
+            const rank = i + 1
             awards.push({ rank: rank, points: model.award[i] })
         }
-        const teamId = types.find(x => x.id == model.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null;
+        const teamId = types.find(x => x.id == model.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
         this.props.challengeCreationActions.createChallenge(challenge, awards, goals, teamId)
     }
 
-    renderLoader() {
-        return <Loader centered />
-    }
-
-    renderGoal(index, goal = null) {
-        const number = index + 1;
-        const { categories } = this.props.categoryList;
-        const { kpis } = this.props.kpiList;
-        const displayKpis = goal.category ? kpis.filter(x => x.category && x.category.id == goal.category) : kpis;
-        const kpi = goal.kpi ? kpis.find(x => x.id == goal.kpi) : null;
-        const unit = kpi ? kpi.unit.name : null;
-
-        return (
-            <Grid key={goal.key} item xs={6}>
-                <Card>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} container>
-                            <Grid item xs>
-                                <DefaultTitle>{Resources.CHALLENGE_CREATION_GOAL_TITLE.format(number)}</DefaultTitle>
-                                <HiddenInput name={`number[${index}]`} value={number} />
-                            </Grid>
-                            { this.state.goals.length > 1 && <Grid item>
-                                <IconButton size='small' onClick={this.handleRemoveGoal(index).bind(this)}>
-                                    <FontAwesomeIcon icon={faTrashAlt} />
-                                </IconButton>
-                            </Grid> }
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Select name='category' label={Resources.CHALLENGE_CREATION_GOAL_CATEGORY_LABEL} emptyText={'Toutes'} options={categories} optionValueName='id' optionTextName='name' onChange={this.handleCategoryChange(index).bind(this)} fullWidth />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Select name={`kpi[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_KPI_LABEL} options={displayKpis} initial={kpi ? kpi.id : null} optionValueName='id' optionTextName='name' onChange={this.handleValueChange(index)('kpi').bind(this)} fullWidth required />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField name={`goalName[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_NAME_LABEL} onChange={this.handleValueChange(index)('goalName').bind(this)} fullWidth required />
-                        </Grid>
-                        <Grid item xs>
-                            <DefaultText>{Resources.CHALLENGE_CREATION_GOAL_UNIT_LABEL}</DefaultText>
-                            <InfoText>{unit}</InfoText>
-                        </Grid>
-                        <Grid item xs>
-                            <TextField name={`target[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_TARGET_LABEL} onChange={this.handleValueChange(index)('target').bind(this)} fullWidth required />
-                        </Grid>
-                        <Grid item>
-                            <Tooltip title={Resources.CHALLENGE_CREATION_GOAL_TARGET_INFO_TEXT}>
-                                <BlueText style={{ marginTop: 20 }}>
-                                    <FontAwesomeIcon icon={faInfoCircle} />
-                                </BlueText>
-                            </Tooltip>
-                        </Grid>
-                        <Grid item xs>
-                            <TextField name={`points[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_POINTS_LABEL} onChange={this.handleValueChange(index)('target').bind(this)} fullWidth required />
-                        </Grid>
-                    </Grid>
-                </Card>
-            </Grid>
-        )
-    }
-
     renderData() {
-        const { classes } = this.props;
-        const { account } = this.props.accountDetail;
-        const { types: awardTypes } = this.props.challengeAwardTypeList;
-        const { images } = this.props.challengeImageList;
-        const { loading } = this.props.challengeCreation;
-        var { types } = this.props.challengeTypeList;
-        const { period } = this.props.currentPeriodDetail;
-        if (account.role.code == 'M') {
-            types = types.filter(x => x.code == 'CM')
-        } else if (account.role.code == 'A' && !this.props.match.params.id) {
-            types = types.filter(x => x.code != 'CM')
-        }
-        const today = new Date();
-        const startMinDate = new Date(today.getFullYear(), today.getMonth(), 1);
-        const startMaxDate = this.state.end ? this.state.end : period.end.toDate2();
-        const endMinDate = this.state.start ? this.state.start : today;
-        const image = this.state.image ? images.find(x => x.id == this.state.image) : null;
-        const imagePath = image ? image.path : null;
-        const currentType = types.find(x => x.id == this.state.type);
-        const currentTypeCode = currentType ? currentType.code : null;
+        const {categories} = this.props.categoryList
+        const {types: awardTypes} = this.props.challengeAwardTypeList
+        const {images} = this.props.challengeImageList
+        const {period} = this.props.currentPeriodDetail
+        const {types} = this.props.challengeTypeList
+        const {loading} = this.props.challengeCreation
+        const {kpis} = this.props.kpiList
+        const team = this.props.match.params.id
 
         return (
-            <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
-                <Grid container spacing={4}>
-                    <Grid item xs={12}>
-                        <Grid container spacing={1}>
-                            <Grid item xs={12}>
-                                <DefaultTitle>{Resources.CHALLENGE_CREATION_INFO_AREA}</DefaultTitle>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Card>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={8}>
-                                            <div>
-                                                <Grid container spacing={2}>
-                                                    <Grid item xs={12}>
-                                                        <TextField name='name' label={Resources.CHALLENGE_CREATION_INFO_NAME_LABEL} fullWidth required
-                                                                   validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={12}>
-                                                        <TextField name='description' label={Resources.CHALLENGE_CREATION_INFO_DESCRIPTION_LABEL} fullWidth multiline required
-                                                                   validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
-                                                        />
-                                                    </Grid>
-                                                </Grid>
-                                            </div>
-                                        </Grid>
-                                        <Grid item xs={4}>
-                                            { !imagePath && <Grid container justify={'center'} alignItems={'center'} style={{height: '100%'}}>
-                                                <Grid item>
-                                                    <InfoText align={'center'}>{Resources.CHALLENGE_CREATION_INFO_NO_IMAGE_TEXT}</InfoText>
-                                                </Grid>
-                                            </Grid> }
-                                            { imagePath && <CardMedia image={imagePath} className={classes.image} /> }
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <DatePicker name='start' label={Resources.CHALLENGE_CREATION_INFO_START_LABEL} format='dd/MM/yyyy' initial={this.state.start} onChange={this.handlePeriodChange('start').bind(this)} minDate={startMinDate} maxDate={startMaxDate} clearable fullWidth required
-                                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={3}>
-                                            <DatePicker name='end' label={Resources.CHALLENGE_CREATION_INFO_END_LABEL} format='dd/MM/yyyy' initial={this.state.end} onChange={this.handlePeriodChange('end').bind(this)} minDate={endMinDate} maxDate={period.end.toDate2()} clearable fullWidth required
-                                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Select name='type' label={Resources.CHALLENGE_CREATION_INFO_TYPE_LABEL} options={types} initial={this.state.type} onChange={this.handlePeriodChange('type').bind(this)} optionValueName='id' optionTextName='name' disabled={account.role.code == 'M'} fullWidth required
-                                                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <ImageInput name={'image'} label={Resources.CHALLENGE_CREATION_INFO_IMAGE_LABEL} images={images} onChange={this.handleImageChange.bind(this)} required />
-                                        </Grid>
-                                    </Grid>
-                                </Card>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <ChallengeAwardList awardTypes={awardTypes} challengeTypeCode={currentTypeCode} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Grid container spacing={1}>
-                            <Grid item xs={12}>
-                                <DefaultTitle>{Resources.CHALLENGE_CREATION_GOAL_AREA}</DefaultTitle>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Grid item container spacing={2}>
-                                    { this.state.goals.map((goal, index) => {
-                                        return this.renderGoal(index, goal)
-                                    }) }
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <ProgressButton type='submit' text={Resources.CHALLENGE_CREATION_SUBMIT_BUTTON} loading={loading} centered />
-                    </Grid>
-                </Grid>
-            </Formsy>
+            <div>
+                <Formsy ref='form' onValidSubmit={this.handleValidSubmit.bind(this)}>
+                    <ChallengeForm
+                        actionLoading={loading}
+                        awardTypes={awardTypes}
+                        categories={categories}
+                        goalAdding={this.state.goalAdding}
+                        images={images}
+                        isCreation
+                        kpis={kpis}
+                        period={period}
+                        team={team}
+                        types={types}
+                        onGoalAdded={this.handleGoalAdded.bind(this)}
+                    />
+                </Formsy>
+            </div>
         )
     }
 
     render() {
-        const { types: awardTypes, loading: challengeAwardTypeListLoading } = this.props.challengeAwardTypeList;
-        const { categories, loading: categoryListLoading } = this.props.categoryList;
-        const { images, loading: challengeImageListLoading } = this.props.challengeImageList;
-        const { types, loading: challengeTypeListLoading } = this.props.challengeTypeList;
-        const { kpis, loading: kpiListLoading } = this.props.kpiList;
-        const { period, loading: periodDetailLoading } = this.props.currentPeriodDetail;
-        const { success } = this.props.challengeCreation;
-        const loading = challengeAwardTypeListLoading || categoryListLoading || challengeImageListLoading || challengeTypeListLoading || kpiListLoading || periodDetailLoading;
+        const {categories, loading: categoryListLoading} = this.props.categoryList
+        const {types: awardTypes, loading: challengeAwardTypeListLoading} = this.props.challengeAwardTypeList
+        const {images, loading: challengeImageListLoading} = this.props.challengeImageList
+        const {types, loading: challengeTypeListLoading} = this.props.challengeTypeList
+        const {success} = this.props.challengeCreation
+        const {period, loading: currentPeriodDetailLoading} = this.props.currentPeriodDetail
+        const {kpis, loading: kpiListLoading} = this.props.kpiList
+        const loading = categoryListLoading || challengeAwardTypeListLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading
 
         if (success) {
-            this.props.challengeCreationActions.clearChallengeCreation();
+            this.props.challengeCreationActions.clearChallengeCreation()
+            this.props.challengeTypeUsablePointsActions.clearChallengeTypeUsablePoints()
             this.props.history.goBack()
         }
 
         return (
             <div>
-                { loading &&  this.renderLoader()}
-                { !loading && awardTypes && categories && images && types && kpis && period && this.renderData() }
+                {loading && this.renderLoader()}
+                {!loading && awardTypes && categories && period && images && types && kpis && this.renderData()}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ accountDetail, categoryList, challengeAwardTypeList, challengeCreation, challengeImageList, challengeTypeList, kpiList, currentPeriodDetail }) => ({
-    accountDetail,
+const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeCreation, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList}) => ({
     categoryList,
     challengeAwardTypeList,
     challengeCreation,
     challengeImageList,
     challengeTypeList,
-    kpiList,
-    currentPeriodDetail
-});
+    currentPeriodDetail,
+    kpiList
+})
 
 const mapDispatchToProps = (dispatch) => ({
     categoryListActions: bindActionCreators(categoryListActions, dispatch),
     challengeAwardTypeListActions: bindActionCreators(challengeAwardTypeListActions, dispatch),
     challengeCreationActions: bindActionCreators(challengeCreationActions, dispatch),
+    challengeDetailActions: bindActionCreators(challengeDetailActions, dispatch),
     challengeImageListActions: bindActionCreators(challengeImageListActions, dispatch),
     challengeTypeListActions: bindActionCreators(challengeTypeListActions, dispatch),
     challengeTypeUsablePointsActions: bindActionCreators(challengeTypeUsablePointsActions, dispatch),
-    kpiListActions: bindActionCreators(kpiListActions, dispatch),
-    currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch)
-});
+    currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
+    kpiListActions: bindActionCreators(kpiListActions, dispatch)
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ChallengeCreation))
+export default connect(mapStateToProps, mapDispatchToProps)(ChallengeCreation)

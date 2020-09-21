@@ -12,12 +12,19 @@ import * as challengeAwardTypeListActions from '../../../../services/ChallengeAw
 import * as challengeDetailActions from '../../../../services/Challanges/ChallengeDetail/actions'
 import * as challengeImageListActions from '../../../../services/ChallengeImages/ChallengeImageList/actions'
 import * as challengeTypeListActions from '../../../../services/ChallengeTypes/ChallengeTypeList/actions'
+import * as challengeTypeUsablePointsActions from '../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
 import * as challengeUpdateActions from '../../../../services/Challanges/ChallengeUpdate/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
 
 class ChallengeUpdate extends MainLayoutComponent {
     state = {goalAdding: false}
+
+    constructor(props) {
+        super(props)
+        this.props.challengeUpdateActions.clearChallengeUpdate()
+        this.props.challengeTypeUsablePointsActions.clearChallengeTypeUsablePoints()
+    }
 
     handleAddGoal() {
         this.setState({
@@ -102,7 +109,6 @@ class ChallengeUpdate extends MainLayoutComponent {
                         isUpdate
                         kpis={kpis}
                         period={period}
-                        readonly
                         types={types}
                         onGoalAdded={this.handleGoalAdded.bind(this)}
                     />
@@ -123,7 +129,8 @@ class ChallengeUpdate extends MainLayoutComponent {
         const loading = categoryListLoading || challengeAwardTypeListLoading || challengeDetailLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading
 
         if (success) {
-            this.props.challengeUpdateActions.clearChallengeUpdate();
+            this.props.challengeUpdateActions.clearChallengeUpdate()
+            this.props.challengeTypeUsablePointsActions.clearChallengeTypeUsablePoints()
             this.props.history.goBack()
         }
 
@@ -153,6 +160,7 @@ const mapDispatchToProps = (dispatch) => ({
     challengeDetailActions: bindActionCreators(challengeDetailActions, dispatch),
     challengeImageListActions: bindActionCreators(challengeImageListActions, dispatch),
     challengeTypeListActions: bindActionCreators(challengeTypeListActions, dispatch),
+    challengeTypeUsablePointsActions: bindActionCreators(challengeTypeUsablePointsActions, dispatch),
     challengeUpdateActions: bindActionCreators(challengeUpdateActions, dispatch),
     currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
     kpiListActions: bindActionCreators(kpiListActions, dispatch)

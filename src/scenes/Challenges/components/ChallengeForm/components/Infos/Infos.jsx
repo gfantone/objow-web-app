@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     }
 })
 
-const Infos = ({description, end, image, images, name, period, onEndChange, onStartChange, onTypeChange, start, readonly, type, types, ...props}) => {
+const Infos = ({description, end, image, images, isUpdate, name, period, onEndChange, onStartChange, onTypeChange, start, type, types, ...props}) => {
     const classes = useStyles()
     const {account} = props.accountDetail
     const hasManager = account.role.code === 'M'
@@ -43,25 +43,36 @@ const Infos = ({description, end, image, images, name, period, onEndChange, onSt
                                 <div>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
-                                            <TextField name='name' label={Resources.CHALLENGE_CREATION_INFO_NAME_LABEL} fullWidth required initial={name}
-                                                       validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
+                                            <TextField
+                                                fullWidth
+                                                initial={name}
+                                                label={Resources.CHALLENGE_CREATION_INFO_NAME_LABEL}
+                                                name='name'
+                                                required
+                                                validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <TextField name='description' label={Resources.CHALLENGE_CREATION_INFO_DESCRIPTION_LABEL} fullWidth multiline required initial={description}
-                                                       validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
+                                            <TextField
+                                                fullWidth
+                                                initial={description}
+                                                label={Resources.CHALLENGE_CREATION_INFO_DESCRIPTION_LABEL}
+                                                multiline
+                                                name='description'
+                                                required
+                                                validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             />
                                         </Grid>
                                     </Grid>
                                 </div>
                             </Grid>
                             <Grid item xs={4}>
-                                {!selectedImagePath && <Grid container justify={'center'} alignItems={'center'} style={{height: '100%'}}>
+                                {!selectedImagePath && <Grid alignItems={'center'} container justify={'center'} style={{height: '100%'}}>
                                     <Grid item>
                                         <InfoText align={'center'}>{Resources.CHALLENGE_CREATION_INFO_NO_IMAGE_TEXT}</InfoText>
                                     </Grid>
                                 </Grid>}
-                                {selectedImagePath && <CardMedia image={selectedImagePath} className={classes.image} />}
+                                {selectedImagePath && <CardMedia className={classes.image} image={selectedImagePath} />}
                             </Grid>
                             <Grid item xs={3}>
                                 <DatePicker
@@ -94,13 +105,29 @@ const Infos = ({description, end, image, images, name, period, onEndChange, onSt
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <Select name='type' label={Resources.CHALLENGE_CREATION_INFO_TYPE_LABEL} options={types} initial={selectedTypeId} optionValueName='id' optionTextName='name' disabled={hasManager || readonly} fullWidth required
-                                        onChange={onTypeChange}
-                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
+                                <Select
+                                    disabled={hasManager || isUpdate}
+                                    fullWidth
+                                    initial={selectedTypeId}
+                                    label={Resources.CHALLENGE_CREATION_INFO_TYPE_LABEL}
+                                    name='type'
+                                    options={types}
+                                    optionTextName='name'
+                                    optionValueName='id'
+                                    required
+                                    validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
+                                    onChange={onTypeChange}
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <ImageInput name={'image'} label={Resources.CHALLENGE_CREATION_INFO_IMAGE_LABEL} images={images} required initial={selectedImageId} onChange={handleImageChange} />
+                                <ImageInput
+                                    images={images}
+                                    initial={selectedImageId}
+                                    label={Resources.CHALLENGE_CREATION_INFO_IMAGE_LABEL}
+                                    name={'image'}
+                                    required
+                                    onChange={handleImageChange}
+                                />
                             </Grid>
                         </Grid>
                     </Card>
