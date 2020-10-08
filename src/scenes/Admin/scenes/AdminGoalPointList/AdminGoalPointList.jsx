@@ -54,8 +54,8 @@ class AdminGoalPointList extends MainLayoutComponent {
         const { definitions } = this.props.goalDefinitionList;
         const collaboratorGoalPoints = configs.find(x => x.code == 'CPG');
         const teamGoalPoints = configs.find(x => x.code == 'TPG');
-        const usableCollaboratorGoalPoints = collaboratorGoalPoints.value - collaboratorPoints;
-        const usableTeamGoalPoints = teamGoalPoints.value - teamPoints;
+        const usableCollaboratorGoalPoints = collaboratorGoalPoints ? collaboratorGoalPoints.value - collaboratorPoints : 0;
+        const usableTeamGoalPoints = teamGoalPoints ? teamGoalPoints.value - teamPoints : 0;
         var columns = [
             { name: 'id', label: 'Ref' },
             { name: 'name', label: 'Intitulé' },
