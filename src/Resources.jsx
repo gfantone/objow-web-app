@@ -408,6 +408,15 @@ export const TEAM_GOAL_LIST_EMPTY_STATE_MESSAGE = "Si vous avez appliqué des fi
 export const TEAM_GOAL_RANK_LIST_TEAM_COLUMN = "Équipes"
 export const TEAM_GOAL_RANK_LIST_POINTS_COLUMN = "PTS"
 
+// Login
+export const LOGIN_CODE_LABEL = "Code entreprise"
+export const LOGIN_EMAIL_LABEL = "Email"
+export const LOGIN_PASSWORD_LABEL = "Mot de passe"
+export const LOGIN_ERROR = "Les identifiants sont incorrects"
+export const LOGIN_SUBMIT_BUTTON = "Se connecter"
+export const LOGIN_STORE_MESSAGE_1 = "Votre application Fire Tiger est disponible pour Iphone et Android."
+export const LOGIN_STORE_MESSAGE_2 = "Téléchargez-la dès maintenant :"
+
 // Main layout
 export const MAIN_LAYOUT_SEARCH_PLACEHOLDER = "Rechercher..."
 
