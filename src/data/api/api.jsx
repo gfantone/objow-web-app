@@ -31,6 +31,7 @@ import levels from './endpoints/levels'
 import mails from './endpoints/mails'
 import managers from './endpoints/managers'
 import nextCollaboratorBadges from "./endpoints/nextCollaboratorBadges";
+import partners from "./endpoints/partners";
 import periodicities from './endpoints/periodicities'
 import periods from './endpoints/periods'
 import rewardCategories from "./endpoints/rewardCategories";
@@ -90,6 +91,7 @@ const api = {
     mails,
     managers,
     nextCollaboratorBadges,
+    partners,
     periodicities,
     periods,
     rewardCategories,

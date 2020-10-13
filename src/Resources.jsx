@@ -17,6 +17,28 @@ export const ADMIN_GOAL_UPDATE_READONLY_TITLE = "Visualisation de l'objectif « 
 export const ADMIN_GOAL_UPDATE_BASE_TAB = "Base"
 export const ADMIN_GOAL_UPDATE_CUSTOM_TAB = "Personnalisation"
 
+export const ADMIN_HOME_USER_AREA = "Utilisateurs et droits"
+export const ADMIN_HOME_USER_LINK = "Abonnements utilisateurs"
+export const ADMIN_HOME_TEAM_LINK = "Équipes"
+export const ADMIN_HOME_PERMISSION_LINK = "Gestion droits d'accès"
+export const ADMIN_HOME_DATA_AREA = "Intégration et gestion de données"
+export const ADMIN_HOME_PARTNER_LINK = "Intégrations partenaires"
+export const ADMIN_HOME_REPORT_LINK = "Rapports"
+export const ADMIN_HOME_IMPORT_LINK = "Journal d'imports"
+export const ADMIN_HOME_LOGO_LINK = "Changement du logo"
+export const ADMIN_HOME_INDICATOR_AREA = "Configuration des indicateurs"
+export const ADMIN_HOME_YEAR_LABEL = "Année à configurer"
+export const ADMIN_HOME_POINT_LINK = "Répartition générale des points"
+export const ADMIN_HOME_CATEGORY_LINK = "Catégories"
+export const ADMIN_HOME_GOAL_LINK = "Objectifs"
+export const ADMIN_HOME_GOAL_LEVEL_LINK = "Points"
+export const ADMIN_HOME_CHALLENGE_LINK = "Challenges"
+export const ADMIN_HOME_BADGE_LINK = "Défis"
+export const ADMIN_HOME_LEVEL_LINK = "Level"
+export const ADMIN_HOME_REWARD_LINK = "Récompenses"
+
+export const ADMIN_PARTNER_LIST_SUBTITLE = "Intégrations partenaires"
+
 // Admin - Reward categories
 export const ADMIN_REWARD_CATEGORY_LIST_SUBTITLE = "Configuration des catégories de récompenses"
 export const ADMIN_REWARD_CATEGORY_LIST_ACTIVE_TAB = "Actives"
