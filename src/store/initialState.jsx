@@ -92,6 +92,7 @@ const initialState = {
     managerList: {managers: null, loading: false, hasError: false},
     nextCollaboratorBadgeDetail: {badge: null, loading: false, hasError: false},
     nextPeriodList: {periods: null, loading: false, hasError: false},
+    partnerList: {partners: null, loading: false, hasError: false},
     periodicityList: {periodicities: null, loading: false, hasError: false},
     periodList: {periods: null, loading: false, hasError: false},
     playerGoalList: {goals: [], loading: false, hasError: false},
