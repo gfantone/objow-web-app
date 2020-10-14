@@ -91,6 +91,7 @@ import watchFreeManagerList from './Managers/ManagerList/sagas'
 import watchImportLogList from './ImportLogs/ImportLogList/sagas'
 import watchCurrentPeriodDetail from './Periods/CurrentPeriodDetail/sagas'
 import watchNextPeriodList from "./Periods/NextPeriodList/sagas";
+import watchPartnerDetail from "./Partners/PartnerDetail/sagas";
 import watchPartnerList from "./Partners/PartnerList/sagas";
 import watchPreviousPeriodList from "./Periods/PreviousPeriodList/sagas";
 import watchPeriodicityList from './Periodicities/PeriodicityList/sagas'
@@ -265,6 +266,7 @@ function* rootSaga() {
         watchManagerGoalList(),
         watchNextCollaboratorBadgeDetail(),
         watchNextPeriodList(),
+        watchPartnerDetail(),
         watchPartnerList(),
         watchPeriodicityList(),
         watchPeriodList(),

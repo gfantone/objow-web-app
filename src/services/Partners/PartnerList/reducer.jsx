@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
 import initialState from '../../../store/initialState';
 
-let PartnerList = (state = initialState.partnerList, action) => {
+const PartnerList = (state = initialState.partnerList, action) => {
     switch (action.type) {
         case types.GET_PARTNER_LIST:
             return {...state, partners: null, loading: true, hasError: false}
