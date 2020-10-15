@@ -17,6 +17,7 @@ export const ADMIN_GOAL_UPDATE_READONLY_TITLE = "Visualisation de l'objectif « 
 export const ADMIN_GOAL_UPDATE_BASE_TAB = "Base"
 export const ADMIN_GOAL_UPDATE_CUSTOM_TAB = "Personnalisation"
 
+// Admin - Home
 export const ADMIN_HOME_USER_AREA = "Utilisateurs et droits"
 export const ADMIN_HOME_USER_LINK = "Abonnements utilisateurs"
 export const ADMIN_HOME_TEAM_LINK = "Équipes"
@@ -37,7 +38,12 @@ export const ADMIN_HOME_BADGE_LINK = "Défis"
 export const ADMIN_HOME_LEVEL_LINK = "Level"
 export const ADMIN_HOME_REWARD_LINK = "Récompenses"
 
+// Admin - Partner list
 export const ADMIN_PARTNER_LIST_SUBTITLE = "Intégrations partenaires"
+
+// Admin - Partner detail
+export const ADMIN_PARTNER_DETAIL_SUBTITLE = "Intégrations partenaires"
+export const ADMIN_PARTNER_DETAIL_EMPTY_CONNECTION = "Pour utiliser ces fonctionnalités, veuillez installer Fire Tiger sur votre espace client Aircall."
 
 // Admin - Reward categories
 export const ADMIN_REWARD_CATEGORY_LIST_SUBTITLE = "Configuration des catégories de récompenses"
