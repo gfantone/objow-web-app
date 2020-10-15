@@ -2,6 +2,7 @@ import React from 'react'
 import Formsy from 'formsy-react'
 import {Grid} from '@material-ui/core'
 import {ProgressButton, Switch, TextField} from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
 
 const AircallForm = ({kpis, ...props}) => {
     const acGetCallsKpi = kpis.find(x => x.code === 'AC-GET-CALLS')
@@ -17,13 +18,18 @@ const AircallForm = ({kpis, ...props}) => {
             <Formsy onValidSubmit={handleValidSubmit}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Switch name='acGetCallsActivation' label='Activer le KPI de récupération des appels aboutis' initial={acGetCallsActivation} onChange={setAcGetCallsActivation} />
+                        <Switch
+                            initial={acGetCallsActivation}
+                            label={Resources.ADMIN_AIRCALL_FORM_AC_GET_CALLS_ACTIVATION}
+                            name='acGetCallsActivation'
+                            onChange={setAcGetCallsActivation}
+                        />
                     </Grid>
                     {acGetCallsActivation && <Grid item xs={12}>
                         <TextField
                             fullWidth
                             initial={initialParams.duration}
-                            label='Durée minimale d’un appel abouti'
+                            label={Resources.ADMIN_AIRCALL_FORM_AC_GET_CALLS_DURATION}
                             name='acGetCallsDuration'
                             type='number'
                         />
