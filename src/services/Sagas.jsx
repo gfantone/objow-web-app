@@ -82,6 +82,7 @@ import watchGoalList from './Goals/GoalList/sagas'
 import watchGoalTypeList from './GoalTypes/GoalTypeList/sagas'
 import watchKpiDetail from './Kpis/KpiDetail/sagas'
 import {watchKpiList, watchKpiListByPartner} from './Kpis/KpiList/sagas'
+import watchKpiListUpdate from './Kpis/KpiListUpdate/sagas'
 import watchLevelList from './Levels/LevelList/sagas'
 import watchLevelListCreation from './Levels/LevelListCreation/sagas'
 import watchManagerGoalList from './ManagerGoals/ManagerGoalList/sagas'
@@ -262,6 +263,7 @@ function* rootSaga() {
         watchKpiDetail(),
         watchKpiList(),
         watchKpiListByPartner(),
+        watchKpiListUpdate(),
         watchLevelList(),
         watchLevelListCreation(),
         watchManagerGoalList(),

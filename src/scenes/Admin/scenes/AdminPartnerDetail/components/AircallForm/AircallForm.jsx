@@ -4,13 +4,16 @@ import {Grid} from '@material-ui/core'
 import {ProgressButton, Switch, TextField} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 
-const AircallForm = ({kpis, ...props}) => {
+const AircallForm = ({kpis, onUpdate, updating, ...props}) => {
     const acGetCallsKpi = kpis.find(x => x.code === 'AC-GET-CALLS')
     const initialParams = JSON.parse(acGetCallsKpi.params)
     const [acGetCallsActivation, setAcGetCallsActivation] = React.useState(acGetCallsKpi.isActive)
 
     function handleValidSubmit(model) {
-        alert('submit...')
+        const duration = Number(model.acGetCallsDuration)
+        const params = duration ? JSON.stringify({duration}) : null
+        const kpis = [{id: acGetCallsKpi.id, isActive: model.acGetCallsActivation, params: params}]
+        if (onUpdate) onUpdate(kpis)
     }
 
     return (
@@ -35,7 +38,7 @@ const AircallForm = ({kpis, ...props}) => {
                         />
                     </Grid>}
                     <Grid item xs={12}>
-                        <ProgressButton text='Valider' />
+                        <ProgressButton text={Resources.ADMIN_AIRCALL_FORM_SUBMIT_BUTTON} loading={updating} />
                     </Grid>
                 </Grid>
             </Formsy>
