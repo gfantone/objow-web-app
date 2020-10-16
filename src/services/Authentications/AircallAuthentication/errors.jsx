@@ -1,0 +1,2 @@
+export const LOGIN_ERROR = 'LOGIN_ERROR'
+export const UNKNOWN_ERROR = 'UNKNOWN_ERROR'

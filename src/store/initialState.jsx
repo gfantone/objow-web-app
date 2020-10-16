@@ -2,6 +2,7 @@ const initialState = {
     accountDetail: {account: null, loading: false, hasError: false},
     accountUpdate: {success: false, loading: false, hasError: false},
     adminReferenceData: {categories: [], categoryIcons: [], goalTypes: [], kpis: [], periodicities: [], loading: false, hasError: false},
+    aircallAuthentication: {success: false, loading: false, error: null},
     auth: {success: false, loading: false, error: null},
     badgeDetail: {badge: null, loading: false, hasError: false},
     badgeLevelList: {levels: null, loading: false, hasError: false},

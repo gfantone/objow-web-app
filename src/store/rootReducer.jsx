@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import accountDetail from '../services/Account/AccountDetail/reducer'
 import accountUpdate from '../services/Account/AccountUpdate/reducer'
 import adminReferenceData from '../services/AdminReferenceData/reducer'
+import aircallAuthentication from '../services/Authentications/AircallAuthentication/reducer'
 import auth from '../services/Auth/reducer'
 import badgeDetail from '../services/Badges/BadgeDetail/reducer'
 import badgeLevelList from '../services/BadgeLevels/BadgeLevelList/reducer'
@@ -166,6 +167,7 @@ const rootReducer = combineReducers({
     accountDetail,
     accountUpdate,
     adminReferenceData,
+    aircallAuthentication,
     auth,
     badgeDetail,
     badgeLevelList,

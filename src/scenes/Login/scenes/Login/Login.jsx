@@ -4,10 +4,7 @@ import {connect} from 'react-redux'
 import {Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import Formsy from 'formsy-react'
-import {AndroidButton, IconButton, IosButton, Logo, TextField} from '../../components'
-import {Card, DefaultText, ErrorText, ProgressButton} from '../../../../components'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faLinkedinIn} from '@fortawesome/free-brands-svg-icons'
+import {AndroidButton, Card, DarkTextField, DefaultText, ErrorText, IosButton, LinkedInButton, Logo, ProgressButton} from '../../../../components'
 import * as authActions from '../../../../services/Auth/actions'
 import * as authErrors from '../../../../services/Auth/errors'
 import * as Resources from "../../../../Resources"
@@ -28,49 +25,42 @@ class Login extends Component {
         this.props.authActions.login(model.code.toLowerCase(), model.email.toLowerCase(), model.password)
     }
 
-    onLinkedInClick() {
-        window.open("https://www.linkedin.com/company/fire-tiger/", "_blank")
-    }
-
     render() {
         const {classes} = this.props
         const {loading, error} = this.props.auth
-        const logoData = require('../../../../assets/logo.png')
-        const iosData = require('../../../../assets/img/mobile/ios.png')
-        const androidData = require('../../../../assets/img/mobile/android.png')
         const {detect} = require('detect-browser')
         const browser = detect()
-        const isMobileApp = browser.name == 'ios-webview' || browser.name == 'chromium-webview'
+        const isMobileApp = browser.name === 'ios-webview' || browser.name === 'chromium-webview'
 
         return (
             <div>
                 <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
-                            <Logo image={logoData} />
+                            <Logo />
                         </Grid>
                         <Grid item xs={12}>
                             <div>
                                 <Grid container spacing={2} className={classes.form}>
                                     <Grid item xs={12}>
-                                        <TextField name='code' label={Resources.LOGIN_CODE_LABEL} fullWidth required
+                                        <DarkTextField name='code' label={Resources.LOGIN_CODE_LABEL} fullWidth required
                                             validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField name='email' label={Resources.LOGIN_EMAIL_LABEL} fullWidth required
+                                        <DarkTextField name='email' label={Resources.LOGIN_EMAIL_LABEL} fullWidth required
                                             validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField type='password' name='password' label={Resources.LOGIN_PASSWORD_LABEL} fullWidth required
+                                        <DarkTextField type='password' name='password' label={Resources.LOGIN_PASSWORD_LABEL} fullWidth required
                                             validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
                                 </Grid>
                             </div>
                         </Grid>
-                        {error == authErrors.LOGIN_ERROR && <Grid item xs={12}>
+                        {error === authErrors.LOGIN_ERROR && <Grid item xs={12}>
                             <ErrorText align='center'>{Resources.LOGIN_ERROR}</ErrorText>
                         </Grid>}
                         <Grid item xs={12}>
@@ -84,10 +74,10 @@ class Login extends Component {
                                         <DefaultText>{Resources.LOGIN_STORE_MESSAGE_2}</DefaultText>
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <IosButton image={iosData} onClick={() => window.open('https://apps.apple.com/us/app/fire-tiger/id1501018420?l=fr&ls=1', '_blank')} />
+                                        <IosButton />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <AndroidButton image={androidData} onClick={() => window.open('https://play.google.com/store/apps/details?id=com.firetiger', '_blank')} />
+                                        <AndroidButton />
                                     </Grid>
                                 </Grid>
                             </Card>
@@ -96,9 +86,7 @@ class Login extends Component {
                             <div>
                                 <Grid container justify='center'>
                                     <Grid item>
-                                        <IconButton onClick={this.onLinkedInClick}>
-                                            <FontAwesomeIcon icon={faLinkedinIn} />
-                                        </IconButton>
+                                        <LinkedInButton />
                                     </Grid>
                                 </Grid>
                             </div>

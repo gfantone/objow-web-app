@@ -73,6 +73,16 @@ export const ADMIN_REWARD_CATEGORY_UPDATE_SUBMIT_BUTTON = "Valider"
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
 
+// Aircall connection
+export const AIRCALL_CONNECTION_TITLE = "Connexion avec Aircall"
+export const AIRCALL_CONNECTION_CODE_LABEL = "Code entreprise"
+export const AIRCALL_CONNECTION_EMAIL_LABEL = "Email"
+export const AIRCALL_CONNECTION_PASSWORD_LABEL = "Mot de passe"
+export const AIRCALL_CONNECTION_ERROR = "Les identifiants sont incorrects"
+export const AIRCALL_CONNECTION_SUBMIT_BUTTON = "Se connecter"
+export const AIRCALL_CONNECTION_STORE_MESSAGE_1 = "Votre application Fire Tiger est disponible pour Iphone et Android."
+export const AIRCALL_CONNECTION_STORE_MESSAGE_2 = "Téléchargez-la dès maintenant :"
+
 // Badges
 export const BADGE_LONG_TITLE = "Les défis"
 export const BADGE_SHORT_TITLE = "Défis"

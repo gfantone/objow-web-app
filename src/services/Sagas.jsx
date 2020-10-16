@@ -3,6 +3,7 @@ import watchAccountDetail from './Account/AccountDetail/sagas'
 import watchAccountUpdate from './Account/AccountUpdate/sagas'
 import watchAdminReferenceData from './AdminReferenceData/sagas'
 import watchAuth from './Auth/sagas'
+import watchAircallAuthentication from "./Authentications/AircallAuthentication/sagas";
 import watchTermsAcceptance from './Account/TermsAcceptance/sagas'
 import watchBadgeDetail from './Badges/BadgeDetail/sagas'
 import watchBadgeLevelList from './BadgeLevels/BadgeLevelList/sagas'
@@ -169,6 +170,7 @@ function* rootSaga() {
         watchActiveRewardCategoryList(),
         watchActiveRewardList(),
         watchAdminReferenceData(),
+        watchAircallAuthentication(),
         watchAuth(),
         watchBadgeDetail(),
         watchBadgeLevelList(),
