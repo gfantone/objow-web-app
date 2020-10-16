@@ -34,7 +34,9 @@ const AircallForm = ({kpis, onUpdate, updating, ...props}) => {
                             initial={initialParams.duration}
                             label={Resources.ADMIN_AIRCALL_FORM_AC_GET_CALLS_DURATION}
                             name='acGetCallsDuration'
+                            required
                             type='number'
+                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                         />
                     </Grid>}
                     <Grid item xs={12}>

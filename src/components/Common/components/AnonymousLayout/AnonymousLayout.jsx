@@ -4,7 +4,7 @@ import {Container, CssBaseline} from '@material-ui/core'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import {makeStyles} from '@material-ui/core/styles'
 import { useClearCache } from 'react-clear-cache'
-import Background from "../../../../assets/fond.png"
+import Background from "../../../../assets/fond.jpg"
 
 const theme = createMuiTheme({
     typography: {
