@@ -16,17 +16,27 @@ const styles = {
 }
 
 class AircallConnection extends Component {
+    componentDidMount() {
+        this.props.aircallAuthenticationActions.clearAircallConnect()
+    }
+
     handleValidSubmit(model) {
-        const oauthCode = this.props.match.params.code
+        const params = new URLSearchParams(window.location.search)
+        const oauthCode = params.get('code')
         this.props.aircallAuthenticationActions.connectAircall(model.code, model.email, model.password, oauthCode)
     }
 
     render() {
         const {classes} = this.props
-        const {loading, error} = this.props.aircallAuthentication
+        const {success, loading, error} = this.props.aircallAuthentication
         const {detect} = require('detect-browser')
         const browser = detect()
         const isMobileApp = browser.name === 'ios-webview' || browser.name === 'chromium-webview'
+
+        if (success) {
+            this.props.aircallAuthenticationActions.clearAircallConnect()
+            window.location = "https://dashboard-v2.aircall.io/oauth/success"
+        }
 
         return (
             <div>
@@ -59,8 +69,17 @@ class AircallConnection extends Component {
                                 </Grid>
                             </div>
                         </Grid>
+                        {error === errors.AUTHORIZATION_ERROR && <Grid item xs={12}>
+                            <ErrorText align='center'>{Resources.AIRCALL_CONNECTION_AUTHORIZATION_ERROR}</ErrorText>
+                        </Grid>}
+                        {error === errors.EXPIRATION_ERROR && <Grid item xs={12}>
+                            <ErrorText align='center'>{Resources.AIRCALL_CONNECTION_EXPIRATION_ERROR}</ErrorText>
+                        </Grid>}
                         {error === errors.LOGIN_ERROR && <Grid item xs={12}>
-                            <ErrorText align='center'>{Resources.AIRCALL_CONNECTION_ERROR}</ErrorText>
+                            <ErrorText align='center'>{Resources.AIRCALL_CONNECTION_LOGIN_ERROR}</ErrorText>
+                        </Grid>}
+                        {error === errors.UNKNOWN_ERROR && <Grid item xs={12}>
+                            <ErrorText align='center'>{Resources.AIRCALL_CONNECTION_UNKNOWN_ERROR}</ErrorText>
                         </Grid>}
                         <Grid item xs={12}>
                             <ProgressButton type='submit' text={Resources.AIRCALL_CONNECTION_SUBMIT_BUTTON} centered loading={loading} />

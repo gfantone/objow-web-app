@@ -8,20 +8,41 @@ import router from '../../../data/router/router'
 
 function* connectAircall(action) {
     try {
-        const { data : url, error: urlError } = yield call(router.apiUrl.get, action.code)
+        const {data : url, error: urlError} = yield call(router.apiUrl.get, action.code)
 
         if (!urlError) {
-            yield call(local.setApiUrl, url)
-            const { data: tokens, error: tokenError } = yield call(api.tokens.get, action.login, action.password)
+            yield call(local.setTemporaryApiUrl, url)
+            const {data: tokens, error: tokenError} = yield call(api.tokens.get, action.login, action.password)
 
             if (!tokenError) {
-                const accessToken = tokens.access
+                yield call(local.setTemporaryAccessToken, tokens.access)
+                yield call(local.setTemporaryRefreshToken, tokens.refresh)
+
                 const {data: account} = yield call(api.account.get)
-                // TODO: suite...
-                yield put(connectAircallSuccess())
+
+                if (account.role.code === 'A') {
+                    try {
+                        yield call(api.partners.connectAircall, action.oauthCode)
+                        yield put(connectAircallSuccess())
+                    }
+                    catch (error) {
+                        if (error && error.response && error.response.status === 408) {
+                            yield put(connectAircallError(errors.EXPIRATION_ERROR))
+                        } else {
+                            yield put(connectAircallError(errors.UNKNOWN_ERROR))
+                        }
+                    }
+                } else {
+                    yield put(connectAircallError(errors.AUTHORIZATION_ERROR))
+                }
+
+                yield call(local.removeTemporaryAccessToken)
+                yield call(local.removeTemporaryRefreshToken)
             } else {
                 yield put(connectAircallError(errors.LOGIN_ERROR))
             }
+
+            yield call(local.removeTemporaryApiUrl)
         } else {
             yield put(connectAircallError(errors.LOGIN_ERROR))
         }
