@@ -6,12 +6,11 @@ import * as Resources from '../../../../../../Resources'
 
 const AircallForm = ({kpis, onUpdate, updating, ...props}) => {
     const acGetCallsKpi = kpis.find(x => x.code === 'AC-GET-CALLS')
-    const initialParams = JSON.parse(acGetCallsKpi.params)
     const [acGetCallsActivation, setAcGetCallsActivation] = React.useState(acGetCallsKpi.isActive)
 
     function handleValidSubmit(model) {
         const duration = Number(model.acGetCallsDuration)
-        const params = duration ? JSON.stringify({duration}) : null
+        const params = duration ? {duration} : null
         const kpis = [{id: acGetCallsKpi.id, isActive: model.acGetCallsActivation, params: params}]
         if (onUpdate) onUpdate(kpis)
     }
@@ -31,7 +30,7 @@ const AircallForm = ({kpis, onUpdate, updating, ...props}) => {
                     {acGetCallsActivation && <Grid item xs={12}>
                         <TextField
                             fullWidth
-                            initial={initialParams.duration}
+                            initial={acGetCallsKpi.params.duration}
                             label={Resources.ADMIN_AIRCALL_FORM_AC_GET_CALLS_DURATION}
                             name='acGetCallsDuration'
                             required
