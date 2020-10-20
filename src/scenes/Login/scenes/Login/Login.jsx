@@ -35,62 +35,66 @@ class Login extends Component {
         return (
             <div>
                 <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
-                    <Grid container spacing={4}>
+                    <Grid container spacing={8}>
                         <Grid item xs={12}>
                             <Logo />
                         </Grid>
                         <Grid item xs={12}>
-                            <div>
-                                <Grid container spacing={2} className={classes.form}>
-                                    <Grid item xs={12}>
-                                        <DarkTextField name='code' label={Resources.LOGIN_CODE_LABEL} fullWidth required
-                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <DarkTextField name='email' label={Resources.LOGIN_EMAIL_LABEL} fullWidth required
-                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <DarkTextField type='password' name='password' label={Resources.LOGIN_PASSWORD_LABEL} fullWidth required
-                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
-                                        />
-                                    </Grid>
+                            <Grid container spacing={4}>
+                                <Grid item xs={12}>
+                                    <div>
+                                        <Grid container spacing={2} className={classes.form}>
+                                            <Grid item xs={12}>
+                                                <DarkTextField name='code' label={Resources.LOGIN_CODE_LABEL} fullWidth required
+                                                               validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <DarkTextField name='email' label={Resources.LOGIN_EMAIL_LABEL} fullWidth required
+                                                               validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <DarkTextField type='password' name='password' label={Resources.LOGIN_PASSWORD_LABEL} fullWidth required
+                                                               validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </div>
                                 </Grid>
-                            </div>
+                                {error === authErrors.LOGIN_ERROR && <Grid item xs={12}>
+                                    <ErrorText align='center'>{Resources.LOGIN_ERROR}</ErrorText>
+                                </Grid>}
+                                <Grid item xs={12}>
+                                    <ProgressButton type='submit' text={Resources.LOGIN_SUBMIT_BUTTON} centered loading={loading} />
+                                </Grid>
+                                {!isMobileApp && <Grid item xs={12}>
+                                    <Card>
+                                        <Grid container spacing={2}>
+                                            <Grid item xs={12}>
+                                                <DefaultText>{Resources.LOGIN_STORE_MESSAGE_1}</DefaultText>
+                                                <DefaultText>{Resources.LOGIN_STORE_MESSAGE_2}</DefaultText>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <IosButton />
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <AndroidButton />
+                                            </Grid>
+                                        </Grid>
+                                    </Card>
+                                </Grid>}
+                                {!isMobileApp && <Grid item xs={12}>
+                                    <div>
+                                        <Grid container justify='center'>
+                                            <Grid item>
+                                                <LinkedInButton />
+                                            </Grid>
+                                        </Grid>
+                                    </div>
+                                </Grid>}
+                            </Grid>
                         </Grid>
-                        {error === authErrors.LOGIN_ERROR && <Grid item xs={12}>
-                            <ErrorText align='center'>{Resources.LOGIN_ERROR}</ErrorText>
-                        </Grid>}
-                        <Grid item xs={12}>
-                            <ProgressButton type='submit' text={Resources.LOGIN_SUBMIT_BUTTON} centered loading={loading} />
-                        </Grid>
-                        {!isMobileApp && <Grid item xs={12}>
-                            <Card>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <DefaultText>{Resources.LOGIN_STORE_MESSAGE_1}</DefaultText>
-                                        <DefaultText>{Resources.LOGIN_STORE_MESSAGE_2}</DefaultText>
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <IosButton />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <AndroidButton />
-                                    </Grid>
-                                </Grid>
-                            </Card>
-                        </Grid>}
-                        {!isMobileApp && <Grid item xs={12}>
-                            <div>
-                                <Grid container justify='center'>
-                                    <Grid item>
-                                        <LinkedInButton />
-                                    </Grid>
-                                </Grid>
-                            </div>
-                        </Grid>}
                     </Grid>
                 </Formsy>
             </div>

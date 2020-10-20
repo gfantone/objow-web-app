@@ -22,7 +22,7 @@ const theme = createMuiTheme({
                     backgroundImage: `url(${Background})`,
                     backgroundPosition: 'center',
                     backgroundRepeat: 'repeat',
-                    backgroundSize: 1500
+                    backgroundSize: 2000
                 }
             }
         }
