@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import accountDetail from '../services/Account/AccountDetail/reducer'
 import accountUpdate from '../services/Account/AccountUpdate/reducer'
 import adminReferenceData from '../services/AdminReferenceData/reducer'
+import aircallAuthentication from '../services/Authentications/AircallAuthentication/reducer'
 import auth from '../services/Auth/reducer'
 import badgeDetail from '../services/Badges/BadgeDetail/reducer'
 import badgeLevelList from '../services/BadgeLevels/BadgeLevelList/reducer'
@@ -85,12 +86,15 @@ import goalTypeList from '../services/GoalTypes/GoalTypeList/reducer'
 import importLogList from '../services/ImportLogs/ImportLogList/reducer'
 import kpiDetail from '../services/Kpis/KpiDetail/reducer'
 import kpiList from '../services/Kpis/KpiList/reducer'
+import kpiListUpdate from '../services/Kpis/KpiListUpdate/reducer'
 import levelList from '../services/Levels/LevelList/reducer'
 import levelListCreation from '../services/Levels/LevelListCreation/reducer'
 import managerGoalList from '../services/ManagerGoals/ManagerGoalList/reducer'
 import managerList from '../services/Managers/ManagerList/reducer'
 import nextCollaboratorBadgeDetail from '../services/CollaboratorBadges/NextCollaboratorBadgeDetail/reducer'
 import nextPeriodList from '../services/Periods/NextPeriodList/reducer'
+import partnerDetail from '../services/Partners/PartnerDetail/reducer'
+import partnerList from '../services/Partners/PartnerList/reducer'
 import periodicityList from '../services/Periodicities/PeriodicityList/reducer'
 import periodList from '../services/Periods/PeriodList/reducer'
 import playerGoalList from '../services/PlayerGoals/PlayerGoalList/reducer'
@@ -163,6 +167,7 @@ const rootReducer = combineReducers({
     accountDetail,
     accountUpdate,
     adminReferenceData,
+    aircallAuthentication,
     auth,
     badgeDetail,
     badgeLevelList,
@@ -246,12 +251,15 @@ const rootReducer = combineReducers({
     importLogList,
     kpiDetail,
     kpiList,
+    kpiListUpdate,
     levelList,
     levelListCreation,
     managerGoalList,
     managerList,
     nextCollaboratorBadgeDetail,
     nextPeriodList,
+    partnerDetail,
+    partnerList,
     periodicityList,
     periodList,
     playerGoalList,

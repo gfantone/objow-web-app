@@ -7,6 +7,7 @@ import { Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDatabase, faStar, faUsers } from '@fortawesome/free-solid-svg-icons'
 import {Card, DefaultText, DefaultTitle, GridLink, Loader, MainLayoutComponent, Select} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as nextPeriodListActions from '../../../../services/Periods/NextPeriodList/actions'
 
@@ -64,20 +65,20 @@ class AdminHome extends MainLayoutComponent {
                         <Grid item xs={12} container spacing={1}>
                             <Grid item xs={12}>
                                 <DefaultTitle>
-                                    <FontAwesomeIcon icon={faUsers} /> Utilisateurs et droits
+                                    <FontAwesomeIcon icon={faUsers} /> {Resources.ADMIN_HOME_USER_AREA}
                                 </DefaultTitle>
                             </Grid>
                             <Grid item xs={12}>
                                 <Card>
                                     <Grid container spacing={2}>
                                         <GridLink item xs ={12} component={Link} to='/admin/users'>
-                                            <DefaultText>Abonnements utilisateurs</DefaultText>
+                                            <DefaultText>{Resources.ADMIN_HOME_USER_LINK}</DefaultText>
                                         </GridLink>
                                         <GridLink item xs ={12} component={Link} to='/admin/teams'>
-                                            <DefaultText>Équipes</DefaultText>
+                                            <DefaultText>{Resources.ADMIN_HOME_TEAM_LINK}</DefaultText>
                                         </GridLink>
                                         <GridLink item xs ={12} component={Link} to='/admin/access'>
-                                            <DefaultText>Gestion droits d'accès</DefaultText>
+                                            <DefaultText>{Resources.ADMIN_HOME_PERMISSION_LINK}</DefaultText>
                                         </GridLink>
                                     </Grid>
                                 </Card>
@@ -86,20 +87,23 @@ class AdminHome extends MainLayoutComponent {
                         <Grid item xs={12} container spacing={1} alignItems='flex-start'>
                             <Grid item xs={12}>
                                 <DefaultTitle>
-                                    <FontAwesomeIcon icon={faDatabase} /> Intégration et gestion de données
+                                    <FontAwesomeIcon icon={faDatabase} /> {Resources.ADMIN_HOME_DATA_AREA}
                                 </DefaultTitle>
                             </Grid>
                             <Grid item xs={12}>
                                 <Card>
                                     <Grid container spacing={2}>
+                                        <GridLink item xs ={12} component={Link} to='/admin/partners'>
+                                            <DefaultText>{Resources.ADMIN_HOME_PARTNER_LINK}</DefaultText>
+                                        </GridLink>
                                         <GridLink item xs ={12} component={Link} to='/admin/reports'>
-                                            <DefaultText>Rapports</DefaultText>
+                                            <DefaultText>{Resources.ADMIN_HOME_REPORT_LINK}</DefaultText>
                                         </GridLink>
                                         <GridLink item xs ={12} component={Link} to='/admin/imports/logs'>
-                                            <DefaultText>Journal d'imports</DefaultText>
+                                            <DefaultText>{Resources.ADMIN_HOME_IMPORT_LINK}</DefaultText>
                                         </GridLink>
                                         <GridLink item xs ={12} component={Link} to='/admin/logo'>
-                                            <DefaultText>Changement du logo</DefaultText>
+                                            <DefaultText>{Resources.ADMIN_HOME_LOGO_LINK}</DefaultText>
                                         </GridLink>
                                     </Grid>
                                 </Card>
@@ -111,7 +115,7 @@ class AdminHome extends MainLayoutComponent {
                             <Grid container spacing={1}>
                                 <Grid item xs={12}>
                                     <DefaultTitle>
-                                        <FontAwesomeIcon icon={faStar} /> Configuration des indicateurs
+                                        <FontAwesomeIcon icon={faStar} /> {Resources.ADMIN_HOME_INDICATOR_AREA}
                                     </DefaultTitle>
                                 </Grid>
                                 <Grid item xs={12}>
@@ -119,32 +123,32 @@ class AdminHome extends MainLayoutComponent {
                                         <Grid container spacing={2}>
                                             <Grid item xs={12}>
                                                 <Formsy>
-                                                    <Select name={'year'} label={'Année à configurer'} options={periods} emptyDisabled initial={periodId} optionValueName={'id'} optionTextName={'name'} fullWidth onChange={this.handleYearChange.bind(this)} />
+                                                    <Select name={'year'} label={Resources.ADMIN_HOME_YEAR_LABEL} options={periods} emptyDisabled initial={periodId} optionValueName={'id'} optionTextName={'name'} fullWidth onChange={this.handleYearChange.bind(this)} />
                                                 </Formsy>
                                             </Grid>
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/points`}>
-                                                <DefaultText>Répartition générale des points</DefaultText>
+                                                <DefaultText>{Resources.ADMIN_HOME_POINT_LINK}</DefaultText>
                                             </GridLink>
                                             <GridLink item xs={12} component={Link} to={`/admin/categories`}>
-                                                <DefaultText>Catégories</DefaultText>
+                                                <DefaultText>{Resources.ADMIN_HOME_CATEGORY_LINK}</DefaultText>
                                             </GridLink>
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/goals`}>
-                                                <DefaultText>Objectifs</DefaultText>
+                                                <DefaultText>{Resources.ADMIN_HOME_GOAL_LINK}</DefaultText>
                                             </GridLink>
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/goal-levels`}>
-                                                <DefaultText>Points</DefaultText>
+                                                <DefaultText>{Resources.ADMIN_HOME_GOAL_LEVEL_LINK}</DefaultText>
                                             </GridLink>
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/challenges`}>
-                                                <DefaultText>Challenges</DefaultText>
+                                                <DefaultText>{Resources.ADMIN_HOME_CHALLENGE_LINK}</DefaultText>
                                             </GridLink>
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/badges`}>
-                                                <DefaultText>Défis</DefaultText>
+                                                <DefaultText>{Resources.ADMIN_HOME_BADGE_LINK}</DefaultText>
                                             </GridLink>
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/levels`}>
-                                                <DefaultText>Level</DefaultText>
+                                                <DefaultText>{Resources.ADMIN_HOME_LEVEL_LINK}</DefaultText>
                                             </GridLink>
                                             <GridLink item xs={12} component={Link} to={`/admin/reward-categories`}>
-                                                <DefaultText>Récompenses</DefaultText>
+                                                <DefaultText>{Resources.ADMIN_HOME_REWARD_LINK}</DefaultText>
                                             </GridLink>
                                         </Grid>
                                     </Card>

@@ -11,11 +11,44 @@ export const ACCOUNT_SUBMIT_BUTTON = "Valider"
 // Admin
 export const ADMIN_TITLE = "Administration"
 
+// Admin - Aircall form
+export const ADMIN_AIRCALL_FORM_AC_GET_CALLS_ACTIVATION = "Activer le KPI de récupération des appels aboutis"
+export const ADMIN_AIRCALL_FORM_AC_GET_CALLS_DURATION = "Durée minimale d’un appel abouti"
+export const ADMIN_AIRCALL_FORM_SUBMIT_BUTTON = "Valider"
+
 // Admin - Goal update
 export const ADMIN_GOAL_UPDATE_BASE_TITLE = "Modification de l'objectif « {0} »"
 export const ADMIN_GOAL_UPDATE_READONLY_TITLE = "Visualisation de l'objectif « {0} »"
 export const ADMIN_GOAL_UPDATE_BASE_TAB = "Base"
 export const ADMIN_GOAL_UPDATE_CUSTOM_TAB = "Personnalisation"
+
+// Admin - Home
+export const ADMIN_HOME_USER_AREA = "Utilisateurs et droits"
+export const ADMIN_HOME_USER_LINK = "Abonnements utilisateurs"
+export const ADMIN_HOME_TEAM_LINK = "Équipes"
+export const ADMIN_HOME_PERMISSION_LINK = "Gestion droits d'accès"
+export const ADMIN_HOME_DATA_AREA = "Intégration et gestion de données"
+export const ADMIN_HOME_PARTNER_LINK = "Intégrations partenaires"
+export const ADMIN_HOME_REPORT_LINK = "Rapports"
+export const ADMIN_HOME_IMPORT_LINK = "Journal d'imports"
+export const ADMIN_HOME_LOGO_LINK = "Changement du logo"
+export const ADMIN_HOME_INDICATOR_AREA = "Configuration des indicateurs"
+export const ADMIN_HOME_YEAR_LABEL = "Année à configurer"
+export const ADMIN_HOME_POINT_LINK = "Répartition générale des points"
+export const ADMIN_HOME_CATEGORY_LINK = "Catégories"
+export const ADMIN_HOME_GOAL_LINK = "Objectifs"
+export const ADMIN_HOME_GOAL_LEVEL_LINK = "Points"
+export const ADMIN_HOME_CHALLENGE_LINK = "Challenges"
+export const ADMIN_HOME_BADGE_LINK = "Défis"
+export const ADMIN_HOME_LEVEL_LINK = "Level"
+export const ADMIN_HOME_REWARD_LINK = "Récompenses"
+
+// Admin - Partner list
+export const ADMIN_PARTNER_LIST_SUBTITLE = "Intégrations partenaires"
+
+// Admin - Partner detail
+export const ADMIN_PARTNER_DETAIL_SUBTITLE = "Intégrations partenaires"
+export const ADMIN_PARTNER_DETAIL_EMPTY_CONNECTION = "Pour utiliser ces fonctionnalités, veuillez installer Fire Tiger sur votre espace client Aircall."
 
 // Admin - Reward categories
 export const ADMIN_REWARD_CATEGORY_LIST_SUBTITLE = "Configuration des catégories de récompenses"
@@ -39,6 +72,19 @@ export const ADMIN_REWARD_CATEGORY_UPDATE_SUBMIT_BUTTON = "Valider"
 // Administrator collaborator selector
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
+
+// Aircall connection
+export const AIRCALL_CONNECTION_TITLE = "Connexion avec Aircall"
+export const AIRCALL_CONNECTION_CODE_LABEL = "Code entreprise"
+export const AIRCALL_CONNECTION_EMAIL_LABEL = "Email"
+export const AIRCALL_CONNECTION_PASSWORD_LABEL = "Mot de passe"
+export const AIRCALL_CONNECTION_AUTHORIZATION_ERROR = "Vous n’avez pas les autorisations"
+export const AIRCALL_CONNECTION_EXPIRATION_ERROR = "Votre demande de connexion avec l’application Aircall a expirée. Veuillez réessayer"
+export const AIRCALL_CONNECTION_LOGIN_ERROR = "Les identifiants sont incorrects"
+export const AIRCALL_CONNECTION_UNKNOWN_ERROR = "Une erreur inconnue est survenue"
+export const AIRCALL_CONNECTION_SUBMIT_BUTTON = "Connecter Aircall"
+export const AIRCALL_CONNECTION_STORE_MESSAGE_1 = "Votre application Fire Tiger est disponible pour Iphone et Android."
+export const AIRCALL_CONNECTION_STORE_MESSAGE_2 = "Téléchargez-la dès maintenant :"
 
 // Badges
 export const BADGE_LONG_TITLE = "Les défis"
@@ -407,6 +453,15 @@ export const TEAM_GOAL_LIST_EMPTY_STATE_MESSAGE = "Si vous avez appliqué des fi
 // Goal - Team rank list
 export const TEAM_GOAL_RANK_LIST_TEAM_COLUMN = "Équipes"
 export const TEAM_GOAL_RANK_LIST_POINTS_COLUMN = "PTS"
+
+// Login
+export const LOGIN_CODE_LABEL = "Code entreprise"
+export const LOGIN_EMAIL_LABEL = "Email"
+export const LOGIN_PASSWORD_LABEL = "Mot de passe"
+export const LOGIN_ERROR = "Les identifiants sont incorrects"
+export const LOGIN_SUBMIT_BUTTON = "Se connecter"
+export const LOGIN_STORE_MESSAGE_1 = "Votre application Fire Tiger est disponible pour Iphone et Android."
+export const LOGIN_STORE_MESSAGE_2 = "Téléchargez-la dès maintenant :"
 
 // Main layout
 export const MAIN_LAYOUT_SEARCH_PLACEHOLDER = "Rechercher..."

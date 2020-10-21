@@ -3,6 +3,7 @@ import watchAccountDetail from './Account/AccountDetail/sagas'
 import watchAccountUpdate from './Account/AccountUpdate/sagas'
 import watchAdminReferenceData from './AdminReferenceData/sagas'
 import watchAuth from './Auth/sagas'
+import watchAircallAuthentication from "./Authentications/AircallAuthentication/sagas";
 import watchTermsAcceptance from './Account/TermsAcceptance/sagas'
 import watchBadgeDetail from './Badges/BadgeDetail/sagas'
 import watchBadgeLevelList from './BadgeLevels/BadgeLevelList/sagas'
@@ -81,7 +82,8 @@ import watchGoalDetail from './Goals/GoalDetail/sagas'
 import watchGoalList from './Goals/GoalList/sagas'
 import watchGoalTypeList from './GoalTypes/GoalTypeList/sagas'
 import watchKpiDetail from './Kpis/KpiDetail/sagas'
-import watchKpiList from './Kpis/KpiList/sagas'
+import {watchKpiList, watchKpiListByPartner} from './Kpis/KpiList/sagas'
+import watchKpiListUpdate from './Kpis/KpiListUpdate/sagas'
 import watchLevelList from './Levels/LevelList/sagas'
 import watchLevelListCreation from './Levels/LevelListCreation/sagas'
 import watchManagerGoalList from './ManagerGoals/ManagerGoalList/sagas'
@@ -91,6 +93,8 @@ import watchFreeManagerList from './Managers/ManagerList/sagas'
 import watchImportLogList from './ImportLogs/ImportLogList/sagas'
 import watchCurrentPeriodDetail from './Periods/CurrentPeriodDetail/sagas'
 import watchNextPeriodList from "./Periods/NextPeriodList/sagas";
+import watchPartnerDetail from "./Partners/PartnerDetail/sagas";
+import watchPartnerList from "./Partners/PartnerList/sagas";
 import watchPreviousPeriodList from "./Periods/PreviousPeriodList/sagas";
 import watchPeriodicityList from './Periodicities/PeriodicityList/sagas'
 import watchPeriodList from "./Periods/PeriodList/sagas";
@@ -166,6 +170,7 @@ function* rootSaga() {
         watchActiveRewardCategoryList(),
         watchActiveRewardList(),
         watchAdminReferenceData(),
+        watchAircallAuthentication(),
         watchAuth(),
         watchBadgeDetail(),
         watchBadgeLevelList(),
@@ -259,11 +264,15 @@ function* rootSaga() {
         watchInactiveRewardCategoryList(),
         watchKpiDetail(),
         watchKpiList(),
+        watchKpiListByPartner(),
+        watchKpiListUpdate(),
         watchLevelList(),
         watchLevelListCreation(),
         watchManagerGoalList(),
         watchNextCollaboratorBadgeDetail(),
         watchNextPeriodList(),
+        watchPartnerDetail(),
+        watchPartnerList(),
         watchPeriodicityList(),
         watchPeriodList(),
         watchPermanentConfigList(),

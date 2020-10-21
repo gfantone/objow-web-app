@@ -1,6 +1,6 @@
 import React from 'react'
 import {BrowserRouter, Switch} from 'react-router-dom'
-import {AdminRoutes, AnonymousRoutes, FileRoutes, MaintenanceRoutes, MainRoutes, ManagerRoutes} from './components'
+import {AdminRoutes, AnonymousRoutes, FileRoutes, PartnerRoutes, MaintenanceRoutes, MainRoutes, ManagerRoutes} from './components'
 import * as scenes from './scenes'
 import IntermediateRoutes from "./components/Common/components/IntermadiateRoutes/IntermadiateRoutes";
 
@@ -46,6 +46,8 @@ export default () => {
                 <MainRoutes exact path='/coaching/:id' component={scenes.CoachingList} />
                 {/* Game rules */}
                 <MainRoutes exact path='/rules' component={scenes.GameRules} />
+                {/* Partners */}
+                <PartnerRoutes exact path='/aircall/oauth/callback' component={scenes.AircallConnection} />
                 {/* Rankings */}
                 <MainRoutes exact path='/rankings' component={scenes.RankingList} />
                 <MainRoutes exact path='/rankings/collaborators/:collaborator/list' component={scenes.CollaboratorRankingList} />
@@ -82,6 +84,8 @@ export default () => {
                 <AdminRoutes exact path='/admin/categories' component={scenes.AdminCategoryList} />
                 <AdminRoutes exact path='/admin/categories/creation' component={scenes.AdminCategoryCreation} />
                 <AdminRoutes exact path='/admin/categories/modification/:id' component={scenes.AdminCategoryUpdate} />
+                <AdminRoutes exact path='/admin/partners' component={scenes.AdminPartnerList} />
+                <AdminRoutes exact path='/admin/partners/:id' component={scenes.AdminPartnerDetail} />
                 <AdminRoutes exact path='/admin/periods/:periodId/challenges' component={scenes.AdminChallenge} />
                 <AdminRoutes exact path='/admin/periods/:periodId/goals' component={scenes.AdminGoalList} />
                 <AdminRoutes exact path='/admin/periods/:periodId/goals/creation' component={scenes.AdminGoalCreation} />
