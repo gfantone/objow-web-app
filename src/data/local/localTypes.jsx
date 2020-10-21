@@ -1,4 +1,7 @@
-export const ACCESS_TOKEN = 'ACCESS_TOKEN';
-export const API_URL = 'API_URL';
-export const REFRESH_TOKEN = 'REFRESH_TOKEN';
-export const VERSION = 'VERSION';
+export const ACCESS_TOKEN = 'ACCESS_TOKEN'
+export const API_URL = 'API_URL'
+export const REFRESH_TOKEN = 'REFRESH_TOKEN'
+export const TEMPORARY_ACCESS_TOKEN = 'TEMPORARY_ACCESS_TOKEN'
+export const TEMPORARY_API_URL = 'TEMPORARY_API_URL'
+export const TEMPORARY_REFRESH_TOKEN = 'TEMPORARY_REFRESH_TOKEN'
+export const VERSION = 'VERSION'

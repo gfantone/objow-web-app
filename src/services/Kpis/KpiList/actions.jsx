@@ -6,6 +6,13 @@ export const getKpiList = () => {
     }
 }
 
+export const getKpiListByPartner = (partnerId) => {
+    return {
+        type: types.GET_KPI_LIST_BY_PARTNER,
+        partnerId
+    }
+}
+
 export const getKpiListSuccess = (kpis) => {
     return {
         type: types.GET_KPI_LIST_SUCCESS,
