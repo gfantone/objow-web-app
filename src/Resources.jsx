@@ -50,6 +50,11 @@ export const ADMIN_PARTNER_LIST_SUBTITLE = "Intégrations partenaires"
 export const ADMIN_PARTNER_DETAIL_SUBTITLE = "Intégrations partenaires"
 export const ADMIN_PARTNER_DETAIL_EMPTY_CONNECTION = "Pour utiliser ces fonctionnalités, veuillez installer Fire Tiger sur votre espace client Aircall."
 
+// Admin - Report detail
+export const ADMIN_REPORT_DETAIL_SEMESTER_PERIOD = "Semestre {0}"
+export const ADMIN_REPORT_DETAIL_QUARTER_PERIOD = "Trimestre {0}"
+export const ADMIN_REPORT_DETAIL_WEEK_PERIOD = "Semaine {0}"
+
 // Admin - Reward categories
 export const ADMIN_REWARD_CATEGORY_LIST_SUBTITLE = "Configuration des catégories de récompenses"
 export const ADMIN_REWARD_CATEGORY_LIST_ACTIVE_TAB = "Actives"

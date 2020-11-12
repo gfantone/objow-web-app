@@ -1,10 +1,9 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
-import { SubHeader } from './components'
+import { Period, SubHeader } from './components'
 import { MainLayoutComponent, ProgressButton, TextField, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from '../../../../components'
 import * as collaboratorDataListActions from '../../../../services/CollaboratorData/CollaboratorDataList/actions'
 import * as collaboratorDataUpdateActions from '../../../../services/CollaboratorData/CollaboratorDataUpdate/actions'
@@ -39,6 +38,7 @@ class AdminReportDetail extends MainLayoutComponent {
         const { data } = this.props.collaboratorDataList;
         const { kpi } = this.props.kpiDetail;
         const { loading } = this.props.collaboratorDataUpdate;
+        const firstData = data && data.length > 0 ? data[0] : null
 
         return (
             <Formsy onSubmit={this.handleSubmit.bind(this)}>
@@ -50,8 +50,12 @@ class AdminReportDetail extends MainLayoutComponent {
                                     <TableHeadCell>ID</TableHeadCell>
                                     <TableHeadCell>Collaborateur</TableHeadCell>
                                     <TableHeadCell>Équipes</TableHeadCell>
-                                    <TableHeadCell>Résultat cumulé période</TableHeadCell>
-                                    <TableHeadCell>Résultat cumulé période précédente</TableHeadCell>
+                                    {firstData && firstData.dataId && <TableHeadCell>
+                                        <Period periodicity={firstData.periodicity} start={firstData.dataStart} />
+                                    </TableHeadCell>}
+                                    {firstData && firstData.previousDataId && <TableHeadCell>
+                                        <Period periodicity={firstData.periodicity} start={firstData.previousDataStart} />
+                                    </TableHeadCell>}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -61,14 +65,14 @@ class AdminReportDetail extends MainLayoutComponent {
                                             <TableCell>{item.id}</TableCell>
                                             <TableCell>{item.firstname} {item.lastname}</TableCell>
                                             <TableCell>{item.team}</TableCell>
-                                            <TableCell>
+                                            {item.dataId && <TableCell>
                                                 { kpi.manual && <TextField type='number' name={item.dataId} initial={item.dataValue} /> }
                                                 { !kpi.manual && <span>{item.dataValue}</span> }
-                                            </TableCell>
-                                            <TableCell>
+                                            </TableCell>}
+                                            {item.previousDataId && <TableCell>
                                                 { kpi.manual && item.previousDataId && <TextField type='number' name={item.previousDataId} initial={item.previousDataValue} /> }
                                                 { !kpi.manual && <span>{item.previousDataValue}</span> }
-                                            </TableCell>
+                                            </TableCell>}
                                         </TableRow>
                                     )
                                 }) }
