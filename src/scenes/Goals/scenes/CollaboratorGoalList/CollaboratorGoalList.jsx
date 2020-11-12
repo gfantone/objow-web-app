@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {Grid} from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSlidersH} from '@fortawesome/free-solid-svg-icons'
 import {Goal, GoalFilter} from '../../components'
@@ -12,6 +13,15 @@ import * as collaboratorDetailActions from '../../../../services/Collaborators/C
 import * as collaboratorGoalSummaryListActions from '../../../../services/CollaboratorGoalSummaries/CollaboratorGoalSummaryList/actions'
 import * as teamGoalListSummaryActions from '../../../../services/TeamGoalSummaries/TeamGoalSummaryList/actions'
 import '../../../../helpers/StringHelper'
+
+const styles = {
+    zoom: {
+        transition: 'transform .5s',
+        '&:hover': {
+            transform: 'scale(1.05)'
+        }
+    }
+}
 
 class CollaboratorGoalList extends MainLayoutComponent {
     constructor(props) {
@@ -143,19 +153,20 @@ class CollaboratorGoalList extends MainLayoutComponent {
     }
 
     renderData() {
+        const {classes} = this.props
         const { goals: collaboratorGoals } = this.props.collaboratorGoalSummaryList;
         const { goals: teamGoals } = this.props.teamGoalSummaryList;
         const goals = this.mergeGoals(collaboratorGoals, teamGoals);
 
         return (
             <div>
-                <Grid container spacing={2}>
+                <Grid container spacing={3}>
                     { goals.map(goal => {
                         const url = goal.type == 'C' ? `/goals/detail/collaborator/${goal.id}` : `/goals/detail/team/${goal.id}`;
 
                         return (
                             <GridLink key={goal.id} item xs={12} sm={6} md={4} component={Link} to={url}>
-                                <Card>
+                                <Card className={classes.zoom}>
                                     <Goal goal={goal} />
                                 </Card>
                             </GridLink>
@@ -209,4 +220,4 @@ const mapDispatchToProps = (dispatch) => ({
     teamGoalListSummaryActions: bindActionCreators(teamGoalListSummaryActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CollaboratorGoalList)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CollaboratorGoalList))

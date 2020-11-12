@@ -3,6 +3,7 @@ import { Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
+import {withStyles} from '@material-ui/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { Goal, GoalFilter } from '../../components'
@@ -12,6 +13,15 @@ import * as teamCollaboratorGoalListActions from '../../../../services/TeamColla
 import * as teamGoalSummaryListActions from '../../../../services/TeamGoalSummaries/TeamGoalSummaryList/actions'
 import '../../../../helpers/StringHelper'
 import {TEAM_GOAL_LIST_EMPTY_STATE_MESSAGE} from "../../../../Resources";
+
+const styles = {
+    zoom: {
+        transition: 'transform .5s',
+        '&:hover': {
+            transform: 'scale(1.05)'
+        }
+    }
+}
 
 class TeamGoalList extends MainLayoutComponent {
     constructor(props) {
@@ -143,18 +153,19 @@ class TeamGoalList extends MainLayoutComponent {
     }
 
     renderData() {
+        const {classes} = this.props
         const { goals: collaboratorGoals } = this.props.teamCollaboratorGoalList;
         const { goals: teamGoals } = this.props.teamGoalSummaryList;
         const goals = this.mergeGoals(collaboratorGoals, teamGoals);
 
         return (
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
                 { goals.map(goal => {
                     const url = goal.type == 'C' ? `/goals/detail/team-collaborator/${goal.id}` : `/goals/detail/team/${goal.id}`;
 
                     return (
                         <GridLink key={goal.id} item xs={12} sm={6} md={4} component={Link} to={url}>
-                            <Card>
+                            <Card className={classes.zoom}>
                                 <Goal goal={goal} />
                             </Card>
                         </GridLink>
@@ -206,4 +217,4 @@ const mapDispatchToProps = (dispatch) => ({
     teamGoalSummaryListActions: bindActionCreators(teamGoalSummaryListActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TeamGoalList)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TeamGoalList))
