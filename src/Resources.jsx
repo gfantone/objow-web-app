@@ -7,6 +7,7 @@ export const ACCOUNT_CITATION_LABEL = "Citation"
 export const ACCOUNT_PASSWORD_LABEL = "Nouveau mot de passe"
 export const ACCOUNT_CONFIRM_PASSWORD_LABEL = "Confirmation du mot de passe"
 export const ACCOUNT_SUBMIT_BUTTON = "Valider"
+export const ACCOUNT_SUCCESS_MESSAGE = "Les modifications ont bien été effectuées"
 
 // Admin
 export const ADMIN_TITLE = "Administration"
