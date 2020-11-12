@@ -139,8 +139,16 @@ class TeamGoalList extends MainLayoutComponent {
 
     mergeGoals(collaboratorGoals, teamGoals) {
         return collaboratorGoals.concat(teamGoals).sort((a, b) => {
-            const comparison = a.end - b.end;
-            return this.current ? comparison : comparison * -1
+            if (a.end !== b.end) {
+                const comparison = a.end - b.end
+                return this.current ? comparison : comparison * -1
+            } else {
+                if (a.definitionId < b.definitionId)
+                    return -1
+                if ( a.definitionId > b.definitionId)
+                    return 1
+                return 0
+            }
         })
     }
 
