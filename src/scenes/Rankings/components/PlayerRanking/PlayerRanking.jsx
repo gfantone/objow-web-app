@@ -8,12 +8,14 @@ import {Table, TableHead, TableHeadCell, TableRow} from '../../../../components'
 import * as Resources from '../../../../Resources'
 
 const PlayerRanking = ({ranking, collaboratorId}) => {
+    const rankColSpan = ranking && ranking.length > 0 && ranking[0].color ? 2 : 1
+
     return (
         <div>
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableHeadCell align='left'>
+                        <TableHeadCell align='left' colSpan={rankColSpan}>
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
                         <TableHeadCell colSpan={2}>{Resources.COLLABORATOR_RANKING_COLLABORATOR_COLUMN}</TableHeadCell>
