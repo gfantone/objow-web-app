@@ -4,13 +4,16 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {Grid} from '@material-ui/core'
-import {Button, Card, DefaultText, Dialog, DialogActions, DialogContent, DialogTitle, InfoText, Loader, ProgressButton, Select, Switch, TextField} from '../../../../../../components'
+import {BlueText, Button, Card, DefaultText, Dialog, DialogActions, DialogContent, DialogTitle, InfoText, Loader, ProgressButton, Select, Switch, TextField, Tooltip} from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
 import * as categoryListActions from '../../../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../../../services/GoalTypes/GoalTypeList/actions'
 import * as kpiListActions from '../../../../../../services/Kpis/KpiList/actions'
 import * as periodicityListActions from '../../../../../../services/Periodicities/PeriodicityList/actions'
 import * as goalDefinitionUpdateActions from '../../../../../../services/GoalDefinitions/GoalDefinitionUpdate/actions'
 import * as goalDefinitionActivationUpdateActions from '../../../../../../services/GoalDefinitions/GoalDefinitionActivationUpdate/actions'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
 class Base extends Component {
     state = {kpi: null, open: false}
@@ -69,35 +72,49 @@ class Base extends Component {
                             <Card>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={6}>
-                                        <Select name='kpi' label='KPI' options={kpis} optionValueName='id' optionTextName='name' initial={definition.kpi.id} fullWidth disabled={readonly} required />
+                                        <Select name='kpi' label={Resources.ADMIN_GOAL_UPDATE_KPI_LABEL} options={kpis} optionValueName='id' optionTextName='name' initial={definition.kpi.id} fullWidth disabled={readonly} required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <InfoText>Unité</InfoText>
+                                        <InfoText>{Resources.ADMIN_GOAL_UPDATE_UNIT_LABEL}</InfoText>
                                         <DefaultText>{unit}</DefaultText>
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <TextField name='name' label='Intitulé' initial={definition.name} fullWidth disabled={readonly} required />
+                                        <TextField name='name' label={Resources.ADMIN_GOAL_UPDATE_NAME_LABEL} initial={definition.name} fullWidth disabled={readonly} required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <Select name='type' label='Type' options={types} optionValueName='id' optionTextName='description' initial={definition.type.id} fullWidth disabled required />
+                                        <Select name='type' label={Resources.ADMIN_GOAL_UPDATE_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' initial={definition.type.id} fullWidth disabled required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <Select name='category' label='Catégorie' options={categories} optionValueName='id' optionTextName='name' initial={definition.category.id} fullWidth disabled={readonly} required />
+                                        <Select name='category' label={Resources.ADMIN_GOAL_UPDATE_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' initial={definition.category.id} fullWidth disabled={readonly} required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <Select name='periodicity' label='Périodicité' options={periodicities} optionValueName='id' optionTextName='description' initial={definition.periodicity.id} fullWidth disabled required />
+                                        <Select name='periodicity' label={Resources.ADMIN_GOAL_UPDATE_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' initial={definition.periodicity.id} fullWidth disabled required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <TextField type='number' name='target' label='Obj. global annuel' initial={definition.target} fullWidth disabled={readonly} required />
+                                        <TextField type='number' name='target' label={Resources.ADMIN_GOAL_UPDATE_TARGET_LABEL} initial={definition.target} fullWidth disabled={readonly} required />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
-                                        <TextField type='number' name='default' label='Réalisé par défaut' initial={definition.default} fullWidth disabled={readonly} required />
+                                        <TextField type='number' name='default' label={Resources.ADMIN_GOAL_UPDATE_DEFAULT_LABEL} initial={definition.default} fullWidth disabled={readonly} required />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField name='indication' label='Indications' initial={definition.indication} fullWidth multiline rowsMax={10} disabled={readonly} required />
+                                        <TextField name='indication' label={Resources.ADMIN_GOAL_UPDATE_INDICATION_LABEL} initial={definition.indication} fullWidth multiline rowsMax={10} disabled={readonly} required />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Grid container alignItems='center'>
+                                            <Grid item>
+                                                <Switch name='live' initial={definition.live} label={Resources.ADMIN_GOAL_UPDATE_LIVE_LABEL} disabled={readonly} />
+                                            </Grid>
+                                            <Grid item>
+                                                <Tooltip title={Resources.ADMIN_GOAL_UPDATE_LIVE_INFOS}>
+                                                    <BlueText>
+                                                        <FontAwesomeIcon icon={faInfoCircle} />
+                                                    </BlueText>
+                                                </Tooltip>
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
                                     { definition.type.code == 'C' && <Grid item xs={12}>
-                                        <Switch name='editable' initial={definition.editable} label='Objectif modifiable par les managers' disabled={readonly} />
+                                        <Switch name='editable' initial={definition.editable} label={Resources.ADMIN_GOAL_UPDATE_EDITABLE_LABEL} disabled={readonly} />
                                     </Grid> }
                                 </Grid>
                             </Card>
@@ -105,21 +122,21 @@ class Base extends Component {
                         {!readonly && <Grid item xs={12}>
                             <Grid container justify='space-between'>
                                 <Grid item>
-                                    <ProgressButton type='button' color='secondary' text='Archiver' disabled={updateLoading} centered onClick={() => this.setOpen(true)} />
+                                    <ProgressButton type='button' color='secondary' text={Resources.ADMIN_GOAL_UPDATE_DISABLE_BUTTON} disabled={updateLoading} centered onClick={() => this.setOpen(true)} />
                                 </Grid>
                                 <Grid item>
-                                    <ProgressButton type='submit' text='Valider' loading={updateLoading} centered />
+                                    <ProgressButton type='submit' text={Resources.ADMIN_GOAL_UPDATE_SUBMIT_BUTTON} loading={updateLoading} centered />
                                 </Grid>
                             </Grid>
                         </Grid>}
                     </Grid>
                 </Formsy>
                 <Dialog open={this.state.open} onClose={() => this.setOpen(false)}>
-                    <DialogTitle>Êtes-vous sûr de vouloir archiver l'objectif « {definition.name} » ?</DialogTitle>
-                    <DialogContent>Après l’archivage de cet objectif, il ne sera plus possible de le réactiver. Tous les points attribués sur les objectifs en cours et ultérieurs seront remis à disposition.</DialogContent>
+                    <DialogTitle>{Resources.ADMIN_GOAL_UPDATE_DISABLE_MESSAGE.format(definition.name)}</DialogTitle>
+                    <DialogContent>{Resources.ADMIN_GOAL_UPDATE_DISABLE_INFO}</DialogContent>
                     <DialogActions>
-                        <Button onClick={() => this.setOpen(false)} color='secondary'>Non</Button>
-                        <ProgressButton type='button' text='Oui' loading={activationUpdateLoading} onClick={this.onDisable.bind(this)} />
+                        <Button onClick={() => this.setOpen(false)} color='secondary'>{Resources.ADMIN_GOAL_UPDATE_NO_BUTTON}</Button>
+                        <ProgressButton type='button' text={Resources.ADMIN_GOAL_UPDATE_YES_BUTTON} loading={activationUpdateLoading} onClick={this.onDisable.bind(this)} />
                     </DialogActions>
                 </Dialog>
             </div>
