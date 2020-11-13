@@ -161,6 +161,8 @@ export const CHALLENGE_AWARD_LIST_COLLABORATOR_MAX_POINT_LABEL = "Maximum / joue
 export const CHALLENGE_AWARD_LIST_TEAM_MAX_POINT_LABEL = "Maximum / équipe"
 export const CHALLENGE_AWARD_LIST_COLLABORATOR_POINT_LABEL = "Gain joueur #{0}"
 export const CHALLENGE_AWARD_LIST_TEAM_POINT_LABEL = "Gain équipe #{0}"
+export const CHALLENGE_AWARD_LIST_LIVE_LABEL = "Points gagnés en live"
+export const CHALLENGE_AWARD_LIST_LIVE_INFOS = "Si activé, les points seront automatiquement gagnés par les participants avant la date de fin du challenge."
 
 // Challenge - Collaborator challenge detail
 export const COLLABORATOR_CHALLENGE_DETAIL_RANK_TAB = "Classements"

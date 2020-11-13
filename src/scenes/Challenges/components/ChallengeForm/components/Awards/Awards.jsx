@@ -3,14 +3,14 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {Grid, IconButton} from '@material-ui/core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
-import {Card, DefaultText, DefaultTitle, HiddenInput, Select, TextField} from '../../../../../../components'
+import {faInfoCircle, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
+import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, Select, Switch, TextField, Tooltip} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import * as challengeTypeUsablePointsActions from '../../../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
 import {uuidv4} from "../../../../../../helpers/UUIDHelper"
 import './helpers/FormsyHelper'
 
-const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialType, isCreation, isDuplication, isUpdate, start, team, types, ...props}) => {
+const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialLive = false, initialType, isCreation, isDuplication, isUpdate, start, team, types, ...props}) => {
     const getInitialAwards = () => {
         if (initialAwards && initialAwards.length > 0) {
             return initialAwards.map(x => ({key: uuidv4(), points: x.points}))
@@ -114,6 +114,20 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                     </Grid>
                                 )
                             })}
+                            {isMaxAward && <Grid item xs>
+                                <Grid container alignItems='center'>
+                                    <Grid item>
+                                        <Switch name='live' label={Resources.CHALLENGE_AWARD_LIST_LIVE_LABEL} initial={initialLive} />
+                                    </Grid>
+                                    <Grid item>
+                                        <Tooltip title={Resources.CHALLENGE_AWARD_LIST_LIVE_INFOS}>
+                                            <BlueText>
+                                                <FontAwesomeIcon icon={faInfoCircle} />
+                                            </BlueText>
+                                        </Tooltip>
+                                    </Grid>
+                                </Grid>
+                            </Grid>}
                         </Grid>
                     </Card>
                 </Grid>
