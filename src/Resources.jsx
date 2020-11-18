@@ -109,6 +109,19 @@ export const ADMIN_REWARD_CATEGORY_UPDATE_NAME_LABEL = "Nom"
 export const ADMIN_REWARD_CATEGORY_UPDATE_ICON_LABEL = "Icône"
 export const ADMIN_REWARD_CATEGORY_UPDATE_SUBMIT_BUTTON = "Valider"
 
+// Admin - User update
+export const ADMIN_USER_UPDATE_TITLE = "Modification d'un utilisateur"
+export const ADMIN_USER_UPDATE_FIRSTNAME = "Prénom"
+export const ADMIN_USER_UPDATE_LASTNAME = "Nom"
+export const ADMIN_USER_UPDATE_EMAIL = "Email"
+export const ADMIN_USER_UPDATE_TYPE = "Type"
+export const ADMIN_USER_UPDATE_TEAM = "Équipe"
+export const ADMIN_USER_UPDATE_PASSWORD = "Nouveau mot de passe"
+export const ADMIN_USER_UPDATE_PASSWORD_CONFIRM = "Confirmation du mot de passe"
+export const ADMIN_USER_UPDATE_SUBMIT_BUTTON = "Valider"
+export const ADMIN_USER_UPDATE_ENABLE_BUTTON = "Réactiver le compte"
+export const ADMIN_USER_UPDATE_DISABLE_BUTTON = "Résilier le compte"
+
 // Administrator collaborator selector
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
@@ -495,6 +508,20 @@ export const TEAM_GOAL_LIST_EMPTY_STATE_MESSAGE = "Si vous avez appliqué des fi
 // Goal - Team rank list
 export const TEAM_GOAL_RANK_LIST_TEAM_COLUMN = "Équipes"
 export const TEAM_GOAL_RANK_LIST_POINTS_COLUMN = "PTS"
+
+// Goal duplication dialog
+export const GOAL_DUPLICATION_DIALOG_BUTTON = "Configuration des objectifs"
+export const GOAL_DUPLICATION_DIALOG_TITLE = "Configuration des objectifs"
+export const GOAL_DUPLICATION_DIALOG_MESSAGE = "Appliquer automatiquement à {0} les objectifs du collaborateur suivant :"
+export const GOAL_DUPLICATION_DIALOG_TEAM_LABEL = "Équipe"
+export const GOAL_DUPLICATION_DIALOG_TEAM_EMPTY_TEXT = "Toutes"
+export const GOAL_DUPLICATION_DIALOG_COLLABORATOR_LABEL = "Joueur"
+export const GOAL_DUPLICATION_DIALOG_COLLABORATOR_EMPTY_TEXT = "Tous"
+export const GOAL_DUPLICATION_DIALOG_SUBMIT_BUTTON = "Valider"
+export const GOAL_DUPLICATION_DIALOG_CANCEL_BUTTON = "Annuler"
+export const GOAL_DUPLICATION_DIALOG_CONFIRMATION_MESSAGE = "Êtes-vous sûr de vouloir appliquer automatiquement à {0} les objectifs de {1} ?"
+export const GOAL_DUPLICATION_DIALOG_CONFIRMATION_YES_BUTTON = "Oui"
+export const GOAL_DUPLICATION_DIALOG_CONFIRMATION_NO_BUTTON = "Non"
 
 // Login
 export const LOGIN_CODE_LABEL = "Code entreprise"

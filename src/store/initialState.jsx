@@ -50,6 +50,7 @@ const initialState = {
     collaboratorGoalCategoryList: {categories: null, loading: false, hasError: false},
     collaboratorGoalDetail: {goal: null, loading: false, hasError: false},
     collaboratorGoalList: {goals: null, loading: false, hasError: false},
+    collaboratorGoalListDuplication: {success: false, loading: false, hasError: false},
     collaboratorGoalRankList: {ranks: null, loading: false, hasError: false},
     collaboratorGoalSummaryList: {goals: null, loading: false, hasError: false},
     collaboratorList: {collaborators: null, loading: false, hasError: false},
