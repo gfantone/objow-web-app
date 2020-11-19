@@ -47,7 +47,7 @@ export default () => {
                 {/* Game rules */}
                 <MainRoutes exact path='/rules' component={scenes.GameRules} />
                 {/* Partners */}
-                <PartnerRoutes exact path='/aircall/oauth/callback' component={scenes.AircallConnection} />
+                <PartnerRoutes exact path='/aircall/oauth/install' component={scenes.AircallInstall} />
                 {/* Rankings */}
                 <MainRoutes exact path='/rankings' component={scenes.RankingList} />
                 <MainRoutes exact path='/rankings/collaborators/:collaborator/list' component={scenes.CollaboratorRankingList} />

@@ -4,7 +4,7 @@ import {withStyles} from '@material-ui/core/styles'
 
 const styles = {
     root: {
-        fontSize: 13,
+        fontSize: 19,
         color: '#555555',
         textTransform: 'uppercase'
     }
