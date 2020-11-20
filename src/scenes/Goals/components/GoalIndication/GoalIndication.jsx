@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faFolderOpen} from '@fortawesome/free-solid-svg-icons'
 import { AdviceList, ReadonlyAdviceList } from './components'
-import { AnimationController, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow } from '../../../../components'
+import { AnimationController, Card, DefaultText, DefaultTitle, InfoText, Linkify, Table, TableBody, TableCell, TableChip, TableRow } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import {getDifferenceWithToday} from '../../../../helpers/DateHelper'
 
@@ -80,11 +80,13 @@ const GoalIndication = ({ goal, type, ...props }) => {
                                         </DefaultText>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <InfoText>
-                                            {goal.definition.indication.split("\n").map((i, key) => {
-                                                return <div key={key}>{i}</div>;
-                                            })}
-                                        </InfoText>
+                                        <Linkify>
+                                            <InfoText>
+                                                {goal.definition.indication.split("\n").map((i, key) => {
+                                                    return <div key={key}>{i}</div>;
+                                                })}
+                                            </InfoText>
+                                        </Linkify>
                                     </Grid>
                                 </Grid>
                             </Card>
