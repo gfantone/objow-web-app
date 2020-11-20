@@ -1,5 +1,6 @@
 export * from './AccentTag'
 export * from './AccentText'
+export * from './BigText'
 export * from './BlueTag'
 export * from './BlueText'
 export * from './BoldSpan'

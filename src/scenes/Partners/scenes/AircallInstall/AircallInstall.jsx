@@ -5,7 +5,7 @@ import {CardMedia, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import Formsy from 'formsy-react'
 import {Button} from './components'
-import {Card, DarkTextField, DarkTitle, DefaultText, ErrorText, LinkedInButton, Logo, ProgressButton} from '../../../../components'
+import {BigText, Card, DarkTextField, DarkTitle, ErrorText, LinkedInButton, Logo, ProgressButton} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as errors from '../../../../services/Authentications/AircallAuthentication/errors'
 import * as aircallAuthenticationActions from '../../../../services/Authentications/AircallAuthentication/actions'
@@ -91,8 +91,8 @@ class AircallInstall extends Component {
                                                 <CardMedia image={noCustomer} className={classes.noCustomer} />
                                             </Grid>
                                             <Grid item>
-                                                <DefaultText>{Resources.AIRCALL_INSTALL_NO_CUSTOMER_BUTTON_1}</DefaultText>
-                                                <DefaultText>{Resources.AIRCALL_INSTALL_NO_CUSTOMER_BUTTON_2}</DefaultText>
+                                                <BigText>{Resources.AIRCALL_INSTALL_NO_CUSTOMER_BUTTON_1}</BigText>
+                                                <BigText>{Resources.AIRCALL_INSTALL_NO_CUSTOMER_BUTTON_2}</BigText>
                                             </Grid>
                                             <Grid item xs={12}>
                                                 <Grid container spacing={2} justify='space-between'>
