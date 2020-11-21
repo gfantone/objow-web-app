@@ -83,6 +83,9 @@ import watchGoalDetail from './Goals/GoalDetail/sagas'
 import watchGoalList from './Goals/GoalList/sagas'
 import watchGoalTypeList from './GoalTypes/GoalTypeList/sagas'
 import watchKpiDetail from './Kpis/KpiDetail/sagas'
+import watchInAppNotificationCount from './InAppNotifications/InAppNotificationCount/sagas'
+import watchInAppNotificationList from './InAppNotifications/InAppNotificationList/sagas'
+import watchInAppNotificationListUpdate from './InAppNotifications/InAppNotificationListUpdate/sagas'
 import {watchKpiList, watchKpiListByPartner} from './Kpis/KpiList/sagas'
 import watchKpiListUpdate from './Kpis/KpiListUpdate/sagas'
 import watchLevelList from './Levels/LevelList/sagas'
@@ -265,6 +268,9 @@ function* rootSaga() {
         watchImportLogList(),
         watchInactiveCategoryList(),
         watchInactiveRewardCategoryList(),
+        watchInAppNotificationCount(),
+        watchInAppNotificationList(),
+        watchInAppNotificationListUpdate(),
         watchKpiDetail(),
         watchKpiList(),
         watchKpiListByPartner(),

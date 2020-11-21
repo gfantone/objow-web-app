@@ -85,6 +85,9 @@ import goalListUpdate from '../services/Goals/GoalListUpdate/reducer'
 import goalPoints from '../services/GoalPoints/reducers'
 import goalTypeList from '../services/GoalTypes/GoalTypeList/reducer'
 import importLogList from '../services/ImportLogs/ImportLogList/reducer'
+import inAppNotificationCount from '../services/InAppNotifications/InAppNotificationCount/reducer'
+import inAppNotificationList from '../services/InAppNotifications/InAppNotificationList/reducer'
+import inAppNotificationListUpdate from '../services/InAppNotifications/InAppNotificationListUpdate/reducer'
 import kpiDetail from '../services/Kpis/KpiDetail/reducer'
 import kpiList from '../services/Kpis/KpiList/reducer'
 import kpiListUpdate from '../services/Kpis/KpiListUpdate/reducer'
@@ -163,6 +166,7 @@ import userListImport from '../services/Users/UserListImport/reducer'
 import userUpdate from '../services/Users/UserUpdate/reducer'
 import userUpdateActivation from '../services/Users/UserUpdateActivation/reducer'
 import userUpdatePassword from '../services/Users/UserUpdatePassword/reducer'
+import watchInAppNotificationCount from "../services/InAppNotifications/InAppNotificationCount/sagas";
 
 const rootReducer = combineReducers({
     accountDetail,
@@ -251,6 +255,9 @@ const rootReducer = combineReducers({
     goalPoints,
     goalTypeList,
     importLogList,
+    inAppNotificationCount,
+    inAppNotificationList,
+    inAppNotificationListUpdate,
     kpiDetail,
     kpiList,
     kpiListUpdate,
