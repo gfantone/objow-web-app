@@ -11,13 +11,25 @@ import {Redirect} from "react-router";
 
 class PlayerCategoryRanking extends MainLayoutComponent {
     componentDidMount() {
-        const categoryId = this.props.match.params.category;
+        this.categoryId = this.props.match.params.category;
+        this.periodId = this.props.match.params.period
         this.props.activateReturn();
         this.props.handleTitle(Resources.RANKING_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader />);
         this.props.handleMaxWidth('md');
-        this.props.categoryDetailActions.getCategoryDetail(categoryId);
-        this.props.collaboratorCategoryRankListActions.getCollaboratorCategoryRankListByCategory(categoryId, this.props.match.params.period)
+        this.props.categoryDetailActions.getCategoryDetail(this.categoryId);
+        this.props.collaboratorCategoryRankListActions.getCollaboratorCategoryRankListByCategory(this.categoryId, this.periodId)
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const categoryId = this.props.match.params.category
+        const periodId = this.props.match.params.period
+        if (this.categoryId != categoryId || this.periodId != periodId) {
+            this.categoryId = categoryId
+            this.periodId = periodId
+            this.props.categoryDetailActions.getCategoryDetail(this.categoryId);
+            this.props.collaboratorCategoryRankListActions.getCollaboratorCategoryRankListByCategory(this.categoryId, this.periodId)
+        }
     }
 
     renderEmptyState() {

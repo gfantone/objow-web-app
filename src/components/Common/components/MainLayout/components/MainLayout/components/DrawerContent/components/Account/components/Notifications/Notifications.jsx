@@ -16,8 +16,28 @@ const Notifications = ({open, onClose, ...props}) => {
     }, [open])
 
     const handleNotificationClick = notification => () => {
-        if (notification.type === 'CGR') {
-            // props.history.push()
+        if (notification.data) {
+            const data = JSON.parse(notification.data)
+
+            if (notification.type === 'CBA') {
+                props.history.push(`/badges/detail/current/${data.level}`)
+            } else if (notification.type === 'CCA') {
+                props.history.push(`/rankings/collaborators/${data.collaborator}/categories/${data.category}/years/${data.period}`)
+            } else if (notification.type === 'CCH') {
+                props.history.push(`/rankings/collaborators/${data.collaborator}/challenges/${data.period}`)
+            } else if (notification.type === 'CLE') {
+                props.history.push(`/collaborators/${data.collaborator}/detail?year=${data.period}`)
+            } else if (notification.type === 'CGR') {
+                props.history.push(`/rankings/collaborators/${data.collaborator}/general/${data.period}`)
+            } else if (notification.type === 'TCA') {
+                props.history.push(`/rankings/teams/${data.team}/categories/${data.category}/years/${data.period}`)
+            } else if (notification.type === 'TCH') {
+                props.history.push(`/rankings/teams/${data.team}/challenges/${data.period}`)
+            } else if (notification.type === 'TGR') {
+                props.history.push(`/rankings/teams/${data.team}/general/${data.period}`)
+            }
+
+            onClose()
         }
     }
 

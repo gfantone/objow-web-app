@@ -538,8 +538,9 @@ export const LOGIN_STORE_MESSAGE_2 = "Téléchargez-la dès maintenant :"
 export const MAIN_LAYOUT_SEARCH_PLACEHOLDER = "Rechercher..."
 
 // Notification date
-export const NOTIFICATION_DATE_DAYS = "{0}j"
-export const NOTIFICATION_DATE_HOURS = "{0}h"
+export const NOTIFICATION_DATE_DAYS = "{0} j"
+export const NOTIFICATION_DATE_HOURS = "{0} h"
+export const NOTIFICATION_DATE_MINUTES = "{0} min"
 
 // Point summary
 export const POINT_SUMMARY_TITLE = "Informations générales"

@@ -23,7 +23,8 @@ function getImage(notification) {
     }
 
     if (notification.type === 'CBA' && notification.data) {
-        return require(`../../../../../../../../../../../../../../assets/img/system/badge/icons/${notification.data}.svg`)
+        const data = JSON.parse(notification.data)
+        return require(`../../../../../../../../../../../../../../assets/img/system/badge/icons/${data.icon}.svg`)
     }
 
     if (['CCH', 'TCH'].includes(notification.type)) {

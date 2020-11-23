@@ -11,8 +11,9 @@ const NotificationDate = ({date, ...props}) => {
     const creationDate = Number(date).toDate()
 
     return (
-        <InfoText align='right'>
-            {difference === 0 && <span>{Resources.NOTIFICATION_DATE_HOURS.format(today.getHours() - creationDate.getHours())}</span>}
+        <InfoText align='right' noWrap>
+            {difference === 0 && today.getHours() - creationDate.getHours() === 0 && <span>{Resources.NOTIFICATION_DATE_MINUTES.format(today.getMinutes() - creationDate.getMinutes())}</span>}
+            {difference === 0 && today.getHours() - creationDate.getHours() > 0 && <span>{Resources.NOTIFICATION_DATE_HOURS.format(today.getHours() - creationDate.getHours())}</span>}
             {difference !== 0 && <span>{Resources.NOTIFICATION_DATE_DAYS.format(difference)}</span>}
         </InfoText>
     )
