@@ -2,11 +2,19 @@ import React, {useEffect} from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import {makeStyles} from '@material-ui/core'
 import {DialogContent, NotificationDate, NotificationImage, TableRow} from './components'
 import {Button, DefaultText, Dialog, DialogActions, DialogTitle, FixedTableCell, InfoText, Loader, Table, TableBody, TableCell} from '../../../../../../../../../..'
 import * as inAppNotificationListActions from '../../../../../../../../../../../../services/InAppNotifications/InAppNotificationList/actions'
 
+const useStyles = makeStyles({
+    new: {
+        backgroundColor: '#EDF1FF'
+    }
+})
+
 const Notifications = ({open, onClose, ...props}) => {
+    const classes = useStyles()
     const {notifications, loading} = props.inAppNotificationList
 
     useEffect(() => {
@@ -46,8 +54,10 @@ const Notifications = ({open, onClose, ...props}) => {
             <Table>
                 <TableBody>
                     {notifications.map((notification, index) => {
+                        const rowClass = !notification.read ? classes.new : null
+
                         return (
-                            <TableRow key={notification.id} onClick={handleNotificationClick(notification)}>
+                            <TableRow key={notification.id} onClick={handleNotificationClick(notification)} className={rowClass}>
                                 <FixedTableCell>
                                     <NotificationImage notification={notification} />
                                 </FixedTableCell>
