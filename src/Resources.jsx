@@ -392,6 +392,7 @@ export const DRAWER_POINTS_LABEL = "{0} PTS"
 export const DRAWER_MANAGER_LABEL = "Manager"
 export const DRAWER_ADMINISTRATOR_LABEL = "Administrateur"
 export const DRAWER_INFOS_BUTTON = "Mes infos"
+export const DRAWER_NOTIFICATIONS_BUTTON = "Notifications"
 export const DRAWER_GOALS_BUTTON = "Objectifs"
 export const DRAWER_CHALLENGES_BUTTON = "Challenges"
 export const DRAWER_BADGES_BUTTON = "Défis"
@@ -535,6 +536,10 @@ export const LOGIN_STORE_MESSAGE_2 = "Téléchargez-la dès maintenant :"
 
 // Main layout
 export const MAIN_LAYOUT_SEARCH_PLACEHOLDER = "Rechercher..."
+
+// Notification date
+export const NOTIFICATION_DATE_DAYS = "{0}j"
+export const NOTIFICATION_DATE_HOURS = "{0}h"
 
 // Point summary
 export const POINT_SUMMARY_TITLE = "Informations générales"
