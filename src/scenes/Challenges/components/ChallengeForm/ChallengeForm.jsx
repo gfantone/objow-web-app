@@ -19,6 +19,7 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
     const awardType = challenge ? challenge.award_type : null
     const awards = challenge ? challenge.awards : []
     const goals = challenge ? challenge.goals : null
+    const live = challenge ? challenge.live : null
     var finalTypes = types
     const {account} = props.accountDetail
 
@@ -72,6 +73,7 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
                         end={end}
                         hasChallengeManager={hasChallengeManager}
                         initialAwards={awards}
+                        initialLive={live}
                         initialType={awardType}
                         isCreation={isCreation}
                         isDuplication={isDuplication}

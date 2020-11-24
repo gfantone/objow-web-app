@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { Grid, IconButton, RadioGroup } from '@material-ui/core'
 import { SubHeader } from './components'
-import { EmptyState, GreenRadio, IconButton as HeaderIconButton, MainLayoutComponent, OrangeRadio, ProgressButton, RedRadio, TableChip, TextField } from '../../../../components'
+import { DefaultText, EmptyState, GreenRadio, IconButton as HeaderIconButton, Linkify, MainLayoutComponent, OrangeRadio, ProgressButton, RedRadio, TableChip, TextField } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as coachingItemListActions from '../../../../services/CoachingItems/CoachingItemList/actions'
 import * as coachingItemListCreationActions from '../../../../services/CoachingItems/CoachingItemListCreation/actions'
@@ -128,7 +128,8 @@ class CoachingList extends MainLayoutComponent {
                                         <TableChip label='>' />
                                     </Grid>
                                     <Grid item xs>
-                                        <TextField name='instruction' initial={item.instruction} onChange={this.handleChange(item.id)('instruction')} fullWidth multiline disabled={!canUpdateCoaching} />
+                                        {!canUpdateCoaching && <Linkify><DefaultText>{item.instruction}</DefaultText></Linkify>}
+                                        {canUpdateCoaching && <TextField name='instruction' initial={item.instruction} onChange={this.handleChange(item.id)('instruction')} fullWidth multiline />}
                                     </Grid>
                                     <Grid item xs='auto'>
                                         <RadioGroup row>

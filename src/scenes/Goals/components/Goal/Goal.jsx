@@ -37,6 +37,7 @@ const styles = {
 const Goal = ({ goal, ...props }) => {
     const { classes } = props
     const progression = Math.round((goal.counter / goal.target) * 100)
+    const typeStyle = goal.type === 'T' ? {color: goal.color} : null
 
     return (
         <div>
@@ -84,7 +85,7 @@ const Goal = ({ goal, ...props }) => {
                     </DefaultText>
                 </Grid>
                 <Grid item className={classes.info} xs zeroMinWidth>
-                    <DefaultText align='right' noWrap>
+                    <DefaultText align='right' noWrap style={typeStyle}>
                         <FontAwesomeIcon icon={goal.type == 'C' ? faUser : faUsers} /> { goal.type == 'C' ? Resources.GOAL_COLLABORATOR_TAG : Resources.GOAL_TEAM_TAG }
                     </DefaultText>
                 </Grid>

@@ -22,15 +22,11 @@ function* connectAircall(action) {
 
                 if (account.role.code === 'A') {
                     try {
-                        yield call(api.partners.connectAircall, action.oauthCode)
-                        yield put(connectAircallSuccess())
+                        const {data: redirectUri} = yield call(api.partners.aircallRedirectUri)
+                        yield put(connectAircallSuccess(redirectUri))
                     }
                     catch (error) {
-                        if (error && error.response && error.response.status === 408) {
-                            yield put(connectAircallError(errors.EXPIRATION_ERROR))
-                        } else {
-                            yield put(connectAircallError(errors.UNKNOWN_ERROR))
-                        }
+                        yield put(connectAircallError(errors.UNKNOWN_ERROR))
                     }
                 } else {
                     yield put(connectAircallError(errors.AUTHORIZATION_ERROR))

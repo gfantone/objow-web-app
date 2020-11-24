@@ -26,6 +26,7 @@ import goalPoints from './endpoints/goalPoints'
 import goals from './endpoints/goals'
 import goalTypes from './endpoints/goalTypes'
 import importLogs from './endpoints/importLogs'
+import inAppNotifications from './endpoints/inAppNotifications'
 import kpis from './endpoints/kpis'
 import levels from './endpoints/levels'
 import mails from './endpoints/mails'
@@ -86,6 +87,7 @@ const api = {
     goals,
     goalTypes,
     importLogs,
+    inAppNotifications,
     kpis,
     levels,
     mails,

@@ -71,7 +71,8 @@ class ChallengeUpdate extends MainLayoutComponent {
             end: model.end,
             image: model.image,
             type: model.type,
-            award_type: model.awardType
+            award_type: model.awardType,
+            live: model.live ? model.live : false
         };
         var goals = [];
         for (var i = 0; i < model.kpi.length; i++) {

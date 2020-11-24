@@ -40,7 +40,7 @@ import watchCollaboratorRewardOrderCreation from "./CollaboratorRewardOrders/Col
 import watchCollaboratorGeneralRankList from './CollaboratorGeneralRanks/CollaboratorGeneralRankList/sagas'
 import watchCollaboratorGlobalPointSummaryDetail from "./CollaboratorGlobalPointSummaries/CollaboratorGlobalPointSummaryDetail/sagas";
 import {watchCollaboratorGoalRankListByCollaboratorGOal, watchCollaboratorGoalRankListByTeamCollaboratorGoal} from './CollaboratorGoalRanks/CollaboratorGoalRankList/sagas'
-import watchFreeCollaboratorList from './Collaborators/CollaboratorList/sagas'
+import {watchCollaboratorList, watchFreeCollaboratorList} from './Collaborators/CollaboratorList/sagas'
 import watchCollaboratorPointSummaryDetail from "./CollaboratorPointSummaries/CollaboratorPointSummaryDetail/sagas";
 import watchCollaboratorRewardOrderDetail from "./CollaboratorRewardOrders/CollaboratorRewardOrderDetail/sagas";
 import watchCollaboratorRewardOrderValidationUpdate from "./CollaboratorRewardOrders/CollaboratorRewardOrderUpdate/sagas";
@@ -57,6 +57,7 @@ import watchCoachingItemRemoving from './CoachingItems/CoachingItemRemoving/saga
 import watchCollaboratorDetail from './Collaborators/CollaboratorDetail/sagas'
 import watchCollaboratorGoalDetail from './CollaboratorGoals/CollaboratorGoalDetail/sagas'
 import {watchCollaboratorGoalListByTeamCollaboratorGoal} from './CollaboratorGoals/CollaboratorGoalList/sagas'
+import watchCollaboratorGoalListDuplication from './CollaboratorGoals/CollaboratorGoalListDuplication/sagas'
 import watchCollaboratorGoalSummaryList from './CollaboratorGoalSummaries/CollaboratorGoalSummaryList/sagas'
 import watchWaitingCollaboratorRewardOrderCount from "./CollaboratorRewardOrders/CollaboratorRewardOrderCount/sagas";
 import watchConfigDetail from './Configs/ConfigDetail/sagas'
@@ -82,6 +83,8 @@ import watchGoalDetail from './Goals/GoalDetail/sagas'
 import watchGoalList from './Goals/GoalList/sagas'
 import watchGoalTypeList from './GoalTypes/GoalTypeList/sagas'
 import watchKpiDetail from './Kpis/KpiDetail/sagas'
+import watchInAppNotificationCount from './InAppNotifications/InAppNotificationCount/sagas'
+import watchInAppNotificationList from './InAppNotifications/InAppNotificationList/sagas'
 import {watchKpiList, watchKpiListByPartner} from './Kpis/KpiList/sagas'
 import watchKpiListUpdate from './Kpis/KpiListUpdate/sagas'
 import watchLevelList from './Levels/LevelList/sagas'
@@ -218,9 +221,11 @@ function* rootSaga() {
         watchCollaboratorGoalCategoryList(),
         watchCollaboratorGoalDetail(),
         watchCollaboratorGoalListByTeamCollaboratorGoal(),
+        watchCollaboratorGoalListDuplication(),
         watchCollaboratorGoalRankListByCollaboratorGOal(),
         watchCollaboratorGoalRankListByTeamCollaboratorGoal(),
         watchCollaboratorGoalSummaryList(),
+        watchCollaboratorList(),
         watchCollaboratorNextBadgeLevelList(),
         watchCollaboratorPointSummaryDetail(),
         watchCollaboratorRewardOrderCreation(),
@@ -262,6 +267,8 @@ function* rootSaga() {
         watchImportLogList(),
         watchInactiveCategoryList(),
         watchInactiveRewardCategoryList(),
+        watchInAppNotificationCount(),
+        watchInAppNotificationList(),
         watchKpiDetail(),
         watchKpiList(),
         watchKpiListByPartner(),

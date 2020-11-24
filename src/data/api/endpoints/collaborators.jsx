@@ -5,7 +5,7 @@ const baseUrl = 'collaborators/';
 
 const collaborators = {
     list() {
-        const url = `${baseUrl}free/`;
+        const url = `${baseUrl}`;
         return instance.get(url)
     },
     detail(id) {

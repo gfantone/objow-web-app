@@ -1,1 +1,1 @@
-export * from './AircallConnection'
+export * from './AircallInstall'
