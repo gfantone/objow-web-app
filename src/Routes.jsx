@@ -39,8 +39,7 @@ export default () => {
                 {/* Badges */}
                 <MainRoutes exact path='/badges' component={scenes.BadgeHome} />
                 <MainRoutes exact path='/badges/collaborator/:id' component={scenes.BadgeList} />
-                <MainRoutes exact path='/badges/detail/current/:id' component={scenes.CurrentBadgeDetail} />
-                <MainRoutes exact path='/badges/detail/next/:id' component={scenes.NextBadgeDetail} />
+                <MainRoutes exact path='/badges/detail/:id' component={scenes.BadgeDetail} />
                 {/* Coaching lists */}
                 <MainRoutes exact path='/coaching' component={scenes.CoachingHome} />
                 <MainRoutes exact path='/coaching/:id' component={scenes.CoachingList} />

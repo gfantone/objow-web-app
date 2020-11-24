@@ -113,10 +113,8 @@ class BadgeList extends MainLayoutComponent {
         return (
             <Grid container spacing={2}>
                 { levels.map(level => {
-                    const url = this.current ? `/badges/detail/next/${level.id}` : `/badges/detail/current/${level.id}`;
-
                     return (
-                        <GridLink key={level.id} item xs={12} sm={6} md={4} component={Link} to={url}>
+                        <GridLink key={level.id} item xs={12} sm={6} md={4} component={Link} to={`/badges/detail/${level.id}`}>
                             <Card>
                                 <BadgeLevel level={level} />
                             </Card>

@@ -26,6 +26,7 @@ import watchChallengeTypeSummaryList from './ChallengeTypeSummaries/ChallengeTyp
 import watchChallengeTypeListUpdate from './ChallengeTypes/ChallengeTypeListUpdate/sagas'
 import {watchChallengeTypeUsablePoints, watchChallengeTypeUsablePointsByChallenge} from "./ChallengeTypes/ChallengeTypeUsablePoints/sagas";
 import {watchCollaboratorBadgeLevelList, watchCollaboratorNextBadgeLevelList} from './CollaboratorBadgeLevels/CollaboratorBadgeLevelList/sagas'
+import watchCollaboratorBadgeSummaryDetail from './CollaboratorBadges/CollaboratorBadgeSummaryDetail/sagas'
 import {watchCollaboratorCategoryRankListByCategory, watchCollaboratorCategoryRankListByCollaborator} from './CollaboratorCategoryRanks/CollaboratorCategoryRankList/sagas'
 import watchCollaboratorChallengeGeneralRankDetail from './CollaboratorChallengeGeneralRanks/CollaboratorChallengeGeneralRankDetail/sagas'
 import watchCollaboratorChallengeGeneralRankList from './CollaboratorChallengeGeneralRanks/CollaboratorChallengeGeneralRankList/sagas'
@@ -64,7 +65,6 @@ import watchConfigDetail from './Configs/ConfigDetail/sagas'
 import {watchConfigList, watchPermanentConfigList} from './Configs/ConfigList/sagas'
 import watchConfigListUpdate from './Configs/ConfigListUpdate/sagas'
 import watchConfigUpdate from './Configs/ConfigUpdate/sagas'
-import watchCurrentCollaboratorBadgeDetail from "./CollaboratorBadges/CurrentCollaboratorBadgeDetail/sagas";
 import watchFreeColorList from './Colors/ColorList/sagas'
 import {watchGoalAdviceListByCollaboratorGoal, watchGoalAdviceListByTeamCollaboratorGoal, watchGoalAdviceListByTeamGoal} from './GoalAdvices/GoalAdviceList/sagas'
 import {watchGoalAdviceListCreationByCollaboratorGoal, watchGoalAdviceListCreationByTeamCollaboratorGoal, watchGoalAdviceListCreationByTeamGoal} from './GoalAdvices/GoalAdviceListCreation/sagas'
@@ -90,7 +90,6 @@ import watchKpiListUpdate from './Kpis/KpiListUpdate/sagas'
 import watchLevelList from './Levels/LevelList/sagas'
 import watchLevelListCreation from './Levels/LevelListCreation/sagas'
 import watchManagerGoalList from './ManagerGoals/ManagerGoalList/sagas'
-import watchNextCollaboratorBadgeDetail from "./CollaboratorBadges/NextCollaboratorBadgeDetail/sagas";
 import watchEvolutionRequest from './Mail/EvolutionRequest/sagas'
 import watchFreeManagerList from './Managers/ManagerList/sagas'
 import watchImportLogList from './ImportLogs/ImportLogList/sagas'
@@ -203,6 +202,7 @@ function* rootSaga() {
         watchCoachingItemRemoving(),
         watchCoachingItemUpdate(),
         watchCollaboratorBadgeLevelList(),
+        watchCollaboratorBadgeSummaryDetail(),
         watchCollaboratorCategoryRankListByCategory(),
         watchCollaboratorCategoryRankListByCollaborator(),
         watchCollaboratorChalengeRankListByCollaboratorChallenge(),
@@ -237,7 +237,6 @@ function* rootSaga() {
         watchConfigListUpdate(),
         watchConfigUpdate(),
         watchCurrentChallengeTypeList(),
-        watchCurrentCollaboratorBadgeDetail(),
         watchCurrentCollaboratorBadgeSummaryList(),
         watchCurrentPeriodDetail(),
         watchEvolutionRequest(),
@@ -276,7 +275,6 @@ function* rootSaga() {
         watchLevelList(),
         watchLevelListCreation(),
         watchManagerGoalList(),
-        watchNextCollaboratorBadgeDetail(),
         watchNextPeriodList(),
         watchPartnerDetail(),
         watchPartnerList(),
