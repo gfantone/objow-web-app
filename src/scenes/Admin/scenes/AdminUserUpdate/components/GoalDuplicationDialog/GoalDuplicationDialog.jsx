@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {Dialog, DialogActions, DialogContent, DialogTitle, Grid} from '@material-ui/core'
-import {Button, InfoText, ProgressButton, Select} from '../../../../../../components'
+import {Button, DefaultText, ProgressButton, Select} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import * as collaboratorGoalListDuplicationActions from '../../../../../../services/CollaboratorGoals/CollaboratorGoalListDuplication/actions'
 import '../../../../../../helpers/StringHelper'
@@ -54,7 +54,7 @@ const GoalDuplicationDialog = ({allCollaborators, teams, user, ...props}) => {
                     <DialogContent>
                         <Grid container spacing={2}>
                             <Grid item xs={12}>
-                                <InfoText>{Resources.GOAL_DUPLICATION_DIALOG_MESSAGE.format(user.fullname)}</InfoText>
+                                <DefaultText>{Resources.GOAL_DUPLICATION_DIALOG_MESSAGE.format(user.fullname)}</DefaultText>
                             </Grid>
                             <Grid item xs={12}>
                                 <Select
@@ -93,7 +93,7 @@ const GoalDuplicationDialog = ({allCollaborators, teams, user, ...props}) => {
             <Dialog open={duplicationConfirmationOpen || loading} onClose={() => setDuplicationConfirmationOpen(false)}>
                 <Formsy>
                     <DialogContent>
-                        <InfoText>{Resources.GOAL_DUPLICATION_DIALOG_CONFIRMATION_MESSAGE.format(user.fullname, selectedCollaboratorFullname)}</InfoText>
+                        <DefaultText>{Resources.GOAL_DUPLICATION_DIALOG_CONFIRMATION_MESSAGE.format(user.fullname, selectedCollaboratorFullname)}</DefaultText>
                     </DialogContent>
                     <DialogActions>
                         <Button color='secondary' onClick={() => setDuplicationConfirmationOpen(false)}>{Resources.GOAL_DUPLICATION_DIALOG_CONFIRMATION_NO_BUTTON}</Button>
