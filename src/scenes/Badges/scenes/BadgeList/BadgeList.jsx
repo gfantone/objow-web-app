@@ -91,8 +91,7 @@ class BadgeList extends MainLayoutComponent {
     }
 
     handleFilterChange(collaborator, year) {
-        const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
-        this.refresh(collaboratorId, this.current, year)
+        this.refresh(collaborator, this.current, year)
     }
 
     renderLoader() {
