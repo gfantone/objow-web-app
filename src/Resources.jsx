@@ -407,6 +407,8 @@ export const DRAWER_LOGOUT_BUTTON = "Déconnexion"
 
 // Game rules
 export const GAME_RULES_TITLE = "Règles du jeu"
+export const GAME_RULES_SUBMIT_BUTTON = "Valider"
+export const GAME_RULES_CANCEL_BUTTON = "Annuler"
 
 // Goal
 export const GOAL_LONG_TITLE = "Les objectifs"
@@ -791,6 +793,9 @@ export const REWARD_UPDATE_DELIVERY_PLACE_LABEL = "Lieu"
 export const REWARD_UPDATE_DELIVERY_MODE_LABEL = "Mode de livraison"
 export const REWARD_UPDATE_DELIVERY_TIME_LABEL = "Temps de livraison"
 export const REWARD_UPDATE_SUBMIT_BUTTON = "Valider"
+
+// Rich text
+export const RICH_TEXT_PLACEHOLDER = "Entrez votre texte..."
 
 // Team
 export const TEAM_TITLE = "Équipes"
