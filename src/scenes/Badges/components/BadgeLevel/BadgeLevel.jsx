@@ -1,7 +1,7 @@
 import React from 'react'
 import { CardMedia, Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import { LevelCondition, Points } from './components'
+import {CollaboratorList, LevelCondition, Points} from './components'
 import { AccentText, DefaultText, DefaultTitle, InfoText, ProgressBar } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/NumberHelper'
@@ -53,8 +53,15 @@ const BadgeLevel = ({ level, ...props }) => {
                         <ProgressBar value={progression} />
                     </Grid>
                 </Grid>
-                <Grid item container>
-                    <LevelCondition level={level} />
+                <Grid item xs={12}>
+                    <Grid container justify='space-between' alignItems='center'>
+                        <Grid item>
+                            <LevelCondition level={level} />
+                        </Grid>
+                        <Grid item style={{minHeight: 40}}>
+                            <CollaboratorList collaborators={level.collaborators} />
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </div>
