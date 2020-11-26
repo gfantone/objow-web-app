@@ -4,7 +4,7 @@ import {withStyles} from '@material-ui/core/styles'
 
 const styles = {
     root: {
-        fontSize: 23,
+        fontSize: 46,
         color: '#000000'
     }
 }
