@@ -11,7 +11,7 @@ import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import * as collaboratorGoalCategoryListActions from '../../../../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/actions'
 
-class CollaboratorGoalCategoryList extends MainLayoutComponent {
+class CollaboratorGoalCategoryStats extends MainLayoutComponent {
     constructor(props) {
         super(props)
         this.id = null
@@ -22,7 +22,7 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
     }
 
     refresh(id, year) {
-        var url = `/goals/collaborators/${id}/categories`
+        var url = `/stats/collaborators/${id}/categories`
         if (year) url += `?year=${year}`
         this.props.history.replace(url)
     }
@@ -75,7 +75,7 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
             this.refresh(collaboratorId, year)
         } else {
             const teamId = this.props.accountDetail.account.role.code === 'M' ? this.props.collaboratorDetail.collaborator.team.id : team
-            var url = `/goals/teams/${teamId}/categories`
+            var url = `/stats/teams/${teamId}/categories`
             if (year) url += `?year=${year}`
             this.props.history.push(url)
         }
@@ -87,20 +87,14 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
 
     renderData() {
         const {categories} = this.props.collaboratorGoalCategoryList
-        const all_icon = require(`../../../../assets/img/system/categories/all.svg`)
-        const all_category = {name: Resources.COLLABORATOR_GOAL_CATEGORY_LIST_ALL_LABEL, icon: all_icon}
-        const allUrl = this.year ? `/goals/collaborators/${this.props.match.params.id}/list?year=${this.year}` : `/goals/collaborators/${this.props.match.params.id}/list`
         const spacing = isWidthUp('sm', this.props.width) ? 8 : 4
 
         return (
             <div>
                 <Grid container spacing={spacing}>
-                    <GridLink item xs={12} sm={4} component={Link} to={allUrl}>
-                        <Category category={all_category} />
-                    </GridLink>
                     {categories.map(category => {
                         return (
-                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/goals/collaborators/${this.props.match.params.id}/list?category=${category.categoryId}&year=${category.periodId}`}>
+                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/stats/collaborators/${this.props.match.params.id}/categories/${category.categoryId}/goals?year=${category.periodId}`}>
                                 <Category category={category} />
                             </GridLink>
                         )
@@ -145,4 +139,4 @@ const mapDispatchToProps = (dispatch) => ({
     collaboratorGoalCategoryListActions: bindActionCreators(collaboratorGoalCategoryListActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(CollaboratorGoalCategoryList))
+export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(CollaboratorGoalCategoryStats))

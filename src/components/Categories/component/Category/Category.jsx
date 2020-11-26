@@ -1,7 +1,7 @@
 import React from 'react'
+import {BoldTitle} from '../../..'
 import {CardMedia, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
-import {BoldTitle} from '../../../../components'
 
 const styles = {
     icon: {
@@ -10,8 +10,8 @@ const styles = {
     }
 }
 
-const Category = ({ category, ...props }) => {
-    const { classes } = props
+const Category = ({category, ...props}) => {
+    const {classes} = props
 
     return (
         <div>

@@ -2,16 +2,13 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import {Grid, isWidthUp, withWidth} from '@material-ui/core'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSlidersH} from '@fortawesome/free-solid-svg-icons'
+import {CategoryFilter} from '../../components'
+import {AppBarSubTitle, Category, GridLink, IconButton, Loader, MainLayoutComponent} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as teamGoalCategoryListActions from '../../../../services/TeamGoalCategories/TeamGoalCategoryList/actions'
-import {IconButton} from "../../../../components/Common/components/IconButton"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {faSlidersH} from "@fortawesome/free-solid-svg-icons"
-import {Category} from '../../components'
-import {AppBarSubTitle, GridLink, Loader, MainLayoutComponent} from "../../../../components"
-import * as Resources from "../../../../Resources"
-import {Grid} from "@material-ui/core"
-import withWidth, {isWidthUp} from "@material-ui/core/withWidth"
-import {CategoryFilter} from "../../components/CategoryFilter"
 
 class TeamGoalCategoryList extends MainLayoutComponent {
     constructor(props) {
@@ -56,7 +53,7 @@ class TeamGoalCategoryList extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        if (this.props.accountDetail.account.role.code == 'A') this.props.activateReturn()
+        if (this.props.accountDetail.account.role.code === 'A') this.props.activateReturn()
         this.props.handleTitle(Resources.GOAL_SHORT_TITLE)
         this.props.handleSubHeader(<AppBarSubTitle title={Resources.TEAM_GOAL_CATEGORY_LIST_TITLE} />)
         this.props.handleMaxWidth('sm')
@@ -72,7 +69,7 @@ class TeamGoalCategoryList extends MainLayoutComponent {
 
     handleFilterChange(team, collaborator, year) {
         if (!collaborator) {
-            const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team
+            const teamId = this.props.accountDetail.account.role.code === 'M' ? this.id : team
             this.refresh(teamId, year)
         } else {
             var url = `/goals/collaborators/${collaborator}/categories`

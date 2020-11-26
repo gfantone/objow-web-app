@@ -16,6 +16,12 @@ export default () => {
                 {/* Collaboratos */}
                 <MainRoutes exact path='/collaborators/:id/detail' component={scenes.CollaboratorDetail} />
                 <ManagerRoutes exact path='/collaborators/:id/password' component={scenes.CollaboratorPassword} />
+                {/* Stats */}
+                <MainRoutes exact path='/stats' component={scenes.HomeStats} />
+                <MainRoutes exact path='/stats/collaborators/:id/categories' component={scenes.CollaboratorGoalCategoryStats} />
+                <MainRoutes exact path='/stats/collaborators/:collaboratorId/categories/:categoryId/goals' component={scenes.CollaboratorGoalStats} />
+                <MainRoutes exact path='/stats/teams/:id/categories' component={scenes.TeamCollaboratorGoalCategoryStats} />
+                <MainRoutes exact path='/stats/teams/:collaboratorId/categories/:categoryId/goals' component={scenes.TeamCollaboratorGoalStats} />
                 {/* Goals */}
                 <MainRoutes exact path='/goals' component={scenes.GoalListHome} />
                 <MainRoutes exact path='/goals/collaborators/:id/list' component={scenes.CollaboratorGoalList} />

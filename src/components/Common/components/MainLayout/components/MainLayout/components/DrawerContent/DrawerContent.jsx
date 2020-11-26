@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {Account, Divider, DrawerButton, List, Logo} from './components'
-import {faBook, faBullseye, faGift, faListUl, faQuestion, faRandom, faRocket, faSignOutAlt, faTools, faTrophy, faUsers} from '@fortawesome/free-solid-svg-icons'
+import {faBook, faBullseye, faChartLine, faGift, faListUl, faQuestion, faRandom, faRocket, faSignOutAlt, faTools, faTrophy, faUsers} from '@fortawesome/free-solid-svg-icons'
 import * as Resources from '../../../../../../../../Resources'
 import * as collaboratorRewardOrdersActions from '../../../../../../../../services/CollaboratorRewardOrders/CollaboratorRewardOrderCount/actions'
 import * as teamRewardOrderCountActions from '../../../../../../../../services/TeamRewardOrders/TeamRewardOrderCount/actions'
@@ -40,6 +40,8 @@ const DrawerContent = ({onNavigate, ...props }) => {
                 {(account.hasGeneralRankAccess || account.hasCategoryRankAccess || account.hasChallengeRankAccess) && <DrawerButton icon={faRandom} text={Resources.DRAWER_RANKINGS_BUTTON} src='/rankings' onNavigate={onNavigate} />}
                 <Divider />
                 <DrawerButton icon={faUsers} text={Resources.DRAWER_TEAMS_BUTTON} src='/teams' onNavigate={onNavigate} />
+                <Divider />
+                <DrawerButton icon={faChartLine} text={Resources.DRAWER_STATS_BUTTON} src='/stats' onNavigate={onNavigate} />
                 {account.hasRewardAccess && <Divider />}
                 {account.hasRewardAccess && <DrawerButton icon={faGift} text={Resources.DRAWER_REWARDS_BUTTON} src='/rewards' onNavigate={onNavigate} badgeContent={orders} />}
                 <Divider />

@@ -399,6 +399,7 @@ export const DRAWER_BADGES_BUTTON = "Défis"
 export const DRAWER_COACHING_LIST_BUTTON = "Coaching list"
 export const DRAWER_RANKINGS_BUTTON = "Classements"
 export const DRAWER_TEAMS_BUTTON = "Équipes"
+export const DRAWER_STATS_BUTTON = "Statistiques"
 export const DRAWER_REWARDS_BUTTON = "Récompenses"
 export const DRAWER_RULES_BUTTON = "Règles du jeu"
 export const DRAWER_ADMIN_BUTTON = "Administration"
@@ -796,6 +797,21 @@ export const REWARD_UPDATE_SUBMIT_BUTTON = "Valider"
 
 // Rich text
 export const RICH_TEXT_PLACEHOLDER = "Entrez votre texte..."
+
+// Statistiques
+export const STATS_TITLE = "Statistiques"
+
+// Statistiques - Category filter
+export const STATS_CATEGORY_FILTER_TITLE = "Filtres"
+export const STATS_CATEGORY_FILTER_TEAM_LABEL = "Équipe"
+export const STATS_CATEGORY_FILTER_COLLABORATOR_LABEL = "Collaborateur"
+export const STATS_CATEGORY_FILTER_COLLABORATOR_ALL_OPTION = "Tous"
+export const STATS_CATEGORY_FILTER_PERIOD_LABEL = "Année"
+export const STATS_CATEGORY_FILTER_CANCEL_BUTTON = "Annuler"
+export const STATS_CATEGORY_FILTER_SUBMIT_BUTTON = "Filtrer"
+
+// Statistiques - Team goal category stats
+export const TEAM_GOAL_CATEGORY_STATS_TITLE = "Sélection de la catégorie"
 
 // Team
 export const TEAM_TITLE = "Équipes"

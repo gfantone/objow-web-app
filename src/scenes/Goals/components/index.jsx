@@ -1,4 +1,3 @@
-export * from './Category'
 export * from './CategoryFilter'
 export * from './CollaboratorGoalRankList'
 export * from './Goal'
