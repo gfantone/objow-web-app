@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {Avatar, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
-import {Card, FileInput, MainLayoutComponent, ProgressButton, TextField} from '../../../../components'
+import {AccentText, Card, FileInput, InfoText, MainLayoutComponent, ProgressButton, TextField} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as accountUpdateActions from '../../../../services/Account/AccountUpdate/actions'
 import * as userUpdatePasswordActions from '../../../../services/Users/UserUpdatePassword/actions'
@@ -23,6 +23,7 @@ class AccountDetail extends MainLayoutComponent {
         this.state = {
             password: ''
         }
+        this.props.accountUpdateActions.clearAccountUpdate()
     }
 
     componentDidMount() {
@@ -54,7 +55,7 @@ class AccountDetail extends MainLayoutComponent {
     render() {
         const { classes } = this.props;
         const { account } = this.props.accountDetail;
-        const { loading } = this.props.accountUpdate;
+        const { loading, success } = this.props.accountUpdate;
         const photo = account.photo ? account.photo : '/assets/img/user/avatar.svg';
 
         return (
@@ -67,6 +68,11 @@ class AccountDetail extends MainLayoutComponent {
                                     <Grid item xs={12} container justify='center'>
                                         <Grid item>
                                             <Avatar src={photo} className={classes.photo} />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={12} container justify='center'>
+                                        <Grid item>
+                                            <InfoText>{account.role.name}</InfoText>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} container justify='center'>
@@ -116,6 +122,9 @@ class AccountDetail extends MainLayoutComponent {
                         <Grid item xs={12}>
                             <ProgressButton type='submit' text={Resources.ACCOUNT_SUBMIT_BUTTON} centered loading={loading} />
                         </Grid>
+                        {success && <Grid item xs={12}>
+                            <AccentText align='center'>{Resources.ACCOUNT_SUCCESS_MESSAGE}</AccentText>
+                        </Grid>}
                     </Grid>
                 </Formsy>
             </div>

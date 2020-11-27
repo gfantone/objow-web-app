@@ -1,7 +1,7 @@
 import React from 'react'
 import { Avatar } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import { FixedTableCell, FlexibleTableCell, RankEvolution, TableCell, TableChip, TableRow } from '../../../../../../components'
+import {FixedTableCell, FlexibleTableCell, FullTableCell, RankEvolution, TableCell, TableChip, TableRow} from '../../../../../../components'
 
 const styles = {
     photo: {
@@ -14,9 +14,11 @@ const PlayerRank = ({rank, selected, ...props}) => {
     const { classes } = props;
     const photo = rank.photo ? rank.photo : '/assets/img/user/avatar.svg';
     const color = !selected ? 'default' : 'primary'
+    const teamColor = rank.color ? rank.color : '#fff'
 
     return (
         <TableRow>
+            {rank.color && <FullTableCell style={{backgroundColor: teamColor, width: 4}} />}
             <TableCell>
                 <TableChip size='small' color={color} label={rank.rank ? rank.rank : '-'} />
             </TableCell>

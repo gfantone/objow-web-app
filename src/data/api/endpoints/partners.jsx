@@ -3,9 +3,9 @@ import instance from '../instance'
 const baseUrl = 'partners/'
 
 const partners = {
-    connectAircall(code) {
-        const url = `${baseUrl}connect-aircall/`
-        return instance.post(url, {code})
+    aircallRedirectUri() {
+        const url = `${baseUrl}aircall-redirect-uri/`
+        return instance.get(url)
     },
     detail(id) {
         const url = `${baseUrl}${id}/`

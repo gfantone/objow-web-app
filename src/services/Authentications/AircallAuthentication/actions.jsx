@@ -1,15 +1,15 @@
 import * as types from './actionTypes'
 
-export const connectAircall = (code, login, password, oauthCode) => ({
+export const connectAircall = (code, login, password) => ({
     type: types.CONNECT_AIRCALL,
     code,
     login,
-    password,
-    oauthCode
+    password
 })
 
-export const connectAircallSuccess = () => ({
-    type: types.CONNECT_AIRCALL_SUCCESS
+export const connectAircallSuccess = (redirectUri) => ({
+    type: types.CONNECT_AIRCALL_SUCCESS,
+    redirectUri
 })
 
 export const connectAircallError = (error) => ({

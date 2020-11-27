@@ -3,12 +3,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
-import { AppBarSubTitle, Card, DefaultText, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, Switch, TextField } from '../../../../components'
+import {AppBarSubTitle, BlueText, Card, DefaultText, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, Switch, TextField, Tooltip} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../services/GoalTypes/GoalTypeList/actions'
 import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
 import * as periodicityListActions from '../../../../services/Periodicities/PeriodicityList/actions'
 import * as goalDefinitionCreationActions from '../../../../services/GoalDefinitions/GoalDefinitionCreation/actions'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
 class AdminGoalCreation extends MainLayoutComponent {
     constructor(props) {
@@ -20,8 +23,8 @@ class AdminGoalCreation extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        this.props.handleTitle('Administration');
-        this.props.handleSubHeader(<AppBarSubTitle title="Création d'un objectif" />);
+        this.props.handleTitle(Resources.ADMIN_TITLE);
+        this.props.handleSubHeader(<AppBarSubTitle title={Resources.ADMIN_GOAL_CREATION_TITLE} />);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
         this.props.categoryListActions.getActiveCategoryList();
@@ -62,41 +65,55 @@ class AdminGoalCreation extends MainLayoutComponent {
                         <Card>
                             <Grid container spacing={2}>
                                 <Grid item xs={12} sm={6}>
-                                    <Select name='kpi' label='KPI' options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
+                                    <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <InfoText>Unité</InfoText>
+                                    <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
                                     <DefaultText>{unit}</DefaultText>
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <TextField name='name' label='Intitulé' fullWidth required />
+                                    <TextField name='name' label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <Select name='type' label='Type' options={types} optionValueName='id' optionTextName='description' fullWidth required />
+                                    <Select name='type' label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' fullWidth required />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <Select name='category' label='Catégorie' options={categories} optionValueName='id' optionTextName='name' fullWidth required />
+                                    <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <Select name='periodicity' label='Périodicité' options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
+                                    <Select name='periodicity' label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <TextField type='number' name='target' label='Obj. global annuel' fullWidth required />
+                                    <TextField type='number' name='target' label={Resources.ADMIN_GOAL_CREATION_TARGET_LABEL} fullWidth required />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <TextField type='number' name='default' label='Réalisé par défaut' fullWidth required />
+                                    <TextField type='number' name='default' label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <TextField name='indication' label='Indications' fullWidth multiline rowsMax={10} required />
+                                    <TextField name='indication' label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL} fullWidth multiline rowsMax={10} required />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Switch name='editable' label='Objectif modifiable par les managers' />
+                                    <Grid container alignItems='center'>
+                                        <Grid item>
+                                            <Switch name='live' label={Resources.ADMIN_GOAL_CREATION_LIVE_LABEL} />
+                                        </Grid>
+                                        <Grid item>
+                                            <Tooltip title={Resources.ADMIN_GOAL_CREATION_LIVE_INFOS}>
+                                                <BlueText>
+                                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                                </BlueText>
+                                            </Tooltip>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Switch name='editable' label={Resources.ADMIN_GOAL_CREATION_EDITABLE_LABEL} />
                                 </Grid>
                             </Grid>
                         </Card>
                     </Grid>
                     <Grid item xs={12}>
-                        <ProgressButton type='submit' text='Valider' loading={loading} centered />
+                        <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} loading={loading} centered />
                     </Grid>
                 </Grid>
             </Formsy>

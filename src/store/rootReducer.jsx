@@ -49,6 +49,7 @@ import collaboratorGlobalPointSummaryDetail from '../services/CollaboratorGlobal
 import collaboratorGoalCategoryList from "../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/reducer";
 import collaboratorGoalDetail from '../services/CollaboratorGoals/CollaboratorGoalDetail/reducer'
 import collaboratorGoalList from '../services/CollaboratorGoals/CollaboratorGoalList/reducer'
+import collaboratorGoalListDuplication from '../services/CollaboratorGoals/CollaboratorGoalListDuplication/reducer'
 import collaboratorGoalRankList from '../services/CollaboratorGoalRanks/CollaboratorGoalRankList/reducer'
 import collaboratorGoalSummaryList from '../services/CollaboratorGoalSummaries/CollaboratorGoalSummaryList/reducer'
 import collaboratorList from '../services/Collaborators/CollaboratorList/reducer'
@@ -84,6 +85,8 @@ import goalListUpdate from '../services/Goals/GoalListUpdate/reducer'
 import goalPoints from '../services/GoalPoints/reducers'
 import goalTypeList from '../services/GoalTypes/GoalTypeList/reducer'
 import importLogList from '../services/ImportLogs/ImportLogList/reducer'
+import inAppNotificationCount from '../services/InAppNotifications/InAppNotificationCount/reducer'
+import inAppNotificationList from '../services/InAppNotifications/InAppNotificationList/reducer'
 import kpiDetail from '../services/Kpis/KpiDetail/reducer'
 import kpiList from '../services/Kpis/KpiList/reducer'
 import kpiListUpdate from '../services/Kpis/KpiListUpdate/reducer'
@@ -214,6 +217,7 @@ const rootReducer = combineReducers({
     collaboratorGoalCategoryList,
     collaboratorGoalDetail,
     collaboratorGoalList,
+    collaboratorGoalListDuplication,
     collaboratorGoalRankList,
     collaboratorGoalSummaryList,
     collaboratorList,
@@ -249,6 +253,8 @@ const rootReducer = combineReducers({
     goalPoints,
     goalTypeList,
     importLogList,
+    inAppNotificationCount,
+    inAppNotificationList,
     kpiDetail,
     kpiList,
     kpiListUpdate,

@@ -1,5 +1,9 @@
 import * as types from './actionTypes'
 
+export const getCollaboratorList = () => ({
+    type: types.GET_COLLABORATOR_LIST
+})
+
 export const getFreeCollaboratorList = () => {
     return {
         type: types.GET_FREE_COLLABORATOR_LIST

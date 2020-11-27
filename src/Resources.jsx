@@ -7,6 +7,7 @@ export const ACCOUNT_CITATION_LABEL = "Citation"
 export const ACCOUNT_PASSWORD_LABEL = "Nouveau mot de passe"
 export const ACCOUNT_CONFIRM_PASSWORD_LABEL = "Confirmation du mot de passe"
 export const ACCOUNT_SUBMIT_BUTTON = "Valider"
+export const ACCOUNT_SUCCESS_MESSAGE = "Les modifications ont bien été effectuées"
 
 // Admin
 export const ADMIN_TITLE = "Administration"
@@ -16,11 +17,45 @@ export const ADMIN_AIRCALL_FORM_AC_GET_CALLS_ACTIVATION = "Activer le KPI de ré
 export const ADMIN_AIRCALL_FORM_AC_GET_CALLS_DURATION = "Durée minimale d’un appel abouti"
 export const ADMIN_AIRCALL_FORM_SUBMIT_BUTTON = "Valider"
 
+// Admin - Goal creation
+export const ADMIN_GOAL_CREATION_TITLE = "Création d'un objectif"
+export const ADMIN_GOAL_CREATION_KPI_LABEL = "KPI"
+export const ADMIN_GOAL_CREATION_UNIT_LABEL = "Unité"
+export const ADMIN_GOAL_CREATION_NAME_LABEL = "Intitulé"
+export const ADMIN_GOAL_CREATION_TYPE_LABEL = "Type"
+export const ADMIN_GOAL_CREATION_CATEGORY_LABEL = "Catégorie"
+export const ADMIN_GOAL_CREATION_PERIODICITY_LABEL = "Périodicité"
+export const ADMIN_GOAL_CREATION_TARGET_LABEL = "Obj. global annuel"
+export const ADMIN_GOAL_CREATION_DEFAULT_LABEL = "Réalisé par défaut"
+export const ADMIN_GOAL_CREATION_INDICATION_LABEL = "Indications"
+export const ADMIN_GOAL_CREATION_LIVE_LABEL = "Points gagnés en live"
+export const ADMIN_GOAL_CREATION_LIVE_INFOS = "Si activé, les points seront automatiquement gagnés par les participants avant la date de fin de l’objectif."
+export const ADMIN_GOAL_CREATION_EDITABLE_LABEL = "Objectif modifiable par les managers"
+export const ADMIN_GOAL_CREATION_SUBMIT_BUTTON = "Valider"
+
 // Admin - Goal update
 export const ADMIN_GOAL_UPDATE_BASE_TITLE = "Modification de l'objectif « {0} »"
 export const ADMIN_GOAL_UPDATE_READONLY_TITLE = "Visualisation de l'objectif « {0} »"
 export const ADMIN_GOAL_UPDATE_BASE_TAB = "Base"
 export const ADMIN_GOAL_UPDATE_CUSTOM_TAB = "Personnalisation"
+export const ADMIN_GOAL_UPDATE_KPI_LABEL = "KPI"
+export const ADMIN_GOAL_UPDATE_UNIT_LABEL = "Unité"
+export const ADMIN_GOAL_UPDATE_NAME_LABEL = "Intitulé"
+export const ADMIN_GOAL_UPDATE_TYPE_LABEL = "Type"
+export const ADMIN_GOAL_UPDATE_CATEGORY_LABEL = "Catégorie"
+export const ADMIN_GOAL_UPDATE_PERIODICITY_LABEL = "Périodicité"
+export const ADMIN_GOAL_UPDATE_TARGET_LABEL = "Obj. global annuel"
+export const ADMIN_GOAL_UPDATE_DEFAULT_LABEL = "Réalisé par défaut"
+export const ADMIN_GOAL_UPDATE_INDICATION_LABEL = "Indications"
+export const ADMIN_GOAL_UPDATE_LIVE_LABEL = "Points gagnés en live"
+export const ADMIN_GOAL_UPDATE_LIVE_INFOS = "Si activé, les points seront automatiquement gagnés par les participants avant la date de fin de l’objectif."
+export const ADMIN_GOAL_UPDATE_EDITABLE_LABEL = "Objectif modifiable par les managers"
+export const ADMIN_GOAL_UPDATE_SUBMIT_BUTTON = "Valider"
+export const ADMIN_GOAL_UPDATE_DISABLE_BUTTON = "Archiver"
+export const ADMIN_GOAL_UPDATE_DISABLE_MESSAGE = "Êtes-vous sûr de vouloir archiver l'objectif « {0} » ?"
+export const ADMIN_GOAL_UPDATE_DISABLE_INFO = "Après l’archivage de cet objectif, il ne sera plus possible de le réactiver. Tous les points attribués sur les objectifs en cours et ultérieurs seront remis à disposition."
+export const ADMIN_GOAL_UPDATE_YES_BUTTON = "Oui"
+export const ADMIN_GOAL_UPDATE_NO_BUTTON = "Non"
 
 // Admin - Home
 export const ADMIN_HOME_USER_AREA = "Utilisateurs et droits"
@@ -50,6 +85,11 @@ export const ADMIN_PARTNER_LIST_SUBTITLE = "Intégrations partenaires"
 export const ADMIN_PARTNER_DETAIL_SUBTITLE = "Intégrations partenaires"
 export const ADMIN_PARTNER_DETAIL_EMPTY_CONNECTION = "Pour utiliser ces fonctionnalités, veuillez installer Fire Tiger sur votre espace client Aircall."
 
+// Admin - Report detail
+export const ADMIN_REPORT_DETAIL_SEMESTER_PERIOD = "Semestre {0}"
+export const ADMIN_REPORT_DETAIL_QUARTER_PERIOD = "Trimestre {0}"
+export const ADMIN_REPORT_DETAIL_WEEK_PERIOD = "Semaine {0}"
+
 // Admin - Reward categories
 export const ADMIN_REWARD_CATEGORY_LIST_SUBTITLE = "Configuration des catégories de récompenses"
 export const ADMIN_REWARD_CATEGORY_LIST_ACTIVE_TAB = "Actives"
@@ -69,22 +109,36 @@ export const ADMIN_REWARD_CATEGORY_UPDATE_NAME_LABEL = "Nom"
 export const ADMIN_REWARD_CATEGORY_UPDATE_ICON_LABEL = "Icône"
 export const ADMIN_REWARD_CATEGORY_UPDATE_SUBMIT_BUTTON = "Valider"
 
+// Admin - User update
+export const ADMIN_USER_UPDATE_TITLE = "Modification d'un utilisateur"
+export const ADMIN_USER_UPDATE_FIRSTNAME = "Prénom"
+export const ADMIN_USER_UPDATE_LASTNAME = "Nom"
+export const ADMIN_USER_UPDATE_EMAIL = "Email"
+export const ADMIN_USER_UPDATE_TYPE = "Type"
+export const ADMIN_USER_UPDATE_TEAM = "Équipe"
+export const ADMIN_USER_UPDATE_PASSWORD = "Nouveau mot de passe"
+export const ADMIN_USER_UPDATE_PASSWORD_CONFIRM = "Confirmation du mot de passe"
+export const ADMIN_USER_UPDATE_SUBMIT_BUTTON = "Valider"
+export const ADMIN_USER_UPDATE_ENABLE_BUTTON = "Réactiver le compte"
+export const ADMIN_USER_UPDATE_DISABLE_BUTTON = "Résilier le compte"
+
 // Administrator collaborator selector
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_TITLE = "Aucune équipe trouvée"
 export const ADMINISTRATOR_COLLABORATOR_SELECTOR_EMPTY_STATE_MESSAGE = "Les équipes n'ont pas encore été créées"
 
-// Aircall connection
-export const AIRCALL_CONNECTION_TITLE = "Connexion avec Aircall"
-export const AIRCALL_CONNECTION_CODE_LABEL = "Code entreprise"
-export const AIRCALL_CONNECTION_EMAIL_LABEL = "Email"
-export const AIRCALL_CONNECTION_PASSWORD_LABEL = "Mot de passe"
-export const AIRCALL_CONNECTION_AUTHORIZATION_ERROR = "Vous n’avez pas les autorisations"
-export const AIRCALL_CONNECTION_EXPIRATION_ERROR = "Votre demande de connexion avec l’application Aircall a expirée. Veuillez réessayer"
-export const AIRCALL_CONNECTION_LOGIN_ERROR = "Les identifiants sont incorrects"
-export const AIRCALL_CONNECTION_UNKNOWN_ERROR = "Une erreur inconnue est survenue"
-export const AIRCALL_CONNECTION_SUBMIT_BUTTON = "Connecter Aircall"
-export const AIRCALL_CONNECTION_STORE_MESSAGE_1 = "Votre application Fire Tiger est disponible pour Iphone et Android."
-export const AIRCALL_CONNECTION_STORE_MESSAGE_2 = "Téléchargez-la dès maintenant :"
+// Aircall install
+export const AIRCALL_INSTALL_TITLE = "Connexion avec Aircall"
+export const AIRCALL_INSTALL_CODE_LABEL = "Code entreprise"
+export const AIRCALL_INSTALL_EMAIL_LABEL = "Email"
+export const AIRCALL_INSTALL_PASSWORD_LABEL = "Mot de passe"
+export const AIRCALL_INSTALL_AUTHORIZATION_ERROR = "Vous n’avez pas les autorisations"
+export const AIRCALL_INSTALL_LOGIN_ERROR = "Les identifiants sont incorrects"
+export const AIRCALL_INSTALL_UNKNOWN_ERROR = "Une erreur inconnue est survenue"
+export const AIRCALL_INSTALL_SUBMIT_BUTTON = "Connecter Aircall"
+export const AIRCALL_INSTALL_NO_CUSTOMER_BUTTON_1 = "Pas encore"
+export const AIRCALL_INSTALL_NO_CUSTOMER_BUTTON_2 = "client Fire Tiger ?"
+export const AIRCALL_INSTALL_WEBSITE_BUTTON = "Voir site web"
+export const AIRCALL_INSTALL_DEMO_BUTTON = "Démonstration"
 
 // Badges
 export const BADGE_LONG_TITLE = "Les défis"
@@ -121,6 +175,8 @@ export const CHALLENGE_AWARD_LIST_COLLABORATOR_MAX_POINT_LABEL = "Maximum / joue
 export const CHALLENGE_AWARD_LIST_TEAM_MAX_POINT_LABEL = "Maximum / équipe"
 export const CHALLENGE_AWARD_LIST_COLLABORATOR_POINT_LABEL = "Gain joueur #{0}"
 export const CHALLENGE_AWARD_LIST_TEAM_POINT_LABEL = "Gain équipe #{0}"
+export const CHALLENGE_AWARD_LIST_LIVE_LABEL = "Points gagnés en live"
+export const CHALLENGE_AWARD_LIST_LIVE_INFOS = "Si activé, les points seront automatiquement gagnés par les participants avant la date de fin du challenge."
 
 // Challenge - Collaborator challenge detail
 export const COLLABORATOR_CHALLENGE_DETAIL_RANK_TAB = "Classements"
@@ -336,6 +392,7 @@ export const DRAWER_POINTS_LABEL = "{0} PTS"
 export const DRAWER_MANAGER_LABEL = "Manager"
 export const DRAWER_ADMINISTRATOR_LABEL = "Administrateur"
 export const DRAWER_INFOS_BUTTON = "Mes infos"
+export const DRAWER_NOTIFICATIONS_BUTTON = "Notifications"
 export const DRAWER_GOALS_BUTTON = "Objectifs"
 export const DRAWER_CHALLENGES_BUTTON = "Challenges"
 export const DRAWER_BADGES_BUTTON = "Défis"
@@ -454,6 +511,20 @@ export const TEAM_GOAL_LIST_EMPTY_STATE_MESSAGE = "Si vous avez appliqué des fi
 export const TEAM_GOAL_RANK_LIST_TEAM_COLUMN = "Équipes"
 export const TEAM_GOAL_RANK_LIST_POINTS_COLUMN = "PTS"
 
+// Goal duplication dialog
+export const GOAL_DUPLICATION_DIALOG_BUTTON = "Configuration des objectifs"
+export const GOAL_DUPLICATION_DIALOG_TITLE = "Configuration des objectifs"
+export const GOAL_DUPLICATION_DIALOG_MESSAGE = "Appliquer automatiquement à {0} les objectifs du collaborateur suivant :"
+export const GOAL_DUPLICATION_DIALOG_TEAM_LABEL = "Équipe"
+export const GOAL_DUPLICATION_DIALOG_TEAM_EMPTY_TEXT = "Toutes"
+export const GOAL_DUPLICATION_DIALOG_COLLABORATOR_LABEL = "Joueur"
+export const GOAL_DUPLICATION_DIALOG_COLLABORATOR_EMPTY_TEXT = "Tous"
+export const GOAL_DUPLICATION_DIALOG_SUBMIT_BUTTON = "Valider"
+export const GOAL_DUPLICATION_DIALOG_CANCEL_BUTTON = "Annuler"
+export const GOAL_DUPLICATION_DIALOG_CONFIRMATION_MESSAGE = "Êtes-vous sûr de vouloir appliquer automatiquement à {0} les objectifs de {1} ?"
+export const GOAL_DUPLICATION_DIALOG_CONFIRMATION_YES_BUTTON = "Oui"
+export const GOAL_DUPLICATION_DIALOG_CONFIRMATION_NO_BUTTON = "Non"
+
 // Login
 export const LOGIN_CODE_LABEL = "Code entreprise"
 export const LOGIN_EMAIL_LABEL = "Email"
@@ -465,6 +536,14 @@ export const LOGIN_STORE_MESSAGE_2 = "Téléchargez-la dès maintenant :"
 
 // Main layout
 export const MAIN_LAYOUT_SEARCH_PLACEHOLDER = "Rechercher..."
+
+// Notification
+export const NOTIFICATION_EMPTY_MESSAGE = "Aucune notification reçue"
+
+// Notification date
+export const NOTIFICATION_DATE_DAYS = "{0} j"
+export const NOTIFICATION_DATE_HOURS = "{0} h"
+export const NOTIFICATION_DATE_MINUTES = "{0} min"
 
 // Point summary
 export const POINT_SUMMARY_TITLE = "Informations générales"

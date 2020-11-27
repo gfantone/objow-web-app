@@ -18,3 +18,7 @@ export const updateAccountError = () => {
         type: types.UPDATE_ACCOUNT_ERROR
     }
 }
+
+export const clearAccountUpdate = () => ({
+    type: types.CLEAR_ACCOUNT_UPDATE
+})
