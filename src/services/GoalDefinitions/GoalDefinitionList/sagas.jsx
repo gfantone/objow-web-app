@@ -23,8 +23,19 @@ function* getGoalDefinitions(action) {
     }
 }
 
-function* watchGoalDefinitionList() {
+function* getAllGoalDefinitions(action) {
+    try {
+        const {data: definitions} = yield call(api.goalDefinitions.list)
+        yield put(getGoalDefinitionListSuccess(definitions))
+    } catch(e) {
+        yield put(getGoalDefinitionListError())
+    }
+}
+
+export function* watchGoalDefinitionList() {
     yield takeEvery(types.GET_GOAL_DEFINITION_LIST, getGoalDefinitions)
 }
 
-export default watchGoalDefinitionList
+export function* watchAllGoalDefinitionList() {
+    yield takeEvery(types.GET_ALL_GOAL_DEFINITION_LIST, getAllGoalDefinitions)
+}

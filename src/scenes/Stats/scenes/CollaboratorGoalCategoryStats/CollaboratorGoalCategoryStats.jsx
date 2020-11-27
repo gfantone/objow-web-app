@@ -42,7 +42,7 @@ class CollaboratorGoalCategoryStats extends MainLayoutComponent {
     }
 
     loadData(props) {
-        const id = props.match.params.id
+        const id = props.match.params.collaboratorId
         const params = new URLSearchParams(window.location.search)
         const year = params.get('year')
 
@@ -94,7 +94,7 @@ class CollaboratorGoalCategoryStats extends MainLayoutComponent {
                 <Grid container spacing={spacing}>
                     {categories.map(category => {
                         return (
-                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/stats/collaborators/${this.props.match.params.id}/categories/${category.categoryId}/goals?year=${category.periodId}`}>
+                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/stats/collaborators/${this.props.match.params.collaboratorId}/categories/${category.categoryId}/goals?year=${category.periodId}`}>
                                 <Category category={category} />
                             </GridLink>
                         )

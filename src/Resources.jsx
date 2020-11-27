@@ -801,6 +801,15 @@ export const RICH_TEXT_PLACEHOLDER = "Entrez votre texte..."
 // Statistiques
 export const STATS_TITLE = "Statistiques"
 
+// Statistiques - Filter
+export const STATS_FILTER_TITLE = "Filtres"
+export const STATS_FILTER_CATEGORY_LABEL = "Catégorie"
+export const STATS_FILTER_GOAL_LABEL = "Objectif"
+export const STATS_FILTER_TEAM_LABEL = "Équipe"
+export const STATS_FILTER_COLLABORATOR_LABEL = "Collaborateur"
+export const STATS_FILTER_COLLABORATOR_EMPTY_OPTION = "Tous"
+export const STATS_FILTER_PERIOD_LABEL = "Année"
+
 // Statistiques - Category filter
 export const STATS_CATEGORY_FILTER_TITLE = "Filtres"
 export const STATS_CATEGORY_FILTER_TEAM_LABEL = "Équipe"

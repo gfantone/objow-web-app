@@ -9,6 +9,10 @@ export const getGoalDefinitionList = (periodId, isActive, includeData = false) =
     }
 };
 
+export const getAllGoalDefinitionList = () => ({
+    type: types.GET_ALL_GOAL_DEFINITION_LIST
+})
+
 export const getGoalDefinitionListSuccess = (definitions) => {
     return {
         type: types.GET_GOAL_DEFINITION_LIST_SUCCESS,

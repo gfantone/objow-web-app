@@ -41,7 +41,7 @@ class TeamCollaboratorGoalCategoryStats extends MainLayoutComponent {
     }
 
     loadData(props) {
-        const id = props.match.params.id
+        const id = props.match.params.teamId
         const params = new URLSearchParams(window.location.search)
         const year = params.get('year')
 
@@ -91,7 +91,7 @@ class TeamCollaboratorGoalCategoryStats extends MainLayoutComponent {
                 <Grid container spacing={spacing}>
                     {categories.map(category => {
                         return (
-                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/stats/teams/${this.props.match.params.id}/categories/${category.categoryId}/goals?year=${category.periodId}`}>
+                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/stats/teams/${this.props.match.params.teamId}/categories/${category.categoryId}/goals?year=${category.periodId}`}>
                                 <Category category={category} />
                             </GridLink>
                         )
@@ -114,7 +114,7 @@ class TeamCollaboratorGoalCategoryStats extends MainLayoutComponent {
                     onClose={this.handleFilterClose.bind(this)}
                     onChange={this.handleFilterChange.bind(this)}
                     year={this.year}
-                    team={this.props.match.params.id}
+                    team={this.props.match.params.teamId}
                 />
             </div>
         )
