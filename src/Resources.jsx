@@ -819,6 +819,10 @@ export const STATS_CATEGORY_FILTER_PERIOD_LABEL = "Année"
 export const STATS_CATEGORY_FILTER_CANCEL_BUTTON = "Annuler"
 export const STATS_CATEGORY_FILTER_SUBMIT_BUTTON = "Filtrer"
 
+// Statistiques - Goals
+export const STATS_GOALS_EMPTY_STATE_TITLE = "Aucune statistique trouvée"
+export const STATS_GOALS_EMPTY_STATE_MESSAGE = "Modifiez les filtres pour afficher d’autres statistiques"
+
 // Statistiques - Team goal category stats
 export const TEAM_GOAL_CATEGORY_STATS_TITLE = "Sélection de la catégorie"
 

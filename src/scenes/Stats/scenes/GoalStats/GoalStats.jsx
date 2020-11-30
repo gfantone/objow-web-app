@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {StatsFilter} from '../../components'
-import {Loader, MainLayoutComponent} from '../../../../components'
+import {EmptyState, Loader, MainLayoutComponent} from '../../../../components'
 import * as collaboratorGoalCategoryListActions from '../../../../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as goalDefinitionListActions from '../../../../services/GoalDefinitions/GoalDefinitionList/actions'
@@ -47,7 +47,9 @@ class GoalStats extends MainLayoutComponent {
     }
 
     handleFilterChange(categoryId, collaboratorId, definitionId, periodId, teamId) {
+        const {definitions} = this.props.goalDefinitionList
         const collaboratorChanged = this.state.collaboratorId !== collaboratorId
+        const definitionChanged = this.state.definitionId !== definitionId
         const teamChanged = this.state.teamId !== teamId
 
         this.setState({
@@ -65,6 +67,23 @@ class GoalStats extends MainLayoutComponent {
                     this.props.teamGoalCategoryListActions.getTeamGoalCategoryList(this.state.teamId, this.state.periodId)
                 }
             }
+
+            if (collaboratorChanged || teamChanged || definitionChanged) {
+                const definition = definitions.find(x => x.id === this.state.definitionId)
+                if (definition.type.code === 'C') {
+                    if (this.state.collaboratorId) {
+
+                    } else if (this.state.teamId) {
+
+                    }
+                } else if (definition.type.code === 'T') {
+                    if (this.state.collaboratorId) {
+
+                    } else if (this.state.teamId) {
+
+                    }
+                }
+            }
         })
     }
 
@@ -72,6 +91,10 @@ class GoalStats extends MainLayoutComponent {
         return (
             <div></div>
         )
+    }
+
+    renderEmptyState() {
+        return <EmptyState title={Resources.STATS_GOALS_EMPTY_STATE_TITLE} message={Resources.STATS_GOALS_EMPTY_STATE_MESSAGE} />
     }
 
     renderFilter() {
@@ -107,11 +130,9 @@ class GoalStats extends MainLayoutComponent {
     }
 
     render() {
-        const {categories: collaboratorCategories} = this.props.collaboratorGoalCategoryList
         const {period: currentPeriod, loading: currentPeriodDetailLoading} = this.props.currentPeriodDetail
         const {definitions, loading: goalDefinitionListLoading} = this.props.goalDefinitionList
         const {periods: previousPeriods, loading: previousPeriodListLoading} = this.props.previousPeriodList
-        const {categories : teamCategories} = this.props.teamGoalCategoryList
         const {teams, loading: teamListLoading} = this.props.teamList
         const filterLoading = currentPeriodDetailLoading || goalDefinitionListLoading || previousPeriodListLoading || teamListLoading
 

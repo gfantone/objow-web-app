@@ -52,6 +52,10 @@ const collaborators = {
         if (name != null && name !== '') url = `${url}&name=${name}`;
         return instance.get(url)
     },
+    collaboratorGoalStats(definitionId, collaboratorId) {
+        const url = `${baseUrl}${collaboratorId}/collaborator-goal-stats/?definition=${definitionId}`
+        return instance.get(url)
+    },
     collaboratorPointSummary(id, periodId) {
         var url = `${baseUrl}${id}/collaborator-point-summary/`
         if (periodId != null) url = `${url}?period=${periodId}`
@@ -103,6 +107,10 @@ const collaborators = {
         if (start != null) url = `${url}&start=${start.toUTCJSON()}`;
         if (end != null) url = `${url}&end=${end.toUTCJSON()}`;
         if (name != null && name !== '') url = `${url}&name=${name}`;
+        return instance.get(url)
+    },
+    teamGoalStats(definitionId, collaboratorId) {
+        const url = `${baseUrl}${collaboratorId}/team-goal-stats/?definition=${definitionId}`
         return instance.get(url)
     },
     teamPointSummary(id, periodId) {
