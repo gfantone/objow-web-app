@@ -2,18 +2,29 @@ import React from 'react'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import {Grid} from '@material-ui/core'
 import {StatsFilter} from '../../components'
 import {EmptyState, Loader, MainLayoutComponent} from '../../../../components'
 import * as collaboratorGoalCategoryListActions from '../../../../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/actions'
+import * as collaboratorGoalSummaryListActions from '../../../../services/CollaboratorGoalSummaries/CollaboratorGoalSummaryList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as goalDefinitionListActions from '../../../../services/GoalDefinitions/GoalDefinitionList/actions'
 import * as previousPeriodListActions from '../../../../services/Periods/PreviousPeriodList/actions'
+import * as teamCollaboratorGoalListActions from '../../../../services/TeamCollaboratorGoals/TeamCollaboratorGoalList/actions'
 import * as teamGoalCategoryListActions from '../../../../services/TeamGoalCategories/TeamGoalCategoryList/actions'
+import * as teamGoalSummaryListActions from '../../../../services/TeamGoalSummaries/TeamGoalSummaryList/actions'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as Resources from '../../../../Resources'
 
 class GoalStats extends MainLayoutComponent {
     state = {categoryId: null, collaboratorId: null, definitionId: null, periodId: null, teamId: null}
+
+    constructor(props) {
+        super(props)
+        this.props.collaboratorGoalSummaryListActions.clearCollaboratorGoalSummaryList()
+        this.props.teamCollaboratorGoalListActions.clearTeamCollaboratorGoalList()
+        this.props.teamGoalSummaryListActions.clearTeamGoalSummaryList()
+    }
 
     componentDidMount() {
         const params = new URLSearchParams(window.location.search)
@@ -68,19 +79,27 @@ class GoalStats extends MainLayoutComponent {
                 }
             }
 
-            if (collaboratorChanged || teamChanged || definitionChanged) {
+            if ((collaboratorChanged || teamChanged || definitionChanged) && this.state.definitionId) {
                 const definition = definitions.find(x => x.id === this.state.definitionId)
                 if (definition.type.code === 'C') {
                     if (this.state.collaboratorId) {
-
+                        this.props.teamCollaboratorGoalListActions.clearTeamCollaboratorGoalList()
+                        this.props.teamGoalSummaryListActions.clearTeamGoalSummaryList()
+                        this.props.collaboratorGoalSummaryListActions.getCollaboratorGoalSummaryListByDefinitionAndCollaborator(definition.id, this.state.collaboratorId)
                     } else if (this.state.teamId) {
-
+                        this.props.collaboratorGoalSummaryListActions.clearCollaboratorGoalSummaryList()
+                        this.props.teamGoalSummaryListActions.clearTeamGoalSummaryList()
+                        this.props.teamCollaboratorGoalListActions.getTeamCollaboratorGoalListByDefinitionAndTeam(definition.id, this.state.teamId)
                     }
                 } else if (definition.type.code === 'T') {
                     if (this.state.collaboratorId) {
-
+                        this.props.collaboratorGoalSummaryListActions.clearCollaboratorGoalSummaryList()
+                        this.props.teamCollaboratorGoalListActions.clearTeamCollaboratorGoalList()
+                        this.props.teamGoalSummaryListActions.getTeamGoalSummaryListByDefinitionAndCollaborator(definition.id, this.state.collaboratorId)
                     } else if (this.state.teamId) {
-
+                        this.props.collaboratorGoalSummaryListActions.clearCollaboratorGoalSummaryList()
+                        this.props.teamCollaboratorGoalListActions.clearTeamCollaboratorGoalList()
+                        this.props.teamGoalSummaryListActions.getTeamGoalSummaryListByDefinitionAndTeam(definition.id, this.state.teamId)
                     }
                 }
             }
@@ -89,12 +108,16 @@ class GoalStats extends MainLayoutComponent {
 
     renderData() {
         return (
-            <div></div>
+            <Grid item xs={12}>HELLO WORLD</Grid>
         )
     }
 
     renderEmptyState() {
-        return <EmptyState title={Resources.STATS_GOALS_EMPTY_STATE_TITLE} message={Resources.STATS_GOALS_EMPTY_STATE_MESSAGE} />
+        return (
+            <Grid item xs={12}>
+                <EmptyState title={Resources.STATS_GOALS_EMPTY_STATE_TITLE} message={Resources.STATS_GOALS_EMPTY_STATE_MESSAGE} />
+            </Grid>
+        )
     }
 
     renderFilter() {
@@ -109,7 +132,7 @@ class GoalStats extends MainLayoutComponent {
         const periods = [currentPeriod].concat(previousPeriods)
 
         return (
-            <div>
+            <Grid item xs={12}>
                 <StatsFilter
                     categories={categories}
                     categoryId={this.state.categoryId}
@@ -121,12 +144,16 @@ class GoalStats extends MainLayoutComponent {
                     teams={teams}
                     onChange={this.handleFilterChange.bind(this)}
                 />
-            </div>
+            </Grid>
         )
     }
 
     renderLoader() {
-        return <Loader centered />
+        return (
+            <Grid item xs={12}>
+                <Loader centered />
+            </Grid>
+        )
     }
 
     render() {
@@ -135,32 +162,45 @@ class GoalStats extends MainLayoutComponent {
         const {periods: previousPeriods, loading: previousPeriodListLoading} = this.props.previousPeriodList
         const {teams, loading: teamListLoading} = this.props.teamList
         const filterLoading = currentPeriodDetailLoading || goalDefinitionListLoading || previousPeriodListLoading || teamListLoading
+        const {goals: collaboratorGoalSummaryListGoals, loading: collaboratorGoalSummaryListLoading} = this.props.collaboratorGoalSummaryList
+        const {goals: teamCollaboratorGoalListGoals, loading: teamCollaboratorGoalListLoading} = this.props.teamCollaboratorGoalList
+        const {goals: teamGoalSummaryListGoals, loading: teamGoalSummaryListLoading} = this.props.teamGoalSummaryList
+        const goals = collaboratorGoalSummaryListGoals ? collaboratorGoalSummaryListGoals : teamCollaboratorGoalListGoals ? teamCollaboratorGoalListGoals : teamGoalSummaryListGoals ? teamGoalSummaryListGoals : null
+        const dataLoading = collaboratorGoalSummaryListLoading || teamCollaboratorGoalListLoading || teamGoalSummaryListLoading
 
         return (
-            <div>
+            <Grid container spacing={4}>
                 {!filterLoading && currentPeriod && definitions && previousPeriods && teams && this.renderFilter()}
-                {filterLoading && this.renderLoader()}
-            </div>
+                {(dataLoading || filterLoading) && this.renderLoader()}
+                {!dataLoading && goals && goals.length > 0 && this.renderData()}
+                {(!this.state.definitionId || (!dataLoading && goals && goals.length === 0)) && this.renderEmptyState()}
+            </Grid>
         )
     }
 }
 
-const mapStateToProps = ({accountDetail, collaboratorGoalCategoryList, currentPeriodDetail, goalDefinitionList, previousPeriodList, teamGoalCategoryList, teamList}) => ({
+const mapStateToProps = ({accountDetail, collaboratorGoalCategoryList, collaboratorGoalSummaryList, currentPeriodDetail, goalDefinitionList, previousPeriodList, teamCollaboratorGoalList, teamGoalCategoryList, teamGoalSummaryList, teamList}) => ({
     accountDetail,
     collaboratorGoalCategoryList,
+    collaboratorGoalSummaryList,
     currentPeriodDetail,
     goalDefinitionList,
     previousPeriodList,
+    teamCollaboratorGoalList,
     teamGoalCategoryList,
+    teamGoalSummaryList,
     teamList
 })
 
 const mapDispatchToProps = (dispatch) => ({
     collaboratorGoalCategoryListActions: bindActionCreators(collaboratorGoalCategoryListActions, dispatch),
+    collaboratorGoalSummaryListActions: bindActionCreators(collaboratorGoalSummaryListActions, dispatch),
     currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
     goalDefinitionListActions: bindActionCreators(goalDefinitionListActions, dispatch),
     previousPeriodListActions: bindActionCreators(previousPeriodListActions, dispatch),
+    teamCollaboratorGoalListActions: bindActionCreators(teamCollaboratorGoalListActions, dispatch),
     teamGoalCategoryListActions: bindActionCreators(teamGoalCategoryListActions, dispatch),
+    teamGoalSummaryListActions: bindActionCreators(teamGoalSummaryListActions, dispatch),
     teamListActions: bindActionCreators(teamListActions, dispatch)
 })
 
