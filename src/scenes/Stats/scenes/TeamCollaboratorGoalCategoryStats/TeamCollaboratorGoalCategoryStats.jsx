@@ -91,7 +91,7 @@ class TeamCollaboratorGoalCategoryStats extends MainLayoutComponent {
                 <Grid container spacing={spacing}>
                     {categories.map(category => {
                         return (
-                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/stats/teams/${this.props.match.params.teamId}/categories/${category.categoryId}/goals?year=${category.periodId}`}>
+                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/stats/goals?team=${this.props.match.params.teamId}&category=${category.categoryId}&period=${category.periodId}`}>
                                 <Category category={category} />
                             </GridLink>
                         )

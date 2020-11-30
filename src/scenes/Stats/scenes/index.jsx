@@ -1,5 +1,4 @@
 export * from './CollaboratorGoalCategoryStats'
-export * from './CollaboratorGoalStats'
+export * from './GoalStats'
 export * from './HomeStats'
 export * from './TeamCollaboratorGoalCategoryStats'
-export * from './TeamCollaboratorGoalStats'

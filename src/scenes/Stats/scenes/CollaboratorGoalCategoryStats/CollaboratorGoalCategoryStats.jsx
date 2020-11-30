@@ -87,14 +87,18 @@ class CollaboratorGoalCategoryStats extends MainLayoutComponent {
 
     renderData() {
         const {categories} = this.props.collaboratorGoalCategoryList
+        const {collaborator} = this.props.collaboratorDetail
         const spacing = isWidthUp('sm', this.props.width) ? 8 : 4
 
         return (
             <div>
                 <Grid container spacing={spacing}>
                     {categories.map(category => {
+                        var url = `/stats/goals?collaborator=${this.props.match.params.collaboratorId}&category=${category.categoryId}&period=${category.periodId}`
+                        if (collaborator && collaborator.team) url += `&team=${collaborator.team.id}`
+
                         return (
-                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/stats/collaborators/${this.props.match.params.collaboratorId}/categories/${category.categoryId}/goals?year=${category.periodId}`}>
+                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={url}>
                                 <Category category={category} />
                             </GridLink>
                         )
