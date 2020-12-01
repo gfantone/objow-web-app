@@ -11,6 +11,10 @@ const teams = {
         const url = `${baseUrl}${id}/`;
         return instance.get(url)
     },
+    definitions(id, periodId) {
+        const url = `${baseUrl}${id}/definitions/?periodId=${periodId}`
+        return instance.get(url)
+    },
     create(team) {
         return instance.post(baseUrl, team)
     },

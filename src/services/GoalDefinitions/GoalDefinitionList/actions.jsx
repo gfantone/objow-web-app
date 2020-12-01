@@ -7,10 +7,18 @@ export const getGoalDefinitionList = (periodId, isActive, includeData = false) =
         isActive,
         includeData
     }
-};
+}
 
-export const getAllGoalDefinitionList = () => ({
-    type: types.GET_ALL_GOAL_DEFINITION_LIST
+export const getGoalDefinitionListByCollaborator = (collaboratorId, periodId) => ({
+    type: types.GET_GOAL_DEFINITION_LIST_BY_COLLABORATOR,
+    collaboratorId,
+    periodId
+})
+
+export const getGoalDefinitionListByTeam = (periodId, teamId) => ({
+    type: types.GET_GOAL_DEFINITION_LIST_BY_TEAM,
+    periodId,
+    teamId
 })
 
 export const getGoalDefinitionListSuccess = (definitions) => {
@@ -18,10 +26,10 @@ export const getGoalDefinitionListSuccess = (definitions) => {
         type: types.GET_GOAL_DEFINITION_LIST_SUCCESS,
         definitions
     }
-};
+}
 
 export const getGoalDefinitionListError = () => {
     return {
         type: types.GET_GOAL_DEFINITION_LIST_ERROR
     }
-};
+}

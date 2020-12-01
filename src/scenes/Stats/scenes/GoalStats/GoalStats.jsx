@@ -3,8 +3,8 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {Grid} from '@material-ui/core'
-import {StatsFilter} from '../../components'
-import {EmptyState, Loader, MainLayoutComponent} from '../../../../components'
+import {Chart, StatsFilter} from './components'
+import {Card, DefaultTitle, EmptyState, Loader, MainLayoutComponent} from '../../../../components'
 import * as collaboratorGoalCategoryListActions from '../../../../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/actions'
 import * as collaboratorGoalSummaryListActions from '../../../../services/CollaboratorGoalSummaries/CollaboratorGoalSummaryList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
@@ -40,7 +40,6 @@ class GoalStats extends MainLayoutComponent {
         this.props.activateReturn()
         this.props.currentPeriodDetailActions.getCurrentPeriodDetail()
         this.props.previousPeriodListActions.getPreviousPeriodList()
-        this.props.goalDefinitionListActions.getAllGoalDefinitionList()
         this.props.teamListActions.getTeamList()
         this.setState({
             ...this.state,
@@ -51,8 +50,10 @@ class GoalStats extends MainLayoutComponent {
         }, () => {
             if (this.state.collaboratorId) {
                 this.props.collaboratorGoalCategoryListActions.getCollaboratorGoalCategories(this.state.collaboratorId, this.state.periodId)
+                this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(this.state.collaboratorId, this.state.periodId)
             } else if (this.state.teamId) {
                 this.props.teamGoalCategoryListActions.getTeamGoalCategoryList(this.state.teamId, this.state.periodId)
+                this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(this.state.periodId, this.state.teamId)
             }
         })
     }
@@ -61,6 +62,7 @@ class GoalStats extends MainLayoutComponent {
         const {definitions} = this.props.goalDefinitionList
         const collaboratorChanged = this.state.collaboratorId !== collaboratorId
         const definitionChanged = this.state.definitionId !== definitionId
+        const periodChanged = this.state.periodId !== periodId
         const teamChanged = this.state.teamId !== teamId
 
         this.setState({
@@ -71,35 +73,39 @@ class GoalStats extends MainLayoutComponent {
             periodId: periodId,
             teamId: teamId
         }, () => {
-            if (collaboratorChanged || teamChanged) {
+            if (collaboratorChanged || periodChanged || teamChanged) {
                 if (this.state.collaboratorId) {
                     this.props.collaboratorGoalCategoryListActions.getCollaboratorGoalCategories(this.state.collaboratorId, this.state.periodId)
+                    this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(this.state.collaboratorId, this.state.periodId)
                 } else if (this.state.teamId) {
                     this.props.teamGoalCategoryListActions.getTeamGoalCategoryList(this.state.teamId, this.state.periodId)
+                    this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(this.state.periodId, this.state.teamId)
                 }
             }
 
             if ((collaboratorChanged || teamChanged || definitionChanged) && this.state.definitionId) {
                 const definition = definitions.find(x => x.id === this.state.definitionId)
-                if (definition.type.code === 'C') {
-                    if (this.state.collaboratorId) {
-                        this.props.teamCollaboratorGoalListActions.clearTeamCollaboratorGoalList()
-                        this.props.teamGoalSummaryListActions.clearTeamGoalSummaryList()
-                        this.props.collaboratorGoalSummaryListActions.getCollaboratorGoalSummaryListByDefinitionAndCollaborator(definition.id, this.state.collaboratorId)
-                    } else if (this.state.teamId) {
-                        this.props.collaboratorGoalSummaryListActions.clearCollaboratorGoalSummaryList()
-                        this.props.teamGoalSummaryListActions.clearTeamGoalSummaryList()
-                        this.props.teamCollaboratorGoalListActions.getTeamCollaboratorGoalListByDefinitionAndTeam(definition.id, this.state.teamId)
-                    }
-                } else if (definition.type.code === 'T') {
-                    if (this.state.collaboratorId) {
-                        this.props.collaboratorGoalSummaryListActions.clearCollaboratorGoalSummaryList()
-                        this.props.teamCollaboratorGoalListActions.clearTeamCollaboratorGoalList()
-                        this.props.teamGoalSummaryListActions.getTeamGoalSummaryListByDefinitionAndCollaborator(definition.id, this.state.collaboratorId)
-                    } else if (this.state.teamId) {
-                        this.props.collaboratorGoalSummaryListActions.clearCollaboratorGoalSummaryList()
-                        this.props.teamCollaboratorGoalListActions.clearTeamCollaboratorGoalList()
-                        this.props.teamGoalSummaryListActions.getTeamGoalSummaryListByDefinitionAndTeam(definition.id, this.state.teamId)
+                if (definition) {
+                    if (definition.typeCode === 'C') {
+                        if (this.state.collaboratorId) {
+                            this.props.teamCollaboratorGoalListActions.clearTeamCollaboratorGoalList()
+                            this.props.teamGoalSummaryListActions.clearTeamGoalSummaryList()
+                            this.props.collaboratorGoalSummaryListActions.getCollaboratorGoalSummaryListByDefinitionAndCollaborator(definition.id, this.state.collaboratorId)
+                        } else if (this.state.teamId) {
+                            this.props.collaboratorGoalSummaryListActions.clearCollaboratorGoalSummaryList()
+                            this.props.teamGoalSummaryListActions.clearTeamGoalSummaryList()
+                            this.props.teamCollaboratorGoalListActions.getTeamCollaboratorGoalListByDefinitionAndTeam(definition.id, this.state.teamId)
+                        }
+                    } else if (definition.typeCode === 'T') {
+                        if (this.state.collaboratorId) {
+                            this.props.collaboratorGoalSummaryListActions.clearCollaboratorGoalSummaryList()
+                            this.props.teamCollaboratorGoalListActions.clearTeamCollaboratorGoalList()
+                            this.props.teamGoalSummaryListActions.getTeamGoalSummaryListByDefinitionAndCollaborator(definition.id, this.state.collaboratorId)
+                        } else if (this.state.teamId) {
+                            this.props.collaboratorGoalSummaryListActions.clearCollaboratorGoalSummaryList()
+                            this.props.teamCollaboratorGoalListActions.clearTeamCollaboratorGoalList()
+                            this.props.teamGoalSummaryListActions.getTeamGoalSummaryListByDefinitionAndTeam(definition.id, this.state.teamId)
+                        }
                     }
                 }
             }
@@ -107,8 +113,49 @@ class GoalStats extends MainLayoutComponent {
     }
 
     renderData() {
+        const {goals: collaboratorGoalSummaryListGoals} = this.props.collaboratorGoalSummaryList
+        const {period: currentPeriod} = this.props.currentPeriodDetail
+        const {periods: previousPeriods} = this.props.previousPeriodList
+        const {goals: teamCollaboratorGoalListGoals} = this.props.teamCollaboratorGoalList
+        const {goals: teamGoalSummaryListGoals} = this.props.teamGoalSummaryList
+        const periods = [currentPeriod].concat(previousPeriods)
+        const period = periods.find(x => x.id === this.state.periodId)
+        const periodStart = '{0}-{1}-{2}'.format(period.start.toDate2().getFullYear(), period.start.toDate2().getMonth() + 1, period.start.toDate2().getDate())
+        const periodEnd = '{0}-{1}-{2}'.format(period.end.toDate2().getFullYear(), period.end.toDate2().getMonth() + 1, period.end.toDate2().getDate())
+        const goals = collaboratorGoalSummaryListGoals ? collaboratorGoalSummaryListGoals : teamCollaboratorGoalListGoals ? teamCollaboratorGoalListGoals : teamGoalSummaryListGoals ? teamGoalSummaryListGoals : []
+        const pointData = goals.map(x => ({
+            color: x.color,
+            counter: x.counter,
+            maxPoints: x.maxPoints,
+            points: x.points,
+            target: x.target,
+            typeCode: x.type,
+            x: '{0}-{1}-{2}'.format(x.end.toDate2().getFullYear(), x.end.toDate2().getMonth() + 1, x.end.toDate2().getUTCDate()),
+            y: Math.round((x.counter / x.target) * 100)
+        }))
+        const data = [
+            {
+                id: 'japan',
+                color: '#00E58D',
+                data: pointData
+            }
+        ]
+
         return (
-            <Grid item xs={12}>HELLO WORLD</Grid>
+            <Grid item xs={12}>
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                        <DefaultTitle>Performances</DefaultTitle>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Card>
+                            <div style={{height: 600}}>
+                                <Chart data={data} end={periodEnd} start={periodStart} />
+                            </div>
+                        </Card>
+                    </Grid>
+                </Grid>
+            </Grid>
         )
     }
 
@@ -123,7 +170,7 @@ class GoalStats extends MainLayoutComponent {
     renderFilter() {
         const {categories: collaboratorCategories, loading: collaboratorGoalCategoryListLoading} = this.props.collaboratorGoalCategoryList
         const {period: currentPeriod} = this.props.currentPeriodDetail
-        const {definitions} = this.props.goalDefinitionList
+        const {definitions, loading: definitionLoading} = this.props.goalDefinitionList
         const {periods: previousPeriods} = this.props.previousPeriodList
         const {categories : teamCategories, loading: teamGoalCategoryListLoading} = this.props.teamGoalCategoryList
         const {teams} = this.props.teamList
@@ -138,6 +185,7 @@ class GoalStats extends MainLayoutComponent {
                     categoryId={this.state.categoryId}
                     categoryLoading={categoryLoading}
                     collaboratorId={this.state.collaboratorId}
+                    definitionLoading={definitionLoading}
                     definitions={definitions}
                     periods={periods}
                     teamId={this.state.teamId}
@@ -158,10 +206,10 @@ class GoalStats extends MainLayoutComponent {
 
     render() {
         const {period: currentPeriod, loading: currentPeriodDetailLoading} = this.props.currentPeriodDetail
-        const {definitions, loading: goalDefinitionListLoading} = this.props.goalDefinitionList
         const {periods: previousPeriods, loading: previousPeriodListLoading} = this.props.previousPeriodList
         const {teams, loading: teamListLoading} = this.props.teamList
-        const filterLoading = currentPeriodDetailLoading || goalDefinitionListLoading || previousPeriodListLoading || teamListLoading
+        const filterLoading = currentPeriodDetailLoading || previousPeriodListLoading || teamListLoading
+        const canDisplayFilter = !filterLoading && currentPeriod && previousPeriods && teams && this.state.periodId
         const {goals: collaboratorGoalSummaryListGoals, loading: collaboratorGoalSummaryListLoading} = this.props.collaboratorGoalSummaryList
         const {goals: teamCollaboratorGoalListGoals, loading: teamCollaboratorGoalListLoading} = this.props.teamCollaboratorGoalList
         const {goals: teamGoalSummaryListGoals, loading: teamGoalSummaryListLoading} = this.props.teamGoalSummaryList
@@ -170,10 +218,10 @@ class GoalStats extends MainLayoutComponent {
 
         return (
             <Grid container spacing={4}>
-                {!filterLoading && currentPeriod && definitions && previousPeriods && teams && this.renderFilter()}
+                {canDisplayFilter && this.renderFilter()}
                 {(dataLoading || filterLoading) && this.renderLoader()}
-                {!dataLoading && goals && goals.length > 0 && this.renderData()}
-                {(!this.state.definitionId || (!dataLoading && goals && goals.length === 0)) && this.renderEmptyState()}
+                {canDisplayFilter && this.state.definitionId && !dataLoading && goals && goals.length > 0 && this.renderData()}
+                {canDisplayFilter && (!this.state.definitionId || (!dataLoading && goals && goals.length === 0)) && this.renderEmptyState()}
             </Grid>
         )
     }

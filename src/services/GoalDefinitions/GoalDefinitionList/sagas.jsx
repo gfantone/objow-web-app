@@ -23,9 +23,18 @@ function* getGoalDefinitions(action) {
     }
 }
 
-function* getAllGoalDefinitions(action) {
+function* getGoalDefinitionsByCollaborator(action) {
     try {
-        const {data: definitions} = yield call(api.goalDefinitions.list)
+        const {data: definitions} = yield call(api.collaborators.definitions, action.collaboratorId, action.periodId)
+        yield put(getGoalDefinitionListSuccess(definitions))
+    } catch(e) {
+        yield put(getGoalDefinitionListError())
+    }
+}
+
+function* getGoalDefinitionsByTeam(action) {
+    try {
+        const {data: definitions} = yield call(api.teams.definitions, action.teamId, action.periodId)
         yield put(getGoalDefinitionListSuccess(definitions))
     } catch(e) {
         yield put(getGoalDefinitionListError())
@@ -36,6 +45,10 @@ export function* watchGoalDefinitionList() {
     yield takeEvery(types.GET_GOAL_DEFINITION_LIST, getGoalDefinitions)
 }
 
-export function* watchAllGoalDefinitionList() {
-    yield takeEvery(types.GET_ALL_GOAL_DEFINITION_LIST, getAllGoalDefinitions)
+export function* watchGoalDefinitionListByCollaborator() {
+    yield takeEvery(types.GET_GOAL_DEFINITION_LIST_BY_COLLABORATOR, getGoalDefinitionsByCollaborator)
+}
+
+export function* watchGoalDefinitionListByTeam() {
+    yield takeEvery(types.GET_GOAL_DEFINITION_LIST_BY_TEAM, getGoalDefinitionsByTeam)
 }

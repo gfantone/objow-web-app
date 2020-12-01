@@ -2,17 +2,17 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Grid, Hidden} from '@material-ui/core'
 import Formsy from 'formsy-react'
-import {Card, DefaultTitle, Select} from '../../../../components'
-import * as Resources from '../../../../Resources'
+import {Card, DefaultTitle, Select} from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
 
-const StatsFilter = ({categories, categoryId, categoryLoading, collaboratorId, definitions, goalId, periodId, periods, teamId, teams, onChange, ...props}) => {
+const StatsFilter = ({categories, categoryId, categoryLoading, collaboratorId, definitionLoading, definitions, goalId, periodId, periods, teamId, teams, onChange, ...props}) => {
     const {account} = props.accountDetail
     const [selectedCategory, setSelectedCategory] = React.useState(categoryId)
     const [selectedCollaborator, setSelectedCollaborator] = React.useState(collaboratorId)
     const [selectedDefinition, setSelectedDefinition] = React.useState(goalId)
     const [selectedPeriod, setSelectedPeriod] = React.useState(periodId ? periodId : periods[0].id)
     const [selectedTeam, setSelectedTeam] = React.useState(teamId)
-    const categoryDefinitions = definitions.filter(x => x.category.id === selectedCategory && x.period === selectedPeriod)
+    const categoryDefinitions = definitions.filter(x => x.categoryId === selectedCategory)
     const team = selectedTeam ? teams.filter(x => x.id === selectedTeam)[0] : null
     const collaborators = team ? team.collaborators : null
 
@@ -21,8 +21,11 @@ const StatsFilter = ({categories, categoryId, categoryLoading, collaboratorId, d
     }
 
     function handleCategoryChange(newCategory) {
-        setSelectedCategory(Number(newCategory))
-        handleChange(Number(newCategory), selectedCollaborator, selectedDefinition, selectedPeriod, selectedTeam)
+        if (selectedCategory !== Number(newCategory)) {
+            setSelectedCategory(Number(newCategory))
+            setSelectedDefinition(null)
+            handleChange(Number(newCategory), selectedCollaborator, null, selectedPeriod, selectedTeam)
+        }
     }
 
     function handleCollaboratorChange(newCollaborator) {
@@ -36,8 +39,11 @@ const StatsFilter = ({categories, categoryId, categoryLoading, collaboratorId, d
     }
 
     function handlePeriodChange(newPeriod) {
-        setSelectedPeriod(Number(newPeriod))
-        handleChange(selectedCategory, selectedCollaborator, selectedDefinition, Number(newPeriod), selectedTeam)
+        if (selectedPeriod !== Number(newPeriod)) {
+            setSelectedPeriod(Number(newPeriod))
+            setSelectedDefinition(null)
+            handleChange(selectedCategory, selectedCollaborator, null, Number(newPeriod), selectedTeam)
+        }
     }
 
     function handleTeamChange(newTeam) {
@@ -97,6 +103,7 @@ const StatsFilter = ({categories, categoryId, categoryLoading, collaboratorId, d
                                 </Grid>}
                                 <Grid item xs={12}>
                                     <Select
+                                        disabled={definitionLoading}
                                         fullWidth
                                         initial={selectedDefinition}
                                         label={Resources.STATS_FILTER_GOAL_LABEL}
@@ -186,6 +193,7 @@ const StatsFilter = ({categories, categoryId, categoryLoading, collaboratorId, d
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
                                             <Select
+                                                disabled={definitionLoading}
                                                 fullWidth
                                                 initial={selectedDefinition}
                                                 label={Resources.STATS_FILTER_GOAL_LABEL}

@@ -307,6 +307,16 @@ export const CHALLENGE_UPDATE_GOAL_TARGET_INFO_TEXT = "L’objectif fixé ici pe
 export const CHALLENGE_UPDATE_GOAL_POINTS_LABEL = "Pts"
 export const CHALLENGE_UPDATE_SUBMIT_BUTTON = "Valider"
 
+// Chart
+export const CHART_X_LEGEND = "Périodes"
+export const CHART_Y_LEGEND = "%"
+export const CHART_TARGET_TEXT = "Objectif : {0}"
+export const CHART_COUNTER_TEXT = "Réalisé : {0}"
+export const CHART_POINTS_TEXT = "{0} pts"
+export const CHART_MAX_POINTS_TEXT = "/ {0} max"
+export const CHART_COLLABORATOR_TYPE_TEXT = "Solo"
+export const CHART_TEAM_TYPE_TEXT = "Équipe"
+
 // Coaching list
 export const COACHING_LIST_LONG_TITLE = "Les coaching lists"
 export const COACHING_LIST_SHORT_TITLE = "Coaching list"

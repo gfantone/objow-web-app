@@ -73,7 +73,7 @@ import watchGoalDefinitionDetail from './GoalDefinitions/GoalDefinitionDetail/sa
 import watchGoalDefinitionCreation from './GoalDefinitions/GoalDefinitionCreation/sagas'
 import watchGoalDefinitionLevelCollaboratorPoints from './GoalDefinitionLevels/GoalDefinitionLevelCollaoratorPoints/sagas'
 import watchGoalDefinitionLevelTeamPoints from './GoalDefinitionLevels/GoalDefinitionLevelTeamPoints/sagas'
-import {watchGoalDefinitionList, watchAllGoalDefinitionList} from './GoalDefinitions/GoalDefinitionList/sagas'
+import {watchGoalDefinitionList, watchGoalDefinitionListByCollaborator, watchGoalDefinitionListByTeam} from './GoalDefinitions/GoalDefinitionList/sagas'
 import watchGoalDefinitionUpdate from './GoalDefinitions/GoalDefinitionUpdate/sagas'
 import watchGoalDefinitionActivationUpdate from './GoalDefinitions/GoalDefinitionActivationUpdate/sagas'
 import watchGoalDefinitionLevelList from './GoalDefinitionLevels/GoalDefinitionLevelList/sagas'
@@ -258,7 +258,8 @@ function* rootSaga() {
         watchGoalDefinitionLevelListUpdate(),
         watchGoalDefinitionLevelTeamPoints(),
         watchGoalDefinitionList(),
-        watchAllGoalDefinitionList(),
+        watchGoalDefinitionListByCollaborator(),
+        watchGoalDefinitionListByTeam(),
         watchGoalDefinitionUpdate(),
         watchGoalDetail(),
         watchGoalList(),

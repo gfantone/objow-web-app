@@ -4,7 +4,8 @@ import initialState from '../../../store/initialState';
 let GoalDefinitionList = (state = initialState.goalDefinitionList, action) => {
     switch (action.type) {
         case types.GET_GOAL_DEFINITION_LIST:
-        case types.GET_ALL_GOAL_DEFINITION_LIST:
+        case types.GET_GOAL_DEFINITION_LIST_BY_COLLABORATOR:
+        case types.GET_GOAL_DEFINITION_LIST_BY_TEAM:
             return {...state, definitions: [], count: 0, loading: true, hasError: false};
 
         case types.GET_GOAL_DEFINITION_LIST_SUCCESS:
