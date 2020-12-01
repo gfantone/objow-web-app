@@ -2,8 +2,8 @@ import React from 'react'
 import {ResponsiveLine} from '@nivo/line'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faFireAlt, faUser, faUsers} from '@fortawesome/free-solid-svg-icons'
-import {DefaultText, InfoText} from '../../../../../../components'
-import * as Resources from '../../../../../../Resources'
+import {DefaultText, InfoText} from '../../../../../../../../components'
+import * as Resources from '../../../../../../../../Resources'
 
 const Chart = ({data, end, start, ...props}) => {
     var max = 100

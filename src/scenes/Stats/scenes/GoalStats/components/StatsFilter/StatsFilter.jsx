@@ -1,246 +1,221 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import {Grid, Hidden} from '@material-ui/core'
-import Formsy from 'formsy-react'
-import {Card, DefaultTitle, Select} from '../../../../../../components'
+import {BaseForm, MobileForm} from './components'
+import {Card, DefaultTitle, Loader} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
+import * as collaboratorGoalCategoryListActions from '../../../../../../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/actions'
+import * as currentPeriodDetailActions from '../../../../../../services/Periods/CurrentPeriodDetail/actions'
+import * as goalDefinitionListActions from '../../../../../../services/GoalDefinitions/GoalDefinitionList/actions'
+import * as previousPeriodListActions from '../../../../../../services/Periods/PreviousPeriodList/actions'
+import * as teamGoalCategoryListActions from '../../../../../../services/TeamGoalCategories/TeamGoalCategoryList/actions'
+import * as teamListActions from '../../../../../../services/Teams/TeamList/actions';
 
-const StatsFilter = ({categories, categoryId, categoryLoading, collaboratorId, definitionLoading, definitions, goalId, periodId, periods, teamId, teams, onChange, ...props}) => {
-    const {account} = props.accountDetail
-    const [selectedCategory, setSelectedCategory] = React.useState(categoryId)
-    const [selectedCollaborator, setSelectedCollaborator] = React.useState(collaboratorId)
-    const [selectedDefinition, setSelectedDefinition] = React.useState(goalId)
-    const [selectedPeriod, setSelectedPeriod] = React.useState(periodId ? periodId : periods[0].id)
-    const [selectedTeam, setSelectedTeam] = React.useState(teamId)
-    const categoryDefinitions = definitions.filter(x => x.categoryId === selectedCategory)
-    const team = selectedTeam ? teams.filter(x => x.id === selectedTeam)[0] : null
-    const collaborators = team ? team.collaborators : null
+const StatsFilter = ({initialCategory, initialCollaborator, initialPeriod, initialTeam, onChange, onFilterRequiredLoaded, ...props}) => {
+    const [selectedCategory, setSelectedCategory] = React.useState(initialCategory)
+    const [selectedCollaborator, setSelectedCollaborator] = React.useState(initialCollaborator)
+    const [selectedDefinition, setSelectedDefinition] = React.useState(null)
+    const [selectedPeriod, setSelectedPeriod] = React.useState(initialPeriod)
+    const [selectedTeam, setSelectedTeam] = React.useState(initialTeam)
+    const {categories: collaboratorCategories, loading: collaboratorGoalCategoryListLoading} = props.collaboratorGoalCategoryList
+    const {period: currentPeriod, loading: currentPeriodDetailLoading} = props.currentPeriodDetail
+    const {definitions, loading: goalDefinitionListLoading} = props.goalDefinitionList
+    const {periods: previousPeriods, loading: previousPeriodListLoading} = props.previousPeriodList
+    const {categories: teamCategories, loading: teamGoalCategoryListLoading} = props.teamGoalCategoryList
+    const {teams, loading: teamListLoading} = props.teamList
+    const categories = selectedCollaborator ? collaboratorCategories : selectedTeam ? teamCategories : null
+    const categoryDefinitions = selectedCategory && definitions ? definitions.filter(x => x.categoryId === selectedCategory) : null
+    const categoryDisabled = !categories || collaboratorGoalCategoryListLoading || teamGoalCategoryListLoading
+    const collaborators = selectedTeam && teams && teams.length > 0 ? teams.filter(x => x.id === selectedTeam)[0].collaborators : null
+    const definitionDisabled = !categoryDefinitions || goalDefinitionListLoading
+    const periods = currentPeriod && previousPeriods ? [currentPeriod].concat(previousPeriods) : null
+    const requiredLoading = currentPeriodDetailLoading || previousPeriodListLoading || teamListLoading
 
-    function handleChange(newCategory, newCollaborator, newDefinition, newPeriod, newTeam) {
-        if (onChange) onChange(newCategory, newCollaborator, newDefinition, newPeriod, newTeam)
-    }
+    useEffect(() => {
+        props.currentPeriodDetailActions.getCurrentPeriodDetail()
+        props.previousPeriodListActions.getPreviousPeriodList()
+        props.teamListActions.getTeamList()
+        loadCategories(selectedCollaborator, selectedPeriod, selectedTeam)
+        loadDefinitions(selectedCollaborator, selectedPeriod, selectedTeam)
+    }, [])
 
-    function handleCategoryChange(newCategory) {
-        if (selectedCategory !== Number(newCategory)) {
-            setSelectedCategory(Number(newCategory))
+    useEffect(() => {
+        onFilterRequiredLoaded(!currentPeriodDetailLoading && !previousPeriodListLoading && !teamListLoading)
+    }, [currentPeriodDetailLoading, previousPeriodListLoading, teamListLoading])
+
+    useEffect(() => {
+        if (
+            selectedCategory
+            && (
+                (selectedCollaborator && !collaboratorGoalCategoryListLoading && collaboratorCategories && collaboratorCategories.filter(x => x.categoryId === selectedCategory).length === 0)
+                || (!selectedCollaborator && selectedTeam && !teamGoalCategoryListLoading && teamCategories && teamCategories.filter(x => x.categoryId === selectedCategory).length === 0)
+            )
+        ) {
+            const category = selectedCollaborator ? collaboratorCategories[0].categoryId : teamCategories[0].categoryId
+            setSelectedCategory(category)
+        }
+    }, [collaboratorCategories, collaboratorGoalCategoryListLoading, teamCategories, teamGoalCategoryListLoading])
+
+    useEffect(() => {
+        if (selectedDefinition && !goalDefinitionListLoading && definitions && definitions.filter(x => x.id === selectedDefinition).length === 0) {
             setSelectedDefinition(null)
-            handleChange(Number(newCategory), selectedCollaborator, null, selectedPeriod, selectedTeam)
+            onChange(selectedCollaborator, null, selectedPeriod, selectedTeam)
+        }
+    }, [definitions, goalDefinitionListLoading])
+
+    function handleCategoryChange(value) {
+        const newCategory = value ? Number(value) : null
+        if (selectedCategory !== newCategory) {
+            setSelectedCategory(newCategory)
+            setSelectedDefinition(null)
+            onChange(selectedCollaborator, null, selectedPeriod, selectedTeam)
         }
     }
 
-    function handleCollaboratorChange(newCollaborator) {
-        setSelectedCollaborator(Number(newCollaborator))
-        handleChange(selectedCategory, Number(newCollaborator), selectedDefinition, selectedPeriod, selectedTeam)
-    }
-
-    function handleDefinitionChange(newDefinition) {
-        setSelectedDefinition(Number(newDefinition))
-        handleChange(selectedCategory, selectedCollaborator, Number(newDefinition), selectedPeriod, selectedTeam)
-    }
-
-    function handlePeriodChange(newPeriod) {
-        if (selectedPeriod !== Number(newPeriod)) {
-            setSelectedPeriod(Number(newPeriod))
-            setSelectedDefinition(null)
-            handleChange(selectedCategory, selectedCollaborator, null, Number(newPeriod), selectedTeam)
+    function handleCollaboratorChange(value) {
+        const newCollaborator = value ? Number(value) : null
+        if (selectedCollaborator !== newCollaborator) {
+            setSelectedCollaborator(newCollaborator)
+            const team = !newCollaborator ? selectedTeam : null
+            onChange(newCollaborator, selectedDefinition, selectedPeriod, team)
+            loadCategories(newCollaborator, selectedPeriod, team)
+            loadDefinitions(newCollaborator, selectedPeriod, team)
         }
     }
 
-    function handleTeamChange(newTeam) {
-        setSelectedTeam(Number(newTeam))
-        handleChange(selectedCategory, selectedCollaborator, selectedDefinition, selectedPeriod, Number(newTeam))
+    function handleDefinitionChange(value) {
+        const newDefinition = value ? Number(value) : null
+        if (selectedDefinition !== newDefinition) {
+            setSelectedDefinition(newDefinition)
+            onChange(selectedCollaborator, newDefinition, selectedPeriod, selectedTeam)
+        }
     }
 
-    function renderMobileFilter() {
+    function handlePeriodChange(value) {
+        const newPeriod = value ? Number(value) : null
+        if (selectedPeriod !== newPeriod) {
+            setSelectedPeriod(newPeriod)
+            setSelectedDefinition(null)
+            const team = !selectedCollaborator ? selectedTeam : null
+            onChange(selectedCollaborator, null, newPeriod, team)
+            loadCategories(selectedCollaborator, newPeriod, team)
+            loadDefinitions(selectedCollaborator, newPeriod, team)
+        }
+    }
+
+    function handleTeamChange(value) {
+        const newTeam = value ? Number(value) : null
+        if (selectedTeam !== newTeam) {
+            setSelectedTeam(newTeam)
+            setSelectedCollaborator(null)
+            onChange(null, selectedDefinition, selectedPeriod, newTeam)
+            loadCategories(null, selectedPeriod, newTeam)
+            loadDefinitions(null, selectedPeriod, newTeam)
+        }
+    }
+
+    function loadCategories(collaborator, period, team) {
+        if (collaborator) {
+            props.collaboratorGoalCategoryListActions.getCollaboratorGoalCategories(collaborator, period)
+        } else if (team) {
+            props.teamGoalCategoryListActions.getTeamGoalCategoryList(team, period)
+        }
+    }
+
+    function loadDefinitions(collaborator, period, team) {
+        if (selectedCollaborator) {
+            props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(collaborator, period)
+        } else if (selectedTeam) {
+            props.goalDefinitionListActions.getGoalDefinitionListByTeam(period, team)
+        }
+    }
+
+    function renderData() {
         return (
-            <Grid container spacing={1}>
-                <Grid item xs={12}>
-                    <DefaultTitle>{Resources.STATS_FILTER_TITLE}</DefaultTitle>
-                </Grid>
-                <Grid item xs={12}>
-                    <Card>
-                        <Formsy>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <Select
-                                        disabled={categoryLoading}
-                                        emptyDisabled
-                                        fullWidth
-                                        initial={selectedCategory}
-                                        label={Resources.STATS_FILTER_CATEGORY_LABEL}
-                                        name='category'
-                                        options={categories}
-                                        optionValueName='categoryId'
-                                        optionTextName='name'
-                                        onChange={handleCategoryChange}
-                                    />
-                                </Grid>
-                                {account.role.code === 'A' && <Grid item xs={12}>
-                                    <Select
-                                        emptyDisabled
-                                        fullWidth
-                                        initial={selectedTeam}
-                                        label={Resources.STATS_FILTER_TEAM_LABEL}
-                                        name='team'
-                                        options={teams}
-                                        optionValueName='id'
-                                        optionTextName='name'
-                                        onChange={handleTeamChange}
-                                    />
-                                </Grid>}
-                                {account.role.code !== 'C' && <Grid item xs={12}>
-                                    <Select
-                                        emptyText={Resources.STATS_FILTER_COLLABORATOR_EMPTY_OPTION}
-                                        fullWidth
-                                        initial={selectedCollaborator}
-                                        label={Resources.STATS_FILTER_COLLABORATOR_LABEL}
-                                        name='collaborator'
-                                        options={collaborators}
-                                        optionValueName='id'
-                                        optionTextName='fullname'
-                                        onChange={handleCollaboratorChange}
-                                    />
-                                </Grid>}
-                                <Grid item xs={12}>
-                                    <Select
-                                        disabled={definitionLoading}
-                                        fullWidth
-                                        initial={selectedDefinition}
-                                        label={Resources.STATS_FILTER_GOAL_LABEL}
-                                        name='definition'
-                                        options={categoryDefinitions}
-                                        optionValueName='id'
-                                        optionTextName='name'
-                                        onChange={handleDefinitionChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Select
-                                        emptyDisabled
-                                        fullWidth
-                                        initial={selectedPeriod}
-                                        label={Resources.STATS_FILTER_PERIOD_LABEL}
-                                        name='period'
-                                        options={periods}
-                                        optionValueName='id'
-                                        optionTextName='name'
-                                        onChange={handlePeriodChange}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </Formsy>
-                    </Card>
-                </Grid>
-            </Grid>
+            <React.Fragment>
+                <Hidden smUp implementation='css'>
+                    <MobileForm
+                        categories={categories}
+                        category={selectedCategory}
+                        categoryLoading={categoryDisabled}
+                        collaborator={selectedCollaborator}
+                        collaborators={collaborators}
+                        definition={selectedDefinition}
+                        definitionDisabled={definitionDisabled}
+                        definitions={categoryDefinitions}
+                        period={selectedPeriod}
+                        periods={periods}
+                        team={selectedTeam}
+                        teams={teams}
+                        onCategoryChange={handleCategoryChange}
+                        onCollaboratorChange={handleCollaboratorChange}
+                        onDefinitionChange={handleDefinitionChange}
+                        onPeriodChange={handlePeriodChange}
+                        onTeamChange={handleTeamChange}
+                    />
+                </Hidden>
+                <Hidden xsDown implementation='css'>
+                    <BaseForm
+                        categories={categories}
+                        category={selectedCategory}
+                        categoryLoading={categoryDisabled}
+                        collaborator={selectedCollaborator}
+                        collaborators={collaborators}
+                        definition={selectedDefinition}
+                        definitionDisabled={definitionDisabled}
+                        definitions={categoryDefinitions}
+                        period={selectedPeriod}
+                        periods={periods}
+                        team={selectedTeam}
+                        teams={teams}
+                        onCategoryChange={handleCategoryChange}
+                        onCollaboratorChange={handleCollaboratorChange}
+                        onDefinitionChange={handleDefinitionChange}
+                        onPeriodChange={handlePeriodChange}
+                        onTeamChange={handleTeamChange}
+                    />
+                </Hidden>
+            </React.Fragment>
         )
     }
 
-    function renderOtherFilter() {
-        return (
-            <Grid container spacing={1}>
-                <Grid item xs={12}>
-                    <DefaultTitle>{Resources.STATS_FILTER_TITLE}</DefaultTitle>
-                </Grid>
-                <Grid item xs={12}>
-                    <Card>
-                        <Formsy>
-                            <Grid container spacing={2}>
-                                <Grid item xs={6}>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12}>
-                                            <Select
-                                                disabled={categoryLoading}
-                                                emptyDisabled
-                                                fullWidth
-                                                initial={selectedCategory}
-                                                label={Resources.STATS_FILTER_CATEGORY_LABEL}
-                                                name='category'
-                                                options={categories}
-                                                optionValueName='categoryId'
-                                                optionTextName='name'
-                                                onChange={handleCategoryChange}
-                                            />
-                                        </Grid>
-                                        {account.role.code === 'A' && <Grid item xs={12}>
-                                            <Select
-                                                emptyDisabled
-                                                fullWidth
-                                                initial={selectedTeam}
-                                                label={Resources.STATS_FILTER_TEAM_LABEL}
-                                                name='team'
-                                                options={teams}
-                                                optionValueName='id'
-                                                optionTextName='name'
-                                                onChange={handleTeamChange}
-                                            />
-                                        </Grid>}
-                                        {account.role.code !== 'C' && <Grid item xs={12}>
-                                            <Select
-                                                emptyText={Resources.STATS_FILTER_COLLABORATOR_EMPTY_OPTION}
-                                                fullWidth
-                                                initial={selectedCollaborator}
-                                                label={Resources.STATS_FILTER_COLLABORATOR_LABEL}
-                                                name='collaborator'
-                                                options={collaborators}
-                                                optionValueName='id'
-                                                optionTextName='fullname'
-                                                onChange={handleCollaboratorChange}
-                                            />
-                                        </Grid>}
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Grid container spacing={2}>
-                                        <Grid item xs={12}>
-                                            <Select
-                                                disabled={definitionLoading}
-                                                fullWidth
-                                                initial={selectedDefinition}
-                                                label={Resources.STATS_FILTER_GOAL_LABEL}
-                                                name='definition'
-                                                options={categoryDefinitions}
-                                                optionValueName='id'
-                                                optionTextName='name'
-                                                onChange={handleDefinitionChange}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <Select
-                                                emptyDisabled
-                                                fullWidth
-                                                initial={selectedPeriod}
-                                                label={Resources.STATS_FILTER_PERIOD_LABEL}
-                                                name='period'
-                                                options={periods}
-                                                optionValueName='id'
-                                                optionTextName='name'
-                                                onChange={handlePeriodChange}
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Formsy>
-                    </Card>
-                </Grid>
-            </Grid>
-        )
+    function renderLoader() {
+        return <Loader centered />
     }
 
     return (
-        <div>
-            <Hidden smUp implementation='css'>
-                {renderMobileFilter()}
-            </Hidden>
-            <Hidden xsDown implementation='css'>
-                {renderOtherFilter()}
-            </Hidden>
-        </div>
+        <Grid container spacing={1}>
+            <Grid item xs={12}>
+                <DefaultTitle>{Resources.STATS_FILTER_TITLE}</DefaultTitle>
+            </Grid>
+            <Grid item xs={12}>
+                <Card>
+                    {requiredLoading && renderLoader()}
+                    {!requiredLoading && periods && teams && renderData()}
+                </Card>
+            </Grid>
+        </Grid>
     )
 }
 
-const mapStateToProps = ({accountDetail}) => ({
-    accountDetail
+const mapStateToProps = ({accountDetail, collaboratorGoalCategoryList, currentPeriodDetail, goalDefinitionList, previousPeriodList, teamGoalCategoryList, teamList}) => ({
+    accountDetail,
+    collaboratorGoalCategoryList,
+    currentPeriodDetail,
+    goalDefinitionList,
+    previousPeriodList,
+    teamGoalCategoryList,
+    teamList
 })
 
-export default connect(mapStateToProps)(StatsFilter)
+const mapDispatchToProps = (dispatch) => ({
+    collaboratorGoalCategoryListActions: bindActionCreators(collaboratorGoalCategoryListActions, dispatch),
+    currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
+    goalDefinitionListActions: bindActionCreators(goalDefinitionListActions, dispatch),
+    previousPeriodListActions: bindActionCreators(previousPeriodListActions, dispatch),
+    teamGoalCategoryListActions: bindActionCreators(teamGoalCategoryListActions, dispatch),
+    teamListActions: bindActionCreators(teamListActions, dispatch),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(StatsFilter)
