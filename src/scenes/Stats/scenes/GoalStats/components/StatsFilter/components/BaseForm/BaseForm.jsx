@@ -13,7 +13,7 @@ const BaseForm =
         collaborator,
         collaborators,
         definition,
-         definitionDisabled,
+        definitionDisabled,
         definitions,
         period,
         periods,
@@ -44,6 +44,7 @@ const BaseForm =
                                     options={categories}
                                     optionValueName='categoryId'
                                     optionTextName='name'
+                                    updateInitial
                                     onChange={onCategoryChange}
                                 />
                             </Grid>
@@ -57,6 +58,7 @@ const BaseForm =
                                     options={teams}
                                     optionValueName='id'
                                     optionTextName='name'
+                                    updateInitial
                                     onChange={onTeamChange}
                                 />
                             </Grid>}
@@ -70,6 +72,7 @@ const BaseForm =
                                     options={collaborators}
                                     optionValueName='id'
                                     optionTextName='fullname'
+                                    updateInitial
                                     onChange={onCollaboratorChange}
                                 />
                             </Grid>}
@@ -87,6 +90,7 @@ const BaseForm =
                                     options={definitions}
                                     optionValueName='id'
                                     optionTextName='name'
+                                    updateInitial
                                     onChange={onDefinitionChange}
                                 />
                             </Grid>
@@ -100,6 +104,7 @@ const BaseForm =
                                     options={periods}
                                     optionValueName='id'
                                     optionTextName='name'
+                                    updateInitial
                                     onChange={onPeriodChange}
                                 />
                             </Grid>
