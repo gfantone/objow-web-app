@@ -1,4 +1,5 @@
 import React from 'react'
+import {linearGradientDef} from '@nivo/core'
 import {ResponsiveLine} from '@nivo/line'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faFireAlt, faUser, faUsers} from '@fortawesome/free-solid-svg-icons'
@@ -33,8 +34,15 @@ const Chart = ({data, end, start, ...props}) => {
             colors={{datum: 'color'}}
             curve='monotoneX'
             data={data}
+            defs={[
+                linearGradientDef('gradientA', [
+                    { offset: 0, color: 'inherit' },
+                    { offset: 100, color: 'inherit', opacity: 0 },
+                ]),
+            ]}
             enableArea={true}
             enableSlices='x'
+            fill={[{ match: '*', id: 'gradientA' }]}
             margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
             markers={[
                 {

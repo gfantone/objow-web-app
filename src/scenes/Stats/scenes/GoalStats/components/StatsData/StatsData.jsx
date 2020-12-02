@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {Grid} from '@material-ui/core'
+import {Grid, isWidthUp, withWidth} from '@material-ui/core'
 import {Chart} from './components'
 import {Card, DefaultTitle, EmptyState, Loader} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
@@ -22,8 +22,6 @@ const StatsData = ({collaborator, definition, display, period, team, ...props}) 
     const periodObject = period && periods ? periods.find(x => x.id === period) : null
     const periodStart = periodObject ? '{0}-{1}-{2}'.format(periodObject.start.toDate2().getFullYear(), periodObject.start.toDate2().getMonth() + 1, periodObject.start.toDate2().getDate()) : null
     const periodEnd = periodObject ? '{0}-{1}-{2}'.format(periodObject.end.toDate2().getFullYear(), periodObject.end.toDate2().getMonth() + 1, periodObject.end.toDate2().getDate()) : null
-    // alert(periodStart)
-    // alert(periodEnd)
     const pointData = goals.map(x => ({
         color: x.color,
         counter: x.counter,
@@ -70,19 +68,17 @@ const StatsData = ({collaborator, definition, display, period, team, ...props}) 
     }, [collaborator, definition, definitions, team])
 
     function renderData() {
+        const containerStyle = isWidthUp('sm', props.width) ? null : {overflowY: 'hidden'}
+        const chartStyle = isWidthUp('sm', props.width) ? {height: 600} : {height: 400, width: 600}
+
         return (
-            <Grid container spacing={1}>
-                <Grid item xs={12}>
-                    <DefaultTitle>Performances</DefaultTitle>
-                </Grid>
-                <Grid item xs={12}>
-                    <Card>
-                        <div style={{height: 600}}>
-                            <Chart data={data} end={periodEnd} start={periodStart} />
-                        </div>
-                    </Card>
-                </Grid>
-            </Grid>
+            <Card>
+                <div style={containerStyle}>
+                    <div style={chartStyle}>
+                        <Chart data={data} end={periodEnd} start={periodStart} />
+                    </div>
+                </div>
+            </Card>
         )
     }
 
@@ -95,11 +91,16 @@ const StatsData = ({collaborator, definition, display, period, team, ...props}) 
     }
 
     return (
-        <div>
-            {display && !loading && goals && goals.length > 0 && renderData()}
-            {display && !loading && goals && goals.length === 0 && renderEmptyState()}
-            {display && loading && renderLoader()}
-        </div>
+        <Grid container spacing={1}>
+            <Grid item xs={12}>
+                <DefaultTitle>Performances</DefaultTitle>
+            </Grid>
+            <Grid item xs={12}>
+                {display && !loading && goals && goals.length > 0 && renderData()}
+                {display && !loading && goals && goals.length === 0 && renderEmptyState()}
+                {display && loading && renderLoader()}
+            </Grid>
+        </Grid>
     )
 }
 
@@ -118,4 +119,4 @@ const mapDispatchToProps = (dispatch) => ({
     teamGoalSummaryListActions: bindActionCreators(teamGoalSummaryListActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(StatsData)
+export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(StatsData))

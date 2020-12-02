@@ -124,9 +124,9 @@ const StatsFilter = ({initialCategory, initialCollaborator, initialPeriod, initi
     }
 
     function loadDefinitions(collaborator, period, team) {
-        if (selectedCollaborator) {
+        if (collaborator) {
             props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(collaborator, period)
-        } else if (selectedTeam) {
+        } else if (team) {
             props.goalDefinitionListActions.getGoalDefinitionListByTeam(period, team)
         }
     }
