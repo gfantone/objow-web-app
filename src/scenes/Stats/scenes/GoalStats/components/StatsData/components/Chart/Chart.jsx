@@ -31,7 +31,7 @@ const Chart = ({data, end, start, ...props}) => {
                 legendPosition: 'middle'
             }}
             colors={{datum: 'color'}}
-            curve='catmullRom'
+            curve='monotoneX'
             data={data}
             enableArea={true}
             enableSlices='x'

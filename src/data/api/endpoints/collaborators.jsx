@@ -9,7 +9,7 @@ const collaborators = {
         return instance.get(url)
     },
     definitions(id, periodId) {
-        const url = `${baseUrl}${id}/definitions/?periodId=${periodId}`
+        const url = `${baseUrl}${id}/definitions/?period=${periodId}`
         return instance.get(url)
     },
     detail(id) {

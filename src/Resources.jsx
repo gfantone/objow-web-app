@@ -308,7 +308,7 @@ export const CHALLENGE_UPDATE_GOAL_POINTS_LABEL = "Pts"
 export const CHALLENGE_UPDATE_SUBMIT_BUTTON = "Valider"
 
 // Chart
-export const CHART_X_LEGEND = "Périodes"
+export const CHART_X_LEGEND = "Période"
 export const CHART_Y_LEGEND = "%"
 export const CHART_TARGET_TEXT = "Objectif : {0}"
 export const CHART_COUNTER_TEXT = "Réalisé : {0}"
