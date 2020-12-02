@@ -1,5 +1,6 @@
 import {all, call, put, takeEvery} from 'redux-saga/effects'
 import {getCollaboratorBadgeSummarySuccess, getCollaboratorBadgeSummaryError} from './actions'
+import {getCollaboratorDetailSuccess} from '../../Collaborators/CollaboratorDetail/actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
 
@@ -10,7 +11,9 @@ function* getCollaboratorBadgeSummary(action) {
             call(api.collaboratorBadgeSummary.collaborators, action.id)
         ])
         summary.collaborators = collaborators
+        const {data: collaborator} = yield call(api.collaborators.detail, summary.collaboratorId)
         yield put(getCollaboratorBadgeSummarySuccess(summary))
+        yield put(getCollaboratorDetailSuccess(collaborator))
     } catch(e) {
         yield put(getCollaboratorBadgeSummaryError())
     }

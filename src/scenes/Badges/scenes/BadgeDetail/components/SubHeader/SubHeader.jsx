@@ -14,6 +14,7 @@ const useStyles = makeStyles({
 const SubHeader = ({...props}) => {
     const classes = useStyles()
     const {summary, loading} = props.collaboratorBadgeSummaryDetail
+    const {collaborator} = props.collaboratorDetail
 
     const renderLoader = () => {
         return (
@@ -34,13 +35,14 @@ const SubHeader = ({...props}) => {
     return (
         <div>
             {loading && renderLoader()}
-            {!loading && summary && renderData()}
+            {!loading && collaborator && summary && renderData()}
         </div>
     )
 }
 
-const mapStateToProps = ({collaboratorBadgeSummaryDetail}) => ({
-    collaboratorBadgeSummaryDetail
+const mapStateToProps = ({collaboratorBadgeSummaryDetail, collaboratorDetail}) => ({
+    collaboratorBadgeSummaryDetail,
+    collaboratorDetail
 })
 
 export default connect(mapStateToProps)(SubHeader)
