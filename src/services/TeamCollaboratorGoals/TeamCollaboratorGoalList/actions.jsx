@@ -1,5 +1,9 @@
 import * as types from './actionTypes'
 
+export const getEmptyTeamCollaboratorGoalList = () => ({
+    type: types.GET_EMPTY_TEAM_COLLABORATOR_GOAL_LIST
+})
+
 export const getTeamCollaboratorGoalList = (teamId, current, category, year, start, end, name) => ({
     type: types.GET_TEAM_COLLABORATOR_GOAL_LIST,
     teamId,

@@ -3,12 +3,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
 import { Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core'
-import { Button, DatePicker, Select } from '../../../../components'
+import {GoalTypeSwitch} from './components'
+import {Button, DatePicker, Select} from '../../../../components'
 import * as Resources from '../../../../Resources'
+import '../../../../helpers/StringHelper'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as previousPeriodListActions from '../../../../services/Periods/PreviousPeriodList/actions'
+import {faUser, faUsers} from "@fortawesome/free-solid-svg-icons";
 
 class GoalFilter extends Component {
     constructor(props) {
@@ -19,7 +22,9 @@ class GoalFilter extends Component {
             collaborator: props.collaborator,
             year: props.year,
             start: props.end,
-            end: props.end
+            end: props.end,
+            onlyCollaborator: props.onlyCollaborator,
+            onlyTeam: props.onlyTeam,
         }
     }
 
@@ -38,6 +43,8 @@ class GoalFilter extends Component {
             | props.year != this.state.year
             || props.start != this.state.start
             || props.end != this.state.end
+            || props.onlyCollaborator != this.state.onlyCollaborator
+            || props.onlyTeam != this.state.onlyTeam
         ) {
             this.setState({
                 ...this.state,
@@ -46,7 +53,9 @@ class GoalFilter extends Component {
                 collaborator: props.collaborator,
                 year: props.year,
                 start: props.start,
-                end: props.end
+                end: props.end,
+                onlyCollaborator: props.onlyCollaborator,
+                onlyTeam: props.onlyTeam
             })
         }
     }
@@ -70,7 +79,9 @@ class GoalFilter extends Component {
         if (end) {
             end.setHours(23, 59, 59)
         }
-        this.props.onChange(category, team, collaborator, model.year, start, end);
+        const onlyCollaborator = Boolean(model.onlyCollaborator)
+        const onlyTeam = Boolean(model.onlyTeam)
+        this.props.onChange(category, team, collaborator, model.year, start, end, onlyCollaborator, onlyTeam);
         this.props.onClose()
     }
 
@@ -91,6 +102,26 @@ class GoalFilter extends Component {
                         <DialogTitle>{Resources.GOAL_FILTER_TITLE}</DialogTitle>
                         <DialogContent>
                             <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <Grid container spacing={2}>
+                                        <Grid item>
+                                            <GoalTypeSwitch
+                                                icon={faUser}
+                                                initial={this.state.onlyCollaborator}
+                                                label={Resources.GOAL_COLLABORATOR_TAG}
+                                                name='onlyCollaborator'
+                                            />
+                                        </Grid>
+                                        <Grid item>
+                                            <GoalTypeSwitch
+                                                icon={faUsers}
+                                                initial={this.state.onlyTeam}
+                                                label={Resources.GOAL_TEAM_TAG}
+                                                name='onlyTeam'
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
                                 <Grid item xs={12}>
                                     <Select name='category' label={Resources.GOAL_FILTER_CATEGORY_LABEL} options={categories} emptyText={Resources.GOAL_FILTER_CATEGORY_ALL_OPTION} optionValueName='id' optionTextName='name' fullWidth initial={this.state.category} onChange={this.handleChange('category').bind(this)} />
                                 </Grid>

@@ -9,6 +9,9 @@ let TeamGoalSummaryList = (state = initialState.teamGoalSummaryList, action) => 
         case types.GET_TEAM_GOAL_SUMMARY_LIST_BY_TEAM:
             return {...state, goals: null, loading: true, hasError: false}
 
+        case types.GET_EMPTY_TEAM_GOAL_SUMMARY_LIST:
+            return {...state, goals: [], loading: false, hasError: false}
+
         case types.GET_TEAM_GOAL_SUMMARY_LIST_SUCCESS:
                 return {...state, goals: action.goals, loading: false, hasError: false}
 

@@ -7,6 +7,9 @@ let TeamCollaboratorGoalList = (state = initialState.teamCollaboratorGoalList, a
         case types.GET_TEAM_COLLABORATOR_GOAL_LIST_BY_DEFINITION_AND_TEAM:
             return {...state, goals: null, loading: true, hasError: false}
 
+        case types.GET_EMPTY_TEAM_COLLABORATOR_GOAL_LIST:
+            return {...state, goals: [], loading: false, hasError: false}
+
         case types.GET_TEAM_COLLABORATOR_GOAL_LIST_SUCCESS:
                 return {...state, goals: action.goals, loading: false, hasError: false}
 

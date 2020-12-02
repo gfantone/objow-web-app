@@ -7,6 +7,9 @@ let CollaboratorGoalSummaryList = (state = initialState.collaboratorGoalSummaryL
         case types.GET_COLLABORATOR_GOAL_SUMMARY_LIST_BY_DEFINITION_AND_COLLABORATOR:
             return {...state, goals: null, loading: true, hasError: false}
 
+        case types.GET_EMPTY_COLLABORATOR_GOAL_SUMMARY_LIST:
+            return {...state, goals: [], loading: false, hasError: false}
+
         case types.GET_COLLABORATOR_GOAL_SUMMARY_LIST_SUCCESS:
             return {...state, goals: action.goals, loading: false, hasError: false}
 
