@@ -38,6 +38,10 @@ class NextBadgeDetail extends MainLayoutComponent {
         this.loadData(this.props)
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.loadData(this.props)
+    }
+
     renderData() {
         const {classes} = this.props;
         const {badge} = this.props.nextCollaboratorBadgeDetail;
@@ -63,18 +67,20 @@ class NextBadgeDetail extends MainLayoutComponent {
 
     render() {
         const {badge} = this.props.nextCollaboratorBadgeDetail;
+        const {collaborator} = this.props.collaboratorDetail
 
         return (
             <div>
-                {badge && this.renderData()}
+                {badge && collaborator && this.renderData()}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({accountDetail, nextCollaboratorBadgeDetail}) => ({
+const mapStateToProps = ({accountDetail, nextCollaboratorBadgeDetail, collaboratorDetail}) => ({
     accountDetail,
-    nextCollaboratorBadgeDetail
+    nextCollaboratorBadgeDetail,
+    collaboratorDetail
 });
 
 const mapDispatchToProps = (dispatch) => ({
