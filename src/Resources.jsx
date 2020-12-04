@@ -550,6 +550,9 @@ export const LOGIN_STORE_MESSAGE_2 = "Téléchargez-la dès maintenant :"
 // Main layout
 export const MAIN_LAYOUT_SEARCH_PLACEHOLDER = "Rechercher..."
 
+// Notification
+export const NOTIFICATION_EMPTY_MESSAGE = "Aucune notification reçue"
+
 // Notification date
 export const NOTIFICATION_DATE_DAYS = "{0} j"
 export const NOTIFICATION_DATE_HOURS = "{0} h"

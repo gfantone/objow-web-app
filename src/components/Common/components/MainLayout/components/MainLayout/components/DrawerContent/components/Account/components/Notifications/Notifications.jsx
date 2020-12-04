@@ -3,8 +3,10 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {makeStyles} from '@material-ui/core'
-import {DialogContent, NotificationDate, NotificationImage, TableRow} from './components'
-import {Button, DefaultText, Dialog, DialogActions, DialogTitle, FixedTableCell, InfoText, Loader, Table, TableBody, TableCell} from '../../../../../../../../../..'
+import withWidth, {isWidthDown} from '@material-ui/core/withWidth'
+import {DialogContent, NotificationDate, NotificationImage, TableCell, TableRow} from './components'
+import {Button, DefaultText, Dialog, DialogActions, DialogTitle, FixedTableCell, InfoText, Loader, Table, TableBody} from '../../../../../../../../../..'
+import * as Resources from '../../../../../../../../../../../../Resources'
 import * as inAppNotificationListActions from '../../../../../../../../../../../../services/InAppNotifications/InAppNotificationList/actions'
 
 const useStyles = makeStyles({
@@ -16,6 +18,7 @@ const useStyles = makeStyles({
 const Notifications = ({open, onClose, ...props}) => {
     const classes = useStyles()
     const {notifications, loading} = props.inAppNotificationList
+    const fullScreen = isWidthDown('xs', props.width)
 
     useEffect(() => {
         if (open) {
@@ -76,7 +79,7 @@ const Notifications = ({open, onClose, ...props}) => {
     }
 
     function renderEmptyState() {
-        return <InfoText>Aucune notification reçue</InfoText>
+        return <InfoText>{Resources.NOTIFICATION_EMPTY_MESSAGE}</InfoText>
     }
 
     function renderLoader() {
@@ -84,7 +87,12 @@ const Notifications = ({open, onClose, ...props}) => {
     }
 
     return (
-        <Dialog maxWidth='xs' open={open} on onClose={onClose}>
+        <Dialog
+            fullScreen={fullScreen}
+            maxWidth='xs'
+            open={open}
+            onClose={onClose}
+        >
             <DialogTitle>Notifications</DialogTitle>
             <DialogContent>
                 {loading && renderLoader()}
@@ -106,4 +114,4 @@ const mapDispatchToProps = (dispatch) => ({
     inAppNotificationListActions: bindActionCreators(inAppNotificationListActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Notifications))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withWidth()(Notifications)))

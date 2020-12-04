@@ -35,7 +35,7 @@ const styles = {
     }
 };
 
-const Account = ({...props}) => {
+const Account = ({onNavigate, ...props}) => {
     const { classes } = props;
     const { account } = props.accountDetail;
     const { count } = props.inAppNotificationCount
@@ -51,6 +51,11 @@ const Account = ({...props}) => {
             props.accountDetailActions.getAccountDetail();
         }
     });
+
+    function handleNotificationClose() {
+        setNotificationOpen(false)
+        if (onNavigate) onNavigate()
+    }
 
     return (
         <div className={classes.root}>
@@ -73,7 +78,7 @@ const Account = ({...props}) => {
                             { isCollaborator && <Grid item xs={12}>
                                 <ProgressBar value={percentage} />
                             </Grid> }
-                            <GridLink item xs={12} component={Link} to='/account' onClick={props.onNavigate} className={classes.infos}>
+                            <GridLink item xs={12} component={Link} to='/account' onClick={onNavigate} className={classes.infos}>
                                 <AccentText>
                                     <FontAwesomeIcon icon={faEdit} />&nbsp;&nbsp;{Resources.DRAWER_INFOS_BUTTON}
                                 </AccentText>
@@ -87,7 +92,7 @@ const Account = ({...props}) => {
                     </div>
                 </Grid>
             </Grid>
-            <Notifications open={notificationOpen} onClose={() => setNotificationOpen(false)} />
+            <Notifications open={notificationOpen} onClose={handleNotificationClose} />
         </div>
     )
 };

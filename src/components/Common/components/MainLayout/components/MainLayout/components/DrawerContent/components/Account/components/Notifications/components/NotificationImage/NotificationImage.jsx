@@ -4,6 +4,9 @@ import {makeStyles} from '@material-ui/styles'
 
 const useStyles = makeStyles({
     image: {
+        objectFit: 'cover'
+    },
+    icon: {
         objectFit: 'contain'
     },
     imageContainer: {
@@ -41,9 +44,10 @@ function getImage(notification) {
 const NotificationImage = ({notification, ...props}) => {
     const classes = useStyles()
     const image = getImage(notification)
-    const imageClass = ['CCH', 'TCH', 'TGR'].includes(notification.type) ? classes.imageContainer : classes.roundedImageContainer
+    const rootClass = ['CCH', 'TCH', 'TGR'].includes(notification.type) ? classes.imageContainer : classes.roundedImageContainer
+    const imageClass = ['CCH', 'TCH', 'TGR'].includes(notification.type) ? classes.icon : classes.image
 
-    return <Avatar src={image} classes={{root: imageClass, img: classes.image}} />
+    return <Avatar src={image} classes={{root: rootClass, img: imageClass}} />
 }
 
 export default NotificationImage
