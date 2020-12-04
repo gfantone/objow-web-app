@@ -6,6 +6,7 @@ import { Loader } from '../../../../../../components'
 
 const SubHeader = ({ ...props }) => {
     const { badge, loading } = props.nextCollaboratorBadgeDetail;
+    const {collaborator} = props.collaboratorDetail
 
     const renderLoader = () => {
         return <Loader centered />
@@ -22,12 +23,13 @@ const SubHeader = ({ ...props }) => {
     return (
         <div>
             { loading && renderLoader() }
-            { !loading && badge && renderData() }
+            { !loading && badge && collaborator && renderData() }
         </div>
     )
 };
 
-const mapStateToProps = ({ nextCollaboratorBadgeDetail }) => ({
+const mapStateToProps = ({ collaboratorDetail, nextCollaboratorBadgeDetail }) => ({
+    collaboratorDetail,
     nextCollaboratorBadgeDetail
 });
 
