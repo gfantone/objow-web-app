@@ -65,7 +65,7 @@ const Notifications = ({open, onClose, ...props}) => {
                                     <NotificationImage notification={notification} />
                                 </FixedTableCell>
                                 <TableCell>
-                                    <DefaultText>{notification.message}</DefaultText>
+                                    <DefaultText dangerouslySetInnerHTML={{__html: notification.message}} />
                                 </TableCell>
                                 <FixedTableCell>
                                     <NotificationDate date={notification.creationDate} />
