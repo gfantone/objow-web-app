@@ -14,7 +14,7 @@ export const ADMIN_TITLE = "Administration"
 
 // Admin - Aircall form
 export const ADMIN_AIRCALL_FORM_AC_GET_CALLS_ACTIVATION = "Activer le KPI de récupération des appels aboutis"
-export const ADMIN_AIRCALL_FORM_AC_GET_CALLS_DURATION = "Durée minimale d’un appel abouti"
+export const ADMIN_AIRCALL_FORM_AC_GET_CALLS_DURATION = "Durée minimale d’un appel abouti (secondes)"
 export const ADMIN_AIRCALL_FORM_SUBMIT_BUTTON = "Valider"
 
 // Admin - Goal creation
