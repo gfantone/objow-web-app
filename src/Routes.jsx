@@ -16,6 +16,11 @@ export default () => {
                 {/* Collaboratos */}
                 <MainRoutes exact path='/collaborators/:id/detail' component={scenes.CollaboratorDetail} />
                 <ManagerRoutes exact path='/collaborators/:id/password' component={scenes.CollaboratorPassword} />
+                {/* Stats */}
+                <MainRoutes exact path='/stats' component={scenes.HomeStats} />
+                <MainRoutes exact path='/stats/collaborators/:collaboratorId/categories' component={scenes.CollaboratorGoalCategoryStats} />
+                <MainRoutes exact path='/stats/goals' component={scenes.GoalStats} />
+                <MainRoutes exact path='/stats/teams/:teamId/categories' component={scenes.TeamCollaboratorGoalCategoryStats} />
                 {/* Goals */}
                 <MainRoutes exact path='/goals' component={scenes.GoalListHome} />
                 <MainRoutes exact path='/goals/collaborators/:id/list' component={scenes.CollaboratorGoalList} />
@@ -39,8 +44,7 @@ export default () => {
                 {/* Badges */}
                 <MainRoutes exact path='/badges' component={scenes.BadgeHome} />
                 <MainRoutes exact path='/badges/collaborator/:id' component={scenes.BadgeList} />
-                <MainRoutes exact path='/badges/detail/current/:id' component={scenes.CurrentBadgeDetail} />
-                <MainRoutes exact path='/badges/detail/next/:id' component={scenes.NextBadgeDetail} />
+                <MainRoutes exact path='/badges/detail/:id' component={scenes.BadgeDetail} />
                 {/* Coaching lists */}
                 <MainRoutes exact path='/coaching' component={scenes.CoachingHome} />
                 <MainRoutes exact path='/coaching/:id' component={scenes.CoachingList} />

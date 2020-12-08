@@ -14,7 +14,7 @@ export const ADMIN_TITLE = "Administration"
 
 // Admin - Aircall form
 export const ADMIN_AIRCALL_FORM_AC_GET_CALLS_ACTIVATION = "Activer le KPI de récupération des appels aboutis"
-export const ADMIN_AIRCALL_FORM_AC_GET_CALLS_DURATION = "Durée minimale d’un appel abouti"
+export const ADMIN_AIRCALL_FORM_AC_GET_CALLS_DURATION = "Durée minimale d’un appel abouti (secondes)"
 export const ADMIN_AIRCALL_FORM_SUBMIT_BUTTON = "Valider"
 
 // Admin - Goal creation
@@ -307,6 +307,16 @@ export const CHALLENGE_UPDATE_GOAL_TARGET_INFO_TEXT = "L’objectif fixé ici pe
 export const CHALLENGE_UPDATE_GOAL_POINTS_LABEL = "Pts"
 export const CHALLENGE_UPDATE_SUBMIT_BUTTON = "Valider"
 
+// Chart
+export const CHART_X_LEGEND = "Période"
+export const CHART_Y_LEGEND = "%"
+export const CHART_TARGET_TEXT = "Objectif : {0}"
+export const CHART_COUNTER_TEXT = "Réalisé : {0}"
+export const CHART_POINTS_TEXT = "{0} pts"
+export const CHART_MAX_POINTS_TEXT = "/ {0} max"
+export const CHART_COLLABORATOR_TYPE_TEXT = "Solo"
+export const CHART_TEAM_TYPE_TEXT = "Équipe"
+
 // Coaching list
 export const COACHING_LIST_LONG_TITLE = "Les coaching lists"
 export const COACHING_LIST_SHORT_TITLE = "Coaching list"
@@ -399,6 +409,7 @@ export const DRAWER_BADGES_BUTTON = "Défis"
 export const DRAWER_COACHING_LIST_BUTTON = "Coaching list"
 export const DRAWER_RANKINGS_BUTTON = "Classements"
 export const DRAWER_TEAMS_BUTTON = "Équipes"
+export const DRAWER_STATS_BUTTON = "Statistiques"
 export const DRAWER_REWARDS_BUTTON = "Récompenses"
 export const DRAWER_RULES_BUTTON = "Règles du jeu"
 export const DRAWER_ADMIN_BUTTON = "Administration"
@@ -407,6 +418,8 @@ export const DRAWER_LOGOUT_BUTTON = "Déconnexion"
 
 // Game rules
 export const GAME_RULES_TITLE = "Règles du jeu"
+export const GAME_RULES_SUBMIT_BUTTON = "Valider"
+export const GAME_RULES_CANCEL_BUTTON = "Annuler"
 
 // Goal
 export const GOAL_LONG_TITLE = "Les objectifs"
@@ -473,6 +486,8 @@ export const GOAL_INDICATION_DESCRIPTION_AREA = "Description"
 export const GOAL_INDICATION_UNIT_WITH_SYMBOL_TEXT = "Unité : {0} ({1})"
 export const GOAL_INDICATION_UNIT_WITHOUT_SYMBOL_TEXT = "Unité : {0}"
 export const GOAL_INDICATION_PERIOD_TEXT = "Du {0} au {1}"
+export const GOAL_INDICATION_LIVE_LABEL = "Points gagnés en live"
+export const GOAL_INDICATION_LIVE_INFO = "Si activé, les points seront automatiquement gagnés par les participants avant la date de fin de l’objectif."
 export const GOAL_INDICATION_COACHING_AREA = "Les conseils du coach"
 export const GOAL_INDICATION_COACHING_EMPTY_STATE = "Aucun conseil trouvé"
 export const GOAL_INDICATION_COACHING_SUBMIT_BUTTON = "Valider"
@@ -794,6 +809,37 @@ export const REWARD_UPDATE_DELIVERY_PLACE_LABEL = "Lieu"
 export const REWARD_UPDATE_DELIVERY_MODE_LABEL = "Mode de livraison"
 export const REWARD_UPDATE_DELIVERY_TIME_LABEL = "Temps de livraison"
 export const REWARD_UPDATE_SUBMIT_BUTTON = "Valider"
+
+// Rich text
+export const RICH_TEXT_PLACEHOLDER = "Entrez votre texte..."
+
+// Statistiques
+export const STATS_TITLE = "Statistiques"
+
+// Statistiques - Filter
+export const STATS_FILTER_TITLE = "Filtres"
+export const STATS_FILTER_CATEGORY_LABEL = "Catégorie"
+export const STATS_FILTER_GOAL_LABEL = "Objectif"
+export const STATS_FILTER_TEAM_LABEL = "Équipe"
+export const STATS_FILTER_COLLABORATOR_LABEL = "Collaborateur"
+export const STATS_FILTER_COLLABORATOR_EMPTY_OPTION = "Tous"
+export const STATS_FILTER_PERIOD_LABEL = "Année"
+
+// Statistiques - Category filter
+export const STATS_CATEGORY_FILTER_TITLE = "Filtres"
+export const STATS_CATEGORY_FILTER_TEAM_LABEL = "Équipe"
+export const STATS_CATEGORY_FILTER_COLLABORATOR_LABEL = "Collaborateur"
+export const STATS_CATEGORY_FILTER_COLLABORATOR_ALL_OPTION = "Tous"
+export const STATS_CATEGORY_FILTER_PERIOD_LABEL = "Année"
+export const STATS_CATEGORY_FILTER_CANCEL_BUTTON = "Annuler"
+export const STATS_CATEGORY_FILTER_SUBMIT_BUTTON = "Filtrer"
+
+// Statistiques - Goals
+export const STATS_GOALS_EMPTY_STATE_TITLE = "Aucune statistique trouvée"
+export const STATS_GOALS_EMPTY_STATE_MESSAGE = "Modifiez les filtres pour afficher d’autres statistiques"
+
+// Statistiques - Team goal category stats
+export const TEAM_GOAL_CATEGORY_STATS_TITLE = "Sélection de la catégorie"
 
 // Team
 export const TEAM_TITLE = "Équipes"

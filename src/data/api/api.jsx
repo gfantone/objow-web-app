@@ -9,6 +9,7 @@ import challenges from './endpoints/challenges'
 import challengeTypes from './endpoints/challengeTypes'
 import coachingItems from './endpoints/coachingItems'
 import collaboratorBadgeLevels from './endpoints/collaboratorBadgeLevels'
+import collaboratorBadgeSummary from './endpoints/collaboratorBadgeSummary'
 import collaboratorChallenges from './endpoints/collaboratorChallenges'
 import collaboratorChallengeSummaries from './endpoints/collaboratorChallengeSummaries'
 import collaboratorData from './endpoints/collaboratorData'
@@ -19,7 +20,6 @@ import collaboratorRewardOrders from "./endpoints/collaboratorRewardOrders";
 import collaboratorRewardOrderSummaries from "./endpoints/collaboratorRewardOrderSummaries";
 import collaborators from './endpoints/collaborators'
 import configs from './endpoints/configs'
-import currentCollaboratorBadges from "./endpoints/currentCollaboratorBadges";
 import goalDefinitionLevels from './endpoints/goalDefinitionLevels'
 import goalDefinitions from './endpoints/goalDefinitions'
 import goalPoints from './endpoints/goalPoints'
@@ -31,7 +31,6 @@ import kpis from './endpoints/kpis'
 import levels from './endpoints/levels'
 import mails from './endpoints/mails'
 import managers from './endpoints/managers'
-import nextCollaboratorBadges from "./endpoints/nextCollaboratorBadges";
 import partners from "./endpoints/partners";
 import periodicities from './endpoints/periodicities'
 import periods from './endpoints/periods'
@@ -70,6 +69,7 @@ const api = {
     challengeTypes,
     coachingItems,
     collaboratorBadgeLevels,
+    collaboratorBadgeSummary,
     collaboratorChallenges,
     collaboratorChallengeSummaries,
     collaboratorData,
@@ -80,7 +80,6 @@ const api = {
     collaboratorRewardOrderSummaries,
     collaborators,
     configs,
-    currentCollaboratorBadges,
     goalDefinitionLevels,
     goalDefinitions,
     goalPoints,
@@ -92,7 +91,6 @@ const api = {
     levels,
     mails,
     managers,
-    nextCollaboratorBadges,
     partners,
     periodicities,
     periods,

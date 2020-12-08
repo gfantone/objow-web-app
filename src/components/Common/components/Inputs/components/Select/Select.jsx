@@ -14,7 +14,7 @@ const styles = {
     }
 };
 
-const CustomSelect = ({ disabled, emptyDisabled = false, emptyText, error, fullWidth, initial = null, label, name, options, optionValueName, optionTextName, optionTextPrefix = null, required, ...props }) => {
+const CustomSelect = ({ disabled, emptyDisabled = false, emptyText, error, fullWidth, initial = null, label, name, options, optionValueName, optionTextName, optionTextPrefix = null, required, updateInitial, ...props }) => {
     const { classes } = props;
     const [value, setValue] = React.useState(initial);
     const hasError = props.isFormSubmitted && !props.isValid;
@@ -23,6 +23,7 @@ const CustomSelect = ({ disabled, emptyDisabled = false, emptyText, error, fullW
 
     useEffect(() => {
         props.setValue(initial)
+        if (updateInitial) setValue(initial)
     }, [initial]);
 
     const handleChange = event => {

@@ -2,9 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faAngleRight, faBalanceScale, faCalendarAlt, faFolderOpen} from '@fortawesome/free-solid-svg-icons'
-import { AdviceList, ReadonlyAdviceList } from './components'
-import { AnimationController, Card, DefaultText, DefaultTitle, InfoText, Linkify, Table, TableBody, TableCell, TableChip, TableRow } from '../../../../components'
+import {faAngleRight, faBalanceScale, faCalendarAlt, faFolderOpen, faInfoCircle} from '@fortawesome/free-solid-svg-icons'
+import { AdviceList, LiveStatus, ReadonlyAdviceList } from './components'
+import {AnimationController, BlueText, Card, DefaultText, DefaultTitle, InfoText, Linkify, Table, TableBody, TableCell, TableChip, TableRow, Tooltip} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import {getDifferenceWithToday} from '../../../../helpers/DateHelper'
 
@@ -78,6 +78,23 @@ const GoalIndication = ({ goal, type, ...props }) => {
                                         <DefaultText>
                                             <FontAwesomeIcon icon={faCalendarAlt} /> {Resources.GOAL_INDICATION_PERIOD_TEXT.format(goal.start.toDate2().toLocaleDateString(), goal.end.toDate2().toLocaleDateString())}
                                         </DefaultText>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Grid container spacing={1} alignItems='center'>
+                                            <Grid item>
+                                                <LiveStatus live={goal.definition.live} />
+                                            </Grid>
+                                            <Grid item>
+                                                <DefaultText>
+                                                    {Resources.GOAL_INDICATION_LIVE_LABEL}&nbsp;
+                                                    <Tooltip title={Resources.GOAL_INDICATION_LIVE_INFO} placement={'right'}>
+                                                        <BlueText style={{ width: 'fit-content' }} component={'span'}>
+                                                            <FontAwesomeIcon icon={faInfoCircle} />
+                                                        </BlueText>
+                                                    </Tooltip>
+                                                </DefaultText>
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Linkify>

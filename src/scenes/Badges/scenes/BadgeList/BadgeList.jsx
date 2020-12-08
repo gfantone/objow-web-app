@@ -1,52 +1,50 @@
 import React from 'react'
-import { Link, withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { Grid } from '@material-ui/core'
+import {Link, withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {Grid } from '@material-ui/core'
 import {Card, EmptyState, GridLink, IconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
-import { SubHeader } from './components'
-import { BadgeFilter, BadgeLevel } from '../../components'
+import {SubHeader} from './components'
+import {BadgeFilter, BadgeLevel} from '../../components'
 import * as collaboratorBadgeLevelListActions from '../../../../services/CollaboratorBadgeLevels/CollaboratorBadgeLevelList/actions'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSlidersH} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faSlidersH} from "@fortawesome/free-solid-svg-icons"
 
 class BadgeList extends MainLayoutComponent {
     constructor(props) {
-        super(props);
-        this.id = null;
-        this.current = true;
-        this.firstLoaded = false;
-        this.year = null;
+        super(props)
+        this.id = null
+        this.current = true
+        this.year = null
         this.state = {
             filterOpen: false
         }
     }
 
     refresh(id, current, year) {
-        var url = `/badges/collaborator/${id}?current=${current}`;
-        if (year) url += `&year=${year}`;
+        var url = `/badges/collaborator/${id}?current=${current}`
+        if (year) url += `&year=${year}`
         this.props.history.replace(url)
     }
 
-    loadData(props) {
-        const { collaborator } = props.collaboratorDetail;
-        const id = props.match.params.id;
-        const params = new URLSearchParams(window.location.search);
-        const currentParam = params.get('current');
-        const current = currentParam ? currentParam.toBoolean() : this.current;
-        const year = params.get('year');
+    loadData() {
+        const id = this.props.match.params.id
+        const params = new URLSearchParams(window.location.search)
+        const currentParam = params.get('current')
+        const current = currentParam ? currentParam.toBoolean() : this.current
+        const year = params.get('year')
 
-        if (id != this.id) {
-            this.id = id;
-            this.props.collaboratorDetailActions.getCollaboratorDetail(this.id);
-        }
+        if (id != this.id || current != this.current || year != this.year) {
+            this.current = current
+            this.year = year
 
-        if (collaborator && (!this.firstLoaded || current != this.current || year != this.year)) {
-            this.firstLoaded = true;
-            this.current = current;
-            this.year = year;
+            if (id != this.id) {
+                this.id = id
+                this.props.collaboratorDetailActions.getCollaboratorDetail(this.id)
+            }
+
             if (this.current) {
                 this.props.collaboratorBadgeLevelListActions.getCollaboratorNextBadgeLevelList(this.id, this.year)
             } else {
@@ -74,16 +72,20 @@ class BadgeList extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        const params = new URLSearchParams(window.location.search);
-        const currentParam = params.get('current');
-        const current = currentParam ? currentParam.toBoolean() : this.current;
-        this.props.handleTitle(Resources.BADGE_SHORT_TITLE);
-        this.props.handleSubHeader(<SubHeader initial={current} onChange={this.handleChange.bind(this)} />);
-        this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
+        const params = new URLSearchParams(window.location.search)
+        const currentParam = params.get('current')
+        const current = currentParam ? currentParam.toBoolean() : this.current
+        this.props.handleTitle(Resources.BADGE_SHORT_TITLE)
+        this.props.handleSubHeader(<SubHeader initial={current} onChange={this.handleChange.bind(this)} />)
+        this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>)
         if (this.props.accountDetail.account.role.code != 'C') {
             this.props.activateReturn()
         }
-        this.loadData(this.props)
+        this.loadData()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.loadData()
     }
 
     componentWillReceiveProps(props) {
@@ -91,8 +93,7 @@ class BadgeList extends MainLayoutComponent {
     }
 
     handleFilterChange(collaborator, year) {
-        const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
-        this.refresh(collaboratorId, this.current, year)
+        this.refresh(collaborator, this.current, year)
     }
 
     renderLoader() {
@@ -108,38 +109,36 @@ class BadgeList extends MainLayoutComponent {
     }
 
     renderData() {
-        const { levels } = this.props.collaboratorBadgeLevelList;
+        const {levels} = this.props.collaboratorBadgeLevelList
 
 
         return (
             <Grid container spacing={2}>
-                { levels.map(level => {
-                    const url = this.current ? `/badges/detail/next/${level.id}` : `/badges/detail/current/${level.id}`;
-
+                {levels.map(level => {
                     return (
-                        <GridLink key={level.id} item xs={12} sm={6} md={4} component={Link} to={url}>
+                        <GridLink key={level.id} item xs={12} sm={6} md={4} component={Link} to={`/badges/detail/${level.id}`}>
                             <Card>
                                 <BadgeLevel level={level} />
                             </Card>
                         </GridLink>
                     )
-                }) }
+                })}
             </Grid>
         )
     }
 
     render() {
-        const { levels, loading: collaboratorBadgeLevelListLoading } = this.props.collaboratorBadgeLevelList;
-        const { collaborator, loading: collaboratorDetailLoading } = this.props.collaboratorDetail;
-        const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
-        const collaboratorId = collaborator ? collaborator.id : null;
-        const loading = collaboratorBadgeLevelListLoading || collaboratorDetailLoading;
+        const {levels, loading: collaboratorBadgeLevelListLoading} = this.props.collaboratorBadgeLevelList
+        const {collaborator, loading: collaboratorDetailLoading} = this.props.collaboratorDetail
+        const teamId = collaborator && collaborator.team ? collaborator.team.id : null
+        const collaboratorId = collaborator ? collaborator.id : null
+        const loading = collaboratorBadgeLevelListLoading || collaboratorDetailLoading
 
         return (
             <div>
-                { !collaboratorDetailLoading && collaboratorBadgeLevelListLoading && this.renderLoader() }
-                { !loading && levels && levels.length > 0 && collaborator && this.renderData() }
-                { !loading && levels && levels.length == 0 && this.renderEmptyState() }
+                {!collaboratorDetailLoading && collaboratorBadgeLevelListLoading && this.renderLoader()}
+                {!loading && levels && levels.length > 0 && collaborator && this.renderData()}
+                {!loading && levels && levels.length == 0 && this.renderEmptyState()}
                 <BadgeFilter
                     open={this.state.filterOpen}
                     onClose={this.handleFilterClose.bind(this)}
@@ -153,15 +152,15 @@ class BadgeList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ accountDetail, collaboratorBadgeLevelList, collaboratorDetail }) => ({
+const mapStateToProps = ({accountDetail, collaboratorBadgeLevelList, collaboratorDetail}) => ({
     accountDetail,
     collaboratorBadgeLevelList,
     collaboratorDetail
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
     collaboratorBadgeLevelListActions: bindActionCreators(collaboratorBadgeLevelListActions, dispatch),
     collaboratorDetailActions: bindActionCreators(collaboratorDetailActions, dispatch)
-});
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BadgeList))

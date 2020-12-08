@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
-import { Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core'
-import { Button, DatePicker, Select } from '../../../../components'
+import {Dialog, DialogActions, DialogContent, DialogTitle, Grid} from '@material-ui/core'
+import {Button, Select} from '../../../../components'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as previousPeriodListActions from '../../../../services/Periods/PreviousPeriodList/actions'
 
 class BadgeFilter extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             team: props.team,
             collaborator: props.collaborator,
@@ -20,8 +20,8 @@ class BadgeFilter extends Component {
     }
 
     componentDidMount() {
-        this.props.teamListActions.getTeamList();
-        this.props.currentPeriodDetailActions.getCurrentPeriodDetail();
+        this.props.teamListActions.getTeamList()
+        this.props.currentPeriodDetailActions.getCurrentPeriodDetail()
         this.props.previousPeriodListActions.getPreviousPeriodList()
     }
 
@@ -45,12 +45,12 @@ class BadgeFilter extends Component {
             ...this.state,
             [name]: value
         })
-    };
+    }
 
     handleTeamChange = value => {
-        const { teams } = this.props.teamList;
-        const team = teams.find(x => x.id == value);
-        const collaboratorId = team && team.collaborators.length > 0 ? team.collaborators[0].id : null;
+        const {teams} = this.props.teamList
+        const team = teams.find(x => x.id == value)
+        const collaboratorId = team && team.collaborators.length > 0 ? team.collaborators[0].id : null
 
         this.setState({
             ...this.state,
@@ -62,22 +62,21 @@ class BadgeFilter extends Component {
                 display: true
             })
         })
-    };
+    }
 
     handleSubmit(model) {
-        const collaborator = model.collaborator != null && model.collaborator != -1 && model.collaborator != undefined ? Number(model.collaborator) : null;
-        this.props.onChange(collaborator, model.year);
+        const collaborator = model.collaborator != null && model.collaborator != -1 && model.collaborator != undefined ? Number(model.collaborator) : null
+        this.props.onChange(collaborator, model.year)
         this.props.onClose()
     }
 
     renderData() {
-        const { account } = this.props.accountDetail;
-        const { teams } = this.props.teamList;
-        const { period: currentPeriod } = this.props.currentPeriodDetail;
-        const { periods: previousPeriods } = this.props.previousPeriodList;
-        const selectedTeam = this.state.team ? teams.filter(team => team.id == this.state.team)[0] : null;
-        const collaborators = selectedTeam ? selectedTeam.collaborators : null;
-        const periods = [currentPeriod].concat(previousPeriods);
+        const {teams} = this.props.teamList
+        const {period: currentPeriod} = this.props.currentPeriodDetail
+        const {periods: previousPeriods} = this.props.previousPeriodList
+        const selectedTeam = this.state.team ? teams.filter(team => team.id == this.state.team)[0] : null
+        const collaborators = selectedTeam ? selectedTeam.collaborators : null
+        const periods = [currentPeriod].concat(previousPeriods)
 
         return (
             <div>
@@ -86,12 +85,12 @@ class BadgeFilter extends Component {
                         <DialogTitle>Filtres</DialogTitle>
                         <DialogContent>
                             <Grid container spacing={2}>
-                                { account.role.code == 'A' && <Grid item xs={12}>
+                                <Grid item xs={12}>
                                     <Select name='team' label='Équipe' options={teams} optionValueName='id' optionTextName='name' emptyDisabled fullWidth initial={this.state.team} onChange={this.handleTeamChange.bind(this)} />
-                                </Grid> }
-                                { account.role.code != 'C' && this.state.display && collaborators && <Grid item xs={12}>
+                                </Grid>
+                                {this.state.display && collaborators && <Grid item xs={12}>
                                     <Select name='collaborator' label='Collaborateur' options={collaborators} optionValueName='id' optionTextName='fullname' emptyDisabled fullWidth initial={this.state.collaborator} onChange={this.handleChange('collaborator').bind(this)} />
-                                </Grid> }
+                                </Grid>}
                                 <Grid item xs={12}>
                                     <Select name={'year'} label={'Année'} options={periods} optionValueName={'id'} optionTextName={'name'} emptyDisabled fullWidth initial={this.state.year} onChange={this.handleChange('year').bind(this)} />
                                 </Grid>
@@ -108,30 +107,28 @@ class BadgeFilter extends Component {
     }
 
     render() {
-        const { account } = this.props.accountDetail;
-        const { teams } = this.props.teamList;
-        const { period: currentPeriod } = this.props.currentPeriodDetail;
-        const { periods: previousPeriods } = this.props.previousPeriodList;
+        const {teams} = this.props.teamList
+        const {period: currentPeriod} = this.props.currentPeriodDetail
+        const {periods: previousPeriods} = this.props.previousPeriodList
 
         return (
             <div>
-                { account && teams && currentPeriod && previousPeriods && this.renderData() }
+                {teams && currentPeriod && previousPeriods && this.renderData()}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ accountDetail, teamList, currentPeriodDetail, previousPeriodList }) => ({
-    accountDetail,
+const mapStateToProps = ({teamList, currentPeriodDetail, previousPeriodList}) => ({
     teamList,
     currentPeriodDetail,
     previousPeriodList
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
     teamListActions: bindActionCreators(teamListActions, dispatch),
     currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
     previousPeriodListActions: bindActionCreators(previousPeriodListActions, dispatch)
-});
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(BadgeFilter)

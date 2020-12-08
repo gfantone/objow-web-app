@@ -31,7 +31,7 @@ const Notifications = ({open, onClose, ...props}) => {
             const data = JSON.parse(notification.data)
 
             if (notification.type === 'CBA') {
-                props.history.push(`/badges/detail/current/${data.level}`)
+                props.history.push(`/badges/detail/${data.level}`)
             } else if (notification.type === 'CCA') {
                 props.history.push(`/rankings/collaborators/${data.collaborator}/categories/${data.category}/years/${data.period}`)
             } else if (notification.type === 'CCH') {
@@ -65,7 +65,7 @@ const Notifications = ({open, onClose, ...props}) => {
                                     <NotificationImage notification={notification} />
                                 </FixedTableCell>
                                 <TableCell>
-                                    <DefaultText>{notification.message}</DefaultText>
+                                    <DefaultText dangerouslySetInnerHTML={{__html: notification.message}} />
                                 </TableCell>
                                 <FixedTableCell>
                                     <NotificationDate date={notification.creationDate} />

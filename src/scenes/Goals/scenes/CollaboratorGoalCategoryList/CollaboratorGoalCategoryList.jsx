@@ -1,20 +1,15 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import {Grid, isWidthUp, withWidth} from '@material-ui/core'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSlidersH} from '@fortawesome/free-solid-svg-icons'
+import {CategoryFilter} from '../../components'
+import {AppBarSubTitle, Category, GridLink, IconButton, Loader, MainLayoutComponent} from '../../../../components'
+import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import * as collaboratorGoalCategoryListActions from '../../../../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/actions'
-import {IconButton} from "../../../../components/Common/components/IconButton"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {faSlidersH} from "@fortawesome/free-solid-svg-icons"
-import {Loader} from "../../../../components/Common/components/Loader"
-import {Grid} from "@material-ui/core"
-import withWidth, {isWidthUp} from "@material-ui/core/withWidth"
-import {CategoryFilter} from "../../components/CategoryFilter"
-import {GridLink} from "../../../../components/Common/components/GridLink"
-import {Link} from "react-router-dom"
-import {Category} from "../../components/Category"
-import {AppBarSubTitle, MainLayoutComponent} from "../../../../components"
-import * as Resources from "../../../../Resources"
 
 class CollaboratorGoalCategoryList extends MainLayoutComponent {
     constructor(props) {
@@ -60,7 +55,7 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        if (this.props.accountDetail.account.role.code == 'A') this.props.activateReturn()
+        if (this.props.accountDetail.account.role.code === 'A') this.props.activateReturn()
         this.props.handleTitle('Objectifs')
         this.props.handleSubHeader(<AppBarSubTitle title={Resources.COLLABORATOR_GOAL_CATEGORY_LIST_TITLE} />)
         this.props.handleMaxWidth('sm')
@@ -75,11 +70,11 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
     }
 
     handleFilterChange(team, collaborator, year) {
-        const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator
+        const collaboratorId = this.props.accountDetail.account.role.code === 'C' ? this.id : collaborator
         if (collaboratorId) {
             this.refresh(collaboratorId, year)
         } else {
-            const teamId = this.props.accountDetail.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team
+            const teamId = this.props.accountDetail.account.role.code === 'M' ? this.props.collaboratorDetail.collaborator.team.id : team
             var url = `/goals/teams/${teamId}/categories`
             if (year) url += `?year=${year}`
             this.props.history.push(url)

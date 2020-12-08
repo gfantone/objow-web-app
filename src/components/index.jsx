@@ -1,4 +1,5 @@
 export * from './Animations'
+export * from './Categories'
 export * from './Collaborators'
 export * from './Common'
 export * from './Goals'

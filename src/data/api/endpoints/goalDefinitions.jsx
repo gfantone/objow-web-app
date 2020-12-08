@@ -39,6 +39,9 @@ const goalDefinitions = {
         const url = `${baseUrl}${id}/levels/`;
         return instance.get(url)
     },
+    list() {
+        return instance.get(baseUrl)
+    },
     points(id) {
         const url = `${baseUrl}${id}/points/`;
         return instance.get(url)

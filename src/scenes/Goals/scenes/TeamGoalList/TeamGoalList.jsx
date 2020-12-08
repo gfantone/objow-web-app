@@ -33,18 +33,22 @@ class TeamGoalList extends MainLayoutComponent {
         this.start = null;
         this.end = null;
         this.name = null;
+        this.onlyCollaborator = true;
+        this.onlyTeam = true;
         this.state = {
             filterOpen: false
         }
     }
 
-    refresh(id, current, category, year, start, end, name) {
+    refresh(id, current, category, year, start, end, name, onlyCollaborator, onlyTeam) {
         var url = `/goals/teams/${id}/list?current=${current}`;
         if (category) url += `&category=${category}`;
         if (year) url += `&year=${year}`;
         if (start) url += `&start=${start.getTime()}`;
         if (end) url += `&end=${end.getTime()}`;
         if (name) url += `&name=${name}`;
+        if (onlyCollaborator !== null) url += `&onlyCollaborator=${onlyCollaborator}`;
+        if (onlyTeam !== null) url += `&onlyTeam=${onlyTeam}`;
         this.props.history.replace(url)
     }
 
@@ -63,7 +67,7 @@ class TeamGoalList extends MainLayoutComponent {
     }
 
     handleTimeChange(current) {
-        this.refresh(this.id, current, this.category, this.year, this.start, this.end, this.name)
+        this.refresh(this.id, current, this.category, this.year, this.start, this.end, this.name, this.onlyCollaborator, this.onlyTeam)
     }
 
     loadData(props) {
@@ -81,8 +85,12 @@ class TeamGoalList extends MainLayoutComponent {
         const currentEnd = this.end ? this.end.getTime().toString() : null;
         const nameParam = params.get('name');
         const name = nameParam ? decodeURIComponent(nameParam) : null;
+        const onlyCollaboratorParam = params.get('onlyCollaborator');
+        const onlyCollaborator = onlyCollaboratorParam ? onlyCollaboratorParam.toBoolean() : true;
+        const onlyTeamParam = params.get('onlyTeam');
+        const onlyTeam = onlyTeamParam ? onlyTeamParam.toBoolean() : true;
 
-        if (id != this.id || current != this.current || category != this.category || year != this.year || startParam != currentStart || endParam != currentEnd || name != this.name) {
+        if (id != this.id || current != this.current || category != this.category || year != this.year || startParam != currentStart || endParam != currentEnd || name != this.name || onlyCollaborator != this.onlyCollaborator || onlyTeam != this.onlyTeam) {
             this.id = id;
             this.current = current;
             this.category = category;
@@ -90,8 +98,18 @@ class TeamGoalList extends MainLayoutComponent {
             this.start = start;
             this.end = end;
             this.name = name;
-            this.props.teamCollaboratorGoalListActions.getTeamCollaboratorGoalList(id, current, category, year, start, end, name);
-            this.props.teamGoalSummaryListActions.getTeamGoalSummaryListByTeam(id, current, category, year, start, end, name)
+            this.onlyCollaborator = onlyCollaborator;
+            this.onlyTeam = onlyTeam;
+            if (onlyCollaborator === true) {
+                this.props.teamCollaboratorGoalListActions.getTeamCollaboratorGoalList(id, current, category, year, start, end, name);
+            } else {
+                this.props.teamCollaboratorGoalListActions.getEmptyTeamCollaboratorGoalList()
+            }
+            if (onlyTeam === true) {
+                this.props.teamGoalSummaryListActions.getTeamGoalSummaryListByTeam(id, current, category, year, start, end, name)
+            } else {
+                this.props.teamGoalSummaryListActions.getEmptyTeamGoalSummaryList()
+            }
         }
     }
 
@@ -113,7 +131,7 @@ class TeamGoalList extends MainLayoutComponent {
     applySearch(prevProps) {
         if (prevProps.search != this.props.search) {
             const search = this.props.search ? encodeURIComponent(this.props.search) : null;
-            this.refresh(this.id, this.current, this.category, this.year, this.start, this.end, search)
+            this.refresh(this.id, this.current, this.category, this.year, this.start, this.end, search, this.onlyCollaborator, this.onlyTeam)
         }
     }
 
@@ -122,10 +140,10 @@ class TeamGoalList extends MainLayoutComponent {
         this.applySearch(prevProps)
     }
 
-    handleFilterChange(category, team, collaborator, year, start, end) {
+    handleFilterChange(category, team, collaborator, year, start, end, onlyCollaborator, onlyTeam) {
         if (!collaborator) {
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team;
-            this.refresh(teamId, this.current, category, year, start, end, this.name)
+            this.refresh(teamId, this.current, category, year, start, end, this.name, onlyCollaborator, onlyTeam)
         } else {
             var url = `/goals/collaborators/${collaborator}/list?current=${this.current}`;
             if (category) url += `&category=${category}`;
@@ -133,6 +151,8 @@ class TeamGoalList extends MainLayoutComponent {
             if (start) url += `&start=${start.getTime()}`;
             if (end) url += `&end=${end.getTime()}`;
             if (this.name) url += `&name=${this.name}`;
+            if (onlyCollaborator !== null) url += `&onlyCollaborator=${onlyCollaborator}`;
+            if (onlyTeam !== null) url += `&onlyTeam=${onlyTeam}`;
             this.props.history.push(url)
         }
     }
@@ -208,6 +228,8 @@ class TeamGoalList extends MainLayoutComponent {
                     team={this.props.match.params.id}
                     start={this.start}
                     end={this.end}
+                    onlyCollaborator={this.onlyCollaborator}
+                    onlyTeam={this.onlyTeam}
                 />
             </div>
         )

@@ -33,6 +33,7 @@ import coachingItemListUpdate from '../services/CoachingItems/CoachingItemListUp
 import coachingItemRemoving from '../services/CoachingItems/CoachingItemRemoving/reducer'
 import coachingItemUpdate from '../services/CoachingItems/CoachingItemUpdate/reducer'
 import collaboratorBadgeLevelList from '../services/CollaboratorBadgeLevels/CollaboratorBadgeLevelList/reducer'
+import collaboratorBadgeSummaryDetail from '../services/CollaboratorBadges/CollaboratorBadgeSummaryDetail/reducer'
 import collaboratorCategoryRankList from '../services/CollaboratorCategoryRanks/CollaboratorCategoryRankList/reducer'
 import collaboratorChallengeDetail from '../services/CollaboratorChallenges/CollaboratorChallengeDetail/reducer'
 import collaboratorChallengeGeneralRankDetail from '../services/CollaboratorChallengeGeneralRanks/CollaboratorChallengeGeneralRankDetail/reducer'
@@ -64,7 +65,6 @@ import configDetail from '../services/Configs/ConfigDetail/reducer'
 import configList from '../services/Configs/ConfigList/reducer'
 import configListUpdate from '../services/Configs/ConfigListUpdate/reducer'
 import configUpdate from '../services/Configs/ConfigUpdate/reducer'
-import currentCollaboratorBadgeDetail from '../services/CollaboratorBadges/CurrentCollaboratorBadgeDetail/reducer'
 import currentCollaboratorBadgeSummaryList from '../services/CollaboratorBadges/CurrentCollaboratorBadgeSummaryList/reducer'
 import currentPeriodDetail from '../services/Periods/CurrentPeriodDetail/reducer'
 import evolutionRequest from '../services/Mail/EvolutionRequest/reducer'
@@ -94,7 +94,6 @@ import levelList from '../services/Levels/LevelList/reducer'
 import levelListCreation from '../services/Levels/LevelListCreation/reducer'
 import managerGoalList from '../services/ManagerGoals/ManagerGoalList/reducer'
 import managerList from '../services/Managers/ManagerList/reducer'
-import nextCollaboratorBadgeDetail from '../services/CollaboratorBadges/NextCollaboratorBadgeDetail/reducer'
 import nextPeriodList from '../services/Periods/NextPeriodList/reducer'
 import partnerDetail from '../services/Partners/PartnerDetail/reducer'
 import partnerList from '../services/Partners/PartnerList/reducer'
@@ -201,6 +200,7 @@ const rootReducer = combineReducers({
     coachingItemRemoving,
     coachingItemUpdate,
     collaboratorBadgeLevelList,
+    collaboratorBadgeSummaryDetail,
     collaboratorCategoryRankList,
     collaboratorChallengeDetail,
     collaboratorChallengeGeneralRankDetail,
@@ -232,7 +232,6 @@ const rootReducer = combineReducers({
     configList,
     configListUpdate,
     configUpdate,
-    currentCollaboratorBadgeDetail,
     currentCollaboratorBadgeSummaryList,
     currentPeriodDetail,
     evolutionRequest,
@@ -262,7 +261,6 @@ const rootReducer = combineReducers({
     levelListCreation,
     managerGoalList,
     managerList,
-    nextCollaboratorBadgeDetail,
     nextPeriodList,
     partnerDetail,
     partnerList,

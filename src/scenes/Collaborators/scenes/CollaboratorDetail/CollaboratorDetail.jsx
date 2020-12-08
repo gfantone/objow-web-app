@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { SubHeader } from './components'
@@ -8,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEdit, faFlagCheckered, faSlidersH} from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { Badge, CollaboratorFilter } from './components'
-import {AccentText, Card, DefaultText, DefaultTitle, EmptyState, IconButton, InfoText, MainLayoutComponent, ProgressBar} from '../../../../components'
+import {AccentText, Card, DefaultText, DefaultTitle, EmptyState, GridLink, IconButton, InfoText, MainLayoutComponent, ProgressBar} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 import * as currentCollaboratorBadgeSummaryListActions from '../../../../services/CollaboratorBadges/CurrentCollaboratorBadgeSummaryList/actions'
@@ -173,9 +174,9 @@ class CollaboratorDetail extends MainLayoutComponent {
                                 { badges.length > 0 && <Grid container spacing={2}>
                                     { badges.map(badge => {
                                         return (
-                                            <Grid key={badge.id} item xs={6} sm={4} md={3}>
+                                            <GridLink key={badge.id} item xs={6} sm={4} md={3} component={Link} to={`/badges/detail/${badge.levelId}`}>
                                                 <Badge badge={badge} />
-                                            </Grid>
+                                            </GridLink>
                                         )
                                     }) }
                                 </Grid> }
