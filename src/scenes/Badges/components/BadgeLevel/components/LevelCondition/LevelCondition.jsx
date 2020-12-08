@@ -8,7 +8,7 @@ import '../../../../../../helpers/StringHelper'
 
 const LevelCondition = ({ level, ...props }) => {
     const { collaborator } = props.collaboratorDetail;
-    const hasLevel = level.level <= collaborator.level.number;
+    const hasLevel = collaborator ? level.level <= collaborator.level.number : false;
     const icon = hasLevel ? faUnlock : faLock;
     const text = (
         <div>
