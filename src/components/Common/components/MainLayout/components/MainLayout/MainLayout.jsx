@@ -141,14 +141,16 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                             <HeaderTitle>{title}</HeaderTitle>
                                         </HeaderTitleContainer>
                                         <HeaderContainerLeft>
-                                            { !returnActivation && <Hidden lgUp implementation='css'>
-                                                <IconButton size='small' onClick={handleDrawerToggle}>
-                                                    <FontAwesomeIcon icon={faBars} />
-                                                </IconButton>
-                                            </Hidden> }
-                                            { returnActivation && <IconButton size='small' onClick={goBack}>
-                                                <FontAwesomeIcon icon={faAngleLeft} />
-                                            </IconButton> }
+                                            <div style={{display: 'flex'}}>
+                                                { <Hidden lgUp implementation='css'>
+                                                    <IconButton size='small' onClick={handleDrawerToggle} style={{marginRight: 8}}>
+                                                        <FontAwesomeIcon icon={faBars} />
+                                                    </IconButton>
+                                                </Hidden> }
+                                                { returnActivation && <IconButton size='small' onClick={goBack}>
+                                                    <FontAwesomeIcon icon={faAngleLeft} />
+                                                </IconButton> }
+                                            </div>
                                         </HeaderContainerLeft>
                                         <HeaderContainerRight>
                                             <div style={{display: 'flex'}}>
