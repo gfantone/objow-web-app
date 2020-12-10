@@ -143,7 +143,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                         <HeaderContainerLeft>
                                             <div style={{display: 'flex'}}>
                                                 { <Hidden lgUp implementation='css'>
-                                                    <IconButton size='small' onClick={handleDrawerToggle} style={{marginRight: 8}}>
+                                                    <IconButton size='small' onClick={handleDrawerToggle} style={{marginRight: 12}}>
                                                         <FontAwesomeIcon icon={faBars} />
                                                     </IconButton>
                                                 </Hidden> }
