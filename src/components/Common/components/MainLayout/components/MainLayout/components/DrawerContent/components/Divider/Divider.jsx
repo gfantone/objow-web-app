@@ -3,7 +3,7 @@ import {withStyles} from '@material-ui/core/styles'
 
 const styles = {
     root: {
-        height: 16,
+        height: 5,
         backgroundColor: 'initial'
     }
 }

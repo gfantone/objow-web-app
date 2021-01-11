@@ -5,7 +5,7 @@ const styles = {
     root: {
         fontSize: 15,
         color: '#555555',
-        textTransform: 'uppercase',
+        textTransform: 'none',
         borderRadius: 16,
         paddingLeft: 16,
         paddingTop: 0,
