@@ -8,8 +8,7 @@ const style = {
         minHeight: 'initial',
         fontSize: 13,
         color: '#555555',
-        minWidth: 'initial',
-        textTransform: 'none'
+        minWidth: 'initial'
     },
     selected: {
         color: '#FFFFFF'
