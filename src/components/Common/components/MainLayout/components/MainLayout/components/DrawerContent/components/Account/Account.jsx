@@ -32,6 +32,10 @@ const styles = {
     },
     notifications: {
         cursor: 'pointer',
+    },
+    menuLabel: {
+      textTransform: 'none',
+      fontSize: 14
     }
 };
 
@@ -80,12 +84,22 @@ const Account = ({onNavigate, ...props}) => {
                             </Grid> }
                             <GridLink item xs={12} component={Link} to='/account' onClick={onNavigate} className={classes.infos}>
                                 <AccentText>
-                                    <FontAwesomeIcon icon={faEdit} />&nbsp;&nbsp;{Resources.DRAWER_INFOS_BUTTON}
+                                    <FontAwesomeIcon icon={faEdit} />
+                                    &nbsp;&nbsp;
+                                    <span className={classes.menuLabel}>
+                                      {Resources.DRAWER_INFOS_BUTTON}
+                                    </span>
                                 </AccentText>
                             </GridLink>
                             <Grid item xs={12} className={classes.notificationContainer} onClick={() => setNotificationOpen(true)}>
                                 <DefaultText className={classes.notifications}>
-                                    <Badge badgeContent={count} color='secondary'><FontAwesomeIcon icon={faBell} /></Badge>&nbsp;&nbsp;&nbsp;{Resources.DRAWER_NOTIFICATIONS_BUTTON}
+                                    <Badge badgeContent={count} color='secondary'>
+                                      <FontAwesomeIcon icon={faBell} />
+                                    </Badge>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <span className={classes.menuLabel}>
+                                      {Resources.DRAWER_NOTIFICATIONS_BUTTON}
+                                    </span>
                                 </DefaultText>
                             </Grid>
                         </Grid>
