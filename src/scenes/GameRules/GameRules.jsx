@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {Grid} from '@material-ui/core'
+import {Redirect} from 'react-router-dom'
 import {Button, IconButton as AppBarIconButton, Loader, MainLayoutComponent, ProgressButton, RichText} from '../../components'
 import * as Resources from '../../Resources'
 import * as configListActions from '../../services/Configs/ConfigList/actions'
@@ -57,6 +58,12 @@ class GameRules extends MainLayoutComponent {
         const {loading} = this.props.configUpdate
         const config = configs.find(x => x.code === 'GR')
         const rules = JSON.parse(config.value)
+
+        const { account } = this.props.accountDetail;
+
+        if(!account.hasRulesAccess) {
+          return <Redirect to={'/'} />
+        }
 
         return (
             <Grid container spacing={2} justify='space-between'>

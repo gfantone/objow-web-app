@@ -26,6 +26,10 @@ class ChallengeHome extends MainLayoutComponent {
     render() {
         const { account } = this.props.accountDetail;
 
+        if(!account.hasChallengeAccess) {
+          return <Redirect to={'/'} />
+        }
+
         if (account.role.code == 'C') {
             return <Redirect to={`/challenges/collaborator/${account.id}`} />
         } else if (account.role.code == 'M' && account.team) {

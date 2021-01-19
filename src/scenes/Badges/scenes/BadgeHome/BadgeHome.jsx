@@ -16,6 +16,9 @@ class BadgeHome extends MainLayoutComponent {
     render() {
         const { account } = this.props.accountDetail;
 
+        if(!account.hasBadgeAccess) {
+          return <Redirect to={'/'} />
+        }
         return (
             <div>
                 { account.role.code == 'C' && <Redirect to={`/badges/collaborator/${account.id}`} /> }

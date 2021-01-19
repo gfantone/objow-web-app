@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {CardMedia, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
+import { Redirect } from 'react-router-dom'
 import {CollaboratorList, SubHeader} from './components'
 import {Divider} from '../../components'
 import {DefaultTitle, InfoText, MainLayoutComponent} from '../../../../components'
@@ -37,6 +38,12 @@ class BadgeDetail extends MainLayoutComponent {
         const {classes} = this.props
         const {summary} = this.props.collaboratorBadgeSummaryDetail
         const iconData = require(`../../../../assets/img/system/badge/icons/${summary.code}.svg`)
+
+        const { account } = this.props.accountDetail;
+
+        if(!account.hasBadgeAccess) {
+          return <Redirect to={'/'} />
+        }
 
         return (
             <Grid container spacing={2} justify='center'>

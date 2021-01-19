@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCopy, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { Redirect } from 'react-router-dom'
 import { SubHeader } from './components'
 import '../../../../helpers/DateHelper'
 import { ChallengeCondition, CollaboratorChallengeRankList } from '../../components'
@@ -82,6 +83,10 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
         const { ranks } = this.props.collaboratorChallengeRankList;
         const { challenge } = this.props.teamCollaboratorChallengeDetail;
         const { goals } = this.props.teamCollaboratorChallengeGoalList;
+
+        if(!account.hasChallengeAccess) {
+          return <Redirect to={'/'} />
+        }
 
         return (
             <div>

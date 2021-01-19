@@ -16,6 +16,10 @@ class GoalListHome extends MainLayoutComponent {
     render() {
         const { account } = this.props.accountDetail;
 
+        if(!account.hasGoalAccess) {
+          return <Redirect to={'/challenges'} />
+        }
+
         if (account.role.code == 'C') {
             return <Redirect to={`/goals/collaborators/${account.id}/categories`} />
         }

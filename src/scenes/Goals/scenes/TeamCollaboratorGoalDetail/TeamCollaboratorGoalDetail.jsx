@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Redirect } from 'react-router-dom'
 import { CollaboratorGoalList, SubHeader } from './components'
 import { CollaboratorGoalRankList, GoalIndication } from '../../components'
 import { MainLayoutComponent } from '../../../../components'
@@ -39,6 +40,10 @@ class TeamCollaboratorGoalDetail extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
         const { goal } = this.props.teamCollaboratorGoalDetail;
         const { ranks } = this.props.collaboratorGoalRankList;
+
+        if(!account.hasGoalAccess) {
+          return <Redirect to={'/challenges'} />
+        }
 
         return (
             <div>

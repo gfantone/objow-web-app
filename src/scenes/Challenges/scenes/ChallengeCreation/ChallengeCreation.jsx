@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux'
 import Formsy from "formsy-react"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
+import { Redirect } from 'react-router-dom'
 import {ChallengeForm} from '../../components'
 import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
@@ -125,6 +126,12 @@ class ChallengeCreation extends MainLayoutComponent {
         const {period, loading: currentPeriodDetailLoading} = this.props.currentPeriodDetail
         const {kpis, loading: kpiListLoading} = this.props.kpiList
         const loading = categoryListLoading || challengeAwardTypeListLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading
+
+        const { account } = this.props.accountDetail;
+
+        if(!account.hasChallengeAccess) {
+          return <Redirect to={'/'} />
+        }
 
         if (success) {
             this.props.challengeCreationActions.clearChallengeCreation()

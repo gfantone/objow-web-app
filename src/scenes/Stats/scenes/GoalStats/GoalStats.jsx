@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {Grid} from '@material-ui/core'
+import {Redirect} from 'react-router-dom'
 import {StatsData, StatsFilter} from './components'
 import {MainLayoutComponent} from '../../../../components'
 import * as collaboratorGoalSummaryListActions from '../../../../services/CollaboratorGoalSummaries/CollaboratorGoalSummaryList/actions'
@@ -53,6 +54,12 @@ class GoalStats extends MainLayoutComponent {
     }
 
     render() {
+        const { account } = this.props.accountDetail;
+
+        if(!account.hasStatisticsAccess) {
+          return <Redirect to={'/'} />
+        }
+
         return (
             <Grid container spacing={4}>
                 {this.category && this.period && (this.collaborator || this.team) && <Grid item xs={12}>

@@ -6,6 +6,7 @@ import { Grid, Tooltip } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faSlidersH } from '@fortawesome/free-solid-svg-icons'
+import { Redirect } from 'react-router-dom'
 import { Challenge, ChallengeCard, ChallengeFilter, TimeFilter } from '../../components'
 import { EmptyState, GridLink, IconButton, Loader, MainLayoutComponent } from '../../../../components'
 import * as Resources from '../../../../Resources'
@@ -163,6 +164,12 @@ class TeamChallengeList extends MainLayoutComponent {
         const { challenges: teamChallenges, loading: teamChallengeListLoading } = this.props.teamChallengeList;
         const { challenges: collaboratorChallenges, loading: teamCollaboratorChallengeListLoading } = this.props.teamCollaboratorChallengeList;
         const loading = teamChallengeListLoading || teamCollaboratorChallengeListLoading;
+
+        const { account } = this.props.accountDetail;
+
+        if(!account.hasChallengeAccess) {
+          return <Redirect to={'/'} />
+        }
 
         return (
             <div>

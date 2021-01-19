@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
+import { Redirect } from 'react-router-dom'
 import {Challenge, ChallengeCard, ChallengeFilter, TimeFilter} from '../../components'
 import { EmptyState, GridLink, IconButton, Loader, MainLayoutComponent } from '../../../../components'
 import * as Resources from '../../../../Resources'
@@ -145,6 +146,12 @@ class CollaboratorChallengeList extends MainLayoutComponent {
         const loading = collaboratorChallengeListLoading || collaboratorDetailLoading || teamChallengeListLoading;
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
+
+        const { account } = this.props.accountDetail;
+
+        if(!account.hasChallengeAccess) {
+          return <Redirect to={'/'} />
+        }
 
         return (
             <div>

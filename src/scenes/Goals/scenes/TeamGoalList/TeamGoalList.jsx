@@ -6,6 +6,7 @@ import { Grid } from '@material-ui/core'
 import {withStyles} from '@material-ui/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
+import { Redirect } from 'react-router-dom'
 import { Goal, GoalFilter } from '../../components'
 import { Card, GridLink, IconButton, Loader, MainLayoutComponent, TimeFilter, EmptyState } from '../../../../components'
 import * as Resources from '../../../../Resources'
@@ -210,6 +211,9 @@ class TeamGoalList extends MainLayoutComponent {
         const loading = teamCollaboratorGoalListLoading || teamGoalListLoading;
         const hasGoals = collaboratorGoals && teamGoals && (collaboratorGoals.length > 0 || teamGoals.length > 0);
 
+        if(!account.hasGoalAccess) {
+          return <Redirect to={'/challenges'} />
+        }
         // if (account.role.code == 'C' || account.role.code == 'M' && account.team != this.props.match.params.id) {
         //     return <Redirect to='/goals' />
         // }

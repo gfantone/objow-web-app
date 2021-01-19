@@ -24,34 +24,61 @@ const DrawerContent = ({onNavigate, ...props }) => {
         props.collaboratorRewardOrdersActions.countWaitingCollaboratorRewardOrders()
         props.teamRewardOrderCountActions.countWaitingTeamRewardOrders()
     }, [])
+    const menuEntries = [
+      {
+        component: <DrawerButton icon={faBullseye} text={Resources.DRAWER_GOALS_BUTTON} src='/goals' onNavigate={onNavigate} />,
+        permission: account.hasGoalAccess
+      },
+      {
+        component: <DrawerButton icon={faRocket} text={Resources.DRAWER_CHALLENGES_BUTTON} src='/challenges' onNavigate={onNavigate} />,
+        permission: account.hasChallengeAccess
+      },
+      {
+        component: <DrawerButton icon={faTrophy} text={Resources.DRAWER_BADGES_BUTTON} src='/badges' onNavigate={onNavigate} />,
+        permission: account.hasBadgeAccess
+      },
+      {
+        component: <DrawerButton icon={faListUl} text={Resources.DRAWER_COACHING_LIST_BUTTON} src='/coaching' onNavigate={onNavigate} />,
+        permission: account.hasCoachingAccess
+      },
+      {
+        component: <DrawerButton icon={faRandom} text={Resources.DRAWER_RANKINGS_BUTTON} src='/rankings' onNavigate={onNavigate} />,
+        permission: account.hasGeneralRankAccess || account.hasCategoryRankAccess || account.hasChallengeRankAccess
+      },
+      {
+        component: <DrawerButton icon={faUsers} text={Resources.DRAWER_TEAMS_BUTTON} src='/teams' onNavigate={onNavigate} />,
+        permission: true
+      },
+      {
+        component: <DrawerButton icon={faChartLine} text={Resources.DRAWER_STATS_BUTTON} src='/stats' onNavigate={onNavigate} />,
+      permission: account.hasStatisticsAccess
+      },
+      {
+        component: <DrawerButton icon={faTools} text={Resources.DRAWER_ADMIN_BUTTON} src='/admin' onNavigate={onNavigate} />,
+        permission: isAdministrator
+      },
 
+      {
+        component: <DrawerButton icon={faQuestion} text={Resources.DRAWER_HELP_BUTTON} src='/help' onNavigate={onNavigate} />,
+        permission: isAdministrator
+      },
+      {
+        component: <DrawerButton icon={faSignOutAlt} text={Resources.DRAWER_LOGOUT_BUTTON} src='/logout' onNavigate={onNavigate} />,
+      permission: true
+      }
+    ]
     return (
         <div>
             <Account onNavigate={onNavigate} />
             <List>
-                <DrawerButton icon={faBullseye} text={Resources.DRAWER_GOALS_BUTTON} src='/goals' onNavigate={onNavigate} />
-                <Divider />
-                <DrawerButton icon={faRocket} text={Resources.DRAWER_CHALLENGES_BUTTON} src='/challenges' onNavigate={onNavigate} />
-                <Divider />
-                <DrawerButton icon={faTrophy} text={Resources.DRAWER_BADGES_BUTTON} src='/badges' onNavigate={onNavigate} />
-                {account.hasCoachingAccess && <Divider />}
-                {account.hasCoachingAccess && <DrawerButton icon={faListUl} text={Resources.DRAWER_COACHING_LIST_BUTTON} src='/coaching' onNavigate={onNavigate} />}
-                {(account.hasGeneralRankAccess || account.hasCategoryRankAccess || account.hasChallengeRankAccess) && <Divider />}
-                {(account.hasGeneralRankAccess || account.hasCategoryRankAccess || account.hasChallengeRankAccess) && <DrawerButton icon={faRandom} text={Resources.DRAWER_RANKINGS_BUTTON} src='/rankings' onNavigate={onNavigate} />}
-                <Divider />
-                <DrawerButton icon={faUsers} text={Resources.DRAWER_TEAMS_BUTTON} src='/teams' onNavigate={onNavigate} />
-                <Divider />
-                <DrawerButton icon={faChartLine} text={Resources.DRAWER_STATS_BUTTON} src='/stats' onNavigate={onNavigate} />
-                {account.hasRewardAccess && <Divider />}
-                {account.hasRewardAccess && <DrawerButton icon={faGift} text={Resources.DRAWER_REWARDS_BUTTON} src='/rewards' onNavigate={onNavigate} badgeContent={orders} />}
-                <Divider />
-                <DrawerButton icon={faBook} text={Resources.DRAWER_RULES_BUTTON} src='/rules' onNavigate={onNavigate} />
-                {isAdministrator && <Divider />}
-                {isAdministrator && <DrawerButton icon={faTools} text={Resources.DRAWER_ADMIN_BUTTON} src='/admin' onNavigate={onNavigate} />}
-                {isAdministrator && <Divider />}
-                {isAdministrator && <DrawerButton icon={faQuestion} text={Resources.DRAWER_HELP_BUTTON} src='/help' onNavigate={onNavigate} />}
-                <Divider />
-                <DrawerButton icon={faSignOutAlt} text={Resources.DRAWER_LOGOUT_BUTTON} src='/logout' onNavigate={onNavigate} />
+                {
+                  menuEntries.map((entry, index) => (
+                    <React.Fragment>
+                      { entry.permission && entry.component }
+                      { entry.permission && (menuEntries.length > index + 1) && <Divider /> }
+                    </React.Fragment>
+                  ))
+                }
             </List>
             <List>
                 <Logo image={logo} />

@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {Grid } from '@material-ui/core'
+import { Redirect } from 'react-router-dom'
 import {Card, EmptyState, GridLink, IconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import {SubHeader} from './components'
@@ -133,6 +134,12 @@ class BadgeList extends MainLayoutComponent {
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null
         const collaboratorId = collaborator ? collaborator.id : null
         const loading = collaboratorBadgeLevelListLoading || collaboratorDetailLoading
+
+        const { account } = this.props.accountDetail;
+
+        if(!account.hasBadgeAccess) {
+          return <Redirect to={'/'} />
+        }
 
         return (
             <div>

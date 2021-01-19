@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import { Redirect } from 'react-router-dom'
 import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent} from "../../../../components"
 import * as challengeCreationActions from '../../../../services/Challanges/ChallangeCreaton/actions'
 import * as challengeTypeUsablePointsActions from '../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
@@ -133,6 +134,12 @@ class ChallengeDuplication extends MainLayoutComponent {
         const {period, loading: currentPeriodDetailLoading} = this.props.currentPeriodDetail
         const {kpis, loading: kpiListLoading} = this.props.kpiList
         const loading = categoryListLoading || challengeAwardTypeListLoading || challengeDetailLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading
+
+        const { account } = this.props.accountDetail;
+
+        if(!account.hasChallengeAccess) {
+          return <Redirect to={'/'} />
+        }
 
         if (success) {
             this.props.challengeCreationActions.clearChallengeCreation()

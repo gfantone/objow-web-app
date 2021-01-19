@@ -11,6 +11,7 @@ const account = {
         return instance.put(url, { useTermsAccepted, privacyPolicyAccepted })
     },
     update(account) {
+        console.log(account);
         const url = `${baseUrl}infos/`;
         return instance.patch(url, account)
     },

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Redirect } from 'react-router-dom'
 import { SubHeader } from './components'
 import '../../../../helpers/DateHelper'
 import { ChallengeCondition, TeamChallengeRankList } from '../../components'
@@ -83,6 +84,10 @@ class TeamChallengeDetail extends MainLayoutComponent {
         const { challenge } = this.props.teamChallengeDetail;
         const { goals } = this.props.teamChallengeGoalList;
         const { ranks } = this.props.teamChallengeRankList;
+
+        if(!account.hasChallengeAccess) {
+          return <Redirect to={'/'} />
+        }
 
         return (
             <div>

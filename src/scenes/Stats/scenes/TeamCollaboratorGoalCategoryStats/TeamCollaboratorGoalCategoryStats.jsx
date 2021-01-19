@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Grid, isWidthUp, withWidth} from '@material-ui/core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSlidersH} from '@fortawesome/free-solid-svg-icons'
+import {Redirect} from 'react-router-dom'
 import {CategoryFilter} from '../../components'
 import {AppBarSubTitle, Category, GridLink, IconButton, Loader, MainLayoutComponent} from '../../../../components'
 import {bindActionCreators} from 'redux'
@@ -104,6 +105,12 @@ class TeamCollaboratorGoalCategoryStats extends MainLayoutComponent {
     render() {
         const {categories, loading} = this.props.teamGoalCategoryList
         const marginTop = isWidthUp('sm', this.props.width) ? 48 : 16
+
+        const { account } = this.props.accountDetail;
+
+        if(!account.hasStatisticsAccess) {
+          return <Redirect to={'/'} />
+        }
 
         return (
             <div style={{marginTop: marginTop}}>

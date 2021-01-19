@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import { Redirect } from 'react-router-dom'
 import {Grid, isWidthUp, withWidth} from '@material-ui/core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSlidersH} from '@fortawesome/free-solid-svg-icons'
@@ -116,6 +117,11 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null
         const collaboratorId = collaborator ? collaborator.id : null
         const marginTop = isWidthUp('sm', this.props.width) ? 48 : 16
+        const { account } = this.props.accountDetail;
+
+        if(!account.hasGoalAccess) {
+          return <Redirect to={'/challenges'} />
+        }
 
         return (
             <div style={{marginTop: marginTop}}>

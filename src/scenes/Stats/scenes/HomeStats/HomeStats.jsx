@@ -15,6 +15,10 @@ class HomeStats extends MainLayoutComponent {
 
     render() {
         const { account } = this.props.accountDetail;
+        
+        if(!account.hasStatisticsAccess) {
+          return <Redirect to={'/'} />
+        }
 
         if (account.role.code === 'C') {
             return <Redirect to={`/stats/collaborators/${account.id}/categories`} />
