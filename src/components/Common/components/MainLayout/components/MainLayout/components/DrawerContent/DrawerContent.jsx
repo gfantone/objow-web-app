@@ -53,18 +53,27 @@ const DrawerContent = ({onNavigate, ...props }) => {
         component: <DrawerButton icon={faChartLine} text={Resources.DRAWER_STATS_BUTTON} src='/stats' onNavigate={onNavigate} />,
       permission: account.hasStatisticsAccess
       },
+
+      {
+        component: <DrawerButton icon={faGift} text={Resources.DRAWER_REWARDS_BUTTON} src='/rewards' onNavigate={onNavigate} badgeContent={orders} />,
+        permission: account.hasRewardAccess
+      },
+      {
+        component: <DrawerButton icon={faBook} text={Resources.DRAWER_RULES_BUTTON} src='/rules' onNavigate={onNavigate} />,
+      permission: account.hasRulesAccess
+      },
+
       {
         component: <DrawerButton icon={faTools} text={Resources.DRAWER_ADMIN_BUTTON} src='/admin' onNavigate={onNavigate} />,
         permission: isAdministrator
       },
-
       {
         component: <DrawerButton icon={faQuestion} text={Resources.DRAWER_HELP_BUTTON} src='/help' onNavigate={onNavigate} />,
         permission: isAdministrator
       },
       {
         component: <DrawerButton icon={faSignOutAlt} text={Resources.DRAWER_LOGOUT_BUTTON} src='/logout' onNavigate={onNavigate} />,
-      permission: true
+        permission: true
       }
     ]
     return (
