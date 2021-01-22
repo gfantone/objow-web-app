@@ -90,6 +90,7 @@ import inAppNotificationList from '../services/InAppNotifications/InAppNotificat
 import kpiDetail from '../services/Kpis/KpiDetail/reducer'
 import kpiList from '../services/Kpis/KpiList/reducer'
 import kpiListUpdate from '../services/Kpis/KpiListUpdate/reducer'
+import levelIconList from '../services/LevelIcons/LevelIconList/reducer'
 import levelList from '../services/Levels/LevelList/reducer'
 import levelListCreation from '../services/Levels/LevelListCreation/reducer'
 import managerGoalList from '../services/ManagerGoals/ManagerGoalList/reducer'
@@ -257,6 +258,7 @@ const rootReducer = combineReducers({
     kpiDetail,
     kpiList,
     kpiListUpdate,
+    levelIconList,
     levelList,
     levelListCreation,
     managerGoalList,

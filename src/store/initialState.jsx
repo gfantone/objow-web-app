@@ -91,6 +91,7 @@ const initialState = {
     kpiDetail: {kpi: null, loading: false, hasError: false},
     kpiList: {kpis: null, loading: false, hasError: false},
     kpiListUpdate: {success: false, loading: false, hasError: false},
+    levelIconList: {icons: null, loading: false, hasError: false},
     levelList: {levels: null, loading: false, hasError: false},
     levelListCreation: {success: false, loading: false, hasError: false},
     managerGoalList: {goals: [], loading: false, hasError: false},
