@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import * as levelListActions from '../../../../services/Levels/LevelList/actions'
-import * as levelListCreationActions from '../../../../services/Levels/LevelListCreation/actions'
+
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import {SubHeader} from './components'
-import {DataTable, IconButton, Loader} from '../../../../components'
+import {DataTable, IconButton, Loader, AppBarSubTitle} from '../../../../components'
 import {CardMedia} from "@material-ui/core"
 import {withStyles} from "@material-ui/core/styles"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -20,9 +20,8 @@ const styles = {
 
 class AdminLevelList extends Component {
     onAdd() {
-        const { period: currentPeriod } = this.props.currentPeriodDetail;
-        const periodId = this.period ? this.period : currentPeriod.id;
-        console.log(periodId);
+        const periodId = this.props.match.params.periodId;
+
         this.props.history.push(`/admin/periods/${periodId}/levels/creation`)
     }
 
@@ -35,6 +34,8 @@ class AdminLevelList extends Component {
         const periodId = this.props.match.params.periodId;
         this.props.activateReturn();
         this.props.handleTitle('Administration');
+        this.props.handleSubHeader(<AppBarSubTitle title='Configuration des levels' />);
+        this.props.handleButtons(<IconButton size='small' onClick={this.onAdd.bind(this)}><FontAwesomeIcon icon={faPlus} /></IconButton>);
         this.props.levelListActions.getLevelList(periodId);
         this.props.configListActions.getConfigList(periodId)
     }
@@ -46,15 +47,26 @@ class AdminLevelList extends Component {
     renderData() {
         const {classes} = this.props
         const {levels} = this.props.levelList
+
         const columns = [
             { name: 'id', options: {display: false, filter: false} },
+            { name: 'number', label: 'Level', options: {
+                customBodyRender: value => {
+                    return `Level ${value}`
+                } },
+            },
             { name: 'icon.path', label: 'Icône', options: {
                 customBodyRender: value => {
                     return <CardMedia image={value} className={classes.icon} />
                 },
                 filter: false
             } },
-            // { title: 'name', label: 'Nom' },
+            { name: 'players', label: '% de joueurs', options: {
+                customBodyRender: value => {
+                    return value*100
+                } },
+            },
+            { name: 'points', label: 'Points à atteindre' }
         ]
         const options = {
             selectableRows: 'none',
@@ -79,13 +91,11 @@ class AdminLevelList extends Component {
 const mapStateToProps = ({ configList, levelList, levelListCreation }) => ({
     configList,
     levelList,
-    levelListCreation
 });
 
 const mapDispatchToProps = (dispatch) => ({
     configListActions: bindActionCreators(configListActions, dispatch),
     levelListActions: bindActionCreators(levelListActions, dispatch),
-    levelListCreationActions: bindActionCreators(levelListCreationActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AdminLevelList))

@@ -5,13 +5,14 @@ import Formsy from 'formsy-react'
 import {Grid} from '@material-ui/core'
 import {CategoryIconInput} from '../../components'
 import {AppBarSubTitle, Card, Loader, ProgressButton, TextField} from '../../../../components'
+import * as levelListActions from '../../../../services/Levels/LevelList/actions'
 import * as levelCreationActions from '../../../../services/Levels/LevelListCreation/actions'
 import * as levelIconListActions from "../../../../services/LevelIcons/LevelIconList/actions";
 
 class AdminLevelCreation extends Component {
     componentDidMount() {
         this.props.handleTitle('Administration');
-        this.props.handleSubHeader(<AppBarSubTitle title="Création d'une catégorie" />);
+        this.props.handleSubHeader(<AppBarSubTitle title="Création d'un level" />);
         this.props.handleMaxWidth('sm');
         this.props.activateReturn();
         this.props.levelCreationActions.clearLevelListCreation();
@@ -23,8 +24,16 @@ class AdminLevelCreation extends Component {
     };
 
     onSubmit(model) {
-        const level = {id: this.props.match.params.id, name: model.name, icon: model.icon};
-        this.props.levelCreationActions.createLevel(level)
+        const periodId = this.props.match.params.periodId;
+        const {levels} = this.props.levelList
+        const level = {
+          id: this.props.match.params.id,
+          title: model.title,
+          icon: model.icon,
+          points: model.points,
+          period: periodId
+        };
+        this.props.levelCreationActions.createLevelList([...levels, level])
     };
 
     renderForm() {
@@ -38,10 +47,13 @@ class AdminLevelCreation extends Component {
                         <Card>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
-                                    <TextField name='name' label='Nom' fullWidth required />
+                                    <TextField name='title' label='Nom' fullWidth/>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CategoryIconInput name='icon' label='Icône' icons={icons} required />
+                                    <TextField name='points' label='Points à atteindre' fullWidth/>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <CategoryIconInput name='icon' label='Icône' icons={icons}/>
                                 </Grid>
                             </Grid>
                         </Card>
@@ -72,8 +84,9 @@ class AdminLevelCreation extends Component {
     }
 }
 
-const mapStateToProps = ({levelListCreation, levelIconList}) => ({
+const mapStateToProps = ({levelListCreation, levelIconList, levelList}) => ({
     levelListCreation,
+    levelList,
     levelIconList
 });
 
