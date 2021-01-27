@@ -47,6 +47,7 @@ class AdminLevelList extends Component {
     renderData() {
         const {classes} = this.props
         const {levels} = this.props.levelList
+        const periodId = this.props.match.params.periodId;
 
         const columns = [
             { name: 'id', options: {display: false, filter: false} },
@@ -55,6 +56,7 @@ class AdminLevelList extends Component {
                     return `Level ${value}`
                 } },
             },
+            { name: 'title', label: 'Nom' },
             { name: 'icon.path', label: 'Icône', options: {
                 customBodyRender: value => {
                     return <CardMedia image={value} className={classes.icon} />
@@ -71,7 +73,7 @@ class AdminLevelList extends Component {
         const options = {
             selectableRows: 'none',
             onRowClick: (colData, cellMeta) => {
-                this.props.history.push(`/admin/levels/modification/${colData[0]}`)
+                this.props.history.push(`/admin/periods/${periodId}/levels/modification/${colData[0]}`)
             }
         }
         return <DataTable data={levels} columns={columns} options={options} />

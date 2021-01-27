@@ -24,6 +24,7 @@
     "env-cmd": "^10.1.0",
     "formsy-react": "^2.0.2",
     "is-hotkey": "^0.2.0",
+    "lodash": "^4.17.20",
     "lottie-web": "^5.6.4",
     "mui-datatables": "^2.14.0",
     "prop-types": "^15.7.2",

@@ -96,6 +96,7 @@ export default () => {
                 <AdminRoutes exact path='/admin/periods/:periodId/goals/modification/:id' component={scenes.AdminGoalUpdate} />
                 <AdminRoutes exact path='/admin/periods/:periodId/levels' component={scenes.AdminLevelList} />
                 <AdminRoutes exact path='/admin/periods/:periodId/levels/creation' component={scenes.AdminLevelCreation} />
+                <AdminRoutes exact path='/admin/periods/:periodId/levels/modification/:id' component={scenes.AdminLevelUpdate} />
                 <AdminRoutes exact path='/admin/logo' component={scenes.AdminLogo} />
                 <AdminRoutes exact path='/admin/periods/:periodId/points' component={scenes.AdminPointConfig} />
                 <AdminRoutes exact path='/admin/periods/:periodId/goal-levels' component={scenes.AdminGoalPointList} />
