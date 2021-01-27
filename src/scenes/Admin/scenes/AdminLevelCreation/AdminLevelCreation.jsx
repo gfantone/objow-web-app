@@ -38,6 +38,7 @@ class AdminLevelCreation extends Component {
 
     renderForm() {
         const {icons} = this.props.levelIconList;
+        console.log(icons);
         const {loading} = this.props.levelListCreation;
 
         return (
@@ -53,7 +54,7 @@ class AdminLevelCreation extends Component {
                                     <TextField name='points' label='Points à atteindre' fullWidth/>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <CategoryIconInput name='icon' label='Icône' icons={icons}/>
+                                    <CategoryIconInput name='icon' label='Icône' icons={[icons]}/>
                                 </Grid>
                             </Grid>
                         </Card>

@@ -59,6 +59,7 @@ class AdminLevelList extends Component {
             { name: 'title', label: 'Nom' },
             { name: 'icon.path', label: 'Icône', options: {
                 customBodyRender: value => {
+                    console.log(value);
                     return <CardMedia image={value} className={classes.icon} />
                 },
                 filter: false

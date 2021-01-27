@@ -89,6 +89,7 @@ const api = {
     importLogs,
     inAppNotifications,
     kpis,
+    levelIcons,
     levels,
     mails,
     managers,

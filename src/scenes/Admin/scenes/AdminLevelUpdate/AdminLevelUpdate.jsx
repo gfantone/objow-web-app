@@ -22,8 +22,7 @@ class AdminLevelUpdate extends Component {
         this.props.activateReturn();
         this.props.levelCreationActions.clearLevelListCreation();
         this.props.levelListActions.getLevelList(periodId);
-
-        this.props.levelIconListActions.getUsableList()
+        this.props.levelIconListActions.getUsableList(id);
     }
 
     renderLoader() {
@@ -40,7 +39,7 @@ class AdminLevelUpdate extends Component {
         };
         
         this.props.levelCreationActions.createLevelList(
-          levels.map(item => item.id === parseInt(level.id) ? Object.assign({}, item, level) : item)
+          levels.map(item => item.id === parseInt(level.id) ? Object.assign({}, item, level) : Object.assign({}, item, {icon: _.get(item, 'icon.id')}))
         )
     };
 
@@ -65,7 +64,7 @@ class AdminLevelUpdate extends Component {
                                         <TextField name='points' label='Points à atteindre' initial={level.points} fullWidth />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <CategoryIconInput name='icon' label='Icône' icons={icons} initial={_.get(level, 'icon.id')}/>
+                                        <CategoryIconInput name='icon' label='Icône' icons={[icons]} initial={_.get(level, 'icon.id')}/>
                                     </Grid>
                                 </Grid>
                             </Card>

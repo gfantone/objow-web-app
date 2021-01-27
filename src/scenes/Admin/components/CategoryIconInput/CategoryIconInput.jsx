@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import _ from 'lodash';
 import { withFormsy } from 'formsy-react'
 import { CardMedia, Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
@@ -35,13 +36,12 @@ const CategoryIconInput = ({ icons = [], initial, label, name, onChange, require
         setValue(value)
         if (onChange) onChange(value)
     }
-
     return (
         <div>
             { !hasError && <LabelText>{finalLabel}</LabelText> }
             { hasError && <LabelErrorText>{finalLabel}</LabelErrorText> }
             <Grid container spacing={1}>
-                { icons.map((icon) => {
+                { _.flatten(icons).map((icon) => {
                     const selected = icon.id == value
                     return (
                         <Grid key={icon.id} item onClick={handleValue(icon.id)}>

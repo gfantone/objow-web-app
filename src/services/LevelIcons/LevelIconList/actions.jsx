@@ -1,12 +1,12 @@
 import * as types from './actionTypes'
 
 export const getUsableList = () => ({
-    type: types.GET_USABLE_LIST
+    type: types.GET_LEVELS_USABLE_LIST
 });
 
-export const getUsableListForLevel = (categoryId) => ({
+export const getUsableListForLevel = (levelId) => ({
     type: types.GET_USABLE_LIST_FOR_LEVEL,
-    categoryId
+    levelId
 });
 
 export const getLevelIconListSuccess = (icons) => ({

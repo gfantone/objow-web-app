@@ -3,7 +3,7 @@ import initialState from '../../../store/initialState';
 
 const LevelIconList = (state = initialState.levelIconList, action) => {
     switch (action.type) {
-        case types.GET_USABLE_LIST:
+        case types.GET_LEVELS_USABLE_LIST:
         case types.GET_USABLE_LIST_FOR_LEVEL:
             return {...state, icons: null, loading: true, hasError: false};
 
