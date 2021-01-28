@@ -94,7 +94,6 @@ const initialState = {
     levelIconList: {icons: null, loading: false, hasError: false},
     levelList: {levels: null, loading: false, hasError: false},
     levelDetail: {level: null, loading: false, hasError: false},
-    levelUpdate: {success: false, loading: false, hasError: false},
     levelListCreation: {success: false, loading: false, hasError: false},
     managerGoalList: {goals: [], loading: false, hasError: false},
     managerList: {managers: null, loading: false, hasError: false},

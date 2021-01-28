@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { SubHeader } from './components'
-import {Grid, Tooltip} from '@material-ui/core'
+import {Grid, Avatar, Tooltip} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEdit, faFlagCheckered, faSlidersH} from '@fortawesome/free-solid-svg-icons'
@@ -18,6 +18,11 @@ import * as collaboratorDetailActions from '../../../../services/Collaborators/C
 const styles = {
     iconMargin: {
         marginRight: 16
+    },
+    levelIcon: {
+        height: 100,
+        width: 100,
+        border: '3px solid #00E58D'
     }
 };
 
@@ -120,6 +125,7 @@ class CollaboratorDetail extends MainLayoutComponent {
         const { collaborator } = this.props.collaboratorDetail;
         const levelProgression = collaborator.nextLevel ? Math.round((collaborator.generalRank.points / collaborator.nextLevel.points) * 100) : 100;
         const nextLevelInfo = collaborator.nextLevel ? Resources.COLLABORATOR_DETAIL_INFO_NEXT_LEVEL.format(collaborator.nextLevel.number, collaborator.nextLevel.points) : Resources.COLLABORATOR_DETAIL_INFO_MAX_LEVEL;
+        const {classes} = this.props
 
         return (
             <div>
@@ -130,9 +136,13 @@ class CollaboratorDetail extends MainLayoutComponent {
                         </InfoText>
                     </Grid> }
                     <Grid item container spacing={1} xs={12}>
+                          <Grid item align='center' xs={12}>
+                              <Avatar src={collaborator.level.icon.path} className={classes.levelIcon} />
+                          </Grid>
                         <Grid item xs={12}>
                             <DefaultTitle>{Resources.COLLABORATOR_DETAIL_INFO_AREA}</DefaultTitle>
                         </Grid>
+
                         <Grid item xs={12}>
                             <Card>
                                 <Grid container spacing={1}>
