@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import _ from 'lodash';
 import { SubHeader } from './components'
 import {Grid, Avatar, Tooltip} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
@@ -23,6 +24,15 @@ const styles = {
         height: 100,
         width: 100,
         border: '3px solid #00E58D'
+    },
+    levelTitle: {
+        fontSize: 20,
+        marginTop: 5,
+        fontWeight: 'bold'
+    },
+    levelNumber: {
+        fontSize: 17,
+        fontWeight: 'bold'
     }
 };
 
@@ -137,7 +147,30 @@ class CollaboratorDetail extends MainLayoutComponent {
                     </Grid> }
                     <Grid item container spacing={1} xs={12}>
                           <Grid item align='center' xs={12}>
-                              <Avatar src={collaborator.level.icon.path} className={classes.levelIcon} />
+                              {
+                                _.get(collaborator, 'level.icon.path') && (
+                                  <Avatar src={collaborator.level.icon.path} className={classes.levelIcon} />
+                                )
+                              }
+                              
+                              {
+                                _.get(collaborator, 'level.title') && (
+                                  <Grid item>
+                                      <InfoText className={classes.levelTitle}>
+                                        {collaborator.level.title}
+                                      </InfoText>
+                                  </Grid>
+                                )
+                              }
+                              {
+                                _.get(collaborator, 'generalRank.level') && (
+                                  <Grid item>
+                                    <AccentText className={classes.levelNumber}>
+                                      {Resources.DRAWER_LEVEL_LABEL.format(collaborator.generalRank.level)}
+                                    </AccentText>
+                                  </Grid>
+                                )
+                              }
                           </Grid>
                         <Grid item xs={12}>
                             <DefaultTitle>{Resources.COLLABORATOR_DETAIL_INFO_AREA}</DefaultTitle>
@@ -149,7 +182,7 @@ class CollaboratorDetail extends MainLayoutComponent {
                                     <Grid container item spacing={1} xs={12}>
                                         <Grid item container xs={12}>
                                             <Grid item xs>
-                                                <DefaultText>{Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL.format(collaborator.generalRank.level, collaborator.generalRank.points)}</DefaultText>
+                                                <DefaultText>{Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL.format(collaborator.generalRank.points, collaborator.nextLevel.points)}</DefaultText>
                                             </Grid>
                                             <Grid item>
                                                 <AccentText>{nextLevelInfo}</AccentText>
