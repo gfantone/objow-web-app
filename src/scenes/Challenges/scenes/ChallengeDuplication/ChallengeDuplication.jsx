@@ -156,8 +156,9 @@ class ChallengeDuplication extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeCreation, challengeDetail, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList}) => ({
+const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeCreation, challengeDetail, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, accountDetail}) => ({
     categoryList,
+    accountDetail,
     challengeAwardTypeList,
     challengeCreation,
     challengeDetail,
