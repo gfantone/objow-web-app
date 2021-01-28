@@ -82,8 +82,9 @@ class BadgeDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({collaboratorBadgeSummaryDetail, collaboratorDetail}) => ({
+const mapStateToProps = ({collaboratorBadgeSummaryDetail, collaboratorDetail, accountDetail}) => ({
     collaboratorBadgeSummaryDetail,
+    accountDetail,
     collaboratorDetail
 })
 
