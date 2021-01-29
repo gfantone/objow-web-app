@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {Grid} from '@material-ui/core'
+import _ from 'lodash';
 import {CategoryIconInput} from '../../components'
 import {AppBarSubTitle, Card, Loader, ProgressButton, TextField} from '../../../../components'
 import * as levelListActions from '../../../../services/Levels/LevelList/actions'
@@ -33,7 +34,13 @@ class AdminLevelCreation extends Component {
           points: model.points,
           period: periodId
         };
-        this.props.levelCreationActions.createLevelList([...levels, level])
+
+        this.props.levelCreationActions.createLevelList([
+          ...levels.map(item => {
+            return Object.assign(item, {icon: _.get(item, 'icon.id')})
+          }),
+          level
+        ])
     };
 
     renderForm() {

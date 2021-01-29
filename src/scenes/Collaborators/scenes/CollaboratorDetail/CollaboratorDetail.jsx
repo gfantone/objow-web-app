@@ -152,7 +152,7 @@ class CollaboratorDetail extends MainLayoutComponent {
                                   <Avatar src={collaborator.level.icon.path} className={classes.levelIcon} />
                                 )
                               }
-                              
+
                               {
                                 _.get(collaborator, 'level.title') && (
                                   <Grid item>

@@ -30,6 +30,10 @@ class AdminLevelUpdate extends Component {
     };
 
     onSubmit(model) {
+        const isUpdatable = model.players === 0;
+        if(!isUpdatable) {
+          return
+        }
         const {levels} = this.props.levelList
         const level = {
           id: parseInt(this.props.match.params.id),
@@ -37,16 +41,43 @@ class AdminLevelUpdate extends Component {
           icon: model.icon,
           points: model.points,
         };
-        
+
         this.props.levelCreationActions.createLevelList(
           levels.map(item => item.id === parseInt(level.id) ? Object.assign({}, item, level) : Object.assign({}, item, {icon: _.get(item, 'icon.id')}))
         )
     };
+    setOpen(open) {
+        const {levels, loading: levelListLoading} = this.props.levelList
+        if (!levelListLoading) {
+            this.setState({
+                ...this.state,
+                open: open
+            })
+        }
+    }
+    onDelete() {
+      const id = this.props.match.params.id;
+      const {levels} = this.props.levelList
+      const level = levels && levels.find(item => item.id === parseInt(id));
+      const isUpdatable = level.players === 0;
 
+      if(!isUpdatable) {
+        return;
+      }
+
+      this.props.levelCreationActions.createLevelList(
+        levels.filter(item => item.id !== parseInt(id)).map(item => {
+          return Object.assign({}, item, {
+            icon: _.get(item, 'icon.id')
+          })
+        })
+      )
+    }
     renderForm() {
         const id = this.props.match.params.id;
         const {levels, loading: levelListLoading} = this.props.levelList
         const level = levels && levels.find(item => item.id === parseInt(id));
+        const isUpdatable = level.players === 0;
 
         const {icons} = this.props.levelIconList;
 
@@ -70,14 +101,24 @@ class AdminLevelUpdate extends Component {
                             </Card>
                         </Grid>
                         <Grid item xs={12}>
-                          <Grid container justify={level.isActive ? 'space-between' : 'center'}>
+                          <Grid container justify='space-between'>
                               <Grid item>
-                                  <ProgressButton type='submit' text='Valider' centered loading={levelListLoading} />
+                                  <ProgressButton type='button' text='Supprimer' color='secondary' centered loading={levelListLoading} onClick={() => this.setOpen(true)} disabled={!isUpdatable} />
+                              </Grid>
+                              <Grid item>
+                                  <ProgressButton type='submit' text='Valider' centered loading={levelListLoading} disabled={!isUpdatable}/>
                               </Grid>
                           </Grid>
                         </Grid>
                     </Grid>
                 </Formsy>
+                <Dialog open={this.state.open} onClose={() => this.setOpen(false)}>
+                    <DialogTitle>Êtes-vous sûr de vouloir supprimer ce level ?</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={() => this.setOpen(false)} color='secondary'>Non</Button>
+                        <ProgressButton type='button' text='Oui' loading={levelListLoading} onClick={this.onDelete.bind(this)}/>
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     };
