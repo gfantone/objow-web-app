@@ -12,8 +12,11 @@ import * as levelIconListActions from "../../../../services/LevelIcons/LevelIcon
 
 class AdminLevelCreation extends Component {
     componentDidMount() {
+        const {levels} = this.props.levelList
+        const levelNumber = levels.length + 1
+
         this.props.handleTitle('Administration');
-        this.props.handleSubHeader(<AppBarSubTitle title="Création d'un level" />);
+        this.props.handleSubHeader(<AppBarSubTitle title={`Création du level ${ levelNumber }`} />);
         this.props.handleMaxWidth('sm');
         this.props.activateReturn();
         this.props.levelCreationActions.clearLevelListCreation();
@@ -46,6 +49,8 @@ class AdminLevelCreation extends Component {
     renderForm() {
         const {icons} = this.props.levelIconList;
         const {loading} = this.props.levelListCreation;
+        const {levels} = this.props.levelList;
+        const minimumPoints = _.max(levels.map(level => level.points));
 
         return (
             <Formsy onValidSubmit={this.onSubmit.bind(this)}>
@@ -57,7 +62,14 @@ class AdminLevelCreation extends Component {
                                     <TextField name='title' label='Nom' fullWidth/>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <TextField name='points' label='Points à atteindre' fullWidth/>
+                                    <TextField name='points' label={`Points à atteindre (minimum ${minimumPoints})`} fullWidth
+                                      validations={
+                                        { isMoreThan: minimumPoints }
+                                      }
+                                      validationErrors={{
+                                          isMoreThan: `Le nombre de points doit être supérieur au niveau précédent : ${minimumPoints}`
+                                      }}
+                                    />
                                 </Grid>
                                 <Grid item xs={12}>
                                     <CategoryIconInput name='icon' label='Icône' icons={[icons]}/>

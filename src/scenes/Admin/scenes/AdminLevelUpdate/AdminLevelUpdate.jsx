@@ -30,10 +30,6 @@ class AdminLevelUpdate extends Component {
     };
 
     onSubmit(model) {
-        const isUpdatable = !model.players;
-        if(!isUpdatable) {
-          return
-        }
         const {levels} = this.props.levelList
         const level = {
           id: parseInt(this.props.match.params.id),
@@ -78,6 +74,12 @@ class AdminLevelUpdate extends Component {
         const {levels, loading: levelListLoading} = this.props.levelList
         const level = levels && levels.find(item => item.id === parseInt(id));
         const isUpdatable = level.players === 0;
+        const minimumPoints = levels.reduce((max, item) => {
+          if(item.number < level.number) {
+            max = item.points;
+          }
+          return max
+        }, 0)
 
         const {icons} = this.props.levelIconList;
 
@@ -92,7 +94,14 @@ class AdminLevelUpdate extends Component {
                                         <TextField name='title' label='Nom' initial={level.title} fullWidth />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField name='points' label='Points à atteindre' initial={level.points} fullWidth />
+                                        <TextField name='points' label={`Points à atteindre (minimum ${minimumPoints})`} initial={level.points} fullWidth disabled={!isUpdatable}
+                                          validations={
+                                            { isMoreThan: minimumPoints }
+                                          }
+                                          validationErrors={{
+                                              isMoreThan: `Le nombre de points doit être supérieur au niveau précédent : ${minimumPoints}`
+                                          }}
+                                        />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <CategoryIconInput name='icon' label='Icône' icons={[icons]} initial={_.get(level, 'icon.id')}/>
@@ -106,7 +115,7 @@ class AdminLevelUpdate extends Component {
                                   <ProgressButton type='button' text='Supprimer' color='secondary' centered loading={levelListLoading} onClick={() => this.setOpen(true)} disabled={!isUpdatable} />
                               </Grid>
                               <Grid item>
-                                  <ProgressButton type='submit' text='Valider' centered loading={levelListLoading} disabled={!isUpdatable}/>
+                                  <ProgressButton type='submit' text='Valider' centered loading={levelListLoading}/>
                               </Grid>
                           </Grid>
                         </Grid>
