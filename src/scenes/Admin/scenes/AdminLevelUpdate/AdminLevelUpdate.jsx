@@ -30,7 +30,7 @@ class AdminLevelUpdate extends Component {
     };
 
     onSubmit(model) {
-        const isUpdatable = model.players === 0;
+        const isUpdatable = !model.players;
         if(!isUpdatable) {
           return
         }

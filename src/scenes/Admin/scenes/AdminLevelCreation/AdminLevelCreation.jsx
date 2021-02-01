@@ -45,7 +45,6 @@ class AdminLevelCreation extends Component {
 
     renderForm() {
         const {icons} = this.props.levelIconList;
-        console.log(icons);
         const {loading} = this.props.levelListCreation;
 
         return (
