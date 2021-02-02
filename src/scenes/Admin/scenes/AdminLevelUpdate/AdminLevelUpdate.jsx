@@ -96,10 +96,10 @@ class AdminLevelUpdate extends Component {
                                     <Grid item xs={12}>
                                         <TextField name='points' label={`Points à atteindre (minimum ${minimumPoints})`} initial={level.points} fullWidth disabled={!isUpdatable}
                                           validations={
-                                            { isMoreThan: minimumPoints }
+                                            { isMoreThanOrEquals: minimumPoints }
                                           }
                                           validationErrors={{
-                                              isMoreThan: `Le nombre de points doit être supérieur au niveau précédent : ${minimumPoints}`
+                                              isMoreThanOrEquals: `Le nombre de points doit être supérieur au niveau précédent : ${minimumPoints}`
                                           }}
                                         />
                                     </Grid>
