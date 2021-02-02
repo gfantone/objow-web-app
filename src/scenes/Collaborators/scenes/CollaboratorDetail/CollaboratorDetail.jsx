@@ -33,6 +33,9 @@ const styles = {
     levelNumber: {
         fontSize: 17,
         fontWeight: 'bold'
+    },
+    levelPoints: {
+        fontSize: 15,
     }
 };
 
@@ -135,7 +138,7 @@ class CollaboratorDetail extends MainLayoutComponent {
         const { collaborator } = this.props.collaboratorDetail;
         const levelProgression = collaborator.nextLevel ? Math.round((collaborator.generalRank.points / collaborator.nextLevel.points) * 100) : 100;
         const nextLevelInfo = collaborator.nextLevel ? Resources.COLLABORATOR_DETAIL_INFO_NEXT_LEVEL.format(collaborator.nextLevel.number, collaborator.nextLevel.points) : Resources.COLLABORATOR_DETAIL_INFO_MAX_LEVEL;
-        const {classes} = this.props
+        const { classes } = this.props
 
         return (
             <div>
@@ -171,6 +174,11 @@ class CollaboratorDetail extends MainLayoutComponent {
                                   </Grid>
                                 )
                               }
+                              <Grid item>
+                                <InfoText className={classes.levelPoints}>
+                                  {Resources.COLLABORATOR_DETAIL_INFO_TOTAL_POINTS.format(collaborator.generalRank.points)}
+                                </InfoText>
+                              </Grid>
                           </Grid>
                         <Grid item xs={12}>
                             <DefaultTitle>{Resources.COLLABORATOR_DETAIL_INFO_AREA}</DefaultTitle>
@@ -182,7 +190,10 @@ class CollaboratorDetail extends MainLayoutComponent {
                                     <Grid container item spacing={1} xs={12}>
                                         <Grid item container xs={12}>
                                             <Grid item xs>
-                                                <DefaultText>{Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL.format(collaborator.generalRank.points, collaborator.nextLevel.points)}</DefaultText>
+                                                <DefaultText>{Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL.format(
+                                                    collaborator.generalRank.points - collaborator.level.points,
+                                                    collaborator.nextLevel.points - collaborator.level.points
+                                                )}</DefaultText>
                                             </Grid>
                                             <Grid item>
                                                 <AccentText>{nextLevelInfo}</AccentText>
@@ -235,6 +246,7 @@ class CollaboratorDetail extends MainLayoutComponent {
     render() {
         const { badges, loading: currentCollaboratorBadgeSummaryListLoading } = this.props.currentCollaboratorBadgeSummaryList;
         const { collaborator, loading: collaboratorDetailLoading } = this.props.collaboratorDetail;
+
         const loading = currentCollaboratorBadgeSummaryListLoading || collaboratorDetailLoading;
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
