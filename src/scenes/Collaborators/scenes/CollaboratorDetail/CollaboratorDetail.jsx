@@ -39,7 +39,7 @@ const styles = {
     },
     levelPoints: {
         fontSize: 15,
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         marginTop: 8,
         lineHeight: 1
     },
