@@ -66,7 +66,7 @@ class AdminLevelList extends Component {
             } },
             { name: 'players', label: '% de joueurs', options: {
                 customBodyRender: value => {
-                    return value*100
+                    return value.toPercentage()
                 } },
             },
             { name: 'points', label: 'Points à atteindre' }

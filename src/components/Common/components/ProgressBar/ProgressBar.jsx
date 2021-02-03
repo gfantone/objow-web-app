@@ -22,10 +22,10 @@ const ProgressBar = ({ value, ...props }) => {
           if (oldProgress === displayValue) {
             return displayValue;
           }
-          const diff = displayValue/4;
+          const diff = displayValue/5;
           return Math.min(oldProgress + diff, displayValue);
         });
-      }, 100);
+      }, 150);
 
       return () => {
         clearInterval(timer);
