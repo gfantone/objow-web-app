@@ -36,6 +36,9 @@ const styles = {
     },
     levelPoints: {
         fontSize: 15,
+    },
+    progressInfo: {
+        fontSize: 15
     }
 };
 
@@ -180,9 +183,6 @@ class CollaboratorDetail extends MainLayoutComponent {
                                 </InfoText>
                               </Grid>
                           </Grid>
-                        <Grid item xs={12}>
-                            <DefaultTitle>{Resources.COLLABORATOR_DETAIL_INFO_AREA}</DefaultTitle>
-                        </Grid>
 
                         <Grid item xs={12}>
                             <Card>
@@ -190,17 +190,17 @@ class CollaboratorDetail extends MainLayoutComponent {
                                     <Grid container item spacing={1} xs={12}>
                                         <Grid item container xs={12}>
                                             <Grid item xs>
-                                                <DefaultText>{Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL.format(
+                                                <DefaultText className={classes.progressInfo}>{Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL.format(
                                                     collaborator.generalRank.points - collaborator.level.points,
                                                     collaborator.nextLevel.points - collaborator.level.points
                                                 )}</DefaultText>
                                             </Grid>
                                             <Grid item>
-                                                <AccentText>{nextLevelInfo}</AccentText>
+                                                <AccentText className={classes.progressInfo}>{nextLevelInfo}</AccentText>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <ProgressBar value={levelProgression} />
+                                            <ProgressBar value={levelProgression} animate />
                                         </Grid>
                                     </Grid>
                                     <Grid container item spacing={2} xs={12}>

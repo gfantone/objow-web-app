@@ -12,10 +12,29 @@ const styles = {
 }
 
 const ProgressBar = ({ value, ...props }) => {
-    const { classes } = props
+    const { classes, animate } = props
     const displayValue = value <= 100 ? value : 100
+    const [progress, setProgress] = React.useState(0);
 
-    return <LinearProgress variant='determinate' value={displayValue} classes={{
+    React.useEffect(() => {
+      const timer = setInterval(() => {
+        setProgress((oldProgress) => {
+          if (oldProgress === displayValue) {
+            return displayValue;
+          }
+          const diff = displayValue/4;
+          return Math.min(oldProgress + diff, displayValue);
+        });
+      }, 100);
+
+      return () => {
+        clearInterval(timer);
+      };
+    }, []);
+
+    const componentValue = animate ? progress : displayValue;
+
+    return <LinearProgress variant='determinate' value={componentValue} classes={{
         colorPrimary: classes.colorPrimary,
         barColorPrimary: classes.barColorPrimary
     }} />
