@@ -7,10 +7,10 @@ import { SubHeader } from './components'
 import {Grid, Avatar, Tooltip} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faEdit, faFlagCheckered, faSlidersH} from '@fortawesome/free-solid-svg-icons'
+import { faFireAlt, faEdit, faFlagCheckered, faSlidersH} from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
 import { Badge, CollaboratorFilter } from './components'
-import {AccentText, Card, DefaultText, DefaultTitle, EmptyState, GridLink, IconButton, InfoText, MainLayoutComponent, ProgressBar} from '../../../../components'
+import { AccentText, Card, DefaultText, DefaultTitle, EmptyState, GridLink, IconButton, InfoText, MainLayoutComponent, ProgressBar} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 import * as currentCollaboratorBadgeSummaryListActions from '../../../../services/CollaboratorBadges/CurrentCollaboratorBadgeSummaryList/actions'
@@ -27,19 +27,26 @@ const styles = {
     },
     levelTitle: {
         fontSize: 20,
-        marginTop: 5,
-        fontWeight: 'bold'
+        marginTop: 8,
+        fontWeight: 'bold',
+        lineHeight: 1
     },
     levelNumber: {
         fontSize: 17,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginTop: 8,
+        lineHeight: 1
     },
     levelPoints: {
         fontSize: 15,
+        fontWeight: 'bold',
+        marginTop: 8,
+        lineHeight: 1
     },
     progressInfo: {
         fontSize: 15
-    }
+    },
+
 };
 
 class CollaboratorDetail extends MainLayoutComponent {
@@ -178,9 +185,9 @@ class CollaboratorDetail extends MainLayoutComponent {
                                 )
                               }
                               <Grid item>
-                                <InfoText className={classes.levelPoints}>
-                                  {Resources.COLLABORATOR_DETAIL_INFO_TOTAL_POINTS.format(collaborator.generalRank.points)}
-                                </InfoText>
+                                <DefaultText className={classes.levelPoints}>
+                                  <FontAwesomeIcon icon={faFireAlt} /> {Resources.COLLABORATOR_DETAIL_INFO_TOTAL_POINTS.format(collaborator.generalRank.points)}
+                                </DefaultText>
                               </Grid>
                           </Grid>
 
@@ -191,9 +198,14 @@ class CollaboratorDetail extends MainLayoutComponent {
                                         <Grid item container xs={12}>
                                             <Grid item xs>
                                                 <DefaultText className={classes.progressInfo}>{Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL.format(
-                                                    collaborator.generalRank.points - collaborator.level.points,
-                                                    collaborator.nextLevel.points - collaborator.level.points
-                                                )}</DefaultText>
+                                                    collaborator.generalRank.points - collaborator.level.points
+                                                  )}
+                                                  <InfoText className={classes.progressInfo} component='span'>
+                                                    {Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL_MAX.format(
+                                                      collaborator.nextLevel.points - collaborator.level.points
+                                                    )}
+                                                  </InfoText>
+                                                </DefaultText>
                                             </Grid>
                                             <Grid item>
                                                 <AccentText className={classes.progressInfo}>{nextLevelInfo}</AccentText>
@@ -203,7 +215,7 @@ class CollaboratorDetail extends MainLayoutComponent {
                                             <ProgressBar value={levelProgression} animate />
                                         </Grid>
                                     </Grid>
-                                    <Grid container item spacing={2} xs={12}>
+                                    <Grid container item spacing={1} xs={12} className={classes.progressWrapper}>
                                         { account.hasGeneralRankAccess && collaborator.generalRank.rank && <Grid item>
                                             <DefaultText>
                                                 <FontAwesomeIcon icon={faFlagCheckered} /> {collaborator.generalRank.rank == 1 ? Resources.COLLABORATOR_DETAIL_INFO_FIRST_RANK_TEXT.format(collaborator.generalRank.rank) : Resources.COLLABORATOR_DETAIL_INFO_OTHER_RANK_TEXT.format(collaborator.generalRank.rank)} <InfoText component='span'>/ {collaborator.collaborators}</InfoText>
@@ -219,7 +231,7 @@ class CollaboratorDetail extends MainLayoutComponent {
                             </Card>
                         </Grid>
                     </Grid>
-                    <Grid item container spacing={1} xs={12}>
+                    <Grid item container spacing={2} xs={12}>
                         <Grid item xs={12}>
                             <DefaultTitle>{Resources.COLLABORATOR_DETAIL_BADGE_AREA}</DefaultTitle>
                         </Grid>
