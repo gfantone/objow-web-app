@@ -12,9 +12,8 @@ const useStyles = makeStyles(theme => ({
         border: '3px solid #00E58D'
     },
     detailImage: {
-
-        height: 100,
-        width: 100,
+        height: 200,
+        width: 200,
         margin: 'auto'
     }
 }))
