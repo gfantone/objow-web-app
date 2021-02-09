@@ -141,7 +141,7 @@ class CollaboratorDetail extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
         const { badges } = this.props.currentCollaboratorBadgeSummaryList;
         const { collaborator } = this.props.collaboratorDetail;
-        const levelPoints = collaborator.generalRank.points - collaborator.nextLevel.points;
+        const levelPoints = collaborator.nextLevel.points - collaborator.generalRank.points;
         // const levelPoints = 200;
 
         const levelProgression = collaborator.nextLevel ? Math.round((levelPoints) * 100) : 100;
