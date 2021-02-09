@@ -9,7 +9,7 @@ import {withStyles} from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFireAlt, faEdit, faFlagCheckered, faSlidersH} from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
-import { Badge, CollaboratorFilter, AnimatedCounter } from './components'
+import { Badge, CollaboratorFilter, AnimatedCounter, LevelIcon } from './components'
 import { AccentText, Card, DefaultText, DefaultTitle, EmptyState, GridLink, IconButton, InfoText, MainLayoutComponent, ProgressBar} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
@@ -19,11 +19,6 @@ import * as collaboratorDetailActions from '../../../../services/Collaborators/C
 const styles = {
     iconMargin: {
         marginRight: 16
-    },
-    levelIcon: {
-        height: 100,
-        width: 100,
-        border: '3px solid #00E58D'
     },
     levelTitle: {
         fontSize: 20,
@@ -164,7 +159,7 @@ class CollaboratorDetail extends MainLayoutComponent {
                           <Grid item align='center' xs={12}>
                               {
                                 _.get(collaborator, 'level.icon.path') && (
-                                  <Avatar src={collaborator.level.icon.path} className={classes.levelIcon} />
+                                  <LevelIcon image={collaborator.level.icon.path} />
                                 )
                               }
 
