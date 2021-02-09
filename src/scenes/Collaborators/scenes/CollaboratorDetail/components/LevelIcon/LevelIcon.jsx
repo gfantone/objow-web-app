@@ -12,13 +12,13 @@ const useStyles = makeStyles(theme => ({
         border: '3px solid #00E58D'
     },
     detailImage: {
-        height: 200,
-        width: 200,
+        height: 250,
+        width: 250,
         margin: 'auto'
     }
 }))
 
-const LeveIcon = ({image, ...props}) => {
+const LevelIcon = ({image, ...props}) => {
     const classes = useStyles()
     const [detailOpen, setDetailOpen] = React.useState(false)
 
@@ -41,4 +41,4 @@ const LeveIcon = ({image, ...props}) => {
     )
 }
 
-export default LeveIcon
+export default LevelIcon
