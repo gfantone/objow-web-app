@@ -9,8 +9,8 @@ import {withStyles} from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFireAlt, faEdit, faFlagCheckered, faSlidersH} from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
-import { Badge, CollaboratorFilter, AnimatedCounter, LevelIcon } from './components'
-import { AccentText, Card, DefaultText, DefaultTitle, EmptyState, GridLink, IconButton, InfoText, MainLayoutComponent, ProgressBar} from '../../../../components'
+import { Badge, CollaboratorFilter, LevelIcon } from './components'
+import { AccentText, Card, DefaultText, DefaultTitle, EmptyState, GridLink, IconButton, InfoText, MainLayoutComponent, ProgressBar, AnimatedCounter} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 import * as currentCollaboratorBadgeSummaryListActions from '../../../../services/CollaboratorBadges/CurrentCollaboratorBadgeSummaryList/actions'
@@ -142,7 +142,6 @@ class CollaboratorDetail extends MainLayoutComponent {
         const { badges } = this.props.currentCollaboratorBadgeSummaryList;
         const { collaborator } = this.props.collaboratorDetail;
         const levelPoints = collaborator.generalRank.points - collaborator.level.points;
-        // const levelPoints = 200;
 
         const levelProgression = collaborator.nextLevel ? Math.round((levelPoints / (collaborator.nextLevel.points - collaborator.level.points)) * 100) : 100;
         const nextLevelInfo = collaborator.nextLevel ? Resources.COLLABORATOR_DETAIL_INFO_NEXT_LEVEL.format(collaborator.nextLevel.number, collaborator.nextLevel.points) : Resources.COLLABORATOR_DETAIL_INFO_MAX_LEVEL;
@@ -196,7 +195,7 @@ class CollaboratorDetail extends MainLayoutComponent {
                                         <Grid item container xs={12}>
                                             <Grid item xs>
                                                 <DefaultText className={classes.progressInfo}>
-                                                  <AnimatedCounter counter={ levelPoints } timer={ 750 } />
+                                                  <AnimatedCounter counter={ levelPoints } timer={ 750 } resource={ Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL }/>
                                                   <InfoText className={classes.progressInfo} component='span'>
                                                     {Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL_MAX.format(
                                                       collaborator.nextLevel.points - collaborator.level.points

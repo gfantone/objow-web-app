@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import * as Resources from '../../../../../../Resources'
 
 const styles = {
 };
 
 const AnimatedCounter = ({ badge, ...props }) => {
-    const { counter: max, timer } = props;
+    const { counter: max, timer, resource } = props;
     const [counter, setCounter] = useState(0);
     const timing = timer || 750;
     const step = Math.ceil(max/(timing/10));
-    
+
     React.useEffect(() => {
       const timer = setInterval(() => {
         setCounter((oldProgress) => {
@@ -30,7 +29,7 @@ const AnimatedCounter = ({ badge, ...props }) => {
 
     return (
         <span>
-            { Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL.format(counter) }
+            { resource ? resource.format(counter) : counter }
         </span>
     )
 };
