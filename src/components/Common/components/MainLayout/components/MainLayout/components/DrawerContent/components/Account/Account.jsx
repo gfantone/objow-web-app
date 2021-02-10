@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faBell } from '@fortawesome/free-regular-svg-icons'
 import {Badge, Notifications} from './components'
-import {AccentText, DefaultText, GridLink, InfoText, ProgressBar} from '../../../../../../../../..'
+import {AccentText, DefaultText, GridLink, InfoText, ProgressBar, AnimatedCounter} from '../../../../../../../../..'
 import * as Resources from '../../../../../../../../../../Resources'
 import '../../../../../../../../../../helpers/NumberHelper'
 import '../../../../../../../../../../helpers/StringHelper'
@@ -45,7 +45,11 @@ const Account = ({onNavigate, ...props}) => {
     const { count } = props.inAppNotificationCount
     const isCollaborator = account.role.code == 'C';
     const photo = account.photo ? account.photo : '/assets/img/user/avatar.svg';
-    const percentage = isCollaborator && account.nextLevel ? (account.rank.points / account.nextLevel.points).toFullPercentage() : isCollaborator && !account.nextLevel ? 100 : 0;
+    const percentage = isCollaborator && account.nextLevel ?
+      (account.rank.points / account.nextLevel.points).toFullPercentage() :
+      isCollaborator && !account.nextLevel ?
+        100 :
+        0;
     const [initialized, setInitialized] = React.useState(false);
     const [notificationOpen, setNotificationOpen] = React.useState(false)
 
@@ -77,10 +81,12 @@ const Account = ({onNavigate, ...props}) => {
                                 <InfoText>{Resources.DRAWER_LEVEL_LABEL.format(account.level.number)}</InfoText>
                             </Grid>}
                             { isCollaborator && <Grid item>
-                                <AccentText>{Resources.DRAWER_POINTS_LABEL.format(account.rank.points)}</AccentText>
+                                <AccentText>
+                                  <AnimatedCounter counter={ account.rank.points } timer={ 750 } resource={ Resources.DRAWER_POINTS_LABEL }/>
+                                </AccentText>
                             </Grid> }
                             { isCollaborator && <Grid item xs={12}>
-                                <ProgressBar value={percentage} />
+                                <ProgressBar value={percentage} animate />
                             </Grid> }
                             <GridLink item xs={12} component={Link} to='/account' onClick={onNavigate} className={classes.infos}>
                                 <AccentText>

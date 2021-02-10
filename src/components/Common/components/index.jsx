@@ -1,4 +1,5 @@
 export * from './AdminRoutes'
+export * from './AnimatedCounter'
 export * from './AndroidButton'
 export * from './AnonymousLayout'
 export * from './AnonymousRoutes'
