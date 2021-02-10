@@ -144,7 +144,7 @@ class CollaboratorDetail extends MainLayoutComponent {
         const levelPoints = collaborator.generalRank.points - collaborator.level.points;
         // const levelPoints = 200;
 
-        const levelProgression = collaborator.nextLevel ? Math.round((collaborator.generalRank.points / collaborator.nextLevel.points) * 100) : 100;
+        const levelProgression = collaborator.nextLevel ? Math.round((levelPoints / (collaborator.nextLevel.points - collaborator.level.points)) * 100) : 100;
         const nextLevelInfo = collaborator.nextLevel ? Resources.COLLABORATOR_DETAIL_INFO_NEXT_LEVEL.format(collaborator.nextLevel.number, collaborator.nextLevel.points) : Resources.COLLABORATOR_DETAIL_INFO_MAX_LEVEL;
         const { classes } = this.props
 
