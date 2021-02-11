@@ -102,10 +102,12 @@ const Account = ({onNavigate, ...props}) => {
                                     <Badge badgeContent={count} color='secondary'>
                                       <FontAwesomeIcon icon={faBell} />
                                     </Badge>
+
                                     &nbsp;&nbsp;&nbsp;
                                     <span className={classes.menuLabel}>
                                       {Resources.DRAWER_NOTIFICATIONS_BUTTON}
                                     </span>
+
                                 </DefaultText>
                             </Grid>
                         </Grid>
