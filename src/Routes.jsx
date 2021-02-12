@@ -11,8 +11,6 @@ export default () => {
                 {/* Main routes */}
                 <MainRoutes exact path='/' component={scenes.Main} />
                 {/*<MaintenanceRoutes component={scenes.Maintenance} />*/}
-                {/* Errors handler */}
-                <MainRoutes exact path='/error' component={scenes.ErrorHandler} />
                 {/* Account */}
                 <MainRoutes exact path='/account' component={scenes.AccountDetail} />
                 {/* Collaboratos */}

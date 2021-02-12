@@ -6,40 +6,10 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { faAngleLeft, faBars} from '@fortawesome/free-solid-svg-icons'
-import { AppBar, AppBarSearch, Drawer, DrawerContent, MainContainer, HeaderContainer, HeaderContainerLeft, HeaderContainerRight, HeaderTitle, HeaderTitleContainer, Search, SubHeaderContainer, Toolbar } from './components'
+import { AppBar, AppBarSearch, Drawer, DrawerContent, MainContainer, HeaderContainer, HeaderContainerLeft, HeaderContainerRight, HeaderTitle, HeaderTitleContainer, Search, SubHeaderContainer, Toolbar, ErrorHandler } from './components'
 import { IconButton } from '../../../'
 import { useClearCache } from 'react-clear-cache'
 import { ErrorBoundary } from 'react-error-boundary';
-
-
-// class ErrorBoundary extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = { hasError: false };
-//   }
-//
-//   static getDerivedStateFromError(error) {
-//     // Update state so the next render will show the fallback UI.
-//     return { hasError: true };
-//   }
-//
-//   componentDidCatch(error, errorInfo) {
-//     // You can also log the error to an error reporting service
-//     // console.log(error, errorInfo);
-//   }
-//
-//   render() {
-//     if (this.state.hasError) {
-//       // You can render any custom fallback UI
-//       return <h1>Something went wrong.</h1>;
-//     }
-//
-//     return this.props.children;
-//   }
-// }
-
-
-
 
 
 const drawerWidth = 304;
@@ -223,7 +193,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                     <Search search={search} onChange={handleSearch} />
                                 </Hidden>}
                                 <ErrorBoundary fallbackRender={ ({error, resetErrorBoundary}) => (
-                                  <Redirect to='/error' />
+                                  <ErrorHandler />
                                 ) }>
                                   <Component
                                     handleButtons={setButtons}
