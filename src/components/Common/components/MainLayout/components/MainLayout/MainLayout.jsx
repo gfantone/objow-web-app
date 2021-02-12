@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, withRouter } from 'react-router-dom'
+import { Route, withRouter, Redirect } from 'react-router-dom'
 import {CssBaseline, Hidden} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
@@ -9,6 +9,38 @@ import { faAngleLeft, faBars} from '@fortawesome/free-solid-svg-icons'
 import { AppBar, AppBarSearch, Drawer, DrawerContent, MainContainer, HeaderContainer, HeaderContainerLeft, HeaderContainerRight, HeaderTitle, HeaderTitleContainer, Search, SubHeaderContainer, Toolbar } from './components'
 import { IconButton } from '../../../'
 import { useClearCache } from 'react-clear-cache'
+import { ErrorBoundary } from 'react-error-boundary';
+
+
+// class ErrorBoundary extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { hasError: false };
+//   }
+//
+//   static getDerivedStateFromError(error) {
+//     // Update state so the next render will show the fallback UI.
+//     return { hasError: true };
+//   }
+//
+//   componentDidCatch(error, errorInfo) {
+//     // You can also log the error to an error reporting service
+//     // console.log(error, errorInfo);
+//   }
+//
+//   render() {
+//     if (this.state.hasError) {
+//       // You can render any custom fallback UI
+//       return <h1>Something went wrong.</h1>;
+//     }
+//
+//     return this.props.children;
+//   }
+// }
+
+
+
+
 
 const drawerWidth = 304;
 const DEFAULT_BUTTONS = null;
@@ -104,6 +136,10 @@ const MainLayout = ({component: Component, history, ...rest}) => {
         setSearch(event.target.value);
     }
 
+    function onError() {
+        window.location = '/error';
+    }
+
     function clear() {
         setButtons(DEFAULT_BUTTONS);
         setMaxWidth(DEFAULT_MAX_WIDTH);
@@ -122,7 +158,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                     <CssBaseline />
                     <nav className={classes.nav}>
                         <Hidden lgUp implementation='css'>
-                            <Drawer variant='temporary' open={mobileOpen} onClose={handleDrawerToggle} classes={{ paper: classes.drawerPaper }}>
+                              <Drawer variant='temporary' open={mobileOpen} onClose={handleDrawerToggle} classes={{ paper: classes.drawerPaper }}>
                                 <DrawerContent onNavigate={handleNavigate} />
                             </Drawer>
                         </Hidden>
@@ -186,7 +222,10 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                 {searchActivation && <Hidden mdUp>
                                     <Search search={search} onChange={handleSearch} />
                                 </Hidden>}
-                                <Component
+                                <ErrorBoundary fallbackRender={ ({error, resetErrorBoundary}) => (
+                                  <Redirect to='/error' />
+                                ) }>
+                                  <Component
                                     handleButtons={setButtons}
                                     handleMaxWidth={setMaxWidth}
                                     activateReturn={activateReturn}
@@ -196,7 +235,8 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                     search={search}
                                     clear={clear}
                                     {...matchProps}
-                                />
+                                    />
+                                </ErrorBoundary>
                             </MainContainer>
                         </div>
                     </div>

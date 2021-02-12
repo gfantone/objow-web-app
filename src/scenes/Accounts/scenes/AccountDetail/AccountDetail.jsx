@@ -20,6 +20,11 @@ const styles = {
     }
 };
 
+function Bomb() {
+  throw new Error('Error thrown from problem child');
+  return <div>Error</div>; // eslint-disable-line
+}
+
 class AccountDetail extends MainLayoutComponent {
     constructor(props) {
         super(props);
@@ -67,6 +72,7 @@ class AccountDetail extends MainLayoutComponent {
 
         return (
             <div>
+                <Bomb />
                 <Formsy onValidSubmit={this.handleValidSubmit.bind(this)}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
@@ -81,7 +87,7 @@ class AccountDetail extends MainLayoutComponent {
                                         <Grid item>
                                             <InfoText>{account.role.name}</InfoText>
                                         </Grid>
-                                    </Grid>  
+                                    </Grid>
                                     <Grid item xs={12} container justify='center'>
                                       <Grid item>
                                         <FileInput name='photo' accept='image/*' />
