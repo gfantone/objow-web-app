@@ -173,6 +173,15 @@ class CollaboratorDetail extends MainLayoutComponent {
                                 )
                               }
                               {
+                                _.get(collaborator, 'level.citation') && (
+                                  <Grid item>
+                                      <InfoText align='center'>
+                                          « { collaborator.level.citation } »
+                                      </InfoText>
+                                  </Grid>
+                                )
+                              }
+                              {
                                 _.get(collaborator, 'generalRank.level') && (
                                   <Grid item>
                                     <AccentText className={classes.levelNumber}>
