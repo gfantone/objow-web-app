@@ -192,10 +192,11 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                 {searchActivation && <Hidden mdUp>
                                     <Search search={search} onChange={handleSearch} />
                                 </Hidden>}
+                                
                                 <ErrorBoundary fallbackRender={ ({error, resetErrorBoundary}) => (
                                   <ErrorHandler />
                                 ) }>
-                                  <Component
+                                    <Component
                                     handleButtons={setButtons}
                                     handleMaxWidth={setMaxWidth}
                                     activateReturn={activateReturn}
@@ -207,6 +208,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                     {...matchProps}
                                     />
                                 </ErrorBoundary>
+
                             </MainContainer>
                         </div>
                     </div>

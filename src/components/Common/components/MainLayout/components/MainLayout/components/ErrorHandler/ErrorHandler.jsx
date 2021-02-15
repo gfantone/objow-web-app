@@ -1,16 +1,31 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { withStyles } from '@material-ui/core/styles'
+import { RefreshButton, BigText } from '../../../../../../';
+import { Grid } from '@material-ui/core'
 
-const ErrorHandler = (props) => {
+const styles = {
+  wrapper: {
+    textAlign: 'center'
+  },
+  refreshButton: {
+    marginTop: 200
+  }
+}
+
+const ErrorHandler = ({...props}) => {
+    const { classes } = props;
     return(
-      <div>
-        ERROR PAGE
+      <div className={ classes.wrapper } >
+        <Grid>
+          <BigText>
+            Oops, il semblerait qu'un problème soit survenu. L'application n'est peut-être pas à jour. Vous pouvez rafraichir la version avec ce bouton.
+          </BigText>
+        </Grid>
+        <Grid>
+          <RefreshButton className={ classes.refreshButton }/>
+        </Grid>
       </div>
     )
 };
 
-const mapStateToProps = ({ }) => ({
-
-});
-
-export default connect(mapStateToProps)(ErrorHandler)
+export default withStyles(styles)(ErrorHandler)
