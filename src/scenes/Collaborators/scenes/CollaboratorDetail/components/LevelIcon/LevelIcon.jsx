@@ -7,13 +7,13 @@ import * as Resources from '../../../../../../Resources'
 const useStyles = makeStyles(theme => ({
     image: {
         cursor: 'pointer',
-        height: 100,
-        width: 100,
+        height: 200,
+        width: 200,
         border: '3px solid #00E58D'
     },
     detailImage: {
-        height: 250,
-        width: 250,
+        height: 300,
+        width: 300,
         margin: 'auto'
     }
 }))
