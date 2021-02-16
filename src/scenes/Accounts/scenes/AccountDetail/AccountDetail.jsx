@@ -58,6 +58,10 @@ class AccountDetail extends MainLayoutComponent {
         const { loading, success } = this.props.accountUpdate;
         const photo = account.photo ? account.photo : '/assets/img/user/avatar.svg';
 
+        const {detect} = require('detect-browser')
+        const browser = detect()
+        const isIos = browser.name === 'ios-webview'
+
         return (
             <div>
                 <Formsy onValidSubmit={this.handleValidSubmit.bind(this)}>
@@ -75,11 +79,13 @@ class AccountDetail extends MainLayoutComponent {
                                             <InfoText>{account.role.name}</InfoText>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xs={12} container justify='center'>
+                                    { !isIos &&
+                                      <Grid item xs={12} container justify='center'>
                                         <Grid item>
-                                            <FileInput name='photo' accept='image/*' />
+                                          <FileInput name='photo' accept='image/*' />
                                         </Grid>
-                                    </Grid>
+                                      </Grid>
+                                    }
                                     <Grid item xs={6}>
                                         <TextField name='firstname' label={Resources.ACCOUNT_FIRST_NAME_LABEL} initial={account.firstname} fullWidth required
                                             validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
