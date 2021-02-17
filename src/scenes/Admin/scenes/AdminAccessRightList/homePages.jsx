@@ -7,7 +7,7 @@ const homePages = [
     availability: ['C', 'M']
   },
   {
-    path: 'challenge',
+    path: 'challenges',
     title: Resources.DRAWER_CHALLENGES_BUTTON,
     availability: ['C', 'M']
   },

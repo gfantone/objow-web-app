@@ -60,7 +60,7 @@ const DrawerContent = ({onNavigate, ...props }) => {
       },
       {
         component: <DrawerButton icon={faBook} text={Resources.DRAWER_RULES_BUTTON} src='/rules' onNavigate={onNavigate} />,
-      permission: account.hasRulesAccess
+        permission: account.hasRulesAccess
       },
 
       {
