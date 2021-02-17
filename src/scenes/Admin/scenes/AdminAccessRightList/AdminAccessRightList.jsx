@@ -74,7 +74,7 @@ class AdminAccessRightList extends MainLayoutComponent {
             const key = keys[i];
             configs.push({ id: key, value: model[key] })
         }
-        
+
         this.props.configListUpdateActions.updateConfigList(configs)
     }
 
@@ -135,6 +135,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Card>
+                                        <Select name={ MHPG.id } initial={MHPG.value} label={'Configuration de la page d\'accueil'} options={homePages} optionValueName='path' optionTextName='title' fullWidth />
                                         <Switch name={MNCA.id} initial={MNCA.value.toBoolean()} label='Afficher les challenges futurs' />
                                         <Switch name={MCLR.id} initial={MCLR.value.toBoolean()} label='Accès à la coaching list' />
                                         <Switch name={MCLE.id} initial={MCLE.value.toBoolean()} label='Modifier la coaching list' />
@@ -151,9 +152,6 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         { this.state.activateManagerCategoryRanking && <TextField type={'number'} name={MCRR.id} initial={MCRR.value} label={'Classements des catégories limités aux X premiers'} fullWidth /> }
                                         <Switch name={MPWD.id} initial={MPWD.value.toBoolean()} label='Réinitialisation MDP pour un collaborateur' />
                                         <Switch name={MTER.id} initial={MTER.value.toBoolean()} label='Classement de mon équipe' />
-                                          <Grid item xs={12}>
-                                            <Select name={ MHPG.id } initial={MHPG.value}  options={homePages} optionValueName='path' optionTextName='title' fullWidth />
-                                          </Grid>
                                     </Card>
                                 </Grid>
                             </Grid>
@@ -167,6 +165,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Card>
+                                        <Select name={ CHPG.id } initial={CHPG.value} label={'Configuration de la page d\'accueil'} options={homePages} optionValueName='path' optionTextName='title' fullWidth />
                                         <Switch name={CNCA.id} initial={CNCA.value.toBoolean()} label='Afficher les challenges futurs' />
                                         <Switch name={CCLR.id} initial={CCLR.value.toBoolean()} label='Accès à la coaching list' />
                                         <Switch name={CCLE.id} initial={CCLE.value.toBoolean()} label='Modifier la coaching list' />
@@ -182,10 +181,6 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         <Switch name={CCAR.id} initial={CCAR.value.toBoolean()} label='Classement visible pour les catégories' onChange={this.handleChangeValue('activateCollaboratorCategoryRanking').bind(this)} />
                                         { this.state.activateCollaboratorCategoryRanking && <TextField type={'number'} name={CCRR.id} initial={CCRR.value} label={'Classements des catégories limités aux X premiers'} fullWidth /> }
                                         <Switch name={CTER.id} initial={CTER.value.toBoolean()} label='Classement de mon équipe' />
-
-                                        <Grid item xs={12}>
-                                          <Select name={ CHPG.id } initial={CHPG.value}  options={homePages} optionValueName='path' optionTextName='title' fullWidth />
-                                        </Grid>
                                     </Card>
                                 </Grid>
                             </Grid>
