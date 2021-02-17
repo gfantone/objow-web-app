@@ -11,8 +11,8 @@ const useStyles = makeStyles(theme => ({
         width: 100,
         border: '3px solid #00E58D',
         [theme.breakpoints.down('xs')]: {
-            height: 200,
-            width: 200
+            height: 150,
+            width: 150
         }
     },
     detailImage: {

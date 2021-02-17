@@ -78,14 +78,13 @@ class AccountDetail extends MainLayoutComponent {
                                         <Grid item>
                                             <InfoText>{account.role.name}</InfoText>
                                         </Grid>
-                                    </Grid>
-                                    { !isIos &&
-                                      <Grid item xs={12} container justify='center'>
-                                        <Grid item>
-                                          <FileInput name='photo' accept='image/*' />
-                                        </Grid>
+                                    </Grid>  
+                                    <Grid item xs={12} container justify='center'>
+                                      <Grid item>
+                                        <FileInput name='photo' accept='image/*' />
                                       </Grid>
-                                    }
+                                    </Grid>
+
                                     <Grid item xs={6}>
                                         <TextField name='firstname' label={Resources.ACCOUNT_FIRST_NAME_LABEL} initial={account.firstname} fullWidth required
                                             validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}

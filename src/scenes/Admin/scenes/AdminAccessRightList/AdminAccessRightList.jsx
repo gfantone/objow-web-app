@@ -8,7 +8,7 @@ import * as configListActions from '../../../../services/Configs/ConfigList/acti
 import * as configListUpdateActions from '../../../../services/Configs/ConfigListUpdate/actions'
 import '../../../../helpers/StringHelper'
 import { homePages } from './homePages'
-
+import _ from 'lodash'
 
 class AdminAccessRightList extends MainLayoutComponent {
     constructor(props) {
@@ -124,6 +124,8 @@ class AdminAccessRightList extends MainLayoutComponent {
         const CHPG = configs.filter(c => c.code === 'CHPG')[0];
         const MHPG = configs.filter(c => c.code === 'MHPG')[0];
 
+        const { account } = this.props.accountDetail;
+
         return (
             <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
                 <Grid container spacing={2}>
@@ -135,7 +137,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Card>
-                                        <Select name={ MHPG.id } initial={MHPG.value} label={'Configuration de la page d\'accueil'} options={homePages} optionValueName='path' optionTextName='title' fullWidth />
+                                        <Select name={ MHPG.id } initial={MHPG.value} label={'Configuration de la page d\'accueil'} options={homePages.filter(homePage => homePage.availability.indexOf('M') >= 0)} optionValueName='path' optionTextName='title' fullWidth />
                                         <Switch name={MNCA.id} initial={MNCA.value.toBoolean()} label='Afficher les challenges futurs' />
                                         <Switch name={MCLR.id} initial={MCLR.value.toBoolean()} label='Accès à la coaching list' />
                                         <Switch name={MCLE.id} initial={MCLE.value.toBoolean()} label='Modifier la coaching list' />
@@ -165,7 +167,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Card>
-                                        <Select name={ CHPG.id } initial={CHPG.value} label={'Configuration de la page d\'accueil'} options={homePages} optionValueName='path' optionTextName='title' fullWidth />
+                                        <Select name={ CHPG.id } initial={CHPG.value} label={'Configuration de la page d\'accueil'} options={homePages.filter(homePage => homePage.availability.indexOf('C') >= 0)} optionValueName='path' optionTextName='title' fullWidth />
                                         <Switch name={CNCA.id} initial={CNCA.value.toBoolean()} label='Afficher les challenges futurs' />
                                         <Switch name={CCLR.id} initial={CCLR.value.toBoolean()} label='Accès à la coaching list' />
                                         <Switch name={CCLE.id} initial={CCLE.value.toBoolean()} label='Modifier la coaching list' />
@@ -212,7 +214,8 @@ class AdminAccessRightList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ configList, configListUpdate }) => ({
+const mapStateToProps = ({ accountDetail, configList, configListUpdate }) => ({
+    accountDetail,
     configList,
     configListUpdate
 });

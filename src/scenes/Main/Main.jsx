@@ -5,15 +5,12 @@ import _ from 'lodash'
 
 const Main = (props) => {
     const { account } = props.accountDetail;
+
     if(account.homePage) {
-      return <Redirect to={ `/${ account.homePage }` } />
+      return <Redirect to={ `/${ account.homePage.replace(':id', account.id).replace(':teamId', _.get(account, 'team.id')) }` } />
     }
 
-    if (_.get(account, 'role.code') !== 'A') {
-        return <Redirect to='/goals' />
-    } else {
-        return <Redirect to='/admin' />
-    }
+    return <Redirect to='/goals' />
 };
 
 const mapStateToProps = ({ accountDetail }) => ({
