@@ -57,6 +57,7 @@ class AdminLevelList extends Component {
                 } },
             },
             { name: 'title', label: 'Nom' },
+            { name: 'citation', label: 'Citation' },
             { name: 'icon.path', label: 'Icône', options: {
                 customBodyRender: value => {
                     console.log(value);

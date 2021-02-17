@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
 import Formsy from 'formsy-react'
-import {AppBarSubTitle, Card, DefaultTitle, Loader, MainLayoutComponent, ProgressButton, Switch, TextField} from '../../../../components'
+import {AppBarSubTitle, Card, DefaultTitle, Loader, MainLayoutComponent, ProgressButton, Switch, TextField, Select} from '../../../../components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as configListUpdateActions from '../../../../services/Configs/ConfigListUpdate/actions'
 import '../../../../helpers/StringHelper'
+import { homePages } from './homePages'
+
 
 class AdminAccessRightList extends MainLayoutComponent {
     constructor(props) {
@@ -72,6 +74,7 @@ class AdminAccessRightList extends MainLayoutComponent {
             const key = keys[i];
             configs.push({ id: key, value: model[key] })
         }
+
         this.props.configListUpdateActions.updateConfigList(configs)
     }
 
@@ -117,6 +120,10 @@ class AdminAccessRightList extends MainLayoutComponent {
         const MRUR = configs.filter(c => c.code === 'MRUR')[0];
         const CRUR = configs.filter(c => c.code === 'CRUR')[0];
 
+        // Homepage
+        const CHPG = configs.filter(c => c.code === 'CHPG')[0];
+        const MHPG = configs.filter(c => c.code === 'MHPG')[0];
+
         return (
             <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
                 <Grid container spacing={2}>
@@ -128,6 +135,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Card>
+                                        <Select name={ MHPG.id } initial={MHPG.value} label={'Configuration de la page d\'accueil'} options={homePages} optionValueName='path' optionTextName='title' fullWidth />
                                         <Switch name={MNCA.id} initial={MNCA.value.toBoolean()} label='Afficher les challenges futurs' />
                                         <Switch name={MCLR.id} initial={MCLR.value.toBoolean()} label='Accès à la coaching list' />
                                         <Switch name={MCLE.id} initial={MCLE.value.toBoolean()} label='Modifier la coaching list' />
@@ -157,6 +165,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Card>
+                                        <Select name={ CHPG.id } initial={CHPG.value} label={'Configuration de la page d\'accueil'} options={homePages} optionValueName='path' optionTextName='title' fullWidth />
                                         <Switch name={CNCA.id} initial={CNCA.value.toBoolean()} label='Afficher les challenges futurs' />
                                         <Switch name={CCLR.id} initial={CCLR.value.toBoolean()} label='Accès à la coaching list' />
                                         <Switch name={CCLE.id} initial={CCLE.value.toBoolean()} label='Modifier la coaching list' />

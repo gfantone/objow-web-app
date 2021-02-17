@@ -34,6 +34,7 @@ class AdminLevelUpdate extends Component {
         const level = {
           id: parseInt(this.props.match.params.id),
           title: model.title,
+          citation: model.citation,
           icon: model.icon,
           points: model.points,
         };
@@ -92,6 +93,9 @@ class AdminLevelUpdate extends Component {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <TextField name='title' label='Nom' initial={level.title} fullWidth />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <TextField name='citation' label='Citation' initial={level.citation} fullWidth />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField name='points' label={`Points à atteindre (minimum ${minimumPoints})`} initial={level.points} fullWidth disabled={!isUpdatable}

@@ -48,7 +48,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts --max_old_space_size=4096 build",
     "build:external": "env-cmd -f .env.external react-scripts --max_old_space_size=4096 build",
     "build:dev": "env-cmd -f .env.external-dev react-scripts --max_old_space_size=4096 build",
     "build:sandbox": "env-cmd -f .env.external-sandbox react-scripts --max_old_space_size=4096 build",

@@ -33,6 +33,7 @@ class AdminLevelCreation extends Component {
         const level = {
           id: this.props.match.params.id,
           title: model.title,
+          citation: model.citation,
           icon: model.icon,
           points: model.points,
           period: periodId
@@ -60,6 +61,9 @@ class AdminLevelCreation extends Component {
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <TextField name='title' label='Nom' fullWidth/>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField name='citation' label='Citation' fullWidth/>
                                 </Grid>
                                 <Grid item xs={12}>
                                     <TextField name='points' label={`Points à atteindre (minimum ${minimumPoints})`} fullWidth

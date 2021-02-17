@@ -9,12 +9,20 @@ const useStyles = makeStyles(theme => ({
         cursor: 'pointer',
         height: 100,
         width: 100,
-        border: '3px solid #00E58D'
+        border: '3px solid #00E58D',
+        [theme.breakpoints.down('xs')]: {
+            height: 200,
+            width: 200
+        }
     },
     detailImage: {
-        height: 250,
-        width: 250,
-        margin: 'auto'
+        height: 200,
+        width: 200,
+        margin: 'auto',
+        [theme.breakpoints.down('xs')]: {
+          height: 300,
+          width: 300
+        }
     }
 }))
 
