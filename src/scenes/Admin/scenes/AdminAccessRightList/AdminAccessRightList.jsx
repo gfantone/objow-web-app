@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
 import Formsy from 'formsy-react'
-import {AppBarSubTitle, Card, DefaultTitle, Loader, MainLayoutComponent, ProgressButton, Switch, TextField} from '../../../../components'
+import {AppBarSubTitle, Card, DefaultTitle, Loader, MainLayoutComponent, ProgressButton, Switch, TextField, Select} from '../../../../components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as configListUpdateActions from '../../../../services/Configs/ConfigListUpdate/actions'
 import '../../../../helpers/StringHelper'
+import { homePages } from './homePages'
+
 
 class AdminAccessRightList extends MainLayoutComponent {
     constructor(props) {
@@ -72,6 +74,7 @@ class AdminAccessRightList extends MainLayoutComponent {
             const key = keys[i];
             configs.push({ id: key, value: model[key] })
         }
+        
         this.props.configListUpdateActions.updateConfigList(configs)
     }
 
@@ -117,6 +120,10 @@ class AdminAccessRightList extends MainLayoutComponent {
         const MRUR = configs.filter(c => c.code === 'MRUR')[0];
         const CRUR = configs.filter(c => c.code === 'CRUR')[0];
 
+        // Homepage
+        const CHPG = configs.filter(c => c.code === 'CHPG')[0];
+        const MHPG = configs.filter(c => c.code === 'MHPG')[0];
+
         return (
             <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
                 <Grid container spacing={2}>
@@ -144,6 +151,9 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         { this.state.activateManagerCategoryRanking && <TextField type={'number'} name={MCRR.id} initial={MCRR.value} label={'Classements des catégories limités aux X premiers'} fullWidth /> }
                                         <Switch name={MPWD.id} initial={MPWD.value.toBoolean()} label='Réinitialisation MDP pour un collaborateur' />
                                         <Switch name={MTER.id} initial={MTER.value.toBoolean()} label='Classement de mon équipe' />
+                                          <Grid item xs={12}>
+                                            <Select name={ MHPG.id } initial={MHPG.value}  options={homePages} optionValueName='path' optionTextName='title' fullWidth />
+                                          </Grid>
                                     </Card>
                                 </Grid>
                             </Grid>
@@ -172,6 +182,10 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         <Switch name={CCAR.id} initial={CCAR.value.toBoolean()} label='Classement visible pour les catégories' onChange={this.handleChangeValue('activateCollaboratorCategoryRanking').bind(this)} />
                                         { this.state.activateCollaboratorCategoryRanking && <TextField type={'number'} name={CCRR.id} initial={CCRR.value} label={'Classements des catégories limités aux X premiers'} fullWidth /> }
                                         <Switch name={CTER.id} initial={CTER.value.toBoolean()} label='Classement de mon équipe' />
+
+                                        <Grid item xs={12}>
+                                          <Select name={ CHPG.id } initial={CHPG.value}  options={homePages} optionValueName='path' optionTextName='title' fullWidth />
+                                        </Grid>
                                     </Card>
                                 </Grid>
                             </Grid>
