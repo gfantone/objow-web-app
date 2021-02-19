@@ -13,6 +13,7 @@ import { Badge, CollaboratorFilter, LevelIcon } from './components'
 import { AccentText, Card, DefaultText, DefaultTitle, EmptyState, GridLink, IconButton, InfoText, MainLayoutComponent, ProgressBar, AnimatedCounter} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
+import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as currentCollaboratorBadgeSummaryListActions from '../../../../services/CollaboratorBadges/CurrentCollaboratorBadgeSummaryList/actions'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 
@@ -126,7 +127,8 @@ class CollaboratorDetail extends MainLayoutComponent {
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
         this.handleButtons();
-        this.loadData(this.props)
+        this.loadData(this.props);
+        this.props.configListActions.getPermanentConfigList();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -146,6 +148,10 @@ class CollaboratorDetail extends MainLayoutComponent {
         const levelProgression = collaborator.nextLevel ? Math.round((levelPoints / (collaborator.nextLevel.points - collaborator.level.points)) * 100) : 100;
         const nextLevelInfo = collaborator.nextLevel ? Resources.COLLABORATOR_DETAIL_INFO_NEXT_LEVEL.format(collaborator.nextLevel.number, collaborator.nextLevel.points) : Resources.COLLABORATOR_DETAIL_INFO_MAX_LEVEL;
         const { classes } = this.props
+
+        // Badge activated for collaborators or not
+        const { configs } = this.props.configList;
+        const CBAR = configs.filter(c => c.code === 'CBAR')[0];
 
         return (
             <div>
@@ -236,25 +242,27 @@ class CollaboratorDetail extends MainLayoutComponent {
                             </Card>
                         </Grid>
                     </Grid>
-                    <Grid item container spacing={2} xs={12}>
-                        <Grid item xs={12}>
-                            <DefaultTitle>{Resources.COLLABORATOR_DETAIL_BADGE_AREA}</DefaultTitle>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Card>
-                                { badges.length > 0 && <Grid container spacing={2}>
-                                    { badges.map(badge => {
-                                        return (
-                                            <GridLink key={badge.id} item xs={6} sm={4} md={3} component={Link} to={`/badges/detail/${badge.levelId}`}>
-                                                <Badge badge={badge} />
-                                            </GridLink>
-                                        )
-                                    }) }
-                                </Grid> }
-                                { badges.length == 0 && <DefaultText>Aucun défi réalisé</DefaultText> }
-                            </Card>
-                        </Grid>
-                    </Grid>
+                    { _.get(CBAR, 'value', "true") === "true" &&
+                      <Grid item container spacing={2} xs={12}>
+                          <Grid item xs={12}>
+                              <DefaultTitle>{Resources.COLLABORATOR_DETAIL_BADGE_AREA}</DefaultTitle>
+                          </Grid>
+                          <Grid item xs={12}>
+                              <Card>
+                                  { badges.length > 0 && <Grid container spacing={2}>
+                                      { badges.map(badge => {
+                                          return (
+                                              <GridLink key={badge.id} item xs={6} sm={4} md={3} component={Link} to={`/badges/detail/${badge.levelId}`}>
+                                                  <Badge badge={badge} />
+                                              </GridLink>
+                                          )
+                                      }) }
+                                  </Grid> }
+                                  { badges.length == 0 && <DefaultText>Aucun défi réalisé</DefaultText> }
+                              </Card>
+                          </Grid>
+                      </Grid>
+                    }
                 </Grid>
             </div>
         )
@@ -263,8 +271,9 @@ class CollaboratorDetail extends MainLayoutComponent {
     render() {
         const { badges, loading: currentCollaboratorBadgeSummaryListLoading } = this.props.currentCollaboratorBadgeSummaryList;
         const { collaborator, loading: collaboratorDetailLoading } = this.props.collaboratorDetail;
+        const { configs, loading: configLoading } = this.props.configList;
 
-        const loading = currentCollaboratorBadgeSummaryListLoading || collaboratorDetailLoading;
+        const loading = currentCollaboratorBadgeSummaryListLoading || collaboratorDetailLoading || configLoading;
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
 
@@ -285,13 +294,15 @@ class CollaboratorDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ accountDetail, currentCollaboratorBadgeSummaryList, collaboratorDetail }) => ({
+const mapStateToProps = ({ accountDetail, configList, currentCollaboratorBadgeSummaryList, collaboratorDetail }) => ({
     accountDetail,
+    configList,
     currentCollaboratorBadgeSummaryList,
     collaboratorDetail
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    configListActions: bindActionCreators(configListActions, dispatch),
     currentCollaboratorBadgeSummaryListActions: bindActionCreators(currentCollaboratorBadgeSummaryListActions, dispatch),
     collaboratorDetailActions: bindActionCreators(collaboratorDetailActions, dispatch)
 });
