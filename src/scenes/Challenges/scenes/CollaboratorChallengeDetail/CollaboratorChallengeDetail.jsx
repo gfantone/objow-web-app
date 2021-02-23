@@ -2,9 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Redirect } from 'react-router-dom'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSlidersH} from '@fortawesome/free-solid-svg-icons'
 import { SubHeader } from './components'
-import { ChallengeCondition, CollaboratorChallengeRankList } from '../../components'
-import {MainLayoutComponent} from '../../../../components'
+import { ChallengeCondition, CollaboratorChallengeRankList, ChallengeDetailFilter } from '../../components'
+import {MainLayoutComponent, IconButton} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorChallengeDetailActions from '../../../../services/CollaboratorChallenges/CollaboratorChallengeDetail/actions'
 import * as collaboratorChallengeGoalListActions from '../../../../services/CollaboratorChallengeGoals/CollaboratorChallengeGoalList/actions'
@@ -19,11 +21,35 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
         }
     }
 
+    handleFilterOpen() {
+        this.setState({
+            ...this.state,
+            filterOpen: true
+        })
+    }
+
+    handleFilterClose() {
+        this.setState({
+            ...this.state,
+            filterOpen: false
+        })
+    }
+
     handlePageChange(page) {
         this.setState({
             ...this.state,
             page: page
         })
+    }
+    refresh(myTeam) {
+        const id = this.props.match.params.id
+        var url = `/challenges/detail/collaborator/${id}`;
+        if(myTeam) url += `?myTeam=${myTeam}`;
+        this.props.history.replace(url)
+    }
+
+    handleFilterChange(myTeam) {
+        this.refresh(myTeam)
     }
 
     componentDidMount() {
@@ -31,6 +57,7 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
         const id = this.props.match.params.id;
         this.props.handleTitle(Resources.CHALLENGE_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasChallengeRankAccess} />);
+        this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
         this.props.collaboratorChallengeDetailActions.getCollaboratorChallengeDetail(id);
@@ -41,24 +68,44 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
     render() {
         const { account } = this.props.accountDetail;
         const { challenge } = this.props.collaboratorChallengeDetail;
+        const { collaborator, loading: collaboratorDetailLoading } = this.props.collaboratorDetail;
         const { goals } = this.props.collaboratorChallengeGoalList;
         const { ranks } = this.props.collaboratorChallengeRankList;
-
+        const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
+        const collaboratorId = collaborator ? collaborator.id : null;
         if(!account.hasChallengeAccess) {
           return <Redirect to={'/'} />
         }
+        // Filter by team
+        const params = new URLSearchParams(window.location.search);
+        const myTeam = params.get('myTeam') === "true";
 
         return (
             <div>
-                { account.hasChallengeRankAccess && this.state.page == 0 && challenge && ranks && <CollaboratorChallengeRankList ranks={ranks} collaboratorId={challenge.collaboratorId} /> }
+                { account.hasChallengeRankAccess && this.state.page == 0 && challenge && ranks &&
+                  <CollaboratorChallengeRankList
+                    ranks={ myTeam ? ranks.filter(rank => rank.collaborator.team.id === teamId) : ranks}
+                    collaboratorId={challenge.collaboratorId}
+                  />
+                }
                 { this.state.page == 1 && challenge && goals && <ChallengeCondition challenge={challenge} goals={goals} /> }
+                <ChallengeDetailFilter
+                    open={this.state.filterOpen}
+                    onClose={this.handleFilterClose.bind(this)}
+                    onChange={this.handleFilterChange.bind(this)}
+                    team={teamId}
+                    myTeam={myTeam}
+                    collaborator={collaboratorId}
+
+                />
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ accountDetail, collaboratorChallengeDetail, collaboratorChallengeGoalList, collaboratorChallengeRankList }) => ({
+const mapStateToProps = ({ accountDetail, collaboratorDetail, collaboratorChallengeDetail, collaboratorChallengeGoalList, collaboratorChallengeRankList }) => ({
     accountDetail,
+    collaboratorDetail,
     collaboratorChallengeDetail,
     collaboratorChallengeGoalList,
     collaboratorChallengeRankList
