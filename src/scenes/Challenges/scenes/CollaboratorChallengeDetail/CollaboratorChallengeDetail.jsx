@@ -41,15 +41,15 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
             page: page
         })
     }
-    refresh(myTeam) {
+    refresh(team) {
         const id = this.props.match.params.id
         var url = `/challenges/detail/collaborator/${id}`;
-        if(myTeam) url += `?myTeam=${myTeam}`;
+        if(team) url += `?team=${team}`;
         this.props.history.replace(url)
     }
 
-    handleFilterChange(myTeam) {
-        this.refresh(myTeam)
+    handleFilterChange(team) {
+        this.refresh(team)
     }
 
     componentDidMount() {
@@ -78,13 +78,13 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
         }
         // Filter by team
         const params = new URLSearchParams(window.location.search);
-        const myTeam = params.get('myTeam') === "true";
+        const team = params.get('team');
 
         return (
             <div>
                 { account.hasChallengeRankAccess && this.state.page == 0 && challenge && ranks &&
                   <CollaboratorChallengeRankList
-                    ranks={ myTeam ? ranks.filter(rank => rank.collaborator.team.id === teamId) : ranks}
+                    ranks={ team ? ranks.filter(rank => rank.collaborator.team.id === parseInt(team)) : ranks}
                     collaboratorId={challenge.collaboratorId}
                   />
                 }
@@ -94,7 +94,7 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
                     onClose={this.handleFilterClose.bind(this)}
                     onChange={this.handleFilterChange.bind(this)}
                     team={teamId}
-                    myTeam={myTeam}
+                    team={team}
                     collaborator={collaboratorId}
 
                 />

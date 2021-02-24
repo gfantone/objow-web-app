@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import _ from 'lodash'
 import Formsy from 'formsy-react'
 import { Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core'
-import { Button, DatePicker, Select, Switch } from '../../../../components'
+import { Button, DatePicker, Select, Switch, Loader } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
@@ -34,6 +35,10 @@ class ChallengeDetailFilter extends Component {
         }
     }
 
+    renderLoader() {
+        return <Loader centered />
+    }
+
     handleChange = name => value => {
         this.setState({
             ...this.state,
@@ -42,13 +47,13 @@ class ChallengeDetailFilter extends Component {
     };
 
     handleSubmit(model) {
-        this.props.onChange(model.myTeam);
+        this.props.onChange(model.team);
         this.props.onClose()
     }
 
     renderData() {
         const { account } = this.props.accountDetail;
-        const { myTeam } = this.props;
+        const { teams } = this.props.teamList;
 
         return (
             <div>
@@ -57,7 +62,7 @@ class ChallengeDetailFilter extends Component {
                         <DialogTitle>{Resources.CHALLENGE_FILTER_TITLE}</DialogTitle>
                         <DialogContent>
                             <Grid container spacing={2}>
-                                <Switch name="myTeam" initial={this.props.myTeam} label='Filtrer sur mon équipe' />
+                                <Select name="team" options={ teams.sort((a, b) => a.id === _.get(account, 'team.id') && b.id !== _.get(account, 'team.id')  ? -1 : 1) } optionValueName='id' optionTextName='name' emptyText='Toutes les équipes' initial={this.props.team} label='équipe' />
                             </Grid>
                         </DialogContent>
                         <DialogActions>
@@ -72,12 +77,13 @@ class ChallengeDetailFilter extends Component {
 
     render() {
         const { account } = this.props.accountDetail;
-        const { teams } = this.props.teamList;
+        const { teams, loading } = this.props.teamList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
         const { periods: previousPeriods } = this.props.previousPeriodList;
 
         return (
             <div>
+                { loading && this.renderLoader() }
                 { account && teams && currentPeriod && previousPeriods && this.renderData() }
             </div>
         )
