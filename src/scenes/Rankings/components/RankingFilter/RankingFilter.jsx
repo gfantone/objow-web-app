@@ -10,7 +10,7 @@ import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as previousPeriodListActions from '../../../../services/Periods/PreviousPeriodList/actions'
 
-class ChallengeDetailFilter extends Component {
+class RankingFilter extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,11 +26,11 @@ class ChallengeDetailFilter extends Component {
 
     componentWillReceiveProps(props) {
         if (
-            props.team != this.state.team
+            props.myTeam != this.state.myTeam
         ) {
             this.setState({
                 ...this.state,
-                team: props.team
+                myTeam: props.myTeam
             })
         }
     }
@@ -103,4 +103,4 @@ const mapDispatchToProps = (dispatch) => ({
     previousPeriodListActions: bindActionCreators(previousPeriodListActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChallengeDetailFilter)
+export default connect(mapStateToProps, mapDispatchToProps)(RankingFilter)
