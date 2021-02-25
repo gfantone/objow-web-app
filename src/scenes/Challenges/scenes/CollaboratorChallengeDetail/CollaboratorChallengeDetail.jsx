@@ -93,10 +93,7 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
                     open={this.state.filterOpen}
                     onClose={this.handleFilterClose.bind(this)}
                     onChange={this.handleFilterChange.bind(this)}
-                    team={teamId}
                     team={team}
-                    collaborator={collaboratorId}
-
                 />
             </div>
         )

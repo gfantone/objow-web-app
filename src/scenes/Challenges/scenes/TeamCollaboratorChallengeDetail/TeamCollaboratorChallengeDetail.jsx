@@ -2,11 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopy, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faCopy, faEdit, faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom'
 import { SubHeader } from './components'
 import '../../../../helpers/DateHelper'
-import { ChallengeCondition, CollaboratorChallengeRankList } from '../../components'
+import { ChallengeCondition, CollaboratorChallengeRankList, ChallengeDetailFilter } from '../../components'
 import { IconButton, MainLayoutComponent } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorChallengeRankListActions from '../../../../services/CollaboratorChallengeRanks/CollaboratorChallengeRankList/actions'
@@ -38,6 +38,20 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
         this.props.history.push(url)
     }
 
+    handleFilterOpen() {
+        this.setState({
+            ...this.state,
+            filterOpen: true
+        })
+    }
+
+    handleFilterClose() {
+        this.setState({
+            ...this.state,
+            filterOpen: false
+        })
+    }
+
     handleEdit() {
         const { challenge } = this.props.teamCollaboratorChallengeDetail;
         this.props.history.push(`/challenges/modification/${challenge.sourceId}`)
@@ -49,6 +63,18 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
             page: page
         })
     }
+
+    refresh(team) {
+        const id = this.props.match.params.id
+        var url = `/challenges/detail/team-collaborator/${id}`;
+        if(team) url += `?team=${team}`;
+        this.props.history.replace(url)
+    }
+
+    handleFilterChange(team) {
+        this.refresh(team)
+    }
+
 
     componentDidMount() {
         const { account } = this.props.accountDetail;
@@ -73,7 +99,9 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
                 </Tooltip>
                 { challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_UPDATE_BUTTON}>
                     <IconButton size={'small'} onClick={this.handleEdit.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faEdit}/></IconButton>
-                </Tooltip> }
+                </Tooltip>
+              }
+              <IconButton size='small' onClick={this.handleFilterOpen.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faSlidersH} /></IconButton>
             </div>);
         }
     }
@@ -88,10 +116,22 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
           return <Redirect to={'/'} />
         }
 
+        // Filter by team
+        const params = new URLSearchParams(window.location.search);
+        const team = params.get('team');
+
         return (
             <div>
-                { account.hasChallengeRankAccess && this.state.page == 0 && ranks && <CollaboratorChallengeRankList ranks={ranks} /> }
+                { account.hasChallengeRankAccess && this.state.page == 0 && ranks &&
+                  <CollaboratorChallengeRankList ranks={team ? ranks.filter(rank => rank.collaborator.team.id === parseInt(team)) : ranks} />
+                }
                 { this.state.page == 1 && challenge && goals && <ChallengeCondition challenge={challenge} goals={goals} /> }
+                <ChallengeDetailFilter
+                    open={this.state.filterOpen}
+                    onClose={this.handleFilterClose.bind(this)}
+                    onChange={this.handleFilterChange.bind(this)}
+                    team={team}
+                />
             </div>
         )
     }
