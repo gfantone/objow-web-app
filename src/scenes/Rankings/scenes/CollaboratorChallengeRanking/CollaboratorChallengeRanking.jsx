@@ -72,6 +72,7 @@ class CollaboratorChallengeRanking extends MainLayoutComponent {
         // Filter by team
         const params = new URLSearchParams(window.location.search);
         const team = params.get('team');
+
         return <PlayerRanking ranking={
           team ? ranks.filter(rank =>
             _.get(collaborators.find(c => c.id === _.get(rank, 'collaboratorId')), 'team.id') === parseInt(team)
