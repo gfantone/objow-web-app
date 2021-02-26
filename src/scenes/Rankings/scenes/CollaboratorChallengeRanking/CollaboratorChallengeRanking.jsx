@@ -65,6 +65,14 @@ class CollaboratorChallengeRanking extends MainLayoutComponent {
         return <EmptyState title={Resources.COLLABORATOR_CHALLENGE_RANKING_EMPTY_STATE_TITLE} />
     }
 
+    addColorToRanks(ranks, collaborators) {
+      return collaborators ? ranks.map(rank => (
+        Object.assign({}, rank, {color: _.get(
+          collaborators.find(collaborator => collaborator.id === rank.collaboratorId)
+          , 'team.color.hex')})
+      )) : ranks
+    }
+
     renderData() {
         const { ranks } = this.props.collaboratorChallengeGeneralRankList;
         const { collaborators } = this.props.collaboratorList;
@@ -74,9 +82,9 @@ class CollaboratorChallengeRanking extends MainLayoutComponent {
         const team = params.get('team');
 
         return <PlayerRanking ranking={
-          team ? ranks.filter(rank =>
+          team ? this.addColorToRanks(ranks, collaborators).filter(rank =>
             _.get(collaborators.find(c => c.id === _.get(rank, 'collaboratorId')), 'team.id') === parseInt(team)
-          ) : ranks
+          ) : this.addColorToRanks(ranks, collaborators)
         } collaboratorId={this.props.match.params.collaborator} />
     }
 
