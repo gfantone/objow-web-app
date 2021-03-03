@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
@@ -44,6 +44,11 @@ class TeamDetail extends MainLayoutComponent {
 
     render() {
         const { team, loading } = this.props.teamDetail;
+        const { account } = this.props.accountDetail;
+
+        if(!account.hasTeamsAccess) {
+          return <Redirect to={'/'} />
+        }
 
         return (
             <div>
@@ -54,7 +59,8 @@ class TeamDetail extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ teamDetail }) => ({
+const mapStateToProps = ({ teamDetail, accountDetail }) => ({
+    accountDetail,
     teamDetail
 });
 

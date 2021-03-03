@@ -119,6 +119,8 @@ class AdminAccessRightList extends MainLayoutComponent {
         const CSTR = configs.filter(c => c.code === 'CSTR')[0];
         const MRUR = configs.filter(c => c.code === 'MRUR')[0];
         const CRUR = configs.filter(c => c.code === 'CRUR')[0];
+        const MTMR = configs.filter(c => c.code === 'MTMR')[0];
+        const CTMR = configs.filter(c => c.code === 'CTMR')[0];
 
         // Homepage
         const CHPG = configs.filter(c => c.code === 'CHPG')[0];
@@ -143,6 +145,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         <Switch name={MCLE.id} initial={MCLE.value.toBoolean()} label='Modifier la coaching list' />
                                         <Switch name={MGLR.id} initial={MGLR.value.toBoolean()} label='Accès aux objectifs' disabled={ !this.state.activateManagerChallengeAccess && this.state.activateManagerGoalsAccess } onChange={ this.handleChangeValue('activateManagerGoalsAccess').bind(this) } />
                                         <Switch name={MCGR.id} initial={MCGR.value.toBoolean()} label='Accès aux challenges' disabled={ !this.state.activateManagerGoalsAccess && this.state.activateManagerChallengeAccess } onChange={ this.handleChangeValue('activateManagerChallengeAccess').bind(this) } />
+                                        <Switch name={MTMR.id} initial={MTMR.value.toBoolean()} label='Accès aux équipes' />
                                         <Switch name={MBAR.id} initial={MBAR.value.toBoolean()} label='Accès aux défis' />
                                         <Switch name={MSTR.id} initial={MSTR.value.toBoolean()} label='Accès aux statistiques' />
                                         <Switch name={MRUR.id} initial={MRUR.value.toBoolean()} label='Accès aux règles du jeu' />
@@ -173,6 +176,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         <Switch name={CCLE.id} initial={CCLE.value.toBoolean()} label='Modifier la coaching list' />
                                         <Switch name={CGLR.id} initial={CGLR.value.toBoolean()} label='Accès aux objectifs' disabled={ !this.state.activateCollaboratorChallengeAccess && this.state.activateCollaboratorGoalsAccess } onChange={ this.handleChangeValue('activateCollaboratorGoalsAccess').bind(this) } />
                                         <Switch name={CCGR.id} initial={CCGR.value.toBoolean()} label='Accès aux challenges' disabled={ this.state.activateCollaboratorChallengeAccess && !this.state.activateCollaboratorGoalsAccess } onChange={ this.handleChangeValue('activateCollaboratorChallengeAccess').bind(this) } />
+                                        <Switch name={CTMR.id} initial={CTMR.value.toBoolean()} label='Accès aux équipes' />
                                         <Switch name={CBAR.id} initial={CBAR.value.toBoolean()} label='Accès aux défis' />
                                         <Switch name={CSTR.id} initial={CSTR.value.toBoolean()} label='Accès aux statistiques' />
                                         <Switch name={CRUR.id} initial={CRUR.value.toBoolean()} label='Accès aux règles du jeu' />

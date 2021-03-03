@@ -9,7 +9,7 @@ import * as Resources from '../../../../Resources'
 
 const PlayerRanking = ({ranking, collaboratorId}) => {
     const rankColSpan = ranking && ranking.length > 0 && ranking[0].color ? 2 : 1
-
+    
     return (
         <div>
             <Table>
