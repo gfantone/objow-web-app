@@ -47,7 +47,7 @@ const DrawerContent = ({onNavigate, ...props }) => {
       },
       {
         component: <DrawerButton icon={faUsers} text={Resources.DRAWER_TEAMS_BUTTON} src='/teams' onNavigate={onNavigate} />,
-        permission: true
+        permission: account.hasTeamsAccess
       },
       {
         component: <DrawerButton icon={faChartLine} text={Resources.DRAWER_STATS_BUTTON} src='/stats' onNavigate={onNavigate} />,
