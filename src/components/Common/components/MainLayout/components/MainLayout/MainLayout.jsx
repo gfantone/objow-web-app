@@ -62,6 +62,10 @@ function ElevationScroll(props) {
     });
 }
 
+const Throws = () => {
+      throw new Error('Oh no!')
+    }
+
 const MainLayout = ({component: Component, history, ...rest}) => {
     const classes = useStyles();
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -106,9 +110,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
         setSearch(event.target.value);
     }
 
-    function onError() {
-        window.location = '/error';
-    }
+
 
     function clear() {
         setButtons(DEFAULT_BUTTONS);
@@ -192,10 +194,10 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                 {searchActivation && <Hidden mdUp>
                                     <Search search={search} onChange={handleSearch} />
                                 </Hidden>}
-                                
                                 <ErrorBoundary fallbackRender={ ({error, resetErrorBoundary}) => (
                                   <ErrorHandler />
                                 ) }>
+                                    <Throws />
                                     <Component
                                     handleButtons={setButtons}
                                     handleMaxWidth={setMaxWidth}
