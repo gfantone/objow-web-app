@@ -903,3 +903,7 @@ export const TRACKING_SUB_HEADER_WAITING_TAB = "Validées"
 
 // User profile
 export const USER_PROFILE_NO_TEAM = "Aucune équipe"
+
+// Error page
+export const ERROR_PAGE_TITLE = "Une erreur est survenue"
+export const ERROR_PAGE_MESSAGE = "Vous pouvez mettre à jour l'application pour résoudre le problème"

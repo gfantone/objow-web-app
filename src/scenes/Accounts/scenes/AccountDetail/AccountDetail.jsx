@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {Avatar, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
-import {AccentText, Card, FileInput, InfoText, MainLayoutComponent, ProgressButton, TextField} from '../../../../components'
+import {AccentText, Card, FileInput, InfoText, MainLayoutComponent, ProgressButton, TextField, RefreshButton} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as accountUpdateActions from '../../../../services/Account/AccountUpdate/actions'
 import * as userUpdatePasswordActions from '../../../../services/Users/UserUpdatePassword/actions'
@@ -14,6 +14,9 @@ const styles = {
     photo: {
         height: 100,
         width: 100
+    },
+    refreshButton: {
+      textAlign: 'center',
     }
 };
 
@@ -78,7 +81,7 @@ class AccountDetail extends MainLayoutComponent {
                                         <Grid item>
                                             <InfoText>{account.role.name}</InfoText>
                                         </Grid>
-                                    </Grid>  
+                                    </Grid>
                                     <Grid item xs={12} container justify='center'>
                                       <Grid item>
                                         <FileInput name='photo' accept='image/*' />
@@ -120,6 +123,9 @@ class AccountDetail extends MainLayoutComponent {
                                                 equalsField: Resources.COMMON_PASSWORD_NOT_MATCH_ERROR
                                             }}
                                         />
+                                    </Grid>
+                                    <Grid item xs={12} className={classes.refreshButton}>
+                                        <RefreshButton />
                                     </Grid>
                                 </Grid>
                             </Card>
