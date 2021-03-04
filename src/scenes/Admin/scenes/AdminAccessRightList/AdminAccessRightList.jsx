@@ -6,6 +6,7 @@ import Formsy from 'formsy-react'
 import {AppBarSubTitle, Card, DefaultTitle, Loader, MainLayoutComponent, ProgressButton, Switch, TextField, Select} from '../../../../components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as configListUpdateActions from '../../../../services/Configs/ConfigListUpdate/actions'
+import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 import { homePages } from './homePages'
 import _ from 'lodash'
@@ -180,7 +181,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         <Switch name={CCLE.id} initial={CCLE.value.toBoolean()} label='Modifier la coaching list' />
                                         <Switch name={CGLR.id} initial={CGLR.value.toBoolean()} label='Accès aux objectifs' disabled={ !this.state.activateCollaboratorChallengeAccess && this.state.activateCollaboratorGoalsAccess } onChange={ this.handleChangeValue('activateCollaboratorGoalsAccess').bind(this) } />
                                         <Switch name={CCGR.id} initial={CCGR.value.toBoolean()} label='Accès aux challenges' disabled={ this.state.activateCollaboratorChallengeAccess && !this.state.activateCollaboratorGoalsAccess } onChange={ this.handleChangeValue('activateCollaboratorChallengeAccess').bind(this) } />
-                                        <TextField type='text' name={CHAW.id} initial={CHAW.value} placeholder='challenges' label={'Wording des challenges'}  fullWidth lowercase />
+                                        <TextField type='text' name={CHAW.id} initial={CHAW.value} placeholder={ Resources.DRAWER_CHALLENGES_BUTTON } label={'Wording des challenges'}  fullWidth lowercase />
                                         <Switch name={CTMR.id} initial={CTMR.value.toBoolean()} label='Accès aux équipes' />
                                         <Switch name={CBAR.id} initial={CBAR.value.toBoolean()} label='Accès aux défis' />
                                         <Switch name={CSTR.id} initial={CSTR.value.toBoolean()} label='Accès aux statistiques' />
