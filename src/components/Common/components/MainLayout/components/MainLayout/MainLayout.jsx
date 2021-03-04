@@ -197,7 +197,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                 <ErrorBoundary fallbackRender={ ({error, resetErrorBoundary}) => (
                                   <ErrorHandler />
                                 ) }>
-                                    <Throws />
+                                    
                                     <Component
                                     handleButtons={setButtons}
                                     handleMaxWidth={setMaxWidth}
