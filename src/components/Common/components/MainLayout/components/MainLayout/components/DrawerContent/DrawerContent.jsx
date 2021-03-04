@@ -30,7 +30,7 @@ const DrawerContent = ({onNavigate, ...props }) => {
         permission: account.hasGoalAccess
       },
       {
-        component: <DrawerButton icon={faRocket} text={Resources.DRAWER_CHALLENGES_BUTTON} src='/challenges' onNavigate={onNavigate} />,
+        component: <DrawerButton icon={faRocket} text={account.challengeWording || Resources.DRAWER_CHALLENGES_BUTTON} src='/challenges' onNavigate={onNavigate} />,
         permission: account.hasChallengeAccess
       },
       {

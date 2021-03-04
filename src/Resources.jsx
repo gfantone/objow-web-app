@@ -157,7 +157,7 @@ export const BADGE_LIST_CURRENT_TAB = "En cours"
 export const BADGE_LIST_COMPLETED_TAB = "Réussis"
 
 // Challenge
-export const CHALLENGE_LONG_TITLE = "Les challenges"
+export const CHALLENGE_LONG_TITLE = "Challenges"
 export const CHALLENGE_SHORT_TITLE = "Challenges"
 export const CHALLENGE_FIRST_RANK = "{0}er"
 export const CHALLENGE_OTHER_RANK = "{0}ème"
@@ -424,7 +424,7 @@ export const GAME_RULES_SUBMIT_BUTTON = "Valider"
 export const GAME_RULES_CANCEL_BUTTON = "Annuler"
 
 // Goal
-export const GOAL_LONG_TITLE = "Les objectifs"
+export const GOAL_LONG_TITLE = "Objectifs"
 export const GOAL_SHORT_TITLE = "Objectifs"
 export const GOAL_YEAR_PERIOD = "Année {0}"
 export const GOAL_SEMESTER_PERIOD = "Semestre {0}"

@@ -57,6 +57,7 @@ class AdminHome extends MainLayoutComponent {
         const { periods: nextPeriods } = this.props.nextPeriodList;
         const periods = [currentPeriod].concat(nextPeriods);
         const periodId = this.period ? this.period : currentPeriod.id;
+        const { account } = this.props.accountDetail;
 
         return (
             <div>
@@ -139,7 +140,7 @@ class AdminHome extends MainLayoutComponent {
                                                 <DefaultText>{Resources.ADMIN_HOME_GOAL_LEVEL_LINK}</DefaultText>
                                             </GridLink>
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/challenges`}>
-                                                <DefaultText>{Resources.ADMIN_HOME_CHALLENGE_LINK}</DefaultText>
+                                                <DefaultText>{account.challengeWording || Resources.ADMIN_HOME_CHALLENGE_LINK}</DefaultText>
                                             </GridLink>
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/badges`}>
                                                 <DefaultText>{Resources.ADMIN_HOME_BADGE_LINK}</DefaultText>
@@ -180,9 +181,10 @@ const mapDispatchToProps = (dispatch) => ({
     nextPeriodListActions: bindActionCreators(nextPeriodListActions, dispatch)
 });
 
-const mapStateToProps = ({ currentPeriodDetail, nextPeriodList }) => ({
+const mapStateToProps = ({ currentPeriodDetail, nextPeriodList, accountDetail }) => ({
     currentPeriodDetail,
-    nextPeriodList
+    nextPeriodList,
+    accountDetail
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminHome)

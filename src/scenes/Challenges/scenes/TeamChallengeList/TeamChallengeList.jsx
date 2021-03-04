@@ -92,7 +92,7 @@ class TeamChallengeList extends MainLayoutComponent {
         const { classes } = this.props;
         const params = new URLSearchParams(window.location.search);
         const page = Number(params.get('page'));
-        this.props.handleTitle(Resources.CHALLENGE_SHORT_TITLE);
+        this.props.handleTitle(account.challengeWording || Resources.CHALLENGE_SHORT_TITLE);
         this.props.handleSubHeader(<TimeFilter initial={page} handleTimeChange={this.handleTimeChange.bind(this)} />);
         this.props.handleButtons(<div>
             <Tooltip title={Resources.TEAM_CHALLENGE_LIST_CREATE_BUTTON}>

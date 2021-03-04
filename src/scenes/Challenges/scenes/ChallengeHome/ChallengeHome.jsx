@@ -17,7 +17,7 @@ class ChallengeHome extends MainLayoutComponent {
 
     componentDidMount() {
         const { account } = this.props.accountDetail;
-        this.props.handleTitle(Resources.CHALLENGE_LONG_TITLE);
+        this.props.handleTitle(account.challengeWording || Resources.CHALLENGE_LONG_TITLE);
         if (account.role.code == 'A') {
             this.props.handleButtons(<IconButton size='small' onClick={this.handleAdd.bind(this)}><FontAwesomeIcon icon={faPlus}/></IconButton>)
         }

@@ -35,7 +35,8 @@ class ChallengeCreation extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        this.props.handleTitle(Resources.CHALLENGE_LONG_TITLE)
+        const { account } = this.props.accountDetail;
+        this.props.handleTitle(account.challengeWording || Resources.CHALLENGE_LONG_TITLE)
         this.props.handleSubHeader(<AppBarSubTitle title={Resources.CHALLENGE_CREATION_TITLE} />)
         this.props.handleButtons(<MenuIconButton size={'small'} onClick={this.handleAddGoal.bind(this)}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>)
         this.props.handleMaxWidth('md')
