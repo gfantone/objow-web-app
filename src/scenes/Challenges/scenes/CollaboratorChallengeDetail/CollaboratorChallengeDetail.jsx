@@ -55,7 +55,8 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
     componentDidMount() {
         const { account } = this.props.accountDetail;
         const id = this.props.match.params.id;
-        this.props.handleTitle(Resources.CHALLENGE_SHORT_TITLE);
+        
+        this.props.handleTitle(account.challengeWording || Resources.CHALLENGE_SHORT_TITLE);
         this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasChallengeRankAccess} />);
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
         this.props.handleMaxWidth('md');

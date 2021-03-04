@@ -1,6 +1,6 @@
 import * as Resources from '../../../../Resources'
 
-const homePages = [
+const homePages = account => ([
   {
     path: 'goals',
     title: Resources.DRAWER_GOALS_BUTTON,
@@ -8,7 +8,7 @@ const homePages = [
   },
   {
     path: 'challenges',
-    title: Resources.DRAWER_CHALLENGES_BUTTON,
+    title: account.challengeWording || Resources.DRAWER_CHALLENGES_BUTTON,
     availability: ['C', 'M']
   },
   {
@@ -21,7 +21,7 @@ const homePages = [
     title: Resources.DRAWER_RANKINGS_BUTTON,
     availability: ['C', 'M']
   },
-]
+])
 
 export {
   homePages

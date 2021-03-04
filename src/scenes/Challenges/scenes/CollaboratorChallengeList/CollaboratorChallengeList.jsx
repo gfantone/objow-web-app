@@ -80,7 +80,9 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     componentDidMount() {
         const params = new URLSearchParams(window.location.search);
         const page = Number(params.get('page'));
-        this.props.handleTitle(Resources.CHALLENGE_SHORT_TITLE);
+        const { account } = this.props.accountDetail;
+
+        this.props.handleTitle(account.challengeWording || Resources.CHALLENGE_SHORT_TITLE);
         this.props.handleSubHeader(<TimeFilter initial={page} handleTimeChange={this.handleTimeChange.bind(this)} />);
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
         this.loadData(this.props)

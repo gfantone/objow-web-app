@@ -10,6 +10,11 @@ const styles = {
             fontSize: 13
         }
     },
+    lowercase: {
+        '& label, & label.Mui-focused, & input:not(.Mui-error), & textarea:not(.Mui-error)': {
+            fontSize: 15
+        }
+    },
     label: {
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
@@ -18,7 +23,7 @@ const styles = {
     }
 };
 
-const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = null, label, name, required, disabled, type = 'text', ...props }) => {
+const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = null, label, name, required, disabled, placeholder, lowercase, type = 'text', ...props }) => {
     const { classes } = props;
     const [value, setValue] = React.useState(initial);
     const hasError = props.isFormSubmitted && !props.isValid;
@@ -53,9 +58,10 @@ const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = 
                     shrink: true,
                     className: classes.label
                 }}
-                classes={{ root: classes.root }}
+                classes={{ root: lowercase ? classes.lowercase : classes.root }}
                 helperText={errorMessage}
                 error={hasError}
+                placeholder={placeholder}
             />
         </div>
     )
