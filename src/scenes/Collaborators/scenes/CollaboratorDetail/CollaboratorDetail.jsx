@@ -141,16 +141,17 @@ class CollaboratorDetail extends MainLayoutComponent {
 
     renderData() {
         const { account } = this.props.accountDetail;
+        const { configs } = this.props.configList;
         const { badges } = this.props.currentCollaboratorBadgeSummaryList;
         const { collaborator } = this.props.collaboratorDetail;
         const levelPoints = collaborator.generalRank.points - collaborator.level.points;
-        
+
         const levelProgression = collaborator.nextLevel ? Math.round((levelPoints / (collaborator.nextLevel.points - collaborator.level.points)) * 100) : 100;
         const nextLevelInfo = collaborator.nextLevel ? Resources.COLLABORATOR_DETAIL_INFO_NEXT_LEVEL.format(collaborator.nextLevel.number, collaborator.nextLevel.points) : Resources.COLLABORATOR_DETAIL_INFO_MAX_LEVEL;
         const { classes } = this.props
 
         // Badge activated for collaborators or not
-        const { configs } = this.props.configList;
+
         const CBAR = configs.filter(c => c.code === 'CBAR')[0];
 
         return (
@@ -271,9 +272,9 @@ class CollaboratorDetail extends MainLayoutComponent {
     render() {
         const { badges, loading: currentCollaboratorBadgeSummaryListLoading } = this.props.currentCollaboratorBadgeSummaryList;
         const { collaborator, loading: collaboratorDetailLoading } = this.props.collaboratorDetail;
-        const { configs, loading: configLoading } = this.props.configList;
+        const { configs, loading: configLoading, hasError } = this.props.configList;
 
-        const loading = currentCollaboratorBadgeSummaryListLoading || collaboratorDetailLoading || configLoading;
+        const loading = currentCollaboratorBadgeSummaryListLoading || collaboratorDetailLoading || configLoading || hasError;
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
 

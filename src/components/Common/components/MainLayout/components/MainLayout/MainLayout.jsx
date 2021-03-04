@@ -62,10 +62,6 @@ function ElevationScroll(props) {
     });
 }
 
-const Throws = () => {
-      throw new Error('Oh no!')
-    }
-
 const MainLayout = ({component: Component, history, ...rest}) => {
     const classes = useStyles();
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -197,7 +193,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                 <ErrorBoundary fallbackRender={ ({error, resetErrorBoundary}) => (
                                   <ErrorHandler />
                                 ) }>
-                                    
+
                                     <Component
                                     handleButtons={setButtons}
                                     handleMaxWidth={setMaxWidth}
