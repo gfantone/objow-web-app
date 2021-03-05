@@ -11,6 +11,8 @@ const DrawerButton = ({badgeContent, icon, onNavigate, text, src, ...props}) => 
     const handleClick = () => {
         if (src == '/logout') {
             localStorage.clear()
+            props.history.replace()
+            
             window.location = '/'
         } else {
             if (onNavigate) onNavigate()
