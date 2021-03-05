@@ -211,12 +211,16 @@ class CollaboratorDetail extends MainLayoutComponent {
                                         <Grid item container xs={12}>
                                             <Grid item xs>
                                                 <DefaultText className={classes.progressInfo}>
-                                                  <AnimatedCounter counter={ levelPoints } timer={ 750 } resource={ Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL }/>
-                                                  <InfoText className={classes.progressInfo} component='span'>
-                                                    {Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL_MAX.format(
-                                                      collaborator.nextLevel.points - collaborator.level.points
-                                                    )}
-                                                  </InfoText>
+                                                  { collaborator.nextLevel && (
+                                                    <React.Fragment>
+                                                      <AnimatedCounter counter={ levelPoints } timer={ 750 } resource={ Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL }/>
+                                                      <InfoText className={classes.progressInfo} component='span'>
+                                                        {Resources.COLLABORATOR_DETAIL_INFO_CURRENT_LEVEL_MAX.format(
+                                                          collaborator.nextLevel.points - collaborator.level.points
+                                                        )}
+                                                      </InfoText>
+                                                    </React.Fragment>
+                                                  )}
                                                 </DefaultText>
                                             </Grid>
                                             <Grid item>
