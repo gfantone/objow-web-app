@@ -116,6 +116,9 @@ class Base extends Component {
                                     { definition.type.code == 'C' && <Grid item xs={12}>
                                         <Switch name='editable' initial={definition.editable} label={Resources.ADMIN_GOAL_UPDATE_EDITABLE_LABEL} disabled={readonly} />
                                     </Grid> }
+                                    { definition.type.code == 'T' && <Grid item xs={12}>
+                                        <Switch name='admin_editable' initial={definition.admin_editable} label={Resources.ADMIN_GOAL_UPDATE_ADMIN_EDITABLE_LABEL} disabled={readonly} />
+                                    </Grid> }
                                 </Grid>
                             </Card>
                         </Grid>

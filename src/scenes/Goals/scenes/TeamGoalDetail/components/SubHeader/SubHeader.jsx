@@ -13,6 +13,7 @@ const styles = {
 
 const SubHeader = ({ activateRank, onChange, ...props }) => {
     const { classes } = props
+    const { account } = props.accountDetail;
     const { goal, loading: teamGoalDetailLoading } = props.teamGoalDetail
     const { loading: teamGoalRankListLoading } = props.teamGoalRankList
     const loading = teamGoalDetailLoading || teamGoalRankListLoading
@@ -31,6 +32,16 @@ const SubHeader = ({ activateRank, onChange, ...props }) => {
         return <Goal goal={goal} />
     }
 
+    const editable = goal && goal.end.toDate() >= new Date() && (
+      (
+        // Admin and manager on solo goals
+        goal.editable && account.role.code !== 'C'
+      ) || (
+        // Admin on team goals
+        goal && goal.definition.admin_editable && goal.end.toDate() >= new Date() && account.role.code === 'A'
+      )
+    )
+
     return (
         <div>
             <div className={classes.root}>
@@ -40,12 +51,14 @@ const SubHeader = ({ activateRank, onChange, ...props }) => {
             { activateRank && <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
                 <RoundedTab label={Resources.TEAM_GOAL_DETAIL_RANK_TAB} />
                 <RoundedTab label={Resources.TEAM_GOAL_DETAIL_INDICATION_TAB} />
+                { editable && <RoundedTab label={Resources.TEAM_COLLABORATOR_GOAL_DETAIL_EDIT_TAB} /> }
             </RoundedTabs> }
         </div>
     )
 }
 
-const mapStateToProps = ({ teamGoalDetail, teamGoalRankList }) => ({
+const mapStateToProps = ({ teamGoalDetail, teamGoalRankList, accountDetail }) => ({
+    accountDetail,
     teamGoalDetail,
     teamGoalRankList
 })

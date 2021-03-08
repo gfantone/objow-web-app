@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import _ from 'lodash';
 import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
 import {AppBarSubTitle, BlueText, Card, DefaultText, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, Switch, TextField, Tooltip} from '../../../../components'
@@ -17,7 +18,8 @@ class AdminGoalCreation extends MainLayoutComponent {
     constructor(props) {
         super(props);
         this.state = {
-            kpi: null
+            kpi: null,
+            type: null
         };
         this.props.goalDefinitionCreationActions.clearGoalDefinitionCreation()
     }
@@ -40,6 +42,13 @@ class AdminGoalCreation extends MainLayoutComponent {
         })
     }
 
+    handleTypeChange = (type) => {
+        this.setState({
+            ...this.state,
+            type: type
+        })
+    }
+
     handleSubmit(model) {
         model.period = this.props.match.params.periodId;
         this.props.goalDefinitionCreationActions.createGoalDefinition(model)
@@ -56,6 +65,8 @@ class AdminGoalCreation extends MainLayoutComponent {
         const { periodicities } = this.props.periodicityList;
         const { loading } = this.props.goalDefinitionCreation;
         const kpi = this.state.kpi ? kpis.find(k => k.id == this.state.kpi) : null;
+        const { type } = this.state;
+        const currentType = types.find(t => t.id === parseInt(type))
         const unit = kpi ? kpi.unit.name + (kpi.unit.symbol ? ` (${kpi.unit.symbol})` : '') : null;
 
         return (
@@ -75,7 +86,7 @@ class AdminGoalCreation extends MainLayoutComponent {
                                     <TextField name='name' label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
-                                    <Select name='type' label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' fullWidth required />
+                                    <Select name='type' label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' onChange={this.handleTypeChange} fullWidth required />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
                                     <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
@@ -106,9 +117,20 @@ class AdminGoalCreation extends MainLayoutComponent {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <Switch name='editable' label={Resources.ADMIN_GOAL_CREATION_EDITABLE_LABEL} />
-                                </Grid>
+                                {
+                                  _.get(currentType, 'code') === 'C' && (
+                                    <Grid item xs={12}>
+                                      <Switch name='editable' label={Resources.ADMIN_GOAL_CREATION_EDITABLE_LABEL} />
+                                    </Grid>
+                                  )
+                                }
+                                {
+                                  _.get(currentType, 'code') === 'T' && (
+                                    <Grid item xs={12}>
+                                      <Switch name='admin_editable' label={Resources.ADMIN_GOAL_CREATION_ADMIN_EDITABLE_LABEL} />
+                                    </Grid>
+                                  )
+                                }
                             </Grid>
                         </Card>
                     </Grid>
