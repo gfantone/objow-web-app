@@ -1,2 +1,2 @@
 export * from './SubHeader'
-export * from './CollaboratorGoalList'
+export * from './TeamGoalList'
