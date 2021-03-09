@@ -6,7 +6,6 @@ import { Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import _ from 'lodash'
 import { AccentText, Card, DefaultText, DefaultTitle, EmptyState, ErrorText, InfoText, Loader, ProgressButton, TextField } from '../../../../../../components'
-import * as goalDetailActions from '../../../../../../services/Goals/GoalDetail/actions'
 import * as teamGoalListActions from '../../../../../../services/TeamGoals/TeamGoalList/actions'
 import * as teamGoalListUpdateActions from '../../../../../../services/TeamGoals/TeamGoalListUpdate/actions'
 import '../../../../../../helpers/FormsyHelper'
@@ -42,7 +41,6 @@ class TeamGoalList extends Component {
 
         const date = new Date(parseInt(teamGoal.start) * 1000)
 
-        this.props.goalDetailActions.getGoalDetail(definitionId, date)
         this.props.teamGoalListActions.getTeamGoalListByDefinition(definitionId, date)
     }
 
@@ -159,10 +157,8 @@ class TeamGoalList extends Component {
 
     render() {
         const { goals, loading: teamGoalListLoading } = this.props.teamGoalList
-        const { loading: goalDetailLoading } = this.props.goalDetail
-        const loading = teamGoalListLoading || goalDetailLoading
+        const loading = teamGoalListLoading
         const hasGoals = goals && goals.length > 0
-        console.log(goals);
 
         return (
             <div>
@@ -174,16 +170,13 @@ class TeamGoalList extends Component {
     }
 }
 
-const mapStateToProps = ({ goalDefinitionDetail, goalDetail, teamGoalList, teamGoalListUpdate, teamGoalDetail }) => ({
-    goalDefinitionDetail,
-    goalDetail,
+const mapStateToProps = ({ teamGoalList, teamGoalListUpdate, teamGoalDetail }) => ({
     teamGoalDetail,
     teamGoalList,
     teamGoalListUpdate
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    goalDetailActions: bindActionCreators(goalDetailActions, dispatch),
     teamGoalListActions: bindActionCreators(teamGoalListActions, dispatch),
     teamGoalListUpdateActions: bindActionCreators(teamGoalListUpdateActions, dispatch)
 })
