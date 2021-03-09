@@ -33,6 +33,15 @@ const SubHeader = ({ activateRank, onChange, ...props }) => {
         return <Goal goal={goal} />
     };
 
+    const editable = goal && goal.end.toDate() >= new Date() && (
+      (
+        // Admin and manager on solo goals
+        goal.editable && account.role.code !== 'C'
+      ) || (
+        // Admin on team goals
+        goal && goal.admin_editable && goal.end.toDate() >= new Date() && account.role.code === 'A'
+      )
+    )
     return (
         <div>
             <div className={classes.root}>
@@ -42,7 +51,7 @@ const SubHeader = ({ activateRank, onChange, ...props }) => {
             { activateRank && <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
                 <RoundedTab label={Resources.TEAM_COLLABORATOR_GOAL_DETAIL_RANK_TAB} />
                 <RoundedTab label={Resources.TEAM_COLLABORATOR_GOAL_DETAIL_INDICATION_TAB} />
-                { goal && goal.editable && goal.end.toDate() >= new Date() && account.role.code !== 'C' && <RoundedTab label={Resources.TEAM_COLLABORATOR_GOAL_DETAIL_EDIT_TAB} /> }
+                { editable && <RoundedTab label={Resources.TEAM_COLLABORATOR_GOAL_DETAIL_EDIT_TAB} /> }
             </RoundedTabs> }
         </div>
     )

@@ -51,7 +51,7 @@ const DrawerContent = ({onNavigate, ...props }) => {
       },
       {
         component: <DrawerButton icon={faChartLine} text={Resources.DRAWER_STATS_BUTTON} src='/stats' onNavigate={onNavigate} />,
-      permission: account.hasStatisticsAccess
+        permission: account.hasStatisticsAccess
       },
 
       {
