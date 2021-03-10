@@ -131,6 +131,7 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
                     onClose={this.handleFilterClose.bind(this)}
                     onChange={this.handleFilterChange.bind(this)}
                     team={team}
+                    myTeam={account.team}
                 />
             </div>
         )
