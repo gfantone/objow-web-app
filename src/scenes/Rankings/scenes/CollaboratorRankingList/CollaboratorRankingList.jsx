@@ -111,14 +111,18 @@ class CollaboratorRankingList extends MainLayoutComponent {
         return (
             <div>
                 { collaborator && this.renderData() }
-                <CollaboratorRankingListFilter
+                {
+                  this.state.filterOpen &&
+
+                  <CollaboratorRankingListFilter
                     open={this.state.filterOpen}
                     onClose={this.handleFilterClose.bind(this)}
                     onChange={this.handleFilterChange.bind(this)}
                     team={teamId}
                     collaborator={collaboratorId}
                     year={this.year}
-                />
+                  />
+                }
             </div>
         )
     }

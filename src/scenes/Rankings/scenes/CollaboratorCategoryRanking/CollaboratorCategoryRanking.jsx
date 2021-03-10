@@ -114,12 +114,15 @@ class PlayerCategoryRanking extends MainLayoutComponent {
             <div>
                 { !loading && ranks && ranks.length > 0 && this.renderData() }
                 { !loading && ranks && ranks.length == 0 && this.renderEmptyState() }
-                <RankingFilter
+                {
+                  this.state.filterOpen &&
+                  <RankingFilter
                     open={this.state.filterOpen}
                     onClose={this.handleFilterClose.bind(this)}
                     onChange={this.handleFilterChange.bind(this)}
                     team={team}
-                />
+                    />
+                }
             </div>
         )
     }
