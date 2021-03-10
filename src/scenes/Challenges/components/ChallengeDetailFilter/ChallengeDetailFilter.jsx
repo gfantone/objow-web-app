@@ -53,36 +53,37 @@ class ChallengeDetailFilter extends Component {
 
     renderData() {
         const { myTeam } = this.props;
-        const { teams } = this.props.teamList;
-        
+        const { teams, loading } = this.props.teamList;
+
         return (
             <div>
-                <Dialog open={this.props.open} onClose={this.props.onClose}>
-                    <Formsy onSubmit={this.handleSubmit.bind(this)}>
-                        <DialogTitle>{Resources.CHALLENGE_FILTER_TITLE}</DialogTitle>
-                        <DialogContent>
-                            <Grid container spacing={2}>
-                                <Select name="team" options={ teams.sort((a, b) => a.id === _.get(myTeam, 'id') && b.id !== _.get(myTeam, 'id')  ? -1 : 1) } optionValueName='id' optionTextName='name' emptyText='Toutes les équipes' initial={this.props.team} label='équipe' />
-                            </Grid>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={this.props.onClose} color='secondary'>{Resources.CHALLENGE_FILTER_CANCEL_BUTTON}</Button>
-                            <Button type='submit'>{Resources.CHALLENGE_FILTER_SUBMIT_BUTTON}</Button>
-                        </DialogActions>
-                    </Formsy>
-                </Dialog>
+              <Dialog open={this.props.open} onClose={this.props.onClose}>
+                <Formsy onSubmit={this.handleSubmit.bind(this)}>
+                    <DialogTitle>{Resources.CHALLENGE_FILTER_TITLE}</DialogTitle>
+                    <DialogContent>
+                        { loading && this.renderLoader() }
+                        { !loading && (
+                          <Grid container spacing={2}>
+                            <Select name="team" options={ teams.sort((a, b) => a.id === _.get(myTeam, 'id') && b.id !== _.get(myTeam, 'id')  ? -1 : 1) } optionValueName='id' optionTextName='name' emptyText='Toutes les équipes' initial={this.props.team} label='équipe' />
+                          </Grid>
+                        ) }
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.props.onClose} color='secondary'>{Resources.CHALLENGE_FILTER_CANCEL_BUTTON}</Button>
+                        <Button type='submit'>{Resources.CHALLENGE_FILTER_SUBMIT_BUTTON}</Button>
+                    </DialogActions>
+                </Formsy>
+              </Dialog>
             </div>
         )
     }
 
     render() {
-        const { teams, loading } = this.props.teamList;
+        const { teams } = this.props.teamList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
         const { periods: previousPeriods } = this.props.previousPeriodList;
-
         return (
             <div>
-                { loading && this.renderLoader() }
                 { teams && currentPeriod && previousPeriods && this.renderData() }
             </div>
         )

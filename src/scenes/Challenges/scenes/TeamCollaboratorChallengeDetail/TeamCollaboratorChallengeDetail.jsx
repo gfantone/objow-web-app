@@ -126,13 +126,16 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
                   <CollaboratorChallengeRankList ranks={team ? ranks.filter(rank => rank.collaborator.team.id === parseInt(team)) : ranks} />
                 }
                 { this.state.page == 1 && challenge && goals && <ChallengeCondition challenge={challenge} goals={goals} /> }
-                <ChallengeDetailFilter
+                {
+                  this.state.filterOpen &&
+                  <ChallengeDetailFilter
                     open={this.state.filterOpen}
                     onClose={this.handleFilterClose.bind(this)}
                     onChange={this.handleFilterChange.bind(this)}
                     team={team}
                     myTeam={account.team}
-                />
+                  />
+                }
             </div>
         )
     }

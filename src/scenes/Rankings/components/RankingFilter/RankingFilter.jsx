@@ -53,7 +53,7 @@ class RankingFilter extends Component {
 
     renderData() {
         const { account } = this.props.accountDetail;
-        const { teams } = this.props.teamList;
+        const { teams, loading } = this.props.teamList;
 
         return (
             <div>
@@ -61,9 +61,12 @@ class RankingFilter extends Component {
                     <Formsy onSubmit={this.handleSubmit.bind(this)}>
                         <DialogTitle>{Resources.CHALLENGE_FILTER_TITLE}</DialogTitle>
                         <DialogContent>
-                            <Grid container spacing={2}>
+                            { loading && this.renderLoader() }
+                            { !loading && (
+                              <Grid container spacing={2}>
                                 <Select name="team" options={ teams.sort((a, b) => a.id === _.get(account, 'team.id') && b.id !== _.get(account, 'team.id')  ? -1 : 1) } optionValueName='id' optionTextName='name' emptyText='Toutes les équipes' initial={this.props.team} label='équipe' />
-                            </Grid>
+                              </Grid>
+                            ) }
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.props.onClose} color='secondary'>{Resources.CHALLENGE_FILTER_CANCEL_BUTTON}</Button>
@@ -77,13 +80,12 @@ class RankingFilter extends Component {
 
     render() {
         const { account } = this.props.accountDetail;
-        const { teams, loading } = this.props.teamList;
+        const { teams } = this.props.teamList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
         const { periods: previousPeriods } = this.props.previousPeriodList;
 
         return (
             <div>
-                { loading && this.renderLoader() }
                 { account && teams && currentPeriod && previousPeriods && this.renderData() }
             </div>
         )
