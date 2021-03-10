@@ -160,7 +160,8 @@ class CollaboratorChallengeList extends MainLayoutComponent {
                 { loading && this.renderLoader() }
                 { !loading && collaboratorChallenges && teamChallenges && this.renderData() }
                 { !loading && collaboratorChallenges && teamChallenges && collaboratorChallenges.length == 0 && teamChallenges.length == 0 && this.renderEmptyState() }
-                <ChallengeFilter
+                { this.state.filterOpen &&
+                  <ChallengeFilter
                     open={this.state.filterOpen}
                     onClose={this.handleFilterClose.bind(this)}
                     onChange={this.handleFilterChange.bind(this)}
@@ -169,7 +170,8 @@ class CollaboratorChallengeList extends MainLayoutComponent {
                     year={this.year}
                     start={this.start}
                     end={this.end}
-                />
+                  />
+                }
             </div>
         )
     }
