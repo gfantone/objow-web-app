@@ -12,7 +12,7 @@ const homePages = account => ([
     availability: ['C', 'M']
   },
   {
-    path: 'teams/:teamId/collaborators/:id/detail',
+    path: 'collaborators/:id/detail',
     title: Resources.ACCOUNT_TITLE,
     availability: ['C']
   },

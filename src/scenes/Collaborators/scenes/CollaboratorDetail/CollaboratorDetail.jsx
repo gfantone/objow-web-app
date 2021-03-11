@@ -125,7 +125,9 @@ class CollaboratorDetail extends MainLayoutComponent {
         this.props.handleTitle('Collaborateurs');
         this.props.handleSubHeader(<SubHeader />);
         this.props.handleMaxWidth('md');
-        this.props.activateReturn();
+        if(_.get(this.props, 'match.params.teamId')) {
+          this.props.activateReturn();
+        }
         this.handleButtons();
         this.loadData(this.props);
         this.props.configListActions.getPermanentConfigList();
