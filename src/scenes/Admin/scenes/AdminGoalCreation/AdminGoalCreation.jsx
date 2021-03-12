@@ -51,7 +51,11 @@ class AdminGoalCreation extends MainLayoutComponent {
 
     handleSubmit(model) {
         model.period = this.props.match.params.periodId;
-        this.props.goalDefinitionCreationActions.createGoalDefinition(model)
+
+        this.props.goalDefinitionCreationActions.createGoalDefinition(Object.assign(
+          {editable: false, adminEditable: false},
+          model
+        ))
     }
 
     renderLoader() {
