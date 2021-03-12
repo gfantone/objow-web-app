@@ -250,11 +250,11 @@ class CollaboratorDetail extends MainLayoutComponent {
                         </Grid>
                     </Grid>
                     { _.get(CBAR, 'value', "true") === "true" &&
-                      <Grid item container spacing={2} xs={12}>
-                          <Grid item xs={12}>
+                      <Grid item container spacing={1} xs={12}>
+                          <Grid spacing={1} item xs={12}>
                               <DefaultTitle>{Resources.COLLABORATOR_DETAIL_BADGE_AREA}</DefaultTitle>
                           </Grid>
-                          <Grid item xs={12}>
+                          <Grid spacing={1} item xs={12}>
                               <Card>
                                   { badges.length > 0 && <Grid container spacing={2}>
                                       { badges.map(badge => {
