@@ -38,12 +38,12 @@ const LoginForm = ({onSubmit, ...props}) => {
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <DarkTextField name='email' label={Resources.LOGIN_EMAIL_LABEL} fullWidth required
+                                            <DarkTextField lowercase={true} name='email' label={Resources.LOGIN_EMAIL_LABEL} fullWidth required
                                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <DarkTextField type='password' name='password' label={Resources.LOGIN_PASSWORD_LABEL} fullWidth required
+                                            <DarkTextField lowercase={true} type='password' name='password' label={Resources.LOGIN_PASSWORD_LABEL} fullWidth required
                                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             />
                                         </Grid>

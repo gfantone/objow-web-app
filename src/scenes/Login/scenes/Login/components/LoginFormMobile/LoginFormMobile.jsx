@@ -30,12 +30,12 @@ const LoginFormMobile = ({onSubmit, ...props}) => {
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField name='email' label={Resources.LOGIN_EMAIL_LABEL} fullWidth required
+                                        <TextField lowercase name='email' label={Resources.LOGIN_EMAIL_LABEL} fullWidth required
                                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField type='password' name='password' label={Resources.LOGIN_PASSWORD_LABEL} fullWidth required
+                                        <TextField lowercase type='password' name='password' label={Resources.LOGIN_PASSWORD_LABEL} fullWidth required
                                                        validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
