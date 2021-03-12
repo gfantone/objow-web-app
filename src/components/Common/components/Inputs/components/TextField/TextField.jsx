@@ -11,7 +11,11 @@ const styles = {
         }
     },
     lowercase: {
-        '& label, & label.Mui-focused, & input:not(.Mui-error), & textarea:not(.Mui-error)': {
+        '& label, & label.Mui-focused': {
+          textTransform: 'uppercase',
+          fontSize: 13
+        },
+        '& input:not(.Mui-error), & textarea:not(.Mui-error)': {
             fontSize: 15
         }
     },

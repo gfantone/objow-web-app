@@ -99,7 +99,7 @@ class AccountDetail extends MainLayoutComponent {
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField name='email' label={Resources.ACCOUNT_EMAIL_LABEL} validations="isEmail" initial={account.email} fullWidth required
+                                        <TextField lowercase name='email' label={Resources.ACCOUNT_EMAIL_LABEL} validations="isEmail" initial={account.email} fullWidth required
                                             validationErrors={{
                                                 isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                 isEmail: Resources.COMMON_EMAIL_ERROR
@@ -110,13 +110,13 @@ class AccountDetail extends MainLayoutComponent {
                                         <TextField name='citation' label={Resources.ACCOUNT_CITATION_LABEL} initial={account.citation} fullWidth multiline />
                                     </Grid> }
                                     <Grid item xs={6}>
-                                        <TextField type='password' name='password' label={Resources.ACCOUNT_PASSWORD_LABEL} fullWidth
+                                        <TextField lowercase type='password' name='password' label={Resources.ACCOUNT_PASSWORD_LABEL} fullWidth
                                             onChange={this.handleValueChange('password').bind(this)}
                                             validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
-                                        <TextField type='password' name='paswwordConfirm' label={Resources.ACCOUNT_CONFIRM_PASSWORD_LABEL} fullWidth
+                                        <TextField lowercase type='password' name='paswwordConfirm' label={Resources.ACCOUNT_CONFIRM_PASSWORD_LABEL} fullWidth
                                             validations='equalsField:password'
                                             validationErrors={{
                                                 isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
