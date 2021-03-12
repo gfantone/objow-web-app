@@ -15,7 +15,12 @@ const styles = {
         }
     },
     lowercase: {
-        '& label, & label.Mui-focused, & input:not(.Mui-error)': {
+        '& label, & label.Mui-focused': {
+          color: '#FFFFFF',
+          textTransform: 'uppercase',
+          fontSize: 13
+        },
+        '& input:not(.Mui-error)': {
             color: '#FFFFFF',
             fontSize: 15
         },
