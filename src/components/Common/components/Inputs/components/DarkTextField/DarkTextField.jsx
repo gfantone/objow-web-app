@@ -14,6 +14,15 @@ const styles = {
             borderBottomColor: '#FFFFFF'
         }
     },
+    lowercase: {
+        '& label, & label.Mui-focused, & input:not(.Mui-error)': {
+            color: '#FFFFFF',
+            fontSize: 15
+        },
+        '& .MuiInput-underline:before, .MuiInput-underline:hover:not(.Mui-disabled):before, & .MuiInput-underline:not(.Mui-error):after': {
+            borderBottomColor: '#FFFFFF'
+        }
+    },
     label: {
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
@@ -22,7 +31,7 @@ const styles = {
     }
 };
 
-const CustomTextField = ({ fullWidth, multiline, initial = null, label, name, required, disabled, type = 'text', ...props }) => {
+const CustomTextField = ({ fullWidth, multiline, initial = null, label, name, required, disabled, lowercase, type = 'text', ...props }) => {
     const { classes } = props;
     const [value, setValue] = React.useState(initial);
     const hasError = props.isFormSubmitted && !props.isValid;
@@ -54,7 +63,7 @@ const CustomTextField = ({ fullWidth, multiline, initial = null, label, name, re
                     shrink: true,
                     className: classes.label
                 }}
-                classes={{ root: classes.root }}
+                classes={{ root: lowercase ? classes.lowercase : classes.root }}
                 helperText={errorMessage}
                 error={hasError}
             />
