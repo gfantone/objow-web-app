@@ -125,7 +125,9 @@ class CollaboratorDetail extends MainLayoutComponent {
         this.props.handleTitle('Collaborateurs');
         this.props.handleSubHeader(<SubHeader />);
         this.props.handleMaxWidth('md');
-        this.props.activateReturn();
+        if(_.get(this.props, 'match.params.teamId')) {
+          this.props.activateReturn();
+        }
         this.handleButtons();
         this.loadData(this.props);
         this.props.configListActions.getPermanentConfigList();
@@ -248,11 +250,11 @@ class CollaboratorDetail extends MainLayoutComponent {
                         </Grid>
                     </Grid>
                     { _.get(CBAR, 'value', "true") === "true" &&
-                      <Grid item container spacing={2} xs={12}>
-                          <Grid item xs={12}>
+                      <Grid item container spacing={1} xs={12}>
+                          <Grid spacing={1} item xs={12}>
                               <DefaultTitle>{Resources.COLLABORATOR_DETAIL_BADGE_AREA}</DefaultTitle>
                           </Grid>
-                          <Grid item xs={12}>
+                          <Grid spacing={1} item xs={12}>
                               <Card>
                                   { badges.length > 0 && <Grid container spacing={2}>
                                       { badges.map(badge => {
