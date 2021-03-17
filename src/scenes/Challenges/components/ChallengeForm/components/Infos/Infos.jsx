@@ -104,8 +104,9 @@ const Infos = ({description, end, image, images, isUpdate, name, period, onEndCh
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                <Select
-                                    disabled={hasManager || isUpdate}
+                                // removed condition hasChallengeManager on disabled
+                                <Select    
+                                    disabled={isUpdate}
                                     fullWidth
                                     initial={type}
                                     label={Resources.CHALLENGE_CREATION_INFO_TYPE_LABEL}
