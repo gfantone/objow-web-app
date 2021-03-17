@@ -90,19 +90,32 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { challenge } = this.props.teamCollaboratorChallengeDetail;
+        const { account } = this.props.accountDetail;
         if (!this.initialized && challenge) {
             const { classes } = this.props;
             this.initialized = true;
-            this.props.handleButtons(<div>
-                <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DUPLICATE_BUTTON}>
-                    <IconButton size={'small'} onClick={this.handleDuplicate.bind(this)}><FontAwesomeIcon icon={faCopy}/></IconButton>
-                </Tooltip>
-                { challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_UPDATE_BUTTON}>
+            const canEdit = account.role.code === 'M' && challenge.typeCode === 'CM' || account.role.code === 'A'
+
+            this.props.handleButtons(
+              <div>
+                {
+                  canEdit && (
+
+                    <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DUPLICATE_BUTTON}>
+                      <IconButton size={'small'} onClick={this.handleDuplicate.bind(this)}><FontAwesomeIcon icon={faCopy}/></IconButton>
+                    </Tooltip>
+                  )
+                }
+                { canEdit && challenge.end.toDate2().getTime() > new Date().getTime() &&
+                  <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_UPDATE_BUTTON}>
                     <IconButton size={'small'} onClick={this.handleEdit.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faEdit}/></IconButton>
-                </Tooltip>
-              }
-              <IconButton size='small' onClick={this.handleFilterOpen.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faSlidersH} /></IconButton>
-            </div>);
+                  </Tooltip>
+                }
+
+                <IconButton size='small' onClick={this.handleFilterOpen.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faSlidersH} /></IconButton>
+              </div>
+            );
+
         }
     }
 
