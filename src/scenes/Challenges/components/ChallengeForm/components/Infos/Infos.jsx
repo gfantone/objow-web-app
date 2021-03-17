@@ -104,8 +104,7 @@ const Infos = ({description, end, image, images, isUpdate, name, period, onEndCh
                                 />
                             </Grid>
                             <Grid item xs={6}>
-                                // removed condition hasChallengeManager on disabled
-                                <Select    
+                                <Select
                                     disabled={isUpdate}
                                     fullWidth
                                     initial={type}
