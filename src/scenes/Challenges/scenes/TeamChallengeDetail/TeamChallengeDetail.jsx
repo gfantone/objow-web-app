@@ -5,15 +5,16 @@ import { Redirect } from 'react-router-dom'
 import { SubHeader } from './components'
 import '../../../../helpers/DateHelper'
 import { ChallengeCondition, TeamChallengeRankList } from '../../components'
-import {IconButton, MainLayoutComponent} from '../../../../components'
+import {IconButton, MainLayoutComponent, Dialog, DialogActions, DialogContent, DialogTitle, Button, ProgressButton} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamChallengeDetailActions from '../../../../services/TeamChallenges/TeamChallengeDetail/actions'
 import * as teamChallengeGoalListActions from '../../../../services/TeamChallengeGoals/TeamChallengeGoalList/actions'
 import * as teamChallengeRankListAction from '../../../../services/TeamChallengeRanks/TeamChallengeRankList/actions'
+import * as challengeDeleteActions from '../../../../services/Challanges/ChallengeDelete/actions'
 import {Tooltip} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCopy, faEdit} from "@fortawesome/free-solid-svg-icons";
+import {faCopy, faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 
 const styles = {
     iconMargin: {
@@ -39,6 +40,19 @@ class TeamChallengeDetail extends MainLayoutComponent {
     handleEdit() {
         const { challenge } = this.props.teamChallengeDetail;
         this.props.history.push(`/challenges/modification/${challenge.sourceId}`)
+    }
+
+    async onDelete() {
+        const { challenge } = this.props.teamChallengeDetail;
+
+        await this.props.challengeDeleteActions.deleteChallenge(challenge);
+        this.props.history.goBack();
+    }
+    setDeletePromptOpen(isOpen) {
+      this.setState({
+        ...this.state,
+        deletePromptOpen: isOpen
+      })
     }
 
     handlePageChange(page) {
@@ -72,6 +86,9 @@ class TeamChallengeDetail extends MainLayoutComponent {
                     <Tooltip title={Resources.TEAM_CHALLENGE_DETAIL_DUPLICATE_BUTTON}>
                         <IconButton size={'small'} onClick={this.handleDuplicate.bind(this)}><FontAwesomeIcon icon={faCopy}/></IconButton>
                     </Tooltip>
+                    <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DELETE_BUTTON}>
+                      <IconButton size={'small'} onClick={() => this.setDeletePromptOpen(true)} className={classes.iconMargin}><FontAwesomeIcon icon={faTrash}/></IconButton>
+                    </Tooltip>
                     {challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={Resources.TEAM_CHALLENGE_DETAIL_UPDATE_BUTTON}>
                         <IconButton size={'small'} onClick={this.handleEdit.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faEdit}/></IconButton>
                     </Tooltip>}
@@ -84,7 +101,7 @@ class TeamChallengeDetail extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
         const { challenge } = this.props.teamChallengeDetail;
         const { goals } = this.props.teamChallengeGoalList;
-        const { ranks } = this.props.teamChallengeRankList;
+        const { ranks, loading } = this.props.teamChallengeRankList;
 
         if(!account.hasChallengeAccess) {
           return <Redirect to={'/'} />
@@ -94,6 +111,13 @@ class TeamChallengeDetail extends MainLayoutComponent {
             <div>
                 { account.hasChallengeRankAccess && account.hasTeamRankAccess && this.state.page == 0 && challenge && ranks && <TeamChallengeRankList ranks={ranks} teamId={challenge.teamId} /> }
                 { this.state.page == 1 && challenge && goals && <ChallengeCondition challenge={challenge} goals={goals} /> }
+                <Dialog open={this.state.deletePromptOpen} onClose={() => this.setDeletePromptOpen(false)}>
+                    <DialogTitle>Êtes-vous sûr de vouloir supprimer ce challenge ?</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={() => this.setDeletePromptOpen(false)} color='secondary'>Non</Button>
+                        <ProgressButton type='button' text='Oui' loading={loading} onClick={this.onDelete.bind(this)}/>
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     }
@@ -109,7 +133,8 @@ const mapStateToProps = ({ accountDetail, teamChallengeDetail, teamChallengeGoal
 const mapDispatchToProps = (dispatch) => ({
     teamChallengeDetailActions: bindActionCreators(teamChallengeDetailActions, dispatch),
     teamChallengeGoalListActions: bindActionCreators(teamChallengeGoalListActions, dispatch),
-    teamChallengeRankListAction: bindActionCreators(teamChallengeRankListAction, dispatch)
+    teamChallengeRankListAction: bindActionCreators(teamChallengeRankListAction, dispatch),
+    challengeDeleteActions: bindActionCreators(challengeDeleteActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TeamChallengeDetail))

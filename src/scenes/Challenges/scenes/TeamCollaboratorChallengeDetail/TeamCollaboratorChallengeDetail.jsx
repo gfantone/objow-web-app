@@ -119,7 +119,7 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
                         <IconButton size={'small'} onClick={this.handleDuplicate.bind(this)}><FontAwesomeIcon icon={faCopy}/></IconButton>
                       </Tooltip>
                       <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DELETE_BUTTON}>
-                        <IconButton size={'small'} onClick={() => this.setDeletePromptOpen(true)}><FontAwesomeIcon icon={faTrash}/></IconButton>
+                        <IconButton size={'small'} onClick={() => this.setDeletePromptOpen(true)} className={classes.iconMargin}><FontAwesomeIcon icon={faTrash}/></IconButton>
                       </Tooltip>
                     </React.Fragment>
                   )
