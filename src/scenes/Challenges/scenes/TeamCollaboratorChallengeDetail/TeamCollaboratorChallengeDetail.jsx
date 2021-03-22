@@ -108,7 +108,7 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
         if (!this.initialized && challenge) {
             const { classes } = this.props;
             this.initialized = true;
-            const canEdit = account.role.code === 'M' && challenge.typeCode === 'CM' || account.role.code === 'A'
+            const canEdit = account.hasManagerChallengeEditAccess && challenge.typeCode === 'CM' || account.role.code === 'A'
 
             this.props.handleButtons(
               <div>
