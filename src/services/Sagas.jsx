@@ -20,6 +20,7 @@ import watchCurrentCollaboratorBadgeSummaryList from './CollaboratorBadges/Curre
 import watchChallengeAwardTypeList from './ChallengeAwardTypes/ChallengeAwardTypeList/sagas'
 import watchChallengeCreation from './Challanges/ChallangeCreaton/sagas'
 import watchChallengeUpdate from './Challanges/ChallengeUpdate/sagas'
+import watchChallengeDelete from './Challanges/ChallengeDelete/sagas'
 import watchChallengeDetail from './Challanges/ChallengeDetail/sagas'
 import {watchChallengeTypeList, watchCurrentChallengeTypeList, watchUsableChallengeTypeList} from './ChallengeTypes/ChallengeTypeList/sagas'
 import watchChallengeTypeSummaryList from './ChallengeTypeSummaries/ChallengeTypeSummaryList/sagas'
@@ -197,6 +198,7 @@ function* rootSaga() {
         watchChallengeTypeUsablePoints(),
         watchChallengeTypeUsablePointsByChallenge(),
         watchChallengeUpdate(),
+        watchChallengeDelete(),
         watchCoachingItemList(),
         watchCoachingItemListCreation(),
         watchCoachingItemListUpdate(),

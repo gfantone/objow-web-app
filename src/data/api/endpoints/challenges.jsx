@@ -17,6 +17,10 @@ const challenges = {
         challenge.end = challenge.end.toUTCJSON();
         return instance.put(url, challenge)
     },
+    delete(challenge) {
+        const url = `${baseUrl}${challenge.sourceId}/`;
+        return instance.delete(url)
+    },
     usablePoints(id, start = null, end = null) {
         var url = `${baseUrl}${id}/usable-points/`;
         if (start && end) url += `?start=${start.toUTCJSON()}&end=${end.toUTCJSON()}`;
