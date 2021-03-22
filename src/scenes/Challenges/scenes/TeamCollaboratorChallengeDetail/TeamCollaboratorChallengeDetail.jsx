@@ -2,16 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopy, faEdit, faSlidersH } from '@fortawesome/free-solid-svg-icons'
+import { faCopy, faEdit, faSlidersH, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom'
 import { SubHeader } from './components'
 import '../../../../helpers/DateHelper'
 import { ChallengeCondition, CollaboratorChallengeRankList, ChallengeDetailFilter } from '../../components'
-import { IconButton, MainLayoutComponent } from '../../../../components'
+import { IconButton, MainLayoutComponent, Dialog, DialogActions, DialogContent, DialogTitle, Button, ProgressButton } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorChallengeRankListActions from '../../../../services/CollaboratorChallengeRanks/CollaboratorChallengeRankList/actions'
 import * as teamCollaboratorChallengeDetailActions from '../../../../services/TeamCollaboratorChallenges/TeamCollaboratorChallengeDetail/actions'
 import * as teamCollaboratorChallengeGoalListActions from '../../../../services/TeamCollaboratorChallengeGoals/TeamCollaboratorChallengeGoalList/actions'
+import * as challengeDeleteActions from '../../../../services/Challanges/ChallengeDelete/actions'
 import {Tooltip} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 
@@ -27,7 +28,8 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
         this.initialized = false;
         this.state = {
-            page: account.hasChallengeRankAccess ? 0 : 1
+            page: account.hasChallengeRankAccess ? 0 : 1,
+            deletePromptOpen: false
         }
     }
 
@@ -55,6 +57,18 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
     handleEdit() {
         const { challenge } = this.props.teamCollaboratorChallengeDetail;
         this.props.history.push(`/challenges/modification/${challenge.sourceId}`)
+    }
+    async onDelete() {
+        const { challenge } = this.props.teamCollaboratorChallengeDetail;
+
+        await this.props.challengeDeleteActions.deleteChallenge(challenge);
+        this.props.history.goBack();
+    }
+    setDeletePromptOpen(isOpen) {
+      this.setState({
+        ...this.state,
+        deletePromptOpen: isOpen
+      })
     }
 
     handlePageChange(page) {
@@ -100,10 +114,14 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
               <div>
                 {
                   canEdit && (
-
-                    <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DUPLICATE_BUTTON}>
-                      <IconButton size={'small'} onClick={this.handleDuplicate.bind(this)}><FontAwesomeIcon icon={faCopy}/></IconButton>
-                    </Tooltip>
+                    <React.Fragment>
+                      <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DUPLICATE_BUTTON}>
+                        <IconButton size={'small'} onClick={this.handleDuplicate.bind(this)}><FontAwesomeIcon icon={faCopy}/></IconButton>
+                      </Tooltip>
+                      <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DELETE_BUTTON}>
+                        <IconButton size={'small'} onClick={() => this.setDeletePromptOpen(true)}><FontAwesomeIcon icon={faTrash}/></IconButton>
+                      </Tooltip>
+                    </React.Fragment>
                   )
                 }
                 { canEdit && challenge.end.toDate2().getTime() > new Date().getTime() &&
@@ -121,7 +139,7 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
 
     render() {
         const { account } = this.props.accountDetail;
-        const { ranks } = this.props.collaboratorChallengeRankList;
+        const { ranks, loading } = this.props.collaboratorChallengeRankList;
         const { challenge } = this.props.teamCollaboratorChallengeDetail;
         const { goals } = this.props.teamCollaboratorChallengeGoalList;
 
@@ -149,6 +167,13 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
                     myTeam={account.team}
                   />
                 }
+                <Dialog open={this.state.deletePromptOpen} onClose={() => this.setDeletePromptOpen(false)}>
+                    <DialogTitle>Êtes-vous sûr de vouloir supprimer ce challenge ?</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={() => this.setDeletePromptOpen(false)} color='secondary'>Non</Button>
+                        <ProgressButton type='button' text='Oui' loading={loading} onClick={this.onDelete.bind(this)}/>
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     }
@@ -164,7 +189,8 @@ const mapStateToProps = ({ accountDetail, collaboratorChallengeRankList, teamCol
 const mapDispatchToProps = (dispatch) => ({
     collaboratorChallengeRankListActions: bindActionCreators(collaboratorChallengeRankListActions, dispatch),
     teamCollaboratorChallengeDetailActions: bindActionCreators(teamCollaboratorChallengeDetailActions, dispatch),
-    teamCollaboratorChallengeGoalListActions: bindActionCreators(teamCollaboratorChallengeGoalListActions, dispatch)
+    teamCollaboratorChallengeGoalListActions: bindActionCreators(teamCollaboratorChallengeGoalListActions, dispatch),
+    challengeDeleteActions: bindActionCreators(challengeDeleteActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TeamCollaboratorChallengeDetail))
