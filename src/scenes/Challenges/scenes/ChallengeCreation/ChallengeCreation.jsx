@@ -77,7 +77,10 @@ class ChallengeCreation extends MainLayoutComponent {
         challengeFormData.append('live', model.live ? model.live : false)
         if(Number.isInteger(model.image)) {
           challengeFormData.append('image', model.image)
+          challengeFormData.append('customImage', null)
         } else {
+          // hack : add image even if not used, otherwise challenge is not listed
+          challengeFormData.append('image', 1)
           challengeFormData.append('customImage', model.image)
         }
 

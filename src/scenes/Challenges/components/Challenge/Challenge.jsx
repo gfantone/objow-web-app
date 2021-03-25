@@ -21,7 +21,7 @@ const styles = {
 
 const Challenge = ({challenge, ...props}) => {
     const {classes} = props
-    
+
     return (
         <div>
             <Grid container spacing={2}>
@@ -30,7 +30,7 @@ const Challenge = ({challenge, ...props}) => {
                         <div className={classes.timerContainer}>
                             <TimerTag date={challenge.end} />
                         </div>
-                        <ChallengeImage image={challenge.image || challenge.customImage} />
+                        <ChallengeImage image={challenge.custom_image || challenge.image} />
                     </div>
                 </Grid>
                 <Grid item>
