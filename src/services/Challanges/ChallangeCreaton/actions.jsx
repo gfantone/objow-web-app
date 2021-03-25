@@ -1,8 +1,9 @@
 import * as types from './actionTypes'
 
-export const createChallenge = (challenge, awards, goals, teamId) => {
+export const createChallenge = (challenge, challengeFormData, awards, goals, teamId) => {
     return {
         type: types.CREATE_CHALLENGE,
+        challengeFormData,
         challenge,
         awards,
         goals,

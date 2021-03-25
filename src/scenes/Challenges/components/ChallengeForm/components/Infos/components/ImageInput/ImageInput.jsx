@@ -3,7 +3,10 @@ import {withFormsy} from 'formsy-react'
 import {CardMedia, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {InfoText, ErrorText} from "../../../../../../../../components/Common/components/Texts/components"
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {InfoText, ErrorText, DefaultText} from "../../../../../../../../components/Common/components/Texts/components"
+import {faUpload} from '@fortawesome/free-solid-svg-icons'
+import * as Resources from '../../../../../../../../Resources'
 
 const styles = {
     image: {
@@ -13,6 +16,18 @@ const styles = {
             opacity: 1
         },
         cursor: 'pointer'
+    },
+    customImage: {
+        height: '100%',
+        backgroundColor: '#f7f8fc',
+        cursor: 'pointer',
+        opacity: 0.75,
+        '&:hover': {
+            opacity: 1
+        }
+    },
+    customImageInput: {
+        display: 'none'
     },
     selectedImage: {
         height: 80,
@@ -33,6 +48,7 @@ const styles = {
 
 const ImageInput = ({ images = [], initial, label, name, onChange, required, ...props }) => {
     const { classes } = props;
+    const customImageInput = React.useRef()
     const [expanded, setExpanded] = React.useState(false);
     const [value, setValue] = React.useState(initial);
     const errorMessage = !(!props.isFormSubmitted && value == null) ? props.errorMessage : null;
@@ -43,9 +59,26 @@ const ImageInput = ({ images = [], initial, label, name, onChange, required, ...
         props.setValue(initial)
     }, []);
 
+
+    function handleCustomImageChange(event) {
+        const files = event.currentTarget.files
+
+        if (files && files.length > 0) {
+            const file = files[0]
+            props.setValue(file)
+            setValue(file)
+            setExpanded(false)
+            if (onChange) onChange(file)
+        }
+    }
+
     const handleExpansionChange = (event, expanded) => {
         setExpanded(expanded)
     };
+
+    function handleImport() {
+        customImageInput.current.click()
+    }
 
     const handleValue = value => () => {
         props.setValue(value)
@@ -63,6 +96,20 @@ const ImageInput = ({ images = [], initial, label, name, onChange, required, ...
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.panelDetails}>
                     <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <InfoText>{Resources.REWARD_IMAGE_INPUT_INFOS}</InfoText>
+                        </Grid>
+                        <Grid item xs={3}>
+                            <Grid container justify='center' alignItems='center' onClick={handleImport} className={classes.customImage}>
+                                <Grid item>
+                                    <DefaultText align='center'>
+                                        <FontAwesomeIcon icon={faUpload} />
+                                    </DefaultText>
+                                    <DefaultText align='center'>Importer</DefaultText>
+                                    <input ref={customImageInput} type='file' accept='image/*' className={classes.customImageInput} onChange={handleCustomImageChange} multiple={false} />
+                                </Grid>
+                            </Grid>
+                        </Grid>
                         { images.map((image) => {
                             const imageClass = value == image.id ? classes.selectedImage : classes.image;
                             return (
