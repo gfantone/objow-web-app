@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
-import { AppBarSubTitle, DataTable, Loader, MainLayoutComponent } from '../../../../components'
+import { Link } from 'react-router-dom'
+import { AppBarSubTitle, DataTable, Loader, MainLayoutComponent, GridLink } from '../../../../components'
 import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
 
 class AdminReportList extends MainLayoutComponent {
@@ -37,7 +38,10 @@ class AdminReportList extends MainLayoutComponent {
         }
 
         return (
-            <DataTable data={kpis} columns={columns} options={options} />
+            <React.Fragment>
+              <GridLink component={Link} to={`/admin/dashboard`}>Dashboard</GridLink>
+              <DataTable data={kpis} columns={columns} options={options} />
+            </React.Fragment>
         )
     }
 
