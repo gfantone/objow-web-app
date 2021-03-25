@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* createChallenge(action) {
     try {
-        const { data: challenge } = yield call(api.challenges.create, action.challenge, action.teamId);
+        const { data: challenge } = yield call(api.challenges.create, action.challengeFormData, action.teamId);
         action.awards.map(award => {
             award.challenge = challenge.id
         });

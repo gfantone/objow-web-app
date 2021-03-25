@@ -23,10 +23,19 @@ const Infos = ({description, end, image, images, isUpdate, name, period, onEndCh
     const endMinDate = start ? start : today
     const [selectedImageId, setSelectedImageId] = React.useState(image ? image.id : null)
     const selectedImage = images.find(x => x.id === selectedImageId)
-    const selectedImagePath = selectedImage ? selectedImage.path : null
+    const [selectedImagePath, setSelectedImagePath] = React.useState(selectedImage ? selectedImage.path : null)
 
     function handleImageChange(id) {
+      if (id instanceof Blob) {
+          var reader = new FileReader()
+          reader.onloadend = function (e) {
+              setSelectedImagePath(reader.result)
+          }.bind(this)
+          reader.readAsDataURL(id)
+      } else {
         setSelectedImageId(Number(id))
+        setSelectedImagePath(images.find(x => x.id === Number(id)).path)
+      }
     }
 
     return (

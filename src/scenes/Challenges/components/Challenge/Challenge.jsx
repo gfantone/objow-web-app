@@ -30,7 +30,7 @@ const Challenge = ({challenge, ...props}) => {
                         <div className={classes.timerContainer}>
                             <TimerTag date={challenge.end} />
                         </div>
-                        <ChallengeImage image={challenge.image} />
+                        <ChallengeImage image={challenge.custom_image || challenge.image} />
                     </div>
                 </Grid>
                 <Grid item>

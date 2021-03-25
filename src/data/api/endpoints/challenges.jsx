@@ -7,8 +7,6 @@ const challenges = {
     create(challenge, teamId) {
         var url = `${baseUrl}`;
         if (teamId) url += `?team=${teamId}`;
-        challenge.start = challenge.start.toUTCJSON();
-        challenge.end = challenge.end.toUTCJSON();
         return instance.post(url, challenge)
     },
     update(challenge) {
