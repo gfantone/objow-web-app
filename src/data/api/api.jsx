@@ -32,6 +32,7 @@ import levelIcons from './endpoints/levelIcons'
 import levels from './endpoints/levels'
 import mails from './endpoints/mails'
 import managers from './endpoints/managers'
+import metabase from './endpoints/metabase'
 import partners from "./endpoints/partners";
 import periodicities from './endpoints/periodicities'
 import periods from './endpoints/periods'
@@ -93,6 +94,7 @@ const api = {
     levels,
     mails,
     managers,
+    metabase,
     partners,
     periodicities,
     periods,
