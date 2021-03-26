@@ -36,10 +36,10 @@ class AdminReportList extends MainLayoutComponent {
             selectableRows: 'none',
             onRowClick: (colData, cellMeta) => { this.props.history.push(`/admin/reports/${colData[0]}`) }
         }
-
+        // TODO : link to metabase dashboard 
+        // <GridLink component={Link} to={`/admin/dashboard`}>Dashboard</GridLink>
         return (
             <React.Fragment>
-              <GridLink component={Link} to={`/admin/dashboard`}>Dashboard</GridLink>
               <DataTable data={kpis} columns={columns} options={options} />
             </React.Fragment>
         )
