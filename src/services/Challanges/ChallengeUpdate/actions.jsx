@@ -1,9 +1,10 @@
 import * as types from './actionTypes'
 
-export const updateChallenge = (challenge, awards, goals) => {
+export const updateChallenge = (challenge, challengeFormData, awards, goals) => {
     return {
         type: types.UPDATE_CHALLENGE,
         challenge,
+        challengeFormData,
         awards,
         goals
     }

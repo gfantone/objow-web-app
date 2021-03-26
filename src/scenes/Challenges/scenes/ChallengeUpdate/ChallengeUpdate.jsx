@@ -64,29 +64,60 @@ class ChallengeUpdate extends MainLayoutComponent {
     }
 
     handleValidSubmit(model) {
-        model.start.setHours(0, 0, 0, 0);
-        model.end.setHours(23, 59, 59, 0);
-        const challenge = {
+        const { types } = this.props.challengeTypeList
+        model.start.setHours(0, 0, 0, 0)
+        model.end.setHours(23, 59, 59, 0)
+        const start = model.start.toUTCJSON();
+        const end = model.end.toUTCJSON();
+
+        const challengeFormData = new FormData()
+        challengeFormData.append('id', this.props.match.params.id)
+        challengeFormData.append('name', model.name)
+        challengeFormData.append('description', model.description)
+        challengeFormData.append('start', start)
+        challengeFormData.append('end', end)
+        challengeFormData.append('type', model.type)
+        challengeFormData.append('award_type', model.awardType)
+        challengeFormData.append('live', model.live ? model.live : false)
+
+        if(Number.isInteger(model.image)) {
+          challengeFormData.append('image', model.image)
+          // challengeFormData.append('customImage', null)
+        }
+        if(model.image instanceof Blob){
+          // challengeFormData.append('image', null)
+          challengeFormData.append('customImage', model.image)
+        }
+
+
+        // Set custom image if exists
+        const image = model.image.id ? {
+          image: model.image
+        } : {
+          customImage: model.image
+        }
+        const challenge = Object.assign({
             id: this.props.match.params.id,
             name: model.name,
             description: model.description,
             start: model.start,
             end: model.end,
-            image: model.image,
             type: model.type,
             award_type: model.awardType,
             live: model.live ? model.live : false
-        };
-        var goals = [];
+        }, image)
+
+        var goals = []
         for (var i = 0; i < model.kpi.length; i++) {
             goals.push({ number: model.number[i], name: model.goalName[i], kpi: model.kpi[i], target: model.target[i], points: model.points[i], challenge: challenge.id })
         }
-        var awards = [];
+        var awards = []
         for (var i = 0; i < model.award.length; i++) {
-            const rank = i + 1;
-            awards.push({rank: rank, points: model.award[i], challenge: challenge.id})
+            const rank = i + 1
+            awards.push({ rank: rank, points: model.award[i], challenge: challenge.id })
         }
-        this.props.challengeUpdateActions.updateChallenge(challenge, awards, goals)
+        const teamId = types.find(x => x.id == model.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
+        this.props.challengeUpdateActions.updateChallenge(challenge, challengeFormData, awards, goals)
     }
 
     renderData() {
