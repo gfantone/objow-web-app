@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* updateChallenge(action) {
     try {
-        yield call(api.challenges.update, action.challenge);
+        yield call(api.challenges.update, action.challengeFormData, action.challenge);
         yield call(api.challenges.changeAwards, action.challenge.id, action.awards);
         yield call(api.challenges.changeGoals, action.challenge.id, action.goals);
         yield put(updateChallengeSuccess())

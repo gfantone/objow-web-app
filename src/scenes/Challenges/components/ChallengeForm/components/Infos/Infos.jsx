@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     }
 })
 
-const Infos = ({description, end, image, images, isUpdate, name, period, onEndChange, onStartChange, onTypeChange, start, type, types, ...props}) => {
+const Infos = ({description, end, customImage, image, images, isUpdate, name, period, onEndChange, onStartChange, onTypeChange, start, type, types, ...props}) => {
     const classes = useStyles()
     const {account} = props.accountDetail
     const hasManager = account.role.code === 'M'
@@ -22,7 +22,8 @@ const Infos = ({description, end, image, images, isUpdate, name, period, onEndCh
     const startMaxDate = end ? end : period.end.toDate2()
     const endMinDate = start ? start : today
     const [selectedImageId, setSelectedImageId] = React.useState(image ? image.id : null)
-    const selectedImage = images.find(x => x.id === selectedImageId)
+    const selectedImage = customImage ? {path: customImage} : images.find(x => x.id === selectedImageId)
+
     const [selectedImagePath, setSelectedImagePath] = React.useState(selectedImage ? selectedImage.path : null)
 
     function handleImageChange(id) {
@@ -130,7 +131,7 @@ const Infos = ({description, end, image, images, isUpdate, name, period, onEndCh
                             <Grid item xs={12}>
                                 <ImageInput
                                     images={images}
-                                    initial={selectedImageId}
+                                    initial={selectedImageId || customImage}
                                     label={Resources.CHALLENGE_CREATION_INFO_IMAGE_LABEL}
                                     name={'image'}
                                     required

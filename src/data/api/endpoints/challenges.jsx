@@ -9,11 +9,9 @@ const challenges = {
         if (teamId) url += `?team=${teamId}`;
         return instance.post(url, challenge)
     },
-    update(challenge) {
+    update(challengeFormData, challenge) {
         const url = `${baseUrl}${challenge.id}/`;
-        challenge.start = challenge.start.toUTCJSON();
-        challenge.end = challenge.end.toUTCJSON();
-        return instance.put(url, challenge)
+        return instance.put(url, challengeFormData)
     },
     delete(challenge) {
         const url = `${baseUrl}${challenge.sourceId}/`;
