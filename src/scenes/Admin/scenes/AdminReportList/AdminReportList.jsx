@@ -3,17 +3,34 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { AppBarSubTitle, DataTable, Loader, MainLayoutComponent, GridLink } from '../../../../components'
+import { AppBarSubTitle, DataTable, Loader, MainLayoutComponent, GridLink, RoundedTabs, RoundedTab } from '../../../../components'
+import { SubHeader } from './components'
+import { AdminMetabase } from '../AdminMetabase'
 import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 
 class AdminReportList extends MainLayoutComponent {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        tabValue: 0
+      }
+    }
+
     componentDidMount() {
         this.props.handleTitle('Administration')
-        this.props.handleSubHeader(<AppBarSubTitle title='Liste des rapports' />)
+        this.props.handleSubHeader(<SubHeader handleChangeTab={ this.handleChangeTab }/>)
         this.props.activateReturn()
         this.props.kpiListActions.getKpiList()
         this.props.configListActions.getPermanentConfigList()
+    }
+
+    handleChangeTab = (value) => {
+      this.setState({
+        ...this.state,
+        tabValue: value
+      })
     }
 
     renderLoader() {
@@ -24,7 +41,8 @@ class AdminReportList extends MainLayoutComponent {
         const { kpis } = this.props.kpiList
         const { configs } = this.props.configList
         const MTBS = configs && configs.find(c => c.code === 'MTBS')
-        console.log(configs);
+
+
         const columns = [
             { name: 'id', label: 'Ref KPI' },
             { name: 'name', label: 'Intitulé du KPI' },
@@ -43,12 +61,13 @@ class AdminReportList extends MainLayoutComponent {
         }
         return (
             <React.Fragment>
+
               {
-                MTBS && (
-                  <GridLink component={Link} to={`/admin/dashboard`}>Dashboard</GridLink>
-                )
+                this.state.tabValue === 0 && <DataTable data={kpis} columns={columns} options={options} />
               }
-              <DataTable data={kpis} columns={columns} options={options} />
+              {
+                this.state.tabValue === 1 && <AdminMetabase MTBS={ MTBS } />
+              }
             </React.Fragment>
         )
     }

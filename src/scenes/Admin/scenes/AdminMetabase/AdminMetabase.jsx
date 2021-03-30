@@ -16,22 +16,13 @@ const styles = {
 }
 
 class AdminMetabase extends Component {
-  componentDidMount() {
-    this.props.configListActions.getPermanentConfigList()
-  }
-  renderLoader() {
-      return <Loader centered />
-  }
-
-  renderData() {
+  render() {
     const {classes} = this.props;
-    const { configs } = this.props.configList
+    const { MTBS } = this.props
 
-    const MTBS = configs && configs.find(c => c.code === 'MTBS')
 
-    console.log(MTBS);
     if(!MTBS) {
-      return(<Redirect to="/admin" />)
+      return(<div />)
     }
 
     const payload = {
@@ -57,16 +48,7 @@ class AdminMetabase extends Component {
     )
   }
 
-  render() {
-    const { configs, loading } = this.props.configList
 
-    return(
-      <div>
-        { loading && this.renderLoader() }
-        { !loading && this.renderData() }
-      </div>
-    )
-  }
 }
 
 const mapStateToProps = ({configList}) => ({
