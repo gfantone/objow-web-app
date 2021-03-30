@@ -114,7 +114,6 @@ export default () => {
                 <AdminRoutes exact path='/admin/reward-categories/modification/:id' component={scenes.AdminRewardCategoryUpdate} />
                 <AdminRoutes exact path='/admin/reports/:id' component={scenes.AdminReportDetail} />
                 <AdminRoutes exact path='/admin/imports/logs' component={scenes.AdminImportLogList} />
-                // <AdminRoutes exact path='/admin/dashboard' component={scenes.AdminMetabase} />
                 {/* Other routes */}
                 <MainRoutes exact path={'/help'} component={scenes.Contact} />
                 {/* Anonymous routes */}
