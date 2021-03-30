@@ -6,7 +6,7 @@ import { Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom'
-import {Challenge, ChallengeCard, ChallengeFilter, TimeFilter} from '../../components'
+import {Challenge, ChallengeCard, ChallengeNewFilter, TimeFilter} from '../../components'
 import { EmptyState, GridLink, IconButton, Loader, MainLayoutComponent } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorChallengeListActions from '../../../../services/CollaboratorChallenges/CollaboratorChallengeList/actions'
@@ -125,8 +125,23 @@ class CollaboratorChallengeList extends MainLayoutComponent {
         const { challenges: collaboratorChallenges } = this.props.collaboratorChallengeList;
         const { challenges: teamChallenges } = this.props.teamChallengeList;
         const challenges = this.mergeChallenges(collaboratorChallenges, teamChallenges);
+        const { collaborator } = this.props.collaboratorDetail;
+        const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
+        const collaboratorId = collaborator ? collaborator.id : null;
 
-        return <Grid container spacing={2}>
+
+        return (
+          <Grid container spacing={2}>
+            <ChallengeNewFilter
+              open={this.state.filterOpen}
+              onClose={this.handleFilterClose.bind(this)}
+              onChange={this.handleFilterChange.bind(this)}
+              team={teamId}
+              collaborator={collaboratorId}
+              year={this.year}
+              start={this.start}
+              end={this.end}
+            />
             { challenges.map(challenge=> {
                 const detailurl = challenge.typeCode != 'CT' ? `/challenges/detail/collaborator/${challenge.id}` : `/challenges/detail/team/${challenge.id}`;
 
@@ -138,7 +153,8 @@ class CollaboratorChallengeList extends MainLayoutComponent {
                     </GridLink>
                 )
             }) }
-        </Grid>
+          </Grid>
+        )
     }
 
     render() {
@@ -160,18 +176,7 @@ class CollaboratorChallengeList extends MainLayoutComponent {
                 { loading && this.renderLoader() }
                 { !loading && collaboratorChallenges && teamChallenges && this.renderData() }
                 { !loading && collaboratorChallenges && teamChallenges && collaboratorChallenges.length == 0 && teamChallenges.length == 0 && this.renderEmptyState() }
-                { this.state.filterOpen &&
-                  <ChallengeFilter
-                    open={this.state.filterOpen}
-                    onClose={this.handleFilterClose.bind(this)}
-                    onChange={this.handleFilterChange.bind(this)}
-                    team={teamId}
-                    collaborator={collaboratorId}
-                    year={this.year}
-                    start={this.start}
-                    end={this.end}
-                  />
-                }
+
             </div>
         )
     }

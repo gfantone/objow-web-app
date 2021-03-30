@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
 import _ from 'lodash'
-import { Dialog, DialogActions, DialogContent, DialogTitle, Grid, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Chip } from '@material-ui/core'
+import { Dialog, DialogActions, DialogContent, DialogTitle, Grid, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Chip, Avatar } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import { Button, DatePicker, Select, Loader } from '../../../../components'
 import * as Resources from '../../../../Resources'
@@ -103,9 +103,9 @@ class ChallengeFilter extends Component {
         const { periods: previousPeriods } = this.props.previousPeriodList;
         const selectedTeam = this.state.team ? teams.filter(team => team.id == this.state.team)[0] : null;
         const collaborators = selectedTeam ? selectedTeam.collaborators : null;
-        const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id == this.state.collaborator)[0] : null;
+        const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === this.state.collaborator)[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
-
+        const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')}/>
         return (
             <div>
                 <ExpansionPanel className={this.props.classes.panel}>
@@ -113,10 +113,10 @@ class ChallengeFilter extends Component {
                     <div>
                       <DialogTitle>{Resources.CHALLENGE_FILTER_TITLE}</DialogTitle>
                       { selectedTeam && (
-                        <Chip size="small" label={selectedTeam.name} />
+                        <Chip size="small" label={selectedTeam.name} avatar={chipAvatar} />
                       ) }
                       { selectedCollaborator && (
-                        <Chip size="small" label={selectedCollaborator.name} onDelete={this.handleDeleteTeam}/>
+                        <Chip size="small" label={selectedCollaborator.fullname} onDelete={this.handleDeleteTeam}/>
                       )  }
                     </div>
                   </ExpansionPanelSummary>
