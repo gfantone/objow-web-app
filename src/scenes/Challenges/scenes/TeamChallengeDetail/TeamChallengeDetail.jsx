@@ -86,9 +86,11 @@ class TeamChallengeDetail extends MainLayoutComponent {
                     <Tooltip title={Resources.TEAM_CHALLENGE_DETAIL_DUPLICATE_BUTTON}>
                         <IconButton size={'small'} onClick={this.handleDuplicate.bind(this)}><FontAwesomeIcon icon={faCopy}/></IconButton>
                     </Tooltip>
-                    <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DELETE_BUTTON}>
+                    
+                    {challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DELETE_BUTTON}>
                       <IconButton size={'small'} onClick={() => this.setDeletePromptOpen(true)} className={classes.iconMargin}><FontAwesomeIcon icon={faTrash}/></IconButton>
-                    </Tooltip>
+                    </Tooltip>}
+
                     {challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={Resources.TEAM_CHALLENGE_DETAIL_UPDATE_BUTTON}>
                         <IconButton size={'small'} onClick={this.handleEdit.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faEdit}/></IconButton>
                     </Tooltip>}
