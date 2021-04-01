@@ -91,12 +91,6 @@ class ChallengeFilter extends Component {
                             { !loading && (
 
                               <Grid container spacing={2}>
-                                  { account.role.code == 'A' && <Grid item xs={12}>
-                                      <Select name='team' label={Resources.CHALLENGE_FILTER_TEAM_LABEL} options={teams} optionValueName='id' optionTextName='name' emptyDisabled fullWidth initial={this.state.team} onChange={this.handleChange('team').bind(this)} />
-                                  </Grid> }
-                                  { account.role.code != 'C' && collaborators && <Grid item xs={12}>
-                                      <Select name='collaborator' label={Resources.CHALLENGE_FILTER_COLLABORATOR_LABEL} options={collaborators} emptyText={Resources.CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION} optionValueName='id' optionTextName='fullname' fullWidth initial={this.state.collaborator} onChange={this.handleChange('collaborator').bind(this)} />
-                                  </Grid> }
                                   <Grid item xs={12}>
                                       <Select name={'year'} label={Resources.CHALLENGE_FILTER_PERIOD_LABEL} options={periods} optionValueName={'id'} optionTextName={'name'} emptyDisabled fullWidth initial={this.state.year} onChange={this.handleChange('year').bind(this)} />
                                   </Grid>

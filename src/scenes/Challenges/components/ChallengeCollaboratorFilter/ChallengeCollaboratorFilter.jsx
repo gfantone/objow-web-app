@@ -87,7 +87,6 @@ class ChallengeCollaboratorFilter extends Component {
     }
 
     handleChange = name => value => {
-      console.log(name, value, this.state);
         this.setState({
             ...this.state,
             [name]: value
@@ -95,7 +94,6 @@ class ChallengeCollaboratorFilter extends Component {
     };
 
     resetCollaborator = (callback) => {
-      console.log('reset');
         this.setState({
             ...this.state,
             collaborator: null
@@ -113,7 +111,6 @@ class ChallengeCollaboratorFilter extends Component {
         if (end) {
             end.setHours(23, 59, 59)
         }
-        console.log("collaboratorchallenge handlesubmit");
         this.props.onChange(team, collaborator, model.year, start, end);
         this.props.onClose()
     }
@@ -145,6 +142,9 @@ class ChallengeCollaboratorFilter extends Component {
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')}/>
+        if(account.role.code == 'C') {
+          return <div />
+        }
 
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
