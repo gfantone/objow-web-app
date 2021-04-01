@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
 import _ from 'lodash'
-import { Dialog, DialogActions, DialogContent, DialogTitle, Grid, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Chip, Avatar } from '@material-ui/core'
+import { Dialog, DialogActions, DialogContent, DialogTitle,Tooltip, Grid, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Chip, Avatar } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
-import { Button, DatePicker, Select, Loader } from '../../../../components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
+import { Button, DatePicker, Select, Loader, IconButton } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
@@ -22,6 +24,16 @@ const styles = {
   },
   panelDetails: {
       padding: 'initial'
+  },
+  filterButtons: {
+      marginTop: 10
+  },
+  filterIcon: {
+    color: '#555555',
+    marginRight: 5
+  },
+  filterChip: {
+    marginRight: 5
   }
 }
 
@@ -84,12 +96,11 @@ class ChallengeFilter extends Component {
         this.props.onClose()
     }
 
-    handleDeleteTeam = () => {
-      console.log("delete team");
-      console.log(_.omit(this.state, 'team'));
-      this.setState({
-        ..._.omit(this.state, 'team')
-      })
+    handleDeleteCollaborator = () => {
+      const { team, year, start, end } = this.state
+
+      this.props.onChange(team, null, year, start, end);
+      this.props.onClose()
     }
 
     renderLoader() {
@@ -101,22 +112,39 @@ class ChallengeFilter extends Component {
         const { teams, loading } = this.props.teamList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
         const { periods: previousPeriods } = this.props.previousPeriodList;
-        const selectedTeam = this.state.team ? teams.filter(team => team.id == this.state.team)[0] : null;
+        const selectedTeam = this.state.team ? teams.filter(team => team.id == parseInt(this.state.team))[0] : null;
         const collaborators = selectedTeam ? selectedTeam.collaborators : null;
-        const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === this.state.collaborator)[0] : null;
+        const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')}/>
+
         return (
             <div>
                 <ExpansionPanel className={this.props.classes.panel}>
                   <ExpansionPanelSummary>
                     <div>
-                      <DialogTitle>{Resources.CHALLENGE_FILTER_TITLE}</DialogTitle>
+                      <Tooltip title={Resources.TEAM_CHALLENGE_LIST_FILTER_BUTTON}>
+                          <IconButton size='small' className={this.props.classes.filterIcon}><FontAwesomeIcon icon={faSlidersH} /></IconButton>
+                      </Tooltip>
                       { selectedTeam && (
-                        <Chip size="small" label={selectedTeam.name} avatar={chipAvatar} />
+                        <Chip
+                          size="small"
+                          label={selectedTeam.name}
+                          style={{borderColor: _.get(selectedTeam, 'color.hex')}}
+                          variant="outlined"
+                          className={this.props.classes.filterChip}
+                        />
                       ) }
                       { selectedCollaborator && (
-                        <Chip size="small" label={selectedCollaborator.fullname} onDelete={this.handleDeleteTeam}/>
+                        <Chip
+                          size="small"
+                          label={selectedCollaborator.fullname}
+                          onDelete={this.handleDeleteCollaborator}
+                          avatar={ chipAvatar }
+                          style={{borderColor: _.get(selectedCollaborator, 'team.color.hex')}}
+                          variant="outlined"
+                          className={this.props.classes.filterChip}
+                        />
                       )  }
                     </div>
                   </ExpansionPanelSummary>
@@ -139,8 +167,10 @@ class ChallengeFilter extends Component {
                                 <DatePicker name='end' label={Resources.CHALLENGE_FILTER_END_LABEL} initial={this.state.end} format='dd/MM/yyyy' fullWidth clearable />
                             </Grid>
                         </Grid>
-                        <Button onClick={this.props.onClose} color='secondary'>{Resources.CHALLENGE_FILTER_CANCEL_BUTTON}</Button>
-                        <Button type='submit'>{Resources.CHALLENGE_FILTER_SUBMIT_BUTTON}</Button>
+                        <Grid className={this.props.classes.filterButtons}>
+                          <Button onClick={this.props.onClose} color='secondary'>{Resources.CHALLENGE_FILTER_CANCEL_BUTTON}</Button>
+                          <Button type='submit'>{Resources.CHALLENGE_FILTER_SUBMIT_BUTTON}</Button>
+                        </Grid>
                     </Formsy>
                   </ExpansionPanelDetails>
                 </ExpansionPanel>

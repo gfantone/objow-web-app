@@ -34,6 +34,7 @@ class TeamChallengeList extends MainLayoutComponent {
     }
 
     refresh(id, page, year, start, end) {
+        console.log('refresh', id);
         var url = `/challenges/team/${id}?page=${page}`;
         if (year) url += `&year=${year}`;
         if (start) url += `&start=${start.getTime()}`;
@@ -121,7 +122,9 @@ class TeamChallengeList extends MainLayoutComponent {
     }
 
     handleFilterChange(team, collaborator, year, start, end) {
+        console.log(team, collaborator);
         if (!collaborator) {
+            console.log('no collab');
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team;
             this.refresh(teamId, this.page, year, start, end)
         } else {
@@ -195,7 +198,7 @@ class TeamChallengeList extends MainLayoutComponent {
                 { loading && this.renderLoader() }
                 { !loading && collaboratorChallenges && teamChallenges && (collaboratorChallenges.length > 0 || teamChallenges.length > 0) && this.renderData() }
                 { !loading && collaboratorChallenges && teamChallenges && collaboratorChallenges.length == 0 && teamChallenges.length == 0 && this.renderEmptyState() }
-                
+
             </div>
         )
     }
