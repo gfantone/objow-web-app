@@ -6,7 +6,7 @@ import _ from 'lodash'
 import { Dialog, DialogActions, DialogContent, DialogTitle,Tooltip, Grid, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Chip, Avatar } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { Button, DatePicker, Select, Loader, IconButton } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
@@ -17,6 +17,7 @@ const styles = {
   panel: {
       backgroundColor: 'initial',
       borderRadius: 'initial',
+      // width: '100%',
       boxShadow: 'none'
   },
   panelSummary: {
@@ -34,10 +35,19 @@ const styles = {
   },
   filterChip: {
     marginRight: 5
+  },
+  expansionPanelSummary: {
+    '& > .MuiExpansionPanelSummary-content': {
+      flexDirection: 'row-reverse'
+    }
+  },
+  filterForm: {
+    width: '100%',
+
   }
 }
 
-class ChallengeFilter extends Component {
+class ChallengeCollaboratorFilter extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -45,8 +55,10 @@ class ChallengeFilter extends Component {
             collaborator: props.collaborator,
             year: props.year,
             start: props.end,
-            end: props.end
+            end: props.end,
+            expandIcon: faChevronDown
         }
+        this.filterForm = React.createRef();
     }
 
     componentDidMount() {
@@ -75,11 +87,20 @@ class ChallengeFilter extends Component {
     }
 
     handleChange = name => value => {
+      console.log(name, value, this.state);
         this.setState({
             ...this.state,
             [name]: value
-        })
+        }, () => this.filterForm.current.submit())
     };
+
+    resetCollaborator = (callback) => {
+      console.log('reset');
+        this.setState({
+            ...this.state,
+            collaborator: null
+        }, callback)
+    }
 
     handleSubmit(model) {
         const team = model.team != null && model.team != -1 && model.team != undefined ? Number(model.team) : null;
@@ -92,6 +113,7 @@ class ChallengeFilter extends Component {
         if (end) {
             end.setHours(23, 59, 59)
         }
+        console.log("collaboratorchallenge handlesubmit");
         this.props.onChange(team, collaborator, model.year, start, end);
         this.props.onClose()
     }
@@ -103,6 +125,12 @@ class ChallengeFilter extends Component {
       this.props.onClose()
     }
 
+    onExpand = (event, expanded) => {
+      this.setState({
+        ...this.state,
+        expandIcon: expanded ? faChevronUp : faChevronDown
+      })
+    }
     renderLoader() {
         return <Loader centered />
     }
@@ -119,62 +147,68 @@ class ChallengeFilter extends Component {
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')}/>
 
         return (
-            <div>
-                <ExpansionPanel className={this.props.classes.panel}>
-                  <ExpansionPanelSummary>
-                    <div>
-                      <Tooltip title={Resources.TEAM_CHALLENGE_LIST_FILTER_BUTTON}>
-                          <IconButton size='small' className={this.props.classes.filterIcon}><FontAwesomeIcon icon={faSlidersH} /></IconButton>
-                      </Tooltip>
-                      { selectedTeam && (
-                        <Chip
-                          size="small"
-                          label={selectedTeam.name}
-                          style={{borderColor: _.get(selectedTeam, 'color.hex')}}
-                          variant="outlined"
-                          className={this.props.classes.filterChip}
-                        />
-                      ) }
-                      { selectedCollaborator && (
-                        <Chip
-                          size="small"
-                          label={selectedCollaborator.fullname}
-                          onDelete={this.handleDeleteCollaborator}
-                          avatar={ chipAvatar }
-                          style={{borderColor: _.get(selectedCollaborator, 'team.color.hex')}}
-                          variant="outlined"
-                          className={this.props.classes.filterChip}
-                        />
-                      )  }
-                    </div>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <Formsy onSubmit={this.handleSubmit.bind(this)}>
-                        <Grid container spacing={2}>
-                            { account.role.code == 'A' && <Grid item xs={3}>
-                                <Select name='team' label={Resources.CHALLENGE_FILTER_TEAM_LABEL} options={teams} optionValueName='id' optionTextName='name' emptyDisabled fullWidth initial={this.state.team} onChange={this.handleChange('team').bind(this)} />
-                            </Grid> }
-                            { account.role.code != 'C' && collaborators && <Grid item xs={3}>
-                                <Select name='collaborator' label={Resources.CHALLENGE_FILTER_COLLABORATOR_LABEL} options={collaborators} emptyText={Resources.CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION} optionValueName='id' optionTextName='fullname' fullWidth initial={this.state.collaborator} onChange={this.handleChange('collaborator').bind(this)} />
-                            </Grid> }
-                            <Grid item xs={3}>
-                                <Select name={'year'} label={Resources.CHALLENGE_FILTER_PERIOD_LABEL} options={periods} optionValueName={'id'} optionTextName={'name'} emptyDisabled fullWidth initial={this.state.year} onChange={this.handleChange('year').bind(this)} />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <DatePicker name='start' label={Resources.CHALLENGE_FILTER_START_LABEL} initial={this.state.start} format='dd/MM/yyyy' fullWidth clearable />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <DatePicker name='end' label={Resources.CHALLENGE_FILTER_END_LABEL} initial={this.state.end} format='dd/MM/yyyy' fullWidth clearable />
-                            </Grid>
-                        </Grid>
-                        <Grid className={this.props.classes.filterButtons}>
-                          <Button onClick={this.props.onClose} color='secondary'>{Resources.CHALLENGE_FILTER_CANCEL_BUTTON}</Button>
-                          <Button type='submit'>{Resources.CHALLENGE_FILTER_SUBMIT_BUTTON}</Button>
-                        </Grid>
-                    </Formsy>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-            </div>
+            <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
+              <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary}>
+                  <Tooltip title={Resources.TEAM_CHALLENGE_LIST_FILTER_BUTTON}>
+                      <IconButton size='small' className={this.props.classes.filterIcon}><FontAwesomeIcon icon={this.state.expandIcon} /></IconButton>
+                  </Tooltip>
+                  { selectedTeam && (
+                    <Chip
+                      size="small"
+                      label={selectedTeam.name}
+                      style={{borderColor: _.get(selectedTeam, 'color.hex')}}
+                      variant="outlined"
+                      className={this.props.classes.filterChip}
+                    />
+                  ) }
+                  { selectedCollaborator && (
+                    <Chip
+                      size="small"
+                      label={selectedCollaborator.fullname}
+                      onDelete={this.handleDeleteCollaborator}
+                      avatar={ chipAvatar }
+                      style={{borderColor: _.get(selectedCollaborator, 'team.color.hex')}}
+                      variant="outlined"
+                      className={this.props.classes.filterChip}
+                    />
+                  )  }
+
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <Formsy onSubmit={this.handleSubmit.bind(this)} className={this.props.classes.filterForm} ref={this.filterForm}>
+                    <Grid container spacing={2} justify='flex-end'>
+                        { account.role.code == 'A' && <Grid item xs={4}>
+                            <Select
+                              name='team'
+                              label={Resources.CHALLENGE_FILTER_TEAM_LABEL}
+                              options={teams}
+                              optionValueName='id'
+                              optionTextName='name'
+                              emptyDisabled
+                              fullWidth
+                              initial={this.state.team}
+                              onChange={(value) => {
+                                this.resetCollaborator(() => this.handleChange('team')(value))
+                              }}
+                            />
+                        </Grid> }
+                        { account.role.code != 'C' && collaborators && <Grid item xs={4}>
+                            <Select
+                              name='collaborator'
+                              label={Resources.CHALLENGE_FILTER_COLLABORATOR_LABEL}
+                              options={collaborators}
+                              emptyText={Resources.CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION}
+                              optionValueName='id'
+                              optionTextName='fullname'
+                              fullWidth
+                              initial={this.state.collaborator}
+                              onChange={this.handleChange('collaborator').bind(this)}
+                            />
+                        </Grid> }
+                    </Grid>
+                </Formsy>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
         )
     }
 
@@ -205,4 +239,4 @@ const mapDispatchToProps = (dispatch) => ({
     previousPeriodListActions: bindActionCreators(previousPeriodListActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ChallengeFilter))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ChallengeCollaboratorFilter))

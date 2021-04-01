@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom'
-import { Challenge, ChallengeCard, ChallengeNewFilter, TimeFilter } from '../../components'
+import { Challenge, ChallengeCard, ChallengeCollaboratorFilter, ChallengeFilter, TimeFilter } from '../../components'
 import { EmptyState, GridLink, IconButton, Loader, MainLayoutComponent } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamChallengeListActions from '../../../../services/TeamChallenges/TeamChallengeList/actions'
@@ -122,7 +122,7 @@ class TeamChallengeList extends MainLayoutComponent {
     }
 
     handleFilterChange(team, collaborator, year, start, end) {
-        console.log(team, collaborator);
+        console.log('teamchallengelist handleFilterChange', team, collaborator);
         if (!collaborator) {
             console.log('no collab');
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team;
@@ -157,8 +157,8 @@ class TeamChallengeList extends MainLayoutComponent {
         const challenges = this.mergeChallenges(collaboratorChallenges, teamChallenges);
 
         return (
-          <Grid container spacing={2}>
-            <ChallengeNewFilter
+          <React.Fragment>
+            <ChallengeCollaboratorFilter
               open={this.state.filterOpen}
               onClose={this.handleFilterClose.bind(this)}
               onChange={this.handleFilterChange.bind(this)}
@@ -167,18 +167,20 @@ class TeamChallengeList extends MainLayoutComponent {
               start={this.start}
               end={this.end}
             />
-            { challenges.map(challenge=> {
+            <Grid container spacing={2}>
+              { challenges.map(challenge=> {
                 const detailurl = challenge.typeCode != 'CT' ? `/challenges/detail/team-collaborator/${challenge.id}` : `/challenges/detail/team/${challenge.id}`;
 
                 return (
-                    <GridLink key={challenge.id} item xs={12} sm={6} md={4} component={Link} to={detailurl}>
-                        <ChallengeCard>
-                            <Challenge challenge={challenge} />
-                        </ChallengeCard>
-                    </GridLink>
+                  <GridLink key={challenge.id} item xs={12} sm={6} md={4} component={Link} to={detailurl}>
+                    <ChallengeCard>
+                      <Challenge challenge={challenge} />
+                    </ChallengeCard>
+                  </GridLink>
                 )
-            }) }
-          </Grid>
+              }) }
+            </Grid>
+          </React.Fragment>
         )
     }
 
@@ -198,7 +200,18 @@ class TeamChallengeList extends MainLayoutComponent {
                 { loading && this.renderLoader() }
                 { !loading && collaboratorChallenges && teamChallenges && (collaboratorChallenges.length > 0 || teamChallenges.length > 0) && this.renderData() }
                 { !loading && collaboratorChallenges && teamChallenges && collaboratorChallenges.length == 0 && teamChallenges.length == 0 && this.renderEmptyState() }
-
+                {
+                  this.state.filterOpen &&
+                  <ChallengeFilter
+                    open={this.state.filterOpen}
+                    onClose={this.handleFilterClose.bind(this)}
+                    onChange={this.handleFilterChange.bind(this)}
+                    team={this.props.match.params.id}
+                    year={this.year}
+                    start={this.start}
+                    end={this.end}
+                  />
+                }
             </div>
         )
     }
