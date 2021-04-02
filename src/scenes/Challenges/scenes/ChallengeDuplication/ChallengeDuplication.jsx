@@ -112,7 +112,9 @@ class ChallengeDuplication extends MainLayoutComponent {
           const rank = i + 1
           awards.push({ rank: rank, points: model.award[i] })
       }
-      const teamId = types.find(x => x.id == model.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
+      
+      const teamId = types.find(x => x.id == model.type && x.code === 'CM') != null && this.teamId ? this.teamId : null
+
       this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, awards, goals, teamId)
     }
 

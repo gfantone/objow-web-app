@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom'
-import { Challenge, ChallengeCard, ChallengeFilter, TimeFilter } from '../../components'
+import { Challenge, ChallengeCard, ChallengeCollaboratorFilter, ChallengeFilter, TimeFilter } from '../../components'
 import { EmptyState, GridLink, IconButton, Loader, MainLayoutComponent } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamChallengeListActions from '../../../../services/TeamChallenges/TeamChallengeList/actions'
@@ -34,6 +34,7 @@ class TeamChallengeList extends MainLayoutComponent {
     }
 
     refresh(id, page, year, start, end) {
+        console.log('refresh', id);
         var url = `/challenges/team/${id}?page=${page}`;
         if (year) url += `&year=${year}`;
         if (start) url += `&start=${start.getTime()}`;
@@ -153,19 +154,32 @@ class TeamChallengeList extends MainLayoutComponent {
         const { challenges: collaboratorChallenges } = this.props.teamCollaboratorChallengeList;
         const challenges = this.mergeChallenges(collaboratorChallenges, teamChallenges);
 
-        return <Grid container spacing={2}>
-            { challenges.map(challenge=> {
+        return (
+          <React.Fragment>
+            <ChallengeCollaboratorFilter
+              open={this.state.filterOpen}
+              onClose={this.handleFilterClose.bind(this)}
+              onChange={this.handleFilterChange.bind(this)}
+              team={this.props.match.params.id}
+              year={this.year}
+              start={this.start}
+              end={this.end}
+            />
+            <Grid container spacing={2}>
+              { challenges.map(challenge=> {
                 const detailurl = challenge.typeCode != 'CT' ? `/challenges/detail/team-collaborator/${challenge.id}` : `/challenges/detail/team/${challenge.id}`;
 
                 return (
-                    <GridLink key={challenge.id} item xs={12} sm={6} md={4} component={Link} to={detailurl}>
-                        <ChallengeCard>
-                            <Challenge challenge={challenge} />
-                        </ChallengeCard>
-                    </GridLink>
+                  <GridLink key={challenge.id} item xs={12} sm={6} md={4} component={Link} to={detailurl}>
+                    <ChallengeCard>
+                      <Challenge challenge={challenge} />
+                    </ChallengeCard>
+                  </GridLink>
                 )
-            }) }
-        </Grid>
+              }) }
+            </Grid>
+          </React.Fragment>
+        )
     }
 
     render() {

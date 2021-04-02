@@ -7,7 +7,7 @@ import {withStyles} from '@material-ui/styles'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSlidersH} from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom'
-import {Goal, GoalFilter} from '../../components'
+import {Goal, GoalFilter, GoalCollaboratorFilter} from '../../components'
 import {Card, EmptyState, GridLink, IconButton, Loader, MainLayoutComponent, TimeFilter} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
@@ -182,27 +182,42 @@ class CollaboratorGoalList extends MainLayoutComponent {
     }
 
     renderData() {
+        const { collaborator } = this.props.collaboratorDetail;
         const {classes} = this.props
         const { goals: collaboratorGoals } = this.props.collaboratorGoalSummaryList;
         const { goals: teamGoals } = this.props.teamGoalSummaryList;
         const goals = this.mergeGoals(collaboratorGoals, teamGoals);
+        const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
+        const collaboratorId = collaborator ? collaborator.id : null;
 
         return (
+          <React.Fragment>
+            <GoalCollaboratorFilter
+              open={this.state.filterOpen}
+              onClose={this.handleFilterClose.bind(this)}
+              onChange={this.handleFilterChange.bind(this)}
+              team={teamId}
+              collaborator={collaboratorId}
+              year={this.year}
+              start={this.start}
+              end={this.end}
+            />
             <div>
-                <Grid container spacing={3}>
-                    { goals.map(goal => {
-                        const url = goal.type == 'C' ? `/goals/detail/collaborator/${goal.id}` : `/goals/detail/team/${goal.id}`;
+              <Grid container spacing={3}>
+                { goals.map(goal => {
+                  const url = goal.type == 'C' ? `/goals/detail/collaborator/${goal.id}` : `/goals/detail/team/${goal.id}`;
 
-                        return (
-                            <GridLink key={goal.id} item xs={12} sm={6} md={4} component={Link} to={url}>
-                                <Card className={classes.zoom}>
-                                    <Goal goal={goal} />
-                                </Card>
-                            </GridLink>
-                        )
-                    }) }
-                </Grid>
+                  return (
+                    <GridLink key={goal.id} item xs={12} sm={6} md={4} component={Link} to={url}>
+                      <Card className={classes.zoom}>
+                        <Goal goal={goal} />
+                      </Card>
+                    </GridLink>
+                  )
+                }) }
+              </Grid>
             </div>
+          </React.Fragment>
         )
     }
 
