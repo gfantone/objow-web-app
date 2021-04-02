@@ -7,7 +7,7 @@ import {withStyles} from '@material-ui/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom'
-import { Goal, GoalFilter } from '../../components'
+import { Goal, GoalFilter, GoalCollaboratorFilter } from '../../components'
 import { Card, GridLink, IconButton, Loader, MainLayoutComponent, TimeFilter, EmptyState } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamCollaboratorGoalListActions from '../../../../services/TeamCollaboratorGoals/TeamCollaboratorGoalList/actions'
@@ -188,19 +188,32 @@ class TeamGoalList extends MainLayoutComponent {
         const goals = this.mergeGoals(collaboratorGoals, teamGoals);
 
         return (
-            <Grid container spacing={3}>
+            <React.Fragment>
+              <GoalCollaboratorFilter
+                open={this.state.filterOpen}
+                onClose={this.handleFilterClose.bind(this)}
+                onChange={this.handleFilterChange.bind(this)}
+                team={this.props.match.params.id}
+                year={this.year}
+                start={this.start}
+                end={this.end}
+                onlyCollaborator={this.onlyCollaborator}
+                onlyTeam={this.onlyTeam}
+              />
+              <Grid container spacing={3}>
                 { goals.map(goal => {
-                    const url = goal.type == 'C' ? `/goals/detail/team-collaborator/${goal.id}` : `/goals/detail/team/${goal.id}`;
+                  const url = goal.type == 'C' ? `/goals/detail/team-collaborator/${goal.id}` : `/goals/detail/team/${goal.id}`;
 
-                    return (
-                        <GridLink key={goal.id} item xs={12} sm={6} md={4} component={Link} to={url}>
-                            <Card className={classes.zoom}>
-                                <Goal goal={goal} />
-                            </Card>
-                        </GridLink>
-                    )
+                  return (
+                    <GridLink key={goal.id} item xs={12} sm={6} md={4} component={Link} to={url}>
+                      <Card className={classes.zoom}>
+                        <Goal goal={goal} />
+                      </Card>
+                    </GridLink>
+                  )
                 }) }
-            </Grid>
+              </Grid>
+            </React.Fragment>
         )
     }
 

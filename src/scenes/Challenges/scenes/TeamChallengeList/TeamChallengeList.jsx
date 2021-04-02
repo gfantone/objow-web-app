@@ -122,9 +122,7 @@ class TeamChallengeList extends MainLayoutComponent {
     }
 
     handleFilterChange(team, collaborator, year, start, end) {
-        console.log('teamchallengelist handleFilterChange', team, collaborator);
         if (!collaborator) {
-            console.log('no collab');
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team;
             this.refresh(teamId, this.page, year, start, end)
         } else {

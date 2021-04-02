@@ -93,12 +93,10 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     }
 
     handleFilterChange(team, collaborator, year, start, end) {
-        console.log("collaboratorChallengeList handleFilterChange",team, collaborator);
         const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
         if (collaboratorId) {
             this.refresh(collaboratorId, this.page, year, start, end)
         } else {
-            console.log('team challenge');
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team;
             var url = `/challenges/team/${teamId}?page=${this.page}`;
             if (year) url += `&year=${year}`;
