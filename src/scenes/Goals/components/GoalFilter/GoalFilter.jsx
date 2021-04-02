@@ -125,12 +125,6 @@ class GoalFilter extends Component {
                                 <Grid item xs={12}>
                                     <Select name='category' label={Resources.GOAL_FILTER_CATEGORY_LABEL} options={categories} emptyText={Resources.GOAL_FILTER_CATEGORY_ALL_OPTION} optionValueName='id' optionTextName='name' fullWidth initial={this.state.category} onChange={this.handleChange('category').bind(this)} />
                                 </Grid>
-                                { account.role.code == 'A' && <Grid item xs={12}>
-                                    <Select name='team' label={Resources.GOAL_FILTER_TEAM_LABEL} options={teams} optionValueName='id' optionTextName='name' fullWidth initial={this.state.team} onChange={this.handleChange('team').bind(this)} emptyDisabled />
-                                </Grid> }
-                                { account.role.code != 'C' && collaborators && <Grid item xs={12}>
-                                    <Select name='collaborator' label={Resources.GOAL_FILTER_COLLABORATOR_LABEL} options={collaborators} emptyText={Resources.GOAL_FILTER_COLLABORATOR_ALL_OPTION} optionValueName='id' optionTextName='fullname' fullWidth initial={this.state.collaborator} onChange={this.handleChange('collaborator').bind(this)} />
-                                </Grid> }
                                 <Grid item xs={12}>
                                     <Select name={'year'} label={Resources.GOAL_FILTER_PERIOD_LABEL} options={periods} optionValueName={'id'} optionTextName={'name'} fullWidth emptyDisabled={true} initial={this.state.year ? this.state.year : currentPeriod.id} onChange={this.handleChange('year').bind(this)} />
                                 </Grid>
