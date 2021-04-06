@@ -37,7 +37,8 @@ class TeamGoalList extends MainLayoutComponent {
         this.onlyCollaborator = true;
         this.onlyTeam = true;
         this.state = {
-            filterOpen: false
+            filterOpen: false,
+            collaboratorFilterLoaded: false
         }
     }
 
@@ -172,6 +173,14 @@ class TeamGoalList extends MainLayoutComponent {
             }
         })
     }
+    onCollaboratorFilterLoaded() {
+      if(!this.state.collaboratorFilterLoaded) {
+        this.setState({
+          ...this.state,
+          collaboratorFilterLoaded: true
+        })
+      }
+    }
 
     renderLoader() {
         return <Loader centered />
@@ -188,18 +197,6 @@ class TeamGoalList extends MainLayoutComponent {
         const goals = this.mergeGoals(collaboratorGoals, teamGoals);
 
         return (
-            <React.Fragment>
-              <GoalCollaboratorFilter
-                open={this.state.filterOpen}
-                onClose={this.handleFilterClose.bind(this)}
-                onChange={this.handleFilterChange.bind(this)}
-                team={this.props.match.params.id}
-                year={this.year}
-                start={this.start}
-                end={this.end}
-                onlyCollaborator={this.onlyCollaborator}
-                onlyTeam={this.onlyTeam}
-              />
               <Grid container spacing={3}>
                 { goals.map(goal => {
                   const url = goal.type == 'C' ? `/goals/detail/team-collaborator/${goal.id}` : `/goals/detail/team/${goal.id}`;
@@ -213,7 +210,6 @@ class TeamGoalList extends MainLayoutComponent {
                   )
                 }) }
               </Grid>
-            </React.Fragment>
         )
     }
 
@@ -221,7 +217,7 @@ class TeamGoalList extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
         const { goals: collaboratorGoals, loading: teamCollaboratorGoalListLoading } = this.props.teamCollaboratorGoalList;
         const { goals: teamGoals, loading: teamGoalListLoading } = this.props.teamGoalSummaryList;
-        const loading = teamCollaboratorGoalListLoading || teamGoalListLoading;
+        const loading = teamCollaboratorGoalListLoading || teamGoalListLoading || this.props.collaboratorFilterLoaded;
         const hasGoals = collaboratorGoals && teamGoals && (collaboratorGoals.length > 0 || teamGoals.length > 0);
 
         if(!account.hasGoalAccess) {
@@ -233,6 +229,18 @@ class TeamGoalList extends MainLayoutComponent {
 
         return (
             <div>
+                <GoalCollaboratorFilter
+                  open={this.state.filterOpen}
+                  onClose={this.handleFilterClose.bind(this)}
+                  onChange={this.handleFilterChange.bind(this)}
+                  team={this.props.match.params.id}
+                  year={this.year}
+                  start={this.start}
+                  end={this.end}
+                  onlyCollaborator={this.onlyCollaborator}
+                  onlyTeam={this.onlyTeam}
+                  onLoaded={this.onCollaboratorFilterLoaded.bind(this)}
+                />
                 { loading && this.renderLoader() }
                 { !loading && hasGoals && this.renderData() }
                 { !loading && !hasGoals && this.renderEmptyState() }

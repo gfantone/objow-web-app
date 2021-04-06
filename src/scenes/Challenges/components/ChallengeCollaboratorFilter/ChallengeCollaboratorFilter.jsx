@@ -145,8 +145,8 @@ class ChallengeCollaboratorFilter extends Component {
         if(account.role.code == 'C') {
           return <div />
         }
-
-
+        
+        this.props.onLoaded()
 
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
@@ -223,6 +223,7 @@ class ChallengeCollaboratorFilter extends Component {
             <div>
 
                 { account && teams && currentPeriod && previousPeriods && this.renderData() }
+
             </div>
         )
     }

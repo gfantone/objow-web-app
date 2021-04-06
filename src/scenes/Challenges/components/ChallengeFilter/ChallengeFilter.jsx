@@ -80,7 +80,6 @@ class ChallengeFilter extends Component {
         const selectedTeam = this.state.team ? teams.filter(team => team.id == this.state.team)[0] : null;
         const collaborators = selectedTeam ? selectedTeam.collaborators : null;
         const periods = [currentPeriod].concat(previousPeriods);
-
         return (
             <div>
                 <Dialog open={this.props.open} onClose={this.props.onClose}>

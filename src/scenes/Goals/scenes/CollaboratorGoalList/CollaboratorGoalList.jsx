@@ -37,7 +37,8 @@ class CollaboratorGoalList extends MainLayoutComponent {
         this.onlyCollaborator = true;
         this.onlyTeam = true;
         this.state = {
-            filterOpen: false
+            filterOpen: false,
+            collaboratorFilterLoaded: false
         }
     }
 
@@ -173,6 +174,15 @@ class CollaboratorGoalList extends MainLayoutComponent {
         })
     }
 
+    onCollaboratorFilterLoaded() {
+      if(!this.state.collaboratorFilterLoaded) {
+        this.setState({
+          ...this.state,
+          collaboratorFilterLoaded: true
+        })
+      }
+    }
+
     renderLoader() {
         return <Loader centered />
     }
@@ -191,17 +201,6 @@ class CollaboratorGoalList extends MainLayoutComponent {
         const collaboratorId = collaborator ? collaborator.id : null;
 
         return (
-          <React.Fragment>
-            <GoalCollaboratorFilter
-              open={this.state.filterOpen}
-              onClose={this.handleFilterClose.bind(this)}
-              onChange={this.handleFilterChange.bind(this)}
-              team={teamId}
-              collaborator={collaboratorId}
-              year={this.year}
-              start={this.start}
-              end={this.end}
-            />
             <div>
               <Grid container spacing={3}>
                 { goals.map(goal => {
@@ -217,7 +216,6 @@ class CollaboratorGoalList extends MainLayoutComponent {
                 }) }
               </Grid>
             </div>
-          </React.Fragment>
         )
     }
 
@@ -225,7 +223,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
         const { collaborator } = this.props.collaboratorDetail;
         const { goals: collaboratorGoals, loading: collaboratorGoalListLoading } = this.props.collaboratorGoalSummaryList;
         const { goals: teamGoals, loading: teamGoalListLoading } = this.props.teamGoalSummaryList;
-        const loading = collaboratorGoalListLoading || teamGoalListLoading;
+        const loading = collaboratorGoalListLoading || teamGoalListLoading || this.props.collaboratorFilterLoaded;
         const hasGoals = collaboratorGoals && teamGoals && (collaboratorGoals.length > 0 || teamGoals.length > 0);
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
@@ -238,6 +236,17 @@ class CollaboratorGoalList extends MainLayoutComponent {
 
         return (
             <div>
+                <GoalCollaboratorFilter
+                  open={this.state.filterOpen}
+                  onClose={this.handleFilterClose.bind(this)}
+                  onChange={this.handleFilterChange.bind(this)}
+                  team={teamId}
+                  collaborator={collaboratorId}
+                  year={this.year}
+                  start={this.start}
+                  end={this.end}
+                  onLoaded={this.onCollaboratorFilterLoaded.bind(this)}
+                />
                 { loading && this.renderLoader() }
                 { !loading && hasGoals && this.renderData() }
                 { !loading && !hasGoals && this.renderEmptyState() }

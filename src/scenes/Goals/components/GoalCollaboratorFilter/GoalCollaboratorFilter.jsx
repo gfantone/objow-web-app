@@ -150,7 +150,7 @@ class GoalCollaboratorFilter extends Component {
         if(account.role.code == 'C') {
           return <div />
         }
-
+        this.props.onLoaded()
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
               <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary}>
