@@ -146,7 +146,7 @@ class GoalCollaboratorFilter extends Component {
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')}/>
-        
+
         if(account.role.code == 'C') {
           return <div />
         }
@@ -160,7 +160,7 @@ class GoalCollaboratorFilter extends Component {
                   { selectedTeam && (
                     <Chip
                       size="small"
-                      label={selectedTeam.name}
+                      label={account.role.code === 'M' ? Resources.CHALLENGE_FILTER_MY_TEAM_LABEL : selectedTeam.name}
                       style={{borderColor: _.get(selectedTeam, 'color.hex')}}
                       variant="outlined"
                       className={this.props.classes.filterChip}

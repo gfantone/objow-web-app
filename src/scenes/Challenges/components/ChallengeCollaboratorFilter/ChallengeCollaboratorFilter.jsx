@@ -146,6 +146,8 @@ class ChallengeCollaboratorFilter extends Component {
           return <div />
         }
 
+
+
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
               <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary}>
@@ -155,7 +157,7 @@ class ChallengeCollaboratorFilter extends Component {
                   { selectedTeam && (
                     <Chip
                       size="small"
-                      label={selectedTeam.name}
+                      label={account.role.code === 'M' ? Resources.CHALLENGE_FILTER_MY_TEAM_LABEL : selectedTeam.name}
                       style={{borderColor: _.get(selectedTeam, 'color.hex')}}
                       variant="outlined"
                       className={this.props.classes.filterChip}
