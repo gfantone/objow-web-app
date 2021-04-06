@@ -240,6 +240,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
                   open={this.state.filterOpen}
                   onClose={this.handleFilterClose.bind(this)}
                   onChange={this.handleFilterChange.bind(this)}
+                  category={this.category}
                   team={teamId}
                   collaborator={collaboratorId}
                   year={this.year}

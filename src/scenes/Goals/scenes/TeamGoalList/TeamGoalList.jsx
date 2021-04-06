@@ -234,6 +234,7 @@ class TeamGoalList extends MainLayoutComponent {
                   onClose={this.handleFilterClose.bind(this)}
                   onChange={this.handleFilterChange.bind(this)}
                   team={this.props.match.params.id}
+                  category={this.category}
                   year={this.year}
                   start={this.start}
                   end={this.end}
