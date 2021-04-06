@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { Button, DatePicker, Select, Loader, IconButton } from '../../../../components'
 import * as Resources from '../../../../Resources'
+import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as previousPeriodListActions from '../../../../services/Periods/PreviousPeriodList/actions'
@@ -65,6 +66,7 @@ class GoalCollaboratorFilter extends Component {
     }
 
     componentDidMount() {
+        this.props.categoryListActions.getActiveCategoryList();
         this.props.teamListActions.getTeamList();
         this.props.currentPeriodDetailActions.getCurrentPeriodDetail();
         this.props.previousPeriodListActions.getPreviousPeriodList()
@@ -126,6 +128,13 @@ class GoalCollaboratorFilter extends Component {
       this.props.onClose()
     }
 
+    handleDeleteCategory = () => {
+      const { start, end, year, team, collaborator, category, onlyCollaborator, onlyTeam } = this.state;
+
+      this.props.onChange(null, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null);
+      this.props.onClose()
+    }
+
     onExpand = (event, expanded) => {
       this.setState({
         ...this.state,
@@ -139,17 +148,16 @@ class GoalCollaboratorFilter extends Component {
     renderData() {
         const { account } = this.props.accountDetail;
         const { teams, loading } = this.props.teamList;
+        const { categories } = this.props.categoryList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
         const { periods: previousPeriods } = this.props.previousPeriodList;
         const selectedTeam = this.state.team ? teams.filter(team => team.id == parseInt(this.state.team))[0] : null;
+        const selectedCategory = this.state.category ? categories.filter(category => category.id == parseInt(this.state.category))[0] : null;
         const collaborators = selectedTeam ? selectedTeam.collaborators : null;
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')}/>
 
-        if(account.role.code == 'C') {
-          return <div />
-        }
         this.props.onLoaded()
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
@@ -173,6 +181,15 @@ class GoalCollaboratorFilter extends Component {
                       onDelete={this.handleDeleteCollaborator}
                       avatar={ chipAvatar }
                       style={{borderColor: _.get(selectedCollaborator, 'team.color.hex')}}
+                      variant="outlined"
+                      className={this.props.classes.filterChip}
+                    />
+                  )  }
+                  { selectedCategory && (
+                    <Chip
+                      size="small"
+                      label={selectedCategory.name}
+                      onDelete={this.handleDeleteCategory}
                       variant="outlined"
                       className={this.props.classes.filterChip}
                     />
@@ -210,6 +227,11 @@ class GoalCollaboratorFilter extends Component {
                               onChange={this.handleChange('collaborator').bind(this)}
                             />
                         </Grid> }
+                        {
+                          <Grid item xs={4}>
+                              <Select name='category' label={Resources.GOAL_FILTER_CATEGORY_LABEL} options={categories} emptyText={Resources.GOAL_FILTER_CATEGORY_ALL_OPTION} optionValueName='id' optionTextName='name' fullWidth initial={this.state.category} onChange={this.handleChange('category').bind(this)} />
+                          </Grid>
+                        }
                     </Grid>
                 </Formsy>
               </ExpansionPanelDetails>
@@ -218,6 +240,7 @@ class GoalCollaboratorFilter extends Component {
     }
 
     render() {
+        const { categories } = this.props.categoryList;
         const { account } = this.props.accountDetail;
         const { teams, loading } = this.props.teamList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
@@ -225,20 +248,22 @@ class GoalCollaboratorFilter extends Component {
         return (
             <div>
 
-                { account && teams && currentPeriod && previousPeriods && this.renderData() }
+                { account && teams && categories && currentPeriod && previousPeriods && this.renderData() }
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ accountDetail, teamList, currentPeriodDetail, previousPeriodList }) => ({
+const mapStateToProps = ({ accountDetail, teamList, categoryList, currentPeriodDetail, previousPeriodList }) => ({
     accountDetail,
     teamList,
+    categoryList,
     currentPeriodDetail,
     previousPeriodList
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    categoryListActions: bindActionCreators(categoryListActions, dispatch),
     teamListActions: bindActionCreators(teamListActions, dispatch),
     currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
     previousPeriodListActions: bindActionCreators(previousPeriodListActions, dispatch)
