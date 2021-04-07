@@ -22,7 +22,8 @@ class CollaboratorChallengeList extends MainLayoutComponent {
         this.start = null;
         this.end = null;
         this.state = {
-            filterOpen: false
+            filterOpen: false,
+            collaboratorFilterLoaded: false
         }
     }
 
@@ -106,6 +107,15 @@ class CollaboratorChallengeList extends MainLayoutComponent {
         }
     }
 
+    onCollaboratorFilterLoaded() {
+      if(!this.state.collaboratorFilterLoaded) {
+        this.setState({
+          ...this.state,
+          collaboratorFilterLoaded: true
+        })
+      }
+    }
+
     mergeChallenges(collaboratorGoals, teamGoals) {
         return collaboratorGoals.concat(teamGoals).sort((a, b) => {
             const comparison = a.end - b.end;
@@ -129,19 +139,7 @@ class CollaboratorChallengeList extends MainLayoutComponent {
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
 
-
         return (
-          <React.Fragment>
-            <ChallengeCollaboratorFilter
-              open={this.state.filterOpen}
-              onClose={this.handleFilterClose.bind(this)}
-              onChange={this.handleFilterChange.bind(this)}
-              team={teamId}
-              collaborator={collaboratorId}
-              year={this.year}
-              start={this.start}
-              end={this.end}
-              />
             <Grid container spacing={2}>
               { challenges.map(challenge=> {
                 const detailurl = challenge.typeCode != 'CT' ? `/challenges/detail/collaborator/${challenge.id}` : `/challenges/detail/team/${challenge.id}`;
@@ -155,7 +153,6 @@ class CollaboratorChallengeList extends MainLayoutComponent {
                 )
               }) }
             </Grid>
-          </React.Fragment>
         )
     }
 
@@ -163,10 +160,9 @@ class CollaboratorChallengeList extends MainLayoutComponent {
         const { challenges: collaboratorChallenges, loading: collaboratorChallengeListLoading } = this.props.collaboratorChallengeList;
         const { collaborator, loading: collaboratorDetailLoading } = this.props.collaboratorDetail;
         const { challenges: teamChallenges, loading: teamChallengeListLoading } = this.props.teamChallengeList;
-        const loading = collaboratorChallengeListLoading || collaboratorDetailLoading || teamChallengeListLoading;
+        const loading = collaboratorChallengeListLoading || collaboratorDetailLoading || teamChallengeListLoading || !this.state.collaboratorFilterLoaded;
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
-
         const { account } = this.props.accountDetail;
 
         if(!account.hasChallengeAccess) {
@@ -175,6 +171,17 @@ class CollaboratorChallengeList extends MainLayoutComponent {
 
         return (
             <div>
+                <ChallengeCollaboratorFilter
+                  open={this.state.filterOpen}
+                  onClose={this.handleFilterClose.bind(this)}
+                  onChange={this.handleFilterChange.bind(this)}
+                  team={teamId}
+                  collaborator={collaboratorId}
+                  year={this.year}
+                  start={this.start}
+                  end={this.end}
+                  onLoaded={this.onCollaboratorFilterLoaded.bind(this)}
+                />
                 { loading && this.renderLoader() }
                 { !loading && collaboratorChallenges && teamChallenges && this.renderData() }
                 { !loading && collaboratorChallenges && teamChallenges && collaboratorChallenges.length == 0 && teamChallenges.length == 0 && this.renderEmptyState() }

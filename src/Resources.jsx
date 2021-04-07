@@ -207,6 +207,7 @@ export const CHALLENGE_CONDITION_AWARD_POINTS = "{0} PTS"
 // Challenge - Filter
 export const CHALLENGE_FILTER_TITLE = "Filtres"
 export const CHALLENGE_FILTER_TEAM_LABEL = "Équipe"
+export const CHALLENGE_FILTER_MY_TEAM_LABEL = "Mon équipe"
 export const CHALLENGE_FILTER_COLLABORATOR_LABEL = "Collaborateur"
 export const CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION = "Tous"
 export const CHALLENGE_FILTER_PERIOD_LABEL = "Année"
