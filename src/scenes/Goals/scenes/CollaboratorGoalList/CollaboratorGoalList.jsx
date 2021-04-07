@@ -142,6 +142,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
     }
 
     handleFilterChange(category, team, collaborator, year, start, end, onlyCollaborator, onlyTeam) {
+        console.log(category);
         const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
         if (collaboratorId) {
             this.refresh(collaboratorId, this.current, category, year, start, end, this.name, onlyCollaborator, onlyTeam)

@@ -76,6 +76,7 @@ class GoalCollaboratorFilter extends Component {
         if (
             props.team != this.state.team
             || props.collaborator != this.state.collaborator
+            || props.category != this.state.category
             || props.year != this.state.year
             || props.start != this.state.start
             || props.end != this.state.end
