@@ -38,7 +38,7 @@ const styles = {
   },
   expansionPanelSummary: {
     '& > .MuiExpansionPanelSummary-content': {
-      flexDirection: 'row-reverse'
+      flexDirection: 'row'
     }
   },
   filterForm: {
@@ -146,6 +146,8 @@ class ChallengeCollaboratorFilter extends Component {
           return <div />
         }
 
+        this.props.onLoaded()
+
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
               <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary}>
@@ -155,7 +157,7 @@ class ChallengeCollaboratorFilter extends Component {
                   { selectedTeam && (
                     <Chip
                       size="small"
-                      label={selectedTeam.name}
+                      label={account.role.code === 'M' ? Resources.CHALLENGE_FILTER_MY_TEAM_LABEL : selectedTeam.name}
                       style={{borderColor: _.get(selectedTeam, 'color.hex')}}
                       variant="outlined"
                       className={this.props.classes.filterChip}
@@ -176,7 +178,7 @@ class ChallengeCollaboratorFilter extends Component {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <Formsy onSubmit={this.handleSubmit.bind(this)} className={this.props.classes.filterForm} ref={this.filterForm}>
-                    <Grid container spacing={2} justify='flex-end'>
+                    <Grid container spacing={2}>
                         { account.role.code == 'A' && <Grid item xs={4}>
                             <Select
                               name='team'
@@ -221,6 +223,7 @@ class ChallengeCollaboratorFilter extends Component {
             <div>
 
                 { account && teams && currentPeriod && previousPeriods && this.renderData() }
+
             </div>
         )
     }

@@ -123,9 +123,6 @@ class GoalFilter extends Component {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Select name='category' label={Resources.GOAL_FILTER_CATEGORY_LABEL} options={categories} emptyText={Resources.GOAL_FILTER_CATEGORY_ALL_OPTION} optionValueName='id' optionTextName='name' fullWidth initial={this.state.category} onChange={this.handleChange('category').bind(this)} />
-                                </Grid>
-                                <Grid item xs={12}>
                                     <Select name={'year'} label={Resources.GOAL_FILTER_PERIOD_LABEL} options={periods} optionValueName={'id'} optionTextName={'name'} fullWidth emptyDisabled={true} initial={this.state.year ? this.state.year : currentPeriod.id} onChange={this.handleChange('year').bind(this)} />
                                 </Grid>
                                 <Grid item xs={12}>
