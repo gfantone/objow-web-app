@@ -39,7 +39,7 @@ const styles = {
   },
   expansionPanelSummary: {
     '& > .MuiExpansionPanelSummary-content': {
-      flexDirection: 'row-reverse'
+      flexDirection: 'row'
     }
   },
   filterForm: {
@@ -199,7 +199,7 @@ class GoalCollaboratorFilter extends Component {
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <Formsy onSubmit={this.handleSubmit.bind(this)} className={this.props.classes.filterForm} ref={this.filterForm}>
-                    <Grid container spacing={2} justify='flex-end'>
+                    <Grid container spacing={2}>
                         { account.role.code == 'A' && <Grid item xs={4}>
                             <Select
                               name='team'
