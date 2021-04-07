@@ -223,10 +223,10 @@ class TeamGoalList extends MainLayoutComponent {
         if(!account.hasGoalAccess) {
           return <Redirect to={'/challenges'} />
         }
-        // if (account.role.code == 'C' || account.role.code == 'M' && account.team != this.props.match.params.id) {
-        //     return <Redirect to='/goals' />
-        // }
-        console.log(this.category);
+        if (account.role.code == 'C' || account.role.code == 'M' && account.team != this.props.match.params.id) {
+            return <Redirect to='/goals' />
+        }
+
         return (
             <div>
                 <GoalCollaboratorFilter

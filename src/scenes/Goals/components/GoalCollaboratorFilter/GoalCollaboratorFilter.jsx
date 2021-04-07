@@ -169,13 +169,13 @@ class GoalCollaboratorFilter extends Component {
                   { selectedTeam && (
                     <Chip
                       size="small"
-                      label={account.role.code === 'M' ? Resources.CHALLENGE_FILTER_MY_TEAM_LABEL : selectedTeam.name}
+                      label={_.includes(['M', 'C'], account.role.code) ? Resources.CHALLENGE_FILTER_MY_TEAM_LABEL : selectedTeam.name}
                       style={{borderColor: _.get(selectedTeam, 'color.hex')}}
                       variant="outlined"
                       className={this.props.classes.filterChip}
                     />
                   ) }
-                  { selectedCollaborator && (
+                  { selectedCollaborator && _.includes(['M', 'A'], account.role.code) && (
                     <Chip
                       size="small"
                       label={selectedCollaborator.fullname}
