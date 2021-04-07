@@ -86,12 +86,6 @@ class BadgeFilter extends Component {
                         <DialogContent>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
-                                    <Select name='team' label='Équipe' options={teams} optionValueName='id' optionTextName='name' emptyDisabled fullWidth initial={this.state.team} onChange={this.handleTeamChange.bind(this)} />
-                                </Grid>
-                                {this.state.display && collaborators && <Grid item xs={12}>
-                                    <Select name='collaborator' label='Collaborateur' options={collaborators} optionValueName='id' optionTextName='fullname' emptyDisabled fullWidth initial={this.state.collaborator} onChange={this.handleChange('collaborator').bind(this)} />
-                                </Grid>}
-                                <Grid item xs={12}>
                                     <Select name={'year'} label={'Année'} options={periods} optionValueName={'id'} optionTextName={'name'} emptyDisabled fullWidth initial={this.state.year} onChange={this.handleChange('year').bind(this)} />
                                 </Grid>
                             </Grid>
