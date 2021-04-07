@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom'
 import {Card, EmptyState, GridLink, IconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import {SubHeader} from './components'
-import {BadgeFilter, BadgeLevel} from '../../components'
+import {BadgeFilter, BadgeCollaboratorFilter, BadgeLevel} from '../../components'
 import * as collaboratorBadgeLevelListActions from '../../../../services/CollaboratorBadgeLevels/CollaboratorBadgeLevelList/actions'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -97,6 +97,15 @@ class BadgeList extends MainLayoutComponent {
         this.refresh(collaborator, this.current, year)
     }
 
+    onCollaboratorFilterLoaded() {
+      if(!this.state.collaboratorFilterLoaded) {
+        this.setState({
+          ...this.state,
+          collaboratorFilterLoaded: true
+        })
+      }
+    }
+
     renderLoader() {
         return (
             <Loader centered />
@@ -143,6 +152,15 @@ class BadgeList extends MainLayoutComponent {
 
         return (
             <div>
+                <BadgeCollaboratorFilter
+                  open={this.state.filterOpen}
+                  onClose={this.handleFilterClose.bind(this)}
+                  onChange={this.handleFilterChange.bind(this)}
+                  team={teamId}
+                  collaborator={collaboratorId}
+                  year={this.year}
+                  onLoaded={this.onCollaboratorFilterLoaded.bind(this)}
+                />
                 {!collaboratorDetailLoading && collaboratorBadgeLevelListLoading && this.renderLoader()}
                 {!loading && levels && levels.length > 0 && collaborator && this.renderData()}
                 {!loading && levels && levels.length == 0 && this.renderEmptyState()}
