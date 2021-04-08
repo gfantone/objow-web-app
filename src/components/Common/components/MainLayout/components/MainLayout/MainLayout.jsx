@@ -68,6 +68,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
     const [returnActivation, setReturnActivation] = React.useState(false);
     const [search, setSearch] = React.useState(DEFAULT_SEARCH);
     const [searchActivation, setSearchActivation] = React.useState(DEFAULT_SEARCH_ACTIVATION);
+    const [searchExpanded, setSearchExpanded] = React.useState(false);
     const [buttons, setButtons] = React.useState(DEFAULT_BUTTONS);
     const [maxWidth, setMaxWidth] = React.useState(DEFAULT_MAX_WIDTH);
     const [subHeader, setSubHeader] = React.useState(DEFAULT_SUB_HEADER);
@@ -106,7 +107,9 @@ const MainLayout = ({component: Component, history, ...rest}) => {
         setSearch(event.target.value);
     }
 
-
+    function handleSearchExpand(isOpen) {
+        setSearchExpanded(isOpen);
+    }
 
     function clear() {
         setButtons(DEFAULT_BUTTONS);
@@ -142,7 +145,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                 <Toolbar>
                                     <HeaderContainer>
                                         <HeaderTitleContainer>
-                                            <HeaderTitle>{title}</HeaderTitle>
+                                            <HeaderTitle style={{visibility: searchExpanded ? 'hidden': 'visible'}}>{title}</HeaderTitle>
                                         </HeaderTitleContainer>
                                         <HeaderContainerLeft>
                                             <div style={{display: 'flex'}}>
@@ -158,9 +161,9 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                         </HeaderContainerLeft>
                                         <HeaderContainerRight>
                                             <div style={{display: 'flex'}}>
-                                                {searchActivation && <Hidden smDown>
-                                                    <AppBarSearch search={search} onChange={handleSearch} />
-                                                </Hidden>}
+                                                {searchActivation &&
+                                                    <AppBarSearch search={search} onChange={handleSearch} onExpand={setSearchExpanded}/>
+                                                }
                                                 {buttons}
                                             </div>
                                             </HeaderContainerRight>
@@ -187,9 +190,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                         </div>
                         <div className={classes.main}>
                             <MainContainer maxWidth={maxWidth}>
-                                {searchActivation && <Hidden mdUp>
-                                    <Search search={search} onChange={handleSearch} />
-                                </Hidden>}
+                                
                                 <ErrorBoundary fallbackRender={ ({error, resetErrorBoundary}) => (
                                   <ErrorHandler />
                                 ) }>
