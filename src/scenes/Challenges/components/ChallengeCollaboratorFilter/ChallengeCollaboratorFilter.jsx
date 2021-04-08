@@ -142,12 +142,12 @@ class ChallengeCollaboratorFilter extends Component {
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')}/>
-        if(account.role.code == 'C') {
-          return <div />
-        }
 
         this.props.onLoaded()
 
+        if(account.role.code == 'C') {
+          return <div />
+        }
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
               <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary}>

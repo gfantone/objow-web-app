@@ -166,10 +166,10 @@ class GoalCollaboratorFilter extends Component {
                   <Tooltip title={Resources.TEAM_CHALLENGE_LIST_FILTER_BUTTON}>
                       <IconButton size='small' className={this.props.classes.filterIcon}><FontAwesomeIcon icon={this.state.expandIcon} /></IconButton>
                   </Tooltip>
-                  { selectedTeam && (
+                  { selectedTeam && _.includes(['A', 'M'], account.role.code) && (
                     <Chip
                       size="small"
-                      label={_.includes(['M', 'C'], account.role.code) ? Resources.CHALLENGE_FILTER_MY_TEAM_LABEL : selectedTeam.name}
+                      label={_.includes(['M'], account.role.code) ? Resources.CHALLENGE_FILTER_MY_TEAM_LABEL : selectedTeam.name}
                       style={{borderColor: _.get(selectedTeam, 'color.hex')}}
                       variant="outlined"
                       className={this.props.classes.filterChip}
@@ -191,6 +191,14 @@ class GoalCollaboratorFilter extends Component {
                       size="small"
                       label={selectedCategory.name}
                       onDelete={this.handleDeleteCategory}
+                      variant="outlined"
+                      className={this.props.classes.filterChip}
+                    />
+                  )  }
+                  { !selectedCategory && _.includes(['C'], account.role.code) && (
+                    <Chip
+                      size="small"
+                      label={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL}
                       variant="outlined"
                       className={this.props.classes.filterChip}
                     />

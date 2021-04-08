@@ -223,7 +223,8 @@ class TeamGoalList extends MainLayoutComponent {
         if(!account.hasGoalAccess) {
           return <Redirect to={'/challenges'} />
         }
-        if (account.role.code == 'C' || account.role.code == 'M' && account.team != this.props.match.params.id) {
+        
+        if (account.role.code == 'C' || account.role.code == 'M' && account.team.id != this.props.match.params.id) {
             return <Redirect to='/goals' />
         }
 
