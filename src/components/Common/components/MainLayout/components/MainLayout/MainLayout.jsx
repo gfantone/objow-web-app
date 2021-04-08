@@ -145,16 +145,16 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                 <Toolbar>
                                     <HeaderContainer>
                                         <HeaderTitleContainer>
-                                            <HeaderTitle style={{visibility: searchExpanded ? 'hidden': 'visible'}}>{title}</HeaderTitle>
+                                            <HeaderTitle style={{visibility: searchExpanded ? 'hidden': 'visible', marginTop: 3}}>{title}</HeaderTitle>
                                         </HeaderTitleContainer>
                                         <HeaderContainerLeft>
                                             <div style={{display: 'flex'}}>
                                                 { <Hidden lgUp implementation='css'>
-                                                    <IconButton size='small' onClick={handleDrawerToggle} style={{marginRight: 12}}>
+                                                    <IconButton size='small' onClick={handleDrawerToggle} style={{marginRight: 12, marginTop: 3}}>
                                                         <FontAwesomeIcon icon={faBars} />
                                                     </IconButton>
                                                 </Hidden> }
-                                                { returnActivation && <IconButton size='small' onClick={goBack}>
+                                                { returnActivation && <IconButton size='small' onClick={goBack} style={{ marginTop: 3 }}>
                                                     <FontAwesomeIcon icon={faAngleLeft} />
                                                 </IconButton> }
                                             </div>
@@ -190,7 +190,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                         </div>
                         <div className={classes.main}>
                             <MainContainer maxWidth={maxWidth}>
-                                
+
                                 <ErrorBoundary fallbackRender={ ({error, resetErrorBoundary}) => (
                                   <ErrorHandler />
                                 ) }>
