@@ -101,7 +101,7 @@ const AppBarSearch = ({onChange, onExpand, search, ...props}) => {
           </div>
         </Hidden>
         <Hidden mdUp>
-          <div className={ expanded ? classes.search : classes.searchMobile } style={{marginRight: 16, marginLeft: '-16px'}}>
+          <div className={ expanded ? classes.search : classes.searchMobile } style={{marginRight: 16, marginLeft: '-16px', marginTop: '-1px'}}>
             <div className={classes.searchIconMobile}>
               <SearchIcon />
             </div>
