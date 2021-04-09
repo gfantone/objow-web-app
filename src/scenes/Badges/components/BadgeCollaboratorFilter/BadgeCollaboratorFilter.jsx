@@ -59,6 +59,7 @@ class BadgeCollaboratorFilter extends Component {
             expandIcon: faChevronDown
         }
         this.filterForm = React.createRef();
+        this.panel = React.createRef();
     }
 
     componentDidMount() {
@@ -116,6 +117,7 @@ class BadgeCollaboratorFilter extends Component {
         const selectedTeam = this.state.team ? teams.filter(team => team.id == parseInt(this.state.team))[0] : null;
         const defaultCollaborator = _.get(selectedTeam, 'collaborators[0].id')
         this.props.onChange(collaborator || defaultCollaborator, model.year);
+        this.panel.current.click()
         this.props.onClose()
     }
 
@@ -147,7 +149,7 @@ class BadgeCollaboratorFilter extends Component {
         }
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
-              <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary}>
+              <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary} ref={this.panel}>
                   <Tooltip title={Resources.TEAM_CHALLENGE_LIST_FILTER_BUTTON}>
                       <IconButton size='small' className={this.props.classes.filterIcon}><FontAwesomeIcon icon={this.state.expandIcon} /></IconButton>
                   </Tooltip>

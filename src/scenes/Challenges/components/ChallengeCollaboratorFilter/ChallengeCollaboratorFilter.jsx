@@ -59,6 +59,7 @@ class ChallengeCollaboratorFilter extends Component {
             expandIcon: faChevronDown
         }
         this.filterForm = React.createRef();
+        this.panel = React.createRef();
     }
 
     componentDidMount() {
@@ -112,6 +113,8 @@ class ChallengeCollaboratorFilter extends Component {
             end.setHours(23, 59, 59)
         }
         this.props.onChange(team, collaborator, model.year, start, end);
+
+        this.panel.current.click()
         this.props.onClose()
     }
 
@@ -119,6 +122,7 @@ class ChallengeCollaboratorFilter extends Component {
       const { team, year, start, end } = this.state
 
       this.props.onChange(team, null, year, start, end);
+      this.panel.current.click()
       this.props.onClose()
     }
 
@@ -149,8 +153,8 @@ class ChallengeCollaboratorFilter extends Component {
           return <div />
         }
         return (
-            <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
-              <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary}>
+            <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand} >
+              <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary} ref={this.panel}>
                   <Tooltip title={Resources.TEAM_CHALLENGE_LIST_FILTER_BUTTON}>
                       <IconButton size='small' className={this.props.classes.filterIcon}><FontAwesomeIcon icon={this.state.expandIcon} /></IconButton>
                   </Tooltip>

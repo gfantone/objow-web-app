@@ -63,6 +63,7 @@ class GoalCollaboratorFilter extends Component {
             expandIcon: faChevronDown
         }
         this.filterForm = React.createRef();
+        this.panel = React.createRef();
     }
 
     componentDidMount() {
@@ -119,6 +120,8 @@ class GoalCollaboratorFilter extends Component {
         const { start, end, year,category, onlyCollaborator, onlyTeam } = this.state;
 
         this.props.onChange(category, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null);
+        console.log(this.panel);
+        this.panel.current.click()
         this.props.onClose()
     }
 
@@ -162,7 +165,7 @@ class GoalCollaboratorFilter extends Component {
         this.props.onLoaded()
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
-              <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary}>
+              <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary} ref={this.panel}>
                   <Tooltip title={Resources.TEAM_CHALLENGE_LIST_FILTER_BUTTON}>
                       <IconButton size='small' className={this.props.classes.filterIcon}><FontAwesomeIcon icon={this.state.expandIcon} /></IconButton>
                   </Tooltip>
