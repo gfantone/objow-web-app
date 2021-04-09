@@ -118,10 +118,11 @@ class ChallengeCollaboratorFilter extends Component {
         if (end) {
             end.setHours(23, 59, 59)
         }
-        this.props.onChange(team, collaborator, model.year, start, end);
-
-        this.panel.current.click()
-        this.props.onClose()
+        this.onExpand(null, false, () => {
+          this.props.onChange(team, collaborator, model.year, start, end);
+          this.panel.current.click()
+          this.props.onClose()
+        })
     }
 
     handleDeleteCollaborator = () => {
@@ -132,11 +133,11 @@ class ChallengeCollaboratorFilter extends Component {
       this.props.onClose()
     }
 
-    onExpand = (event, expanded) => {
+    onExpand = (event, expanded, callback) => {
       this.setState({
         ...this.state,
         expandIcon: expanded ? faChevronUp : faChevronDown
-      })
+      }, callback)
     }
     renderLoader() {
         return <Loader centered />
