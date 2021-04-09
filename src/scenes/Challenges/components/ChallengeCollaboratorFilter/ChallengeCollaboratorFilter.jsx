@@ -24,26 +24,32 @@ const styles = {
       padding: 'initial'
   },
   panelDetails: {
-      padding: 'initial'
+      padding: 'initial',
+      flexWrap: 'wrap'
   },
   filterButtons: {
       marginTop: 10
   },
   filterIcon: {
     color: '#555555',
-    marginRight: 5
+    marginRight: 5,
+    alignItems: 'flex-start'
   },
   filterChip: {
-    marginRight: 5
+    marginRight: 5,
+    marginBottom: 5
   },
   expansionPanelSummary: {
     '& > .MuiExpansionPanelSummary-content': {
       flexDirection: 'row'
     }
   },
+  filterChips: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
   filterForm: {
     width: '100%',
-
   }
 }
 
@@ -59,6 +65,7 @@ class ChallengeCollaboratorFilter extends Component {
             expandIcon: faChevronDown
         }
         this.filterForm = React.createRef();
+        this.panel = React.createRef();
     }
 
     componentDidMount() {
@@ -112,6 +119,8 @@ class ChallengeCollaboratorFilter extends Component {
             end.setHours(23, 59, 59)
         }
         this.props.onChange(team, collaborator, model.year, start, end);
+
+        this.panel.current.click()
         this.props.onClose()
     }
 
@@ -119,6 +128,7 @@ class ChallengeCollaboratorFilter extends Component {
       const { team, year, start, end } = this.state
 
       this.props.onChange(team, null, year, start, end);
+      this.panel.current.click()
       this.props.onClose()
     }
 
@@ -149,31 +159,33 @@ class ChallengeCollaboratorFilter extends Component {
           return <div />
         }
         return (
-            <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
-              <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary}>
+            <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand} >
+              <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary} ref={this.panel}>
                   <Tooltip title={Resources.TEAM_CHALLENGE_LIST_FILTER_BUTTON}>
                       <IconButton size='small' className={this.props.classes.filterIcon}><FontAwesomeIcon icon={this.state.expandIcon} /></IconButton>
                   </Tooltip>
-                  { selectedTeam && (
-                    <Chip
-                      size="small"
-                      label={account.role.code === 'M' ? Resources.CHALLENGE_FILTER_MY_TEAM_LABEL : selectedTeam.name}
-                      style={{borderColor: _.get(selectedTeam, 'color.hex')}}
-                      variant="outlined"
-                      className={this.props.classes.filterChip}
-                    />
-                  ) }
-                  { selectedCollaborator && (
-                    <Chip
-                      size="small"
-                      label={selectedCollaborator.fullname}
-                      onDelete={this.handleDeleteCollaborator}
-                      avatar={ chipAvatar }
-                      style={{borderColor: _.get(selectedCollaborator, 'team.color.hex')}}
-                      variant="outlined"
-                      className={this.props.classes.filterChip}
-                    />
-                  )  }
+                  <div className={ this.props.classes.filterChips }>
+                    { selectedTeam && (
+                      <Chip
+                        size="small"
+                        label={account.role.code === 'M' ? Resources.CHALLENGE_FILTER_MY_TEAM_LABEL : selectedTeam.name}
+                        style={{borderColor: _.get(selectedTeam, 'color.hex')}}
+                        variant="outlined"
+                        className={this.props.classes.filterChip}
+                        />
+                    ) }
+                    { selectedCollaborator && (
+                      <Chip
+                        size="small"
+                        label={selectedCollaborator.fullname}
+                        onDelete={this.handleDeleteCollaborator}
+                        avatar={ chipAvatar }
+                        style={{borderColor: _.get(selectedCollaborator, 'team.color.hex')}}
+                        variant="outlined"
+                        className={this.props.classes.filterChip}
+                        />
+                    )  }
+                  </div>
 
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>

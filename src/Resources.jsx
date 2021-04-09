@@ -501,7 +501,7 @@ export const GOAL_INDICATION_COACHING_SUBMIT_BUTTON = "Valider"
 // Goal - Filter
 export const GOAL_FILTER_TITLE = "Filtres"
 export const GOAL_FILTER_CATEGORY_LABEL = "Catégorie"
-export const GOAL_FILTER_ALL_CATEGORY_LABEL = "Toutes les catégorie"
+export const GOAL_FILTER_ALL_CATEGORY_LABEL = "Toutes les catégories"
 export const GOAL_FILTER_CATEGORY_ALL_OPTION = "Toutes"
 export const GOAL_FILTER_TEAM_LABEL = "Équipe"
 export const GOAL_FILTER_COLLABORATOR_LABEL = "Collaborateur"
