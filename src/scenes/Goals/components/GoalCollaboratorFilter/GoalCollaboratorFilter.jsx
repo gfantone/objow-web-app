@@ -18,33 +18,39 @@ const styles = {
   panel: {
       backgroundColor: 'initial',
       borderRadius: 'initial',
-      // width: '100%',
+
       boxShadow: 'none'
   },
   panelSummary: {
       padding: 'initial'
   },
   panelDetails: {
-      padding: 'initial'
+      padding: 'initial',
   },
   filterButtons: {
       marginTop: 10
   },
   filterIcon: {
     color: '#555555',
-    marginRight: 5
+    marginRight: 5,
+    alignItems: 'flex-start'
   },
   filterChip: {
-    marginRight: 5
+    marginRight: 5,
+    marginBottom: 5
   },
   expansionPanelSummary: {
     '& > .MuiExpansionPanelSummary-content': {
-      flexDirection: 'row'
+      flexDirection: 'row',
+      width: '100%',
     }
+  },
+  filterChips: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
   filterForm: {
     width: '100%',
-
   }
 }
 
@@ -120,7 +126,6 @@ class GoalCollaboratorFilter extends Component {
         const { start, end, year,category, onlyCollaborator, onlyTeam } = this.state;
 
         this.props.onChange(category, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null);
-        console.log(this.panel);
         this.panel.current.click()
         this.props.onClose()
     }
@@ -169,43 +174,45 @@ class GoalCollaboratorFilter extends Component {
                   <Tooltip title={Resources.TEAM_CHALLENGE_LIST_FILTER_BUTTON}>
                       <IconButton size='small' className={this.props.classes.filterIcon}><FontAwesomeIcon icon={this.state.expandIcon} /></IconButton>
                   </Tooltip>
-                  { selectedTeam && _.includes(['A', 'M'], account.role.code) && (
-                    <Chip
-                      size="small"
-                      label={_.includes(['M'], account.role.code) ? Resources.CHALLENGE_FILTER_MY_TEAM_LABEL : selectedTeam.name}
-                      style={{borderColor: _.get(selectedTeam, 'color.hex')}}
-                      variant="outlined"
-                      className={this.props.classes.filterChip}
-                    />
-                  ) }
-                  { selectedCollaborator && _.includes(['M', 'A'], account.role.code) && (
-                    <Chip
-                      size="small"
-                      label={selectedCollaborator.fullname}
-                      onDelete={this.handleDeleteCollaborator}
-                      avatar={ chipAvatar }
-                      style={{borderColor: _.get(selectedCollaborator, 'team.color.hex')}}
-                      variant="outlined"
-                      className={this.props.classes.filterChip}
-                    />
-                  )  }
-                  { selectedCategory && (
-                    <Chip
-                      size="small"
-                      label={selectedCategory.name}
-                      onDelete={this.handleDeleteCategory}
-                      variant="outlined"
-                      className={this.props.classes.filterChip}
-                    />
-                  )  }
-                  { !selectedCategory && _.includes(['C'], account.role.code) && (
-                    <Chip
-                      size="small"
-                      label={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL}
-                      variant="outlined"
-                      className={this.props.classes.filterChip}
-                    />
-                  )  }
+                  <div className={this.props.classes.filterChips}>
+                    { selectedTeam && _.includes(['A', 'M'], account.role.code) && (
+                      <Chip
+                        size="small"
+                        label={_.includes(['M'], account.role.code) ? Resources.CHALLENGE_FILTER_MY_TEAM_LABEL : selectedTeam.name}
+                        style={{borderColor: _.get(selectedTeam, 'color.hex')}}
+                        variant="outlined"
+                        className={this.props.classes.filterChip}
+                        />
+                    ) }
+                    { selectedCollaborator && _.includes(['M', 'A'], account.role.code) && (
+                      <Chip
+                        size="small"
+                        label={selectedCollaborator.fullname}
+                        onDelete={this.handleDeleteCollaborator}
+                        avatar={ chipAvatar }
+                        style={{borderColor: _.get(selectedCollaborator, 'team.color.hex')}}
+                        variant="outlined"
+                        className={this.props.classes.filterChip}
+                        />
+                    )  }
+                    { selectedCategory && (
+                      <Chip
+                        size="small"
+                        label={selectedCategory.name}
+                        onDelete={this.handleDeleteCategory}
+                        variant="outlined"
+                        className={this.props.classes.filterChip}
+                        />
+                    )  }
+                    { !selectedCategory && _.includes(['C'], account.role.code) && (
+                      <Chip
+                        size="small"
+                        label={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL}
+                        variant="outlined"
+                        className={this.props.classes.filterChip}
+                        />
+                    )  }
+                  </div>
 
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
