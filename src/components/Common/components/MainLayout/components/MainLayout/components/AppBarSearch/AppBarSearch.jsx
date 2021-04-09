@@ -62,6 +62,7 @@ const useStyles = makeStyles({
       paddingLeft: `calc(1em + 32px)`,
       transition: 'width 300ms',
       width: '0',
+      height: '12px',
       '&:focus': {
           width: '20ch',
       }

@@ -124,7 +124,8 @@ class TeamGoalList extends MainLayoutComponent {
         this.props.activateSearch(name);
         this.props.handleTitle(Resources.GOAL_SHORT_TITLE);
         this.props.handleSubHeader(<TimeFilter initial={current} handleTimeChange={this.handleTimeChange.bind(this)} />);
-        this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}>
+        this.props.handleButtons(
+          <IconButton size='small' onClick={this.handleFilterOpen.bind(this)}>
             <FontAwesomeIcon icon={faSlidersH} />
         </IconButton>);
         this.loadData(this.props)
@@ -223,7 +224,7 @@ class TeamGoalList extends MainLayoutComponent {
         if(!account.hasGoalAccess) {
           return <Redirect to={'/challenges'} />
         }
-        
+
         if (account.role.code == 'C' || account.role.code == 'M' && account.team.id != this.props.match.params.id) {
             return <Redirect to='/goals' />
         }
