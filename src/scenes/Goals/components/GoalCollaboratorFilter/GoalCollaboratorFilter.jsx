@@ -125,9 +125,12 @@ class GoalCollaboratorFilter extends Component {
 
         const { start, end, year,category, onlyCollaborator, onlyTeam } = this.state;
 
-        this.props.onChange(category, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null);
-        this.panel.current.click()
-        this.props.onClose()
+        this.onExpand(null, false, () => {
+          this.props.onChange(category, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null);
+          this.panel.current.click()
+          this.props.onClose()
+        })
+
     }
 
     handleDeleteCollaborator = () => {
@@ -144,11 +147,11 @@ class GoalCollaboratorFilter extends Component {
       this.props.onClose()
     }
 
-    onExpand = (event, expanded) => {
+    onExpand = (event, expanded, callback) => {
       this.setState({
         ...this.state,
-        expandIcon: expanded ? faChevronUp : faChevronDown
-      })
+        expandIcon: expanded === true ? faChevronUp : faChevronDown
+      }, callback)
     }
     renderLoader() {
         return <Loader centered />
@@ -166,7 +169,7 @@ class GoalCollaboratorFilter extends Component {
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')}/>
-
+        console.log(this.state);
         this.props.onLoaded()
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>

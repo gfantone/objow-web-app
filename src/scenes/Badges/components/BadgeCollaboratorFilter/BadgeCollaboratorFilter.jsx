@@ -122,16 +122,18 @@ class BadgeCollaboratorFilter extends Component {
         const { teams } = this.props.teamList;
         const selectedTeam = this.state.team ? teams.filter(team => team.id == parseInt(this.state.team))[0] : null;
         const defaultCollaborator = _.get(selectedTeam, 'collaborators[0].id')
-        this.props.onChange(collaborator || defaultCollaborator, model.year);
-        this.panel.current.click()
-        this.props.onClose()
+        this.onExpand(null, false, () => {
+          this.props.onChange(collaborator || defaultCollaborator, model.year);
+          this.panel.current.click()
+          this.props.onClose()
+        })
     }
 
-    onExpand = (event, expanded) => {
+    onExpand = (event, expanded, callback) => {
       this.setState({
         ...this.state,
         expandIcon: expanded ? faChevronUp : faChevronDown
-      })
+      }, callback)
     }
     renderLoader() {
         return <Loader centered />
