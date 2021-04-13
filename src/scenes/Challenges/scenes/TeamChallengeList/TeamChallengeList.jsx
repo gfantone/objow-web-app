@@ -134,7 +134,7 @@ class TeamChallengeList extends MainLayoutComponent {
     handleFilterChange(team, collaborator, year, start, end) {
         if (!collaborator) {
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team;
-            this.refresh(teamId, this.page, year, start, end)
+            this.refresh(teamId || this.props.match.params.id, this.page, year, start, end)
         } else {
             var url = `/challenges/collaborator/${collaborator}?page=${this.page}`;
             if (year) url += `&year=${year}`;
@@ -180,7 +180,7 @@ class TeamChallengeList extends MainLayoutComponent {
                 )
               }) }
             </Grid>
-          
+
         )
     }
 

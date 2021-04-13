@@ -146,7 +146,7 @@ class TeamGoalList extends MainLayoutComponent {
     handleFilterChange(category, team, collaborator, year, start, end, onlyCollaborator, onlyTeam) {
         if (!collaborator) {
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team;
-            this.refresh(teamId, this.current, category, year, start, end, this.name, onlyCollaborator, onlyTeam)
+            this.refresh(teamId || this.props.match.params.id, this.current, category, year, start, end, this.name, onlyCollaborator, onlyTeam)
         } else {
             var url = `/goals/collaborators/${collaborator}/list?current=${this.current}`;
             if (category) url += `&category=${category}`;

@@ -142,13 +142,12 @@ class CollaboratorGoalList extends MainLayoutComponent {
     }
 
     handleFilterChange(category, team, collaborator, year, start, end, onlyCollaborator, onlyTeam) {
-        console.log(category);
         const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
         if (collaboratorId) {
             this.refresh(collaboratorId, this.current, category, year, start, end, this.name, onlyCollaborator, onlyTeam)
         } else {
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team;
-            var url = `/goals/teams/${teamId}/list?current=${this.current}`;
+            var url = `/goals/teams/${teamId || this.props.match.params.id}/list?current=${this.current}`;
             if (category) url += `&category=${category}`;
             if (year) url += `&year=${year}`;
             if (start) url += `&start=${start.getTime()}`;

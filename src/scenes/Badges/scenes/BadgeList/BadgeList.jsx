@@ -25,7 +25,7 @@ class BadgeList extends MainLayoutComponent {
     }
 
     refresh(id, current, year) {
-        var url = `/badges/collaborator/${id}?current=${current}`
+        var url = `/badges/collaborator/${id || this.props.match.params.id}?current=${current}`
         if (year) url += `&year=${year}`
         this.props.history.replace(url)
     }
