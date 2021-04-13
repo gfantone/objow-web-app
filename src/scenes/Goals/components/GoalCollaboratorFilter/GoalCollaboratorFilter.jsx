@@ -169,7 +169,7 @@ class GoalCollaboratorFilter extends Component {
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')}/>
-        console.log(this.state);
+
         this.props.onLoaded()
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>

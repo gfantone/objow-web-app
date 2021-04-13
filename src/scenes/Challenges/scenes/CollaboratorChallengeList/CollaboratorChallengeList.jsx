@@ -99,7 +99,7 @@ class CollaboratorChallengeList extends MainLayoutComponent {
             this.refresh(collaboratorId, this.page, year, start, end)
         } else {
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team;
-            var url = `/challenges/team/${teamId}?page=${this.page}`;
+            var url = `/challenges/team/${teamId || this.props.match.params.id}?page=${this.page}`;
             if (year) url += `&year=${year}`;
             if (start) url += `&start=${start.getTime()}`;
             if (end) url += `&end=${end.getTime()}`;
