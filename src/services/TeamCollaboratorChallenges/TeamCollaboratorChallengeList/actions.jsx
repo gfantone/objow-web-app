@@ -1,13 +1,14 @@
 import * as types from './actionTypes'
 
-export const getTeamCollaboratorChallengeList = (teamId, time, year, start, end) => {
+export const getTeamCollaboratorChallengeList = (teamId, time, year, start, end, type) => {
     return {
         type: types.GET_TEAM_COLLABORATOR_CHALLENGE_LIST,
         teamId,
         time,
         year,
         start,
-        end
+        end,
+        challengeType: type
     }
 };
 

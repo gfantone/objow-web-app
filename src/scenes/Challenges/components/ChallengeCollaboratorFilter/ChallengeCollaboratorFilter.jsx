@@ -62,6 +62,7 @@ class ChallengeCollaboratorFilter extends Component {
             year: props.year,
             start: props.end,
             end: props.end,
+            type: props.type,
             expandIcon: faChevronDown
         }
         this.filterForm = React.createRef();
@@ -81,6 +82,7 @@ class ChallengeCollaboratorFilter extends Component {
             || props.year != this.state.year
             || props.start != this.state.start
             || props.end != this.state.end
+            || props.type != this.state.type
         ) {
             this.setState({
                 ...this.state,
@@ -88,7 +90,8 @@ class ChallengeCollaboratorFilter extends Component {
                 collaborator: props.collaborator,
                 year: props.year,
                 start: props.start,
-                end: props.end
+                end: props.end,
+                type: props.type
             })
         }
     }
@@ -119,16 +122,16 @@ class ChallengeCollaboratorFilter extends Component {
             end.setHours(23, 59, 59)
         }
         this.onExpand(null, false, () => {
-          this.props.onChange(team, collaborator, model.year, start, end);
+          this.props.onChange(team, collaborator, model.year, start, end, this.state.type);
           this.panel.current.click()
           this.props.onClose()
         })
     }
 
     handleDeleteCollaborator = () => {
-      const { team, year, start, end } = this.state
+      const { team, year, start, end, type } = this.state
 
-      this.props.onChange(team, null, year, start, end);
+      this.props.onChange(team, null, year, start, end, type);
       this.panel.current.click()
       this.props.onClose()
     }
