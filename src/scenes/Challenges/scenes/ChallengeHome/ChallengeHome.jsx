@@ -3,16 +3,37 @@ import { Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import _ from 'lodash'
 import { IconButton, MainLayoutComponent, TeamSelector } from '../../../../components'
+import { FilterSelector } from './components'
 import * as Resources from '../../../../Resources'
 
 class ChallengeHome extends MainLayoutComponent {
+    constructor(props) {
+        super(props)
+        this.state = {
+            team: null,
+            filter: null
+        }
+    }
+
     handleAdd() {
         this.props.history.push('/challenges/creation')
     }
 
     handleClick(id) {
-        this.props.history.push(`/challenges/team/${id}`)
+        this.setState({
+          ...this.state,
+          team: id
+        })
+        // this.props.history.push(`/challenges/team/${id}`)
+    }
+
+    selectFilter = (filter) => {
+      this.setState({
+        ...this.state,
+        filter: filter
+      })
     }
 
     componentDidMount() {
@@ -30,19 +51,36 @@ class ChallengeHome extends MainLayoutComponent {
           return <Redirect to={'/'} />
         }
 
-        if (account.role.code == 'C') {
-            return <Redirect to={`/challenges/collaborator/${account.id}`} />
-        } else if (account.role.code == 'M' && account.team) {
-            return <Redirect to={`/challenges/team/${account.team.id}`} />
-        } else if (account.role.code == 'A') {
+        if (account.role.code == 'A' && !this.state.team) {
             return (
-                <div>
-                    <TeamSelector onClick={this.handleClick.bind(this)} />
-                </div>
+              <div>
+                <TeamSelector onClick={this.handleClick.bind(this)} />
+              </div>
             )
-        } else {
-            return <div></div>
         }
+
+        if(this.state.filter === null) {
+          return(
+            <FilterSelector handleMaxWidth={this.props.handleMaxWidth} selectFilter={this.selectFilter}/>
+          )
+        }
+        if(account.role.code == 'C') {
+          return <Redirect to={`/challenges/collaborator/${account.id}${ this.state.filter }`} />
+        }
+        return <Redirect to={`/challenges/team/${_.get(account, 'team.id') || this.state.team}${ this.state.filter }`} />
+
+        // if (account.role.code == 'C') {
+        //     return <Redirect to={`/challenges/collaborator/${account.id}`} />
+        // } else if (account.role.code == 'M' && account.team) {
+        // } else if (account.role.code == 'A') {
+        //     return (
+        //         <div>
+        //             <TeamSelector onClick={this.handleClick.bind(this)} />
+        //         </div>
+        //     )
+        // } else {
+        //     return <div></div>
+        // }
     }
 }
 
