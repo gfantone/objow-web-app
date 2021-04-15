@@ -124,7 +124,8 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     mergeChallenges(collaboratorGoals, teamGoals) {
         return collaboratorGoals.concat(teamGoals).sort((a, b) => {
             const comparison = a.end - b.end;
-            return this.page == 0 || this.page == 2 ? comparison : comparison * -1
+            return this.page ? comparison : comparison * -1
+            // return this.page == 0 || this.page == 2 ? comparison : comparison * -1
         })
     }
 
@@ -137,8 +138,8 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     }
 
     renderData() {
-        const { challenges: collaboratorChallenges } = this.props.collaboratorChallengeList;
         const { challenges: teamChallenges } = this.props.teamChallengeList;
+        const { challenges: collaboratorChallenges } = this.props.collaboratorChallengeList;
         const challenges = this.mergeChallenges(collaboratorChallenges, teamChallenges);
         const { collaborator } = this.props.collaboratorDetail;
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
