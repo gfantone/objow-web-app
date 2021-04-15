@@ -10,6 +10,9 @@ import { Loader, Category } from '../../../../../../components'
 const styles = {
   icon: {
     cursor: 'pointer'
+  },
+  filterSelector: {
+    marginTop: 80
   }
 }
 
@@ -28,16 +31,16 @@ class FilterSelector extends Component {
     const { classes } = this.props;
     const globalType = types.find(t => t.code === 'CC')
     const managerType = types.find(t => t.code === 'CM')
-    const spacing = isWidthUp('sm', this.props.width) ? 8 : 4
+    const spacing = isWidthUp('sm', this.props.width) ? 10 : 6
 
     return(
-      <div>
+      <div className={classes.filterSelector}>
         <Grid container spacing={ spacing } justify="center">
-          <Grid item xs={12} sm={6} md={4} onClick={() => { this.props.selectFilter(`?type=${globalType.id}`) }} className={classes.icon}>
-            <Category category={{ name: "Top 50", icon: top_icon }} />
+          <Grid item xs={12} sm={6} md={6} onClick={() => { this.props.selectFilter(`?type=${globalType.id}`) }} className={classes.icon}>
+            <Category bigIcon category={{ name: "Top 50", icon: top_icon }} />
           </Grid>
-          <Grid item xs={12} sm={6} md={4} onClick={() => { this.props.selectFilter(`?type=${managerType.id}`) }} className={classes.icon}>
-            <Category category={{ name: "Challenges réseaux", icon: my_challenges_icon }} />
+          <Grid item xs={12} sm={6} md={6} onClick={() => { this.props.selectFilter(`?type=${managerType.id}`) }} className={classes.icon}>
+            <Category bigIcon category={{ name: "Challenges réseaux", icon: my_challenges_icon }} />
           </Grid>
         </Grid>
       </div>
