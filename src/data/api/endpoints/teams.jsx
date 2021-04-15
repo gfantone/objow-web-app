@@ -36,11 +36,12 @@ const teams = {
         if (year != null) url = `${url}?year=${year}`;
         return instance.get(url)
     },
-    collaboratorChallenges(id, time, year, start, end) {
+    collaboratorChallenges(id, time, year, start, end, type) {
         var url = `${baseUrl}${id}/collaborator-challenges/?time=${time}`;
         if (year != null) url = `${url}&year=${year}`;
         if (start != null) url = `${url}&start=${start.toUTCJSON()}`;
         if (end != null) url = `${url}&end=${end.toUTCJSON()}`;
+        if (type != null) url = `${url}&type=${type}`;
         return instance.get(url)
     },
     collaboratorGoals(id, current, category, year, start, end, name) {
@@ -86,11 +87,12 @@ const teams = {
         if (year != null) url = `${url}?year=${year}`;
         return instance.get(url)
     },
-    teamChallenges(id, time, year, start, end) {
+    teamChallenges(id, time, year, start, end, type) {
         var url = `${baseUrl}${id}/team-challenges/?time=${time}`;
         if (year != null) url = `${url}&year=${year}`;
         if (start != null) url = `${url}&start=${start.toUTCJSON()}`;
         if (end != null) url = `${url}&end=${end.toUTCJSON()}`;
+        if (type != null) url = `${url}&type=${type}`;
         return instance.get(url)
     },
     teamGoals(id, current, category, year, start, end, name) {

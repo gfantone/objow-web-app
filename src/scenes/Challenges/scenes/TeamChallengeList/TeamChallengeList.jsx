@@ -28,18 +28,20 @@ class TeamChallengeList extends MainLayoutComponent {
         this.year = null;
         this.start = null;
         this.end = null;
+        this.type = null;
         this.state = {
             filterOpen: false,
             collaboratorFilterLoaded: false
         }
     }
 
-    refresh(id, page, year, start, end) {
+    refresh(id, page, year, start, end, type) {
 
         var url = `/challenges/team/${id}?page=${page}`;
         if (year) url += `&year=${year}`;
         if (start) url += `&start=${start.getTime()}`;
         if (end) url += `&end=${end.getTime()}`;
+        if (type) url += `&type=${type}`;
         this.props.history.replace(url)
     }
 
@@ -79,6 +81,7 @@ class TeamChallengeList extends MainLayoutComponent {
         const params = new URLSearchParams(window.location.search);
         const page = Number(params.get('page'));
         const year = params.get('year');
+        const type = params.get('type');
         const startParam = params.get('start');
         const start = startParam ? new Date(Number(startParam)) : null;
         const endParam = params.get('end');
@@ -86,15 +89,17 @@ class TeamChallengeList extends MainLayoutComponent {
         const currentStart = this.start ? this.start.getTime().toString() : null;
         const currentEnd = this.end ? this.end.getTime().toString() : null;
 
-        if (id != this.id || page != this.page || year != this.year || startParam != currentStart || endParam != currentEnd) {
+
+        if (id != this.id || page != this.page || year != this.year || type != this.type || startParam != currentStart || endParam != currentEnd) {
             this.id = id;
             this.page = page;
             this.year = year;
+            this.type = type;
             this.start = start;
             this.end = end;
             const time = page == 1 ? -1 : page == 2 ? 1 : 0;
-            this.props.teamChallengeListActions.getTeamChallengeListByTeam(id, time, year, start, end);
-            this.props.teamCollaboratorChallengeListActions.getTeamCollaboratorChallengeList(id, time, year, start, end)
+            this.props.teamChallengeListActions.getTeamChallengeListByTeam(id, time, year, start, end, type);
+            this.props.teamCollaboratorChallengeListActions.getTeamCollaboratorChallengeList(id, time, year, start, end, type)
         }
     }
 
@@ -131,15 +136,16 @@ class TeamChallengeList extends MainLayoutComponent {
         this.loadData(props)
     }
 
-    handleFilterChange(team, collaborator, year, start, end) {
+    handleFilterChange(team, collaborator, year, start, end, type) {
         if (!collaborator) {
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.id : team;
-            this.refresh(teamId || this.props.match.params.id, this.page, year, start, end)
+            this.refresh(teamId || this.props.match.params.id, this.page, year, start, end, type)
         } else {
             var url = `/challenges/collaborator/${collaborator}?page=${this.page}`;
             if (year) url += `&year=${year}`;
             if (start) url += `&start=${start.getTime()}`;
             if (end) url += `&end=${end.getTime()}`;
+            if (type) url += `&type=${type}`;
             this.props.history.push(url)
         }
     }
@@ -206,6 +212,7 @@ class TeamChallengeList extends MainLayoutComponent {
                   year={this.year}
                   start={this.start}
                   end={this.end}
+                  type={this.type}
                   onLoaded={ this.onCollaboratorFilterLoaded.bind(this) }
                 />
                 { loading && this.renderLoader() }
@@ -221,6 +228,7 @@ class TeamChallengeList extends MainLayoutComponent {
                     year={this.year}
                     start={this.start}
                     end={this.end}
+                    type={this.type}
                   />
                 }
             </div>

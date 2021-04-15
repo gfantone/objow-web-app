@@ -6,6 +6,7 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@materi
 import { Button, DatePicker, Select, Loader } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
+import * as challengeTypeListActions from "../../../../services/ChallengeTypes/ChallengeTypeList/actions"
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as previousPeriodListActions from '../../../../services/Periods/PreviousPeriodList/actions'
 
@@ -15,14 +16,16 @@ class ChallengeFilter extends Component {
         this.state = {
             team: props.team,
             collaborator: props.collaborator,
+            type: props.type,
             year: props.year,
             start: props.end,
-            end: props.end
+            end: props.end,
+            type: props.type
         }
     }
 
     componentDidMount() {
-        this.props.teamListActions.getTeamList();
+        this.props.challengeTypeListActions.getUsableChallengeTypeList()
         this.props.currentPeriodDetailActions.getCurrentPeriodDetail();
         this.props.previousPeriodListActions.getPreviousPeriodList()
     }
@@ -34,6 +37,7 @@ class ChallengeFilter extends Component {
             || props.year != this.state.year
             || props.start != this.state.start
             || props.end != this.state.end
+            || props.type != this.state.type
         ) {
             this.setState({
                 ...this.state,
@@ -41,7 +45,8 @@ class ChallengeFilter extends Component {
                 collaborator: props.collaborator,
                 year: props.year,
                 start: props.start,
-                end: props.end
+                end: props.end,
+                type: props.type
             })
         }
     }
@@ -55,7 +60,8 @@ class ChallengeFilter extends Component {
 
     handleSubmit(model) {
         const team = model.team != null && model.team != -1 && model.team != undefined ? Number(model.team) : null;
-        const collaborator = model.collaborator != null && model.collaborator != -1 && model.collaborator != undefined ? Number(model.collaborator) : null;
+        const type = model.type != null && model.type != -1 && model.type != undefined ? Number(model.type) : null;
+
         var start = model.start;
         var end = model.end;
         if (start) {
@@ -64,7 +70,7 @@ class ChallengeFilter extends Component {
         if (end) {
             end.setHours(23, 59, 59)
         }
-        this.props.onChange(team, collaborator, model.year, start, end);
+        this.props.onChange(this.state.team, this.state.collaborator, model.year, start, end, type);
         this.props.onClose()
     }
 
@@ -74,11 +80,9 @@ class ChallengeFilter extends Component {
 
     renderData() {
         const { account } = this.props.accountDetail;
-        const { teams, loading } = this.props.teamList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
-        const { periods: previousPeriods } = this.props.previousPeriodList;
-        const selectedTeam = this.state.team ? teams.filter(team => team.id == this.state.team)[0] : null;
-        const collaborators = selectedTeam ? selectedTeam.collaborators : null;
+        const { periods: previousPeriods, loading } = this.props.previousPeriodList;
+        const {types} = this.props.challengeTypeList;
         const periods = [currentPeriod].concat(previousPeriods);
         return (
             <div>
@@ -90,6 +94,9 @@ class ChallengeFilter extends Component {
                             { !loading && (
 
                               <Grid container spacing={2}>
+                                  <Grid item xs={12}>
+                                      <Select name='type' label={Resources.CHALLENGE_FILTER_TYPE_LABEL} options={types} optionValueName={'id'} optionTextName={'name'} fullWidth initial={this.state.type} emptyText={Resources.CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION} onChange={this.handleChange('type').bind(this)}/>
+                                  </Grid>
                                   <Grid item xs={12}>
                                       <Select name={'year'} label={Resources.CHALLENGE_FILTER_PERIOD_LABEL} options={periods} optionValueName={'id'} optionTextName={'name'} emptyDisabled fullWidth initial={this.state.year} onChange={this.handleChange('year').bind(this)} />
                                   </Grid>
@@ -114,27 +121,26 @@ class ChallengeFilter extends Component {
 
     render() {
         const { account } = this.props.accountDetail;
-        const { teams, loading } = this.props.teamList;
         const { period: currentPeriod } = this.props.currentPeriodDetail;
         const { periods: previousPeriods } = this.props.previousPeriodList;
         return (
             <div>
 
-                { account && teams && currentPeriod && previousPeriods && this.renderData() }
+                { account && currentPeriod && previousPeriods && this.renderData() }
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ accountDetail, teamList, currentPeriodDetail, previousPeriodList }) => ({
+const mapStateToProps = ({ accountDetail, challengeTypeList, currentPeriodDetail, previousPeriodList }) => ({
     accountDetail,
-    teamList,
+    challengeTypeList,
     currentPeriodDetail,
     previousPeriodList
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    teamListActions: bindActionCreators(teamListActions, dispatch),
+    challengeTypeListActions: bindActionCreators(challengeTypeListActions, dispatch),
     currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
     previousPeriodListActions: bindActionCreators(previousPeriodListActions, dispatch)
 });

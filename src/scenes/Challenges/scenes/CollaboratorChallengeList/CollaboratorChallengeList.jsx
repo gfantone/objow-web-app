@@ -21,17 +21,19 @@ class CollaboratorChallengeList extends MainLayoutComponent {
         this.year = null;
         this.start = null;
         this.end = null;
+        this.type = null;
         this.state = {
             filterOpen: false,
             collaboratorFilterLoaded: false
         }
     }
 
-    refresh(id, page, year, start, end) {
+    refresh(id, page, year, start, end, type) {
         var url = `/challenges/collaborator/${id}?page=${page}`;
         if (year) url += `&year=${year}`;
         if (start) url += `&start=${start.getTime()}`;
         if (end) url += `&end=${end.getTime()}`;
+        if (type) url += `&type=${type}`;
         this.props.history.replace(url)
     }
 
@@ -50,7 +52,7 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     }
 
     handleTimeChange(page) {
-        this.refresh(this.id, page, this.year, this.start, this.end)
+        this.refresh(this.id, page, this.year, this.start, this.end, this.type)
     }
 
     loadData(props) {
@@ -64,17 +66,19 @@ class CollaboratorChallengeList extends MainLayoutComponent {
         const end = endParam ? new Date(Number(endParam)) : null;
         const currentStart = this.start ? this.start.getTime().toString() : null;
         const currentEnd = this.end ? this.end.getTime().toString() : null;
+        const type = params.get('type');
 
-        if (id != this.id || page != this.page || year != this.year || startParam != currentStart || endParam != currentEnd) {
+        if (id != this.id || page != this.page || type != this.type || year != this.year || startParam != currentStart || endParam != currentEnd) {
             this.id = id;
             this.page = page;
             this.year = year;
             this.start = start;
             this.end = end;
+            this.type = type;
             const time = page == 1 ? -1 : page == 2 ? 1 : 0;
-            this.props.collaboratorChallengeListActions.getCollaboratorChallengeList(id, time, year, start, end);
+            this.props.collaboratorChallengeListActions.getCollaboratorChallengeList(id, time, year, start, end, type);
             this.props.collaboratorDetailActions.getCollaboratorDetail(id);
-            this.props.teamChallengeListActions.getTeamChallengeListByCollaborator(id, time, year, start, end)
+            this.props.teamChallengeListActions.getTeamChallengeListByCollaborator(id, time, year, start, end, type)
         }
     }
 
@@ -93,16 +97,17 @@ class CollaboratorChallengeList extends MainLayoutComponent {
         this.loadData(props)
     }
 
-    handleFilterChange(team, collaborator, year, start, end) {
+    handleFilterChange(team, collaborator, year, start, end, type) {
         const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
         if (collaboratorId) {
-            this.refresh(collaboratorId, this.page, year, start, end)
+            this.refresh(collaboratorId, this.page, year, start, end, type)
         } else {
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team;
             var url = `/challenges/team/${teamId || this.props.match.params.id}?page=${this.page}`;
             if (year) url += `&year=${year}`;
             if (start) url += `&start=${start.getTime()}`;
             if (end) url += `&end=${end.getTime()}`;
+            if (type) url += `&type=${type}`;
             this.props.history.push(url)
         }
     }
@@ -180,6 +185,7 @@ class CollaboratorChallengeList extends MainLayoutComponent {
                   year={this.year}
                   start={this.start}
                   end={this.end}
+                  type={this.type}
                   onLoaded={this.onCollaboratorFilterLoaded.bind(this)}
                 />
                 { loading && this.renderLoader() }
@@ -192,9 +198,11 @@ class CollaboratorChallengeList extends MainLayoutComponent {
                     onClose={this.handleFilterClose.bind(this)}
                     onChange={this.handleFilterChange.bind(this)}
                     team={this.props.match.params.id}
+                    collaborator={collaboratorId}
                     year={this.year}
                     start={this.start}
                     end={this.end}
+                    type={this.type}
                   />
                 }
 

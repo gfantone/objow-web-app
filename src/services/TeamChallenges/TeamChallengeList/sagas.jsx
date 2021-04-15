@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* getTeamChallengeListByCollaborator(action) {
     try {
-        const { data: challenges } = yield call(api.collaborators.teamChallenges, action.collaboratorId, action.time, action.year, action.start, action.end);
+        const { data: challenges } = yield call(api.collaborators.teamChallenges, action.collaboratorId, action.time, action.year, action.start, action.end, action.challengeType);
         yield put(getTeamChallengeListSuccess(challenges))
     } catch(e) {
         yield put(getTeamChallengeListError())
@@ -14,7 +14,7 @@ function* getTeamChallengeListByCollaborator(action) {
 
 function* getTeamChallengeListByTeam(action) {
     try {
-        const { data: challenges } = yield call(api.teams.teamChallenges, action.teamId, action.time, action.year, action.start, action.end);
+        const { data: challenges } = yield call(api.teams.teamChallenges, action.teamId, action.time, action.year, action.start, action.end, action.challengeType);
         yield put(getTeamChallengeListSuccess(challenges))
     } catch(e) {
         yield put(getTeamChallengeListError())
