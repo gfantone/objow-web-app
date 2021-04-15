@@ -55,7 +55,7 @@ class ChallengeHome extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
         const { configs, loading } = this.props.configList;
 
-        if(loading && !configs) {
+        if(loading || !configs) {
           return this.renderLoader()
         }
 
