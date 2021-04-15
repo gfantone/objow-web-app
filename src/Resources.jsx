@@ -180,6 +180,9 @@ export const CHALLENGE_AWARD_LIST_TEAM_POINT_LABEL = "Gain équipe #{0}"
 export const CHALLENGE_AWARD_LIST_LIVE_LABEL = "Points gagnés en live"
 export const CHALLENGE_AWARD_LIST_LIVE_INFOS = "Si activé, les points seront automatiquement gagnés par les participants avant la date de fin du challenge."
 
+// Challenge - Category list
+export const CHALLENGE_CATEGORY_LIST_TITLE = "Sélection de la catégorie"
+
 // Challenge - Collaborator challenge detail
 export const COLLABORATOR_CHALLENGE_DETAIL_RANK_TAB = "Classements"
 export const COLLABORATOR_CHALLENGE_DETAIL_CONDITION_TAB = "Conditions"
