@@ -73,7 +73,7 @@ class TeamChallengeList extends MainLayoutComponent {
     }
 
     handleTimeChange(page) {
-        this.refresh(this.id, page, this.year, this.start, this.end)
+        this.refresh(this.id, page, this.year, this.start, this.end, this.type)
     }
 
     loadData(props) {
