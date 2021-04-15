@@ -15,7 +15,6 @@ const styles = {
 
 class FilterSelector extends Component {
   componentDidMount() {
-      this.props.handleMaxWidth('sm')
       this.props.challengeTypeListActions.getUsableChallengeTypeList()
   }
   renderLoader() {

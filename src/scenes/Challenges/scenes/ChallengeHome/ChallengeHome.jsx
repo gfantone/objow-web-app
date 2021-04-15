@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
-import { IconButton, MainLayoutComponent, TeamSelector, Loader } from '../../../../components'
+import { IconButton, MainLayoutComponent, TeamSelector, Loader, AppBarSubTitle } from '../../../../components'
 import { FilterSelector } from './components'
 import * as Resources from '../../../../Resources'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
@@ -40,8 +40,10 @@ class ChallengeHome extends MainLayoutComponent {
     }
 
     componentDidMount() {
+
         const { account } = this.props.accountDetail;
         this.props.handleTitle(account.challengeWording || Resources.CHALLENGE_LONG_TITLE);
+        this.props.handleSubHeader(<AppBarSubTitle title={Resources.CHALLENGE_CATEGORY_LIST_TITLE} />)
         if (account.role.code == 'A') {
             this.props.handleButtons(<IconButton size='small' onClick={this.handleAdd.bind(this)}><FontAwesomeIcon icon={faPlus}/></IconButton>)
         }
@@ -65,17 +67,20 @@ class ChallengeHome extends MainLayoutComponent {
           return <Redirect to={'/'} />
         }
 
-        if (account.role.code == 'A' && !this.state.team) {
-            return (
-              <div>
-                <TeamSelector onClick={this.handleClick.bind(this)} />
-              </div>
-            )
-        }
 
         if(this.state.filter === null && displayFilterSelector) {
+          this.props.handleMaxWidth('sm')
           return(
-            <FilterSelector handleMaxWidth={this.props.handleMaxWidth} selectFilter={this.selectFilter}/>
+            <FilterSelector selectFilter={this.selectFilter}/>
+          )
+        }
+        this.props.handleMaxWidth('lg')
+
+        if (account.role.code == 'A' && !this.state.team) {
+          return (
+            <div>
+              <TeamSelector onClick={this.handleClick.bind(this)} />
+            </div>
           )
         }
 
