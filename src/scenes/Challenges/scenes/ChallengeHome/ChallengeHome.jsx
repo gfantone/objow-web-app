@@ -1,12 +1,15 @@
 import React from 'react'
 import { Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
-import { IconButton, MainLayoutComponent, TeamSelector } from '../../../../components'
+import { IconButton, MainLayoutComponent, TeamSelector, Loader } from '../../../../components'
 import { FilterSelector } from './components'
 import * as Resources from '../../../../Resources'
+import * as configListActions from '../../../../services/Configs/ConfigList/actions'
+
 
 class ChallengeHome extends MainLayoutComponent {
     constructor(props) {
@@ -42,10 +45,21 @@ class ChallengeHome extends MainLayoutComponent {
         if (account.role.code == 'A') {
             this.props.handleButtons(<IconButton size='small' onClick={this.handleAdd.bind(this)}><FontAwesomeIcon icon={faPlus}/></IconButton>)
         }
+        this.props.configListActions.getPermanentConfigList()
     }
 
+    renderLoader() {
+      return <Loader centered />
+    }
     render() {
         const { account } = this.props.accountDetail;
+        const { configs, loading } = this.props.configList;
+
+        if(loading && !configs) {
+          return this.renderLoader()
+        }
+
+        const displayFilterSelector = configs.find(c => c.code === 'CFIP').value.toBoolean()
 
         if(!account.hasChallengeAccess) {
           return <Redirect to={'/'} />
@@ -59,15 +73,16 @@ class ChallengeHome extends MainLayoutComponent {
             )
         }
 
-        if(this.state.filter === null) {
+        if(this.state.filter === null && displayFilterSelector) {
           return(
             <FilterSelector handleMaxWidth={this.props.handleMaxWidth} selectFilter={this.selectFilter}/>
           )
         }
+
         if(account.role.code == 'C') {
-          return <Redirect to={`/challenges/collaborator/${account.id}${ this.state.filter }`} />
+          return <Redirect to={`/challenges/collaborator/${account.id}${ this.state.filter ? this.state.filter : '' }`} />
         }
-        return <Redirect to={`/challenges/team/${_.get(account, 'team.id') || this.state.team}${ this.state.filter }`} />
+        return <Redirect to={`/challenges/team/${_.get(account, 'team.id') || this.state.team}${ this.state.filter ? this.state.filter : '' }`} />
 
         // if (account.role.code == 'C') {
         //     return <Redirect to={`/challenges/collaborator/${account.id}`} />
@@ -84,8 +99,14 @@ class ChallengeHome extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ accountDetail }) => ({
-    accountDetail
+const mapStateToProps = ({ accountDetail, configList }) => ({
+    accountDetail,
+    configList
 });
 
-export default connect(mapStateToProps)(withRouter(ChallengeHome))
+const mapDispatchToProps = (dispatch) => ({
+    configListActions: bindActionCreators(configListActions, dispatch),
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ChallengeHome))
