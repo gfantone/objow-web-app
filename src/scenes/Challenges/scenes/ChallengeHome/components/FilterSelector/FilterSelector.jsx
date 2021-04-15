@@ -38,7 +38,7 @@ class FilterSelector extends Component {
             <Category category={{ name: "Top 50", icon: top_icon }} />
           </Grid>
           <Grid item xs={12} sm={6} md={4} onClick={() => { this.props.selectFilter(`?type=${managerType.id}`) }} className={classes.icon}>
-            <Category category={{ name: "Mes challenges", icon: my_challenges_icon }} />
+            <Category category={{ name: "Challenges réseaux", icon: my_challenges_icon }} />
           </Grid>
         </Grid>
       </div>
