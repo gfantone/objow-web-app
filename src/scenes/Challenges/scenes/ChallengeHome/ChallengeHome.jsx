@@ -75,7 +75,8 @@ class ChallengeHome extends MainLayoutComponent {
           )
         }
         this.props.handleMaxWidth('lg')
-
+        this.props.handleSubHeader()
+        
         if (account.role.code == 'A' && !this.state.team) {
           return (
             <div>
