@@ -124,7 +124,7 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     mergeChallenges(collaboratorGoals, teamGoals) {
         return collaboratorGoals.concat(teamGoals).sort((a, b) => {
             const comparison = a.end - b.end;
-            return this.page ? comparison : comparison * -1
+            return this.page ? comparison * -1 : comparison
             // return this.page == 0 || this.page == 2 ? comparison : comparison * -1
         })
     }
