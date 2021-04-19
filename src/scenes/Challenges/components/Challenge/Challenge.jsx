@@ -1,5 +1,6 @@
 import React from 'react'
-import {Grid} from '@material-ui/core'
+import {Grid, Avatar} from '@material-ui/core'
+import {AvatarGroup} from '@material-ui/lab'
 import {withStyles} from '@material-ui/core/styles'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faFlagCheckered} from '@fortawesome/free-solid-svg-icons'
@@ -16,6 +17,13 @@ const styles = {
         position: 'absolute',
         right: 0,
         top: 16
+    },
+    avatarGroup: {
+      marginTop: 7
+    },
+    avatar: {
+      width: 18,
+      height: 18,
     }
 }
 
@@ -44,11 +52,22 @@ const Challenge = ({challenge, ...props}) => {
                         <FontAwesomeIcon icon={faFireAlt} /> {Resources.CHALLENGE_POINTS.format(challenge.points)} <InfoText component='span'>/ {Resources.CHALLENGE_MAX_POINTS.format(challenge.maxPoints)}</InfoText
                     ></DefaultText>
                 </Grid>
-                <Grid item xs>
-                    <DefaultText align='right'>
-                        <ChallengeType type={challenge.typeCode} />
-                    </DefaultText>
-                </Grid>
+                    { challenge.topParticipants && (
+                      <Grid item style={{marginLeft: 'auto'}}>
+                          <AvatarGroup className={ classes.avatarGroup }>
+                            {challenge.topParticipants.map(participant => (
+                              <Avatar src={ participant.photo } className={ classes.avatar } />
+                            ))}
+                          </AvatarGroup>
+                      </Grid>
+                    )}
+                    { !challenge.topParticipants && (
+                      <Grid item>
+                        <DefaultText align='right'>
+                            <ChallengeType type={challenge.typeCode} />
+                        </DefaultText>
+                      </Grid>
+                    )}
             </Grid>
         </div>
     )
