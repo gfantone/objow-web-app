@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid, Avatar} from '@material-ui/core'
+import {Grid, Avatar, Tooltip} from '@material-ui/core'
 import {AvatarGroup} from '@material-ui/lab'
 import {withStyles} from '@material-ui/core/styles'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -8,6 +8,7 @@ import {faFireAlt} from '@fortawesome/free-solid-svg-icons'
 import {ChallengeImage, ChallengeType} from '..'
 import {DefaultText, InfoText, TimerTag} from '../../../../components'
 import * as Resources from '../../../../Resources'
+import _ from 'lodash'
 
 const styles = {
     imageContainer: {
@@ -19,16 +20,18 @@ const styles = {
         top: 16
     },
     avatarGroup: {
-      marginTop: 7
+      marginTop: '-2px'
     },
     avatar: {
-      width: 18,
-      height: 18,
+      width: 22,
+      height: 22,
     }
 }
 
 const Challenge = ({challenge, ...props}) => {
     const {classes} = props
+    
+    const hasParticipants = !_.isEmpty(_.get(challenge, 'topParticipants'))
 
     return (
         <div>
@@ -52,17 +55,19 @@ const Challenge = ({challenge, ...props}) => {
                         <FontAwesomeIcon icon={faFireAlt} /> {Resources.CHALLENGE_POINTS.format(challenge.points)} <InfoText component='span'>/ {Resources.CHALLENGE_MAX_POINTS.format(challenge.maxPoints)}</InfoText
                     ></DefaultText>
                 </Grid>
-                    { challenge.topParticipants && (
+                    { hasParticipants && (
                       <Grid item style={{marginLeft: 'auto'}}>
                           <AvatarGroup className={ classes.avatarGroup }>
                             {challenge.topParticipants.map(participant => (
-                              <Avatar src={ participant.photo } className={ classes.avatar } />
+                              <Tooltip title={ participant.fullname }>
+                                <Avatar src={ participant.photo } className={ classes.avatar } />
+                              </Tooltip>
                             ))}
                           </AvatarGroup>
                       </Grid>
                     )}
-                    { !challenge.topParticipants && (
-                      <Grid item>
+                    { !hasParticipants && (
+                      <Grid item style={{marginLeft: 'auto'}}>
                         <DefaultText align='right'>
                             <ChallengeType type={challenge.typeCode} />
                         </DefaultText>
