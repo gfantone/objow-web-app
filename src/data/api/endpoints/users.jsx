@@ -15,6 +15,10 @@ const users = {
         const url = `${baseUrl}import/`;
         return instance.post(url, request)
     },
+    export(request) {
+        const url = `${baseUrl}export/`;
+        return instance.get(url, request)
+    },
     list(isActive) {
         const url = `${baseUrl}?isActive=${isActive}`;
         return instance.get(url)

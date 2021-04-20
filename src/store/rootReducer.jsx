@@ -163,6 +163,7 @@ import userGoalDetail from '../services/UserGoals/UserGoalDetail/reducer'
 import userGoalList from '../services/UserGoals/UserGoalList/reducer'
 import userList from '../services/Users/UserList/reducer'
 import userListImport from '../services/Users/UserListImport/reducer'
+import userListExport from '../services/Users/UserListExport/reducer'
 import userUpdate from '../services/Users/UserUpdate/reducer'
 import userUpdateActivation from '../services/Users/UserUpdateActivation/reducer'
 import userUpdatePassword from '../services/Users/UserUpdatePassword/reducer'
@@ -332,6 +333,7 @@ const rootReducer = combineReducers({
     userGoalList,
     userList,
     userListImport,
+    userListExport,
     userUpdate,
     userUpdateActivation,
     userUpdatePassword

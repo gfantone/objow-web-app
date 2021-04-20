@@ -166,6 +166,7 @@ const initialState = {
     userGoalList: {loading: false, goals: [], hasError: false},
     userList: {user: null, loading: false, hasError: false},
     userListImport: {success: false, loading: false, error: null},
+    userListExport: {success: false, loading: false, error: null},
     userPlayerCategoryRankList: {ranks: [], loading: false, hasError: false},
     userTeamCategoryRankList: {ranks: [], loading: false, hasError: false},
     userTeamDetail: {team: null, loading: false, hasError: false},
