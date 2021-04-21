@@ -1,0 +1,2 @@
+export const BAD_REQUEST_ERROR = 'BAD_REQUEST_ERROR';
+export const UNKNOWN_ERROR = 'UNKNOWN_ERROR';

@@ -1,16 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faFileUpload, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {faFileUpload, faFileDownload, faPlus} from '@fortawesome/free-solid-svg-icons'
 import {SubHeader, UserListImport} from './components'
 import {DataTable, IconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as userListActions from '../../../../services/Users/UserList/actions'
+import * as userListExportActions from '../../../../services/Users/UserListExport/actions'
 import {bindActionCreators} from 'redux'
 import '../../../../helpers/NumberHelper'
 import {Tooltip} from "@material-ui/core";
+import api from '../../../../data/api/api';
 
 class AdminUserList extends MainLayoutComponent {
-    state = {importOpen: false};
+    state = {
+      importOpen: false,
+      isActive: true
+    };
 
     loadUserList(isActive) {
         this.props.userListActions.getUserList(isActive)
@@ -21,13 +26,21 @@ class AdminUserList extends MainLayoutComponent {
     }
 
     handlePageChange = (page) => {
-        this.loadUserList(page == 0)
+        const isActive = page == 0
+        this.loadUserList(isActive)
+        this.setState({
+          ...this.state,
+          isActive: isActive
+        })
     };
 
     componentDidMount() {
         this.props.handleTitle('Administration');
         this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} />);
         this.props.handleButtons(<div>
+            <Tooltip title='Exporter'>
+                <IconButton size='small' onClick={this.export.bind(this)} style={{marginRight: 8}}><FontAwesomeIcon icon={faFileDownload} /></IconButton>
+            </Tooltip>
             <Tooltip title='Importer'>
                 <IconButton size='small' onClick={this.onOpen.bind(this)} style={{marginRight: 8}}><FontAwesomeIcon icon={faFileUpload} /></IconButton>
             </Tooltip>
@@ -37,6 +50,24 @@ class AdminUserList extends MainLayoutComponent {
         </div>);
         this.props.activateReturn();
         this.loadUserList(true)
+    }
+
+    async export() {
+      const { users } = this.props.userList;
+      const request = new FormData();
+      request.append('users', users);
+
+      const response = await api.users.export(request, this.state.isActive)
+
+      const blob = new Blob([response.data], { type: 'text/csv' })
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.setAttribute('hidden', '')
+      a.setAttribute('href', url)
+      a.setAttribute('download', `firetiger_users_${(new Date).toLocaleDateString()}.csv`)
+      document.body.appendChild(a)
+
+      a.click()
     }
 
     renderLoader() {
@@ -97,12 +128,14 @@ class AdminUserList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ userList }) => ({
-    userList
+const mapStateToProps = ({ userList, userListExport }) => ({
+    userList,
+    userListExport
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    userListActions: bindActionCreators(userListActions, dispatch)
+    userListActions: bindActionCreators(userListActions, dispatch),
+    userListExportActions: bindActionCreators(userListExportActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminUserList)
