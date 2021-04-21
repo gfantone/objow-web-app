@@ -7,7 +7,6 @@ import api from '../../../data/api/api'
 
 function* exportUserList(action) {
     try {
-        console.log("export");
         yield call(api.users.export, action.request);
         yield put(exportUserListSuccess())
     } catch(e) {

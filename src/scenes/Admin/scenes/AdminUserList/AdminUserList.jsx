@@ -9,9 +9,13 @@ import * as userListExportActions from '../../../../services/Users/UserListExpor
 import {bindActionCreators} from 'redux'
 import '../../../../helpers/NumberHelper'
 import {Tooltip} from "@material-ui/core";
+import api from '../../../../data/api/api';
 
 class AdminUserList extends MainLayoutComponent {
-    state = {importOpen: false};
+    state = {
+      importOpen: false,
+      isActive: true
+    };
 
     loadUserList(isActive) {
         this.props.userListActions.getUserList(isActive)
@@ -22,7 +26,12 @@ class AdminUserList extends MainLayoutComponent {
     }
 
     handlePageChange = (page) => {
-        this.loadUserList(page == 0)
+        const isActive = page == 0
+        this.loadUserList(isActive)
+        this.setState({
+          ...this.state,
+          isActive: isActive
+        })
     };
 
     componentDidMount() {
@@ -43,12 +52,22 @@ class AdminUserList extends MainLayoutComponent {
         this.loadUserList(true)
     }
 
-    export() {
+    async export() {
       const { users } = this.props.userList;
       const request = new FormData();
       request.append('users', users);
-      const response = this.props.userListExportActions.exportUserList(request)
-      console.log(response);
+
+      const response = await api.users.export(request, this.state.isActive)
+
+      const blob = new Blob([response.data], { type: 'text/csv' })
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.setAttribute('hidden', '')
+      a.setAttribute('href', url)
+      a.setAttribute('download', `firetiger_users_${(new Date).toLocaleDateString()}.csv`)
+      document.body.appendChild(a)
+
+      a.click()
     }
 
     renderLoader() {
@@ -109,8 +128,9 @@ class AdminUserList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ userList }) => ({
-    userList
+const mapStateToProps = ({ userList, userListExport }) => ({
+    userList,
+    userListExport
 });
 
 const mapDispatchToProps = (dispatch) => ({
