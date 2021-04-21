@@ -23,14 +23,22 @@ const styles = {
       marginTop: '-2px'
     },
     avatar: {
-      width: 22,
-      height: 22,
+      // width: 22,
+      // height: 22,
+    },
+    bigText: {
+      textTransform: 'none',
+      fontSize: 16
+    },
+    smallText: {
+      textTransform: 'none',
+      fontSize: 13
     }
 }
 
 const Challenge = ({challenge, ...props}) => {
     const {classes} = props
-    
+    console.log(challenge);
     const hasParticipants = !_.isEmpty(_.get(challenge, 'topParticipants'))
 
     return (
@@ -45,27 +53,41 @@ const Challenge = ({challenge, ...props}) => {
                     </div>
                 </Grid>
                 <Grid item>
-                    <DefaultText>
-                        {challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.rank == 1 ? Resources.CHALLENGE_FIRST_RANK.format(challenge.rank) : Resources.CHALLENGE_OTHER_RANK.format(challenge.rank)} <InfoText component='span'>/ {challenge.participants}</InfoText></div>)}
-                        {!challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.typeCode !== 'CT' ? Resources.CHALLENGE_COLLABORATORS.format(challenge.participants) : Resources.CHALLENGE_TEAMS.format(challenge.participants)}</div>)}
-                    </DefaultText>
+                  <Grid container spacing={1} direction="column">
+                    <Grid item>
+                      <DefaultText className={ classes.bigText }>
+                        { challenge.name }
+                      </DefaultText>
+                    </Grid>
+                    <Grid item>
+                      <Grid container spacing={1} direction="row">
+                        { hasParticipants && (
+                          <Grid item>
+                            <AvatarGroup className={ classes.avatarGroup }>
+                              {challenge.topParticipants.map(participant => (
+                                <Tooltip title={ participant.fullname }>
+                                  <Avatar src={ participant.photo } className={ classes.avatar }></Avatar>
+                                </Tooltip>
+                              ))}
+                            </AvatarGroup>
+                          </Grid>
+                        )}
+                        <Grid item style={{marginLeft:'auto'}}>
+                          <DefaultText className={ classes.smallText }>
+                            {challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.rank == 1 ? Resources.CHALLENGE_FIRST_RANK.format(challenge.rank) : Resources.CHALLENGE_OTHER_RANK.format(challenge.rank)} <InfoText component='span'>/ {challenge.participants}</InfoText></div>)}
+                            {!challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.typeCode !== 'CT' ? Resources.CHALLENGE_COLLABORATORS.format(challenge.participants) : Resources.CHALLENGE_TEAMS.format(challenge.participants)}</div>)}
+                          </DefaultText>
+                        </Grid>
+                      </Grid >
+                    </Grid >
+                    <Grid item>
+                      <DefaultText className={ classes.smallText }>
+                        <FontAwesomeIcon icon={faFireAlt} /> {Resources.CHALLENGE_POINTS.format(challenge.points)} <InfoText component='span'>/ {Resources.CHALLENGE_MAX_POINTS.format(challenge.maxPoints)}</InfoText>
+                      </DefaultText>
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                    <DefaultText>
-                        <FontAwesomeIcon icon={faFireAlt} /> {Resources.CHALLENGE_POINTS.format(challenge.points)} <InfoText component='span'>/ {Resources.CHALLENGE_MAX_POINTS.format(challenge.maxPoints)}</InfoText
-                    ></DefaultText>
-                </Grid>
-                    { hasParticipants && (
-                      <Grid item style={{marginLeft: 'auto'}}>
-                          <AvatarGroup className={ classes.avatarGroup }>
-                            {challenge.topParticipants.map(participant => (
-                              <Tooltip title={ participant.fullname }>
-                                <Avatar src={ participant.photo } className={ classes.avatar } />
-                              </Tooltip>
-                            ))}
-                          </AvatarGroup>
-                      </Grid>
-                    )}
+
                     { !hasParticipants && (
                       <Grid item style={{marginLeft: 'auto'}}>
                         <DefaultText align='right'>
