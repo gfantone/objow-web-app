@@ -66,17 +66,17 @@ class AdminUserCreation extends MainLayoutComponent {
                         <Card>
                             <Grid container spacing={2}>
                                 <Grid item xs={6}>
-                                    <TextField name='firstname' label='Prénom' fullWidth required
+                                    <TextField name='firstname' label='Prénom' fullWidth required lowercase
                                         validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField name='lastname' label='Nom' fullWidth required
+                                    <TextField name='lastname' label='Nom' fullWidth required lowercase
                                         validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <TextField name='email' label='Email' validations="isEmail" fullWidth required
+                                    <TextField name='email' label='Email' validations="isEmail" fullWidth required lowercase
                                         validationErrors={{
                                             isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                             isEmail: "L'email n'est pas valide."
@@ -95,12 +95,12 @@ class AdminUserCreation extends MainLayoutComponent {
                                     { this.state.display && <Select name='team' label='Équipe' options={selectableTeams} optionValueName='id' optionTextName='name' fullWidth /> }
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField type='password' name='password' label='Mot de passe' fullWidth required
+                                    <TextField type='password' name='password' label='Mot de passe' fullWidth required lowercase
                                         validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                     />
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <TextField type='password' name='paswwordConfirm' label='Confirmation du mot de passe' fullWidth
+                                    <TextField type='password' name='paswwordConfirm' label='Confirmation du mot de passe' fullWidth lowercase
                                         validations='equalsField:password'
                                         validationErrors={{
                                             isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
