@@ -92,17 +92,17 @@ class AdminUserUpdate extends MainLayoutComponent {
                                     <Card>
                                         <Grid container spacing={2}>
                                             <Grid item xs={6}>
-                                                <TextField name='firstname' label={Resources.ADMIN_USER_UPDATE_FIRSTNAME} initial={user.firstname} fullWidth required
+                                                <TextField name='firstname' label={Resources.ADMIN_USER_UPDATE_FIRSTNAME} initial={user.firstname} fullWidth required lowercase
                                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                                 />
                                             </Grid>
                                             <Grid item xs={6}>
-                                                <TextField name='lastname' label={Resources.ADMIN_USER_UPDATE_LASTNAME} initial={user.lastname} fullWidth required
+                                                <TextField name='lastname' label={Resources.ADMIN_USER_UPDATE_LASTNAME} initial={user.lastname} fullWidth required lowercase
                                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                                 />
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <TextField name='email' label={Resources.ADMIN_USER_UPDATE_EMAIL} validations="isEmail" initial={user.email} fullWidth required
+                                                <TextField name='email' label={Resources.ADMIN_USER_UPDATE_EMAIL} validations="isEmail" initial={user.email} fullWidth required lowercase
                                                            validationErrors={{
                                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
                                                                isEmail: Resources.COMMON_EMAIL_ERROR
@@ -121,12 +121,12 @@ class AdminUserUpdate extends MainLayoutComponent {
                                                 <Select name='team' label={Resources.ADMIN_USER_UPDATE_TEAM} options={selectableTeams} optionValueName='id' optionTextName='name' initial={initialTeam} fullWidth />
                                             </Grid>
                                             <Grid item xs={6}>
-                                                <TextField type='password' name='password' label={Resources.ADMIN_USER_UPDATE_PASSWORD} fullWidth
+                                                <TextField type='password' name='password' label={Resources.ADMIN_USER_UPDATE_PASSWORD} fullWidth lowercase
                                                            validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                                 />
                                             </Grid>
                                             <Grid item xs={6}>
-                                                <TextField type='password' name='paswwordConfirm' label={Resources.ADMIN_USER_UPDATE_PASSWORD_CONFIRM} fullWidth
+                                                <TextField type='password' name='paswwordConfirm' label={Resources.ADMIN_USER_UPDATE_PASSWORD_CONFIRM} fullWidth lowercase
                                                            validations='equalsField:password'
                                                            validationErrors={{
                                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
