@@ -45,9 +45,12 @@ const styles = {
 }
 
 const Challenge = ({challenge, ...props}) => {
-    const {classes} = props
+    const { classes, configs } = props
     const hasParticipants = !_.isEmpty(_.get(challenge, 'topParticipants'))
-    const initials = fullname => fullname.split(' ').map(name => name.slice(0,1).toUpperCase()).join('')
+    const initials = fullname => fullname && fullname.split(' ').map(name => name.slice(0,1).toUpperCase()).join('')
+
+    const displayTitle = configs && _.get(configs.find(c => c.code === 'CTTA'), 'value', 'false').toBoolean()
+
     const avatarColors = [
       '#EFEFEF', '#DEDEE8', '#F3F0E0', '#E4EADE', '#DCE5E6', '#EDE8EA'
     ]
@@ -68,7 +71,7 @@ const Challenge = ({challenge, ...props}) => {
                       <Grid container spacing={1} direction="row">
                         <Grid item>
                           <DefaultText className={ classes.smallText }>
-                            {challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.rank == 1 ? Resources.CHALLENGE_FIRST_RANK.format(challenge.rank) : Resources.CHALLENGE_OTHER_RANK.format(challenge.rank)} <InfoText component='span'>/ {challenge.participants}</InfoText></div>)}
+                            {challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.rank == 1 ? Resources.CHALLENGE_FIRST_RANK.format(challenge.rank) : Resources.CHALLENGE_OTHER_RANK.format(challenge.rank)} <InfoText component='span' className={ classes.smallText }>/ {challenge.participants}</InfoText></div>)}
                             {!challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.typeCode !== 'CT' ? Resources.CHALLENGE_COLLABORATORS.format(challenge.participants) : Resources.CHALLENGE_TEAMS.format(challenge.participants)}</div>)}
                           </DefaultText>
                         </Grid>
@@ -85,24 +88,26 @@ const Challenge = ({challenge, ...props}) => {
                         </Grid>
                       </Grid>
                     </Grid>
-                    <Grid item style={{paddingTop: 0}}>
-                      <BoldTitle>
-                        { challenge.name }
-                      </BoldTitle>
-                    </Grid>
+                    {displayTitle && (
+                      <Grid item style={{paddingTop: 0}}>
+                        <BoldTitle>
+                          { challenge.name }
+                        </BoldTitle>
+                      </Grid>
+                    )}
                     <Grid item>
                       <Grid container spacing={1} direction="row" style={{ flexWrap: 'noWrap' }}>
                         { hasParticipants && (
                           <Grid item style={{width: '100%'}}>
                             <AvatarGroup className={ classes.avatarGroup } max={10}>
                               {challenge.topParticipants.map((participant, index) => (
-                                <Tooltip title={ participant.fullname }>
+                                <Tooltip title={ participant.fullname || _.get(participant, 'team.name') }>
                                   <Avatar src={ participant.photo } className={ classes.avatar } style={{
                                       fontSize: '16px',
                                       backgroundColor: chroma(avatarColors[index % avatarColors.length]),
                                       color: chroma(avatarColors[index % avatarColors.length]).darken(1.5)
                                     }}>
-                                    { participant.photo ? '' : initials(participant.fullname) }
+                                    { participant.photo ? '' : initials(participant.fullname) || participant.rank }
                                   </Avatar>
                                 </Tooltip>
                               ))}
