@@ -65,15 +65,22 @@ const Challenge = ({challenge, ...props}) => {
                 </Grid>
                 <Grid item style={{width: '100%'}}>
                   <Grid container spacing={1} direction="column">
+                    {displayTitle && (
+                      <Grid item>
+                        <BoldTitle>
+                          { challenge.name }
+                        </BoldTitle>
+                      </Grid>
+                    )}
                     <Grid item>
                       <Grid container spacing={1} direction="row">
-                        <Grid item>
+                        <Grid item style={{paddingTop: 0}}>
                           <DefaultText className={ classes.smallText }>
                             {challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.rank == 1 ? Resources.CHALLENGE_FIRST_RANK.format(challenge.rank) : Resources.CHALLENGE_OTHER_RANK.format(challenge.rank)} <InfoText component='span' className={ classes.smallText }>/ {challenge.participants}</InfoText></div>)}
                             {!challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.typeCode !== 'CT' ? Resources.CHALLENGE_COLLABORATORS.format(challenge.participants) : Resources.CHALLENGE_TEAMS.format(challenge.participants)}</div>)}
                           </DefaultText>
                         </Grid>
-                        <Grid item>
+                        <Grid item style={{paddingTop: 0}}>
                           <DefaultText className={ classes.smallText }>
                             <FontAwesomeIcon icon={faFireAlt} />
                             &nbsp;
@@ -86,13 +93,6 @@ const Challenge = ({challenge, ...props}) => {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {displayTitle && (
-                      <Grid item style={{paddingTop: 0}}>
-                        <BoldTitle>
-                          { challenge.name }
-                        </BoldTitle>
-                      </Grid>
-                    )}
                     <Grid item>
                       <Grid container spacing={1} direction="row" style={{ flexWrap: 'noWrap' }}>
                         { hasParticipants && (
