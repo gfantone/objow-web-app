@@ -69,10 +69,10 @@ const Account = ({onNavigate, ...props}) => {
         <div className={classes.root}>
             <Grid container spacing={2}>
                 { isCollaborator && <GridLink item component={Link} to={`/collaborators/${account.id}/detail`}>
-                    <Avatar src={photo} className={classes.avatar} onClick={onNavigate} entityId={account.id} />
+                    <Avatar src={photo} className={classes.avatar} onClick={onNavigate}  />
                 </GridLink> }
                 { !isCollaborator && <Grid item>
-                    <Avatar src={photo} className={classes.avatar} entityId={account.id}/>
+                    <Avatar src={photo} className={classes.avatar}/>
                 </Grid> }
                 <Grid item xs zeroMinWidth>
                     <div>
