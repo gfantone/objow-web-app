@@ -13,6 +13,11 @@ import _ from 'lodash'
 import chroma from 'chroma-js'
 
 const styles = {
+    challengeImage: {
+
+        height: '600px'
+
+    },
     imageContainer: {
         position: 'relative'
     },
@@ -37,7 +42,7 @@ const styles = {
 
     },
     smallText: {
-      fontSize: 12
+      fontSize: 13
     },
     challengeType: {
       lineHeight: 35,
@@ -60,7 +65,7 @@ const Challenge = ({challenge, ...props}) => {
                         <div className={classes.timerContainer}>
                             <TimerTag date={challenge.end} />
                         </div>
-                        <ChallengeImage image={challenge.custom_image || challenge.image} />
+                        <ChallengeImage image={challenge.custom_image || challenge.image} style={{ height: hasParticipants ? '' : '189px' }}/>
                     </div>
                 </Grid>
                 <Grid item style={{width: '100%'}}>
@@ -74,13 +79,13 @@ const Challenge = ({challenge, ...props}) => {
                     )}
                     <Grid item>
                       <Grid container spacing={1} direction="row">
-                        <Grid item style={{paddingTop: 0}}>
+                        <Grid item>
                           <DefaultText className={ classes.smallText }>
                             {challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.rank == 1 ? Resources.CHALLENGE_FIRST_RANK.format(challenge.rank) : Resources.CHALLENGE_OTHER_RANK.format(challenge.rank)} <InfoText component='span' className={ classes.smallText }>/ {challenge.participants}</InfoText></div>)}
                             {!challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.typeCode !== 'CT' ? Resources.CHALLENGE_COLLABORATORS.format(challenge.participants) : Resources.CHALLENGE_TEAMS.format(challenge.participants)}</div>)}
                           </DefaultText>
                         </Grid>
-                        <Grid item style={{paddingTop: 0}}>
+                        <Grid item>
                           <DefaultText className={ classes.smallText }>
                             <FontAwesomeIcon icon={faFireAlt} />
                             &nbsp;
@@ -91,38 +96,47 @@ const Challenge = ({challenge, ...props}) => {
                             </InfoText>
                           </DefaultText>
                         </Grid>
+                        { !hasParticipants &&
+                          <Grid item style={{ marginLeft: 'auto' }}>
+                            <DefaultText className={ classes.smallText }>
+                              <ChallengeType type={challenge.typeCode} />
+                            </DefaultText>
+                          </Grid>
+                        }
                       </Grid>
                     </Grid>
                     <Grid item>
                       <Grid container spacing={1} direction="row" style={{ flexWrap: 'noWrap' }}>
                         { hasParticipants && (
-                          <Grid item style={{width: '100%'}}>
-                            <AvatarGroup className={ classes.avatarGroup } max={10}>
-                              {challenge.topParticipants.map((participant, index) => (
-                                <Tooltip title={ participant.fullname || _.get(participant, 'team.name') }>
+                          <React.Fragment>
+                            <Grid item style={{width: '100%'}}>
+                              <AvatarGroup className={ classes.avatarGroup } max={15}>
+                                {challenge.topParticipants.map((participant, index) => (
                                   <Avatar
                                     src={ participant.photo }
                                     entityId={participant.id}
                                     className={ classes.avatar }
                                     fallbackName={participant.photo ? '' : participant.fullname || (participant.rank || index + 1)}
-                                    backgroundColor={challenge.typeCode === 'CT' ? _.get(participant, 'team.color.hex') : null}
-                                    color={challenge.typeCode === 'CT' ? 'white' : null}
-                                  />
-                                </Tooltip>
-                              ))}
-                            </AvatarGroup>
-                          </Grid>
+                                    backgroundColor={challenge.typeCode === 'CT' ? 'white' : null}
+                                    color={challenge.typeCode === 'CT' ? '#555' : null}
+                                    borderColor={ challenge.typeCode === 'CT' ? _.get(participant, 'team.color.hex') : null}
+                                    tooltip={ participant.fullname || _.get(participant, 'team.name') }
+                                    />
+                                ))}
+                              </AvatarGroup>
+                            </Grid>
+                            <Grid item className={ classes.challengeType }>
+                              <DefaultText align='right' style={{ display: 'flex', lineHeight: '2.5' }}>
+                                <span style={{ marginRight: '2px' }}>
+                                  <ChallengeType type={challenge.typeCode} />
+                                </span>
+                                <span>
+                                  { challenge.typeCode === 'CT' ? Resources.TEAM_TITLE_SINGULAR : challenge.typeName }
+                                </span>
+                              </DefaultText>
+                            </Grid>
+                          </React.Fragment>
                         )}
-                        <Grid item className={ classes.challengeType }>
-                          <DefaultText align='right' style={{ display: 'flex', lineHeight: '2.5' }}>
-                              <span style={{ marginRight: '2px' }}>
-                                <ChallengeType type={challenge.typeCode} />
-                              </span>
-                              <span>
-                                { challenge.typeCode === 'CT' ? Resources.TEAM_TITLE_SINGULAR : challenge.typeName }
-                              </span>
-                          </DefaultText>
-                        </Grid>
                       </Grid >
                     </Grid >
                   </Grid>
