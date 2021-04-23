@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
-import { Challenge } from '../../../../components'
+import { Challenge, ChallengeSimple } from '../../../../components'
 import { Loader, RoundedTab, RoundedTabs } from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 
@@ -41,7 +41,7 @@ const SubHeader = ({ activateRank, onChange, ...props }) => {
         return (
             <div>
                 <div className={classes.challengeContainer}>
-                    <Challenge challenge={challenge} />
+                    <ChallengeSimple challenge={challenge} />
                 </div>
                 { activateRank && <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
                     <RoundedTab label={Resources.TEAM_CHALLENGE_DETAIL_RANK_TAB} />
