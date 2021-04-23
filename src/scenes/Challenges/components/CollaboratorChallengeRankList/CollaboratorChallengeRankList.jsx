@@ -1,10 +1,10 @@
 import React from 'react'
-import { Avatar } from '@material-ui/core'
+
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortAmountDown, faRandom } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
-import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, FullTableCell } from '../../../../components'
+import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, FullTableCell, Avatar } from '../../../../components'
 import * as Resources from '../../../../Resources'
 
 const styles = {
@@ -46,7 +46,7 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
                                     <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
                                 </TableCell>
                                 <FixedTableCell>
-                                    <Avatar src={photo} className={classes.photo} />
+                                    <Avatar src={photo} className={classes.photo} entityId={rank.collaborator.id} fallbackName={rank.collaborator.fullname}/>
                                 </FixedTableCell>
                                 <FlexibleTableCell color={color}>{rank.collaborator.firstname} {rank.collaborator.lastname}</FlexibleTableCell>
                                 <TableCell color={color}>{rank.points}</TableCell>
