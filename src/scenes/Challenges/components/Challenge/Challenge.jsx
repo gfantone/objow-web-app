@@ -40,7 +40,8 @@ const styles = {
     },
     challengeType: {
       lineHeight: 35,
-      verticalAlign: 'center'
+      verticalAlign: 'center',
+      whiteSpace: 'nowrap'
     }
 }
 
