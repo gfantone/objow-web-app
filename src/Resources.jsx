@@ -168,6 +168,7 @@ export const CHALLENGE_TEAMS = "{0} équipes"
 export const CHALLENGE_POINTS = "{0} PTS"
 export const CHALLENGE_MAX_POINTS = "{0} MAX"
 
+
 // Challenge - Award list
 export const CHALLENGE_AWARD_LIST_TITLE = "Récompenses"
 export const CHALLENGE_AWARD_LIST_POINTS_CALCULATION_MESSAGE = "Calcul des pts utilisables..."
@@ -854,6 +855,7 @@ export const TEAM_GOAL_CATEGORY_STATS_TITLE = "Sélection de la catégorie"
 
 // Team
 export const TEAM_TITLE = "Équipes"
+export const TEAM_TITLE_SINGULAR = "Équipe"
 export const TEAM_COLLABORATORS_TEXT = "{0} joueurs"
 export const TEAM_MANAGER_TEXT = "De {0} {1}"
 export const TEAM_NO_MANAGER_TEXT = "Aucun manager"

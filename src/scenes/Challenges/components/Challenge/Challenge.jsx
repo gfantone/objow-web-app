@@ -1,13 +1,14 @@
 import React from 'react'
-import {Grid, Avatar, Tooltip} from '@material-ui/core'
+import {Grid, Tooltip} from '@material-ui/core'
 import {AvatarGroup} from '@material-ui/lab'
 import {withStyles} from '@material-ui/core/styles'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faFlagCheckered} from '@fortawesome/free-solid-svg-icons'
 import {faFireAlt} from '@fortawesome/free-solid-svg-icons'
 import {ChallengeImage, ChallengeType} from '..'
-import {DefaultText, InfoText, TimerTag, BoldTitle} from '../../../../components'
+import {DefaultText, InfoText, TimerTag, BoldTitle, Avatar} from '../../../../components'
 import * as Resources from '../../../../Resources'
+import { getColorById } from '../../../../helpers/ColorsHelper'
 import _ from 'lodash'
 import chroma from 'chroma-js'
 
@@ -36,7 +37,7 @@ const styles = {
 
     },
     smallText: {
-      fontSize: 10
+      fontSize: 12
     },
     challengeType: {
       lineHeight: 35,
@@ -48,13 +49,9 @@ const styles = {
 const Challenge = ({challenge, ...props}) => {
     const { classes, configs } = props
     const hasParticipants = !_.isEmpty(_.get(challenge, 'topParticipants'))
-    const initials = fullname => fullname && fullname.split(' ').map(name => name.slice(0,1).toUpperCase()).join('')
 
     const displayTitle = configs && _.get(configs.find(c => c.code === 'CTTA'), 'value', 'false').toBoolean()
 
-    const avatarColors = [
-      '#EFEFEF', '#DEDEE8', '#F3F0E0', '#E4EADE', '#DCE5E6', '#EDE8EA'
-    ]
     return (
         <div>
             <Grid container spacing={2}>
@@ -68,15 +65,22 @@ const Challenge = ({challenge, ...props}) => {
                 </Grid>
                 <Grid item style={{width: '100%'}}>
                   <Grid container spacing={1} direction="column">
+                    {displayTitle && (
+                      <Grid item>
+                        <BoldTitle>
+                          { challenge.name }
+                        </BoldTitle>
+                      </Grid>
+                    )}
                     <Grid item>
                       <Grid container spacing={1} direction="row">
-                        <Grid item>
+                        <Grid item style={{paddingTop: 0}}>
                           <DefaultText className={ classes.smallText }>
                             {challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.rank == 1 ? Resources.CHALLENGE_FIRST_RANK.format(challenge.rank) : Resources.CHALLENGE_OTHER_RANK.format(challenge.rank)} <InfoText component='span' className={ classes.smallText }>/ {challenge.participants}</InfoText></div>)}
                             {!challenge.rank && (<div><FontAwesomeIcon icon={faFlagCheckered} /> {challenge.typeCode !== 'CT' ? Resources.CHALLENGE_COLLABORATORS.format(challenge.participants) : Resources.CHALLENGE_TEAMS.format(challenge.participants)}</div>)}
                           </DefaultText>
                         </Grid>
-                        <Grid item>
+                        <Grid item style={{paddingTop: 0}}>
                           <DefaultText className={ classes.smallText }>
                             <FontAwesomeIcon icon={faFireAlt} />
                             &nbsp;
@@ -89,13 +93,6 @@ const Challenge = ({challenge, ...props}) => {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {displayTitle && (
-                      <Grid item style={{paddingTop: 0}}>
-                        <BoldTitle>
-                          { challenge.name }
-                        </BoldTitle>
-                      </Grid>
-                    )}
                     <Grid item>
                       <Grid container spacing={1} direction="row" style={{ flexWrap: 'noWrap' }}>
                         { hasParticipants && (
@@ -103,13 +100,14 @@ const Challenge = ({challenge, ...props}) => {
                             <AvatarGroup className={ classes.avatarGroup } max={10}>
                               {challenge.topParticipants.map((participant, index) => (
                                 <Tooltip title={ participant.fullname || _.get(participant, 'team.name') }>
-                                  <Avatar src={ participant.photo } className={ classes.avatar } style={{
-                                      fontSize: '16px',
-                                      backgroundColor: chroma(avatarColors[index % avatarColors.length]),
-                                      color: chroma(avatarColors[index % avatarColors.length]).darken(1.5)
-                                    }}>
-                                    { participant.photo ? '' : initials(participant.fullname) || participant.rank }
-                                  </Avatar>
+                                  <Avatar
+                                    src={ participant.photo }
+                                    entityId={participant.id}
+                                    className={ classes.avatar }
+                                    fallbackName={participant.photo ? '' : participant.fullname || (participant.rank || index + 1)}
+                                    backgroundColor={challenge.typeCode === 'CT' ? _.get(participant, 'team.color.hex') : null}
+                                    color={challenge.typeCode === 'CT' ? 'white' : null}
+                                  />
                                 </Tooltip>
                               ))}
                             </AvatarGroup>
@@ -121,7 +119,7 @@ const Challenge = ({challenge, ...props}) => {
                                 <ChallengeType type={challenge.typeCode} />
                               </span>
                               <span>
-                                { challenge.typeName }
+                                { challenge.typeCode === 'CT' ? Resources.TEAM_TITLE_SINGULAR : challenge.typeName }
                               </span>
                           </DefaultText>
                         </Grid>

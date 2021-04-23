@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Avatar, Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faBell } from '@fortawesome/free-regular-svg-icons'
 import {Badge, Notifications} from './components'
-import {AccentText, DefaultText, GridLink, InfoText, ProgressBar, AnimatedCounter} from '../../../../../../../../..'
+import {AccentText, DefaultText, GridLink, InfoText, ProgressBar, AnimatedCounter, Avatar} from '../../../../../../../../..'
 import * as Resources from '../../../../../../../../../../Resources'
 import '../../../../../../../../../../helpers/NumberHelper'
 import '../../../../../../../../../../helpers/StringHelper'
@@ -69,10 +69,10 @@ const Account = ({onNavigate, ...props}) => {
         <div className={classes.root}>
             <Grid container spacing={2}>
                 { isCollaborator && <GridLink item component={Link} to={`/collaborators/${account.id}/detail`}>
-                    <Avatar src={photo} className={classes.avatar} onClick={onNavigate} />
+                    <Avatar src={photo} className={classes.avatar} onClick={onNavigate} entityId={account.id} />
                 </GridLink> }
                 { !isCollaborator && <Grid item>
-                    <Avatar src={photo} className={classes.avatar} />
+                    <Avatar src={photo} className={classes.avatar} entityId={account.id}/>
                 </Grid> }
                 <Grid item xs zeroMinWidth>
                     <div>

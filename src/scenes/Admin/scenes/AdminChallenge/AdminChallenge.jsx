@@ -105,6 +105,7 @@ class AdminChallenge extends MainLayoutComponent {
         const challengeRankActivation = configs.find(x => x.code == 'CRA');
         const challengeMaxActivation = configs.find(x => x.code == 'CMA');
         const challengeManagerEdit = configs.find(x => x.code == 'MCE');
+        const challengeTitleActivation = configs.find(x => x.code == 'CTTA');
 
         return (
             <div>
@@ -160,6 +161,7 @@ class AdminChallenge extends MainLayoutComponent {
                             <Switch name={challengeRankActivation.id} label='Activer les challenges de type « Classement »' initial={challengeRankActivation.value.toBoolean()} />
                             <Switch name={challengeMaxActivation.id} label='Activer les challenges de type « Cumuler un maximum de points »' initial={challengeMaxActivation.value.toBoolean()} />
                             <Switch name={challengeManagerEdit.id} label="Activer l'édition des challenges par les managers" initial={challengeManagerEdit.value.toBoolean()} />
+                            <Switch name={challengeTitleActivation.id} label="Activer les titres de challenge sur les miniatures" initial={challengeTitleActivation.value.toBoolean()} />
                         </Grid>
                         <Grid item xs={12}>
                             <ProgressButton type='submit' text='Valider' loading={loading} centered />
