@@ -36,7 +36,7 @@ const styles = {
 
     },
     smallText: {
-      fontSize: 10
+      fontSize: 12
     },
     challengeType: {
       lineHeight: 35,
