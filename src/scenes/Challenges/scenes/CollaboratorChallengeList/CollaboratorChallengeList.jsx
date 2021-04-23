@@ -9,6 +9,7 @@ import { Redirect } from 'react-router-dom'
 import {Challenge, ChallengeCard, ChallengeCollaboratorFilter, ChallengeFilter, TimeFilter} from '../../components'
 import { EmptyState, GridLink, IconButton, Loader, MainLayoutComponent } from '../../../../components'
 import * as Resources from '../../../../Resources'
+import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as collaboratorChallengeListActions from '../../../../services/CollaboratorChallenges/CollaboratorChallengeList/actions'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import * as teamChallengeListActions from '../../../../services/TeamChallenges/TeamChallengeList/actions'
@@ -90,6 +91,7 @@ class CollaboratorChallengeList extends MainLayoutComponent {
         this.props.handleTitle(account.challengeWording || Resources.CHALLENGE_SHORT_TITLE);
         this.props.handleSubHeader(<TimeFilter initial={page} handleTimeChange={this.handleTimeChange.bind(this)} />);
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>);
+        this.props.configListActions.getPermanentConfigList()
         this.loadData(this.props)
     }
 
@@ -140,6 +142,7 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     renderData() {
         const { challenges: teamChallenges } = this.props.teamChallengeList;
         const { challenges: collaboratorChallenges } = this.props.collaboratorChallengeList;
+        const { configs } = this.props.configList;
         const challenges = this.mergeChallenges(collaboratorChallenges, teamChallenges);
         const { collaborator } = this.props.collaboratorDetail;
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
@@ -153,7 +156,7 @@ class CollaboratorChallengeList extends MainLayoutComponent {
                 return (
                   <GridLink key={challenge.id} item xs={12} sm={6} md={4} component={Link} to={detailurl}>
                     <ChallengeCard>
-                      <Challenge challenge={challenge} />
+                      <Challenge challenge={challenge} configs={configs} />
                     </ChallengeCard>
                   </GridLink>
                 )
@@ -166,7 +169,8 @@ class CollaboratorChallengeList extends MainLayoutComponent {
         const { challenges: collaboratorChallenges, loading: collaboratorChallengeListLoading } = this.props.collaboratorChallengeList;
         const { collaborator, loading: collaboratorDetailLoading } = this.props.collaboratorDetail;
         const { challenges: teamChallenges, loading: teamChallengeListLoading } = this.props.teamChallengeList;
-        const loading = collaboratorChallengeListLoading || collaboratorDetailLoading || teamChallengeListLoading || !this.state.collaboratorFilterLoaded;
+        const { configs, loading: configLoading } = this.props.configList;
+        const loading = collaboratorChallengeListLoading || collaboratorDetailLoading || teamChallengeListLoading || configLoading  || !this.state.collaboratorFilterLoaded;
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
         const { account } = this.props.accountDetail;
@@ -190,8 +194,8 @@ class CollaboratorChallengeList extends MainLayoutComponent {
                   onLoaded={this.onCollaboratorFilterLoaded.bind(this)}
                 />
                 { loading && this.renderLoader() }
-                { !loading && collaboratorChallenges && teamChallenges && this.renderData() }
-                { !loading && collaboratorChallenges && teamChallenges && collaboratorChallenges.length == 0 && teamChallenges.length == 0 && this.renderEmptyState() }
+                { !loading && collaboratorChallenges && teamChallenges && configs && this.renderData() }
+                { !loading && collaboratorChallenges && teamChallenges && configs && collaboratorChallenges.length == 0 && teamChallenges.length == 0 && this.renderEmptyState() }
                 {
                   this.state.filterOpen &&
                   <ChallengeFilter
@@ -212,14 +216,16 @@ class CollaboratorChallengeList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ accountDetail, collaboratorChallengeList, collaboratorDetail, teamChallengeList }) => ({
+const mapStateToProps = ({ accountDetail, configList, collaboratorChallengeList, collaboratorDetail, teamChallengeList }) => ({
     accountDetail,
+    configList,
     collaboratorChallengeList,
     collaboratorDetail,
     teamChallengeList
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    configListActions: bindActionCreators(configListActions, dispatch),
     collaboratorChallengeListActions: bindActionCreators(collaboratorChallengeListActions, dispatch),
     collaboratorDetailActions: bindActionCreators(collaboratorDetailActions, dispatch),
     teamChallengeListActions: bindActionCreators(teamChallengeListActions, dispatch)
