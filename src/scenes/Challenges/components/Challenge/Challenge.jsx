@@ -72,12 +72,12 @@ const Challenge = ({challenge, ...props}) => {
                   <Grid container spacing={1} direction="column">
                     {displayTitle && (
                       <Grid item>
-                        <BoldTitle>
+                        <BoldTitle style={{ lineHeight: 1 }}>
                           { challenge.name }
                         </BoldTitle>
                       </Grid>
                     )}
-                    <Grid item>
+                <Grid item style={{ maxHeight: '27px' }}>
                       <Grid container spacing={1} direction="row">
                         <Grid item>
                           <DefaultText className={ classes.smallText }>
