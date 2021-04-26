@@ -13,17 +13,27 @@ const CustomAvatar = (props) => {
   const initials = fullname => fullname && String(fullname).split(' ').map(name => name.slice(0,1).toUpperCase()).join('')
   const customBackgroundColor = backgroundColor ? backgroundColor : getColorById(entityId)
   const customColor = color ? color : (customBackgroundColor ? chroma(customBackgroundColor).darken(1.5) : '')
+  const avatar = (
+    <Avatar {...props} style={{
+      fontSize: 16,
+      backgroundColor: customBackgroundColor,
+      color: customColor,
+      borderColor: borderColor
+    }}>
+      { fallbackName ? initials(fallbackName) : null}
+    </Avatar>
+  )
   return(
-    <Tooltip title={tooltip}>
-      <Avatar {...props} style={{
-          fontSize: 16,
-          backgroundColor: customBackgroundColor,
-          color: customColor,
-          borderColor: borderColor
-        }}>
-        { fallbackName ? initials(fallbackName) : null }
-      </Avatar>
-    </Tooltip>
+    <React.Fragment>
+      { tooltip && (
+        <Tooltip title={tooltip}>
+          { avatar }
+        </Tooltip>
+      )}
+      {
+        !tooltip && avatar
+      }
+    </React.Fragment>
   )
 }
 
