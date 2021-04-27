@@ -113,14 +113,14 @@ const Challenge = ({challenge, ...props}) => {
                               <AvatarGroup className={ classes.avatarGroup } max={15}>
                                 {challenge.topParticipants.map((participant, index) => (
                                   <Avatar
-                                    src={ participant.photo }
-                                    entityId={participant.id}
+                                    src={ _.get(participant, 'collaborator.photo') }
+                                    entityId={_.get(participant, 'collaborator.id')}
                                     className={ classes.avatar }
-                                    fallbackName={participant.photo ? '' : participant.fullname || (participant.rank || index + 1)}
+                                    fallbackName={_.get(participant, 'collaborator.photo') ? '' : _.get(participant, 'collaborator.fullname') || (_.get(participant, 'collaborator.rank') || index + 1)}
                                     backgroundColor={challenge.typeCode === 'CT' ? 'white' : null}
                                     color={challenge.typeCode === 'CT' ? '#555' : null}
                                     borderColor={ challenge.typeCode === 'CT' ? _.get(participant, 'team.color.hex') : null}
-                                    tooltip={ participant.fullname || _.get(participant, 'team.name') }
+                                    tooltip={ _.get(participant, 'collaborator.fullname') || _.get(participant, 'team.name') }
                                     />
                                 ))}
                               </AvatarGroup>

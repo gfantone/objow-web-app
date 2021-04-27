@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom'
-import { ChallengeSimple, ChallengeCard, ChallengeCollaboratorFilter, ChallengeFilter, TimeFilter } from '../../components'
+import { Challenge, ChallengeCard, ChallengeCollaboratorFilter, ChallengeFilter, TimeFilter } from '../../components'
 import { EmptyState, GridLink, IconButton, Loader, MainLayoutComponent } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
@@ -184,7 +184,7 @@ class TeamChallengeList extends MainLayoutComponent {
                 return (
                   <GridLink key={challenge.id} item xs={12} sm={6} md={4} component={Link} to={detailurl}>
                     <ChallengeCard>
-                      <ChallengeSimple challenge={challenge} configs={configs} />
+                      <Challenge challenge={challenge} configs={configs} />
                     </ChallengeCard>
                   </GridLink>
                 )
