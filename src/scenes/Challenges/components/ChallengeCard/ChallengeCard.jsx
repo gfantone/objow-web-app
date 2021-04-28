@@ -5,7 +5,11 @@ import { withStyles } from '@material-ui/core/styles'
 const styles = {
     card: {
         borderRadius: 10,
-        boxShadow: '0 2px 16px 0 rgba(16,61,92,0.25)',        
+        boxShadow: '0 2px 16px 0 rgba(16,61,92,0.25)',
+        transition: 'transform .5s',
+        '&:hover': {
+            transform: 'scale(1.05)'
+        }
     },
     content: {
         marginLeft: 16,
