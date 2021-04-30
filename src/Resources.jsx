@@ -558,6 +558,7 @@ export const LOGIN_EMAIL_LABEL = "Email"
 export const LOGIN_PASSWORD_LABEL = "Mot de passe"
 export const LOGIN_ERROR = "Les identifiants sont incorrects"
 export const LOGIN_SUBMIT_BUTTON = "Se connecter"
+export const LOGIN_SSO_SUBMIT_BUTTON = "Se connecter en SSO"
 export const LOGIN_STORE_MESSAGE_1 = "Votre application Fire Tiger est disponible pour Iphone et Android."
 export const LOGIN_STORE_MESSAGE_2 = "Téléchargez-la dès maintenant :"
 

@@ -118,6 +118,7 @@ export default () => {
                 <MainRoutes exact path={'/help'} component={scenes.Contact} />
                 {/* Anonymous routes */}
                 <AnonymousRoutes exact path='/login' component={scenes.Login} />
+                <AnonymousRoutes exact path='/oauth/callback' component={scenes.OauthCallback} />
                 {/* Intermediate routes */}
                 <IntermediateRoutes exact path='/accept-terms' component={scenes.AcceptTerms} />
                 {/* File routes */}
