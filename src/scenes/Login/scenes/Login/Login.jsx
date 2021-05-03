@@ -5,7 +5,7 @@ import {LoginForm, LoginFormMobile} from './components'
 import * as authActions from '../../../../services/Auth/actions'
 import api from '../../../../data/api/api';
 import router from '../../../../data/router/router';
-import local from '../../../../data/local/local'
+import local from '../../../../data/local/local';
 
 class Login extends Component {
     constructor(props) {
@@ -14,7 +14,7 @@ class Login extends Component {
     }
 
     handleSubmit(model) {
-        this.props.authActions.login(model.code.toLowerCase(), model.email.toLowerCase(), model.password)
+        this.props.authActions.login({code: model.code.toLowerCase(), email: model.email.toLowerCase(), password: model.password})
     }
 
     async handleSubmitSSO(model) {

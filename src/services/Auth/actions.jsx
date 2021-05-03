@@ -1,12 +1,13 @@
 import * as errors from './errors'
 import * as types from './actionTypes';
 
-export const login = (code, login, password) => {
+export const login = ({code, login, password, token}) => {
     return {
         type: types.LOGIN,
         code,
         login,
-        password
+        password,
+        token
     }
 };
 
