@@ -12,6 +12,11 @@ const partners = {
 
       return instance.get(url)
     },
+    oauthToken(code) {
+      const url = `oauth/token/?code=${code}`
+
+      return instance.get(url)
+    },
     detail(id) {
         const url = `${baseUrl}${id}/`
         return instance.get(url)

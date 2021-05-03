@@ -31,6 +31,26 @@ const useStyles = makeStyles(theme => ({
             border: '6px solid #fff',
         },
     },
+    switchBaseLight: {
+        padding: 1,
+        '& + $track': {
+            backgroundColor: '#ddd',
+
+        },
+        '&$checked': {
+            transform: 'translateX(16px)',
+            color: theme.palette.common.white,
+            '& + $track': {
+                backgroundColor: '#00E58D',
+                opacity: 1,
+                border: 'none',
+            },
+        },
+        '&$focusVisible $thumb': {
+            color: '#00E58D',
+            border: '6px solid #fff',
+        },
+    },
     thumb: {
         width: theme.spacing(3),
         height: theme.spacing(3),
@@ -46,7 +66,7 @@ const useStyles = makeStyles(theme => ({
     focusVisible: {}
 }));
 
-const CustomSwitch = ({disabled, initial = false, label, name, onChange, ...props}) => {
+const CustomSwitch = ({disabled, initial = false, label, name, onChange, labelClass, lightTheme, ...props}) => {
     const classes = useStyles()
     const [value, setValue] = React.useState(initial)
 
@@ -63,14 +83,14 @@ const CustomSwitch = ({disabled, initial = false, label, name, onChange, ...prop
 
     return (
         <div>
-            <FormControlLabel label={label} classes={{label: classes.label}} control={<Switch
+            <FormControlLabel label={label} classes={{label: labelClass || classes.label}} control={<Switch
                 name={name}
                 checked={value}
                 disabled={disabled}
                 onChange={handleChange}
                 classes={{
                     root: classes.root,
-                    switchBase: classes.switchBase,
+                    switchBase: lightTheme ? classes.switchBaseLight : classes.switchBase,
                     thumb: classes.thumb,
                     track: classes.track,
                     checked: classes.checked,

@@ -6,10 +6,24 @@ import {AndroidButton, Card, DarkTextField, DefaultText, ErrorText, IosButton, L
 import * as Resources from "../../../../../../Resources";
 import * as authErrors from "../../../../../../services/Auth/errors";
 import Formsy from "formsy-react";
+import KeyIcon from "../../../../../../assets/img/system/login/key.png"
 
 const useStyles = makeStyles({
     form: {
         backgroundColor: '#2B2E45'
+    },
+    ssoSwitch: {
+
+      position: 'absolute',
+      right: 0,
+      top: '50%',
+      marginTop: '-21px',
+    },
+    ssoSwitchLabel: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: '0.875rem',
+
     }
 })
 
@@ -30,7 +44,6 @@ const LoginForm = ({onSubmit, onSubmitSSO, ...props}) => {
                     <Logo />
                 </Grid>
                 <Formsy onValidSubmit={isSSO ? onSubmitSSO : onSubmit}>
-                  <Switch name='isSSO' initial={ isSSO } label={'Se connecter en SSO'} onChange={() => setIsSSO(!isSSO)} />
                   <Grid item xs={12}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
@@ -61,8 +74,27 @@ const LoginForm = ({onSubmit, onSubmitSSO, ...props}) => {
                         {error === authErrors.LOGIN_ERROR && <Grid item xs={12}>
                             <ErrorText align='center'>{Resources.LOGIN_ERROR}</ErrorText>
                         </Grid>}
-                        <Grid item xs={12}>
+                        <Grid item xs={12} style={{position: 'relative'}}>
                             <ProgressButton type='submit' text={Resources.LOGIN_SUBMIT_BUTTON} centered loading={loading} />
+                            <div className={ classes.ssoSwitch }>
+                              <Switch
+                                name='isSSO'
+                                initial={ isSSO }
+                                label={
+                                  <React.Fragment>
+                                    <img src={ KeyIcon } style={{
+                                      height: '19px',
+                                      marginBottom: '-5px',
+                                      marginRight: '4px'
+                                    }}/>
+                                    SSO
+                                  </React.Fragment>
+                                }
+                                onChange={() => setIsSSO(!isSSO)}
+                                labelClass={classes.ssoSwitchLabel}
+                                lightTheme
+                              />
+                            </div>
                         </Grid>
 
                         {!isMobileApp && <Grid item xs={12}>
