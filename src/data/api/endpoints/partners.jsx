@@ -13,7 +13,7 @@ const partners = {
       return instance.get(url)
     },
     oauthToken(code) {
-      const url = `oauth/token/?code=${code}`
+      const url = `oauth/token/?code=${code}&base_url=${window.location.origin}`
 
       return instance.get(url)
     },
