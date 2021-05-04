@@ -13,7 +13,10 @@ const OauthCallback = props => {
     const code = params.get('code');
     api.partners.oauthToken(code).then(response => {
       if(_.get(response, 'data.access') && _.get(response, 'data.refresh')) {
+        setRedirect(false)
         props.authActions.login({token: _.get(response, 'data')})
+      } else {
+        setRedirect(true)
       }
     })
 

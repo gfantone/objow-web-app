@@ -27,7 +27,7 @@ const useStyles = makeStyles({
     }
 })
 
-const LoginForm = ({onSubmit, onSubmitSSO, ...props}) => {
+const LoginForm = ({onSubmit, onSubmitSSO, customError, resetCustomError, ...props}) => {
     const {loading, error} = props.auth
     const {detect} = require('detect-browser')
     const [isSSO, setIsSSO] = useState(false)
@@ -71,8 +71,8 @@ const LoginForm = ({onSubmit, onSubmitSSO, ...props}) => {
                                 </Grid>
                             </div>
                         </Grid>
-                        {error === authErrors.LOGIN_ERROR && <Grid item xs={12}>
-                            <ErrorText align='center'>{Resources.LOGIN_ERROR}</ErrorText>
+                        {error === authErrors.LOGIN_ERROR || customError && <Grid item xs={12}>
+                            <ErrorText align='center'>{customError || Resources.LOGIN_ERROR}</ErrorText>
                         </Grid>}
                         <Grid item xs={12} style={{position: 'relative'}}>
                             <ProgressButton type='submit' text={Resources.LOGIN_SUBMIT_BUTTON} centered loading={loading} />
@@ -90,7 +90,10 @@ const LoginForm = ({onSubmit, onSubmitSSO, ...props}) => {
                                     SSO
                                   </React.Fragment>
                                 }
-                                onChange={() => setIsSSO(!isSSO)}
+                                onChange={() => {
+                                  setIsSSO(!isSSO)
+                                  resetCustomError()
+                                }}
                                 labelClass={classes.ssoSwitchLabel}
                                 lightTheme
                               />

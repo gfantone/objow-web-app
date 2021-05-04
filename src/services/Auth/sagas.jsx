@@ -13,8 +13,10 @@ import local from '../../data/local/local'
 function* authenticate(action) {
     try {
         let tokens;
+        // SSO login
         if(action.token) {
           tokens = action.token
+        // Credentials login
         } else {
           const {data : url, error: urlError} = yield call(router.apiUrl.get, action.code)
           if (!urlError) {
