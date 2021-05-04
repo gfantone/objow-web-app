@@ -7,6 +7,16 @@ const partners = {
         const url = `${baseUrl}aircall-redirect-uri/`
         return instance.get(url)
     },
+    oauthAutorizeUrl() {
+      const url = `oauth/authorize/?base_url=${window.location.origin}`
+
+      return instance.get(url)
+    },
+    oauthToken(code) {
+      const url = `oauth/token/?code=${code}`
+
+      return instance.get(url)
+    },
     detail(id) {
         const url = `${baseUrl}${id}/`
         return instance.get(url)

@@ -12,34 +12,41 @@ import local from '../../data/local/local'
 
 function* authenticate(action) {
     try {
-        const { data : url, error: urlError } = yield call(router.apiUrl.get, action.code);
-
-        if (!urlError) {
-            yield call(local.setApiUrl, url);
-            const { data: tokens, error: tokenError } = yield call(api.tokens.get, action.login, action.password);
-
-            if (!tokenError) {
-                yield call(local.setAccessToken, tokens.access);
-                yield call(local.setRefreshToken, tokens.refresh);
-                yield call(api.users.saveConnection);
-                const { data: account } = yield call(api.account.get);
-                const { data: images } = yield call(api.systemImages.list);
-                yield put(getAdminReferenceData());
-                yield put(getConfigList());
-                yield put(getAccountDetailSuccess(account));
-                yield put(loginSuccess());
-                yield put(getSystemImageListSuccess(images));
-                if (window.ReactNativeWebView) {
-                    setTimeout(function () {
-                        const message = {source: 'firetiger', action: 'setExternalUserId', id: account.identifier};
-                        window.ReactNativeWebView.postMessage(JSON.stringify(message))
-                    }, 1)
-                }
-            } else {
-                yield put(loginError(errors.LOGIN_ERROR))
-            }
+        let tokens;
+        // SSO login
+        if(action.token) {
+          tokens = action.token
+        // Credentials login
         } else {
-            yield put(loginError(errors.LOGIN_ERROR))
+          const {data : url, error: urlError} = yield call(router.apiUrl.get, action.code)
+          if (!urlError) {
+            yield call(local.setTemporaryApiUrl, url)
+            const {data, error: tokenError} = yield call(api.tokens.get, action.login, action.password)
+            if(!tokenError) {
+              tokens = data;
+            }
+          }
+        }
+
+        if(tokens){
+          yield call(local.setAccessToken, tokens.access);
+          yield call(local.setRefreshToken, tokens.refresh);
+          yield call(api.users.saveConnection);
+          const { data: account } = yield call(api.account.get);
+          const { data: images } = yield call(api.systemImages.list);
+          yield put(getAdminReferenceData());
+          yield put(getConfigList());
+          yield put(getAccountDetailSuccess(account));
+          yield put(loginSuccess());
+          yield put(getSystemImageListSuccess(images));
+          if (window.ReactNativeWebView) {
+            setTimeout(function () {
+              const message = {source: 'firetiger', action: 'setExternalUserId', id: account.identifier};
+              window.ReactNativeWebView.postMessage(JSON.stringify(message))
+            }, 1)
+          }
+        } else {
+          yield put(loginError(errors.LOGIN_ERROR))
         }
     } catch(error) {
         yield put(loginError(errors.UNKNOWN_ERROR))

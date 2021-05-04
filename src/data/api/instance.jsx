@@ -23,7 +23,10 @@ instance.interceptors.request.use(
         }
 
         config.url = baseUrl + config.url
-        config.headers.common['Authorization'] = `Bearer ${token}`
+        if(token){
+
+          config.headers.common['Authorization'] = `Bearer ${token}`
+        }
         return config
     },
     error => Promise.reject(error)
