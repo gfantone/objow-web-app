@@ -32,7 +32,9 @@ class Login extends Component {
       local.setApiUrl(apiUrlResponse.data)
       try {
         const oauthUrlResponse = await api.partners.oauthAutorizeUrl()
-        window.location.href = oauthUrlResponse.data.authorizeUrl
+        if(oauthUrlResponse.data.authorizeUrl) {
+          window.location.href = oauthUrlResponse.data.authorizeUrl
+        }
       } catch {
         this.setState({
           ...this.state,
