@@ -24,7 +24,7 @@ class Login extends Component {
     }
 
     handleSubmit(model) {
-        this.props.authActions.login({code: model.code.toLowerCase(), email: model.email.toLowerCase(), password: model.password})
+        this.props.authActions.login({code: model.code.toLowerCase(), login: model.email.toLowerCase(), password: model.password})
     }
 
     async handleSubmitSSO(model) {
