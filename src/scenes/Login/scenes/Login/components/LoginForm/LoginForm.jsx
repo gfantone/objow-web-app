@@ -43,8 +43,8 @@ const LoginForm = ({onSubmit, onSubmitSSO, customError, resetCustomError, ...pro
                 <Grid item xs={12}>
                     <Logo />
                 </Grid>
+                <Grid item xs={12}>
                 <Formsy onValidSubmit={isSSO ? onSubmitSSO : onSubmit}>
-                  <Grid item xs={12}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
                             <div>
@@ -74,6 +74,7 @@ const LoginForm = ({onSubmit, onSubmitSSO, customError, resetCustomError, ...pro
                         {error === authErrors.LOGIN_ERROR || customError && <Grid item xs={12}>
                             <ErrorText align='center'>{customError || Resources.LOGIN_ERROR}</ErrorText>
                         </Grid>}
+
                         <Grid item xs={12} style={{position: 'relative'}}>
                             <ProgressButton type='submit' text={Resources.LOGIN_SUBMIT_BUTTON} centered loading={loading} />
                             <div className={ classes.ssoSwitch }>
@@ -126,8 +127,8 @@ const LoginForm = ({onSubmit, onSubmitSSO, customError, resetCustomError, ...pro
                             </div>
                         </Grid>}
                     </Grid>
-                </Grid>
               </Formsy>
+            </Grid>
             </Grid>
         </div>
     )
