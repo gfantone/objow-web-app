@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
-import { Avatar, Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import { AccentText, Card, DefaultText, DefaultTitle, EmptyState, ErrorText, InfoText, Loader, ProgressButton, TextField } from '../../../../../../components'
+import { AccentText, Card, DefaultText, DefaultTitle, EmptyState, ErrorText, InfoText, Loader, ProgressButton, TextField, Avatar } from '../../../../../../components'
 import * as collaboratorGoalListActions from '../../../../../../services/CollaboratorGoals/CollaboratorGoalList/actions'
 import * as playerGoalListUpdateActions from '../../../../../../services/PlayerGoals/PlayerGoalListUpdate/actions'
 import '../../../../../../helpers/FormsyHelper'
 import * as Resources from "../../../../../../Resources";
+import _ from 'lodash'
 
 const styles = {
     title: {
@@ -136,7 +137,7 @@ class CollaboratorGoalList extends Component {
                             return (
                                 <Grid key={goal.id} item xs={3} container spacing={1}>
                                     <Grid item>
-                                        <Avatar src={photo} className={classes.avatar} />
+                                        <Avatar src={photo} className={classes.avatar} entityId={ _.get(goal, 'collaborator.id') } fallbackName={ _.get(goal, 'collaborator.fullname') } />
                                     </Grid>
                                     <Grid item xs>
                                         <TextField type='number' name={goal.id} label={goal.collaborator.fullname} initial={goal.target} required

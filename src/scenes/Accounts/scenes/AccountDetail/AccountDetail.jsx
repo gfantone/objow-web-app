@@ -2,9 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
-import {Avatar, Grid} from '@material-ui/core'
+import {Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
-import {AccentText, Card, FileInput, InfoText, MainLayoutComponent, ProgressButton, TextField, RefreshButton} from '../../../../components'
+import {AccentText, Card, FileInput, InfoText, MainLayoutComponent, ProgressButton, TextField, RefreshButton, Avatar} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as accountUpdateActions from '../../../../services/Account/AccountUpdate/actions'
 import * as userUpdatePasswordActions from '../../../../services/Users/UserUpdatePassword/actions'
@@ -74,7 +74,7 @@ class AccountDetail extends MainLayoutComponent {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} container justify='center'>
                                         <Grid item>
-                                            <Avatar src={photo} className={classes.photo} />
+                                            <Avatar src={photo} className={classes.photo} entityId={ account.id } fallbackName={ account.fullname } fontSize={ 48 } />
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} container justify='center'>

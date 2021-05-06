@@ -1,7 +1,7 @@
 import React from 'react'
-import {Avatar, Grid} from '@material-ui/core'
+import {Grid} from '@material-ui/core'
 import {makeStyles} from '@material-ui/styles'
-import {Card, DefaultTitle, InfoText} from '../../../../../../../../components'
+import {Card, DefaultTitle, InfoText, Avatar} from '../../../../../../../../components'
 
 const useStyles = makeStyles({
     avatar: {
@@ -18,7 +18,7 @@ const Collaborator = ({collaborator, ...props}) => {
             <Card>
                 <Grid container spacing={2}>
                     <Grid item>
-                        <Avatar src={collaborator.photo} className={classes.avatar} />
+                        <Avatar src={collaborator.photo} className={classes.avatar} entityId={ collaborator.id } fallbackName={ collaborator.fullname } />
                     </Grid>
                     <Grid item xs>
                         <DefaultTitle>{collaborator.fullname}</DefaultTitle>

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Avatar } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import {FixedTableCell, FlexibleTableCell, FullTableCell, RankEvolution, TableCell, TableChip, TableRow} from '../../../../../../components'
+import {FixedTableCell, FlexibleTableCell, FullTableCell, RankEvolution, TableCell, TableChip, TableRow, Avatar} from '../../../../../../components'
+import _ from 'lodash'
 
 const styles = {
     photo: {
@@ -18,12 +18,12 @@ const PlayerRank = ({rank, selected, ...props}) => {
 
     return (
         <TableRow>
-            {rank.color && <FullTableCell style={{backgroundColor: teamColor, width: 4}} />}
+            {<FullTableCell style={{backgroundColor: teamColor || 'white', width: 4}} />}
             <TableCell>
                 <TableChip size='small' color={color} label={rank.rank ? rank.rank : '-'} />
             </TableCell>
             <FixedTableCell>
-                <Avatar src={photo} className={classes.photo} />
+                <Avatar src={photo} className={classes.photo} entityId={ _.get(rank, 'collaboratorId') }  fallbackName={ `${ _.get(rank, 'firstName') } ${ _.get(rank, 'lastName') }` }/>
             </FixedTableCell>
             <FlexibleTableCell color={color}>
                 { rank.firstName } { rank.lastName }

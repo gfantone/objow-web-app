@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
 import _ from 'lodash'
-import { Dialog, DialogActions, DialogContent, DialogTitle,Tooltip, Grid, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Chip, Avatar } from '@material-ui/core'
+import { Dialog, DialogActions, DialogContent, DialogTitle,Tooltip, Grid, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Chip } from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
-import { Button, DatePicker, Select, Loader, IconButton } from '../../../../components'
+import { Button, DatePicker, Select, Loader, IconButton, Avatar } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
@@ -148,7 +148,7 @@ class BadgeCollaboratorFilter extends Component {
         const collaborators = selectedTeam ? selectedTeam.collaborators : null;
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
-        const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')}/>
+        const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')} entityId={ _.get(selectedCollaborator, 'id') } fallbackName={ _.get(selectedCollaborator, 'fullname') } fontSize={ 10 } />
 
         this.props.onLoaded()
 

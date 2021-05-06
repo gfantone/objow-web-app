@@ -1,11 +1,11 @@
 import React from 'react'
-import { Avatar } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBullseye, faSortAmountDown, faRandom } from '@fortawesome/free-solid-svg-icons'
-import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow } from '../../../../components'
+import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, Avatar } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/NumberHelper'
+import _ from 'lodash'
 
 const styles = {
     photo: {
@@ -47,7 +47,7 @@ const CollaboratorGoalRankList = ({ranks, collaboratorId, ...props}) => {
                                     <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
                                 </TableCell>
                                 <FixedTableCell>
-                                    <Avatar src={photo} className={classes.photo} />
+                                    <Avatar src={photo} className={classes.photo} entityId={ _.get(rank, 'collaborator.id') } fallbackName={ _.get(rank, 'collaborator.fullname') } />
                                 </FixedTableCell>
                                 <FlexibleTableCell color={color}>{rank.collaborator.firstname} {rank.collaborator.lastname}</FlexibleTableCell>
                                 <TableCell color={color}>{rank.progression.toPercentage()}</TableCell>

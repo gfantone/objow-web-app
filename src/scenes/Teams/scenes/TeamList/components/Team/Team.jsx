@@ -1,14 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Avatar, Grid, IconButton, Tooltip } from '@material-ui/core'
+import { Grid, IconButton, Tooltip } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import SwipeableViews from 'react-swipeable-views'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { Tag } from './components'
-import { Card, DefaultTitle, ErrorText, GridLink, InfoText } from '../../../../../../components'
+import { Card, DefaultTitle, ErrorText, GridLink, InfoText, Avatar } from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import '../../../../../../helpers/StringHelper'
+import _ from 'lodash'
+
 
 const styles = {
     arrow: {
@@ -60,7 +62,7 @@ const Team = ({ team, ...props }) => {
                 <Grid container spacing={2}>
                     <GridLink item xs={12} container spacing={2} component={Link} to={`/teams/${team.id}`}>
                         <Grid item>
-                            <Avatar src={managerPhoto} />
+                            <Avatar src={managerPhoto} entityId={ _.get(team, 'manager.id') } fallbackName={ _.get(team, 'manager.fullname') }/>
                         </Grid>
                         <Grid item xs container>
                             <Grid item xs zeroMinWidth>
@@ -95,9 +97,9 @@ const Team = ({ team, ...props }) => {
                                                 const collaboratorPhoto = collaborator.photo ? collaborator.photo : '/assets/img/user/avatar.svg';
                                                 return (
                                                     <div>
-                                                        <Link to={`/teams/${team.id}/collaborators/${collaborator.id}/detail`}>
+                                                        <Link to={`/teams/${team.id}/collaborators/${collaborator.id}/detail`} style={{ textDecoration: 'none' }}>
                                                             <Tooltip title={collaborator.fullname}>
-                                                                <Avatar src={collaboratorPhoto} />
+                                                                <Avatar src={collaboratorPhoto} entityId={ _.get(collaborator, 'id') } fallbackName={ _.get(collaborator, 'fullname') }/>
                                                             </Tooltip>
                                                         </Link>
                                                     </div>

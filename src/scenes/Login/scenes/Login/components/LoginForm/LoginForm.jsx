@@ -37,14 +37,12 @@ const LoginForm = ({onSubmit, onSubmitSSO, customError, resetCustomError, ...pro
 
     return (
         <div>
-
-
             <Grid container spacing={8}>
                 <Grid item xs={12}>
                     <Logo />
                 </Grid>
                 <Grid item xs={12}>
-                <Formsy onValidSubmit={isSSO ? onSubmitSSO : onSubmit}>
+                  <Formsy onValidSubmit={isSSO ? onSubmitSSO : onSubmit}>
                     <Grid container spacing={4}>
                         <Grid item xs={12}>
                             <div>
@@ -126,9 +124,9 @@ const LoginForm = ({onSubmit, onSubmitSSO, customError, resetCustomError, ...pro
                                 </Grid>
                             </div>
                         </Grid>}
-                    </Grid>
-              </Formsy>
-            </Grid>
+                  </Grid>
+                </Formsy>
+              </Grid>
             </Grid>
         </div>
     )

@@ -1,14 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
-import {DefaultText, DefaultTitle, ErrorText, InfoText, Loader} from '../../../../../../components'
+import {DefaultText, DefaultTitle, ErrorText, InfoText, Loader, Avatar} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import '../../../../../../helpers/StringHelper'
-import {Avatar, Grid} from "@material-ui/core";
+import {Grid} from "@material-ui/core";
 import {Tag} from "../../../../../../components/Teams/components/Team/components/Tag";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFireAlt} from "@fortawesome/free-solid-svg-icons";
 import {faStar} from "@fortawesome/free-regular-svg-icons";
+
+import _ from 'lodash'
 
 const styles = {
     root: {
@@ -35,7 +37,7 @@ const SubHeader = ({ ...props }) => {
                     <div>
                         <Grid container spacing={2}>
                             <Grid item>
-                                <Avatar src={managerPhoto} />
+                                <Avatar src={managerPhoto} entityId={ _.get(team, 'manager.id') }  fallbackName={ _.get(team, 'manager.fullname') } />
                             </Grid>
                             <Grid item xs zeroMinWidth>
                                 <div>
