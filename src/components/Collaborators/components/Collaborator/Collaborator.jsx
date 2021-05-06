@@ -1,7 +1,7 @@
 import React from 'react'
-import { Grid, Avatar } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import { Card, DefaultText } from '../../../../components'
+import { Card, DefaultText, Avatar } from '../../../../components'
 
 const styles = {
     root: {
@@ -26,7 +26,7 @@ const Collaborator = ({ collaborator, ...props }) => {
                 <div className={classes.cardContent}>
                     <Grid container alignItems='center' spacing={1}>
                         <Grid item>
-                            <Avatar src={photo} className={classes.avatar} />
+                            <Avatar src={photo} className={classes.avatar} entityId={ collaborator.id } fallbackName={ collaborator.fullname } />
                         </Grid>
                         <Grid item xs>
                             <DefaultText>

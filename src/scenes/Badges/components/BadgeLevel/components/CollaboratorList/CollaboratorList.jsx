@@ -1,7 +1,7 @@
 import React from 'react'
-import {Avatar} from '@material-ui/core'
 import {AvatarGroup} from '@material-ui/lab'
 import {makeStyles} from '@material-ui/styles'
+import { Avatar } from '../../../../../../components'
 
 const useStyles = makeStyles({
     avatar: {
@@ -16,7 +16,7 @@ const CollaboratorList = ({collaborators, ...props}) => {
         <div>
             <AvatarGroup max={4} classes={{avatar: classes.avatar}}>
                 {collaborators.map(collaborator => {
-                    return <Avatar key={collaborator.id} src={collaborator.photo} />
+                    return <Avatar key={collaborator.id} src={collaborator.photo} entityId={ collaborator.id } fallbackName={ collaborator.fullname } />
                 })}
             </AvatarGroup>
         </div>

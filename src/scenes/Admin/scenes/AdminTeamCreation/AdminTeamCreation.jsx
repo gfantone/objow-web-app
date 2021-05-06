@@ -2,16 +2,17 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
-import { Grid, IconButton, Avatar } from '@material-ui/core'
+import { Grid, IconButton } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { AppBarSubTitle, Card, ColorInput, DefaultTitle, Loader, MainLayoutComponent, Select, TextField, ProgressButton } from '../../../../components'
+import { AppBarSubTitle, Card, ColorInput, DefaultTitle, Loader, MainLayoutComponent, Select, TextField, ProgressButton, Avatar } from '../../../../components'
 import * as collaboratorListActions from '../../../../services/Collaborators/CollaboratorList/actions'
 import * as colorListActions from '../../../../services/Colors/ColorList/actions'
 import * as managerListActions from '../../../../services/Managers/ManagerList/actions'
 import * as teamCreationActions from '../../../../services/Teams/TeamCreation/actions'
 import * as Resources from "../../../../Resources";
+import _ from 'lodash'
 
 const styles = {
     photo: {
@@ -82,7 +83,8 @@ class AdminTeamCreation extends MainLayoutComponent {
         const { classes } = this.props;
         var { collaborators } = this.props.collaboratorList;
         const ids = this.state.collaborators.filter(x => x != id);
-        var photo = id ? collaborators.filter(c => c.id == id)[0].photo : null;
+        const collaborator = _.get(collaborators.filter(c => c.id == id), '[0]')
+        var photo = id ? collaborator.photo : null;
         collaborators = collaborators.filter(collaborator => !ids.includes(collaborator.id));
         photo = photo ? photo : '/assets/img/user/avatar.svg';
 
@@ -91,7 +93,7 @@ class AdminTeamCreation extends MainLayoutComponent {
                 <Card>
                     <Grid container spacing={2} alignItems='flex-end'>
                         <Grid item>
-                            <Avatar className={classes.photo} src={photo} />
+                            <Avatar className={classes.photo} src={photo} entityId={ _.get(collaborator, 'id') } fallbackName={ _.get(collaborator, 'fullname')} />
                         </Grid>
                         <Grid item xs>
                             <Select name={`collaborators[${index}]`} label={`Collaborateur ${index + 1}`} options={collaborators} initial={id ? id : null} onChange={this.handleCollaboratorChange(index)} optionValueName='id' optionTextName='fullname' fullWidth />

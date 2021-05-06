@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import _ from 'lodash';
 import { SubHeader } from './components'
-import {Grid, Avatar, Tooltip} from '@material-ui/core'
+import {Grid, Tooltip} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFireAlt, faEdit, faFlagCheckered, faSlidersH} from '@fortawesome/free-solid-svg-icons'
@@ -168,7 +168,7 @@ class CollaboratorDetail extends MainLayoutComponent {
                           <Grid item align='center' xs={12}>
                               {
                                 _.get(collaborator, 'level.icon.path') && (
-                                  <LevelIcon image={collaborator.level.icon.path} />
+                                  <LevelIcon image={collaborator.level.icon.path} collaborator={ collaborator }/>
                                 )
                               }
 

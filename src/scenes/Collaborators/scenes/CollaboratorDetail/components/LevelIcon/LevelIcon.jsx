@@ -1,8 +1,9 @@
 import React from 'react'
 import {makeStyles} from '@material-ui/core/styles'
-import {CardMedia, Avatar} from "@material-ui/core";
-import {Button, Dialog, DialogActions, DialogContent} from '../../../../../../components'
+import {CardMedia} from "@material-ui/core";
+import {Button, Dialog, DialogActions, DialogContent, Avatar} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
+import _ from 'lodash'
 
 const useStyles = makeStyles(theme => ({
     image: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-const LevelIcon = ({image, ...props}) => {
+const LevelIcon = ({image, collaborator, ...props}) => {
     const classes = useStyles()
     const [detailOpen, setDetailOpen] = React.useState(false)
 
@@ -36,7 +37,7 @@ const LevelIcon = ({image, ...props}) => {
 
     return (
         <div>
-            <Avatar src={image} className={classes.image} onClick={handleCloseClick(true)} />
+            <Avatar src={image} className={classes.image} onClick={handleCloseClick(true)} entityId={ _.get(collaborator, 'id') } fallbackName={ _.get(collaborator, 'fullname') } />
             <Dialog open={detailOpen} onClose={handleCloseClick(false)} maxWidth='sm' fullWidth={true}>
                 <DialogContent>
                     <CardMedia image={image} className={classes.detailImage} onClick={handleCloseClick(true)} />

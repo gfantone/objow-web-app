@@ -1,9 +1,10 @@
 import React from 'react'
-import { Avatar, Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { Tag } from './components'
-import { DefaultTitle, ErrorText, InfoText } from '../../..'
+import { DefaultTitle, ErrorText, InfoText, Avatar } from '../../..'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
+import _ from 'lodash'
 
 const Team = ({ team, ...props }) => {
     const players = team.collaborators.length
@@ -13,7 +14,7 @@ const Team = ({ team, ...props }) => {
         <div>
             <Grid container spacing={2}>
                 <Grid item>
-                    <Avatar src={managerPhoto} />
+                    <Avatar src={managerPhoto} entityId={ _.get(team, 'manager.id') } fallbackName={ _.get(team, 'manager.fullname') } />
                 </Grid>
                 <Grid item xs container>
                     <Grid item xs zeroMinWidth>
