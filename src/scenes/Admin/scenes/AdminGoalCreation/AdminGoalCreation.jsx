@@ -33,6 +33,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             }
         };
         this.props.goalDefinitionCreationActions.clearGoalDefinitionCreation()
+        this.form = React.createRef();
     }
 
     componentDidMount() {
@@ -94,6 +95,29 @@ class AdminGoalCreation extends MainLayoutComponent {
         }
     }
 
+    handlePreviousStep = () => {
+      const currentStep = this.state.steps.find(step => step.active === true)
+      const previousStep = this.state.steps.find(step => step.order === currentStep.order - 1);
+      if(previousStep) {
+        this.setState({
+          ...this.state,
+          steps: this.state.steps.map(step => {
+            if(step.order === currentStep.order) {
+              return Object.assign(step, {active: false, completed: false})
+            }
+            if(step.order === currentStep.order - 1) {
+              return Object.assign(step, {active: true, completed: false})
+            }
+            return step
+          })
+        })
+      }
+    }
+
+    handleNextStep = () => {
+      this.form.current.submit()
+    }
+
     renderLoader() {
         return <Loader centered />
     }
@@ -109,6 +133,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         const currentType = types.find(t => t.id === parseInt(type))
         const unit = kpi ? kpi.unit.name + (kpi.unit.symbol ? ` (${kpi.unit.symbol})` : '') : null;
         const currentStep = this.state.steps.find(step => step.active === true)
+        const isLastStep = currentStep.order >= this.state.steps.length
 
         let fields
         switch(currentStep.order){
@@ -116,7 +141,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             fields = (
               <React.Fragment>
                 <Grid item xs={12} sm={6}>
-                  <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
+                  <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
@@ -129,19 +154,19 @@ class AdminGoalCreation extends MainLayoutComponent {
             fields = (
               <React.Fragment>
                 <Grid item xs={12} sm={6}>
-                  <TextField name='name' label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
+                  <TextField name='name' initial={ this.state.finalModel.name } label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Select name='type' label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' onChange={this.handleTypeChange} fullWidth required />
+                  <Select name='type' initial={ this.state.finalModel.type } label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' onChange={this.handleTypeChange} fullWidth required />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
+                  <Select name='category' initial={ this.state.finalModel.category } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Select name='periodicity' label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
+                  <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField name='indication' label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL} fullWidth multiline rowsMax={10} required />
+                  <TextField name='indication' initial={ this.state.finalModel.indication } label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL} fullWidth multiline rowsMax={10} required />
                 </Grid>
               </React.Fragment>
             )
@@ -152,10 +177,10 @@ class AdminGoalCreation extends MainLayoutComponent {
             fields = (
               <React.Fragment>
                 <Grid item xs={12} sm={6}>
-                  <TextField type='number' name='target' label={Resources.ADMIN_GOAL_CREATION_TARGET_LABEL} fullWidth required />
+                  <TextField type='number' name='target' initial={ this.state.finalModel.target } label={Resources.ADMIN_GOAL_CREATION_TARGET_LABEL} fullWidth required />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField type='number' name='default' label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required />
+                  <TextField type='number' name='default' initial={ this.state.finalModel.default } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required />
                 </Grid>
               </React.Fragment>
             )
@@ -166,7 +191,7 @@ class AdminGoalCreation extends MainLayoutComponent {
                 <Grid item xs={12}>
                   <Grid container alignItems='center'>
                     <Grid item>
-                      <Switch name='live' label={Resources.ADMIN_GOAL_CREATION_LIVE_LABEL} />
+                      <Switch name='live' initial={ this.state.finalModel.live } label={Resources.ADMIN_GOAL_CREATION_LIVE_LABEL} />
                     </Grid>
                     <Grid item>
                       <Tooltip title={Resources.ADMIN_GOAL_CREATION_LIVE_INFOS}>
@@ -180,14 +205,14 @@ class AdminGoalCreation extends MainLayoutComponent {
                 {
                   _.get(currentType, 'code') === 'C' && (
                     <Grid item xs={12}>
-                      <Switch name='editable' label={Resources.ADMIN_GOAL_CREATION_EDITABLE_LABEL} />
+                      <Switch name='editable' initial={ this.state.finalModel.editable } label={Resources.ADMIN_GOAL_CREATION_EDITABLE_LABEL} />
                     </Grid>
                   )
                 }
                 {
                   _.get(currentType, 'code') === 'T' && (
                     <Grid item xs={12}>
-                      <Switch name='admin_editable' label={Resources.ADMIN_GOAL_CREATION_ADMIN_EDITABLE_LABEL} />
+                      <Switch name='admin_editable' initial={ this.state.finalModel.admin_editable } label={Resources.ADMIN_GOAL_CREATION_ADMIN_EDITABLE_LABEL} />
                     </Grid>
                   )
                 }
@@ -199,7 +224,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         }
         return (
             <React.Fragment>
-              <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
+              <Formsy ref={ this.form } onValidSubmit={this.handleSubmit.bind(this)}>
                 <Stepper steps={this.state.steps} />
 
 
@@ -211,20 +236,25 @@ class AdminGoalCreation extends MainLayoutComponent {
                       </Grid>
                     </Card>
                   </Grid>
-
-                  <Grid item xs={12}>
-                    <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} loading={loading} centered />
-                  </Grid>
+                  { isLastStep &&
+                    <Grid item xs={12}>
+                      <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} loading={loading} centered />
+                    </Grid>
+                  }
                 </Grid>
               </Formsy>
               <Grid item>
-                <Grid container spacing={4} direction='row' >
-                  <Grid item>
-                    <ProgressButton text="précédent" loading={loading} centered />
-                  </Grid>
-                  <Grid item>
-                    <ProgressButton text="suivant" loading={loading} centered />
-                  </Grid>
+                <Grid container spacing={4} direction='row' justify='center'>
+                  { currentStep.order > 1 &&
+                    <Grid item>
+                      <ProgressButton onClick={ this.handlePreviousStep } color="secondary" text="précédent" loading={loading} centered />
+                    </Grid>
+                  }
+                  { !isLastStep &&
+                    <Grid item>
+                      <ProgressButton onClick={ this.handleNextStep } text="suivant" loading={loading} centered />
+                    </Grid>
+                  }
                 </Grid>
               </Grid>
             </React.Fragment>
