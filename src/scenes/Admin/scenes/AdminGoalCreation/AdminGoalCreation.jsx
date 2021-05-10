@@ -198,31 +198,36 @@ class AdminGoalCreation extends MainLayoutComponent {
             break
         }
         return (
-            <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
+            <React.Fragment>
+              <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
                 <Stepper steps={this.state.steps} />
 
 
                 <Grid container spacing={4}>
-                    <Grid item xs={12}>
-                        <Card>
-                            <Grid container spacing={2}>
-                                { fields }
-                            </Grid>
-                        </Card>
-                    </Grid>
-                    {
-                      currentStep.order < this.state.steps.length ? (
-                        <Grid item xs={12}>
-                          <ProgressButton type='submit' text={'Suivant'} loading={loading} centered />
-                        </Grid>
-                      ) : (
-                        <Grid item xs={12}>
-                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} loading={loading} centered />
-                        </Grid>
-                      )
-                    }
+                  <Grid item xs={12}>
+                    <Card>
+                      <Grid container spacing={2}>
+                        { fields }
+                      </Grid>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} loading={loading} centered />
+                  </Grid>
                 </Grid>
-            </Formsy>
+              </Formsy>
+              <Grid item>
+                <Grid container spacing={4} direction='row' >
+                  <Grid item>
+                    <ProgressButton text="précédent" loading={loading} centered />
+                  </Grid>
+                  <Grid item>
+                    <ProgressButton text="suivant" loading={loading} centered />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </React.Fragment>
         )
     }
 

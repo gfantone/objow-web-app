@@ -9,6 +9,17 @@ const styles = {
   label: {
     position: 'absolute',
     bottom: 0
+  },
+  rootStep: {
+    '& .MuiStepIcon-root.MuiStepIcon-active': {
+      color: '#00E58D'
+    }
+  },
+  completedStep: {
+    opacity: 0.6,
+    '& .MuiStepIcon-root.MuiStepIcon-completed': {
+      color: '#00E58D',
+    }
   }
 }
 
@@ -17,7 +28,14 @@ const CustomStepper = ({ classes, steps, ...props }) => {
   return(
     <Stepper alternativeLabel>
       { steps && steps.map(step => (
-        <Step active={step.active} completed={step.completed}>
+        <Step
+          classes={{
+            completed: classes.completedStep,
+            root: classes.rootStep
+          }}
+          active={step.active}
+          completed={step.completed}
+        >
           <StepLabel>{ step.name }</StepLabel>
         </Step>
       )) }
