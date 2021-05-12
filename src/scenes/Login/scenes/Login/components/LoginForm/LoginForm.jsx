@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
-import {Grid} from "@material-ui/core";
+import {Grid, isWidthUp, withWidth} from '@material-ui/core'
 import {makeStyles} from "@material-ui/styles";
 import {AndroidButton, Card, DarkTextField, DefaultText, ErrorText, IosButton, LinkedInButton, Logo, ProgressButton, Switch} from "../../../../../../components";
 import * as Resources from "../../../../../../Resources";
@@ -13,17 +13,20 @@ const useStyles = makeStyles({
         backgroundColor: '#2B2E45'
     },
     ssoSwitch: {
-
       position: 'absolute',
       right: 0,
       top: '50%',
       marginTop: '-21px',
     },
+    ssoSwitchMobile: {
+      marginTop: 10,
+      marginLeft: 'calc(50% - 50px)',
+      width: 200,
+    },
     ssoSwitchLabel: {
       color: 'white',
       fontWeight: 'bold',
       fontSize: '0.875rem',
-
     }
 })
 
@@ -34,6 +37,7 @@ const LoginForm = ({onSubmit, onSubmitSSO, customError, resetCustomError, ...pro
     const browser = detect()
     const isMobileApp = browser.name === 'ios-webview' || browser.name === 'chromium-webview'
     const classes = useStyles()
+    const ssoSwitchClass = isWidthUp('sm', props.width) ? classes.ssoSwitch : classes.ssoSwitchMobile
 
     return (
         <div>
@@ -75,7 +79,7 @@ const LoginForm = ({onSubmit, onSubmitSSO, customError, resetCustomError, ...pro
 
                         <Grid item xs={12} style={{position: 'relative'}}>
                             <ProgressButton type='submit' text={Resources.LOGIN_SUBMIT_BUTTON} centered loading={loading} />
-                            <div className={ classes.ssoSwitch }>
+                            <div className={ ssoSwitchClass }>
                               <Switch
                                 name='isSSO'
                                 initial={ isSSO }
@@ -136,4 +140,4 @@ const mapStateToProps = ({auth}) => ({
     auth
 })
 
-export default connect(mapStateToProps)(LoginForm)
+export default connect(mapStateToProps)(withWidth()(LoginForm))
