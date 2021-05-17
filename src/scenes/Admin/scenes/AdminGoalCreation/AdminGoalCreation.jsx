@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux'
 import _ from 'lodash';
 import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
-import {AppBarSubTitle, BlueText, Card, DefaultText, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, Switch, TextField, Tooltip, Stepper} from '../../../../components'
+import { withStyles } from "@material-ui/core/styles"
+import {AppBarSubTitle, BlueText, Card, DefaultText, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, Switch, TextField, Tooltip, Stepper, RichText} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../services/GoalTypes/GoalTypeList/actions'
@@ -13,6 +14,14 @@ import * as periodicityListActions from '../../../../services/Periodicities/Peri
 import * as goalDefinitionCreationActions from '../../../../services/GoalDefinitions/GoalDefinitionCreation/actions'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+
+const styles = {
+  indications: {
+    '& .MuiInputBase-root': {
+      display: 'none'
+    }
+  }
+}
 
 class AdminGoalCreation extends MainLayoutComponent {
     constructor(props) {
@@ -60,6 +69,15 @@ class AdminGoalCreation extends MainLayoutComponent {
             type: type
         })
     }
+
+    handleIndicationChange = (newIndication) => {
+      console.log(newIndication);
+      this.setState({
+          ...this.state,
+          finalModel: _.merge(this.state.finalModel, { indication: newIndication })
+      })
+    }
+
     changeStep(model) {
       const currentStep = this.state.steps.find(step => step.active === true)
       this.setState({
@@ -80,7 +98,6 @@ class AdminGoalCreation extends MainLayoutComponent {
     handleSubmit(model) {
         const currentStep = this.state.steps.find(step => step.active === true)
         const nextStep = this.state.steps.find(step => step.order === currentStep.order + 1)
-        console.log(this.state.finalModel);
         if(nextStep) {
           this.changeStep(model)
         } else {
@@ -134,6 +151,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         const unit = kpi ? kpi.unit.name + (kpi.unit.symbol ? ` (${kpi.unit.symbol})` : '') : null;
         const currentStep = this.state.steps.find(step => step.active === true)
         const isLastStep = currentStep.order >= this.state.steps.length
+        const { classes } = this.props
 
         let fields
         switch(currentStep.order){
@@ -165,8 +183,29 @@ class AdminGoalCreation extends MainLayoutComponent {
                 <Grid item xs={12} sm={6}>
                   <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
                 </Grid>
-                <Grid item xs={12}>
-                  <TextField name='indication' initial={ this.state.finalModel.indication } label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL} fullWidth multiline rowsMax={10} required />
+                <Grid item xs={12} className={ classes.indications }>
+                  <TextField
+                    name='indication'
+                    initial={ this.state.finalModel.indication }
+                    readOnly={ false }
+                    onChange={() => {}}
+                    label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+                    fullWidth
+                    multiline
+                    rowsMax={10}
+                    required
+                  />
+                  <RichText
+                    name='indication'
+                    initial={ this.state.finalModel.indication || [ { children: [{ text: '' }],}] }
+                    readOnly={ false }
+                    onChange={ this.handleIndicationChange }
+                    label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+                    fullWidth
+                    multiline
+                    rowsMax={10}
+                    required
+                  />
                 </Grid>
               </React.Fragment>
             )
@@ -299,4 +338,4 @@ const mapDispatchToProps = (dispatch) => ({
     goalDefinitionCreationActions: bindActionCreators(goalDefinitionCreationActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminGoalCreation)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AdminGoalCreation))
