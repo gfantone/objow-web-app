@@ -67,7 +67,7 @@ class GameRules extends MainLayoutComponent {
 
         return (
             <Grid container spacing={2} justify='space-between'>
-                <Grid item xs={12}>
+                <Grid item xs={12} style={{ marginTop: '20px' }}>
                     <RichText initial={rules} readOnly={!this.state.edition} onChange={this.handleRulesChange.bind(this)} />
                 </Grid>
                 {this.state.edition && <Grid item>

@@ -38,7 +38,7 @@ const RichText = ({initial, readOnly, onChange}) => {
             <Slate editor={editor} value={value} onChange={handleValueChange}>
                 <div style={!readOnly ? {
                     backgroundColor: '#ffffff',
-                    margin: '20px auto',
+                    margin: 'auto',
                     padding: '20px'
                 } : null}>
                     {!readOnly && <Toolbar>

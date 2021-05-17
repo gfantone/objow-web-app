@@ -107,7 +107,10 @@ class AdminGoalCreation extends MainLayoutComponent {
               adminEditable: false,
               period: this.props.match.params.periodId
             },
-            this.state.finalModel
+            this.state.finalModel,
+            {
+              indication: JSON.stringify(this.state.finalModel.indication)
+            }
           ))
         }
     }
@@ -193,7 +196,6 @@ class AdminGoalCreation extends MainLayoutComponent {
                     fullWidth
                     multiline
                     rowsMax={10}
-                    required
                   />
                   <RichText
                     name='indication'
