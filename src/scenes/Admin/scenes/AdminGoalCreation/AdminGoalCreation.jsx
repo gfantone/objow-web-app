@@ -5,13 +5,14 @@ import _ from 'lodash';
 import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
 import { withStyles } from "@material-ui/core/styles"
-import {AppBarSubTitle, BlueText, Card, DefaultText, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, Switch, TextField, Tooltip, Stepper, RichText} from '../../../../components'
+import {AppBarSubTitle, BlueText, Card, DefaultText, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, Switch, TextField, Tooltip, Stepper, RichText, TransferList} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../services/GoalTypes/GoalTypeList/actions'
 import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
 import * as periodicityListActions from '../../../../services/Periodicities/PeriodicityList/actions'
 import * as goalDefinitionCreationActions from '../../../../services/GoalDefinitions/GoalDefinitionCreation/actions'
+import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
@@ -37,6 +38,7 @@ class AdminGoalCreation extends MainLayoutComponent {
               { order: 5, name: 'Options'},
               { order: 6, name: 'Validation'}
             ],
+            currentTeam: null,
             finalModel: {
 
             }
@@ -54,6 +56,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         this.props.goalTypeListActions.getGoalTypeList();
         this.props.kpiListActions.getKpiList();
         this.props.periodicityListActions.getPeriodicityList()
+        this.props.teamListActions.getTeamList()
     }
 
     handleKpiChange(kpi) {
@@ -71,10 +74,16 @@ class AdminGoalCreation extends MainLayoutComponent {
     }
 
     handleIndicationChange = (newIndication) => {
-      console.log(newIndication);
       this.setState({
           ...this.state,
           finalModel: _.merge(this.state.finalModel, { indication: newIndication })
+      })
+    }
+
+    handleTeamsChange = (team) => {
+      this.setState({
+          ...this.state,
+          currentTeam: team
       })
     }
 
@@ -91,7 +100,15 @@ class AdminGoalCreation extends MainLayoutComponent {
           }
           return step
         }),
-        finalModel: _.merge(this.state.finalModel, model)
+        finalModel: Object.assign(_.merge(this.state.finalModel, model), { participants: this.state.participants })
+      })
+    }
+
+    addParticipants = (participants) => {
+
+      this.setState({
+          ...this.state,
+          participants: participants
       })
     }
 
@@ -109,7 +126,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             },
             this.state.finalModel,
             {
-              indication: JSON.stringify(this.state.finalModel.indication)
+              indication: JSON.stringify(this.state.finalModel.indication),
             }
           ))
         }
@@ -148,6 +165,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         const { kpis } = this.props.kpiList;
         const { periodicities } = this.props.periodicityList;
         const { loading } = this.props.goalDefinitionCreation;
+        const { teams } = this.props.teamList;
         const kpi = this.state.kpi ? kpis.find(k => k.id == this.state.kpi) : null;
         const { type } = this.state;
         const currentType = types.find(t => t.id === parseInt(type))
@@ -158,61 +176,75 @@ class AdminGoalCreation extends MainLayoutComponent {
 
         let fields
         switch(currentStep.order){
-          case 1:
-            fields = (
-              <React.Fragment>
-                <Grid item xs={12} sm={6}>
-                  <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
-                  <DefaultText>{unit}</DefaultText>
-                </Grid>
-              </React.Fragment>
-            )
-            break
-          case 2:
-            fields = (
-              <React.Fragment>
-                <Grid item xs={12} sm={6}>
-                  <TextField name='name' initial={ this.state.finalModel.name } label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Select name='type' initial={ this.state.finalModel.type } label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' onChange={this.handleTypeChange} fullWidth required />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Select name='category' initial={ this.state.finalModel.category } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
-                </Grid>
-                <Grid item xs={12} className={ classes.indications }>
-                  <TextField
-                    name='indication'
-                    initial={ this.state.finalModel.indication }
-                    readOnly={ false }
-                    onChange={() => {}}
-                    label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-                    fullWidth
-                    multiline
-                    rowsMax={10}
-                  />
-                  <RichText
-                    name='indication'
-                    initial={ this.state.finalModel.indication || [ { children: [{ text: '' }],}] }
-                    readOnly={ false }
-                    onChange={ this.handleIndicationChange }
-                    label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-                    fullWidth
-                    multiline
-                    rowsMax={10}
-                    required
-                  />
-                </Grid>
-              </React.Fragment>
-            )
-            break
+          // case 1:
+          //   fields = (
+          //     <React.Fragment>
+          //       <Grid item xs={12} sm={6}>
+          //         <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
+          //       </Grid>
+          //       <Grid item xs={12} sm={6}>
+          //         <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
+          //         <DefaultText>{unit}</DefaultText>
+          //       </Grid>
+          //     </React.Fragment>
+          //   )
+          //   break
+          // case 2:
+          //   fields = (
+          //     <React.Fragment>
+          //       <Grid item xs={12} sm={6}>
+          //         <TextField name='name' initial={ this.state.finalModel.name } label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
+          //       </Grid>
+          //       <Grid item xs={12} sm={6}>
+          //         <Select name='type' initial={ this.state.finalModel.type } label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' onChange={this.handleTypeChange} fullWidth required />
+          //       </Grid>
+          //       <Grid item xs={12} sm={6}>
+          //         <Select name='category' initial={ this.state.finalModel.category } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
+          //       </Grid>
+          //       <Grid item xs={12} sm={6}>
+          //         <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
+          //       </Grid>
+          //       <Grid item xs={12} className={ classes.indications }>
+          //         <TextField
+          //           name='indication'
+          //           initial={ this.state.finalModel.indication }
+          //           readOnly={ false }
+          //           onChange={() => {}}
+          //           label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+          //           fullWidth
+          //           multiline
+          //           rowsMax={10}
+          //         />
+          //         <RichText
+          //           name='indication'
+          //           initial={ this.state.finalModel.indication || [ { children: [{ text: '' }],}] }
+          //           readOnly={ false }
+          //           onChange={ this.handleIndicationChange }
+          //           label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+          //           fullWidth
+          //           multiline
+          //           rowsMax={10}
+          //           required
+          //         />
+          //       </Grid>
+          //     </React.Fragment>
+          //   )
+          //   break
           case 3:
+            fields = (
+              <React.Fragment>
+                <div style={{ marginBottom: '10px' }}>
+                  <Select name='teams' options={teams} emptyText='Toutes les équipes' optionValueName='id' optionTextName='name' onChange={this.handleTeamsChange} fullWidth/>
+                </div>
+                <TransferList
+                  listIn={
+                    this.state.currentTeam ? _.get(teams.find(team => team.id === parseInt(this.state.currentTeam)), 'collaborators', []) : _.flatten(teams.map(team => team.collaborators || []))
+                  }
+                  onChange={ this.addParticipants }
+                  selected={this.state.finalModel.participants}
+                />
+              </React.Fragment>
+            )
             break
           case 4:
             fields = (
@@ -308,7 +340,8 @@ class AdminGoalCreation extends MainLayoutComponent {
         const { types, loading: goalTypeListLoading } = this.props.goalTypeList;
         const { kpis, loading: kpiListLoading } = this.props.kpiList;
         const { periodicities, loading: periodicityListLoading } = this.props.periodicityList;
-        const loading = categoryListLoading || goalTypeListLoading || kpiListLoading || periodicityListLoading;
+        const { teams, loading: teamLoading } = this.props.teamList
+        const loading = categoryListLoading || goalTypeListLoading || kpiListLoading || periodicityListLoading || teamLoading;
 
         if (definition) {
             this.props.goalDefinitionCreationActions.clearGoalDefinitionCreation();
@@ -318,18 +351,19 @@ class AdminGoalCreation extends MainLayoutComponent {
         return (
             <div>
                 { loading && this.renderLoader() }
-                { !loading && categories && types  && kpis && periodicities && this.renderData() }
+                { !loading && categories && types  && kpis && periodicities && teams && this.renderData() }
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionCreation }) => ({
+const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionCreation, teamList }) => ({
     categoryList,
     goalTypeList,
     kpiList,
     periodicityList,
-    goalDefinitionCreation
+    goalDefinitionCreation,
+    teamList
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -337,7 +371,8 @@ const mapDispatchToProps = (dispatch) => ({
     goalTypeListActions: bindActionCreators(goalTypeListActions, dispatch),
     kpiListActions: bindActionCreators(kpiListActions, dispatch),
     periodicityListActions: bindActionCreators(periodicityListActions, dispatch),
-    goalDefinitionCreationActions: bindActionCreators(goalDefinitionCreationActions, dispatch)
+    goalDefinitionCreationActions: bindActionCreators(goalDefinitionCreationActions, dispatch),
+    teamListActions: bindActionCreators(teamListActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AdminGoalCreation))
