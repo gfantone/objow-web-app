@@ -174,72 +174,71 @@ class AdminGoalCreation extends MainLayoutComponent {
         const currentStep = this.state.steps.find(step => step.active === true)
         const isLastStep = currentStep.order >= this.state.steps.length
         const { classes } = this.props
-
         let fields
         switch(currentStep.order){
-          case 1:
-            fields = (
-              <React.Fragment>
-                <Grid item xs={12} sm={6}>
-                  <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
-                  <DefaultText>{unit}</DefaultText>
-                </Grid>
-              </React.Fragment>
-            )
-            break
-          case 2:
-            fields = (
-              <React.Fragment>
-                <Grid item xs={12} sm={6}>
-                  <TextField name='name' initial={ this.state.finalModel.name } label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Select name='type' initial={ this.state.finalModel.type } label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' onChange={this.handleTypeChange} fullWidth required />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Select name='category' initial={ this.state.finalModel.category } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
-                </Grid>
-                <Grid item xs={12} className={ classes.indications }>
-                  <TextField
-                    name='indication'
-                    initial={ this.state.finalModel.indication }
-                    readOnly={ false }
-                    onChange={() => {}}
-                    label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-                    fullWidth
-                    multiline
-                    rowsMax={10}
-                  />
-                  <RichText
-                    name='indication'
-                    initial={ this.state.finalModel.indication || [ { children: [{ text: '' }],}] }
-                    readOnly={ false }
-                    onChange={ this.handleIndicationChange }
-                    label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-                    fullWidth
-                    multiline
-                    rowsMax={10}
-                    required
-                  />
-                </Grid>
-              </React.Fragment>
-            )
-            break
+          // case 1:
+          //   fields = (
+          //     <React.Fragment>
+          //       <Grid item xs={12} sm={6}>
+          //         <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
+          //       </Grid>
+          //       <Grid item xs={12} sm={6}>
+          //         <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
+          //         <DefaultText>{unit}</DefaultText>
+          //       </Grid>
+          //     </React.Fragment>
+          //   )
+          //   break
+          // case 2:
+          //   fields = (
+          //     <React.Fragment>
+          //       <Grid item xs={12} sm={6}>
+          //         <TextField name='name' initial={ this.state.finalModel.name } label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
+          //       </Grid>
+          //       <Grid item xs={12} sm={6}>
+          //         <Select name='type' initial={ this.state.finalModel.type } label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' onChange={this.handleTypeChange} fullWidth required />
+          //       </Grid>
+          //       <Grid item xs={12} sm={6}>
+          //         <Select name='category' initial={ this.state.finalModel.category } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
+          //       </Grid>
+          //       <Grid item xs={12} sm={6}>
+          //         <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
+          //       </Grid>
+          //       <Grid item xs={12} className={ classes.indications }>
+          //         <TextField
+          //           name='indication'
+          //           initial={ this.state.finalModel.indication }
+          //           readOnly={ false }
+          //           onChange={() => {}}
+          //           label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+          //           fullWidth
+          //           multiline
+          //           rowsMax={10}
+          //         />
+          //         <RichText
+          //           name='indication'
+          //           initial={ this.state.finalModel.indication || [ { children: [{ text: '' }],}] }
+          //           readOnly={ false }
+          //           onChange={ this.handleIndicationChange }
+          //           label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+          //           fullWidth
+          //           multiline
+          //           rowsMax={10}
+          //           required
+          //         />
+          //       </Grid>
+          //     </React.Fragment>
+          //   )
+          //   break
           case 3:
             fields = (
               <React.Fragment>
                 <div style={{ marginBottom: '10px' }}>
-                  <Select name='teams' options={teams} emptyText='Toutes les équipes' optionValueName='id' optionTextName='name' onChange={this.handleTeamsChange} fullWidth/>
+                  <Select name='teams' options={teams} initial={ teams[0].id }  optionValueName='id' optionTextName='name' onChange={this.handleTeamsChange} fullWidth emptyDisabled />
                 </div>
                 <TransferList
                   listIn={
-                    this.state.currentTeam ? _.get(teams.find(team => team.id === parseInt(this.state.currentTeam)), 'collaborators', []) : _.flatten(teams.map(team => team.collaborators || []))
+                    _.get(teams.find(team => team.id === parseInt(this.state.currentTeam || teams[0].id)), 'collaborators', [])
                   }
                   onChange={ this.addParticipants }
                   selected={this.state.finalModel.participants}
