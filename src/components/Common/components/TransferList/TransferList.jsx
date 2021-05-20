@@ -52,9 +52,10 @@ const styles = {
   }
 }
 
-const TransferList = ({ listIn, selected, onChange, ...props }) => {
+const TransferList = ({ listIn, selected, onChange, mode, ...props }) => {
     const { classes } = props
     const [selectedList, setSelectedList] = useState(selected || [])
+    console.log(listIn);
     const selectItem = (item) => {
       if(_.indexOf(selectedList, item) < 0) {
         setSelectedList([item, ...selectedList])
@@ -100,7 +101,10 @@ const TransferList = ({ listIn, selected, onChange, ...props }) => {
       onChange(selectedList)
     }, [selectedList])
 
-    const choices = _.differenceWith(listIn, selectedList, _.isEqual)
+    const choices = mode === 'team' ?
+      listIn.filter(team => _.intersection(selectedList, team.collaborators).length < team.collaborators.length) :
+      _.differenceWith(listIn, selectedList, _.isEqual)
+
     // console.log(getListByTeam(selectedList));
     return (
       <Grid container direction="column" spacing={1}>
@@ -121,11 +125,17 @@ const TransferList = ({ listIn, selected, onChange, ...props }) => {
         <Grid item>
           <Grid container direction="row" justify="space-between">
             <Grid item xs={5}>
-              { choices.map((collaborator, collaboratorKey) => (
+              { choices.map((choice, choiceKey) => (
                 <div className={ classes.item }>
-                  <Collaborator key={collaboratorKey} collaborator={collaborator} />
-                  <IconButton size='small' onClick={() => selectItem(collaborator)} className={ classes.itemIcon } >
-                      <FontAwesomeIcon icon={faPlus} className={ classes.addIcon } />
+                  { mode === 'team' ? (
+                    <DefaultTitle style={{height:'30px', lineHeight: '2.5'}}>
+                      {choice.name} ({ choice.collaborators.length })
+                    </DefaultTitle>
+                  ) : (
+                    <Collaborator key={choiceKey} collaborator={choice} />
+                  )  }
+                  <IconButton size='small' onClick={() => mode === 'team' ? addList(choice.collaborators) : selectItem(choice)} className={ classes.itemIcon } >
+                    <FontAwesomeIcon icon={faPlus} className={ classes.addIcon } />
                   </IconButton>
                 </div>
               )) }
@@ -141,7 +151,7 @@ const TransferList = ({ listIn, selected, onChange, ...props }) => {
                       <ExpansionPanel className={classes.panel} defaultExpanded>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} className={classes.panelSummary}>
                           <DefaultTitle key={teamKey}>
-                            {team.name}
+                            {team.name} ({team.collaborators.length})
                           </DefaultTitle>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails className={classes.panelDetails}>
