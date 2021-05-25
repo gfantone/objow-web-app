@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faFolderOpen, faInfoCircle} from '@fortawesome/free-solid-svg-icons'
 import { AdviceList, LiveStatus, ReadonlyAdviceList } from './components'
-import {AnimationController, BlueText, Card, DefaultText, DefaultTitle, InfoText, Linkify, Table, TableBody, TableCell, TableChip, TableRow, Tooltip} from '../../../../components'
+import {AnimationController, BlueText, Card, DefaultText, DefaultTitle, InfoText, Linkify, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import {getDifferenceWithToday} from '../../../../helpers/DateHelper'
 
@@ -99,10 +99,9 @@ const GoalIndication = ({ goal, type, ...props }) => {
                                     <Grid item xs={12}>
                                         <Linkify>
                                             <InfoText>
-                                                {goal.definition.indication.split("\n").map((i, key) => {
-                                                    return <div key={key}>{i}</div>;
-                                                })}
+                                              <RichText initial={JSON.parse(goal.definition.indication)} readOnly={ true } onChange={() => {}} />
                                             </InfoText>
+
                                         </Linkify>
                                     </Grid>
                                 </Grid>
