@@ -5,7 +5,7 @@ import _ from 'lodash';
 import Formsy from 'formsy-react'
 import { Grid, RadioGroup, FormControlLabel } from '@material-ui/core'
 import { withStyles } from "@material-ui/core/styles"
-import {AppBarSubTitle, BlueText, Card, DefaultText, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, Switch, TextField, Tooltip, Stepper, RichText, TransferList, GreenRadio} from '../../../../components'
+import {AppBarSubTitle, BlueText, Card, DefaultText, BigText, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, Switch, TextField, Tooltip, Stepper, RichText, TransferList, GreenRadio} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../services/GoalTypes/GoalTypeList/actions'
@@ -38,8 +38,6 @@ class AdminGoalCreation extends MainLayoutComponent {
               { order: 5, name: 'Options'},
               { order: 6, name: 'Validation'}
             ],
-            currentTeam: null,
-            participantMode: 'collaborator',
             finalModel: {
 
             }
@@ -90,27 +88,38 @@ class AdminGoalCreation extends MainLayoutComponent {
 
     changeStep(model) {
       const currentStep = this.state.steps.find(step => step.active === true)
-      this.setState({
-        ...this.state,
-        steps: this.state.steps.map(step => {
-          if(step.order === currentStep.order) {
-            return Object.assign(step, {active: false, completed: true})
-          }
-          if(step.order === currentStep.order + 1) {
-            return Object.assign(step, {active: true})
-          }
-          return step
-        }),
-        finalModel: Object.assign(_.merge(this.state.finalModel, model), { participants: this.state.participants })
-      })
+      // Reset participants if we change goal type (team or individual)
+
+      const apply = () => {
+        this.setState({
+          ...this.state,
+          steps: this.state.steps.map(step => {
+            if(step.order === currentStep.order) {
+              return Object.assign(step, {active: false, completed: true})
+            }
+            if(step.order === currentStep.order + 1) {
+              return Object.assign(step, {active: true})
+            }
+            return step
+          }),
+          finalModel: Object.assign(_.merge(this.state.finalModel, model), {
+            participants: this.state.participants
+          })
+        })
+      }
+      if(model.type && this.state.finalModel.type !== model.type) {
+        this.setParticipants([], apply)
+      } else {
+        apply()
+      }
     }
 
-    addParticipants = (participants) => {
+    setParticipants = (participants, callback) => {
 
       this.setState({
           ...this.state,
           participants: participants
-      })
+      }, callback)
     }
     setParticipantMode = (mode) => {
       this.setState({
@@ -183,89 +192,67 @@ class AdminGoalCreation extends MainLayoutComponent {
         const { classes } = this.props
         let fields
         switch(currentStep.order){
-          // case 1:
-          //   fields = (
-          //     <React.Fragment>
-          //       <Grid item xs={12} sm={6}>
-          //         <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
-          //       </Grid>
-          //       <Grid item xs={12} sm={6}>
-          //         <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
-          //         <DefaultText>{unit}</DefaultText>
-          //       </Grid>
-          //     </React.Fragment>
-          //   )
-          //   break
-          // case 2:
-          //   fields = (
-          //     <React.Fragment>
-          //       <Grid item xs={12} sm={6}>
-          //         <TextField name='name' initial={ this.state.finalModel.name } label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
-          //       </Grid>
-          //       <Grid item xs={12} sm={6}>
-          //         <Select name='type' initial={ this.state.finalModel.type } label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' onChange={this.handleTypeChange} fullWidth required />
-          //       </Grid>
-          //       <Grid item xs={12} sm={6}>
-          //         <Select name='category' initial={ this.state.finalModel.category } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
-          //       </Grid>
-          //       <Grid item xs={12} sm={6}>
-          //         <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
-          //       </Grid>
-          //       <Grid item xs={12} className={ classes.indications }>
-          //         <TextField
-          //           name='indication'
-          //           initial={ this.state.finalModel.indication }
-          //           readOnly={ false }
-          //           onChange={() => {}}
-          //           label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-          //           fullWidth
-          //           multiline
-          //           rowsMax={10}
-          //         />
-          //         <RichText
-          //           name='indication'
-          //           initial={ this.state.finalModel.indication || [ { children: [{ text: '' }],}] }
-          //           readOnly={ false }
-          //           onChange={ this.handleIndicationChange }
-          //           label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-          //           fullWidth
-          //           multiline
-          //           rowsMax={10}
-          //           required
-          //         />
-          //       </Grid>
-          //     </React.Fragment>
-          //   )
-          //   break
-          case 3:
-            const displayTeamChoices = this.state.participantMode === 'collaborator' && this.state.type === "1"
-
+          case 1:
             fields = (
               <React.Fragment>
-                <Grid container direction='column' alignItems='flex-start'>
-                  { this.state.type === '1' && (
-                    <Grid item>
-                      <RadioGroup row>
-                        <FormControlLabel label="Equipes" value='team' control={<GreenRadio color="primary" checked={this.state.participantMode == 'team'} onClick={() => this.setParticipantMode('team')} />} />
-                        <FormControlLabel label="Collaborateurs" value='collaborator' control={<GreenRadio color="primary" checked={this.state.participantMode == 'collaborator'} onClick={() => this.setParticipantMode('collaborator')} />} />
-                      </RadioGroup>
-                    </Grid>
-                  )}
-                  { displayTeamChoices && (
-                    <Grid item>
-                        <div style={{ marginBottom: '10px' }}>
-                          <Select name='teams' options={teams} initial={ teams[0].id }  optionValueName='id' optionTextName='name' onChange={this.handleTeamsChange} fullWidth emptyDisabled />
-                        </div>
-                    </Grid>
-                  ) }
+                <Grid item xs={12} sm={6}>
+                  <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
                 </Grid>
+                <Grid item xs={12} sm={6}>
+                  <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
+                  <DefaultText>{unit}</DefaultText>
+                </Grid>
+              </React.Fragment>
+            )
+            break
+          case 2:
+            fields = (
+              <React.Fragment>
+                <Grid item xs={12} sm={6}>
+                  <TextField name='name' initial={ this.state.finalModel.name } label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Select name='type' initial={ this.state.finalModel.type } label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' onChange={this.handleTypeChange} fullWidth required />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Select name='category' initial={ this.state.finalModel.category } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
+                </Grid>
+                <Grid item xs={12} className={ classes.indications }>
+                  <TextField
+                    name='indication'
+                    initial={ this.state.finalModel.indication }
+                    readOnly={ false }
+                    onChange={() => {}}
+                    label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+                    fullWidth
+                    multiline
+                    rowsMax={10}
+                  />
+                  <RichText
+                    name='indication'
+                    initial={ this.state.finalModel.indication || [ { children: [{ text: '' }],}] }
+                    readOnly={ false }
+                    onChange={ this.handleIndicationChange }
+                    label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+                    fullWidth
+                    multiline
+                    rowsMax={10}
+                    required
+                  />
+                </Grid>
+              </React.Fragment>
+            )
+            break
+          case 3:
+            fields = (
+              <React.Fragment>
                 <TransferList
-                  listIn={
-                    !displayTeamChoices ? teams :
-                    _.get(teams.find(team => team.id === parseInt(this.state.currentTeam || teams[0].id)), 'collaborators', [])
-                  }
-                  mode={this.state.type === '1' ? this.state.participantMode : 'team'}
-                  onChange={ this.addParticipants }
+                  listIn={ teams }
+                  enableCollaboratorSelect={ this.state.type === '1' }
+                  onChange={ this.setParticipants }
                   selected={this.state.finalModel.participants}
                 />
               </React.Fragment>
@@ -318,6 +305,16 @@ class AdminGoalCreation extends MainLayoutComponent {
             )
             break
           case 6:
+            fields = (
+              <div style={{ textAlign: 'center', margin: 'auto' }}>
+                <BigText>
+                  Félicitations !
+                </BigText>
+                <BigText>
+                  Il ne vous reste plus qu'à personnaliser vos objectifs selon vos besoins
+                </BigText>
+              </div>
+            )
             break
         }
         return (
@@ -325,11 +322,10 @@ class AdminGoalCreation extends MainLayoutComponent {
               <Formsy ref={ this.form } onValidSubmit={this.handleSubmit.bind(this)}>
                 <Stepper steps={this.state.steps} />
 
-
                 <Grid container spacing={4}>
                   <Grid item xs={12}>
                     <Card>
-                      <Grid container spacing={2}>
+                      <Grid container spacing={2} style={{minHeight: 200}}>
                         { fields }
                       </Grid>
                     </Card>

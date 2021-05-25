@@ -9,10 +9,23 @@ import { Collaborator, Team, DefaultTitle, Button, TeamThumb } from '../../..'
 import _ from 'lodash'
 
 const styles = {
+  title: {
+    fontSize: 17,
+    textAlign: 'center',
+    margin: '5px 0'
+  },
+  boxWrapper: {
+    padding: '15px',
+    borderRadius: '6px',
+    background: "#f7f8fc"
+  },
   item: {
     marginBottom: 10,
     position: 'relative',
-    zIndex: 10
+    zIndex: 10,
+    "&:last-of-type": {
+      marginBottom: '0'
+    }
   },
   itemIcon: {
     position: 'absolute',
@@ -34,7 +47,10 @@ const styles = {
   },
   panelWrapper: {
     position: 'relative',
-    marginBottom: '18px'
+    marginBottom: '18px',
+    "&:last-of-type": {
+      marginBottom: '0'
+    }
   },
   panel: {
       backgroundColor: 'initial',
@@ -73,7 +89,7 @@ const styles = {
   }
 }
 
-const TransferList = ({ listIn, selected, onChange, mode, ...props }) => {
+const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ...props }) => {
     const { classes } = props
     const [selectedList, setSelectedList] = useState(selected || [])
 
@@ -121,22 +137,25 @@ const TransferList = ({ listIn, selected, onChange, mode, ...props }) => {
     React.useEffect(() => {
       onChange(selectedList)
     }, [selectedList])
-
-    const choices = mode === 'team' ?
-      listIn.filter(team => _.intersection(selectedList, team.collaborators).length < team.collaborators.length) :
-      _.differenceWith(listIn, selectedList, _.isEqual)
+    const choices = _.compact(listIn.map(team =>
+      _.intersection(selectedList, team.collaborators).length < team.collaborators.length ? Object.assign(
+        {},
+        team,
+        { collaborators: _.difference(team.collaborators, selectedList) }
+      ) : null
+    ))
 
     return (
       <Grid container direction="column" spacing={1}>
         <Grid item>
           <Grid container direction="row" justify="space-between">
             <Grid item xs={5}>
-              <DefaultTitle>
+              <DefaultTitle className={ classes.title }>
                 Selection
               </DefaultTitle>
             </Grid>
             <Grid item xs={5}>
-              <DefaultTitle>
+              <DefaultTitle className={ classes.title }>
                 Participants
               </DefaultTitle>
             </Grid>
@@ -144,21 +163,41 @@ const TransferList = ({ listIn, selected, onChange, mode, ...props }) => {
         </Grid>
         <Grid item>
           <Grid container direction="row" justify="space-between">
-            <Grid item xs={5}>
+            <Grid item xs={5} className={ classes.boxWrapper }>
               { choices.map((choice, choiceKey) => (
-                <div className={ classes.item }>
-                  { mode === 'team' ? (
-                    <TeamThumb team={ choice } />
-                  ) : (
-                    <Collaborator key={choiceKey} collaborator={choice} />
-                  )  }
-                  <IconButton size='small' onClick={() => mode === 'team' ? addList(choice.collaborators) : selectItem(choice)} className={ classes.itemIcon } >
-                    <FontAwesomeIcon icon={faPlus} className={ classes.addIcon } />
-                  </IconButton>
+
+                <div className={ classes.panelWrapper }>
+                  <div style={{position: 'static'}}>
+                    <div className={ classes.item }>
+                      <TeamThumb team={ choice } />
+                      <IconButton size='small' onClick={() => addList(choice.collaborators)} className={ classes.itemIcon } >
+                        <FontAwesomeIcon icon={faPlus} className={ classes.addIcon } />
+                      </IconButton>
+                    </div>
+                    { enableCollaboratorSelect && (
+
+                      <ExpansionPanel className={classes.panel}>
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} className={classes.panelSummary}>
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails className={classes.panelDetails}>
+                          <Grid container key={choiceKey}>
+                            { _.difference(choice.collaborators, selectedList).map((collaborator, collaboratorKey) => (
+                              <Grid item className={ classes.item } style={{ width: '100%' }}>
+                                <Collaborator key={collaboratorKey} collaborator={collaborator} />
+                                <IconButton size='small' onClick={() => selectItem(collaborator)} className={ classes.itemIcon } >
+                                  <FontAwesomeIcon icon={faPlus} className={ classes.addIcon } />
+                                </IconButton>
+                              </Grid>
+                            )) }
+                          </Grid>
+                        </ExpansionPanelDetails>
+                      </ExpansionPanel>
+                    )}
+                  </div>
                 </div>
               )) }
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={5} className={ classes.boxWrapper }>
               { getListByTeam(selectedList).map((team, teamKey) => (
                 <React.Fragment>
                   <div className={ classes.panelWrapper }>
@@ -169,22 +208,24 @@ const TransferList = ({ listIn, selected, onChange, mode, ...props }) => {
                           <FontAwesomeIcon icon={faMinus} className={ classes.deleteIcon } />
                         </IconButton>
                       </div>
-                      <ExpansionPanel className={classes.panel}>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} className={classes.panelSummary}>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails className={classes.panelDetails}>
-                          <Grid container key={teamKey}>
-                            { team.collaborators.map((collaborator, collaboratorKey) => (
-                              <Grid item className={ classes.item } style={{ width: '100%' }}>
-                                <Collaborator key={collaboratorKey} collaborator={collaborator} />
-                                <IconButton size='small' onClick={() => removeItem(collaborator)} className={ classes.itemIcon } >
-                                  <FontAwesomeIcon icon={faMinus} className={ classes.deleteIcon } />
-                                </IconButton>
-                              </Grid>
-                            )) }
-                          </Grid>
-                        </ExpansionPanelDetails>
-                      </ExpansionPanel>
+                      { enableCollaboratorSelect && (
+                        <ExpansionPanel className={classes.panel}>
+                          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} className={classes.panelSummary}>
+                          </ExpansionPanelSummary>
+                          <ExpansionPanelDetails className={classes.panelDetails}>
+                            <Grid container key={teamKey}>
+                              { team.collaborators.map((collaborator, collaboratorKey) => (
+                                <Grid item className={ classes.item } style={{ width: '100%' }}>
+                                  <Collaborator key={collaboratorKey} collaborator={collaborator} />
+                                  <IconButton size='small' onClick={() => removeItem(collaborator)} className={ classes.itemIcon } >
+                                    <FontAwesomeIcon icon={faMinus} className={ classes.deleteIcon } />
+                                  </IconButton>
+                                </Grid>
+                              )) }
+                            </Grid>
+                          </ExpansionPanelDetails>
+                        </ExpansionPanel>
+                      )}
                     </div>
                   </div>
 

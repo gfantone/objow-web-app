@@ -10,6 +10,9 @@ const styles = {
     position: 'absolute',
     bottom: 0
   },
+  rootStepper: {
+    background: 'none'
+  },
   rootStep: {
     '& .MuiStepIcon-root.MuiStepIcon-active': {
       color: '#00E58D'
@@ -26,7 +29,9 @@ const styles = {
 const CustomStepper = ({ classes, steps, ...props }) => {
 
   return(
-    <Stepper alternativeLabel>
+    <Stepper alternativeLabel classes={{
+        root: classes.rootStepper
+      }}>
       { steps && steps.map(step => (
         <Step
           classes={{
