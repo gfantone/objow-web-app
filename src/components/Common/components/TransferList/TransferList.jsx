@@ -1,28 +1,30 @@
 import React, { useState } from 'react'
-import { Grid, IconButton, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core'
+import { Grid, IconButton, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, Card } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
-import { Collaborator, Team, DefaultTitle, Button } from '../../..'
+import { Collaborator, Team, DefaultTitle, Button, TeamThumb } from '../../..'
 
 import _ from 'lodash'
 
 const styles = {
   item: {
     marginBottom: 10,
-    position: 'relative'
+    position: 'relative',
+    zIndex: 10
   },
   itemIcon: {
     position: 'absolute',
     right: 10,
     top: '50%',
     marginTop: '-10px',
+    zIndex: 40
   },
   teamItemIcon: {
-    right: 30,
-    top: 22,
-    zIndex: 10
+    // right: 30,
+    // top: 22,
+    // zIndex: 10
   },
   addIcon: {
     color: '#00E58D'
@@ -31,31 +33,50 @@ const styles = {
     color: '#E50000'
   },
   panelWrapper: {
-    position: 'relative'
+    position: 'relative',
+    marginBottom: '18px'
   },
   panel: {
       backgroundColor: 'initial',
       borderRadius: 'initial',
       boxShadow: 'none',
-      position: 'relative'
+      position: 'relative',
+      '&.MuiExpansionPanel-root:before': {
+        display: 'none'
+      },
+      '& .MuiExpansionPanelSummary-expandIcon': {
+        position: 'absolute',
+        left: '135px',
+        top: '20px',
+      },
+      '& .MuiExpansionPanelSummary-expandIcon.MUI-expanded': {
+        top: '16px',
+      },
+      '& .MuiExpansionPanelSummary-root': {
+        zIndex: 20,
+        height: '64px',
+        marginRight: '42px',
+      }
   },
   panelSummary: {
+      marginTop: "-80px",
       padding: 'initial',
       position: 'relative'
   },
   panelSummaryContent: {
+    position: 'absolute',
 
   },
   panelDetails: {
-      padding: 'initial',
-      paddingBottom: 24
+      padding: "10px 0 0 15px",
+      zIndex: 5
   }
 }
 
 const TransferList = ({ listIn, selected, onChange, mode, ...props }) => {
     const { classes } = props
     const [selectedList, setSelectedList] = useState(selected || [])
-    console.log(listIn);
+
     const selectItem = (item) => {
       if(_.indexOf(selectedList, item) < 0) {
         setSelectedList([item, ...selectedList])
@@ -105,7 +126,6 @@ const TransferList = ({ listIn, selected, onChange, mode, ...props }) => {
       listIn.filter(team => _.intersection(selectedList, team.collaborators).length < team.collaborators.length) :
       _.differenceWith(listIn, selectedList, _.isEqual)
 
-    // console.log(getListByTeam(selectedList));
     return (
       <Grid container direction="column" spacing={1}>
         <Grid item>
@@ -128,9 +148,7 @@ const TransferList = ({ listIn, selected, onChange, mode, ...props }) => {
               { choices.map((choice, choiceKey) => (
                 <div className={ classes.item }>
                   { mode === 'team' ? (
-                    <DefaultTitle style={{height:'30px', lineHeight: '2.5'}}>
-                      {choice.name} ({ choice.collaborators.length })
-                    </DefaultTitle>
+                    <TeamThumb team={ choice } />
                   ) : (
                     <Collaborator key={choiceKey} collaborator={choice} />
                   )  }
@@ -144,15 +162,15 @@ const TransferList = ({ listIn, selected, onChange, mode, ...props }) => {
               { getListByTeam(selectedList).map((team, teamKey) => (
                 <React.Fragment>
                   <div className={ classes.panelWrapper }>
-                    <IconButton size='small' onClick={() => removeList(team.collaborators)} className={ `${classes.itemIcon} ${classes.teamItemIcon}` } >
-                      <FontAwesomeIcon icon={faMinus} className={ classes.deleteIcon } />
-                    </IconButton>
                     <div style={{position: 'static'}}>
-                      <ExpansionPanel className={classes.panel} defaultExpanded>
+                      <div className={ classes.item }>
+                        <TeamThumb team={ team }/>
+                        <IconButton size='small' onClick={() => removeList(team.collaborators)} className={ `${classes.itemIcon} ${classes.teamItemIcon}` } >
+                          <FontAwesomeIcon icon={faMinus} className={ classes.deleteIcon } />
+                        </IconButton>
+                      </div>
+                      <ExpansionPanel className={classes.panel}>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} className={classes.panelSummary}>
-                          <DefaultTitle key={teamKey}>
-                            {team.name} ({team.collaborators.length})
-                          </DefaultTitle>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails className={classes.panelDetails}>
                           <Grid container key={teamKey}>
