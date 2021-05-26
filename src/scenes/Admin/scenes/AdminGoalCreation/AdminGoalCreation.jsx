@@ -5,7 +5,29 @@ import _ from 'lodash';
 import Formsy from 'formsy-react'
 import { Grid, RadioGroup, FormControlLabel } from '@material-ui/core'
 import { withStyles } from "@material-ui/core/styles"
-import {AppBarSubTitle, BlueText, Card, DefaultText, BigText, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, Switch, TextField, Tooltip, Stepper, RichText, TransferList, GreenRadio} from '../../../../components'
+import {
+  AppBarSubTitle,
+  BlueText,
+  Card,
+  DefaultText,
+  BigText,
+  InfoText,
+  Loader,
+  MainLayoutComponent,
+  ProgressButton,
+  Select,
+  Switch,
+  TextField,
+  Tooltip,
+  Stepper,
+  RichText,
+  TransferList,
+  GreenRadio,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Button
+} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../services/GoalTypes/GoalTypeList/actions'
@@ -31,6 +53,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             kpi: null,
             kpiCategory: null,
             type: null,
+            newKpiOpen: false,
             steps: [
               { order: 1, name: 'KPI', active: true},
               { order: 2, name: 'Informations'},
@@ -178,6 +201,13 @@ class AdminGoalCreation extends MainLayoutComponent {
 
     handleNextStep = () => {
       this.form.current.submit()
+    }
+
+    onNewKpiClose = () => {
+      this.setState({
+          ...this.state,
+          newKpiOpen: false
+      })
     }
 
     renderLoader() {
@@ -403,6 +433,16 @@ class AdminGoalCreation extends MainLayoutComponent {
             <div>
                 { loading && this.renderLoader() }
                 { !loading && categories && types  && kpis && periodicities && teams && this.renderData() }
+                <Dialog
+                    maxWidth='xs'
+                    open={this.state.newKpiOpen}
+                >
+                    <DialogTitle>Demande de création de KPI</DialogTitle>
+                    <div>blablablabla pookie</div>
+                    <DialogActions>
+                        <Button onClick={this.onNewKpiClose}>Fermer</Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     }
