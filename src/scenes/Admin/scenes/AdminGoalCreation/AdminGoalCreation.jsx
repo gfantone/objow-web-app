@@ -29,6 +29,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         super(props);
         this.state = {
             kpi: null,
+            kpiCategory: null,
             type: null,
             steps: [
               { order: 1, name: 'KPI', active: true},
@@ -63,6 +64,13 @@ class AdminGoalCreation extends MainLayoutComponent {
             ...this.state,
             kpi: kpi
         })
+    }
+
+    handleKpiCategoryChange = (category) => {
+      this.setState({
+          ...this.state,
+          kpiCategory: category
+      })
     }
 
     handleTypeChange = (type) => {
@@ -191,21 +199,38 @@ class AdminGoalCreation extends MainLayoutComponent {
         const isLastStep = currentStep.order >= this.state.steps.length
         const { classes } = this.props
         let fields
+        let title
+
         switch(currentStep.order){
           case 1:
+            title = "Selection du KPI de l'objectif"
             fields = (
               <React.Fragment>
+
                 <Grid item xs={12} sm={6}>
-                  <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
+                  <Select name='kpiCategory' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth onChange={ this.handleKpiCategoryChange } />
+                  <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={
+                      kpis.filter(kpi => !this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory))
+                  } optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
-                  <DefaultText>{unit}</DefaultText>
+                  <Grid container direction='column' spacing={2}>
+                    <Grid item>
+                      <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
+                      <DefaultText>{unit}</DefaultText>
+                    </Grid>
+                    <Grid item>
+                      <InfoText>{Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL}</InfoText>
+                      <DefaultText>{_.get(kpis.find(kpi => kpi.id === parseInt(this.state.kpi)), 'periodicity.description')}</DefaultText>
+                    </Grid>
+                  </Grid>
+
                 </Grid>
               </React.Fragment>
             )
             break
           case 2:
+            title = "Configuration de l'objectif"
             fields = (
               <React.Fragment>
                 <Grid item xs={12} sm={6}>
@@ -247,6 +272,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             )
             break
           case 3:
+            title = "Selection des participants"
             fields = (
               <React.Fragment>
                 <TransferList
@@ -259,6 +285,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             )
             break
           case 4:
+            title = "Configuration des objectifs"
             fields = (
               <React.Fragment>
                 <Grid item xs={12} sm={6}>
@@ -271,6 +298,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             )
             break
           case 5:
+            title = "Selection des options"
             fields = (
               <React.Fragment>
                 <Grid item xs={12}>
@@ -321,7 +349,9 @@ class AdminGoalCreation extends MainLayoutComponent {
             <React.Fragment>
               <Formsy ref={ this.form } onValidSubmit={this.handleSubmit.bind(this)}>
                 <Stepper steps={this.state.steps} />
-
+                <BigText style={{ textAlign: 'center', marginBottom: 10 }}>
+                  { title }
+                </BigText>
                 <Grid container spacing={4}>
                   <Grid item xs={12}>
                     <Card>
