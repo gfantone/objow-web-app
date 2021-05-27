@@ -79,6 +79,7 @@ import goalDefinitionLevelListUpdate from '../services/GoalDefinitionLevels/Goal
 import goalDefinitionLevelTeamPoints from '../services/GoalDefinitionLevels/GoalDefinitionLevelTeamPoints/reducer'
 import goalDefinitionList from '../services/GoalDefinitions/GoalDefinitionList/reducer'
 import goalDefinitionUpdate from '../services/GoalDefinitions/GoalDefinitionUpdate/reducer'
+import goalDefinitionRepartitionList from '../services/GoalDefinitionRepartitions/GoalDefinitionRepartitionList/reducer'
 import goalDetail from '../services/Goals/GoalDetail/reducer'
 import goalList from '../services/Goals/GoalList/reducer'
 import goalListUpdate from '../services/Goals/GoalListUpdate/reducer'
@@ -249,6 +250,7 @@ const rootReducer = combineReducers({
     goalDefinitionLevelTeamPoints,
     goalDefinitionList,
     goalDefinitionUpdate,
+    goalDefinitionRepartitionList,
     goalDetail,
     goalList,
     goalListUpdate,

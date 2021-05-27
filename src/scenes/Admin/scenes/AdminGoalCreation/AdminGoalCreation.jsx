@@ -5,7 +5,29 @@ import _ from 'lodash';
 import Formsy from 'formsy-react'
 import { Grid, RadioGroup, FormControlLabel } from '@material-ui/core'
 import { withStyles } from "@material-ui/core/styles"
-import {AppBarSubTitle, BlueText, Card, DefaultText, BigText, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, Switch, TextField, Tooltip, Stepper, RichText, TransferList, GreenRadio} from '../../../../components'
+import {
+  AppBarSubTitle,
+  BlueText,
+  Card,
+  DefaultText,
+  BigText,
+  InfoText,
+  Loader,
+  MainLayoutComponent,
+  ProgressButton,
+  Select,
+  Switch,
+  TextField,
+  Tooltip,
+  Stepper,
+  RichText,
+  TransferList,
+  GreenRadio,
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  Button
+} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../services/GoalTypes/GoalTypeList/actions'
@@ -13,6 +35,7 @@ import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
 import * as periodicityListActions from '../../../../services/Periodicities/PeriodicityList/actions'
 import * as goalDefinitionCreationActions from '../../../../services/GoalDefinitions/GoalDefinitionCreation/actions'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
+import * as goalDefinitionRepartitionListActions from '../../../../services/GoalDefinitionRepartitions/GoalDefinitionRepartitionList/actions'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
@@ -29,7 +52,9 @@ class AdminGoalCreation extends MainLayoutComponent {
         super(props);
         this.state = {
             kpi: null,
+            kpiCategory: null,
             type: null,
+            newKpiOpen: false,
             steps: [
               { order: 1, name: 'KPI', active: true},
               { order: 2, name: 'Informations'},
@@ -56,6 +81,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         this.props.kpiListActions.getKpiList();
         this.props.periodicityListActions.getPeriodicityList()
         this.props.teamListActions.getTeamList()
+        this.props.goalDefinitionRepartitionListActions.getGoalDefinitionRepartitionList()
     }
 
     handleKpiChange(kpi) {
@@ -63,6 +89,13 @@ class AdminGoalCreation extends MainLayoutComponent {
             ...this.state,
             kpi: kpi
         })
+    }
+
+    handleKpiCategoryChange = (category) => {
+      this.setState({
+          ...this.state,
+          kpiCategory: category
+      })
     }
 
     handleTypeChange = (type) => {
@@ -172,6 +205,13 @@ class AdminGoalCreation extends MainLayoutComponent {
       this.form.current.submit()
     }
 
+    onNewKpiClose = () => {
+      this.setState({
+          ...this.state,
+          newKpiOpen: false
+      })
+    }
+
     renderLoader() {
         return <Loader centered />
     }
@@ -183,6 +223,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         const { periodicities } = this.props.periodicityList;
         const { loading } = this.props.goalDefinitionCreation;
         const { teams } = this.props.teamList;
+        const { repartitions } = this.props.goalDefinitionRepartitionList
         const kpi = this.state.kpi ? kpis.find(k => k.id == this.state.kpi) : null;
         const { type } = this.state;
         const currentType = types.find(t => t.id === parseInt(type))
@@ -191,21 +232,38 @@ class AdminGoalCreation extends MainLayoutComponent {
         const isLastStep = currentStep.order >= this.state.steps.length
         const { classes } = this.props
         let fields
+        let title
+
         switch(currentStep.order){
           case 1:
+            title = "Selection du KPI de l'objectif"
             fields = (
               <React.Fragment>
+
                 <Grid item xs={12} sm={6}>
-                  <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={kpis} optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
+                  <Select name='kpiCategory' emptyText={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL} label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth onChange={ this.handleKpiCategoryChange } />
+                  <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={
+                      kpis.filter(kpi => !this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory))
+                  } optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
-                  <DefaultText>{unit}</DefaultText>
+                  <Grid container direction='column' spacing={2}>
+                    <Grid item>
+                      <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
+                      <DefaultText>{unit}</DefaultText>
+                    </Grid>
+                    <Grid item>
+                      <InfoText>{Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL}</InfoText>
+                      <DefaultText>{_.get(kpis.find(kpi => kpi.id === parseInt(this.state.kpi)), 'periodicity.description')}</DefaultText>
+                    </Grid>
+                  </Grid>
+
                 </Grid>
               </React.Fragment>
             )
             break
           case 2:
+            title = "Configuration de l'objectif"
             fields = (
               <React.Fragment>
                 <Grid item xs={12} sm={6}>
@@ -247,6 +305,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             )
             break
           case 3:
+            title = "Selection des participants"
             fields = (
               <React.Fragment>
                 <TransferList
@@ -259,18 +318,27 @@ class AdminGoalCreation extends MainLayoutComponent {
             )
             break
           case 4:
+            title = "Configuration des objectifs"
             fields = (
               <React.Fragment>
-                <Grid item xs={12} sm={6}>
-                  <TextField type='number' name='target' initial={ this.state.finalModel.target } label={Resources.ADMIN_GOAL_CREATION_TARGET_LABEL} fullWidth required />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField type='number' name='default' initial={ this.state.finalModel.default } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required />
+                <Grid container>
+                  <Grid item>
+                    <Select name='repartition' initial={ this.state.finalModel.repartition || _.get(repartitions, '[0]') } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={repartitions} optionValueName='id' optionTextName='description' fullWidth required />
+                  </Grid>
+                  <Grid item container>
+                    <Grid item xs={12} sm={6}>
+                      <TextField type='number' name='target' initial={ this.state.finalModel.target } label={Resources.ADMIN_GOAL_CREATION_TARGET_LABEL} fullWidth required />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField type='number' name='default' initial={ this.state.finalModel.default } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required />
+                    </Grid>
+                  </Grid>
                 </Grid>
               </React.Fragment>
             )
             break
           case 5:
+            title = "Selection des options"
             fields = (
               <React.Fragment>
                 <Grid item xs={12}>
@@ -321,7 +389,9 @@ class AdminGoalCreation extends MainLayoutComponent {
             <React.Fragment>
               <Formsy ref={ this.form } onValidSubmit={this.handleSubmit.bind(this)}>
                 <Stepper steps={this.state.steps} />
-
+                <BigText style={{ textAlign: 'center', marginBottom: 10 }}>
+                  { title }
+                </BigText>
                 <Grid container spacing={4}>
                   <Grid item xs={12}>
                     <Card>
@@ -361,8 +431,9 @@ class AdminGoalCreation extends MainLayoutComponent {
         const { types, loading: goalTypeListLoading } = this.props.goalTypeList;
         const { kpis, loading: kpiListLoading } = this.props.kpiList;
         const { periodicities, loading: periodicityListLoading } = this.props.periodicityList;
-        const { teams, loading: teamLoading } = this.props.teamList
-        const loading = categoryListLoading || goalTypeListLoading || kpiListLoading || periodicityListLoading || teamLoading;
+        const { teams, loading: teamLoading } = this.props.teamList;
+        const { repartitions, loading: repartitionsLoading } = this.props.goalDefinitionRepartitionList
+        const loading = categoryListLoading || goalTypeListLoading || kpiListLoading || periodicityListLoading || teamLoading || repartitionsLoading;
 
         if (definition) {
             this.props.goalDefinitionCreationActions.clearGoalDefinitionCreation();
@@ -373,14 +444,25 @@ class AdminGoalCreation extends MainLayoutComponent {
             <div>
                 { loading && this.renderLoader() }
                 { !loading && categories && types  && kpis && periodicities && teams && this.renderData() }
+                <Dialog
+                    maxWidth='xs'
+                    open={this.state.newKpiOpen}
+                >
+                    <DialogTitle>Demande de création de KPI</DialogTitle>
+                    <div></div>
+                    <DialogActions>
+                        <Button onClick={this.onNewKpiClose}>Fermer</Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionCreation, teamList }) => ({
+const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionCreation, teamList, goalDefinitionRepartitionList }) => ({
     categoryList,
     goalTypeList,
+    goalDefinitionRepartitionList,
     kpiList,
     periodicityList,
     goalDefinitionCreation,
@@ -393,6 +475,7 @@ const mapDispatchToProps = (dispatch) => ({
     kpiListActions: bindActionCreators(kpiListActions, dispatch),
     periodicityListActions: bindActionCreators(periodicityListActions, dispatch),
     goalDefinitionCreationActions: bindActionCreators(goalDefinitionCreationActions, dispatch),
+    goalDefinitionRepartitionListActions: bindActionCreators(goalDefinitionRepartitionListActions, dispatch),
     teamListActions: bindActionCreators(teamListActions, dispatch)
 });
 
