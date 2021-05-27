@@ -181,7 +181,7 @@ const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ..
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails className={classes.panelDetails}>
                           <Grid container key={choiceKey}>
-                            { _.difference(choice.collaborators, selectedList).map((collaborator, collaboratorKey) => (
+                            { choice.collaborators.map((collaborator, collaboratorKey) => (
                               <Grid item className={ classes.item } style={{ width: '100%' }}>
                                 <Collaborator key={collaboratorKey} collaborator={collaborator} />
                                 <IconButton size='small' onClick={() => selectItem(collaborator)} className={ classes.itemIcon } >
