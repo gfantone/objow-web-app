@@ -22,6 +22,7 @@ import collaborators from './endpoints/collaborators'
 import configs from './endpoints/configs'
 import goalDefinitionLevels from './endpoints/goalDefinitionLevels'
 import goalDefinitions from './endpoints/goalDefinitions'
+import goalDefinitionRepartitions from './endpoints/goalDefinitionRepartitions'
 import goalPoints from './endpoints/goalPoints'
 import goals from './endpoints/goals'
 import goalTypes from './endpoints/goalTypes'
@@ -83,6 +84,7 @@ const api = {
     configs,
     goalDefinitionLevels,
     goalDefinitions,
+    goalDefinitionRepartitions,
     goalPoints,
     goals,
     goalTypes,

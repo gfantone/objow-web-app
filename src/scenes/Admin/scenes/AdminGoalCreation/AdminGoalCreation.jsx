@@ -35,6 +35,7 @@ import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
 import * as periodicityListActions from '../../../../services/Periodicities/PeriodicityList/actions'
 import * as goalDefinitionCreationActions from '../../../../services/GoalDefinitions/GoalDefinitionCreation/actions'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
+import * as goalDefinitionRepartitionListActions from '../../../../services/GoalDefinitionRepartitions/GoalDefinitionRepartitionList/actions'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
@@ -80,6 +81,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         this.props.kpiListActions.getKpiList();
         this.props.periodicityListActions.getPeriodicityList()
         this.props.teamListActions.getTeamList()
+        this.props.goalDefinitionRepartitionListActions.getGoalDefinitionRepartitionList()
     }
 
     handleKpiChange(kpi) {
@@ -221,6 +223,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         const { periodicities } = this.props.periodicityList;
         const { loading } = this.props.goalDefinitionCreation;
         const { teams } = this.props.teamList;
+        const { repartitions } = this.props.goalDefinitionRepartitionList
         const kpi = this.state.kpi ? kpis.find(k => k.id == this.state.kpi) : null;
         const { type } = this.state;
         const currentType = types.find(t => t.id === parseInt(type))
@@ -238,7 +241,7 @@ class AdminGoalCreation extends MainLayoutComponent {
               <React.Fragment>
 
                 <Grid item xs={12} sm={6}>
-                  <Select name='kpiCategory' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth onChange={ this.handleKpiCategoryChange } />
+                  <Select name='kpiCategory' emptyText={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL} label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth onChange={ this.handleKpiCategoryChange } />
                   <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={
                       kpis.filter(kpi => !this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory))
                   } optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
@@ -318,11 +321,18 @@ class AdminGoalCreation extends MainLayoutComponent {
             title = "Configuration des objectifs"
             fields = (
               <React.Fragment>
-                <Grid item xs={12} sm={6}>
-                  <TextField type='number' name='target' initial={ this.state.finalModel.target } label={Resources.ADMIN_GOAL_CREATION_TARGET_LABEL} fullWidth required />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField type='number' name='default' initial={ this.state.finalModel.default } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required />
+                <Grid container>
+                  <Grid item>
+                    <Select name='repartition' initial={ this.state.finalModel.repartition || _.get(repartitions, '[0]') } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={repartitions} optionValueName='id' optionTextName='description' fullWidth required />
+                  </Grid>
+                  <Grid item container>
+                    <Grid item xs={12} sm={6}>
+                      <TextField type='number' name='target' initial={ this.state.finalModel.target } label={Resources.ADMIN_GOAL_CREATION_TARGET_LABEL} fullWidth required />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField type='number' name='default' initial={ this.state.finalModel.default } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required />
+                    </Grid>
+                  </Grid>
                 </Grid>
               </React.Fragment>
             )
@@ -421,8 +431,9 @@ class AdminGoalCreation extends MainLayoutComponent {
         const { types, loading: goalTypeListLoading } = this.props.goalTypeList;
         const { kpis, loading: kpiListLoading } = this.props.kpiList;
         const { periodicities, loading: periodicityListLoading } = this.props.periodicityList;
-        const { teams, loading: teamLoading } = this.props.teamList
-        const loading = categoryListLoading || goalTypeListLoading || kpiListLoading || periodicityListLoading || teamLoading;
+        const { teams, loading: teamLoading } = this.props.teamList;
+        const { repartitions, loading: repartitionsLoading } = this.props.goalDefinitionRepartitionList
+        const loading = categoryListLoading || goalTypeListLoading || kpiListLoading || periodicityListLoading || teamLoading || repartitionsLoading;
 
         if (definition) {
             this.props.goalDefinitionCreationActions.clearGoalDefinitionCreation();
@@ -438,7 +449,7 @@ class AdminGoalCreation extends MainLayoutComponent {
                     open={this.state.newKpiOpen}
                 >
                     <DialogTitle>Demande de création de KPI</DialogTitle>
-                    <div>blablablabla pookie</div>
+                    <div></div>
                     <DialogActions>
                         <Button onClick={this.onNewKpiClose}>Fermer</Button>
                     </DialogActions>
@@ -448,9 +459,10 @@ class AdminGoalCreation extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionCreation, teamList }) => ({
+const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionCreation, teamList, goalDefinitionRepartitionList }) => ({
     categoryList,
     goalTypeList,
+    goalDefinitionRepartitionList,
     kpiList,
     periodicityList,
     goalDefinitionCreation,
@@ -463,6 +475,7 @@ const mapDispatchToProps = (dispatch) => ({
     kpiListActions: bindActionCreators(kpiListActions, dispatch),
     periodicityListActions: bindActionCreators(periodicityListActions, dispatch),
     goalDefinitionCreationActions: bindActionCreators(goalDefinitionCreationActions, dispatch),
+    goalDefinitionRepartitionListActions: bindActionCreators(goalDefinitionRepartitionListActions, dispatch),
     teamListActions: bindActionCreators(teamListActions, dispatch)
 });
 
