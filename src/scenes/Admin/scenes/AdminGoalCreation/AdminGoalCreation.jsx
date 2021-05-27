@@ -63,6 +63,7 @@ class AdminGoalCreation extends MainLayoutComponent {
               { order: 5, name: 'Options'},
               { order: 6, name: 'Validation'}
             ],
+            repartition: "1",
             finalModel: {
 
             }
@@ -116,6 +117,13 @@ class AdminGoalCreation extends MainLayoutComponent {
       this.setState({
           ...this.state,
           currentTeam: team
+      })
+    }
+
+    handleRepartitionChange = (repartition) => {
+      this.setState({
+          ...this.state,
+          repartition: repartition
       })
     }
 
@@ -237,6 +245,8 @@ class AdminGoalCreation extends MainLayoutComponent {
         switch(currentStep.order){
           case 1:
             title = "Selection du KPI de l'objectif"
+            const kpi = kpis.find(kpi => kpi.id === parseInt(this.state.kpi))
+            const format = kpi && kpi.manual ? 'Manuel' : 'Automatique'
             fields = (
               <React.Fragment>
 
@@ -254,7 +264,13 @@ class AdminGoalCreation extends MainLayoutComponent {
                     </Grid>
                     <Grid item>
                       <InfoText>{Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL}</InfoText>
-                      <DefaultText>{_.get(kpis.find(kpi => kpi.id === parseInt(this.state.kpi)), 'periodicity.description')}</DefaultText>
+                      <DefaultText>{_.get(kpi, 'periodicity.description')}</DefaultText>
+                    </Grid>
+                    <Grid item>
+                      <InfoText>{Resources.ADMIN_GOAL_CREATION_KPI_FORMAT_LABEL}</InfoText>
+                      {
+                        kpi && <DefaultText>{ format }</DefaultText>
+                      }
                     </Grid>
                   </Grid>
 
@@ -319,15 +335,29 @@ class AdminGoalCreation extends MainLayoutComponent {
             break
           case 4:
             title = "Configuration des objectifs"
+            const goalRepartitionLabel = parseInt(this.state.repartition) === _.get(repartitions, '[0]').id ?
+              Resources.ADMIN_GOAL_CREATION_TARGET_LABEL :
+              Resources.ADMIN_GOAL_INDIVIDUAL_CREATION_TARGET_LABEL
             fields = (
               <React.Fragment>
                 <Grid container>
-                  <Grid item>
-                    <Select name='repartition' initial={ this.state.finalModel.repartition || _.get(repartitions, '[0]') } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={repartitions} optionValueName='id' optionTextName='description' fullWidth required />
+                  <Grid item xs={12} sm={6}>
+                    <Select
+                      name='repartition'
+                      initial={ this.state.finalModel.repartition || _.get(repartitions, '[0]') }
+                      label={Resources.ADMIN_GOAL_CREATION_REPARTITION_LABEL}
+                      options={repartitions}
+                      optionValueName='id'
+                      optionTextName='description'
+                      onChange={ this.handleRepartitionChange }
+                      fullWidth
+                      required
+                      emptyDisabled
+                    />
                   </Grid>
-                  <Grid item container>
+                  <Grid item container spacing={8}>
                     <Grid item xs={12} sm={6}>
-                      <TextField type='number' name='target' initial={ this.state.finalModel.target } label={Resources.ADMIN_GOAL_CREATION_TARGET_LABEL} fullWidth required />
+                      <TextField type='number' name='target' initial={ this.state.finalModel.target } label={ goalRepartitionLabel } fullWidth required />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <TextField type='number' name='default' initial={ this.state.finalModel.default } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required />
