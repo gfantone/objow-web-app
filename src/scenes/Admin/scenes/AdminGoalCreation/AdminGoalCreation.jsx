@@ -371,46 +371,49 @@ class AdminGoalCreation extends MainLayoutComponent {
             title = "Selection des options"
             fields = (
               <React.Fragment>
-                <Grid item xs={12}>
-                  <Grid container alignItems='center'>
-                    <Grid item>
-                      <Switch name='live' initial={ this.state.finalModel.live } label={Resources.ADMIN_GOAL_CREATION_LIVE_LABEL} />
-                    </Grid>
-                    <Grid item>
-                      <Tooltip title={Resources.ADMIN_GOAL_CREATION_LIVE_INFOS}>
-                        <BlueText>
-                          <FontAwesomeIcon icon={faInfoCircle} />
-                        </BlueText>
-                      </Tooltip>
+                <Grid container spacing={1} direction="column">
+                  <Grid item>
+                    <Grid container alignItems='center'>
+                      <Grid item>
+                        <Switch name='live' initial={ this.state.finalModel.live } label={Resources.ADMIN_GOAL_CREATION_LIVE_LABEL} />
+                      </Grid>
+                      <Grid item>
+                        <Tooltip title={Resources.ADMIN_GOAL_CREATION_LIVE_INFOS}>
+                          <BlueText>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                          </BlueText>
+                        </Tooltip>
+                      </Grid>
                     </Grid>
                   </Grid>
+
+                  {
+                    _.get(currentType, 'code') === 'C' && (
+                      <Grid item>
+                        <Switch name='editable' initial={ this.state.finalModel.editable } label={Resources.ADMIN_GOAL_CREATION_EDITABLE_LABEL} />
+                      </Grid>
+                    )
+                  }
+                  {
+                    _.get(currentType, 'code') === 'T' && (
+                      <Grid item>
+                        <Switch name='admin_editable' initial={ this.state.finalModel.admin_editable } label={Resources.ADMIN_GOAL_CREATION_ADMIN_EDITABLE_LABEL} />
+                      </Grid>
+                    )
+                  }
                 </Grid>
-                {
-                  _.get(currentType, 'code') === 'C' && (
-                    <Grid item xs={12}>
-                      <Switch name='editable' initial={ this.state.finalModel.editable } label={Resources.ADMIN_GOAL_CREATION_EDITABLE_LABEL} />
-                    </Grid>
-                  )
-                }
-                {
-                  _.get(currentType, 'code') === 'T' && (
-                    <Grid item xs={12}>
-                      <Switch name='admin_editable' initial={ this.state.finalModel.admin_editable } label={Resources.ADMIN_GOAL_CREATION_ADMIN_EDITABLE_LABEL} />
-                    </Grid>
-                  )
-                }
               </React.Fragment>
             )
             break
           case 6:
             fields = (
               <div style={{ textAlign: 'center', margin: 'auto' }}>
-                <BigText>
+                <p style={{fontSize: 19, color: '#555555'}}>
                   Félicitations !
-                </BigText>
-                <BigText>
+                </p>
+                <p style={{fontSize: 19, color: '#555555'}} >
                   Il ne vous reste plus qu'à personnaliser vos objectifs selon vos besoins
-                </BigText>
+                </p>
               </div>
             )
             break
