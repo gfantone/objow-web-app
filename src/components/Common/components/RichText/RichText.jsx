@@ -6,6 +6,7 @@ import {withHistory} from 'slate-history'
 import {Code, FormatBold, FormatItalic, FormatListBulleted, FormatListNumbered, FormatQuote, FormatUnderlined, LooksOne, LooksTwo} from '@material-ui/icons'
 import {Button, Icon, Toolbar} from './components'
 import * as Resources from '../../../../Resources'
+import _ from 'lodash'
 
 import './styles.css'
 
@@ -18,7 +19,7 @@ const HOTKEYS = {
 
 const LIST_TYPES = ['numbered-list', 'bulleted-list']
 
-const RichText = ({initial, readOnly, onChange}) => {
+const RichText = ({initial, readOnly, onChange, padding, ...props}) => {
     const [value, setValue] = useState(initial)
     const renderElement = useCallback(props => <Element {...props} />, [])
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])
@@ -39,9 +40,9 @@ const RichText = ({initial, readOnly, onChange}) => {
                 <div style={!readOnly ? {
                     backgroundColor: '#ffffff',
                     margin: 'auto',
-                    padding: '20px'
+                    padding: padding || '20px'
                 } : null}>
-                    {!readOnly && <Toolbar>
+                    {!readOnly && _.get(props, 'displayTools', true) && <Toolbar>
                         <MarkButton format="bold" icon={<FormatBold />} />
                         <MarkButton format="italic" icon={<FormatItalic />} />
                         <MarkButton format="underline" icon={<FormatUnderlined />} />

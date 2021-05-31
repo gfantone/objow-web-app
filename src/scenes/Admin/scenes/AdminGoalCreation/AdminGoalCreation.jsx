@@ -39,7 +39,7 @@ import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as unitListActions from '../../../../services/Units/UnitList/actions'
 import * as goalDefinitionRepartitionListActions from '../../../../services/GoalDefinitionRepartitions/GoalDefinitionRepartitionList/actions'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+import {faInfoCircle, faPlus, faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
 
 const styles = {
   indications: {
@@ -65,6 +65,7 @@ class AdminGoalCreation extends MainLayoutComponent {
               { order: 5, name: 'Options'},
               { order: 6, name: 'Validation'}
             ],
+            showIndicationTools: false,
             repartition: "1",
             finalModel: {
 
@@ -194,7 +195,6 @@ class AdminGoalCreation extends MainLayoutComponent {
     }
 
     handleSubmitKpi = (model) => {
-      console.log("qsdqsdq", kpiCreationActions);
       this.props.kpiCreationActions.createKpi(model)
     }
 
@@ -275,7 +275,10 @@ class AdminGoalCreation extends MainLayoutComponent {
                         } optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
                     </Grid>
                     <Grid item>
-                      <Button onClick={ this.onNewKpiOpen } text="nouveau">nouveau</Button>
+                      <Button onClick={ this.onNewKpiOpen } text="nouveau">
+                        <FontAwesomeIcon icon={faPlus} />
+                        &nbsp;nouveau kpi
+                      </Button>
                     </Grid>
                   </Grid>
 
@@ -284,16 +287,16 @@ class AdminGoalCreation extends MainLayoutComponent {
                   <Grid container direction='column' spacing={2}>
                     <Grid item>
                       <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
-                      <DefaultText>{unit}</DefaultText>
+                      <DefaultText style={{minHeight: 19}}>{unit}</DefaultText>
                     </Grid>
                     <Grid item>
                       <InfoText>{Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL}</InfoText>
-                      <DefaultText>{_.get(kpi, 'periodicity.description')}</DefaultText>
+                      <DefaultText style={{minHeight: 19}}>{_.get(kpi, 'periodicity.description')}</DefaultText>
                     </Grid>
                     <Grid item>
                       <InfoText>{Resources.ADMIN_GOAL_CREATION_KPI_FORMAT_LABEL}</InfoText>
                       {
-                        kpi && <DefaultText>{ format }</DefaultText>
+                        kpi && <DefaultText style={{minHeight: 19}}>{ format }</DefaultText>
                       }
                     </Grid>
                   </Grid>
@@ -319,6 +322,13 @@ class AdminGoalCreation extends MainLayoutComponent {
                   <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
                 </Grid>
                 <Grid item xs={12} className={ classes.indications }>
+                  <DefaultText style={{ position: 'relative' }}>
+                    <FontAwesomeIcon
+                      icon={this.state.showIndicationTools ? faChevronUp : faChevronDown}
+                      onClick={() => this.setState({...this.state, showIndicationTools: !this.state.showIndicationTools})}
+                      style={{ position: "absolute", left: '70px', cursor: 'pointer', zIndex: 50 }}
+                    />
+                  </DefaultText>
                   <TextField
                     name='indication'
                     initial={ this.state.finalModel.indication }
@@ -335,6 +345,8 @@ class AdminGoalCreation extends MainLayoutComponent {
                     readOnly={ false }
                     onChange={ this.handleIndicationChange }
                     label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+                    displayTools={this.state.showIndicationTools}
+                    padding={'5px 0'}
                     fullWidth
                     multiline
                     rowsMax={10}
