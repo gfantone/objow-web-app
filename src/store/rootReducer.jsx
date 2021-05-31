@@ -89,6 +89,7 @@ import importLogList from '../services/ImportLogs/ImportLogList/reducer'
 import inAppNotificationCount from '../services/InAppNotifications/InAppNotificationCount/reducer'
 import inAppNotificationList from '../services/InAppNotifications/InAppNotificationList/reducer'
 import kpiDetail from '../services/Kpis/KpiDetail/reducer'
+import kpiCreation from '../services/Kpis/KpiCreation/reducer'
 import kpiList from '../services/Kpis/KpiList/reducer'
 import kpiListUpdate from '../services/Kpis/KpiListUpdate/reducer'
 import levelIconList from '../services/LevelIcons/LevelIconList/reducer'
@@ -168,6 +169,7 @@ import userListExport from '../services/Users/UserListExport/reducer'
 import userUpdate from '../services/Users/UserUpdate/reducer'
 import userUpdateActivation from '../services/Users/UserUpdateActivation/reducer'
 import userUpdatePassword from '../services/Users/UserUpdatePassword/reducer'
+import unitList from '../services/Units/UnitList/reducer'
 
 const rootReducer = combineReducers({
     accountDetail,
@@ -260,6 +262,7 @@ const rootReducer = combineReducers({
     inAppNotificationCount,
     inAppNotificationList,
     kpiDetail,
+    kpiCreation,
     kpiList,
     kpiListUpdate,
     levelIconList,
@@ -338,7 +341,8 @@ const rootReducer = combineReducers({
     userListExport,
     userUpdate,
     userUpdateActivation,
-    userUpdatePassword
+    userUpdatePassword,
+    unitList
 });
 
 export default rootReducer

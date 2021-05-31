@@ -1,0 +1,3 @@
+export const CREATE_KPI = 'CREATE_KPI'
+export const CREATE_KPI_SUCCESS = 'CREATE_KPI_SUCCESS'
+export const CREATE_KPI_ERROR = 'CREATE_KPI_ERROR'

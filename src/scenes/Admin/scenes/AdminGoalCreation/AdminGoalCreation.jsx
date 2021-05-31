@@ -32,9 +32,11 @@ import * as Resources from '../../../../Resources'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../services/GoalTypes/GoalTypeList/actions'
 import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
+import * as kpiCreationActions from '../../../../services/Kpis/KpiCreation/actions'
 import * as periodicityListActions from '../../../../services/Periodicities/PeriodicityList/actions'
 import * as goalDefinitionCreationActions from '../../../../services/GoalDefinitions/GoalDefinitionCreation/actions'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
+import * as unitListActions from '../../../../services/Units/UnitList/actions'
 import * as goalDefinitionRepartitionListActions from '../../../../services/GoalDefinitionRepartitions/GoalDefinitionRepartitionList/actions'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
@@ -82,6 +84,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         this.props.kpiListActions.getKpiList();
         this.props.periodicityListActions.getPeriodicityList()
         this.props.teamListActions.getTeamList()
+        this.props.unitListActions.getUnitList()
         this.props.goalDefinitionRepartitionListActions.getGoalDefinitionRepartitionList()
     }
 
@@ -190,6 +193,11 @@ class AdminGoalCreation extends MainLayoutComponent {
         }
     }
 
+    handleSubmitKpi = (model) => {
+      console.log("qsdqsdq", kpiCreationActions);
+      this.props.kpiCreationActions.createKpi(model)
+    }
+
     handlePreviousStep = () => {
       const currentStep = this.state.steps.find(step => step.active === true)
       const previousStep = this.state.steps.find(step => step.order === currentStep.order - 1);
@@ -219,6 +227,12 @@ class AdminGoalCreation extends MainLayoutComponent {
           newKpiOpen: false
       })
     }
+    onNewKpiOpen = () => {
+      this.setState({
+          ...this.state,
+          newKpiOpen: true
+      })
+    }
 
     renderLoader() {
         return <Loader centered />
@@ -231,6 +245,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         const { periodicities } = this.props.periodicityList;
         const { loading } = this.props.goalDefinitionCreation;
         const { teams } = this.props.teamList;
+        const { units } = this.props.unitList;
         const { repartitions } = this.props.goalDefinitionRepartitionList
         const kpi = this.state.kpi ? kpis.find(k => k.id == this.state.kpi) : null;
         const { type } = this.state;
@@ -249,12 +264,21 @@ class AdminGoalCreation extends MainLayoutComponent {
             const format = kpi && kpi.manual ? 'Manuel' : 'Automatique'
             fields = (
               <React.Fragment>
-
                 <Grid item xs={12} sm={6}>
-                  <Select name='kpiCategory' emptyText={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL} label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth onChange={ this.handleKpiCategoryChange } />
-                  <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={
-                      kpis.filter(kpi => !this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory))
-                  } optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
+                  <Grid container direction="column" spacing={2}>
+                    <Grid item>
+                      <Select name='kpiCategory' emptyText={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL} label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth onChange={ this.handleKpiCategoryChange } />
+                    </Grid>
+                    <Grid item>
+                      <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={
+                          kpis.filter(kpi => !this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory))
+                        } optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
+                    </Grid>
+                    <Grid item>
+                      <Button onClick={ this.onNewKpiOpen } text="nouveau">nouveau</Button>
+                    </Grid>
+                  </Grid>
+
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Grid container direction='column' spacing={2}>
@@ -465,8 +489,9 @@ class AdminGoalCreation extends MainLayoutComponent {
         const { kpis, loading: kpiListLoading } = this.props.kpiList;
         const { periodicities, loading: periodicityListLoading } = this.props.periodicityList;
         const { teams, loading: teamLoading } = this.props.teamList;
+        const { units, loading: unitLoading } = this.props.unitList;
         const { repartitions, loading: repartitionsLoading } = this.props.goalDefinitionRepartitionList
-        const loading = categoryListLoading || goalTypeListLoading || kpiListLoading || periodicityListLoading || teamLoading || repartitionsLoading;
+        const loading = categoryListLoading || goalTypeListLoading || kpiListLoading || periodicityListLoading || teamLoading || repartitionsLoading || unitLoading;
 
         if (definition) {
             this.props.goalDefinitionCreationActions.clearGoalDefinitionCreation();
@@ -476,13 +501,32 @@ class AdminGoalCreation extends MainLayoutComponent {
         return (
             <div>
                 { loading && this.renderLoader() }
-                { !loading && categories && types  && kpis && periodicities && teams && this.renderData() }
+                { !loading && categories && types  && kpis && periodicities && teams && units && repartitions && this.renderData() }
                 <Dialog
                     maxWidth='xs'
                     open={this.state.newKpiOpen}
+                    onClose={this.onNewKpiClose}
                 >
                     <DialogTitle>Demande de création de KPI</DialogTitle>
-                    <div></div>
+                    <Formsy onValidSubmit={this.handleSubmitKpi.bind(this)}>
+                      <Grid container direction="column" spacing={2}>
+                        <Grid item>
+                          <TextField name='name' label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
+                        </Grid>
+                        <Grid item >
+                          <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
+                        </Grid>
+                        <Grid item >
+                          <Select name='periodicity' label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
+                        </Grid>
+                        <Grid item >
+                          <Select name='unit' label={Resources.ADMIN_GOAL_CREATION_UNIT_LABEL} options={units} optionValueName='id' optionTextName='name' fullWidth required />
+                        </Grid>
+                        <Grid item>
+                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} loading={loading} centered />
+                        </Grid>
+                      </Grid>
+                    </Formsy>
                     <DialogActions>
                         <Button onClick={this.onNewKpiClose}>Fermer</Button>
                     </DialogActions>
@@ -492,20 +536,23 @@ class AdminGoalCreation extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionCreation, teamList, goalDefinitionRepartitionList }) => ({
+const mapStateToProps = ({ categoryList, goalTypeList, kpiList, periodicityList, goalDefinitionCreation, teamList, goalDefinitionRepartitionList, unitList }) => ({
     categoryList,
     goalTypeList,
     goalDefinitionRepartitionList,
     kpiList,
     periodicityList,
     goalDefinitionCreation,
-    teamList
+    teamList,
+    unitList
 });
 
 const mapDispatchToProps = (dispatch) => ({
     categoryListActions: bindActionCreators(categoryListActions, dispatch),
     goalTypeListActions: bindActionCreators(goalTypeListActions, dispatch),
     kpiListActions: bindActionCreators(kpiListActions, dispatch),
+    unitListActions: bindActionCreators(unitListActions, dispatch),
+    kpiCreationActions: bindActionCreators(kpiCreationActions, dispatch),
     periodicityListActions: bindActionCreators(periodicityListActions, dispatch),
     goalDefinitionCreationActions: bindActionCreators(goalDefinitionCreationActions, dispatch),
     goalDefinitionRepartitionListActions: bindActionCreators(goalDefinitionRepartitionListActions, dispatch),

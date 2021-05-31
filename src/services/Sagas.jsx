@@ -85,6 +85,7 @@ import watchGoalDetail from './Goals/GoalDetail/sagas'
 import watchGoalList from './Goals/GoalList/sagas'
 import watchGoalTypeList from './GoalTypes/GoalTypeList/sagas'
 import watchKpiDetail from './Kpis/KpiDetail/sagas'
+import watchKpiCreation from './Kpis/KpiCreation/sagas'
 import watchInAppNotificationCount from './InAppNotifications/InAppNotificationCount/sagas'
 import watchInAppNotificationList from './InAppNotifications/InAppNotificationList/sagas'
 import {watchKpiList, watchKpiListByPartner} from './Kpis/KpiList/sagas'
@@ -165,8 +166,10 @@ import watchUserUpdateActivation from './Users/UserUpdateActivation/sagas'
 import watchUserUpdatePassword from './Users/UserUpdatePassword/sagas'
 import watchUserGoalDetail from './UserGoals/UserGoalDetail/sagas'
 import watchUserGoalList from './UserGoals/UserGoalList/sagas'
+import watchUnitList from './Units/UnitList/sagas'
 import watchCollaboratorGoalCategoryList from "./CollaboratorGoalCategories/CollaboratorGoalCategoryList/sagas";
 import watchTeamGoalCategoryList from "./TeamGoalCategories/TeamGoalCategoryList/sagas";
+
 
 function* rootSaga() {
     yield all([
@@ -278,6 +281,7 @@ function* rootSaga() {
         watchInAppNotificationCount(),
         watchInAppNotificationList(),
         watchKpiDetail(),
+        watchKpiCreation(),
         watchKpiList(),
         watchKpiListByPartner(),
         watchKpiListUpdate(),
@@ -366,6 +370,7 @@ function* rootSaga() {
         watchUserUpdate(),
         watchUserUpdateActivation(),
         watchUserUpdatePassword(),
+        watchUnitList(),
         watchValidatedCollaboratorRewardOrderSummaryList(),
         watchValidatedTeamRewardOrderSummaryList(),
         watchWaitingCollaboratorRewardOrderSummaryList(),

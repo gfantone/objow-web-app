@@ -59,6 +59,7 @@ import teams from './endpoints/teams'
 import tokens from './endpoints/tokens'
 import userGoals from './endpoints/userGoals'
 import users from './endpoints/users'
+import units from './endpoints/units'
 
 const api = {
     account,
@@ -121,7 +122,8 @@ const api = {
     teams,
     tokens,
     userGoals,
-    users
+    users,
+    units
 };
 
 export default api
