@@ -94,7 +94,6 @@ const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ..
     const [selectedList, setSelectedList] = useState(selected || [])
 
     const defaultChoices = () => {
-
       const result = _.compact(listIn.map(team =>
         Object.assign(
           {},

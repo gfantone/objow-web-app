@@ -66,7 +66,7 @@ class AdminGoalCreation extends MainLayoutComponent {
               { order: 6, name: 'Validation'}
             ],
             showIndicationTools: false,
-            repartition: "1",
+            repartition: null,
             finalModel: {
 
             }
@@ -371,34 +371,47 @@ class AdminGoalCreation extends MainLayoutComponent {
             break
           case 4:
             title = "Configuration des objectifs"
+            const labels = {
+              "D": 'jour',
+              "W": 'semaine',
+              "M": 'mois',
+              "Q": 'trimestre',
+              "S": 'semestre',
+              "Y": 'an',
+            }
+            const currentPeriodicity = periodicities.find(p => p.id === parseInt(this.state.finalModel.periodicity))
             const goalRepartitionLabel = parseInt(this.state.repartition) === _.get(repartitions, '[0]').id ?
               Resources.ADMIN_GOAL_CREATION_TARGET_LABEL :
-              Resources.ADMIN_GOAL_INDIVIDUAL_CREATION_TARGET_LABEL
+              Resources.ADMIN_GOAL_INDIVIDUAL_CREATION_TARGET_LABEL.format(labels[currentPeriodicity.code])
             fields = (
               <React.Fragment>
                 <Grid container>
                   <Grid item xs={12} sm={6}>
                     <Select
                       name='repartition'
-                      initial={ this.state.finalModel.repartition || _.get(repartitions, '[0]') }
+                      initial={ this.state.finalModel.repartition }
                       label={Resources.ADMIN_GOAL_CREATION_REPARTITION_LABEL}
-                      options={repartitions}
+                      options={repartitions.map(r => r.code === "I" ?
+                        Object.assign(r, {description: _.replace(r.description, 'période', labels[currentPeriodicity.code])})
+                        : r
+                      )}
                       optionValueName='id'
                       optionTextName='description'
                       onChange={ this.handleRepartitionChange }
                       fullWidth
                       required
-                      emptyDisabled
                     />
                   </Grid>
-                  <Grid item container spacing={8}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField type='number' name='target' initial={ this.state.finalModel.target } label={ goalRepartitionLabel } fullWidth required />
+                  { this.state.repartition && (
+                    <Grid item container spacing={8}>
+                      <Grid item xs={12} sm={6}>
+                        <TextField type='number' name='target' initial={ this.state.finalModel.target } label={ goalRepartitionLabel } fullWidth required />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <TextField type='number' name='default' initial={ this.state.finalModel.default } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField type='number' name='default' initial={ this.state.finalModel.default } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required />
-                    </Grid>
-                  </Grid>
+                  ) }
                 </Grid>
               </React.Fragment>
             )
@@ -445,7 +458,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             fields = (
               <div style={{ textAlign: 'center', margin: 'auto' }}>
                 <p style={{fontSize: 19, color: '#555555'}}>
-                  Félicitations !
+                  Félicitations 🎉 !
                 </p>
                 <p style={{fontSize: 19, color: '#555555'}} >
                   Il ne vous reste plus qu'à personnaliser vos objectifs selon vos besoins
