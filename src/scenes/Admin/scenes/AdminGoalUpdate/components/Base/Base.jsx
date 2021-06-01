@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {Grid} from '@material-ui/core'
-import {BlueText, Button, Card, DefaultText, Dialog, DialogActions, DialogContent, DialogTitle, InfoText, Loader, ProgressButton, Select, Switch, TextField, Tooltip} from '../../../../../../components'
+import { withStyles } from "@material-ui/core/styles"
+import {BlueText, Button, Card, DefaultText, Dialog, DialogActions, DialogContent, DialogTitle, InfoText, Loader, ProgressButton, Select, Switch, TextField, Tooltip, RichText} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import * as categoryListActions from '../../../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../../../services/GoalTypes/GoalTypeList/actions'
@@ -13,10 +14,23 @@ import * as periodicityListActions from '../../../../../../services/Periodicitie
 import * as goalDefinitionUpdateActions from '../../../../../../services/GoalDefinitions/GoalDefinitionUpdate/actions'
 import * as goalDefinitionActivationUpdateActions from '../../../../../../services/GoalDefinitions/GoalDefinitionActivationUpdate/actions'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+
+
+const styles = {
+  indications: {
+    '& .MuiInputBase-root': {
+      display: 'none'
+    }
+  }
+}
 
 class Base extends Component {
-    state = {kpi: null, open: false}
+    state = {
+      kpi: null,
+      open: false,
+      indication: null
+    }
 
     constructor(props) {
         super(props)
@@ -42,11 +56,20 @@ class Base extends Component {
             })
         }
     }
+    handleIndicationChange = (newIndication) => {
+      this.setState({
+          ...this.state,
+          indication: newIndication
+      })
+    }
 
     handleSubmit(model) {
         if (!model.editable) model.editable = false
         model.period = this.props.period
-        this.props.goalDefinitionUpdateActions.updateGoalDefinition(this.props.id, model)
+        this.props.goalDefinitionUpdateActions.updateGoalDefinition(
+          this.props.id,
+          Object.assign(model, {indication: JSON.stringify(this.state.indication)})
+        )
     }
 
     renderLoader() {
@@ -96,8 +119,37 @@ class Base extends Component {
                                     <Grid item xs={12} sm={6}>
                                         <TextField type='number' name='default' label={Resources.ADMIN_GOAL_UPDATE_DEFAULT_LABEL} initial={definition.default} fullWidth disabled={readonly} required />
                                     </Grid>
-                                    <Grid item xs={12}>
-                                        <TextField name='indication' label={Resources.ADMIN_GOAL_UPDATE_INDICATION_LABEL} initial={definition.indication} fullWidth multiline rowsMax={10} disabled={readonly} required />
+                                    <Grid item xs={12} className={ this.props.classes.indications }>
+                                      <DefaultText style={{ position: 'relative' }}>
+                                        <FontAwesomeIcon
+                                          icon={this.state.showIndicationTools ? faChevronUp : faChevronDown}
+                                          onClick={() => this.setState({...this.state, showIndicationTools: !this.state.showIndicationTools})}
+                                          style={{ position: "absolute", left: '70px', cursor: 'pointer', zIndex: 50 }}
+                                        />
+                                      </DefaultText>
+                                      <TextField
+                                        name='indication'
+                                        initial={ definition.indication }
+                                        readOnly={ false }
+                                        onChange={() => {}}
+                                        label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+                                        fullWidth
+                                        multiline
+                                        rowsMax={10}
+                                      />
+                                      <RichText
+                                        name='indication'
+                                        initial={ JSON.parse(definition.indication) || [ { children: [{ text: '' }],}] }
+                                        readOnly={ readonly }
+                                        onChange={ this.handleIndicationChange }
+                                        label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+                                        displayTools={readonly}
+                                        padding={'5px 0'}
+                                        fullWidth
+                                        multiline
+                                        rowsMax={10}
+                                        required
+                                      />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Grid container alignItems='center'>
@@ -187,4 +239,4 @@ const mapDispatchToProps = (dispatch) => ({
     goalDefinitionActivationUpdateActions: bindActionCreators(goalDefinitionActivationUpdateActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Base))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(Base)))

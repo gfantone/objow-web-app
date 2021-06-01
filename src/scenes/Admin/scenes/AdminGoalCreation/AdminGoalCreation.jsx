@@ -407,9 +407,11 @@ class AdminGoalCreation extends MainLayoutComponent {
                       <Grid item xs={12} sm={6}>
                         <TextField type='number' name='target' initial={ this.state.finalModel.target } label={ goalRepartitionLabel } fullWidth required />
                       </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField type='number' name='default' initial={ this.state.finalModel.default } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required />
+
+                      <Grid item xs={12} sm={6} style={{ display: 'none' }}>
+                        <TextField type='number' name='default' initial={ 0 } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required/>
                       </Grid>
+
                     </Grid>
                   ) }
                 </Grid>
