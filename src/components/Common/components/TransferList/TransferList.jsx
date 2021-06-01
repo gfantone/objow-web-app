@@ -93,6 +93,21 @@ const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ..
     const { classes } = props
     const [selectedList, setSelectedList] = useState(selected || [])
 
+    const defaultChoices = () => {
+
+      const result = _.compact(listIn.map(team =>
+        Object.assign(
+          {},
+          team,
+          { collaborators: _.difference(team.collaborators, selectedList) }
+        )
+      ))
+      return result
+    }
+
+    const [choices, setChoices] = useState(defaultChoices() || [])
+
+
     const selectItem = (item) => {
       if(_.indexOf(selectedList, item) < 0) {
         setSelectedList([item, ...selectedList])
@@ -118,33 +133,22 @@ const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ..
     }
 
     const getListByTeam = (collaborators) => {
-      return collaborators.reduce((acc, collaborator) => {
-        let team = acc.find(team => team.id === _.get(collaborator, 'team.id'))
-        if(!team) {
-          team = _.get(collaborator, 'team')
-          acc = [...acc, team]
+      return _.compact(listIn.map(team => {
+        const selectedCollaborators = _.compact(_.intersection(collaborators, team.collaborators))
+        if(selectedCollaborators.length > 0) {
+          return Object.assign(
+            {},
+            team,
+            { collaborators: selectedCollaborators }
+          )
         }
-        if(!acc[acc.indexOf(team)].collaborators) {
-          acc[acc.indexOf(team)].collaborators = []
-        }
-        if(acc[acc.indexOf(team)].collaborators.indexOf(collaborator) < 0) {
-          acc[acc.indexOf(team)].collaborators = [...acc[acc.indexOf(team)].collaborators, collaborator]
-        }
-        return acc
-      }, [])
+      }))
     }
 
     React.useEffect(() => {
       onChange(selectedList)
+      setChoices(defaultChoices())
     }, [selectedList])
-    const choices = _.compact(listIn.map(team =>
-      _.intersection(selectedList, team.collaborators).length < team.collaborators.length ? Object.assign(
-        {},
-        team,
-        { collaborators: _.difference(team.collaborators, selectedList) }
-      ) : null
-    ))
-
     return (
       <Grid container direction="column" spacing={1}>
         <Grid item>
