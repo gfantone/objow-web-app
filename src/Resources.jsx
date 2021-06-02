@@ -29,6 +29,12 @@ export const ADMIN_GOAL_CREATION_KPI_FORMAT_LABEL = "Format"
 export const ADMIN_GOAL_CREATION_REPARTITION_LABEL = "Mode de répartition"
 export const ADMIN_GOAL_CREATION_TARGET_LABEL = "Obj. global annuel"
 export const ADMIN_GOAL_INDIVIDUAL_CREATION_TARGET_LABEL = "Obj. individuel par {0}"
+export const ADMIN_GOAL_CREATION_REPARTITION_INDIVIDUAL = "\
+  En utilisant ce mode de répartition, l’objectif global annuel sera automatiquement réparti sur le nombre de périodes restants sur l’année et divisé par le nombre d’équipes sélectionnés.\n \
+  Une fois validé vous aurez la possibilité de personnaliser les objectifs individuels attribués à l’ensemble de vos équipes."
+export const ADMIN_GOAL_CREATION_REPARTITION_GLOBAL = "\
+  En utilisant ce mode de répartition, l’objectif individuel sera automatiquement attribué à l’ensemble des participants sélectionnés sur les périodes restants de l’année en cours.\n \
+  Une fois validé vous aurez la possibilité de personnaliser les objectifs individuels attribués à l’ensemble de vos équipes."
 export const ADMIN_GOAL_CREATION_DEFAULT_LABEL = "Réalisé par défaut"
 export const ADMIN_GOAL_CREATION_INDICATION_LABEL = "Indications"
 export const ADMIN_GOAL_CREATION_LIVE_LABEL = "Points gagnés en live"

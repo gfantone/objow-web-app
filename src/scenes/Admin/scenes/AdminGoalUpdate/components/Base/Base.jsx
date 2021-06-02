@@ -29,6 +29,7 @@ class Base extends Component {
     state = {
       kpi: null,
       open: false,
+      showIndicationTools: false,
       indication: null
     }
 
@@ -143,7 +144,7 @@ class Base extends Component {
                                         readOnly={ readonly }
                                         onChange={ this.handleIndicationChange }
                                         label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-                                        displayTools={readonly}
+                                        displayTools={this.state.showIndicationTools}
                                         padding={'5px 0'}
                                         fullWidth
                                         multiline

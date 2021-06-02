@@ -380,13 +380,19 @@ class AdminGoalCreation extends MainLayoutComponent {
               "Y": 'an',
             }
             const currentPeriodicity = periodicities.find(p => p.id === parseInt(this.state.finalModel.periodicity))
+            const currentRepartition = repartitions.find(r => r.id === parseInt(this.state.repartition))
+            // const currentPeriodicity = periodicities[0]
+            // const currentRepartition = repartitions[0]
             const goalRepartitionLabel = parseInt(this.state.repartition) === _.get(repartitions, '[0]').id ?
               Resources.ADMIN_GOAL_CREATION_TARGET_LABEL :
               Resources.ADMIN_GOAL_INDIVIDUAL_CREATION_TARGET_LABEL.format(labels[currentPeriodicity.code])
+            const explanation = this.state.repartition && (
+              currentRepartition.code === "G" ? Resources.ADMIN_GOAL_CREATION_REPARTITION_GLOBAL.format(labels[currentPeriodicity.code]) : Resources.ADMIN_GOAL_CREATION_REPARTITION_INDIVIDUAL.format(labels[currentPeriodicity.code])
+            )
             fields = (
               <React.Fragment>
-                <Grid container>
-                  <Grid item xs={12} sm={6}>
+                <Grid container alignItems="center" direction="column" style={{padding: 20}} spacing={6}>
+                  <Grid item xs={12} sm={4} style={{width: "100%"}}>
                     <Select
                       name='repartition'
                       initial={ this.state.finalModel.repartition }
@@ -398,20 +404,32 @@ class AdminGoalCreation extends MainLayoutComponent {
                       optionValueName='id'
                       optionTextName='description'
                       onChange={ this.handleRepartitionChange }
+                      bigLabel
                       fullWidth
                       required
                     />
                   </Grid>
+
                   { this.state.repartition && (
-                    <Grid item container spacing={8}>
-                      <Grid item xs={12} sm={6}>
-                        <TextField type='number' name='target' initial={ this.state.finalModel.target } label={ goalRepartitionLabel } fullWidth required />
-                      </Grid>
+                    <Grid item xs={12} sm={4}>
+                      <Grid container justify="center" direction="column">
+                        <Grid item>
+                          <TextField bigLabel type='number' name='target' initial={ this.state.finalModel.target } label={`👉 ${ goalRepartitionLabel }`} fullWidth required />
+                        </Grid>
+                        <Grid item style={{ margin: "10px 0" }}>
+                          { explanation.split("\n").map(paragraph => (
 
-                      <Grid item xs={12} sm={6} style={{ display: 'none' }}>
-                        <TextField type='number' name='default' initial={ 0 } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required/>
-                      </Grid>
+                            <DefaultText style={{ textTransform:'none' }}>
+                              { paragraph }
+                            </DefaultText>
+                          )) }
+                        </Grid>
 
+                        <Grid item xs={12} sm={6} style={{ display: 'none' }}>
+                          <TextField type='number' name='default' initial={ 0 } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required/>
+                        </Grid>
+
+                      </Grid>
                     </Grid>
                   ) }
                 </Grid>

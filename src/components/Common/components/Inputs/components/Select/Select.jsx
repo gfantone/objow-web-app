@@ -8,13 +8,23 @@ const styles = {
         textTransform: 'uppercase',
         fontSize: 13
     },
+    rootSmall: {
+      fontSize: 11
+    },
+    bigLabel: {
+      fontSize: '16px !important',
+      textAlign: 'center',
+      transform: 'none',
+      width: '100%',
+      top: "-5px"
+    },
     label: {
         textTransform: 'uppercase',
         fontSize: 13
     }
 };
 
-const CustomSelect = ({ disabled, emptyDisabled = false, emptyText, error, fullWidth, initial = null, label, name, options, optionValueName, optionTextName, optionTextPrefix = null, required, updateInitial, ...props }) => {
+const CustomSelect = ({ disabled, emptyDisabled = false, emptyText, error, fullWidth, initial = null, label, name, options, optionValueName, optionTextName, optionTextPrefix = null, required, updateInitial, bigLabel, ...props }) => {
     const { classes } = props;
     const [value, setValue] = React.useState(initial);
     const hasError = props.isFormSubmitted && !props.isValid;
@@ -36,7 +46,9 @@ const CustomSelect = ({ disabled, emptyDisabled = false, emptyText, error, fullW
     return (
         <div>
             <FormControl fullWidth={fullWidth}>
-                <InputLabel shrink={true} error={hasError} className={classes.label}>{finalLabel}</InputLabel>
+                <InputLabel shrink={!bigLabel} error={hasError} className={
+                    `${classes.label} ${bigLabel ? classes.bigLabel : ''}`
+                  }>{finalLabel}</InputLabel>
                 <Select
                     native
                     disabled={disabled}
@@ -45,7 +57,7 @@ const CustomSelect = ({ disabled, emptyDisabled = false, emptyText, error, fullW
                     onChange={handleChange}
                     value={value}
                     error={hasError}
-                    classes={{root: classes.root}}
+                    classes={{root: `${classes.root} ${bigLabel ? classes.rootSmall : ''}`}}
                 >
                     { !emptyDisabled && !emptyText && <option></option> }
                     { !emptyDisabled && emptyText && <option>{emptyText.toString().toUpperCase()}</option> }
