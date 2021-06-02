@@ -9,7 +9,7 @@ const styles = {
         fontSize: 13
     },
     rootSmall: {
-      fontSize: 11
+      
     },
     bigLabel: {
       fontSize: '16px !important',

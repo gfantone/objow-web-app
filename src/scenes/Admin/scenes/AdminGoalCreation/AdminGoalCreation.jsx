@@ -152,10 +152,13 @@ class AdminGoalCreation extends MainLayoutComponent {
           })
         })
       }
-      if(model.type && this.state.finalModel.type !== model.type) {
-        this.setParticipants([], apply)
-      } else {
-        apply()
+      
+      if(currentStep.order !== 3 || _.get(this.state.participants, 'length', 0) > 0) {
+        if(model.type && this.state.finalModel.type !== model.type) {
+          this.setParticipants([], apply)
+        } else {
+          apply()
+        }
       }
     }
 
@@ -379,15 +382,33 @@ class AdminGoalCreation extends MainLayoutComponent {
               "S": 'semestre',
               "Y": 'an',
             }
+
+            const explanationPeriods = {
+              "D": 'jours',
+              "W": 'semaines',
+              "M": 'mois',
+              "Q": 'trimestres',
+              "S": 'semestres',
+              "Y": 'années',
+            }
             const currentPeriodicity = periodicities.find(p => p.id === parseInt(this.state.finalModel.periodicity))
             const currentRepartition = repartitions.find(r => r.id === parseInt(this.state.repartition))
+            const currentType = types.find(t => t.id === parseInt(this.state.finalModel.type))
             // const currentPeriodicity = periodicities[0]
             // const currentRepartition = repartitions[0]
+            // const currentType = types[1]
+
+
             const goalRepartitionLabel = parseInt(this.state.repartition) === _.get(repartitions, '[0]').id ?
               Resources.ADMIN_GOAL_CREATION_TARGET_LABEL :
-              Resources.ADMIN_GOAL_INDIVIDUAL_CREATION_TARGET_LABEL.format(labels[currentPeriodicity.code])
+              _.replace(Resources.ADMIN_GOAL_INDIVIDUAL_CREATION_TARGET_LABEL.format(labels[currentPeriodicity.code]), /individuel/, 'équipe')
+
+
+
             const explanation = this.state.repartition && (
-              currentRepartition.code === "G" ? Resources.ADMIN_GOAL_CREATION_REPARTITION_GLOBAL.format(labels[currentPeriodicity.code]) : Resources.ADMIN_GOAL_CREATION_REPARTITION_INDIVIDUAL.format(labels[currentPeriodicity.code])
+              currentRepartition.code === "G" ?
+                Resources[`ADMIN_GOAL_CREATION_REPARTITION_GLOBAL${ currentType.code === 'C' ? '' : '_TEAM' }`].format(explanationPeriods[currentPeriodicity.code])
+                : Resources[`ADMIN_GOAL_CREATION_REPARTITION_INDIVIDUAL${ currentType.code === 'C' ? '' : '_TEAM' }`].format(explanationPeriods[currentPeriodicity.code])
             )
             fields = (
               <React.Fragment>
@@ -398,7 +419,11 @@ class AdminGoalCreation extends MainLayoutComponent {
                       initial={ this.state.finalModel.repartition }
                       label={Resources.ADMIN_GOAL_CREATION_REPARTITION_LABEL}
                       options={repartitions.map(r => r.code === "I" ?
-                        Object.assign(r, {description: _.replace(r.description, 'période', labels[currentPeriodicity.code])})
+                        Object.assign(r, {description: _.replace(
+                          _.replace(r.description, 'période', labels[currentPeriodicity.code]),
+                          /Individuelle/,
+                          currentType.code === 'C' ? 'Individuelle' : 'Equipe'
+                        )})
                         : r
                       )}
                       optionValueName='id'
@@ -411,18 +436,10 @@ class AdminGoalCreation extends MainLayoutComponent {
                   </Grid>
 
                   { this.state.repartition && (
-                    <Grid item xs={12} sm={4}>
-                      <Grid container justify="center" direction="column">
+                    <Grid item xs={12} sm={4} style={{width: "100%"}}>
+                      <Grid container justify="center" direction="column" style={{ position: 'relative' }}>
                         <Grid item>
                           <TextField bigLabel type='number' name='target' initial={ this.state.finalModel.target } label={`👉 ${ goalRepartitionLabel }`} fullWidth required />
-                        </Grid>
-                        <Grid item style={{ margin: "10px 0" }}>
-                          { explanation.split("\n").map(paragraph => (
-
-                            <DefaultText style={{ textTransform:'none' }}>
-                              { paragraph }
-                            </DefaultText>
-                          )) }
                         </Grid>
 
                         <Grid item xs={12} sm={6} style={{ display: 'none' }}>
@@ -433,6 +450,15 @@ class AdminGoalCreation extends MainLayoutComponent {
                     </Grid>
                   ) }
                 </Grid>
+
+                <div style={{ width: '70%', margin: 'auto', marginBottom: 10 }}>
+                  { explanation && explanation.split("\n").map(paragraph => (
+                      <DefaultText style={{ textTransform:'none'}}>
+                        { paragraph }
+                      </DefaultText>
+                  )) }
+                </div>
+
               </React.Fragment>
             )
             break
