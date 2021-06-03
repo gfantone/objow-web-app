@@ -152,7 +152,7 @@ class AdminGoalCreation extends MainLayoutComponent {
           })
         })
       }
-      
+
       if(currentStep.order !== 3 || _.get(this.state.participants, 'length', 0) > 0) {
         if(model.type && this.state.finalModel.type !== model.type) {
           this.setParticipants([], apply)
@@ -393,7 +393,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             }
             const currentPeriodicity = periodicities.find(p => p.id === parseInt(this.state.finalModel.periodicity))
             const currentRepartition = repartitions.find(r => r.id === parseInt(this.state.repartition))
-            const currentType = types.find(t => t.id === parseInt(this.state.finalModel.type))
+            // const currentType = types.find(t => t.id === parseInt(this.state.finalModel.type))
             // const currentPeriodicity = periodicities[0]
             // const currentRepartition = repartitions[0]
             // const currentType = types[1]
@@ -464,6 +464,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             break
           case 5:
             title = "Selection des options"
+
             fields = (
               <React.Fragment>
                 <Grid container spacing={1} direction="column">
