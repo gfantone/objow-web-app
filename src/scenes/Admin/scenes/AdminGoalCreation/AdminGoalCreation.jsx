@@ -255,6 +255,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         const currentType = types.find(t => t.id === parseInt(type))
         const unit = kpi ? kpi.unit.name + (kpi.unit.symbol ? ` (${kpi.unit.symbol})` : '') : null;
         const currentStep = this.state.steps.find(step => step.active === true)
+
         const isLastStep = currentStep.order >= this.state.steps.length
         const { classes } = this.props
         let fields
@@ -263,7 +264,6 @@ class AdminGoalCreation extends MainLayoutComponent {
         switch(currentStep.order){
           case 1:
             title = "Selection du KPI de l'objectif"
-            const kpi = kpis.find(kpi => kpi.id === parseInt(this.state.kpi))
             const format = kpi && kpi.manual ? 'Manuel' : 'Automatique'
             fields = (
               <React.Fragment>
@@ -274,7 +274,9 @@ class AdminGoalCreation extends MainLayoutComponent {
                     </Grid>
                     <Grid item>
                       <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={
-                          kpis.filter(kpi => !this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory))
+                          kpis.filter(
+                            kpi => (!this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory)) && kpi.periodicity.order > 1 
+                          )
                         } optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
                     </Grid>
                     <Grid item>
@@ -322,7 +324,7 @@ class AdminGoalCreation extends MainLayoutComponent {
                   <Select name='category' initial={ this.state.finalModel.category } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
+                  <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities.filter(p => p.order >= _.get(kpi, 'periodicity.order'))} optionValueName='id' optionTextName='description' fullWidth required />
                 </Grid>
                 <Grid item xs={12} className={ classes.indications }>
                   <DefaultText style={{ position: 'relative' }}>
