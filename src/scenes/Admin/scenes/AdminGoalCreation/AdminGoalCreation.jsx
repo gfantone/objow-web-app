@@ -275,7 +275,7 @@ class AdminGoalCreation extends MainLayoutComponent {
                     <Grid item>
                       <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={
                           kpis.filter(
-                            kpi => (!this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory)) && kpi.periodicity.order > 1 
+                            kpi => (!this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory))
                           )
                         } optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
                     </Grid>
@@ -324,7 +324,7 @@ class AdminGoalCreation extends MainLayoutComponent {
                   <Select name='category' initial={ this.state.finalModel.category } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities.filter(p => p.order >= _.get(kpi, 'periodicity.order'))} optionValueName='id' optionTextName='description' fullWidth required />
+                  <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities.filter(p => p.order >= _.get(kpi, 'periodicity.order') && p.order > 1)} optionValueName='id' optionTextName='description' fullWidth required />
                 </Grid>
                 <Grid item xs={12} className={ classes.indications }>
                   <DefaultText style={{ position: 'relative' }}>
