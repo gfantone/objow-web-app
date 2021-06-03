@@ -571,6 +571,11 @@ class AdminGoalCreation extends MainLayoutComponent {
             this.props.goalDefinitionCreationActions.clearGoalDefinitionCreation();
             this.props.history.goBack()
         }
+        const criticities = [
+          {order: 1, name: 'Basse'},
+          {order: 2, name: 'Moyenne'},
+          {order: 3, name: 'Haute'}
+        ]
 
         return (
             <div>
@@ -588,13 +593,13 @@ class AdminGoalCreation extends MainLayoutComponent {
                           <TextField name='name' label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
                         </Grid>
                         <Grid item >
-                          <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
+                          <Select name='criticity' label={Resources.ADMIN_GOAL_CREATION_CRITICITY_LABEL} options={criticities} optionValueName='order' optionTextName='name' fullWidth required />
                         </Grid>
                         <Grid item >
-                          <Select name='periodicity' label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities} optionValueName='id' optionTextName='description' fullWidth required />
+                          <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth />
                         </Grid>
-                        <Grid item >
-                          <Select name='unit' label={Resources.ADMIN_GOAL_CREATION_UNIT_LABEL} options={units} optionValueName='id' optionTextName='name' fullWidth required />
+                        <Grid item>
+                          <TextField name='description' label={Resources.ADMIN_GOAL_CREATION_DESCRIPTION_LABEL} fullWidth required />
                         </Grid>
                         <Grid item>
                           <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} loading={loading} centered />
