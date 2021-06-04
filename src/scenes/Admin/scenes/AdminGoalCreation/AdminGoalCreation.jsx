@@ -46,6 +46,9 @@ const styles = {
     '& .MuiInputBase-root': {
       display: 'none'
     }
+  },
+  kpiDialog: {
+    width: 900
   }
 }
 
@@ -582,33 +585,35 @@ class AdminGoalCreation extends MainLayoutComponent {
                 { loading && this.renderLoader() }
                 { !loading && categories && types  && kpis && periodicities && teams && units && repartitions && this.renderData() }
                 <Dialog
-                    maxWidth='xs'
                     open={this.state.newKpiOpen}
                     onClose={this.onNewKpiClose}
+                    classes={{ paper: this.props.classes.kpiDialog }}
                 >
                     <DialogTitle>Demande de création de KPI</DialogTitle>
                     <Formsy onValidSubmit={this.handleSubmitKpi.bind(this)}>
-                      <Grid container direction="column" spacing={2}>
+                      <Grid container direction="column" spacing={2} >
                         <Grid item>
-                          <TextField name='name' label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
+                          <Grid container direction="row" spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='criticity' label={Resources.ADMIN_GOAL_CREATION_CRITICITY_LABEL} options={criticities} optionValueName='order' optionTextName='name' fullWidth required />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth />
+                            </Grid>
+                          </Grid>
                         </Grid>
-                        <Grid item >
-                          <Select name='criticity' label={Resources.ADMIN_GOAL_CREATION_CRITICITY_LABEL} options={criticities} optionValueName='order' optionTextName='name' fullWidth required />
+                        <Grid item xs={12} sm={12}>
+                          <TextField name='name' label={Resources.ADMIN_GOAL_CREATION_KPI_NAME_LABEL} fullWidth required />
                         </Grid>
-                        <Grid item >
-                          <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth />
-                        </Grid>
-                        <Grid item>
-                          <TextField name='description' label={Resources.ADMIN_GOAL_CREATION_DESCRIPTION_LABEL} fullWidth required />
-                        </Grid>
-                        <Grid item>
-                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} loading={loading} centered />
+                        <Grid item xs={12} sm={12}>
+                          <TextField name='description' label={Resources.ADMIN_GOAL_CREATION_DESCRIPTION_LABEL} fullWidth required multiline rows={4} variant="outlined"/>
                         </Grid>
                       </Grid>
+                      <DialogActions>
+                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} loading={loading} centered />
+                          <Button onClick={this.onNewKpiClose} color="secondary">Annuler</Button>
+                      </DialogActions>
                     </Formsy>
-                    <DialogActions>
-                        <Button onClick={this.onNewKpiClose}>Fermer</Button>
-                    </DialogActions>
                 </Dialog>
             </div>
         )

@@ -72,6 +72,7 @@ const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = 
                 helperText={errorMessage}
                 error={hasError}
                 placeholder={placeholder}
+                {...props}
             />
         </div>
     )
