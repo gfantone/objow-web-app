@@ -85,9 +85,10 @@ class ChallengeDuplication extends MainLayoutComponent {
         challengeFormData.append('image', model.image)
       } else {
         // Make blob file from url for dupplication
+
         const splitFile = model.image.split('/')
         const fileName = splitFile[splitFile.length - 1]
-        let file = await fetch(model.image).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
+        let file = await fetch(_.replace(model.image, 'https://', 'http://')).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
         challengeFormData.append('customImage', file)
       }
 
