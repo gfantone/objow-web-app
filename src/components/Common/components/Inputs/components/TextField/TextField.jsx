@@ -53,6 +53,7 @@ const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = 
     return (
         <div>
             <TextField
+                {...props}
                 disabled={disabled}
                 fullWidth={fullWidth}
                 multiline={multiline}
@@ -72,7 +73,7 @@ const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = 
                 helperText={errorMessage}
                 error={hasError}
                 placeholder={placeholder}
-                {...props}
+
             />
         </div>
     )
