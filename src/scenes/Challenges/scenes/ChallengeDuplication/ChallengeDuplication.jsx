@@ -66,7 +66,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         })
     }
 
-    handleValidSubmit(model) {
+    async handleValidSubmit(model) {
       const { types } = this.props.challengeTypeList
       model.start.setHours(0, 0, 0, 0)
       model.end.setHours(23, 59, 59, 0)
@@ -84,7 +84,11 @@ class ChallengeDuplication extends MainLayoutComponent {
       if(Number.isInteger(model.image)) {
         challengeFormData.append('image', model.image)
       } else {
-        challengeFormData.append('customImage', model.image)
+        // Make blob file from url for dupplication
+        const splitFile = model.image.split('/')
+        const fileName = splitFile[splitFile.length - 1]
+        let file = await fetch(model.image).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
+        challengeFormData.append('customImage', file)
       }
 
       // Set custom image if exists
@@ -112,7 +116,7 @@ class ChallengeDuplication extends MainLayoutComponent {
           const rank = i + 1
           awards.push({ rank: rank, points: model.award[i] })
       }
-      
+
       const teamId = types.find(x => x.id == model.type && x.code === 'CM') != null && this.teamId ? this.teamId : null
 
       this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, awards, goals, teamId)
@@ -127,7 +131,6 @@ class ChallengeDuplication extends MainLayoutComponent {
         const {types} = this.props.challengeTypeList
         const {loading} = this.props.challengeCreation
         const {kpis} = this.props.kpiList
-
 
         return (
             <div>
