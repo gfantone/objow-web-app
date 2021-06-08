@@ -17,6 +17,7 @@ import * as challengeImageListActions from "../../../../services/ChallengeImages
 import * as challengeTypeListActions from "../../../../services/ChallengeTypes/ChallengeTypeList/actions"
 import * as currentPeriodDetailActions from "../../../../services/Periods/CurrentPeriodDetail/actions"
 import * as kpiListActions from "../../../../services/Kpis/KpiList/actions"
+import _ from 'lodash'
 
 class ChallengeDuplication extends MainLayoutComponent {
     state = {goalAdding: false}
