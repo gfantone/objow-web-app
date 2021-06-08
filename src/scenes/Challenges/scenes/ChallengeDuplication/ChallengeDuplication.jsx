@@ -69,6 +69,7 @@ class ChallengeDuplication extends MainLayoutComponent {
 
     async handleValidSubmit(model) {
       const { types } = this.props.challengeTypeList
+      const {challenge: base_challenge} = this.props.challengeDetail
       model.start.setHours(0, 0, 0, 0)
       model.end.setHours(23, 59, 59, 0)
       const start = model.start.toUTCJSON();
@@ -82,15 +83,17 @@ class ChallengeDuplication extends MainLayoutComponent {
       challengeFormData.append('type', model.type)
       challengeFormData.append('award_type', model.awardType)
       challengeFormData.append('live', model.live ? model.live : false)
+      challengeFormData.append('base_challenge', base_challenge.id)
+
       if(Number.isInteger(model.image)) {
         challengeFormData.append('image', model.image)
       } else {
         // Make blob file from url for dupplication
 
-        const splitFile = model.image.split('/')
-        const fileName = splitFile[splitFile.length - 1]
-        let file = await fetch(_.replace(model.image, 'https://', 'http://')).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
-        challengeFormData.append('customImage', file)
+        // const splitFile = model.image.split('/')
+        // const fileName = splitFile[splitFile.length - 1]
+        // let file = await fetch(_.replace(model.image, 'https://', 'http://')).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
+        // challengeFormData.append('customImage', model.image)
       }
 
       // Set custom image if exists
@@ -106,7 +109,8 @@ class ChallengeDuplication extends MainLayoutComponent {
           end: end,
           type: model.type,
           award_type: model.awardType,
-          live: model.live ? model.live : false
+          live: model.live ? model.live : false,
+          base_challenge: base_challenge.id
       }, image)
 
       var goals = []
