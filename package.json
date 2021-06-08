@@ -33,6 +33,7 @@
     "react": "^16.12.0",
     "react-clear-cache": "^1.1.0",
     "react-countdown-now": "^2.1.2",
+    "react-datasheet": "^1.4.9",
     "react-dom": "^16.12.0",
     "react-error-boundary": "^3.1.0",
     "react-linkify": "^1.0.0-alpha",

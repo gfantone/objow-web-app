@@ -51,6 +51,7 @@ const goalDefinitions = {
         return instance.get(url)
     },
     teamCollaboratorGoals(id, date, team = null) {
+        console.log('teamCollaboratorGoals api', date);
         var url = `${baseUrl}${id}/team-collaborator-goals/?date=${date.toISOString()}`;
         if (team != null) {
             url += `&team=${team}`

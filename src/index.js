@@ -5,6 +5,8 @@ import configureStore from "./store/configureStore";
 import { Provider } from 'react-redux'
 import Routes from './Routes'
 import { PersistGate } from 'redux-persist/integration/react'
+import 'react-datasheet/lib/react-datasheet.css';
+
 
 const { store, persistor } = configureStore();
 
