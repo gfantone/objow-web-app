@@ -35,7 +35,7 @@ const WeekFilter = ({ onChange, ...props }) => {
         const date = !isNaN(Date.parse(value)) ? new Date(value) : null;
         if (onChange) onChange(date)
     };
-    
+
     return (
         <div>
             <Select name='week' label='Semaine' options={weeks} optionValueName='date' optionTextName='name' emptyText='Toutes les semaines' onChange={handleChange} fullWidth />

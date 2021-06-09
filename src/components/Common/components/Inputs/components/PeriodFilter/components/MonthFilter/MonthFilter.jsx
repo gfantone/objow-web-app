@@ -25,7 +25,7 @@ const MonthFilter = ({ onChange, ...props }) => {
         const date = !isNaN(Date.parse(value)) ? new Date(value) : null;
         if (onChange) onChange(date)
     };
-    
+
     return (
         <div>
             <Select name='month' label='Mois' options={months} optionValueName='date' optionTextName='name' emptyText='Tous les mois' onChange={handleChange} fullWidth />

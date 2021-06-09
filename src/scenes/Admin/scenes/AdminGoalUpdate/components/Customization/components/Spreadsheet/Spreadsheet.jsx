@@ -27,6 +27,11 @@ class Spreadsheet extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            //
+            currentGoalIndexLoading: 0,
+            currentTeamLoading: 0,
+            teamGoals: [],
+            collaboratorGoals: [],
             grid: [
               [
                 { readOnly: true, value: '' },
@@ -70,11 +75,27 @@ class Spreadsheet extends Component {
 
     componentDidMount() {
       const {definition} = this.props.goalDefinitionDetail
-      if(definition) {
-        this.props.playerGoalListActions.getPlayerGoalList(definition.id, null, 1)
-        this.props.teamPlayerGoalListActions.getTeamPlayerGoalList(definition.id, new Date('08/02/21'))
+      const { goals } = this.props.goalList;
+      const { teams } = this.props.teamList;
+
+      if(goals && goals.length > 0) {
+        const period = this.getMonthByGoal(goals[this.state.currentGoalIndexLoading])
+
+        if(definition) {
+          this.props.playerGoalListActions.getPlayerGoalList(definition.id, period.date, 1)
+          this.props.teamPlayerGoalListActions.getTeamPlayerGoalList(definition.id, new Date('08/02/21'))
+        }
       }
     }
+
+    getMonthByGoal = (goal) => {
+      const today = new Date();
+
+      const date = goal.start.toDate();
+      if ((goal.start.toDate() <= today && today <= goal.end.toDate()) || goal.start.toDate() >= today) {
+        return {name: Intl.DateTimeFormat('fr-FR', {month: 'long'}).format(date), date: date}
+      }
+    };
 
     renderLoader = () => {
         return <div>
@@ -119,7 +140,6 @@ class Spreadsheet extends Component {
       const { goals, loading: playerGoalListLoading } = this.props.playerGoalList;
       const { goals: teamGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalList
       const loading = playerGoalListLoading || goaldDefinitionLoading
-      console.log(teamPlayerGoalListLoading, teamGoals);
       return (
           <div>
               {loading && this.renderLoader()}
@@ -129,7 +149,9 @@ class Spreadsheet extends Component {
     }
 }
 
-const mapStateToProps = ({goalDefinitionDetail, playerGoalList, teamPlayerGoalList,}) => ({
+const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalList, teamPlayerGoalList,}) => ({
+    teamList,
+    goalList,
     goalDefinitionDetail,
     playerGoalList,
     teamPlayerGoalList,
