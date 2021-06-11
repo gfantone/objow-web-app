@@ -43,7 +43,6 @@ class Spreadsheet extends Component {
         }
     }
     updateGrid = () => {
-      console.log('updateGrid');
       const { goals } = this.props.goalList;
       const { teams } = this.props.teamList;
       const { goals: playerGoals, loading: playerGoalBulkListLoading } = this.props.playerGoalBulkList;
@@ -64,7 +63,12 @@ class Spreadsheet extends Component {
           goalsByTeam[team.id].forEach((playerGoalsByPeriod, periodIndex) => {
             return playerGoalsByPeriod.forEach((playerGoalByPeriod, collaboratorIndex) => {
               if(data[teamIndex].length < collaboratorIndex + 1) {
-                data[teamIndex] = [...data[teamIndex], [{ value: _.get(playerGoalByPeriod, 'collaborator.fullname'), readOnly: true }]]
+                data[teamIndex] = [...data[teamIndex], [{
+                  value: _.get(playerGoalByPeriod, 'collaborator.fullname'),
+                  readOnly: true,
+                  width: '150px',
+
+                }]]
               }
               data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target}]
             })
@@ -74,7 +78,7 @@ class Spreadsheet extends Component {
         this.setState({
           ...this.state,
           grid: [
-            [{ value: '', readOnly: true }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true}) )],
+            [{ value: '', readOnly: true, width: '150px' }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true}) )],
             ..._.flatten(data)
           ],
           gridLoaded: true
@@ -146,6 +150,13 @@ class Spreadsheet extends Component {
                   this.setGrid(currentGrid);
                 }}
                 onContextMenu={onContextMenu}
+                cellRenderer={props => {
+                  return(
+                    <td {...props} style={props.cell.style}>
+                      {props.children}
+                    </td>
+                  )
+                }}
               />
             </div>
         )
