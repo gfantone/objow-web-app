@@ -36,6 +36,7 @@ class Spreadsheet extends Component {
             goals: [],
             playerGoals: {},
             teamPlayerGoals: [],
+            gridLoaded: false,
             grid: [
 
             ]
@@ -46,83 +47,43 @@ class Spreadsheet extends Component {
       const { goals } = this.props.goalList;
       const { teams } = this.props.teamList;
       const { goals: playerGoals, loading: playerGoalBulkListLoading } = this.props.playerGoalBulkList;
-      console.log(playerGoals);
       const goalsByTeam = {}
-      playerGoals.forEach((response) => {
-        
-        console.log(new URLSearchParams(response.config.url));
-      });
+      let team;
+      if(playerGoals.length > 0) {
+        playerGoals.forEach((response) => {
+          team = _.get(response, 'data[0].collaborator.team.id');
+          if(!goalsByTeam[team]) {
+            goalsByTeam[team] = []
+          }
+          goalsByTeam[team] = [...goalsByTeam[team], response.data];
+        });
 
-      // let data = []
-      // teams.forEach((team, teamIndex) => {
-      //   data = [...data, []]
-      //   this.state.playerGoals[team.id].forEach((playerGoalsByPeriod, periodIndex) => {
-      //     return playerGoalsByPeriod.forEach((playerGoalByPeriod, collaboratorIndex) => {
-      //       if(data[teamIndex].length < collaboratorIndex + 1) {
-      //         data[teamIndex] = [...data[teamIndex], [{ value: _.get(playerGoalByPeriod, 'collaborator.fullname'), readOnly: true }]]
-      //       }
-      //       data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: this.state.playerGoals[team.id][periodIndex][collaboratorIndex].target}]
-      //     })
-      //   })
-      // });
+        let data = []
+        teams.forEach((team, teamIndex) => {
+          data = [...data, []]
+          goalsByTeam[team.id].forEach((playerGoalsByPeriod, periodIndex) => {
+            return playerGoalsByPeriod.forEach((playerGoalByPeriod, collaboratorIndex) => {
+              if(data[teamIndex].length < collaboratorIndex + 1) {
+                data[teamIndex] = [...data[teamIndex], [{ value: _.get(playerGoalByPeriod, 'collaborator.fullname'), readOnly: true }]]
+              }
+              data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target}]
+            })
+          })
+        });
 
-      // this.setState({
-      //   ...this.state,
-      //   grid: [
-      //     [{ value: '', readOnly: true }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true}) )],
-      //     ..._.flatten(data)
-      //   ]
-      // })
+        this.setState({
+          ...this.state,
+          grid: [
+            [{ value: '', readOnly: true }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true}) )],
+            ..._.flatten(data)
+          ],
+          gridLoaded: true
+        })
+      }
     }
 
     componentDidMount() {
-      // const { goals } = this.props.goalList;
-      // const { teams } = this.props.teamList;
-      // this.setState({
-      //   ...this.state,
-      //   goals: goals,
-      // })
-      // Initial fetchGoals
       this.fetchGoals()
-
-      // const {definition} = this.props.goalDefinitionDetail
-      // const { teams } = this.props.teamList;
-      // const { goals } = this.props.goalList;
-      // const { goals: playerGoals } = this.props.playerGoalList;
-      // const { goals: teamPlayerGoals } = this.props.teamPlayerGoalList;
-      //
-      // if(goals && playerGoals && teamPlayerGoals) {
-      //   this.setState({
-      //     ...this.state,
-      //     goals: goals,
-      //     playerGoals: playerGoals,
-      //     teamPlayerGoals: teamPlayerGoals
-      //   }, () => {
-      //     // everything is loaded
-      //     if(this.state.currentTeamLoading >= teams.length - 1  && this.state.currentGoalIndexLoading >= goals.length - 1) {
-      //       return
-      //     }
-      //     const newTeamIndex = this.state.currentTeamLoading >= teams.length ? 0 : this.state.currentTeamLoading
-      //     const newGoalIndex = this.state.currentGoalIndexLoading >= goals.length ? 0 : this.state.currentGoalIndexLoading
-      //     this.setState({
-      //       ...this.state,
-      //       currentGoalIndexLoading: newGoalIndex,
-      //       currentTeamLoading: newTeamIndex
-      //     })
-      //     console.log(this.state)
-      //   })
-      // }
-      //
-      // const currentTeam = teams[this.state.currentTeamLoading]
-      //
-      // if(goals && goals.length > 0) {
-      //   const period = this.getMonthByGoal(goals[this.state.currentGoalIndexLoading])
-      //
-      //   if(definition) {
-      //     this.props.playerGoalListActions.getPlayerGoalList(definition.id, period.date, currentTeam.id)
-      //     this.props.teamPlayerGoalListActions.getTeamPlayerGoalList(definition.id, period.date)
-      //   }
-      // }
     }
 
     fetchGoals = () => {
@@ -143,48 +104,9 @@ class Spreadsheet extends Component {
     }
 
     componentDidUpdate() {
-      this.updateGrid()
-    //   const {definition} = this.props.goalDefinitionDetail
-    //   const { teams } = this.props.teamList;
-    //   const { goals } = this.props.goalList;
-    //   const { goals: playerGoals, loading: playerGoalListLoading } = this.props.playerGoalList;
-    //   const { goals: teamPlayerGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalList;
-    //   console.log(this.state.currentTeamLoading, this.state.currentGoalIndexLoading, playerGoals);
-    //   if(!teamPlayerGoalListLoading && !playerGoalListLoading && teams && goals && playerGoals && teamPlayerGoals && !this.state.loadComplete) {
-    //
-    //     // build new goals list by team
-    //     let newPlayerGoals = Object.assign({}, this.state.playerGoals)
-    //     const currentTeamId = teams[this.state.currentTeamLoading].id
-    //     if(!this.state.playerGoals[currentTeamId]){
-    //       newPlayerGoals[currentTeamId] = [playerGoals]
-    //     } else {
-    //       newPlayerGoals[currentTeamId] = [...newPlayerGoals[currentTeamId], playerGoals]
-    //     }
-    //
-    //     // change current load indexes
-    //     const newGoalIndex = this.state.currentGoalIndexLoading >= goals.length - 1 ? 0 : this.state.currentGoalIndexLoading + 1
-    //     let newTeamIndex = this.state.currentTeamLoading
-    //     if(newGoalIndex === 0) {
-    //       newTeamIndex = this.state.currentTeamLoading >= teams.length - 1 ? 0 : this.state.currentTeamLoading + 1
-    //     }
-    //     if(this.state.currentTeamLoading >= teams.length - 1  && this.state.currentGoalIndexLoading >= goals.length - 1) {
-    //       this.setState({loadComplete: true})
-    //       return
-    //     }
-    //     this.setState({
-    //       ...this.state,
-    //       playerGoals: newPlayerGoals,
-    //       teamPlayerGoals: this.state.teamPlayerGoals.length > 0 ? [...this.state.teamPlayerGoals, teamPlayerGoals] : [teamPlayerGoals],
-    //       currentGoalIndexLoading: newGoalIndex,
-    //       currentTeamLoading: newTeamIndex,
-    //     }, () => {
-    //       if(this.state.currentTeamLoading >= teams.length - 1  && this.state.currentGoalIndexLoading >= goals.length - 1) {
-    //         this.updateGrid()
-    //       } else {
-    //         this.fetchGoals()
-    //       }
-    //     })
-    //   }
+      if(!this.state.gridLoaded) {
+        this.updateGrid()
+      }
     }
 
     getMonthByGoal = (goal) => {
@@ -210,7 +132,7 @@ class Spreadsheet extends Component {
         const { grid } = this.state
         const {definition} = this.props.goalDefinitionDetail
         const onContextMenu = (e, cell, i, j) => cell.readOnly ? e.preventDefault() : null;
-        this.updateGrid()
+        // this.updateGrid()
         return (
             <div className={ classes.spreadsheet }>
               <ReactDataSheet
