@@ -104,6 +104,7 @@ import partnerList from '../services/Partners/PartnerList/reducer'
 import periodicityList from '../services/Periodicities/PeriodicityList/reducer'
 import periodList from '../services/Periods/PeriodList/reducer'
 import playerGoalList from '../services/PlayerGoals/PlayerGoalList/reducer'
+import playerGoalBulkList from '../services/PlayerGoals/PlayerGoalBulkList/reducer'
 import playerGoalListUpdate from '../services/PlayerGoals/PlayerGoalListUpdate/reducer'
 import previousPeriodList from '../services/Periods/PreviousPeriodList/reducer'
 import rewardCategory from '../services/RewardCategories/RewardCategory/reducer';
@@ -277,6 +278,7 @@ const rootReducer = combineReducers({
     periodicityList,
     periodList,
     playerGoalList,
+    playerGoalBulkList,
     playerGoalListUpdate,
     previousPeriodList,
     rewardCategory,

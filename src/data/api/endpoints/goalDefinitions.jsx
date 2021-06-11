@@ -1,3 +1,4 @@
+import axios from 'axios'
 import instance from '../instance'
 
 const baseUrl = 'goal-definitions/';
@@ -14,6 +15,17 @@ const goalDefinitions = {
     collaboratorGoals(id, date, team) {
         const url = `${baseUrl}${id}/collaborator-goals/?team=${team}&date=${date.toISOString()}`;
         return instance.get(url)
+    },
+    collaboratorGoalsBulk(id, dates, teams) {
+        let urls = []
+        teams.forEach((team) => {
+          dates.forEach((date) => {
+            urls = [...urls, `${baseUrl}${id}/collaborator-goals/?team=${team.id}&date=${date.toISOString()}`];
+          });
+
+        });
+
+        return axios.all(urls.map(url => instance.get(url)))
     },
     create(definition) {
         return instance.post(baseUrl, definition)
@@ -51,7 +63,6 @@ const goalDefinitions = {
         return instance.get(url)
     },
     teamCollaboratorGoals(id, date, team = null) {
-        console.log('teamCollaboratorGoals api', date);
         var url = `${baseUrl}${id}/team-collaborator-goals/?date=${date.toISOString()}`;
         if (team != null) {
             url += `&team=${team}`

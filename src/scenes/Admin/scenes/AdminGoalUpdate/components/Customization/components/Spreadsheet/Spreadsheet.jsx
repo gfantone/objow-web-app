@@ -5,8 +5,9 @@ import {withStyles} from '@material-ui/core/styles'
 import ReactDataSheet from 'react-datasheet'
 import { Loader } from '../../../../../../../../components'
 import * as Resources from '../../../../../../../../Resources'
-import * as playerGoalListActions from '../../../../../../../../services/PlayerGoals/PlayerGoalList/actions'
+import * as playerGoalBulkListActions from '../../../../../../../../services/PlayerGoals/PlayerGoalBulkList/actions'
 import * as teamPlayerGoalListActions from '../../../../../../../../services/TeamPlayerGoals/TeamPlayerGoalList/actions'
+import _ from 'lodash'
 
 const styles = {
   root: {
@@ -27,74 +28,168 @@ class Spreadsheet extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            //
+            // index of current period which goals are being loaded
             currentGoalIndexLoading: 0,
+            // index of current team which goals are being loaded
             currentTeamLoading: 0,
-            teamGoals: [],
-            collaboratorGoals: [],
+            loadComplete: false,
+            goals: [],
+            playerGoals: {},
+            teamPlayerGoals: [],
             grid: [
-              [
-                { readOnly: true, value: '' },
-                { value: 'A', readOnly: true },
-                { value: 'B', readOnly: true },
-                { value: 'C', readOnly: true },
-                { value: 'D', readOnly: true },
-              ],
-              [
-                { readOnly: true, value: 1 },
-                { value: 1 },
-                { value: 3 },
-                { value: 3 },
-                { value: 3 },
-              ],
-              [
-                { readOnly: true, value: 2 },
-                { value: 2 },
-                { value: 4 },
-                { value: 4 },
-                { value: 4 },
-              ],
-              [
-                { readOnly: true, value: 3 },
-                { value: 1 },
-                { value: 3 },
-                { value: 3 },
-                { value: 3 },
-              ],
-              [
-                { readOnly: true, value: 4 },
-                { value: 2 },
-                { value: 4 },
-                { value: 4 },
-                { value: 4 },
 
-              ],
             ]
         }
     }
-
-    componentDidMount() {
-      const {definition} = this.props.goalDefinitionDetail
+    updateGrid = () => {
+      console.log('updateGrid');
       const { goals } = this.props.goalList;
       const { teams } = this.props.teamList;
+      const { goals: playerGoals, loading: playerGoalBulkListLoading } = this.props.playerGoalBulkList;
+      console.log(playerGoals);
+      const goalsByTeam = {}
+      playerGoals.forEach((response) => {
+        
+        console.log(new URLSearchParams(response.config.url));
+      });
+
+      // let data = []
+      // teams.forEach((team, teamIndex) => {
+      //   data = [...data, []]
+      //   this.state.playerGoals[team.id].forEach((playerGoalsByPeriod, periodIndex) => {
+      //     return playerGoalsByPeriod.forEach((playerGoalByPeriod, collaboratorIndex) => {
+      //       if(data[teamIndex].length < collaboratorIndex + 1) {
+      //         data[teamIndex] = [...data[teamIndex], [{ value: _.get(playerGoalByPeriod, 'collaborator.fullname'), readOnly: true }]]
+      //       }
+      //       data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: this.state.playerGoals[team.id][periodIndex][collaboratorIndex].target}]
+      //     })
+      //   })
+      // });
+
+      // this.setState({
+      //   ...this.state,
+      //   grid: [
+      //     [{ value: '', readOnly: true }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true}) )],
+      //     ..._.flatten(data)
+      //   ]
+      // })
+    }
+
+    componentDidMount() {
+      // const { goals } = this.props.goalList;
+      // const { teams } = this.props.teamList;
+      // this.setState({
+      //   ...this.state,
+      //   goals: goals,
+      // })
+      // Initial fetchGoals
+      this.fetchGoals()
+
+      // const {definition} = this.props.goalDefinitionDetail
+      // const { teams } = this.props.teamList;
+      // const { goals } = this.props.goalList;
+      // const { goals: playerGoals } = this.props.playerGoalList;
+      // const { goals: teamPlayerGoals } = this.props.teamPlayerGoalList;
+      //
+      // if(goals && playerGoals && teamPlayerGoals) {
+      //   this.setState({
+      //     ...this.state,
+      //     goals: goals,
+      //     playerGoals: playerGoals,
+      //     teamPlayerGoals: teamPlayerGoals
+      //   }, () => {
+      //     // everything is loaded
+      //     if(this.state.currentTeamLoading >= teams.length - 1  && this.state.currentGoalIndexLoading >= goals.length - 1) {
+      //       return
+      //     }
+      //     const newTeamIndex = this.state.currentTeamLoading >= teams.length ? 0 : this.state.currentTeamLoading
+      //     const newGoalIndex = this.state.currentGoalIndexLoading >= goals.length ? 0 : this.state.currentGoalIndexLoading
+      //     this.setState({
+      //       ...this.state,
+      //       currentGoalIndexLoading: newGoalIndex,
+      //       currentTeamLoading: newTeamIndex
+      //     })
+      //     console.log(this.state)
+      //   })
+      // }
+      //
+      // const currentTeam = teams[this.state.currentTeamLoading]
+      //
+      // if(goals && goals.length > 0) {
+      //   const period = this.getMonthByGoal(goals[this.state.currentGoalIndexLoading])
+      //
+      //   if(definition) {
+      //     this.props.playerGoalListActions.getPlayerGoalList(definition.id, period.date, currentTeam.id)
+      //     this.props.teamPlayerGoalListActions.getTeamPlayerGoalList(definition.id, period.date)
+      //   }
+      // }
+    }
+
+    fetchGoals = () => {
+      const {definition} = this.props.goalDefinitionDetail
+      const { teams } = this.props.teamList;
+      const { goals } = this.props.goalList;
+      // load data
+      // const currentTeam = teams[this.state.currentTeamLoading]
 
       if(goals && goals.length > 0) {
-        const period = this.getMonthByGoal(goals[this.state.currentGoalIndexLoading])
+        const dates = goals.map(goal => this.getMonthByGoal(goal).date)
 
         if(definition) {
-          this.props.playerGoalListActions.getPlayerGoalList(definition.id, period.date, 1)
-          this.props.teamPlayerGoalListActions.getTeamPlayerGoalList(definition.id, new Date('08/02/21'))
+          this.props.playerGoalBulkListActions.getPlayerGoalBulkList(definition.id, dates, teams)
+          // this.props.teamPlayerGoalListActions.getTeamPlayerGoalList(definition.id, period.date)
         }
       }
     }
 
-    getMonthByGoal = (goal) => {
-      const today = new Date();
+    componentDidUpdate() {
+      this.updateGrid()
+    //   const {definition} = this.props.goalDefinitionDetail
+    //   const { teams } = this.props.teamList;
+    //   const { goals } = this.props.goalList;
+    //   const { goals: playerGoals, loading: playerGoalListLoading } = this.props.playerGoalList;
+    //   const { goals: teamPlayerGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalList;
+    //   console.log(this.state.currentTeamLoading, this.state.currentGoalIndexLoading, playerGoals);
+    //   if(!teamPlayerGoalListLoading && !playerGoalListLoading && teams && goals && playerGoals && teamPlayerGoals && !this.state.loadComplete) {
+    //
+    //     // build new goals list by team
+    //     let newPlayerGoals = Object.assign({}, this.state.playerGoals)
+    //     const currentTeamId = teams[this.state.currentTeamLoading].id
+    //     if(!this.state.playerGoals[currentTeamId]){
+    //       newPlayerGoals[currentTeamId] = [playerGoals]
+    //     } else {
+    //       newPlayerGoals[currentTeamId] = [...newPlayerGoals[currentTeamId], playerGoals]
+    //     }
+    //
+    //     // change current load indexes
+    //     const newGoalIndex = this.state.currentGoalIndexLoading >= goals.length - 1 ? 0 : this.state.currentGoalIndexLoading + 1
+    //     let newTeamIndex = this.state.currentTeamLoading
+    //     if(newGoalIndex === 0) {
+    //       newTeamIndex = this.state.currentTeamLoading >= teams.length - 1 ? 0 : this.state.currentTeamLoading + 1
+    //     }
+    //     if(this.state.currentTeamLoading >= teams.length - 1  && this.state.currentGoalIndexLoading >= goals.length - 1) {
+    //       this.setState({loadComplete: true})
+    //       return
+    //     }
+    //     this.setState({
+    //       ...this.state,
+    //       playerGoals: newPlayerGoals,
+    //       teamPlayerGoals: this.state.teamPlayerGoals.length > 0 ? [...this.state.teamPlayerGoals, teamPlayerGoals] : [teamPlayerGoals],
+    //       currentGoalIndexLoading: newGoalIndex,
+    //       currentTeamLoading: newTeamIndex,
+    //     }, () => {
+    //       if(this.state.currentTeamLoading >= teams.length - 1  && this.state.currentGoalIndexLoading >= goals.length - 1) {
+    //         this.updateGrid()
+    //       } else {
+    //         this.fetchGoals()
+    //       }
+    //     })
+    //   }
+    }
 
+    getMonthByGoal = (goal) => {
       const date = goal.start.toDate();
-      if ((goal.start.toDate() <= today && today <= goal.end.toDate()) || goal.start.toDate() >= today) {
-        return {name: Intl.DateTimeFormat('fr-FR', {month: 'long'}).format(date), date: date}
-      }
+      return {name: Intl.DateTimeFormat('fr-FR', {month: 'long'}).format(date), date: date}
     };
 
     renderLoader = () => {
@@ -114,9 +209,8 @@ class Spreadsheet extends Component {
         const {classes} = this.props
         const { grid } = this.state
         const {definition} = this.props.goalDefinitionDetail
-        const { goals } = this.props.playerGoalList;
         const onContextMenu = (e, cell, i, j) => cell.readOnly ? e.preventDefault() : null;
-
+        this.updateGrid()
         return (
             <div className={ classes.spreadsheet }>
               <ReactDataSheet
@@ -137,9 +231,9 @@ class Spreadsheet extends Component {
 
     render = () => {
       const {definition, loading: goaldDefinitionLoading} = this.props.goalDefinitionDetail
-      const { goals, loading: playerGoalListLoading } = this.props.playerGoalList;
+      const { goals, loading: playerGoalBulkListLoading } = this.props.playerGoalBulkList;
       const { goals: teamGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalList
-      const loading = playerGoalListLoading || goaldDefinitionLoading
+      const loading = playerGoalBulkListLoading || goaldDefinitionLoading
       return (
           <div>
               {loading && this.renderLoader()}
@@ -149,16 +243,16 @@ class Spreadsheet extends Component {
     }
 }
 
-const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalList, teamPlayerGoalList,}) => ({
+const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBulkList, teamPlayerGoalList,}) => ({
     teamList,
     goalList,
     goalDefinitionDetail,
-    playerGoalList,
+    playerGoalBulkList,
     teamPlayerGoalList,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    playerGoalListActions: bindActionCreators(playerGoalListActions, dispatch),
+    playerGoalBulkListActions: bindActionCreators(playerGoalBulkListActions, dispatch),
     teamPlayerGoalListActions: bindActionCreators(teamPlayerGoalListActions, dispatch),
 });
 

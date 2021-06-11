@@ -5,9 +5,7 @@ import api from '../../../data/api/api'
 
 function* getTeamPlayerGoalList(action) {
     try {
-        console.log('getTeamPlayerGoalList sagas');
         const { data: goals } = yield call(api.goalDefinitions.teamCollaboratorGoals, action.definitionId, action.date)
-        console.log('goals results', goals);
         yield put(getTeamPlayerGoalListSuccess(goals))
     } catch(e) {
         yield put(getTeamPlayerGoalListError())

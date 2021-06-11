@@ -105,6 +105,7 @@ const initialState = {
     periodicityList: {periodicities: null, loading: false, hasError: false},
     periodList: {periods: null, loading: false, hasError: false},
     playerGoalList: {goals: [], loading: false, hasError: false},
+    playerGoalBulkList: {goals: [], loading: false, hasError: false},
     playerGoalListUpdate: {success: false, loading: false, hasError: false},
     playerRankList: {generalRank: null, categoryRanks: [], loading: false, hasError: false},
     previousPeriodList: {periods: null, loading: false, hasError: false},

@@ -105,6 +105,7 @@ import watchPreviousPeriodList from "./Periods/PreviousPeriodList/sagas";
 import watchPeriodicityList from './Periodicities/PeriodicityList/sagas'
 import watchPeriodList from "./Periods/PeriodList/sagas";
 import watchPlayerGoalList from './PlayerGoals/PlayerGoalList/sagas'
+import watchPlayerGoalBulkList from './PlayerGoals/PlayerGoalBulkList/sagas'
 import watchPlayerGoalListUpdate from './PlayerGoals/PlayerGoalListUpdate/sagas'
 import watchRewardCategory from "./RewardCategories/RewardCategory/sagas";
 import watchRewardCategoryCreation from "./RewardCategories/RewardCategoryCreation/sagas";
@@ -296,6 +297,7 @@ function* rootSaga() {
         watchPeriodList(),
         watchPermanentConfigList(),
         watchPlayerGoalList(),
+        watchPlayerGoalBulkList(),
         watchPlayerGoalListUpdate(),
         watchPreviousPeriodList(),
         watchRewardCategory(),
