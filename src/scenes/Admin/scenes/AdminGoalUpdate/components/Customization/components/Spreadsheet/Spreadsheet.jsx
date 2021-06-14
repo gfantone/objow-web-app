@@ -15,11 +15,23 @@ const styles = {
   },
   spreadsheet: {
     width: '100%',
-
+    paddingLeft: '301px',
+    position: 'relative',
     '& .data-grid-container .data-grid': {
       display: 'block',
       overflowX: 'auto',
-      whiteSpace: 'nowrap'
+      whiteSpace: 'nowrap',
+      '&::-webkit-scrollbar-thumb': {
+        borderRadius: 8,
+        border: '2px solid white',
+        background: 'rgba(0, 0, 0, .5)'
+      },
+      '&::-webkit-scrollbar': {
+        '-webkit-appearance': 'none',
+        '&:horizontal': {
+          height: 11
+        }
+      }
     },
     '& .data-grid-container .data-grid .cell > input': {
       width: '100%',
@@ -30,13 +42,32 @@ const styles = {
     },
     '& .cell.firstCell': {
       minWidth: 300,
-      paddingLeft: 5
+      paddingLeft: 5,
+      position: 'absolute',
+      lineHeight: 2,
+
+      width: '302px',
+      height: 30,
+      zIndex: 30,
+      left: 0,
+      '&.selected': {
+        zIndex: 40
+      }
     },
     '& .cell.baseCell': {
-      lineHeight: 2
+      lineHeight: 2,
+      height: 30,
+      zIndex: 10
     },
     '& .cell.dataCell': {
-      minWidth: 150
+      minWidth: 150,
+      // '&.selected': {
+      //   zIndex: 40
+      // }
+    },
+    '& .cell.marginCell': {
+      minWidth: 300,
+      zIndex: 20
     },
   },
 
@@ -86,7 +117,6 @@ class Spreadsheet extends Component {
                     value: _.get(playerGoalByPeriod, 'collaborator.fullname'),
                     readOnly: true,
                     className: 'firstCell baseCell'
-
                   }]]
                 }
                 data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target, className: 'dataCell baseCell'}]
