@@ -59,7 +59,7 @@ class Customization extends Component {
         const {definition} = this.props.goalDefinitionDetail
         const now = new Date()
         const date = definition.periodicity.code != 'Y' ? this.state.date : new Date(Date.UTC(now.getFullYear(), 0, 1))
-
+        console.log('render customization', definition.type.code);
         return (
             <div>
                 <Grid container justify="flex-end" className={this.props.classes.buttons} spacing={1}>

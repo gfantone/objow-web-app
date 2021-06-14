@@ -39,6 +39,7 @@ class CollaboratorGoalList extends Component {
         this.state = {
             targetSum: null
         }
+        this.loadData(props)
     }
 
     loadData(props) {
@@ -180,10 +181,9 @@ class CollaboratorGoalList extends Component {
 
     render() {
         const { goals, loading: playerGoalListLoading } = this.props.playerGoalList;
-        const { loading: teamPlayerGoalDetailLoading } = this.props.teamPlayerGoalDetail;
+        const { goal: goalDetail, loading: teamPlayerGoalDetailLoading } = this.props.teamPlayerGoalDetail;
         const loading = playerGoalListLoading || teamPlayerGoalDetailLoading;
-        const hasGoals = goals.length > 0;
-
+        const hasGoals = goals.length > 0 && goalDetail;
         return (
             <div>
                 { loading && this.renderLoader() }

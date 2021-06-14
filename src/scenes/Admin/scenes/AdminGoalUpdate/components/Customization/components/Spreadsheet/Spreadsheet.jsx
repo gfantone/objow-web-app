@@ -14,14 +14,32 @@ const styles = {
       padding: 16,
   },
   spreadsheet: {
-    '& .data-grid': {
-      width: '100%'
+    width: '100%',
+
+    '& .data-grid-container .data-grid': {
+      display: 'block',
+      overflowX: 'auto',
+      whiteSpace: 'nowrap'
     },
     '& .data-grid-container .data-grid .cell > input': {
       width: '100%',
-      height: 'auto'
-    }
-  }
+      height: '100%'
+    },
+    '& .data-grid-container .data-grid .cell.read-only.firstCell': {
+      textAlign: 'left'
+    },
+    '& .cell.firstCell': {
+      minWidth: 300,
+      paddingLeft: 5
+    },
+    '& .cell.baseCell': {
+      lineHeight: 2
+    },
+    '& .cell.dataCell': {
+      minWidth: 150
+    },
+  },
+
 }
 
 class Spreadsheet extends Component {
@@ -60,25 +78,27 @@ class Spreadsheet extends Component {
         let data = []
         teams.forEach((team, teamIndex) => {
           data = [...data, []]
-          goalsByTeam[team.id].forEach((playerGoalsByPeriod, periodIndex) => {
-            return playerGoalsByPeriod.forEach((playerGoalByPeriod, collaboratorIndex) => {
-              if(data[teamIndex].length < collaboratorIndex + 1) {
-                data[teamIndex] = [...data[teamIndex], [{
-                  value: _.get(playerGoalByPeriod, 'collaborator.fullname'),
-                  readOnly: true,
-                  width: '150px',
+          if(goalsByTeam[team.id]) {
+            goalsByTeam[team.id].forEach((playerGoalsByPeriod, periodIndex) => {
+              return playerGoalsByPeriod.forEach((playerGoalByPeriod, collaboratorIndex) => {
+                if(data[teamIndex].length < collaboratorIndex + 1) {
+                  data[teamIndex] = [...data[teamIndex], [{
+                    value: _.get(playerGoalByPeriod, 'collaborator.fullname'),
+                    readOnly: true,
+                    className: 'firstCell baseCell'
 
-                }]]
-              }
-              data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target}]
+                  }]]
+                }
+                data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target, className: 'dataCell baseCell'}]
+              })
             })
-          })
+          }
         });
 
         this.setState({
           ...this.state,
           grid: [
-            [{ value: '', readOnly: true, width: '150px' }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true}) )],
+            [{ value: '', readOnly: true, className: 'firstCell baseCell' }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true, className: 'dataCell baseCell'}) )],
             ..._.flatten(data)
           ],
           gridLoaded: true
