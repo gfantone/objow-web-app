@@ -144,6 +144,7 @@ import teamGlobalPointSummaryDetail from '../services/TeamGlobalPointSummaries/T
 import teamGoalCategoryList from "../services/TeamGoalCategories/TeamGoalCategoryList/reducer";
 import teamGoalDetail from '../services/TeamGoals/TeamGoalDetail/reducer'
 import teamGoalList from '../services/TeamGoals/TeamGoalList/reducer'
+import teamGoalBulkList from '../services/TeamGoals/TeamGoalBulkList/reducer'
 import teamGoalListUpdate from '../services/TeamGoals/TeamGoalListUpdate/reducer'
 import teamGoalRankList from '../services/TeamGoalRanks/TeamGoalRankList/reducer'
 import teamGoalSummaryList from '../services/TeamGoalSummaries/TeamGoalSummaryList/reducer'
@@ -319,6 +320,7 @@ const rootReducer = combineReducers({
     teamGoalCategoryList,
     teamGoalDetail,
     teamGoalList,
+    teamGoalBulkList,
     teamGoalListUpdate,
     teamGoalRankList,
     teamGoalSummaryList,

@@ -6,6 +6,7 @@ import ReactDataSheet from 'react-datasheet'
 import { Loader } from '../../../../../../../../components'
 import * as Resources from '../../../../../../../../Resources'
 import * as playerGoalBulkListActions from '../../../../../../../../services/PlayerGoals/PlayerGoalBulkList/actions'
+import * as teamGoalBulkListActions from '../../../../../../../../services/TeamGoals/TeamGoalBulkList/actions'
 import * as teamPlayerGoalBulkListActions from '../../../../../../../../services/TeamPlayerGoals/TeamPlayerGoalBulkList/actions'
 import _ from 'lodash'
 
@@ -93,7 +94,8 @@ class Spreadsheet extends Component {
             ]
         }
     }
-    updateGrid = () => {
+
+    updateGridIndividual = () => {
       const { goals } = this.props.goalList;
       const { teams } = this.props.teamList;
       const { goals: playerGoals, loading: playerGoalBulkListLoading } = this.props.playerGoalBulkList;
@@ -101,6 +103,7 @@ class Spreadsheet extends Component {
 
       const goalsByTeam = {}
       let team;
+
       if(playerGoals.length > 0) {
         playerGoals.forEach((response) => {
           team = _.get(response, 'data[0].collaborator.team.id');
@@ -126,6 +129,7 @@ class Spreadsheet extends Component {
                 data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target, className: 'dataCell baseCell'}]
 
               })
+
               // Total by team
               data[teamIndex][playerGoalsByPeriod.length] = data[teamIndex][playerGoalsByPeriod.length] || [{
                 value: `${team.name} : Objectif alloué`,
@@ -164,6 +168,51 @@ class Spreadsheet extends Component {
       }
     }
 
+    updateGridTeam = () => {
+      const { goals } = this.props.goalList;
+      const { teams } = this.props.teamList;
+      const { goals: teamGoals } = this.props.teamGoalBulkList;
+      let data = []
+
+      if(teamGoals && teamGoals.length > 0) {
+        teamGoals.forEach((response) => {
+          response.data.forEach((teamGoal, teamIndex) => {
+            if(data.length <= teamIndex){
+              data = [...data, [{
+                value: _.get(teamGoal, 'team.name'),
+                readOnly: true,
+                className: 'firstCell baseCell'
+              }]]
+            }
+            data[teamIndex] = [...data[teamIndex], {
+              value: _.get(teamGoal, 'target'),
+              className: 'dataCell baseCell'
+            }]
+          })
+        });
+        this.setState({
+          ...this.state,
+          grid: [
+            [{ value: '', readOnly: true, className: 'firstCell baseCell' }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true, className: 'dataCell baseCell'}) )],
+            ...data
+          ],
+          gridLoaded: true
+        })
+      }
+    }
+
+    updateGrid = () => {
+      const {definition} = this.props.goalDefinitionDetail
+      const isIndividualGoals = _.get(definition, 'type.code') === 'C'
+
+      if(isIndividualGoals) {
+        this.updateGridIndividual()
+      } else {
+        this.updateGridTeam()
+      }
+
+    }
+
     componentDidMount() {
       this.fetchGoals()
     }
@@ -179,8 +228,12 @@ class Spreadsheet extends Component {
         const dates = goals.map(goal => this.getMonthByGoal(goal).date)
 
         if(definition) {
-          this.props.playerGoalBulkListActions.getPlayerGoalBulkList(definition.id, dates, teams)
-          this.props.teamPlayerGoalBulkListActions.getTeamPlayerGoalBulkList(definition.id, dates)
+          if(_.get(definition, 'type.code') === 'C') {
+            this.props.playerGoalBulkListActions.getPlayerGoalBulkList(definition.id, dates, teams)
+            this.props.teamPlayerGoalBulkListActions.getTeamPlayerGoalBulkList(definition.id, dates)
+          } else {
+            this.props.teamGoalBulkListActions.getTeamGoalBulkList(definition.id, dates)
+          }
         }
       }
     }
@@ -243,28 +296,38 @@ class Spreadsheet extends Component {
     render = () => {
       const {definition, loading: goaldDefinitionLoading} = this.props.goalDefinitionDetail
       const { goals, loading: playerGoalBulkListLoading } = this.props.playerGoalBulkList;
-      const { goals: teamGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalBulkList
-      const loading = playerGoalBulkListLoading || goaldDefinitionLoading || teamPlayerGoalListLoading
+      const { goals: teamGoals, loading: teamGoalBulkListLoading } = this.props.teamGoalBulkList;
+      const { goals: teamPlayerGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalBulkList
+      let loading = true;
 
+      if(definition) {
+        const type = _.get(definition, 'type.code')
+
+        loading = type === 'C' ?
+          goaldDefinitionLoading || playerGoalBulkListLoading || teamPlayerGoalListLoading :
+          goaldDefinitionLoading || teamGoalBulkListLoading
+      }
       return (
           <div>
               {loading && this.renderLoader()}
-              {!loading && definition && goals && teamGoals && this.renderData()}
+              {!loading && definition && (goals && (teamGoals || teamPlayerGoals)) && this.renderData()}
           </div>
       )
     }
 }
 
-const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBulkList, teamPlayerGoalBulkList,}) => ({
+const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBulkList, teamPlayerGoalBulkList, teamGoalBulkList}) => ({
     teamList,
     goalList,
     goalDefinitionDetail,
     playerGoalBulkList,
+    teamGoalBulkList,
     teamPlayerGoalBulkList,
 })
 
 const mapDispatchToProps = (dispatch) => ({
     playerGoalBulkListActions: bindActionCreators(playerGoalBulkListActions, dispatch),
+    teamGoalBulkListActions: bindActionCreators(teamGoalBulkListActions, dispatch),
     teamPlayerGoalBulkListActions: bindActionCreators(teamPlayerGoalBulkListActions, dispatch),
 });
 

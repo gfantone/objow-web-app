@@ -1,8 +1,8 @@
 import * as types from './actionTypes'
 
-export const getTeamGoalBulkListByDefinition = (definitionId, dates) => {
+export const getTeamGoalBulkList = (definitionId, dates) => {
     return {
-        type: types.GET_TEAM_GOAL_BULK_LIST_BY_DEFINITION,
+        type: types.GET_TEAM_GOAL_BULK_LIST,
         definitionId,
         dates
     }

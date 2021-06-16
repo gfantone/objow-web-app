@@ -81,6 +81,14 @@ const goalDefinitions = {
     teamGoals(id, date) {
         const url = `${baseUrl}${id}/team-goals/?date=${date.toISOString()}`;
         return instance.get(url)
+    },
+    teamGoalsBulk(id, dates) {
+        let urls = []
+
+        dates.forEach((date) => {
+          urls = [...urls, `${baseUrl}${id}/team-goals/?date=${date.toISOString()}`];
+        });
+        return axios.all(urls.map(url => instance.get(url)))
     }
 };
 

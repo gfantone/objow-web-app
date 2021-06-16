@@ -3,7 +3,7 @@ import initialState from '../../../store/initialState';
 
 let TeamGoalBulkList = (state = initialState.teamGoalBulkList, action) => {
     switch (action.type) {
-        case types.GET_TEAM_GOAL_BULK_LIST_BY_DEFINITION:
+        case types.GET_TEAM_GOAL_BULK_LIST:
             return {...state, goals: null, loading: true, hasError: false}
 
         case types.GET_TEAM_GOAL_BULK_LIST_SUCCESS:
