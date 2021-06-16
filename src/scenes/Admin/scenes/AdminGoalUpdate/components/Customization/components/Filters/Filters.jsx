@@ -4,7 +4,7 @@ import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
 import { Card, QuarterFilter, MonthFilter, Select, SemesterFilter, WeekFilter, YearFilter } from '../../../../../../../../components'
 
-const Filters = ({ onDateChange, onTeamChange, ...props }) => {
+const Filters = ({ onDateChange, onTeamChange, displayDateFilter, emptyDisabledTeam, ...props }) => {
     const { definition } = props.goalDefinitionDetail;
     const { teams } = props.teamList;
     const activateTeamFilter = definition.type.code == 'C';
@@ -25,20 +25,20 @@ const Filters = ({ onDateChange, onTeamChange, ...props }) => {
         const value = newValue > 0 ? newValue : null;
         onTeamChange(value)
     };
-    
+
     return (
         <div>
             <Formsy>
                 <Card>
                     <Grid container spacing={2}>
-                        { definition.periodicity.code != 'Y' && <Grid item xs={6}>
+                        { definition.periodicity.code != 'Y' && displayDateFilter && <Grid item xs={6}>
                             { definition.periodicity.code == 'W' && <WeekFilter onChange={handleDateChange} /> }
                             { definition.periodicity.code == 'M' && <MonthFilter onChange={handleDateChange} /> }
                             { definition.periodicity.code == 'Q' && <QuarterFilter onChange={handleDateChange} /> }
                             { definition.periodicity.code == 'S' && <SemesterFilter onChange={handleDateChange} /> }
                         </Grid> }
                         { activateTeamFilter && <Grid item xs={6}>
-                            <Select name='team' label='Équipe' options={teams} optionValueName='id' optionTextName='name' emptyValue='-1' emptyText='Toutes les équipes' onChange={handleTeamChange} fullWidth />
+                            <Select name='team' label='Équipe' options={teams} optionValueName='id'  optionTextName='name' emptyDisabled={ emptyDisabledTeam } emptyValue='-1' emptyText='Toutes les équipes' onChange={handleTeamChange} fullWidth />
                         </Grid> }
                     </Grid>
                 </Card>

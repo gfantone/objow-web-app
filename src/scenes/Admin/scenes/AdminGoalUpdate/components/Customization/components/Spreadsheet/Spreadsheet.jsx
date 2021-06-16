@@ -15,6 +15,7 @@ const styles = {
       padding: 16,
   },
   spreadsheet: {
+    marginTop: 20,
     width: '100%',
     paddingLeft: '250px',
     position: 'relative',
@@ -22,10 +23,15 @@ const styles = {
       display: 'block',
       overflowX: 'auto',
       whiteSpace: 'nowrap',
+      '&::-webkit-scrollbar-track': {
+        background: '#f1f1f1',
+
+      },
       '&::-webkit-scrollbar-thumb': {
         borderRadius: 8,
         border: '2px solid white',
-        background: 'rgba(0, 0, 0, .5)'
+        background: '#888'
+
       },
       '&::-webkit-scrollbar': {
         '-webkit-appearance': 'none',
@@ -89,6 +95,7 @@ class Spreadsheet extends Component {
             playerGoals: {},
             teamPlayerGoals: [],
             gridLoaded: false,
+            changeTeam: false,
             grid: [
 
             ]
@@ -163,6 +170,7 @@ class Spreadsheet extends Component {
             [{ value: '', readOnly: true, className: 'firstCell baseCell' }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true, className: 'dataCell baseCell'}) )],
             ..._.flatten(data)
           ],
+          changeTeam: false,
           gridLoaded: true
         })
       }
@@ -196,6 +204,7 @@ class Spreadsheet extends Component {
             [{ value: '', readOnly: true, className: 'firstCell baseCell' }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true, className: 'dataCell baseCell'}) )],
             ...data
           ],
+          changeTeam: false,
           gridLoaded: true
         })
       }
@@ -204,7 +213,7 @@ class Spreadsheet extends Component {
     updateGrid = () => {
       const {definition} = this.props.goalDefinitionDetail
       const isIndividualGoals = _.get(definition, 'type.code') === 'C'
-
+      console.log('update grid');
       if(isIndividualGoals) {
         this.updateGridIndividual()
       } else {
@@ -221,6 +230,9 @@ class Spreadsheet extends Component {
       const {definition} = this.props.goalDefinitionDetail
       const { teams } = this.props.teamList;
       const { goals } = this.props.goalList;
+      const { team } = this.props;
+      const filteredTeams = team ? teams.filter(t => parseInt(t.id) === parseInt(team)) : [teams[0]]
+
       // load data
       // const currentTeam = teams[this.state.currentTeamLoading]
 
@@ -229,7 +241,7 @@ class Spreadsheet extends Component {
 
         if(definition) {
           if(_.get(definition, 'type.code') === 'C') {
-            this.props.playerGoalBulkListActions.getPlayerGoalBulkList(definition.id, dates, teams)
+            this.props.playerGoalBulkListActions.getPlayerGoalBulkList(definition.id, dates, filteredTeams)
             this.props.teamPlayerGoalBulkListActions.getTeamPlayerGoalBulkList(definition.id, dates)
           } else {
             this.props.teamGoalBulkListActions.getTeamGoalBulkList(definition.id, dates)
@@ -237,9 +249,25 @@ class Spreadsheet extends Component {
         }
       }
     }
+    componentWillReceiveProps(nextProps) {
+
+      if(nextProps.team !== this.props.team) {
+        this.setState({
+          ...this.state,
+          gridLoaded: false,
+          changeTeam: true,
+        }, this.fetchGoals)
+      }
+    }
 
     componentDidUpdate() {
-      if(!this.state.gridLoaded) {
+      if(this.state.changeTeam) {
+        this.setState({
+          ...this.state,
+          changeTeam: false
+        })
+      }
+      if(!this.state.gridLoaded && !this.state.changeTeam) {
         this.updateGrid()
       }
     }

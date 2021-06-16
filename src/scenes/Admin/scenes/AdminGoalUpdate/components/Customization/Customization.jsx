@@ -74,16 +74,16 @@ class Customization extends Component {
                     </Grid>
                   </Tooltip>
                 </Grid>
-                { this.state.page === 1  && (
                   <Grid container spacing={4} style={{ zIndex: 1 }}>
-                    {(definition.type.code == 'C' || definition.periodicity.code != 'Y') && <Grid item container spacing={1}>
+                    {(definition.type.code == 'C' || definition.periodicity.code != 'Y') && (definition.type.code !== 'T' || this.state.page !== 2) && <Grid item container spacing={1}>
                       <Grid item xs={12} style={{ zIndex: 1 }}>
                         <DefaultTitle>Filtres</DefaultTitle>
                       </Grid>
                       <Grid item xs={12}>
-                        <Filters onDateChange={this.handleChange('date').bind(this)} onTeamChange={this.handleChange('team').bind(this)} />
+                        <Filters emptyDisabledTeam={this.state.page === 2} displayDateFilter={this.state.page !== 2} onDateChange={this.handleChange('date').bind(this)} onTeamChange={this.handleChange('team').bind(this)} />
                       </Grid>
                     </Grid>}
+                  { this.state.page === 1  && (
                     <Grid item xs={12}>
                       {!date && !this.state.team && <GoalList />}
                       {definition.type.code == 'T' && date && <TeamGoalList date={date} />}
@@ -91,10 +91,10 @@ class Customization extends Component {
                       {definition.type.code == 'C' && date && this.state.team && <CollaboratorGoalList date={date} team={this.state.team} />}
                       {!date && this.state.team && <EmptyState title='Aucun période sélectionnée' message='Veuillez renseigner une période pour afficher des objectifs' />}
                     </Grid>
-                  </Grid>
-                )}
+                  )}
+                </Grid>
                 { this.state.page === 2 && (
-                  <Spreadsheet />
+                  <Spreadsheet team={this.state.team} />
                 )}
             </div>
         )
