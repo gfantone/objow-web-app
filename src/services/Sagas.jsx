@@ -151,6 +151,7 @@ import {watchTeamDetail, watchTeamDetailByAccount} from './Teams/TeamDetail/saga
 import watchTeamList from './Teams/TeamList/sagas'
 import watchTeamPlayerGoalDetail from './TeamPlayerGoals/TeamPlayerGoalDetail/sagas'
 import watchTeamPlayerGoalList from './TeamPlayerGoals/TeamPlayerGoalList/sagas'
+import watchTeamPlayerGoalBulkList from './TeamPlayerGoals/TeamPlayerGoalBulkList/sagas'
 import watchTeamPlayerGoalListUpdate from './TeamPlayerGoals/TeamPlayerGoalListUpdate/sagas'
 import {watchTeamPointSummaryDetailByCollaborator, watchTeamPointSummaryDetailByTeam} from "./TeamPointSummaries/TeamPointSummaryDetail/sagas";
 import watchWaitingTeamRewardOrderCount from "./TeamRewardOrders/TeamRewardOrderCount/sagas";
@@ -348,6 +349,7 @@ function* rootSaga() {
         watchTeamList(),
         watchTeamPlayerGoalDetail(),
         watchTeamPlayerGoalList(),
+        watchTeamPlayerGoalBulkList(),
         watchTeamPlayerGoalListUpdate(),
         watchTeamPointSummaryDetailByCollaborator(),
         watchTeamPointSummaryDetailByTeam(),

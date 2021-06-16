@@ -152,6 +152,7 @@ const initialState = {
     teamList: {teams: [], loading: false, hasError: false},
     teamPlayerGoalDetail: {goal: null, loading: false, hasError: false},
     teamPlayerGoalList: {goals: [], loading: false, hasError: false},
+    teamPlayerGoalBulkList: {goals: [], loading: false, hasError: false},
     teamPlayerGoalListUpdate: {success: false, loading: false, hasError: false},
     teamPointSummaryDetail: {summary: null, loading: false, hasError: false},
     teamRankList: {generalRank: null, categoryRanks: [], loading: false, hasError: false},

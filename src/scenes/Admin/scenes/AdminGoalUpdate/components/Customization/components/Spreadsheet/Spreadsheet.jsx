@@ -6,7 +6,7 @@ import ReactDataSheet from 'react-datasheet'
 import { Loader } from '../../../../../../../../components'
 import * as Resources from '../../../../../../../../Resources'
 import * as playerGoalBulkListActions from '../../../../../../../../services/PlayerGoals/PlayerGoalBulkList/actions'
-import * as teamPlayerGoalListActions from '../../../../../../../../services/TeamPlayerGoals/TeamPlayerGoalList/actions'
+import * as teamPlayerGoalBulkListActions from '../../../../../../../../services/TeamPlayerGoals/TeamPlayerGoalBulkList/actions'
 import _ from 'lodash'
 
 const styles = {
@@ -15,7 +15,7 @@ const styles = {
   },
   spreadsheet: {
     width: '100%',
-    paddingLeft: '301px',
+    paddingLeft: '250px',
     position: 'relative',
     '& .data-grid-container .data-grid': {
       display: 'block',
@@ -40,14 +40,13 @@ const styles = {
     '& .data-grid-container .data-grid .cell.read-only.firstCell': {
       textAlign: 'left'
     },
-    '& .cell.firstCell': {
-      minWidth: 300,
+    '& .cell.baseCell.firstCell': {
       paddingLeft: 5,
       position: 'absolute',
       lineHeight: 2,
-
-      width: '302px',
-      height: 30,
+      marginTop: '-1px',
+      width: '250px',
+      height: 31,
       zIndex: 30,
       left: 0,
       '&.selected': {
@@ -64,6 +63,9 @@ const styles = {
       // '&.selected': {
       //   zIndex: 40
       // }
+    },
+    '& .cell.totalCell': {
+      fontWeight: 'bold'
     },
     '& .cell.marginCell': {
       minWidth: 300,
@@ -95,6 +97,8 @@ class Spreadsheet extends Component {
       const { goals } = this.props.goalList;
       const { teams } = this.props.teamList;
       const { goals: playerGoals, loading: playerGoalBulkListLoading } = this.props.playerGoalBulkList;
+      const { goals: teamPlayerGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalBulkList
+
       const goalsByTeam = {}
       let team;
       if(playerGoals.length > 0) {
@@ -111,7 +115,7 @@ class Spreadsheet extends Component {
           data = [...data, []]
           if(goalsByTeam[team.id]) {
             goalsByTeam[team.id].forEach((playerGoalsByPeriod, periodIndex) => {
-              return playerGoalsByPeriod.forEach((playerGoalByPeriod, collaboratorIndex) => {
+              playerGoalsByPeriod.forEach((playerGoalByPeriod, collaboratorIndex) => {
                 if(data[teamIndex].length < collaboratorIndex + 1) {
                   data[teamIndex] = [...data[teamIndex], [{
                     value: _.get(playerGoalByPeriod, 'collaborator.fullname'),
@@ -120,7 +124,31 @@ class Spreadsheet extends Component {
                   }]]
                 }
                 data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target, className: 'dataCell baseCell'}]
+
               })
+              // Total by team
+              data[teamIndex][playerGoalsByPeriod.length] = data[teamIndex][playerGoalsByPeriod.length] || [{
+                value: `${team.name} : Objectif alloué`,
+                readOnly: true,
+                className: 'firstCell baseCell totalCell'
+              }]
+
+              data[teamIndex][playerGoalsByPeriod.length] = [...data[teamIndex][playerGoalsByPeriod.length], {
+                value: _.get(teamPlayerGoals[periodIndex].data[teamIndex], 'target'),
+                className: 'dataCell baseCell'
+              }]
+
+              // Team separator
+              data[teamIndex][playerGoalsByPeriod.length + 1] = data[teamIndex][playerGoalsByPeriod.length + 1] || [{
+                value: '',
+                readOnly: true,
+                className: 'firstCell baseCell'
+              }]
+              data[teamIndex][playerGoalsByPeriod.length + 1] = [...data[teamIndex][playerGoalsByPeriod.length + 1], {
+                value: '',
+                readOnly: true,
+                className: 'dataCell baseCell'
+              }]
             })
           }
         });
@@ -152,7 +180,7 @@ class Spreadsheet extends Component {
 
         if(definition) {
           this.props.playerGoalBulkListActions.getPlayerGoalBulkList(definition.id, dates, teams)
-          // this.props.teamPlayerGoalListActions.getTeamPlayerGoalList(definition.id, period.date)
+          this.props.teamPlayerGoalBulkListActions.getTeamPlayerGoalBulkList(definition.id, dates)
         }
       }
     }
@@ -215,8 +243,9 @@ class Spreadsheet extends Component {
     render = () => {
       const {definition, loading: goaldDefinitionLoading} = this.props.goalDefinitionDetail
       const { goals, loading: playerGoalBulkListLoading } = this.props.playerGoalBulkList;
-      const { goals: teamGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalList
-      const loading = playerGoalBulkListLoading || goaldDefinitionLoading
+      const { goals: teamGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalBulkList
+      const loading = playerGoalBulkListLoading || goaldDefinitionLoading || teamPlayerGoalListLoading
+
       return (
           <div>
               {loading && this.renderLoader()}
@@ -226,17 +255,17 @@ class Spreadsheet extends Component {
     }
 }
 
-const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBulkList, teamPlayerGoalList,}) => ({
+const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBulkList, teamPlayerGoalBulkList,}) => ({
     teamList,
     goalList,
     goalDefinitionDetail,
     playerGoalBulkList,
-    teamPlayerGoalList,
+    teamPlayerGoalBulkList,
 })
 
 const mapDispatchToProps = (dispatch) => ({
     playerGoalBulkListActions: bindActionCreators(playerGoalBulkListActions, dispatch),
-    teamPlayerGoalListActions: bindActionCreators(teamPlayerGoalListActions, dispatch),
+    teamPlayerGoalBulkListActions: bindActionCreators(teamPlayerGoalBulkListActions, dispatch),
 });
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Spreadsheet))
