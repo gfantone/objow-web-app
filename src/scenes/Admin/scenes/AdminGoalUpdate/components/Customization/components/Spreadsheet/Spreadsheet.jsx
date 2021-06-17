@@ -14,8 +14,10 @@ const styles = {
   root: {
       padding: 16,
   },
+  mainWrapper: {
+    marginTop: 50,
+  },
   spreadsheet: {
-    marginTop: 20,
     width: '100%',
     paddingLeft: '250px',
     position: 'relative',
@@ -24,12 +26,12 @@ const styles = {
       overflowX: 'auto',
       whiteSpace: 'nowrap',
       '&::-webkit-scrollbar-track': {
-        background: '#f1f1f1',
-
+        background: '#ddd',
+        borderRadius: 8,
       },
       '&::-webkit-scrollbar-thumb': {
         borderRadius: 8,
-        border: '2px solid white',
+        border: '2px solid #ddd',
         background: '#888'
 
       },
@@ -53,7 +55,7 @@ const styles = {
       lineHeight: 2,
       marginTop: '-1px',
       width: '250px',
-      height: 31,
+      height: 32,
       zIndex: 30,
       left: 0,
       '&.selected': {
@@ -67,9 +69,15 @@ const styles = {
     },
     '& .cell.dataCell': {
       minWidth: 150,
+      '&.read-only': {
+        textAlign: 'right'
+      }
       // '&.selected': {
       //   zIndex: 40
       // }
+    },
+    '& .cell.read-only': {
+      color: '#555555'
     },
     '& .cell.totalCell': {
       fontWeight: 'bold'
@@ -77,6 +85,13 @@ const styles = {
     '& .cell.marginCell': {
       minWidth: 300,
       zIndex: 20
+    },
+    '& .cell.footerCell': {
+      // '&.read-only': {
+      //
+      //   background: '#555',
+      //   color: 'white'
+      // }
     },
   },
 
@@ -139,26 +154,42 @@ class Spreadsheet extends Component {
 
               // Total by team
               data[teamIndex][playerGoalsByPeriod.length] = data[teamIndex][playerGoalsByPeriod.length] || [{
-                value: `${team.name} : Objectif alloué`,
+                value: `Objectif alloué`,
                 readOnly: true,
-                className: 'firstCell baseCell totalCell'
+                className: 'firstCell baseCell totalCell footerCell'
               }]
 
               data[teamIndex][playerGoalsByPeriod.length] = [...data[teamIndex][playerGoalsByPeriod.length], {
                 value: _.get(teamPlayerGoals[periodIndex].data[teamIndex], 'target'),
-                className: 'dataCell baseCell'
+                className: 'dataCell baseCell footerCell'
               }]
 
-              // Team separator
+              const usedTarget = playerGoalsByPeriod.reduce((acc, goal) => acc + goal.target, 0)
+
+              // Used by team
               data[teamIndex][playerGoalsByPeriod.length + 1] = data[teamIndex][playerGoalsByPeriod.length + 1] || [{
-                value: '',
+                value: `Objectif utilisé`,
                 readOnly: true,
-                className: 'firstCell baseCell'
+                className: 'firstCell baseCell totalCell footerCell'
               }]
+
               data[teamIndex][playerGoalsByPeriod.length + 1] = [...data[teamIndex][playerGoalsByPeriod.length + 1], {
-                value: '',
+                value: usedTarget,
                 readOnly: true,
-                className: 'dataCell baseCell'
+                className: 'dataCell baseCell footerCell'
+              }]
+
+              // Remaining
+              data[teamIndex][playerGoalsByPeriod.length + 2] = data[teamIndex][playerGoalsByPeriod.length + 2] || [{
+                value: `Objectif restant`,
+                readOnly: true,
+                className: 'firstCell baseCell totalCell footerCell'
+              }]
+
+              data[teamIndex][playerGoalsByPeriod.length + 2] = [...data[teamIndex][playerGoalsByPeriod.length + 2], {
+                value: _.get(teamPlayerGoals[periodIndex].data[teamIndex], 'target') - usedTarget,
+                readOnly: true,
+                className: 'dataCell baseCell footerCell'
               }]
             })
           }
@@ -213,7 +244,6 @@ class Spreadsheet extends Component {
     updateGrid = () => {
       const {definition} = this.props.goalDefinitionDetail
       const isIndividualGoals = _.get(definition, 'type.code') === 'C'
-      console.log('update grid');
       if(isIndividualGoals) {
         this.updateGridIndividual()
       } else {
@@ -242,7 +272,7 @@ class Spreadsheet extends Component {
         if(definition) {
           if(_.get(definition, 'type.code') === 'C') {
             this.props.playerGoalBulkListActions.getPlayerGoalBulkList(definition.id, dates, filteredTeams)
-            this.props.teamPlayerGoalBulkListActions.getTeamPlayerGoalBulkList(definition.id, dates)
+            this.props.teamPlayerGoalBulkListActions.getTeamPlayerGoalBulkList(definition.id, dates, filteredTeams[0])
           } else {
             this.props.teamGoalBulkListActions.getTeamGoalBulkList(definition.id, dates)
           }
@@ -336,7 +366,7 @@ class Spreadsheet extends Component {
           goaldDefinitionLoading || teamGoalBulkListLoading
       }
       return (
-          <div>
+          <div className={this.props.classes.mainWrapper}>
               {loading && this.renderLoader()}
               {!loading && definition && (goals && (teamGoals || teamPlayerGoals)) && this.renderData()}
           </div>
