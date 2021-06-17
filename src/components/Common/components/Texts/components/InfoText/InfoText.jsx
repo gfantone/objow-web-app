@@ -7,7 +7,15 @@ const styles = {
         fontSize: 13,
         color: '#999999',
         textTransform: 'uppercase'
+    },
+    lowercaseRoot: {
+        fontSize: 14,
+        color: '#999999',
     }
 }
 
-export default withStyles(styles)(Typography)
+const InfoText = (props) => (
+  <Typography {...props} classes={{ root: props.lowercase ? props.classes.lowercaseRoot : props.classes.root }} />
+)
+
+export default withStyles(styles)(InfoText)
