@@ -406,7 +406,13 @@ class AdminGoalCreation extends MainLayoutComponent {
 
             const goalRepartitionLabel = parseInt(this.state.repartition) === _.get(repartitions, '[0]').id ?
               Resources.ADMIN_GOAL_CREATION_TARGET_LABEL :
-              _.replace(Resources.ADMIN_GOAL_INDIVIDUAL_CREATION_TARGET_LABEL.format(labels[currentPeriodicity.code]), /individuel/, 'équipe')
+
+                Resources.ADMIN_GOAL_INDIVIDUAL_CREATION_TARGET_LABEL.format(
+                  labels[currentPeriodicity.code],
+                  currentType.code === 'C' ?
+                    'individuel' :
+                    'équipe'
+                )
 
 
 
