@@ -1,13 +1,16 @@
 import React, { Component, useState } from 'react'
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {withStyles} from '@material-ui/core/styles'
+import Formsy from 'formsy-react'
+import { withStyles } from '@material-ui/core/styles'
+import { Grid } from '@material-ui/core'
 import ReactDataSheet from 'react-datasheet'
-import { Loader, Card } from '../../../../../../../../components'
+import { Loader, Card, ProgressButton } from '../../../../../../../../components'
 import * as Resources from '../../../../../../../../Resources'
 import * as playerGoalBulkListActions from '../../../../../../../../services/PlayerGoals/PlayerGoalBulkList/actions'
 import * as teamGoalBulkListActions from '../../../../../../../../services/TeamGoals/TeamGoalBulkList/actions'
 import * as teamPlayerGoalBulkListActions from '../../../../../../../../services/TeamPlayerGoals/TeamPlayerGoalBulkList/actions'
+import * as playerGoalListUpdateActions from '../../../../../../../../services/PlayerGoals/PlayerGoalListUpdate/actions'
 import _ from 'lodash'
 
 const styles = {
@@ -186,7 +189,12 @@ class Spreadsheet extends Component {
                   }]]
                 }
                 bottomSeparatorClass = collaboratorIndex >= playerGoalsByPeriod.length - 1 ? 'bottomSeparator' : ''
-                data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target, className: `dataCell baseCell ${bottomSeparatorClass}`}]
+                data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {
+                  value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target,
+                  className: `dataCell baseCell ${bottomSeparatorClass}`,
+                  type: 'playerGoal',
+                  id: goalsByTeam[team.id][periodIndex][collaboratorIndex].id
+                }]
 
               })
 
@@ -357,23 +365,35 @@ class Spreadsheet extends Component {
         grid: grid
       })
     }
+    handleSubmit = () => {
+      const goalList = _.flatten(this.state.grid).filter(cell => cell.type === 'playerGoal').map(goal => (
+        {id: goal.id, target: goal.value}
+      ))
+
+      this.props.playerGoalListUpdateActions.updatePlayerGoalList(goalList)
+    }
 
     renderData = () => {
         const {classes} = this.props
         const { grid } = this.state
         const {definition} = this.props.goalDefinitionDetail
+        const { loading } = this.props.playerGoalListUpdate;
         const onContextMenu = (e, cell, i, j) => cell.readOnly ? e.preventDefault() : null;
         // this.updateGrid()
         return (
-          <Card marginDisabled>
-            <div className={ classes.spreadsheet }>
+          <React.Fragment>
+            <Card marginDisabled>
+              <div className={ classes.spreadsheet }>
                 <ReactDataSheet
                   data={grid}
                   valueRenderer={cell => cell.value}
                   onCellsChanged={changes => {
                     const currentGrid = grid.map(row => [...row]);
+                    console.log(currentGrid);
                     changes.forEach(({ cell, row, col, value }) => {
-                      currentGrid[row][col] = { ...currentGrid[row][col], value };
+                      if(!isNaN(parseInt(value))) {
+                        currentGrid[row][col] = { ...currentGrid[row][col], value: parseInt(value) };
+                      }
                     });
                     this.setGrid(currentGrid);
                   }}
@@ -386,8 +406,16 @@ class Spreadsheet extends Component {
                     )
                   }}
                   />
-            </div>
-          </Card>
+              </div>
+            </Card>
+            <Grid container justify='center' style={{padding: 10}}>
+              <Grid item>
+                <Formsy onValidSubmit={this.handleSubmit}>
+                  <ProgressButton type='submit' text='Valider' loading={loading} centered />
+                </Formsy>
+              </Grid>
+            </Grid>
+          </React.Fragment>
         )
     }
 
@@ -414,19 +442,21 @@ class Spreadsheet extends Component {
     }
 }
 
-const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBulkList, teamPlayerGoalBulkList, teamGoalBulkList}) => ({
+const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBulkList, teamPlayerGoalBulkList, teamGoalBulkList, playerGoalListUpdate}) => ({
     teamList,
     goalList,
     goalDefinitionDetail,
     playerGoalBulkList,
     teamGoalBulkList,
     teamPlayerGoalBulkList,
+    playerGoalListUpdate
 })
 
 const mapDispatchToProps = (dispatch) => ({
     playerGoalBulkListActions: bindActionCreators(playerGoalBulkListActions, dispatch),
     teamGoalBulkListActions: bindActionCreators(teamGoalBulkListActions, dispatch),
     teamPlayerGoalBulkListActions: bindActionCreators(teamPlayerGoalBulkListActions, dispatch),
+    playerGoalListUpdateActions: bindActionCreators(playerGoalListUpdateActions, dispatch),
 });
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Spreadsheet))
