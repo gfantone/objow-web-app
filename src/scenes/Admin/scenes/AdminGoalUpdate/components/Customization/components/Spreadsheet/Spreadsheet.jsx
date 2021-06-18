@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {withStyles} from '@material-ui/core/styles'
 import ReactDataSheet from 'react-datasheet'
-import { Loader } from '../../../../../../../../components'
+import { Loader, Card } from '../../../../../../../../components'
 import * as Resources from '../../../../../../../../Resources'
 import * as playerGoalBulkListActions from '../../../../../../../../services/PlayerGoals/PlayerGoalBulkList/actions'
 import * as teamGoalBulkListActions from '../../../../../../../../services/TeamGoals/TeamGoalBulkList/actions'
@@ -55,12 +55,42 @@ const styles = {
       lineHeight: 2,
       marginTop: '-1px',
       width: '250px',
-      height: 32,
+      height: 30,
       zIndex: 30,
       left: 0,
+      fontWeight: 'bold',
+      borderTop: 0,
+      borderBottom: 0,
+      fontSize: 14,
       '&.selected': {
+        borderTop: '1px double rgb(33, 133, 208)',
+        borderBottom: '1px double rgb(33, 133, 208)',
         zIndex: 40
       }
+    },
+    '& tr:first-of-type .cell.baseCell.firstCell': {
+      borderTop: '1px solid #ddd',
+      '&.selected': {
+        borderTop: '1px double rgb(33, 133, 208)',
+        borderBottom: '1px double rgb(33, 133, 208)',
+      }
+    },
+    '& tr:last-of-type .cell.baseCell.firstCell': {
+      borderBottom: '1px solid #ddd',
+      '&.selected': {
+        borderTop: '1px double rgb(33, 133, 208)',
+        borderBottom: '1px double rgb(33, 133, 208)',
+      }
+    },
+    '& .cell.baseCell.firstLine': {
+      background: 'white',
+      color: '#333',
+      textTransform: 'capitalize',
+      fontWeight: 'bold',
+
+    },
+    '& .cell.bottomSeparator': {
+      borderBottom: '1px solid #333'
     },
     '& .cell.baseCell': {
       lineHeight: 2,
@@ -80,11 +110,17 @@ const styles = {
       color: '#555555'
     },
     '& .cell.totalCell': {
-      fontWeight: 'bold'
     },
     '& .cell.marginCell': {
       minWidth: 300,
       zIndex: 20
+    },
+    '& .cell.collaboratorCell': {
+      borderRight: '1px double rgb(0, 229, 141, 0.5)',
+      '&.read-only': {
+        // color: 'white',
+        background: 'rgb(0, 229, 141, 0.5)'
+      }
     },
     '& .cell.footerCell': {
       // '&.read-only': {
@@ -136,6 +172,7 @@ class Spreadsheet extends Component {
         });
 
         let data = []
+        let bottomSeparatorClass = ''
         teams.forEach((team, teamIndex) => {
           data = [...data, []]
           if(goalsByTeam[team.id]) {
@@ -145,10 +182,11 @@ class Spreadsheet extends Component {
                   data[teamIndex] = [...data[teamIndex], [{
                     value: _.get(playerGoalByPeriod, 'collaborator.fullname'),
                     readOnly: true,
-                    className: 'firstCell baseCell'
+                    className: 'firstCell collaboratorCell baseCell'
                   }]]
                 }
-                data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target, className: 'dataCell baseCell'}]
+                bottomSeparatorClass = collaboratorIndex >= playerGoalsByPeriod.length - 1 ? 'bottomSeparator' : ''
+                data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target, className: `dataCell baseCell ${bottomSeparatorClass}`}]
 
               })
 
@@ -161,7 +199,7 @@ class Spreadsheet extends Component {
 
               data[teamIndex][playerGoalsByPeriod.length] = [...data[teamIndex][playerGoalsByPeriod.length], {
                 value: _.get(teamPlayerGoals[periodIndex].data[teamIndex], 'target'),
-                className: 'dataCell baseCell footerCell'
+                className: 'dataCell baseCell footerCell topSeparator'
               }]
 
               const usedTarget = playerGoalsByPeriod.reduce((acc, goal) => acc + goal.target, 0)
@@ -198,7 +236,7 @@ class Spreadsheet extends Component {
         this.setState({
           ...this.state,
           grid: [
-            [{ value: '', readOnly: true, className: 'firstCell baseCell' }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true, className: 'dataCell baseCell'}) )],
+            [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
             ..._.flatten(data)
           ],
           changeTeam: false,
@@ -327,27 +365,29 @@ class Spreadsheet extends Component {
         const onContextMenu = (e, cell, i, j) => cell.readOnly ? e.preventDefault() : null;
         // this.updateGrid()
         return (
+          <Card marginDisabled>
             <div className={ classes.spreadsheet }>
-              <ReactDataSheet
-                data={grid}
-                valueRenderer={cell => cell.value}
-                onCellsChanged={changes => {
-                  const currentGrid = grid.map(row => [...row]);
-                  changes.forEach(({ cell, row, col, value }) => {
-                    currentGrid[row][col] = { ...currentGrid[row][col], value };
-                  });
-                  this.setGrid(currentGrid);
-                }}
-                onContextMenu={onContextMenu}
-                cellRenderer={props => {
-                  return(
-                    <td {...props} style={props.cell.style}>
-                      {props.children}
-                    </td>
-                  )
-                }}
-              />
+                <ReactDataSheet
+                  data={grid}
+                  valueRenderer={cell => cell.value}
+                  onCellsChanged={changes => {
+                    const currentGrid = grid.map(row => [...row]);
+                    changes.forEach(({ cell, row, col, value }) => {
+                      currentGrid[row][col] = { ...currentGrid[row][col], value };
+                    });
+                    this.setGrid(currentGrid);
+                  }}
+                  onContextMenu={onContextMenu}
+                  cellRenderer={props => {
+                    return(
+                      <td {...props} style={props.cell.style}>
+                        {props.children}
+                      </td>
+                    )
+                  }}
+                  />
             </div>
+          </Card>
         )
     }
 
