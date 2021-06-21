@@ -56,9 +56,9 @@ const styles = {
       paddingLeft: 5,
       position: 'absolute',
       lineHeight: 2,
-      marginTop: '-1px',
+      // marginTop: '-1px',
       width: '250px',
-      height: 30,
+      height: 31,
       zIndex: 30,
       left: 0,
       fontWeight: 'bold',
@@ -71,13 +71,16 @@ const styles = {
         zIndex: 40
       }
     },
+    // First cell of first line
     '& tr:first-of-type .cell.baseCell.firstCell': {
       borderTop: '1px solid #ddd',
+      marginTop: '-1px',
       '&.selected': {
         borderTop: '1px double rgb(33, 133, 208)',
         borderBottom: '1px double rgb(33, 133, 208)',
       }
     },
+    // First cell of last line
     '& tr:last-of-type .cell.baseCell.firstCell': {
       borderBottom: '1px solid #ddd',
       '&.selected': {
@@ -122,10 +125,11 @@ const styles = {
       zIndex: 20
     },
     '& .cell.collaboratorCell': {
-      borderRight: '1px double rgb(0, 229, 141, 0.5)',
+      borderRight: '1px double #ADD8E6',
       '&.read-only': {
         // color: 'white',
-        background: 'rgb(0, 229, 141, 0.5)'
+        color: '#333',
+        background: '#ADD8E6'
       }
     },
     '& .cell.footerCell': {

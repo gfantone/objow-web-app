@@ -3,11 +3,12 @@ import {connect} from 'react-redux'
 import {Grid, Tooltip} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {Filters, TeamCollaboratorGoalList, TeamGoalList, CollaboratorGoalList, GoalList, Spreadsheet} from './components'
-import {DefaultTitle, EmptyState, Loader} from '../../../../../../components'
+import {DefaultTitle, EmptyState, Loader, NavigationSwitch} from '../../../../../../components'
+import * as Formsy from 'formsy-react'
 import * as teamListActions from '../../../../../../services/Teams/TeamList/actions'
 import {bindActionCreators} from 'redux'
+import {faTable, faBars} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCog, faTable} from "@fortawesome/free-solid-svg-icons";
 
 const styles = {
     title: {
@@ -16,19 +17,17 @@ const styles = {
     filters: {
         marginBottom: 32
     },
-    buttons: {
-      marginBottom: 20,
-
+    linkWrapper: {
+      marginBottom: 10
     },
-    iconButton: {
-      opacity: 0.6,
-      fontSize: 16,
-      color: '#555',
+    link: {
+      fontSize: 20,
       cursor: 'pointer',
       '&:hover, &.active': {
+        color: 'rgb(15,111,222)',
         opacity: 1,
       }
-    }
+    },
 }
 class Customization extends Component {
     constructor(props) {
@@ -38,6 +37,7 @@ class Customization extends Component {
             team: null,
             page: 1
         }
+        this.switch = React.createRef();
     }
 
     componentDidMount() {
@@ -59,20 +59,30 @@ class Customization extends Component {
         const {definition} = this.props.goalDefinitionDetail
         const now = new Date()
         const date = definition.periodicity.code != 'Y' ? this.state.date : new Date(Date.UTC(now.getFullYear(), 0, 1))
-
+        const isSpreadSheet = this.state.page === 2
         return (
             <div>
-                <Grid container justify="flex-end" className={this.props.classes.buttons} spacing={1}>
-                  <Tooltip title="Configuration">
-                    <Grid item onClick={() => this.handleChange('page')(1)} className={`${this.props.classes.iconButton} ${ this.state.page === 1 ? 'active' : '' }`}>
-                      <FontAwesomeIcon icon={faCog} />
+                <Grid container justify="flex-end" spacing={1}>
+                  <Grid item >
+                    <Grid container alignItems="center" spacing={1} className={ this.props.classes.linkWrapper }>
+                      <Grid item onClick={() => this.handleChange('page')(1)} className={ `${this.props.classes.link} ${!isSpreadSheet ? 'active' : ''}` }>
+                        Classique
+                      </Grid>
+                      <Grid item>
+                          <NavigationSwitch
+                            onChange={(event) => {this.handleChange('page')(event.target.checked ? 2 : 1)}}
+                            defaultChecked={false}
+                            color="default"
+                            ref={this.switch}
+                            checked={isSpreadSheet}
+                            inputProps={{ 'aria-label': 'checkbox with default color' }}
+                          />
+                      </Grid>
+                      <Grid item onClick={() => this.handleChange('page')(2) } className={ `${this.props.classes.link} ${isSpreadSheet ? 'active' : ''}` }>
+                        Tableur
+                      </Grid>
                     </Grid>
-                  </Tooltip>
-                  <Tooltip title="Tableur">
-                    <Grid item onClick={() => this.handleChange('page')(2)} className={`${this.props.classes.iconButton} ${ this.state.page === 2 ? 'active' : '' }`}>
-                      <FontAwesomeIcon icon={faTable} />
-                    </Grid>
-                  </Tooltip>
+                  </Grid>
                 </Grid>
                   <Grid container spacing={4} style={{ zIndex: 1 }}>
                     {(definition.type.code == 'C' || definition.periodicity.code != 'Y') && (definition.type.code !== 'T' || this.state.page !== 2) && <Grid item container spacing={1}>
