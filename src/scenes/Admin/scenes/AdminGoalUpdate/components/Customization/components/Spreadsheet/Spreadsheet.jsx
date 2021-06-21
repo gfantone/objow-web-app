@@ -187,7 +187,7 @@ class Spreadsheet extends Component {
           data = [...data, []]
           if(goalsByTeam[team.id]) {
             goalsByTeam[team.id].forEach((playerGoalsByPeriod, periodIndex) => {
-              const period = this.getMonthByGoal(goals[periodIndex])
+              const period = this.getPeriodByGoal(goals[periodIndex])
               playerGoalsByPeriod.forEach((playerGoalByPeriod, collaboratorIndex) => {
                 if(data[teamIndex].length < collaboratorIndex + 1) {
                   data[teamIndex] = [...data[teamIndex], [{
@@ -259,7 +259,7 @@ class Spreadsheet extends Component {
         this.setState({
           ...this.state,
           grid: [
-            [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
+            [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: this.getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
             ..._.flatten(data)
           ],
           changeTeam: false,
@@ -293,7 +293,7 @@ class Spreadsheet extends Component {
         this.setState({
           ...this.state,
           grid: [
-            [{ value: '', readOnly: true, className: 'firstCell baseCell' }, ...goals.map(goal => ({value: this.getMonthByGoal(goal).name, readOnly: true, className: 'dataCell baseCell'}) )],
+            [{ value: '', readOnly: true, className: 'firstCell baseCell' }, ...goals.map(goal => ({value: this.getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell'}) )],
             ...data
           ],
           changeTeam: false,
@@ -328,7 +328,7 @@ class Spreadsheet extends Component {
       // const currentTeam = teams[this.state.currentTeamLoading]
 
       if(goals && goals.length > 0) {
-        const dates = goals.map(goal => this.getMonthByGoal(goal).date)
+        const dates = goals.map(goal => this.getPeriodByGoal(goal).date)
 
         if(definition) {
           if(_.get(definition, 'type.code') === 'C') {
@@ -362,11 +362,51 @@ class Spreadsheet extends Component {
         this.updateGrid()
       }
     }
+    getPeriodByGoal = (goal) => {
+      const { definition } = this.props.goalDefinitionDetail
+      const periodicity = _.get(definition, 'periodicity.code')
+      if(periodicity === 'W') {
+        return this.getWeekByGoal(goal)
+      }
+      if(periodicity === 'M') {
+        return this.getMonthByGoal(goal)
+      }
+      if(periodicity === 'Q') {
+        return this.getQuarterByGoal(goal)
+      }
+      if(periodicity === 'S') {
+        return this.getSemesterByGoal(goal)
+      }
+      if(periodicity === 'Y') {
+        return this.getYearByGoal(goal)
+      }
+    }
+
+    getWeekByGoal = (goal) => {
+      const date = goal.start.toDate();
+      return {name: `Semaine ${date.getWeekNumber()}`, date: date}
+    }
 
     getMonthByGoal = (goal) => {
       const date = goal.start.toDate();
       return {name: Intl.DateTimeFormat('fr-FR', {month: 'long'}).format(date), date: date}
     };
+
+    getQuarterByGoal = (goal) => {
+      const date = goal.start.toDate();
+      return {name: `Trimestre ${date.getQuarterNumber()}`, date: date}
+    }
+
+    getSemesterByGoal = (goal) => {
+      const date = goal.start.toDate();
+      return {name: `Semestre ${date.getSemesterNumber()}`, date: date}
+    }
+
+    getYearByGoal = (goal) => {
+      const date = goal.start.toDate();
+
+      return { name: date.getFullYear(), date: date }
+    }
 
     renderLoader = () => {
         return <div>
@@ -378,7 +418,7 @@ class Spreadsheet extends Component {
       const { goals } = this.props.goalList;
       let updatedCells = []
       goals.forEach((goal) => {
-        const period = this.getMonthByGoal(goal)
+        const period = this.getPeriodByGoal(goal)
         const periodDataCells = _.flatten(grid).filter(cell => cell.period === period.name)
         const playersData = periodDataCells.filter(cell => cell.type === 'playerGoal').reduce((acc, cell) => cell.value + acc, 0)
         const available = _.get(periodDataCells.find(cell => cell.type === 'availableTarget'), 'value')
@@ -404,7 +444,6 @@ class Spreadsheet extends Component {
           return updatedCells.find(c => cell.period && cell.type && cell.period === c.period && cell.type === c.type) || cell
         })
       })
-      console.log(updatedCells);
       return result
     }
 
