@@ -11,6 +11,7 @@ import * as playerGoalBulkListActions from '../../../../../../../../services/Pla
 import * as teamGoalBulkListActions from '../../../../../../../../services/TeamGoals/TeamGoalBulkList/actions'
 import * as teamPlayerGoalBulkListActions from '../../../../../../../../services/TeamPlayerGoals/TeamPlayerGoalBulkList/actions'
 import * as playerGoalListUpdateActions from '../../../../../../../../services/PlayerGoals/PlayerGoalListUpdate/actions'
+import * as teamGoalListUpdateActions from '../../../../../../../../services/TeamGoals/TeamGoalListUpdate/actions'
 import _ from 'lodash'
 
 const styles = {
@@ -275,7 +276,8 @@ class Spreadsheet extends Component {
       let data = []
 
       if(teamGoals && teamGoals.length > 0) {
-        teamGoals.forEach((response) => {
+        teamGoals.forEach((response, periodIndex) => {
+          const period = this.getPeriodByGoal(goals[periodIndex])
           response.data.forEach((teamGoal, teamIndex) => {
             if(data.length <= teamIndex){
               data = [...data, [{
@@ -286,6 +288,9 @@ class Spreadsheet extends Component {
             }
             data[teamIndex] = [...data[teamIndex], {
               value: _.get(teamGoal, 'target'),
+              period: period.name,
+              id: _.get(teamGoal, 'id'),
+              type: 'playerGoal',
               className: 'dataCell baseCell'
             }]
           })
@@ -424,18 +429,20 @@ class Spreadsheet extends Component {
         const available = _.get(periodDataCells.find(cell => cell.type === 'availableTarget'), 'value')
         const used = periodDataCells.find(cell => cell.type === 'usedTarget')
         const remaining = periodDataCells.find(cell => cell.type === 'remainingTarget')
-        if(playersData > available) {
-          updatedCells = [
-            ...updatedCells,
-            Object.assign({}, used, { className: `${used.className} error`, error: true, value: playersData }),
-            Object.assign({}, remaining, { className: `${used.className} error`, error: true, value: available - playersData })
-          ]
-        } else {
-          updatedCells = [
-            ...updatedCells,
-            Object.assign({}, used, { className: _.replace(used.className, 'error', ''), error: false, value: playersData }),
-            Object.assign({}, remaining, { className: _.replace(used.className, 'error', ''), error: false, value: available - playersData })
-          ]
+        if(used && remaining) {
+          if(playersData > available) {
+            updatedCells = [
+              ...updatedCells,
+              Object.assign({}, used, { className: `${used.className} error`, error: true, value: playersData }),
+              Object.assign({}, remaining, { className: `${used.className} error`, error: true, value: available - playersData })
+            ]
+          } else {
+            updatedCells = [
+              ...updatedCells,
+              Object.assign({}, used, { className: _.replace(used.className, 'error', ''), error: false, value: playersData }),
+              Object.assign({}, remaining, { className: _.replace(used.className, 'error', ''), error: false, value: available - playersData })
+            ]
+          }
         }
       });
 
@@ -454,11 +461,17 @@ class Spreadsheet extends Component {
       })
     }
     handleSubmit = () => {
+      const {definition} = this.props.goalDefinitionDetail
       const goalList = _.flatten(this.state.grid).filter(cell => cell.type === 'playerGoal').map(goal => (
         {id: goal.id, target: goal.value}
       ))
 
-      this.props.playerGoalListUpdateActions.updatePlayerGoalList(goalList)
+      if(_.get(definition, 'type.code') === 'C') {
+        this.props.playerGoalListUpdateActions.updatePlayerGoalList(goalList)
+      } else {
+        this.props.teamGoalListUpdateActions.updateTeamGoalList(goalList)
+      }
+
     }
 
     renderData = () => {
@@ -535,14 +548,15 @@ class Spreadsheet extends Component {
     }
 }
 
-const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBulkList, teamPlayerGoalBulkList, teamGoalBulkList, playerGoalListUpdate}) => ({
+const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBulkList, teamPlayerGoalBulkList, teamGoalBulkList, playerGoalListUpdate, teamGoalListUpdate}) => ({
     teamList,
     goalList,
     goalDefinitionDetail,
     playerGoalBulkList,
     teamGoalBulkList,
     teamPlayerGoalBulkList,
-    playerGoalListUpdate
+    playerGoalListUpdate,
+    teamGoalListUpdate
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -550,6 +564,7 @@ const mapDispatchToProps = (dispatch) => ({
     teamGoalBulkListActions: bindActionCreators(teamGoalBulkListActions, dispatch),
     teamPlayerGoalBulkListActions: bindActionCreators(teamPlayerGoalBulkListActions, dispatch),
     playerGoalListUpdateActions: bindActionCreators(playerGoalListUpdateActions, dispatch),
+    teamGoalListUpdateActions: bindActionCreators(teamGoalListUpdateActions, dispatch),
 });
 
 export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Spreadsheet))
