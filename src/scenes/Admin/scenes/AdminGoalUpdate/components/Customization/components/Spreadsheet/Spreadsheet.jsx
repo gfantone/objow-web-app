@@ -112,6 +112,9 @@ const styles = {
     '& .cell.read-only': {
       color: '#555555'
     },
+    '& .cell.read-only.error': {
+      color: 'red'
+    },
     '& .cell.totalCell': {
     },
     '& .cell.marginCell': {
@@ -180,6 +183,7 @@ class Spreadsheet extends Component {
           data = [...data, []]
           if(goalsByTeam[team.id]) {
             goalsByTeam[team.id].forEach((playerGoalsByPeriod, periodIndex) => {
+              const period = this.getMonthByGoal(goals[periodIndex])
               playerGoalsByPeriod.forEach((playerGoalByPeriod, collaboratorIndex) => {
                 if(data[teamIndex].length < collaboratorIndex + 1) {
                   data[teamIndex] = [...data[teamIndex], [{
@@ -192,6 +196,7 @@ class Spreadsheet extends Component {
                 data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {
                   value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target,
                   className: `dataCell baseCell ${bottomSeparatorClass}`,
+                  period: period.name,
                   type: 'playerGoal',
                   id: goalsByTeam[team.id][periodIndex][collaboratorIndex].id
                 }]
@@ -206,6 +211,8 @@ class Spreadsheet extends Component {
               }]
 
               data[teamIndex][playerGoalsByPeriod.length] = [...data[teamIndex][playerGoalsByPeriod.length], {
+                type: 'availableTarget',
+                period: period.name,
                 value: _.get(teamPlayerGoals[periodIndex].data[teamIndex], 'target'),
                 className: 'dataCell baseCell footerCell topSeparator'
               }]
@@ -221,6 +228,8 @@ class Spreadsheet extends Component {
 
               data[teamIndex][playerGoalsByPeriod.length + 1] = [...data[teamIndex][playerGoalsByPeriod.length + 1], {
                 value: usedTarget,
+                type: 'usedTarget',
+                period: period.name,
                 readOnly: true,
                 className: 'dataCell baseCell footerCell'
               }]
@@ -235,6 +244,8 @@ class Spreadsheet extends Component {
               data[teamIndex][playerGoalsByPeriod.length + 2] = [...data[teamIndex][playerGoalsByPeriod.length + 2], {
                 value: _.get(teamPlayerGoals[periodIndex].data[teamIndex], 'target') - usedTarget,
                 readOnly: true,
+                type: 'remainingTarget',
+                period: period.name,
                 className: 'dataCell baseCell footerCell'
               }]
             })
@@ -358,6 +369,40 @@ class Spreadsheet extends Component {
             <Loader centered />
         </div>
     }
+    addValidationsToGrid = (grid) => {
+
+      const { goals } = this.props.goalList;
+      let updatedCells = []
+      goals.forEach((goal) => {
+        const period = this.getMonthByGoal(goal)
+        const periodDataCells = _.flatten(grid).filter(cell => cell.period === period.name)
+        const playersData = periodDataCells.filter(cell => cell.type === 'playerGoal').reduce((acc, cell) => cell.value + acc, 0)
+        const available = _.get(periodDataCells.find(cell => cell.type === 'availableTarget'), 'value')
+        const used = periodDataCells.find(cell => cell.type === 'usedTarget')
+        const remaining = periodDataCells.find(cell => cell.type === 'remainingTarget')
+        if(playersData > available) {
+          updatedCells = [
+            ...updatedCells,
+            Object.assign({}, used, { className: `${used.className} error`, error: true, value: playersData }),
+            Object.assign({}, remaining, { className: `${used.className} error`, error: true, value: available - playersData })
+          ]
+        } else {
+          updatedCells = [
+            ...updatedCells,
+            Object.assign({}, used, { className: _.replace(used.className, 'error', ''), error: false, value: playersData }),
+            Object.assign({}, remaining, { className: _.replace(used.className, 'error', ''), error: false, value: available - playersData })
+          ]
+        }
+      });
+
+      const result = grid.map(row => {
+        return row.map(cell => {
+          return updatedCells.find(c => cell.period && cell.type && cell.period === c.period && cell.type === c.type) || cell
+        })
+      })
+      console.log(updatedCells);
+      return result
+    }
 
     setGrid = (grid) => {
       this.setState({
@@ -389,13 +434,18 @@ class Spreadsheet extends Component {
                   valueRenderer={cell => cell.value}
                   onCellsChanged={changes => {
                     const currentGrid = grid.map(row => [...row]);
-                    console.log(currentGrid);
-                    changes.forEach(({ cell, row, col, value }) => {
-                      if(!isNaN(parseInt(value))) {
-                        currentGrid[row][col] = { ...currentGrid[row][col], value: parseInt(value) };
-                      }
-                    });
-                    this.setGrid(currentGrid);
+                    if(changes.filter( ({ cell, row, col, value }) => !isNaN(parseInt(value))).length > 0) {
+                      changes.forEach(({ cell, row, col, value }) => {
+                        // Only numeric values are valid and converted to Int
+                        if(!isNaN(parseInt(value))) {
+                          currentGrid[row][col] = { ...currentGrid[row][col], value: parseInt(value) };
+                        }
+                      });
+
+                      this.setGrid(
+                        this.addValidationsToGrid(currentGrid)
+                      );
+                    }
                   }}
                   onContextMenu={onContextMenu}
                   cellRenderer={props => {
