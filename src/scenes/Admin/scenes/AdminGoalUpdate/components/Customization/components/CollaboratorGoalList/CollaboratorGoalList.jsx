@@ -39,6 +39,7 @@ class CollaboratorGoalList extends Component {
         this.state = {
             targetSum: null
         }
+        this.loadData(props)
     }
 
     loadData(props) {
@@ -120,6 +121,7 @@ class CollaboratorGoalList extends Component {
         const remainingTarget = maxTarget - allTarget;
         const canSubmit = remainingTarget >= 0;
         const readonly = !parentGoal.goal.definition.isActive
+        const now = new Date()
 
         return (
             <div>
@@ -147,13 +149,15 @@ class CollaboratorGoalList extends Component {
                     <Grid container spacing={2}>
                         { goals.map((goal) => {
                             const photo = goal.collaborator.photo ? goal.collaborator.photo : '/assets/img/user/avatar.svg';
+
+                            const editable = (goal.goal.goal.start.toDate() <= now && now <= goal.goal.goal.end.toDate()) || goal.goal.goal.start.toDate() >= now
                             return (
                                 <Grid key={goal.id} item xs={3} container spacing={1}>
                                     <Grid item>
                                         <Avatar src={photo} className={classes.avatar} id={ _.get(goal, 'collaborator.id') } fallbackName={ _.get(goal, 'collaborator.fullname') }/>
                                     </Grid>
                                     <Grid item xs>
-                                        <TextField type='number' name={goal.id} label={goal.collaborator.fullname} initial={goal.target} required disabled={readonly}
+                                        <TextField type='number' name={goal.id} label={goal.collaborator.fullname} initial={goal.target} required disabled={!editable || readonly}
                                             validations={{
                                                 isInt: true,
                                                 isMoreThanOrEquals: 0
@@ -180,10 +184,9 @@ class CollaboratorGoalList extends Component {
 
     render() {
         const { goals, loading: playerGoalListLoading } = this.props.playerGoalList;
-        const { loading: teamPlayerGoalDetailLoading } = this.props.teamPlayerGoalDetail;
+        const { goal: goalDetail, loading: teamPlayerGoalDetailLoading } = this.props.teamPlayerGoalDetail;
         const loading = playerGoalListLoading || teamPlayerGoalDetailLoading;
-        const hasGoals = goals.length > 0;
-
+        const hasGoals = goals.length > 0 && goalDetail;
         return (
             <div>
                 { loading && this.renderLoader() }

@@ -105,6 +105,7 @@ import watchPreviousPeriodList from "./Periods/PreviousPeriodList/sagas";
 import watchPeriodicityList from './Periodicities/PeriodicityList/sagas'
 import watchPeriodList from "./Periods/PeriodList/sagas";
 import watchPlayerGoalList from './PlayerGoals/PlayerGoalList/sagas'
+import watchPlayerGoalBulkList from './PlayerGoals/PlayerGoalBulkList/sagas'
 import watchPlayerGoalListUpdate from './PlayerGoals/PlayerGoalListUpdate/sagas'
 import watchRewardCategory from "./RewardCategories/RewardCategory/sagas";
 import watchRewardCategoryCreation from "./RewardCategories/RewardCategoryCreation/sagas";
@@ -137,6 +138,7 @@ import watchTeamCollaboratorPointSummaryDetail from "./TeamCollaboratorPointSumm
 import watchTeamGeneralRankDetail from './TeamGeneralRanks/TeamGeneralRankDetail/sagas'
 import watchTeamGeneralRankList from './TeamGeneralRanks/TeamGeneralRankList/sagas'
 import watchTeamGlobalPointSummaryDetail from "./TeamGlobalPointSummaries/TeamGlobalPointSummaryDetail/sagas";
+import watchTeamGoalBulkList from './TeamGoals/TeamGoalBulkList/sagas'
 import watchTeamGoalDetail from './TeamGoals/TeamGoalDetail/sagas'
 import watchTeamGoalRankList from './TeamGoalRanks/TeamGoalRankList/sagas'
 import watchTeamRewardOrderCreation from "./TeamRewardOrders/TeamRewardOrderCreation/sagas";
@@ -150,6 +152,7 @@ import {watchTeamDetail, watchTeamDetailByAccount} from './Teams/TeamDetail/saga
 import watchTeamList from './Teams/TeamList/sagas'
 import watchTeamPlayerGoalDetail from './TeamPlayerGoals/TeamPlayerGoalDetail/sagas'
 import watchTeamPlayerGoalList from './TeamPlayerGoals/TeamPlayerGoalList/sagas'
+import watchTeamPlayerGoalBulkList from './TeamPlayerGoals/TeamPlayerGoalBulkList/sagas'
 import watchTeamPlayerGoalListUpdate from './TeamPlayerGoals/TeamPlayerGoalListUpdate/sagas'
 import {watchTeamPointSummaryDetailByCollaborator, watchTeamPointSummaryDetailByTeam} from "./TeamPointSummaries/TeamPointSummaryDetail/sagas";
 import watchWaitingTeamRewardOrderCount from "./TeamRewardOrders/TeamRewardOrderCount/sagas";
@@ -296,6 +299,7 @@ function* rootSaga() {
         watchPeriodList(),
         watchPermanentConfigList(),
         watchPlayerGoalList(),
+        watchPlayerGoalBulkList(),
         watchPlayerGoalListUpdate(),
         watchPreviousPeriodList(),
         watchRewardCategory(),
@@ -336,6 +340,7 @@ function* rootSaga() {
         watchTeamGlobalPointSummaryDetail(),
         watchTeamGoalCategoryList(),
         watchTeamGoalDetail(),
+        watchTeamGoalBulkList(),
         watchTeamGoalListByDefinition(),
         watchTeamGoalListUpdate(),
         watchTeamGoalRankList(),
@@ -346,6 +351,7 @@ function* rootSaga() {
         watchTeamList(),
         watchTeamPlayerGoalDetail(),
         watchTeamPlayerGoalList(),
+        watchTeamPlayerGoalBulkList(),
         watchTeamPlayerGoalListUpdate(),
         watchTeamPointSummaryDetailByCollaborator(),
         watchTeamPointSummaryDetailByTeam(),

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import instance from '../instance'
 
 const baseUrl = 'goal-definitions/';
@@ -14,6 +15,17 @@ const goalDefinitions = {
     collaboratorGoals(id, date, team) {
         const url = `${baseUrl}${id}/collaborator-goals/?team=${team}&date=${date.toISOString()}`;
         return instance.get(url)
+    },
+    collaboratorGoalsBulk(id, dates, teams) {
+        let urls = []
+        teams.forEach((team) => {
+          dates.forEach((date) => {
+            urls = [...urls, `${baseUrl}${id}/collaborator-goals/?team=${team.id}&date=${date.toISOString()}`];
+          });
+
+        });
+
+        return axios.all(urls.map(url => instance.get(url)))
     },
     create(definition) {
         return instance.post(baseUrl, definition)
@@ -57,9 +69,26 @@ const goalDefinitions = {
         }
         return instance.get(url)
     },
+    teamCollaboratorGoalsBulk(id, dates, team = null) {
+        let urls = []
+        const teamOption = team != null ? `&team=${team}` : ''
+
+        dates.forEach((date) => {
+          urls = [...urls, `${baseUrl}${id}/team-collaborator-goals/?date=${date.toISOString()}${teamOption}`];
+        });
+        return axios.all(urls.map(url => instance.get(url)))
+    },
     teamGoals(id, date) {
         const url = `${baseUrl}${id}/team-goals/?date=${date.toISOString()}`;
         return instance.get(url)
+    },
+    teamGoalsBulk(id, dates) {
+        let urls = []
+
+        dates.forEach((date) => {
+          urls = [...urls, `${baseUrl}${id}/team-goals/?date=${date.toISOString()}`];
+        });
+        return axios.all(urls.map(url => instance.get(url)))
     }
 };
 

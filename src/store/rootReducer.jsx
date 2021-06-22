@@ -104,6 +104,7 @@ import partnerList from '../services/Partners/PartnerList/reducer'
 import periodicityList from '../services/Periodicities/PeriodicityList/reducer'
 import periodList from '../services/Periods/PeriodList/reducer'
 import playerGoalList from '../services/PlayerGoals/PlayerGoalList/reducer'
+import playerGoalBulkList from '../services/PlayerGoals/PlayerGoalBulkList/reducer'
 import playerGoalListUpdate from '../services/PlayerGoals/PlayerGoalListUpdate/reducer'
 import previousPeriodList from '../services/Periods/PreviousPeriodList/reducer'
 import rewardCategory from '../services/RewardCategories/RewardCategory/reducer';
@@ -143,12 +144,14 @@ import teamGlobalPointSummaryDetail from '../services/TeamGlobalPointSummaries/T
 import teamGoalCategoryList from "../services/TeamGoalCategories/TeamGoalCategoryList/reducer";
 import teamGoalDetail from '../services/TeamGoals/TeamGoalDetail/reducer'
 import teamGoalList from '../services/TeamGoals/TeamGoalList/reducer'
+import teamGoalBulkList from '../services/TeamGoals/TeamGoalBulkList/reducer'
 import teamGoalListUpdate from '../services/TeamGoals/TeamGoalListUpdate/reducer'
 import teamGoalRankList from '../services/TeamGoalRanks/TeamGoalRankList/reducer'
 import teamGoalSummaryList from '../services/TeamGoalSummaries/TeamGoalSummaryList/reducer'
 import teamList from '../services/Teams/TeamList/reducer'
 import teamPlayerGoalDetail from '../services/TeamPlayerGoals/TeamPlayerGoalDetail/reducer'
 import teamPlayerGoalList from '../services/TeamPlayerGoals/TeamPlayerGoalList/reducer'
+import teamPlayerGoalBulkList from '../services/TeamPlayerGoals/TeamPlayerGoalBulkList/reducer'
 import teamPlayerGoalListUpdate from '../services/TeamPlayerGoals/TeamPlayerGoalListUpdate/reducer'
 import teamPointSummaryDetail from '../services/TeamPointSummaries/TeamPointSummaryDetail/reducer'
 import teamRemoving from '../services/Teams/TeamRemoving/reducer'
@@ -277,6 +280,7 @@ const rootReducer = combineReducers({
     periodicityList,
     periodList,
     playerGoalList,
+    playerGoalBulkList,
     playerGoalListUpdate,
     previousPeriodList,
     rewardCategory,
@@ -316,12 +320,14 @@ const rootReducer = combineReducers({
     teamGoalCategoryList,
     teamGoalDetail,
     teamGoalList,
+    teamGoalBulkList,
     teamGoalListUpdate,
     teamGoalRankList,
     teamGoalSummaryList,
     teamList,
     teamPlayerGoalDetail,
     teamPlayerGoalList,
+    teamPlayerGoalBulkList,
     teamPlayerGoalListUpdate,
     teamPointSummaryDetail,
     teamRemoving,

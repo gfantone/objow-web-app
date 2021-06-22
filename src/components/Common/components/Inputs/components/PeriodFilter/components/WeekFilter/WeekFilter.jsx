@@ -12,7 +12,7 @@ for (var i = 0; i < max; i++) {
     weeks.push({ number: number, name: `Semaine ${number}` })
 }
 
-const WeekFilter = ({ onChange, ...props }) => {
+const WeekFilter = ({ onChange, pastPeriods, ...props }) => {
     const getWeeks = () => {
         const today = new Date();
         const { goals } = props.goalList;
@@ -21,7 +21,7 @@ const WeekFilter = ({ onChange, ...props }) => {
             for (var i = 0; i < goals.length; i++) {
                 const goal = goals[i];
                 const date = goal.start.toDate();
-                if ((goal.start.toDate() <= today && today <= goal.end.toDate()) || goal.start.toDate() >= today) {
+                if (pastPeriods || ((goal.start.toDate() <= today && today <= goal.end.toDate()) || goal.start.toDate() >= today)) {
                     weeks.push({name: `Semaine ${date.getWeekNumber()}`, date: date})
                 }
             }
@@ -35,7 +35,7 @@ const WeekFilter = ({ onChange, ...props }) => {
         const date = !isNaN(Date.parse(value)) ? new Date(value) : null;
         if (onChange) onChange(date)
     };
-    
+
     return (
         <div>
             <Select name='week' label='Semaine' options={weeks} optionValueName='date' optionTextName='name' emptyText='Toutes les semaines' onChange={handleChange} fullWidth />
