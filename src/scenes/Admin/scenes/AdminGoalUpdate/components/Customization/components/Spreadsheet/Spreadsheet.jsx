@@ -134,11 +134,10 @@ const styles = {
       }
     },
     '& .cell.footerCell': {
-      // '&.read-only': {
-      //
-      //   background: '#555',
-      //   color: 'white'
-      // }
+      fontWeight: 'bold',
+      '&.read-only': {
+        color: '#333',
+      }
     },
   },
 
@@ -173,7 +172,7 @@ class Spreadsheet extends Component {
       const goalsByTeam = {}
       let team;
 
-      if(playerGoals.length > 0) {
+      if(playerGoals && teamPlayerGoals && playerGoals.length > 0 && teamPlayerGoals.length > 0) {
         playerGoals.forEach((response) => {
           team = _.get(response, 'data[0].collaborator.team.id');
           if(!goalsByTeam[team]) {
@@ -218,6 +217,7 @@ class Spreadsheet extends Component {
               data[teamIndex][playerGoalsByPeriod.length] = [...data[teamIndex][playerGoalsByPeriod.length], {
                 type: 'availableTarget',
                 period: period.name,
+                readOnly: true,
                 value: _.get(teamPlayerGoals[periodIndex].data[teamIndex], 'target'),
                 className: 'dataCell baseCell footerCell topSeparator'
               }]
