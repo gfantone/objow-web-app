@@ -105,25 +105,30 @@ const styles = {
       zIndex: 10
     },
     '& .cell.dataCell': {
-      minWidth: 150,
       '&.read-only': {
         textAlign: 'right'
-      }
-      // '&.selected': {
-      //   zIndex: 40
-      // }
+      },
+      '&.period-W': {
+        minWidth: 110
+      },
+      '&.period-M': {
+        minWidth: 150
+      },
+      '&.period-Q': {
+        minWidth: 300
+      },
+      '&.period-S': {
+        minWidth: 300
+      },
+      '&.period-Y': {
+        minWidth: 300
+      },
     },
     '& .cell.read-only': {
       color: '#555555'
     },
     '& .cell.read-only.error': {
       color: 'red'
-    },
-    '& .cell.totalCell': {
-    },
-    '& .cell.marginCell': {
-      minWidth: 300,
-      zIndex: 20
     },
     '& .cell.collaboratorCell': {
       borderRight: '1px double #ADD8E6',
@@ -166,9 +171,10 @@ class Spreadsheet extends Component {
     updateGridIndividual = () => {
       const { goals } = this.props.goalList;
       const { teams } = this.props.teamList;
+      const { definition } = this.props.goalDefinitionDetail
       const { goals: playerGoals, loading: playerGoalBulkListLoading } = this.props.playerGoalBulkList;
       const { goals: teamPlayerGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalBulkList
-
+      const now = new Date()
       const goalsByTeam = {}
       let team;
 
@@ -197,10 +203,13 @@ class Spreadsheet extends Component {
                   }]]
                 }
                 bottomSeparatorClass = collaboratorIndex >= playerGoalsByPeriod.length - 1 ? 'bottomSeparator' : ''
+                const goal = goals[periodIndex]
+                const editable = (goal.start.toDate() <= now && now <= goal.end.toDate()) || goal.start.toDate() >= now
                 data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {
                   value: goalsByTeam[team.id][periodIndex][collaboratorIndex].target,
-                  className: `dataCell baseCell ${bottomSeparatorClass}`,
+                  className: `dataCell baseCell ${bottomSeparatorClass} period-${definition.periodicity.code}`,
                   period: period.name,
+                  readOnly: !editable || !definition.isActive,
                   type: 'playerGoal',
                   id: goalsByTeam[team.id][periodIndex][collaboratorIndex].id
                 }]
@@ -272,33 +281,38 @@ class Spreadsheet extends Component {
     updateGridTeam = () => {
       const { goals } = this.props.goalList;
       const { teams } = this.props.teamList;
+      const { definition } = this.props.goalDefinitionDetail
       const { goals: teamGoals } = this.props.teamGoalBulkList;
       let data = []
+      const now = new Date()
 
       if(teamGoals && teamGoals.length > 0) {
         teamGoals.forEach((response, periodIndex) => {
-          const period = this.getPeriodByGoal(goals[periodIndex])
+          const goal = goals[periodIndex]
+          const period = this.getPeriodByGoal(goal)
+          const editable = (goal.start.toDate() <= now && now <= goal.end.toDate()) || goal.start.toDate() >= now
           response.data.forEach((teamGoal, teamIndex) => {
             if(data.length <= teamIndex){
               data = [...data, [{
                 value: _.get(teamGoal, 'team.name'),
                 readOnly: true,
-                className: 'firstCell baseCell'
+                className: 'firstCell baseCell collaboratorCell'
               }]]
             }
             data[teamIndex] = [...data[teamIndex], {
               value: _.get(teamGoal, 'target'),
               period: period.name,
               id: _.get(teamGoal, 'id'),
+              readOnly: !editable || !definition.isActive,
               type: 'playerGoal',
-              className: 'dataCell baseCell'
+              className: `dataCell baseCell period-${definition.periodicity.code}`
             }]
           })
         });
         this.setState({
           ...this.state,
           grid: [
-            [{ value: '', readOnly: true, className: 'firstCell baseCell' }, ...goals.map(goal => ({value: this.getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell'}) )],
+            [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: this.getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
             ...data
           ],
           changeTeam: false,

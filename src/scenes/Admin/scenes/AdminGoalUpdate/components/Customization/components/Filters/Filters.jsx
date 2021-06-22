@@ -32,10 +32,10 @@ const Filters = ({ onDateChange, onTeamChange, displayDateFilter, emptyDisabledT
                 <Card>
                     <Grid container spacing={2}>
                         { definition.periodicity.code != 'Y' && displayDateFilter && <Grid item xs={6}>
-                            { definition.periodicity.code == 'W' && <WeekFilter onChange={handleDateChange} /> }
-                            { definition.periodicity.code == 'M' && <MonthFilter onChange={handleDateChange} /> }
-                            { definition.periodicity.code == 'Q' && <QuarterFilter onChange={handleDateChange} /> }
-                            { definition.periodicity.code == 'S' && <SemesterFilter onChange={handleDateChange} /> }
+                            { definition.periodicity.code == 'W' && <WeekFilter pastPeriods onChange={handleDateChange} /> }
+                            { definition.periodicity.code == 'M' && <MonthFilter pastPeriods onChange={handleDateChange} /> }
+                            { definition.periodicity.code == 'Q' && <QuarterFilter pastPeriods onChange={handleDateChange} /> }
+                            { definition.periodicity.code == 'S' && <SemesterFilter pastPeriods onChange={handleDateChange} /> }
                         </Grid> }
                         { activateTeamFilter && <Grid item xs={6}>
                             <Select name='team' label='Équipe' options={teams} optionValueName='id'  optionTextName='name' emptyDisabled={ emptyDisabledTeam } emptyValue='-1' emptyText='Toutes les équipes' onChange={handleTeamChange} fullWidth />

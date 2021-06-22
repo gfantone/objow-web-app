@@ -3,7 +3,7 @@ import { Select } from '../../..'
 import '../../../../../../../../helpers/DateHelper'
 import {connect} from "react-redux";
 
-const SemesterFilter = ({ onChange, ...props }) => {
+const SemesterFilter = ({ onChange, pastPeriods, ...props }) => {
     const getSemesters = () => {
         const today = new Date();
         const { goals } = props.goalList;
@@ -12,7 +12,7 @@ const SemesterFilter = ({ onChange, ...props }) => {
             for (var i = 0; i < goals.length; i++) {
                 const goal = goals[i];
                 const date = goal.start.toDate();
-                if ((goal.start.toDate() <= today && today <= goal.end.toDate()) || goal.start.toDate() >= today) {
+                if (pastPeriods || ((goal.start.toDate() <= today && today <= goal.end.toDate()) || goal.start.toDate() >= today)) {
                     semesters.push({name: `Semestre ${date.getSemesterNumber()}`, date: date})
                 }
             }

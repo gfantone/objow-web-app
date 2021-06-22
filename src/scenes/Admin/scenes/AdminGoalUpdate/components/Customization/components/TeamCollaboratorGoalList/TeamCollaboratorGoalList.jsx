@@ -111,6 +111,7 @@ class TeamCollaboratorGoalList extends Component {
         const remainingTarget = maxTarget - allTarget
         const canSubmit = remainingTarget >= 0
         const readonly = !parentGoal.definition.isActive
+        const now = new Date()
 
         return (
             <div>
@@ -137,9 +138,10 @@ class TeamCollaboratorGoalList extends Component {
                 <Formsy onChange={this.handleChange.bind(this)} onValidSubmit={this.handleSubmit.bind(this)}>
                     <Grid container spacing={2}>
                         { goals.map((goal, index) => {
+                            const editable = (goal.goal.start.toDate() <= now && now <= goal.goal.end.toDate()) || goal.goal.start.toDate() >= now
                             return (
                                 <Grid key={goal.id} item xs={3}>
-                                    <TextField type='number' name={goal.id} label={goal.team.name} initial={goal.target} fullWidth required disabled={readonly}
+                                    <TextField type='number' name={goal.id} label={goal.team.name} initial={goal.target} fullWidth required disabled={!editable || readonly}
                                         validations={{
                                             isInt: true,
                                             isMoreThanOrEquals: 0
