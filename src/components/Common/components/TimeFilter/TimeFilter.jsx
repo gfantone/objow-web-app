@@ -1,15 +1,17 @@
 import React from 'react'
+import {connect} from 'react-redux'
 import {RoundedTabs, RoundedTab} from '..'
 import * as Resources from '../../../../Resources'
 
 const TimeFilter = ({ initial = true, ...props }) => {
     const { handleTimeChange } = props
     const [value, setValue] = React.useState(initial ? 0 : 1);
+    const {account} = props.accountDetail;
 
     function handleChange(e, value) {
-        let inProgress = value == 0
+        // let inProgress = value == 0
         setValue(value)
-        handleTimeChange(inProgress)
+        handleTimeChange(value)
     }
 
     return (
@@ -17,9 +19,14 @@ const TimeFilter = ({ initial = true, ...props }) => {
             <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
                 <RoundedTab label={Resources.TIME_FILTER_CURRENT_TAB} />
                 <RoundedTab label={Resources.TIME_FILTER_PAST_TAB} />
+                {(account.role.code != 'C' || account.hasNextChallengeAccess) && <RoundedTab label={Resources.CHALLENGE_TIME_FILTER_NEXT_TAB} />}
             </RoundedTabs>
         </div>
     )
 }
 
-export default TimeFilter
+const mapStateToProps = ({accountDetail}) => ({
+    accountDetail
+});
+
+export default connect(mapStateToProps)(TimeFilter)
