@@ -50,6 +50,10 @@ const styles = {
       width: '100%',
       height: '100%'
     },
+    '& .data-grid-container .data-grid .cell.read-only': {
+      color: '#555555',
+      background: 'white'
+    },
     '& .data-grid-container .data-grid .cell.read-only.firstCell': {
       textAlign: 'left'
     },
@@ -68,6 +72,8 @@ const styles = {
       fontSize: 14,
       '&.selected': {
         borderTop: '1px double rgb(33, 133, 208)',
+        borderRight: '1px double rgb(33, 133, 208)',
+        borderLeft: '1px double rgb(33, 133, 208)',
         borderBottom: '1px double rgb(33, 133, 208)',
         zIndex: 40
       }
@@ -78,6 +84,8 @@ const styles = {
       marginTop: '-1px',
       '&.selected': {
         borderTop: '1px double rgb(33, 133, 208)',
+        borderRight: '1px double rgb(33, 133, 208)',
+        borderLeft: '1px double rgb(33, 133, 208)',
         borderBottom: '1px double rgb(33, 133, 208)',
       }
     },
@@ -86,27 +94,30 @@ const styles = {
       borderBottom: '1px solid #ddd',
       '&.selected': {
         borderTop: '1px double rgb(33, 133, 208)',
+        borderRight: '1px double rgb(33, 133, 208)',
+        borderLeft: '1px double rgb(33, 133, 208)',
         borderBottom: '1px double rgb(33, 133, 208)',
       }
     },
-    '& .cell.baseCell.firstLine': {
-      background: 'white',
-      color: '#333',
-      textTransform: 'capitalize',
-      fontWeight: 'bold',
-
+    '&  .data-grid-container .data-grid .cell.baseCell.firstLine': {
+      '&.read-only': {
+        color: '#333',
+        textTransform: 'capitalize',
+        fontWeight: 'bold',
+      },
     },
-    '& .cell.bottomSeparator': {
-      borderBottom: '1px solid #333'
-    },
+    // '& .cell.bottomSeparator': {
+    //   borderBottom: '1px solid #333'
+    // },
     '& .cell.baseCell': {
       lineHeight: 2,
       height: 30,
       zIndex: 10
     },
-    '& .cell.dataCell': {
+    '& .data-grid-container .data-grid .cell.dataCell': {
       '&.read-only': {
-        textAlign: 'right'
+        textAlign: 'right',
+        color: '#ddd',
       },
       '&.period-W': {
         minWidth: 110
@@ -120,17 +131,13 @@ const styles = {
       '&.period-S': {
         minWidth: 300
       },
-      '&.period-Y': {
+      '&.period-Q': {
         minWidth: 300
       },
     },
-    '& .cell.read-only': {
-      color: '#555555'
-    },
-    '& .cell.read-only.error': {
-      color: 'red'
-    },
-    '& .cell.collaboratorCell': {
+
+
+    '& .data-grid-container .data-grid .cell.collaboratorCell': {
       borderRight: '1px double #ADD8E6',
       '&.read-only': {
         // color: 'white',
@@ -138,11 +145,27 @@ const styles = {
         background: '#ADD8E6'
       }
     },
-    '& .cell.footerCell': {
-      fontWeight: 'bold',
-      '&.read-only': {
+    '&  .data-grid-container .data-grid .cell.read-only.footerCell': {
+
+        fontWeight: 'bold',
+        border: 'none',
         color: '#333',
-      }
+        background: "#888",
+        textAlign: 'right',
+        fontSize: 16,
+        lineHeight: 1.7,
+        '&.error': {
+          color: 'red'
+        },
+        '&.firstCell':{
+          textAlign: 'left',
+        },
+        '&.selected': {
+          borderTop: '1px double rgb(33, 133, 208)',
+          borderRight: '1px double rgb(33, 133, 208)',
+          borderLeft: '1px double rgb(33, 133, 208)',
+          borderBottom: '1px double rgb(33, 133, 208)',
+        }
     },
   },
 
@@ -228,7 +251,7 @@ class Spreadsheet extends Component {
                 period: period.name,
                 readOnly: true,
                 value: _.get(teamPlayerGoals[periodIndex].data[teamIndex], 'target'),
-                className: 'dataCell baseCell footerCell topSeparator'
+                className: 'baseCell footerCell topSeparator'
               }]
 
               const usedTarget = playerGoalsByPeriod.reduce((acc, goal) => acc + goal.target, 0)
@@ -245,7 +268,7 @@ class Spreadsheet extends Component {
                 type: 'usedTarget',
                 period: period.name,
                 readOnly: true,
-                className: 'dataCell baseCell footerCell'
+                className: 'baseCell footerCell'
               }]
 
               // Remaining
@@ -260,7 +283,7 @@ class Spreadsheet extends Component {
                 readOnly: true,
                 type: 'remainingTarget',
                 period: period.name,
-                className: 'dataCell baseCell footerCell'
+                className: 'baseCell footerCell'
               }]
             })
           }
