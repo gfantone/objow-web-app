@@ -229,7 +229,7 @@ class Spreadsheet extends Component {
                 const playerGoalByPeriod = playerGoalsByPeriod.find(g => g.collaborator.id === collaborator.id)
                 if(data[teamIndex].length < collaboratorIndex + 1) {
                   data[teamIndex] = [...data[teamIndex], [{
-                    value: _.get(playerGoalByPeriod, 'collaborator.fullname'),
+                    value: _.get(collaborator, 'fullname'),
                     readOnly: true,
                     className: 'firstCell collaboratorCell baseCell'
                   }]]
