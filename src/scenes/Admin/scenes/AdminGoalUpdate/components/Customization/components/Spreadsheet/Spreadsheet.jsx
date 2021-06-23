@@ -7,6 +7,7 @@ import { Grid } from '@material-ui/core'
 import ReactDataSheet from 'react-datasheet'
 import { Loader, Card, ProgressButton } from '../../../../../../../../components'
 import * as Resources from '../../../../../../../../Resources'
+import * as goalListActions from '../../../../../../../../services/Goals/GoalList/actions'
 import * as playerGoalBulkListActions from '../../../../../../../../services/PlayerGoals/PlayerGoalBulkList/actions'
 import * as teamGoalBulkListActions from '../../../../../../../../services/TeamGoals/TeamGoalBulkList/actions'
 import * as teamPlayerGoalBulkListActions from '../../../../../../../../services/TeamPlayerGoals/TeamPlayerGoalBulkList/actions'
@@ -131,7 +132,7 @@ const styles = {
       '&.period-S': {
         minWidth: 300
       },
-      '&.period-Q': {
+      '&.period-Y': {
         minWidth: 300
       },
     },
@@ -201,6 +202,7 @@ class Spreadsheet extends Component {
       const goalsByTeam = {}
       let team;
       let collaborators = []
+
       if(playerGoals && teamPlayerGoals && playerGoals.length > 0 && teamPlayerGoals.length > 0) {
 
         playerGoals.forEach((response) => {
@@ -246,7 +248,6 @@ class Spreadsheet extends Component {
                 }]
 
               })
-              console.log(data);
 
               const lineNumber = collaborators.length
               // Total by team
@@ -428,6 +429,7 @@ class Spreadsheet extends Component {
         const dates = goals.map(goal => this.getPeriodByGoal(goal).date)
 
         if(definition) {
+          this.props.goalListActions.getGoalList(definition.id)
           if(_.get(definition, 'type.code') === 'C') {
             this.props.playerGoalBulkListActions.getPlayerGoalBulkList(definition.id, dates, filteredTeams)
             this.props.teamPlayerGoalBulkListActions.getTeamPlayerGoalBulkList(definition.id, dates, filteredTeams[0])
@@ -652,6 +654,7 @@ const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBu
 })
 
 const mapDispatchToProps = (dispatch) => ({
+    goalListActions: bindActionCreators(goalListActions, dispatch),
     playerGoalBulkListActions: bindActionCreators(playerGoalBulkListActions, dispatch),
     teamGoalBulkListActions: bindActionCreators(teamGoalBulkListActions, dispatch),
     teamPlayerGoalBulkListActions: bindActionCreators(teamPlayerGoalBulkListActions, dispatch),
