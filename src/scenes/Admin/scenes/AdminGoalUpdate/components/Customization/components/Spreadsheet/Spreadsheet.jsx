@@ -297,7 +297,6 @@ class Spreadsheet extends Component {
             })
           }
         });
-        console.log(data);
         this.setState({
           ...this.state,
           grid: [
@@ -340,6 +339,53 @@ class Spreadsheet extends Component {
               className: `dataCell baseCell period-${definition.periodicity.code}`
             }]
           })
+
+          const lineNumber = response.data.length
+
+          data[lineNumber] = data[lineNumber] || [{
+            value: `Objectif alloué`,
+            readOnly: true,
+            className: 'firstCell baseCell totalCell footerCell'
+          }]
+
+          data[lineNumber] = [...data[lineNumber], {
+            type: 'availableTarget',
+            period: period.name,
+            readOnly: true,
+            value: _.get(goals[periodIndex], 'target'),
+            className: 'baseCell footerCell topSeparator'
+          }]
+
+          const usedTarget = response.data.reduce((acc, goal) => acc + goal.target, 0)
+          // Used by team
+          data[lineNumber + 1] = data[lineNumber + 1] || [{
+            value: `Objectif utilisé`,
+            readOnly: true,
+            className: 'firstCell baseCell totalCell footerCell'
+          }]
+
+          data[lineNumber + 1] = [...data[lineNumber + 1], {
+            value: usedTarget,
+            type: 'usedTarget',
+            period: period.name,
+            readOnly: true,
+            className: 'baseCell footerCell'
+          }]
+
+          // Remaining
+          data[lineNumber + 2] = data[lineNumber + 2] || [{
+            value: `Objectif restant`,
+            readOnly: true,
+            className: 'firstCell baseCell totalCell footerCell'
+          }]
+
+          data[lineNumber + 2] = [...data[lineNumber + 2], {
+            value: _.get(goals[periodIndex], 'target') - usedTarget,
+            readOnly: true,
+            type: 'remainingTarget',
+            period: period.name,
+            className: 'baseCell footerCell'
+          }]
         });
         this.setState({
           ...this.state,
