@@ -279,8 +279,10 @@ class Spreadsheet extends Component {
                 value: _.get(teamPlayerGoals[periodIndex].data[teamIndex], 'target'),
                 className: 'baseCell footerCell topSeparator'
               }]
+              const usedTarget = _.get(definition, 'kpi.unit.isRate', false) ?
+                Math.ceil(playerGoalsByPeriod.reduce((acc, goal) => acc + goal.target, 0) / playerGoalsByPeriod.length) :
+                playerGoalsByPeriod.reduce((acc, goal) => acc + goal.target, 0)
 
-              const usedTarget = playerGoalsByPeriod.reduce((acc, goal) => acc + goal.target, 0)
               // Used by team
               data[teamIndex][lineNumber + 1] = data[teamIndex][lineNumber + 1] || [{
                 value: `Objectif utilisé`,
@@ -372,7 +374,9 @@ class Spreadsheet extends Component {
             className: 'baseCell footerCell topSeparator'
           }]
 
-          const usedTarget = response.data.reduce((acc, goal) => acc + goal.target, 0)
+          const usedTarget = _.get(definition, 'kpi.unit.isRate', false) ?
+            Math.ceil(response.data.reduce((acc, goal) => acc + goal.target, 0) / response.data.length) :
+            response.data.reduce((acc, goal) => acc + goal.target, 0)
           // Used by team
           data[lineNumber + 1] = data[lineNumber + 1] || [{
             value: `Objectif utilisé`,
@@ -528,13 +532,18 @@ class Spreadsheet extends Component {
         </div>
     }
     addValidationsToGrid = (grid) => {
-
       const { goals } = this.props.goalList;
+      const { definition } = this.props.goalDefinitionDetail
       let updatedCells = []
+
       goals.forEach((goal) => {
         const period = this.getPeriodByGoal(goal)
         const periodDataCells = _.flatten(grid).filter(cell => cell.period === period.name)
-        const playersData = periodDataCells.filter(cell => cell.type === 'playerGoal').reduce((acc, cell) => cell.value + acc, 0)
+        const playersDataList = periodDataCells.filter(cell => cell.type === 'playerGoal')
+        const playersData = _.get(definition, 'kpi.unit.isRate', false) ?
+          Math.ceil(playersDataList.reduce((acc, cell) => cell.value + acc, 0) / playersDataList.length) :
+          playersDataList.reduce((acc, cell) => cell.value + acc, 0)
+
         const available = _.get(periodDataCells.find(cell => cell.type === 'availableTarget'), 'value')
         const used = periodDataCells.find(cell => cell.type === 'usedTarget')
         const remaining = periodDataCells.find(cell => cell.type === 'remainingTarget')
