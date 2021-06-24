@@ -166,10 +166,10 @@ const styles = {
         fontSize: 16,
         lineHeight: 1.7,
         '&.error': {
-          color: '#f44336'
+          color: '#E50000'
         },
         '&.valid': {
-          color: '#8bc34a'
+          color: '#00E58D'
         },
         '&.firstCell':{
           textAlign: 'left',
@@ -203,6 +203,8 @@ class Spreadsheet extends Component {
 
             ]
         }
+        this.lastSelected = null
+        this.dataGridRef = React.createRef()
     }
 
     updateGridIndividual = () => {
@@ -594,6 +596,7 @@ class Spreadsheet extends Component {
               <div className={ classes.spreadsheet }>
                 <ReactDataSheet
                   data={grid}
+                  ref={this.dataGridRef}
                   valueRenderer={cell => cell.value}
                   onCellsChanged={changes => {
                     const currentGrid = grid.map(row => [...row]);
@@ -611,6 +614,27 @@ class Spreadsheet extends Component {
                     }
                   }}
                   onContextMenu={onContextMenu}
+                  onSelect={({ start, end }) => {
+                    // TODO : update scrollLeft when move selection outside of grid
+                    if(this.lastSelected) {
+
+                      const dataGrid = _.get(this.dataGridRef, 'current.dgDom.children[0]')
+                      let movingCell;
+                      let direction;
+
+                      if(start.j !== this.lastSelected.start.j) {
+                        movingCell = 'start'
+                        direction = this.lastSelected.start.j < start.j ? 'right' : 'left'
+                      }
+                      if(end.j !== this.lastSelected.end.j) {
+                        movingCell = 'end'
+                        direction = this.lastSelected.end.j < end.j ? 'right' : 'left'
+                      }
+
+                      // dataGrid.scrollLeft = 150
+                    }
+                    this.lastSelected = { start, end }
+                  }}
                   cellRenderer={props => {
                     return(
                       <td {...props} style={props.cell.style}>
