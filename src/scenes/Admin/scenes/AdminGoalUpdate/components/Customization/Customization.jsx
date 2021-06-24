@@ -57,9 +57,13 @@ class Customization extends Component {
 
     renderData() {
         const {definition} = this.props.goalDefinitionDetail
+        const {teams} = this.props.teamList
         const now = new Date()
         const date = definition.periodicity.code != 'Y' ? this.state.date : new Date(Date.UTC(now.getFullYear(), 0, 1))
         const isSpreadSheet = this.state.page === 2
+        if(this.state.page === 2 && !this.state.team) {
+          this.handleChange('team')(teams[0].id)
+        }
         return (
             <div>
                 <Grid container justify="flex-end" spacing={1}>
@@ -84,15 +88,16 @@ class Customization extends Component {
                     </Grid>
                   </Grid>
                 </Grid>
-                  <Grid container spacing={4} style={{ zIndex: 1 }}>
-                    {(definition.type.code == 'C' || definition.periodicity.code != 'Y') && (definition.type.code !== 'T' || this.state.page !== 2) && <Grid item container spacing={1}>
-                      <Grid item xs={12} style={{ zIndex: 1 }}>
+                <Grid container spacing={4} style={{ zIndex: 1 }}>
+                  {(definition.type.code == 'C' || definition.periodicity.code != 'Y') && (definition.type.code !== 'T' || this.state.page !== 2) && <Grid item container spacing={1}>
+                    <Grid item xs={12} style={{ zIndex: 1 }}>
                         <DefaultTitle>Filtres</DefaultTitle>
                       </Grid>
                       <Grid item xs={12}>
                         <Filters emptyDisabledTeam={this.state.page === 2} displayDateFilter={this.state.page !== 2} onDateChange={this.handleChange('date').bind(this)} onTeamChange={this.handleChange('team').bind(this)} />
                       </Grid>
-                    </Grid>}
+                    </Grid>
+                  }
                   { this.state.page === 1  && (
                     <Grid item xs={12}>
                       {!date && !this.state.team && <GoalList />}
