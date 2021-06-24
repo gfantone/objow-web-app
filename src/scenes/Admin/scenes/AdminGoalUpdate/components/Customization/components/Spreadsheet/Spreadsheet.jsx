@@ -151,12 +151,15 @@ const styles = {
         fontWeight: 'bold',
         border: 'none',
         color: '#333',
-        background: "#888",
+        background: "#ddd",
         textAlign: 'right',
         fontSize: 16,
         lineHeight: 1.7,
         '&.error': {
-          color: 'red'
+          color: '#f44336'
+        },
+        '&.valid': {
+          color: '#8bc34a'
         },
         '&.firstCell':{
           textAlign: 'left',
@@ -300,10 +303,10 @@ class Spreadsheet extends Component {
         });
         this.setState({
           ...this.state,
-          grid: [
+          grid: this.addValidationsToGrid([
             [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: this.getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
             ..._.flatten(data)
-          ],
+          ]),
           changeTeam: false,
           gridLoaded: true
         })
@@ -390,10 +393,10 @@ class Spreadsheet extends Component {
         });
         this.setState({
           ...this.state,
-          grid: [
+          grid: this.addValidationsToGrid([
             [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: this.getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
             ...data
-          ],
+          ]),
           changeTeam: false,
           gridLoaded: true
         })
@@ -527,14 +530,14 @@ class Spreadsheet extends Component {
           if(playersData > available) {
             updatedCells = [
               ...updatedCells,
-              Object.assign({}, used, { className: `${used.className} error`, error: true, value: playersData }),
-              Object.assign({}, remaining, { className: `${used.className} error`, error: true, value: available - playersData })
+              Object.assign({}, used, { className: `${used.className}`, error: true, value: playersData }),
+              Object.assign({}, remaining, { className: `${_.replace(used.className, 'valid', '')} error`, error: true, value: available - playersData })
             ]
           } else {
             updatedCells = [
               ...updatedCells,
-              Object.assign({}, used, { className: _.replace(used.className, 'error', ''), error: false, value: playersData }),
-              Object.assign({}, remaining, { className: _.replace(used.className, 'error', ''), error: false, value: available - playersData })
+              Object.assign({}, used, { error: false, value: playersData }),
+              Object.assign({}, remaining, { className: `${_.replace(used.className, 'error', '')} valid`, error: false, value: available - playersData })
             ]
           }
         }
