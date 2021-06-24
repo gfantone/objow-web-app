@@ -112,6 +112,7 @@ class TeamGoalList extends Component {
         const canSubmit = remainingTarget >= 0
         const readonly = !parentGoal.definition.isActive
         const now = new Date()
+        let showSubmit = false
 
         return (
             <div>
@@ -139,6 +140,9 @@ class TeamGoalList extends Component {
                     <Grid container spacing={2}>
                         { goals.map((goal) => {
                             const editable = (goal.goal.start.toDate() <= now && now <= goal.goal.end.toDate()) || goal.goal.start.toDate() >= now
+                            if(editable) {
+                              showSubmit = true
+                            }
                             return (
                                 <Grid key={goal.id} item xs={3}>
                                     <TextField type='number' name={goal.id} label={goal.team.name} initial={goal.target} fullWidth required disabled={!editable || readonly}
@@ -156,7 +160,7 @@ class TeamGoalList extends Component {
                             )
                         }) }
                     </Grid>
-                    {!readonly && <div className={classes.formFooter}>
+                    {!readonly && showSubmit && <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour la période sélectionnée</ErrorText> }
                         <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit} centered />
                     </div>}

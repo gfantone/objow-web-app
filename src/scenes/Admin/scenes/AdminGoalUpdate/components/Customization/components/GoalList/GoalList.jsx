@@ -100,7 +100,7 @@ class GoalList extends Component {
         const canSubmit = remainingTarget >= 0
         const now = new Date()
         const readonly = !parentGoal.isActive
-
+        let showSubmit = false
         return (
             <div>
                 <DefaultTitle className={classes.title}>Indicateurs</DefaultTitle>
@@ -133,6 +133,9 @@ class GoalList extends Component {
                                 : parentGoal.periodicity.code == 'W' ? 'Semaine ' + goal.start.toDate().getWeekNumber()
                                 : ''
                             const editable = (goal.start.toDate() <= now && now <= goal.end.toDate()) || goal.start.toDate() >= now
+                            if(editable) {
+                              showSubmit = true
+                            }
                             return (
                                 <Grid key={goal.id} item xs={3}>
                                     <TextField type='number' name={goal.id} label={name} initial={goal.target} disabled={!editable || readonly} fullWidth required
@@ -150,7 +153,7 @@ class GoalList extends Component {
                             )
                         }) }
                     </Grid>
-                    {!readonly && <div className={classes.formFooter}>
+                    {!readonly && showSubmit && <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour la période sélectionnée</ErrorText> }
                         <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit} centered />
                     </div>}

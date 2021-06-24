@@ -122,6 +122,7 @@ class CollaboratorGoalList extends Component {
         const canSubmit = remainingTarget >= 0;
         const readonly = !parentGoal.goal.definition.isActive
         const now = new Date()
+        let showSubmit = false
 
         return (
             <div>
@@ -151,6 +152,9 @@ class CollaboratorGoalList extends Component {
                             const photo = goal.collaborator.photo ? goal.collaborator.photo : '/assets/img/user/avatar.svg';
 
                             const editable = (goal.goal.goal.start.toDate() <= now && now <= goal.goal.goal.end.toDate()) || goal.goal.goal.start.toDate() >= now
+                            if(editable) {
+                              showSubmit = true
+                            }
                             return (
                                 <Grid key={goal.id} item xs={3} container spacing={1}>
                                     <Grid item>
@@ -173,7 +177,7 @@ class CollaboratorGoalList extends Component {
                             )
                         }) }
                     </Grid>
-                    {!readonly && <div className={classes.formFooter}>
+                    {!readonly && showSubmit && <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour la période sélectionnée</ErrorText> }
                         <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit} centered />
                     </div>}

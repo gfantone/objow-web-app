@@ -603,7 +603,7 @@ class Spreadsheet extends Component {
                     if(changes.filter( ({ cell, row, col, value }) => !isNaN(parseInt(value))).length > 0) {
                       changes.forEach(({ cell, row, col, value }) => {
                         // Only numeric values are valid and converted to Int
-                        if(!isNaN(parseInt(value))) {
+                        if(!isNaN(parseInt(value)) && parseInt(value) >= 0) {
                           currentGrid[row][col] = { ...currentGrid[row][col], value: parseInt(value) };
                         }
                       });
