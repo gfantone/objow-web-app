@@ -53,7 +53,17 @@ const styles = {
     },
     '& .data-grid-container .data-grid .cell.read-only': {
       color: '#555555',
-      background: 'white'
+      background: 'white',
+      '&.empty': {
+        background: 'rgb(251, 238, 237)',
+        border: 'none',
+        '&.selected': {
+          borderTop: '1px double rgb(33, 133, 208)',
+          borderRight: '1px double rgb(33, 133, 208)',
+          borderLeft: '1px double rgb(33, 133, 208)',
+          borderBottom: '1px double rgb(33, 133, 208)',
+        }
+      }
     },
     '& .data-grid-container .data-grid .cell.read-only.firstCell': {
       textAlign: 'left'
@@ -243,7 +253,7 @@ class Spreadsheet extends Component {
                 const editable = playerGoal && ((goal.start.toDate() <= now && now <= goal.end.toDate()) || goal.start.toDate() >= now)
                 data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {
                   value: playerGoal ? playerGoal.target : '',
-                  className: `dataCell baseCell ${bottomSeparatorClass} period-${definition.periodicity.code}`,
+                  className: `dataCell baseCell ${bottomSeparatorClass} ${!playerGoal ? 'empty' : ''} period-${definition.periodicity.code}`,
                   period: period.name,
                   readOnly: !editable || !definition.isActive,
                   type: 'playerGoal',
