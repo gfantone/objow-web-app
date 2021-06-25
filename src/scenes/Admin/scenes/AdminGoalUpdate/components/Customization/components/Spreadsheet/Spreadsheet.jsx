@@ -204,7 +204,10 @@ class Spreadsheet extends Component {
             grid: [
 
             ],
-            error: false
+            error: false,
+            selected: {
+
+            }
         }
         this.lastSelected = null
         this.dataGridRef = React.createRef()
@@ -584,6 +587,30 @@ class Spreadsheet extends Component {
       }
     }
 
+    selectLine = (selection) => {
+      const { goals } = this.props.goalList;
+      let newSelection;
+
+      if(selection.start.i === selection.end.i && selection.start.j === selection.end.j && selection.start.i > 0 && selection.start.j === 0) {
+        newSelection = {
+          start: {
+            i: selection.start.i,
+            j: 1
+          },
+          end: {
+            i: selection.start.i,
+            j: goals.length
+          }
+        }
+      } else {
+
+        newSelection = selection
+      }
+      if(!_.isEqual(newSelection, this.state.selection)){
+        this.setState({...this.state, selected: selection})
+      }
+    }
+
     setGrid = (grid, hasError=false) => {
       this.setState({
         ...this.state,
@@ -611,6 +638,7 @@ class Spreadsheet extends Component {
         const {definition} = this.props.goalDefinitionDetail
         const { loading } = this.props.playerGoalListUpdate;
         const onContextMenu = (e, cell, i, j) => cell.readOnly ? e.preventDefault() : null;
+        // const selectedParam = {selected: this.state.selected}
 
         return (
           <React.Fragment>
@@ -637,7 +665,10 @@ class Spreadsheet extends Component {
                     }
                   }}
                   onContextMenu={onContextMenu}
+
                   onSelect={({ start, end }) => {
+                    // this.selectLine({start, end})
+                    
                     // TODO : update scrollLeft when move selection outside of grid
                     if(this.lastSelected) {
 
