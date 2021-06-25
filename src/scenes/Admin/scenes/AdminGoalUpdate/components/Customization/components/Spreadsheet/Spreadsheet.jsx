@@ -5,7 +5,7 @@ import Formsy from 'formsy-react'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
 import ReactDataSheet from 'react-datasheet'
-import { Loader, Card, ProgressButton } from '../../../../../../../../components'
+import { Loader, Card, ProgressButton, ErrorText } from '../../../../../../../../components'
 import * as Resources from '../../../../../../../../Resources'
 import * as goalListActions from '../../../../../../../../services/Goals/GoalList/actions'
 import * as playerGoalBulkListActions from '../../../../../../../../services/PlayerGoals/PlayerGoalBulkList/actions'
@@ -182,7 +182,9 @@ const styles = {
         }
     },
   },
-
+  error: {
+      marginBottom: 16
+  }
 }
 
 class Spreadsheet extends Component {
@@ -201,7 +203,8 @@ class Spreadsheet extends Component {
             changeTeam: false,
             grid: [
 
-            ]
+            ],
+            error: false
         }
         this.lastSelected = null
         this.dataGridRef = React.createRef()
@@ -315,12 +318,14 @@ class Spreadsheet extends Component {
             })
           }
         });
+        const validatedGrid = this.addValidationsToGrid([
+          [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: this.getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
+          ..._.flatten(data)
+        ])
         this.setState({
           ...this.state,
-          grid: this.addValidationsToGrid([
-            [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: this.getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
-            ..._.flatten(data)
-          ]),
+          grid: validatedGrid.grid,
+          error: validatedGrid.error,
           changeTeam: false,
           gridLoaded: true
         })
@@ -407,12 +412,14 @@ class Spreadsheet extends Component {
             className: 'baseCell footerCell'
           }]
         });
+        const validatedGrid = this.addValidationsToGrid([
+          [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: this.getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
+          ...data
+        ])
         this.setState({
           ...this.state,
-          grid: this.addValidationsToGrid([
-            [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: this.getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
-            ...data
-          ]),
+          grid: validatedGrid.grid,
+          error: validatedGrid.error,
           changeTeam: false,
           gridLoaded: true
         })
@@ -535,7 +542,7 @@ class Spreadsheet extends Component {
       const { goals } = this.props.goalList;
       const { definition } = this.props.goalDefinitionDetail
       let updatedCells = []
-
+      let hasError = false
       goals.forEach((goal) => {
         const period = this.getPeriodByGoal(goal)
         const periodDataCells = _.flatten(grid).filter(cell => cell.period === period.name)
@@ -549,6 +556,7 @@ class Spreadsheet extends Component {
         const remaining = periodDataCells.find(cell => cell.type === 'remainingTarget')
         if(used && remaining) {
           if(playersData > available) {
+            hasError = true
             updatedCells = [
               ...updatedCells,
               Object.assign({}, used, { className: `${used.className}`, error: true, value: playersData }),
@@ -569,13 +577,18 @@ class Spreadsheet extends Component {
           return updatedCells.find(c => cell.period && cell.type && cell.period === c.period && cell.type === c.type) || cell
         })
       })
-      return result
+
+      return {
+        grid: result,
+        error: hasError
+      }
     }
 
-    setGrid = (grid) => {
+    setGrid = (grid, hasError=false) => {
       this.setState({
         ...this.state,
-        grid: grid
+        grid: grid,
+        error: hasError
       })
     }
     handleSubmit = () => {
@@ -598,7 +611,7 @@ class Spreadsheet extends Component {
         const {definition} = this.props.goalDefinitionDetail
         const { loading } = this.props.playerGoalListUpdate;
         const onContextMenu = (e, cell, i, j) => cell.readOnly ? e.preventDefault() : null;
-        // this.updateGrid()
+
         return (
           <React.Fragment>
             <Card marginDisabled>
@@ -616,9 +629,10 @@ class Spreadsheet extends Component {
                           currentGrid[row][col] = { ...currentGrid[row][col], value: parseInt(value) };
                         }
                       });
-
+                      const validatedGrid = this.addValidationsToGrid(currentGrid)
                       this.setGrid(
-                        this.addValidationsToGrid(currentGrid)
+                        validatedGrid.grid,
+                        validatedGrid.error
                       );
                     }
                   }}
@@ -654,10 +668,11 @@ class Spreadsheet extends Component {
                   />
               </div>
             </Card>
-            <Grid container justify='center' style={{padding: 10}}>
+            <Grid container justify='center' style={{padding: 30}}>
               <Grid item>
+                { this.state.error && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour chaque période</ErrorText> }
                 <Formsy onValidSubmit={this.handleSubmit}>
-                  <ProgressButton type='submit' text='Valider' loading={loading} centered />
+                  <ProgressButton disabled={this.state.error} type='submit' text='Valider' loading={loading} centered />
                 </Formsy>
               </Grid>
             </Grid>
