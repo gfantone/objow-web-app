@@ -4,7 +4,7 @@ import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
 import { Card, QuarterFilter, MonthFilter, Select, SemesterFilter, WeekFilter, YearFilter } from '../../../../../../../../components'
 
-const Filters = ({ onDateChange, onTeamChange, displayDateFilter, emptyDisabledTeam, ...props }) => {
+const Filters = ({ onDateChange, onTeamChange, displayDateFilter, emptyDisabledTeam, defaultDate, ...props }) => {
     const { definition } = props.goalDefinitionDetail;
     const { teams } = props.teamList;
     const activateTeamFilter = definition.type.code == 'C';
@@ -32,10 +32,10 @@ const Filters = ({ onDateChange, onTeamChange, displayDateFilter, emptyDisabledT
                 <Card>
                     <Grid container spacing={2}>
                         { definition.periodicity.code != 'Y' && displayDateFilter && <Grid item xs={6}>
-                            { definition.periodicity.code == 'W' && <WeekFilter pastPeriods onChange={handleDateChange} /> }
-                            { definition.periodicity.code == 'M' && <MonthFilter pastPeriods onChange={handleDateChange} /> }
-                            { definition.periodicity.code == 'Q' && <QuarterFilter pastPeriods onChange={handleDateChange} /> }
-                            { definition.periodicity.code == 'S' && <SemesterFilter pastPeriods onChange={handleDateChange} /> }
+                            { definition.periodicity.code == 'W' && <WeekFilter pastPeriods defaultDate={defaultDate} onChange={handleDateChange} /> }
+                            { definition.periodicity.code == 'M' && <MonthFilter pastPeriods defaultDate={defaultDate} onChange={handleDateChange} /> }
+                            { definition.periodicity.code == 'Q' && <QuarterFilter pastPeriods defaultDate={defaultDate} onChange={handleDateChange} /> }
+                            { definition.periodicity.code == 'S' && <SemesterFilter pastPeriods defaultDate={defaultDate} onChange={handleDateChange} /> }
                         </Grid> }
                         { activateTeamFilter && <Grid item xs={6}>
                             <Select name='team' label='Équipe' options={teams} optionValueName='id'  optionTextName='name' emptyDisabled={ emptyDisabledTeam } emptyValue='-1' emptyText='Toutes les équipes' onChange={handleTeamChange} fullWidth />

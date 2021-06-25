@@ -61,9 +61,11 @@ class Customization extends Component {
         const now = new Date()
         const date = definition.periodicity.code != 'Y' ? this.state.date : new Date(Date.UTC(now.getFullYear(), 0, 1))
         const isSpreadSheet = this.state.page === 2
+
         if(this.state.page === 2 && !this.state.team) {
           this.handleChange('team')(teams[0].id)
         }
+
         return (
             <div>
                 <Grid container justify="flex-end" spacing={1}>
@@ -94,7 +96,7 @@ class Customization extends Component {
                         <DefaultTitle>Filtres</DefaultTitle>
                       </Grid>
                       <Grid item xs={12}>
-                        <Filters emptyDisabledTeam={this.state.page === 2} displayDateFilter={this.state.page !== 2} onDateChange={this.handleChange('date').bind(this)} onTeamChange={this.handleChange('team').bind(this)} />
+                        <Filters defaultDate={this.state.date} emptyDisabledTeam={this.state.page === 2} displayDateFilter={this.state.page !== 2} onDateChange={this.handleChange('date').bind(this)} onTeamChange={this.handleChange('team').bind(this)} />
                       </Grid>
                     </Grid>
                   }

@@ -3,7 +3,7 @@ import { Select } from '../../..'
 import '../../../../../../../../helpers/DateHelper'
 import {connect} from "react-redux";
 
-const QuarterFilter = ({ onChange, pastPeriods, ...props }) => {
+const QuarterFilter = ({ onChange, pastPeriods, defaultDate, ...props }) => {
     const getQuarters = () => {
         const today = new Date();
         const { goals } = props.goalList;
@@ -29,7 +29,7 @@ const QuarterFilter = ({ onChange, pastPeriods, ...props }) => {
 
     return (
         <div>
-            <Select name='quarter' label='Trimestre' options={quarters} optionValueName='date' optionTextName='name' emptyText='Tous les trimestres' onChange={handleChange} fullWidth />
+            <Select name='quarter' initial={defaultDate ? defaultDate : null} label='Trimestre' options={quarters} optionValueName='date' optionTextName='name' emptyText='Tous les trimestres' onChange={handleChange} fullWidth />
         </div>
     )
 };

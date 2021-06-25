@@ -2,7 +2,7 @@ import React from 'react'
 import { Select } from '../../..'
 import {connect} from "react-redux";
 
-const MonthFilter = ({ onChange, pastPeriods, ...props }) => {
+const MonthFilter = ({ onChange, pastPeriods, defaultDate, ...props }) => {
     const getMonths = () => {
         const today = new Date();
         const { goals } = props.goalList;
@@ -28,7 +28,7 @@ const MonthFilter = ({ onChange, pastPeriods, ...props }) => {
     };
     return (
         <div>
-            <Select name='month' label='Mois' options={months} optionValueName='date' optionTextName='name' emptyText='Tous les mois' onChange={handleChange} fullWidth />
+            <Select name='month' label='Mois' initial={defaultDate ? defaultDate : null} options={months} optionValueName='date' optionTextName='name' emptyText='Tous les mois' onChange={handleChange} fullWidth />
         </div>
     )
 };

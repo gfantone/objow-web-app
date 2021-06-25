@@ -3,7 +3,7 @@ import { Select } from '../../..'
 import '../../../../../../../../helpers/DateHelper'
 import {connect} from "react-redux";
 
-const SemesterFilter = ({ onChange, pastPeriods, ...props }) => {
+const SemesterFilter = ({ onChange, pastPeriods, defaultDate, ...props }) => {
     const getSemesters = () => {
         const today = new Date();
         const { goals } = props.goalList;
@@ -29,7 +29,7 @@ const SemesterFilter = ({ onChange, pastPeriods, ...props }) => {
 
     return (
         <div>
-            <Select name='semester' label='Semestre' options={semesters} optionValueName='date' optionTextName='name' emptyText='Tous les semestres' onChange={handleChange} fullWidth />
+            <Select name='semester' label='Semestre' initial={defaultDate ? defaultDate : null} options={semesters} optionValueName='date' optionTextName='name' emptyText='Tous les semestres' onChange={handleChange} fullWidth />
         </div>
     )
 };

@@ -1,7 +1,7 @@
 import React from 'react'
 import { YearPicker } from '../../..'
 
-const YearFilter = ({onChange}) => {
+const YearFilter = ({onChange, defaultDate}) => {
     const [year, setYear] = React.useState(null)
 
     const handleYearChange = value => {
@@ -12,7 +12,7 @@ const YearFilter = ({onChange}) => {
 
     return (
         <div>
-            <YearPicker name='year' label='Année' value={year} onChange={handleYearChange} clearable fullWidth />
+            <YearPicker name='year' initial={defaultDate ? defaultDate : null} label='Année' value={year} onChange={handleYearChange} clearable fullWidth />
         </div>
     )
 }
