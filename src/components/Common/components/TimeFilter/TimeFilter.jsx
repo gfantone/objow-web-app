@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import {RoundedTabs, RoundedTab} from '..'
 import * as Resources from '../../../../Resources'
 
-const TimeFilter = ({ initial = true, ...props }) => {
+const TimeFilter = ({ initial = 0, ...props }) => {
     const { handleTimeChange } = props
-    const [value, setValue] = React.useState(initial ? 0 : 1);
+    const [value, setValue] = React.useState(initial);
     const {account} = props.accountDetail;
 
     function handleChange(e, value) {

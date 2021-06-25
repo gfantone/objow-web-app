@@ -28,7 +28,7 @@ class TeamGoalList extends MainLayoutComponent {
     constructor(props) {
         super(props);
         this.id = null;
-        this.current = true;
+        this.current = 0;
         this.category = null;
         this.year = null;
         this.start = null;
@@ -76,7 +76,7 @@ class TeamGoalList extends MainLayoutComponent {
         const id = props.match.params.id;
         const params = new URLSearchParams(window.location.search);
         const currentParam = params.get('current');
-        const current = currentParam ? currentParam.toBoolean() : this.current;
+        const current = currentParam ? currentParam : this.current;
         const category = params.get('category');
         const year = params.get('year');
         const startParam = params.get('start');
@@ -118,7 +118,7 @@ class TeamGoalList extends MainLayoutComponent {
     componentDidMount() {
         const params = new URLSearchParams(window.location.search);
         const currentParam = params.get('current');
-        const current = currentParam ? currentParam.toBoolean() : this.current;
+        const current = currentParam ? currentParam : this.current;
         const name = params.get('name');
         this.props.activateReturn();
         this.props.activateSearch(name);
