@@ -278,7 +278,7 @@ class AdminGoalCreation extends MainLayoutComponent {
                     <Grid item>
                       <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ this.state.finalModel.kpi } options={
                           kpis.filter(
-                            kpi => (!this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory))
+                            kpi => ( kpi.periodicity.code !== 'C' && (!this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory)))
                           )
                         } optionValueName='id' optionTextName='name' onChange={this.handleKpiChange.bind(this)} fullWidth required />
                     </Grid>
