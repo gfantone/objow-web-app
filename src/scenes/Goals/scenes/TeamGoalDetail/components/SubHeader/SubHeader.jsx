@@ -32,16 +32,15 @@ const SubHeader = ({ activateRank, onChange, ...props }) => {
         return <Goal goal={goal} />
     }
 
-    const editable = goal && goal.end.toDate() >= new Date() && (
+    const editable = goal && (
       (
         // Admin and manager on solo goals
         goal.editable && account.role.code !== 'C'
       ) || (
         // Admin on team goals
-        goal && goal.definition.admin_editable && goal.end.toDate() >= new Date() && account.role.code === 'A'
+        goal && goal.definition.admin_editable && account.role.code === 'A'
       )
     )
-
     return (
         <div>
             <div className={classes.root}>

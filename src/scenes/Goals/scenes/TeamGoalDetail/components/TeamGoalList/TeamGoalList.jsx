@@ -103,6 +103,8 @@ class TeamGoalList extends Component {
         const remainingTarget = maxTarget - allTarget
         const canSubmit = remainingTarget >= 0
         const readonly = !parentGoal.definition.isActive
+        const now = new Date();
+        const editable = new Date(parentGoal.end * 1000) >= now
 
         return (
             <div>
@@ -141,6 +143,7 @@ class TeamGoalList extends Component {
                                             isInt: "L'objectif doit être un nombre entier.",
                                             isMoreThanOrEquals: "L'objectif doit être supérieur ou égal à 0."
                                         }}
+                                        disabled={!editable}
                                     />
                                 </Grid>
                             )
@@ -148,7 +151,7 @@ class TeamGoalList extends Component {
                     </Grid>
                     {!readonly && <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour la période sélectionnée</ErrorText> }
-                        <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit} centered />
+                        <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit || !editable} centered />
                     </div>}
                 </Formsy>
             </div>

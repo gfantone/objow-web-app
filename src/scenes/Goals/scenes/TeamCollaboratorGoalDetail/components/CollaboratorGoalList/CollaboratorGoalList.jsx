@@ -105,6 +105,8 @@ class CollaboratorGoalList extends Component {
         if (this.state.targetSum != null && isRate) allTarget = goalCount > 0 ? Math.ceil(this.state.targetSum / goalCount) : 0;
         const remainingTarget = maxTarget - allTarget;
         const canSubmit = remainingTarget >= 0;
+        const now = new Date();
+        const editable = new Date(parentGoal.end * 1000) >= now
 
         return (
             <div>
@@ -134,6 +136,7 @@ class CollaboratorGoalList extends Component {
                     <Grid container spacing={2}>
                         { goals.map((goal) => {
                             const photo = goal.collaborator.photo ? goal.collaborator.photo : '/assets/img/user/avatar.svg';
+
                             return (
                                 <Grid key={goal.id} item xs={3} container spacing={1}>
                                     <Grid item>
@@ -150,6 +153,7 @@ class CollaboratorGoalList extends Component {
                                                 isInt: Resources.COMMON_IS_INT_ERROR,
                                                 isMoreThanOrEquals: Resources.COMMON_IS_MORE_THAN_OR_EQUALS_0_ERROR
                                             }}
+                                            disabled={!editable}
                                         />
                                     </Grid>
                                 </Grid>
@@ -158,7 +162,7 @@ class CollaboratorGoalList extends Component {
                     </Grid>
                     <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>{Resources.COLLABORATOR_GOAL_LIST_EDITION_ERROR_TEXT}</ErrorText> }
-                        <ProgressButton type='submit' text={Resources.COLLABORATOR_GOAL_LIST_EDITION_SUBMIT_BUTTON} loading={loading} disabled={!canSubmit} centered />
+                        <ProgressButton type='submit' text={Resources.COLLABORATOR_GOAL_LIST_EDITION_SUBMIT_BUTTON} loading={loading} disabled={!canSubmit || !editable} centered />
                     </div>
                 </Formsy>
             </div>
