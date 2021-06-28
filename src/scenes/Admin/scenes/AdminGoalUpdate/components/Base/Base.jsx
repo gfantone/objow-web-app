@@ -120,7 +120,7 @@ class Base extends Component {
           "Y": 'années',
         }
 
-        const goalRepartitionLabel = parseInt(definition.repartition.id) === _.get(repartitions, '[0]').id ?
+        const goalRepartitionLabel = parseInt(definition.repartition.id) === _.get(repartitions, '[0].id') ?
           Resources.ADMIN_GOAL_CREATION_TARGET_LABEL :
             Resources.ADMIN_GOAL_INDIVIDUAL_CREATION_TARGET_LABEL.format(
               labels[definition.periodicity.code],
@@ -164,7 +164,7 @@ class Base extends Component {
                                 <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ definition.kpi.id } options={
                                     kpis.filter(
                                       kpi => {
-                                        const currentCategory = this.state.kpiCategory || definition.kpi.category.id
+                                        const currentCategory = this.state.kpiCategory || _.get(definition, 'kpi.category.id')
                                         return kpi.id === definition.kpi.id || (kpi.periodicity.code !== 'C' && (!currentCategory || _.get(kpi, 'category.id') === parseInt(currentCategory)))
                                       }
                                     )
