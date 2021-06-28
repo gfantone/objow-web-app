@@ -270,6 +270,7 @@ class AdminGoalCreation extends MainLayoutComponent {
             const format = kpi && kpi.manual ? 'Manuel' : 'Automatique'
             fields = (
               <React.Fragment>
+
                 <Grid item xs={12} sm={6}>
                   <Grid container direction="column" spacing={2}>
                     <Grid item>
