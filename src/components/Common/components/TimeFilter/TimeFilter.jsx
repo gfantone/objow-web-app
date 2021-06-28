@@ -5,9 +5,8 @@ import * as Resources from '../../../../Resources'
 
 const TimeFilter = ({ initial = 0, ...props }) => {
     const { handleTimeChange } = props
-    const [value, setValue] = React.useState(initial);
+    const [value, setValue] = React.useState(parseInt(initial));
     const {account} = props.accountDetail;
-
     function handleChange(e, value) {
         // let inProgress = value == 0
         setValue(value)

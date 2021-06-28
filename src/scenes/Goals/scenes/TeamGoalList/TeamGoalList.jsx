@@ -215,7 +215,6 @@ class TeamGoalList extends MainLayoutComponent {
     }
 
     render() {
-        console.log('TeamGoalList');
         const { account } = this.props.accountDetail;
         const { goals: collaboratorGoals, loading: teamCollaboratorGoalListLoading } = this.props.teamCollaboratorGoalList;
         const { goals: teamGoals, loading: teamGoalListLoading } = this.props.teamGoalSummaryList;
