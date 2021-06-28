@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {Grid} from '@material-ui/core'
 import { withStyles } from "@material-ui/core/styles"
-import {BlueText, Button, Card, DefaultText, Dialog, DialogActions, DialogContent, DialogTitle, InfoText, Loader, ProgressButton, Select, Switch, TextField, Tooltip, RichText} from '../../../../../../components'
+import {BlueText, Button, Card, DefaultText, DefaultTitle, Dialog, DialogActions, DialogContent, DialogTitle, InfoText, Loader, ProgressButton, Select, Switch, TextField, Tooltip, RichText} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import * as categoryListActions from '../../../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../../../services/GoalTypes/GoalTypeList/actions'
@@ -32,7 +32,8 @@ class Base extends Component {
       kpi: null,
       open: false,
       showIndicationTools: false,
-      indication: null
+      indication: null,
+      kpiCategory: null
     }
 
     constructor(props) {
@@ -60,6 +61,14 @@ class Base extends Component {
             })
         }
     }
+
+    setKpiCategory = (category) => {
+      this.setState({
+          ...this.state,
+          kpiCategory: category
+      })
+    }
+
     handleIndicationChange = (newIndication) => {
       this.setState({
           ...this.state,
@@ -127,21 +136,39 @@ class Base extends Component {
         return (
             <div>
                 <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
-                  <Grid container direction="column" spacing={2}>
+                  <Grid container direction="column" spacing={1}>
+                    <Grid item>
+                      <DefaultTitle>
+                        Selection du KPI de l'objectif
+                      </DefaultTitle>
+                    </Grid>
                     <Grid item>
                       <Card>
                         <Grid container direction="row" spacing={2}>
                           <Grid item xs={12} sm={6}>
                             <Grid container direction="column" spacing={2}>
                               <Grid item>
-                                <Select name='kpiCategory' initial={ _.get(definition, 'kpi.category.id') } disabled emptyText={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL} label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth />
+                                <Select
+                                  name='kpiCategory'
+                                  initial={ _.get(definition, 'kpi.category.id') }
+                                  emptyText={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL}
+                                  label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL}
+                                  options={categories}
+                                  optionValueName='id'
+                                  optionTextName='name'
+                                  fullWidth
+                                  onChange={ this.setKpiCategory }
+                                />
                               </Grid>
                               <Grid item>
                                 <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ definition.kpi.id } options={
                                     kpis.filter(
-                                      kpi => kpi.periodicity.code !== 'C'
+                                      kpi => {
+                                        const currentCategory = this.state.kpiCategory || definition.kpi.category.id
+                                        return kpi.id === definition.kpi.id || (kpi.periodicity.code !== 'C' && (!currentCategory || _.get(kpi, 'category.id') === parseInt(currentCategory)))
+                                      }
                                     )
-                                  } optionValueName='id' optionTextName='name' disabled fullWidth required />
+                                  } optionValueName='id' optionTextName='name' fullWidth required />
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -168,6 +195,12 @@ class Base extends Component {
                         </Grid>
                       </Card>
                     </Grid>
+                    <Grid item />
+                    <Grid item>
+                      <DefaultTitle>
+                        Configuration de l'objectif
+                      </DefaultTitle>
+                    </Grid>
                     <Grid item>
                       <Card>
                         <Grid container spacing={2}>
@@ -175,13 +208,19 @@ class Base extends Component {
                             <TextField name='name' initial={ definition.name } label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
                           </Grid>
                           <Grid item xs={12} sm={6}>
-                            <Select name='type' initial={ definition.type.id } label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' fullWidth required />
+                            <Select name='type' initial={ definition.type.id } disabled label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' fullWidth required />
                           </Grid>
                           <Grid item xs={12} sm={6}>
                             <Select name='category' initial={ definition.category.id } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
                           </Grid>
                           <Grid item xs={12} sm={6}>
-                            <Select name='periodicity' initial={ definition.periodicity.id } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities.filter(p => p.order >= _.get(definition.kpi, 'periodicity.order') && p.order > 1)} optionValueName='id' optionTextName='description' fullWidth required />
+                            <Select name='periodicity' initial={ definition.periodicity.id } disabled label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities.filter(p => p.order >= _.get(definition.kpi, 'periodicity.order') && p.order > 1)} optionValueName='id' optionTextName='description' fullWidth required />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <TextField type='number' name='target' label={Resources.ADMIN_GOAL_UPDATE_TARGET_LABEL} initial={definition.target} fullWidth disabled={readonly} required />
+                          </Grid>
+                          <Grid item xs={12} sm={6}>
+                            <TextField type='number' name='default' label={Resources.ADMIN_GOAL_UPDATE_DEFAULT_LABEL} initial={definition.default} fullWidth disabled={readonly} required />
                           </Grid>
                           <Grid item xs={12} className={ this.props.classes.indications }>
                             <DefaultText style={{ position: 'relative' }}>
@@ -218,55 +257,11 @@ class Base extends Component {
                         </Grid>
                       </Card>
                     </Grid>
+                    <Grid item />
                     <Grid item>
-                      <Card>
-                        <Grid container spacing={2}>
-                          <Grid container alignItems="center" direction="column" style={{padding: 20}} spacing={6}>
-                            <Grid item xs={12} sm={4} style={{width: "100%"}}>
-                              <Select
-                                name='repartition'
-                                initial={ definition.repartition.id }
-                                label={Resources.ADMIN_GOAL_CREATION_REPARTITION_LABEL}
-                                options={repartitions.map(r => r.code === "I" ?
-                                  Object.assign(r, {description: _.replace(
-                                    _.replace(r.description, 'période', labels[definition.periodicity.code]),
-                                    /Individuelle/,
-                                    definition.type.code === 'C' ? 'Individuelle' : 'Equipe'
-                                  )})
-                                  : r
-                                )}
-                                optionValueName='id'
-                                optionTextName='description'
-                                disabled
-                                bigLabel
-                                fullWidth
-                                required
-                              />
-                            </Grid>
-
-                            { definition.repartition && (
-                              <Grid item xs={12} sm={4} style={{width: "100%"}}>
-                                <Grid container justify="center" direction="column" style={{ position: 'relative' }}>
-                                  <Grid item>
-                                    <TextField disabled bigLabel type='number' name='target' initial={ definition.target } label={`👉 ${ goalRepartitionLabel }`} fullWidth required />
-                                  </Grid>
-                                </Grid>
-                                <Grid item xs={12} sm={6} style={{ display: 'none' }}>
-                                  <TextField type='number' name='default' initial={ 0 } label={Resources.ADMIN_GOAL_CREATION_DEFAULT_LABEL} fullWidth required/>
-                                </Grid>
-                              </Grid>
-                            ) }
-                          </Grid>
-
-                          <div style={{ width: '70%', margin: 'auto', marginBottom: 10 }}>
-                            { explanation && explanation.split("\n").map(paragraph => (
-                                <DefaultText style={{ textTransform:'none'}}>
-                                  { paragraph }
-                                </DefaultText>
-                            )) }
-                          </div>
-                        </Grid>
-                      </Card>
+                      <DefaultTitle>
+                        Selection des options
+                      </DefaultTitle>
                     </Grid>
                     <Grid item>
                       <Card>
