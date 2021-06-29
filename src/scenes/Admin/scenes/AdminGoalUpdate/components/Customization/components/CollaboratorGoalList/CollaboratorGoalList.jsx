@@ -109,6 +109,7 @@ class CollaboratorGoalList extends Component {
         const { classes } = this.props;
         const { goals } = this.props.playerGoalList;
         const { goal: parentGoal } = this.props.teamPlayerGoalDetail;
+        const { account } = this.props.accountDetail;
         const { loading } = this.props.playerGoalListUpdate;
         const goalCount = goals.length;
         const isRate = parentGoal.goal.definition.kpi.unit.isRate;
@@ -119,12 +120,12 @@ class CollaboratorGoalList extends Component {
         if (this.state.targetSum != null && !isRate) allTarget = this.state.targetSum;
         if (this.state.targetSum != null && isRate) allTarget = goalCount > 0 ? Math.ceil(this.state.targetSum / goalCount) : 0;
         const remainingTarget = maxTarget - allTarget
-        
+
         const canSubmit = remainingTarget >= 0 || parentGoal.goal.definition.allow_over_target
         const now = new Date()
         const isPast = new Date(parentGoal.goal.end * 1000) < now
         const readonly = !parentGoal.goal.definition.isActive
-        const editable = !isPast || parentGoal.goal.definition.past_editable
+        const editable = !isPast || (parentGoal.goal.definition.past_editable && account.role.code === 'A')
 
         return (
             <div>
@@ -152,8 +153,6 @@ class CollaboratorGoalList extends Component {
                     <Grid container spacing={2}>
                         { goals.map((goal) => {
                             const photo = goal.collaborator.photo ? goal.collaborator.photo : '/assets/img/user/avatar.svg';
-
-                            const editable = (goal.goal.goal.start.toDate() <= now && now <= goal.goal.goal.end.toDate()) || goal.goal.goal.start.toDate() >= now
 
                             return (
                                 <Grid key={goal.id} item xs={3} container spacing={1}>
@@ -201,11 +200,12 @@ class CollaboratorGoalList extends Component {
     }
 }
 
-const mapStateToProps = ({ goalDefinitionDetail, playerGoalList, playerGoalListUpdate, teamPlayerGoalDetail }) => ({
+const mapStateToProps = ({ goalDefinitionDetail, playerGoalList, playerGoalListUpdate, teamPlayerGoalDetail, accountDetail }) => ({
     goalDefinitionDetail,
     playerGoalList,
     playerGoalListUpdate,
-    teamPlayerGoalDetail
+    teamPlayerGoalDetail,
+    accountDetail
 });
 
 const mapDispatchToProps = (dispatch) => ({

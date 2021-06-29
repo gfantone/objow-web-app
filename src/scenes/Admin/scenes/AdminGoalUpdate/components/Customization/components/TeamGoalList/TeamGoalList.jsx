@@ -100,6 +100,7 @@ class TeamGoalList extends Component {
         const { goals } = this.props.teamGoalList
         const { goal: parentGoal } = this.props.goalDetail
         const { loading } = this.props.teamGoalListUpdate
+        const { account } = this.props.accountDetail;
         const goalCount = goals.length
         const isRate = parentGoal.definition.kpi.unit.isRate
         const maxTarget = parentGoal.target
@@ -113,7 +114,7 @@ class TeamGoalList extends Component {
         const now = new Date()
         const isPast = new Date(parentGoal.end * 1000) < now
         const readonly = !parentGoal.definition.isActive
-        const editable = !isPast || parentGoal.definition.past_editable
+        const editable = !isPast || (parentGoal.definition.past_editable && account.role.code === 'A')
 
         return (
             <div>
@@ -183,11 +184,12 @@ class TeamGoalList extends Component {
     }
 }
 
-const mapStateToProps = ({ goalDefinitionDetail, goalDetail, teamGoalList, teamGoalListUpdate }) => ({
+const mapStateToProps = ({ goalDefinitionDetail, goalDetail, teamGoalList, teamGoalListUpdate, accountDetail }) => ({
     goalDefinitionDetail,
     goalDetail,
     teamGoalList,
-    teamGoalListUpdate
+    teamGoalListUpdate,
+    accountDetail
 })
 
 const mapDispatchToProps = (dispatch) => ({

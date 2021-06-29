@@ -39,7 +39,7 @@ const SubHeader = ({ activateRank, onChange, ...props }) => {
         goal.editable && account.role.code !== 'C'
       ) || (
         // Admin on team goals
-        goal && goal.admin_editable && account.role.code === 'A'
+        goal && account.role.code === 'A'
       )
     )
     return (

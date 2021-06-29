@@ -217,6 +217,7 @@ class Spreadsheet extends Component {
     updateGridIndividual = () => {
       const { goals } = this.props.goalList;
       const { teams } = this.props.teamList;
+      const { account } = this.props.accountDetail;
       const { definition } = this.props.goalDefinitionDetail
       const { goals: playerGoals, loading: playerGoalBulkListLoading } = this.props.playerGoalBulkList;
       const { goals: teamPlayerGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalBulkList
@@ -259,7 +260,13 @@ class Spreadsheet extends Component {
                 bottomSeparatorClass = collaboratorIndex >= playerGoalsByPeriod.length - 1 ? 'bottomSeparator' : ''
                 const goal = goals[periodIndex]
                 const playerGoal = goalsByTeam[team.id][periodIndex][collaboratorIndex]
-                const editable = playerGoal && ((goal.start.toDate() <= now && now <= goal.end.toDate()) || goal.start.toDate() >= now)
+                const editable = playerGoal && (
+                  (
+                    (
+                      goal.start.toDate() <= now && now <= goal.end.toDate()
+                    ) || goal.start.toDate() >= now
+                  ) || (definition.past_editable && account.role.code === 'A'))
+
                 data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {
                   value: playerGoal ? playerGoal.target : '',
                   className: `dataCell baseCell ${bottomSeparatorClass} ${!playerGoal ? 'empty' : ''} period-${definition.periodicity.code}`,
@@ -339,6 +346,7 @@ class Spreadsheet extends Component {
     updateGridTeam = () => {
       const { goals } = this.props.goalList;
       const { teams } = this.props.teamList;
+      const { account } = this.props.accountDetail;
       const { definition } = this.props.goalDefinitionDetail
       const { goals: teamGoals } = this.props.teamGoalBulkList;
       let data = []
@@ -348,7 +356,9 @@ class Spreadsheet extends Component {
         teamGoals.forEach((response, periodIndex) => {
           const goal = goals[periodIndex]
           const period = getPeriodByGoal(goal)
-          const editable = (goal.start.toDate() <= now && now <= goal.end.toDate()) || goal.start.toDate() >= now
+          const editable = ((
+            goal.start.toDate() <= now && now <= goal.end.toDate()
+          ) || goal.start.toDate() >= now) || (definition.past_editable && account.role.code === 'A')
           response.data.forEach((teamGoal, teamIndex) => {
             if(data.length <= teamIndex){
               data = [...data, [{
@@ -695,7 +705,7 @@ class Spreadsheet extends Component {
     }
 }
 
-const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBulkList, teamPlayerGoalBulkList, teamGoalBulkList, playerGoalListUpdate, teamGoalListUpdate}) => ({
+const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBulkList, teamPlayerGoalBulkList, teamGoalBulkList, playerGoalListUpdate, teamGoalListUpdate, accountDetail}) => ({
     teamList,
     goalList,
     goalDefinitionDetail,
@@ -703,7 +713,8 @@ const mapStateToProps = ({teamList, goalList, goalDefinitionDetail, playerGoalBu
     teamGoalBulkList,
     teamPlayerGoalBulkList,
     playerGoalListUpdate,
-    teamGoalListUpdate
+    teamGoalListUpdate,
+    accountDetail
 })
 
 const mapDispatchToProps = (dispatch) => ({

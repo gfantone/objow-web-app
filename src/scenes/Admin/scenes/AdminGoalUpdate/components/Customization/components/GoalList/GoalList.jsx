@@ -88,6 +88,7 @@ class GoalList extends Component {
         const { goals } = this.props.goalList
         const { definition: parentGoal } = this.props.goalDefinitionDetail
         const { loading } = this.props.goalListUpdate
+        const { account } = this.props.accountDetail
         const goalCount = goals.length
         const isRate = parentGoal.kpi.unit.isRate
         const maxTarget = parentGoal.target
@@ -101,7 +102,7 @@ class GoalList extends Component {
         const now = new Date()
         const isPast = new Date(parentGoal.end * 1000) < now
         const readonly = !parentGoal.isActive
-        const editable = !isPast || parentGoal.past_editable
+        const editable = !isPast || (parentGoal.past_editable && account.role.code === 'A')
         return (
             <div>
                 <DefaultTitle className={classes.title}>Indicateurs</DefaultTitle>
@@ -133,7 +134,6 @@ class GoalList extends Component {
                                 : parentGoal.periodicity.code == 'M' ? Intl.DateTimeFormat('fr-FR', { month: 'long' }).format(goal.start.toDate())
                                 : parentGoal.periodicity.code == 'W' ? 'Semaine ' + goal.start.toDate().getWeekNumber()
                                 : ''
-                            const editable = (goal.start.toDate() <= now && now <= goal.end.toDate()) || goal.start.toDate() >= now
 
                             return (
                                 <Grid key={goal.id} item xs={3}>
@@ -177,11 +177,12 @@ class GoalList extends Component {
     }
 }
 
-const mapStateToProps = ({ goalDefinitionDetail, goalDetail, goalList, goalListUpdate }) => ({
+const mapStateToProps = ({ goalDefinitionDetail, goalDetail, goalList, goalListUpdate, accountDetail }) => ({
     goalDefinitionDetail,
     goalDetail,
     goalList,
-    goalListUpdate
+    goalListUpdate,
+    accountDetail
 })
 
 const mapDispatchToProps = (dispatch) => ({
