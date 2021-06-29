@@ -100,9 +100,9 @@ class GoalList extends Component {
         const remainingTarget = maxTarget - allTarget
         const canSubmit = remainingTarget >= 0 || parentGoal.allow_over_target
         const now = new Date()
-        const isPast = new Date(parentGoal.end * 1000) < now
         const readonly = !parentGoal.isActive
-        const editable = !isPast || (parentGoal.past_editable && account.role.code === 'A')
+        let allDisabled = true
+
         return (
             <div>
                 <DefaultTitle className={classes.title}>Indicateurs</DefaultTitle>
@@ -134,7 +134,11 @@ class GoalList extends Component {
                                 : parentGoal.periodicity.code == 'M' ? Intl.DateTimeFormat('fr-FR', { month: 'long' }).format(goal.start.toDate())
                                 : parentGoal.periodicity.code == 'W' ? 'Semaine ' + goal.start.toDate().getWeekNumber()
                                 : ''
-
+                            const isPast = new Date(goal.end * 1000) < now
+                            const editable = !isPast || (parentGoal.past_editable && account.role.code === 'A')
+                            if(editable) {
+                              allDisabled = false
+                            }
                             return (
                                 <Grid key={goal.id} item xs={3}>
                                     <TextField type='number' name={goal.id} label={name} initial={goal.target} disabled={!editable || readonly} fullWidth required
@@ -154,7 +158,7 @@ class GoalList extends Component {
                     </Grid>
                     {!readonly && <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour la période sélectionnée</ErrorText> }
-                        <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit || !editable || readonly} centered />
+                        <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit || allDisabled || readonly} centered />
                     </div>}
                 </Formsy>
             </div>
