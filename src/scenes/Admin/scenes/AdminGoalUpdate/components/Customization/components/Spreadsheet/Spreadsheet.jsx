@@ -344,7 +344,7 @@ class Spreadsheet extends Component {
       let data = []
       const now = new Date()
 
-      if(teamGoals && teamGoals.length > 0) {
+      if(goals && teamGoals && teamGoals.length > 0) {
         teamGoals.forEach((response, periodIndex) => {
           const goal = goals[periodIndex]
           const period = getPeriodByGoal(goal)
@@ -455,11 +455,14 @@ class Spreadsheet extends Component {
       // load data
       // const currentTeam = teams[this.state.currentTeamLoading]
 
+      if(definition){
+        this.props.goalListActions.getGoalList(definition.id)
+      }
+
       if(goals && goals.length > 0) {
         const dates = goals.map(goal => getPeriodByGoal(goal).date)
 
         if(definition) {
-          this.props.goalListActions.getGoalList(definition.id)
           if(_.get(definition, 'type.code') === 'C') {
             this.props.playerGoalBulkListActions.getPlayerGoalBulkList(definition.id, dates, filteredTeams)
             this.props.teamPlayerGoalBulkListActions.getTeamPlayerGoalBulkList(definition.id, dates, filteredTeams[0])
@@ -491,52 +494,6 @@ class Spreadsheet extends Component {
         this.updateGrid()
       }
     }
-    // getPeriodByGoal = (goal) => {
-    //
-    //   const { definition } = this.props.goalDefinitionDetail
-    //   const periodicity = _.get(definition, 'periodicity.code')
-    //   if(periodicity === 'W') {
-    //     return this.getWeekByGoal(goal)
-    //   }
-    //   if(periodicity === 'M') {
-    //     return this.getMonthByGoal(goal)
-    //   }
-    //   if(periodicity === 'Q') {
-    //     return this.getQuarterByGoal(goal)
-    //   }
-    //   if(periodicity === 'S') {
-    //     return this.getSemesterByGoal(goal)
-    //   }
-    //   if(periodicity === 'Y') {
-    //     return this.getYearByGoal(goal)
-    //   }
-    // }
-    //
-    // getWeekByGoal = (goal) => {
-    //   const date = goal.start.toDate();
-    //   return {name: `Semaine ${date.getWeekNumber()}`, date: date}
-    // }
-    //
-    // getMonthByGoal = (goal) => {
-    //   const date = goal.start.toDate();
-    //   return {name: Intl.DateTimeFormat('fr-FR', {month: 'long'}).format(date), date: date}
-    // };
-    //
-    // getQuarterByGoal = (goal) => {
-    //   const date = goal.start.toDate();
-    //   return {name: `Trimestre ${date.getQuarterNumber()}`, date: date}
-    // }
-    //
-    // getSemesterByGoal = (goal) => {
-    //   const date = goal.start.toDate();
-    //   return {name: `Semestre ${date.getSemesterNumber()}`, date: date}
-    // }
-    //
-    // getYearByGoal = (goal) => {
-    //   const date = goal.start.toDate();
-    //
-    //   return { name: date.getFullYear(), date: date }
-    // }
 
     renderLoader = () => {
         return <div>
@@ -622,7 +579,7 @@ class Spreadsheet extends Component {
     }
     handleSubmit = () => {
       const {definition} = this.props.goalDefinitionDetail
-      const goalList = _.flatten(this.state.grid).filter(cell => cell.type === 'playerGoal').map(goal => (
+      const goalList = _.flatten(this.state.grid).filter(cell => cell.type === 'playerGoal' && cell.target && cell.id).map(goal => (
         {id: goal.id, target: goal.value}
       ))
 
