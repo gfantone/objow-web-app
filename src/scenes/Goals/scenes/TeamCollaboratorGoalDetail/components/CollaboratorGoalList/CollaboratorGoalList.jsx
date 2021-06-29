@@ -103,10 +103,13 @@ class CollaboratorGoalList extends Component {
         var allTarget = initialAllTarget;
         if (this.state.targetSum != null && !isRate) allTarget = this.state.targetSum;
         if (this.state.targetSum != null && isRate) allTarget = goalCount > 0 ? Math.ceil(this.state.targetSum / goalCount) : 0;
+
         const remainingTarget = maxTarget - allTarget;
-        const canSubmit = remainingTarget >= 0;
-        const now = new Date();
-        const editable = new Date(parentGoal.end * 1000) >= now
+        const canSubmit = remainingTarget >= 0 || parentGoal.definition.allow_over_target
+        const now = new Date()
+        const isPast = new Date(parentGoal.end * 1000) < now
+        const readonly = !parentGoal.definition.isActive
+        const editable = !isPast || parentGoal.definition.past_editable
 
         return (
             <div>
@@ -153,7 +156,7 @@ class CollaboratorGoalList extends Component {
                                                 isInt: Resources.COMMON_IS_INT_ERROR,
                                                 isMoreThanOrEquals: Resources.COMMON_IS_MORE_THAN_OR_EQUALS_0_ERROR
                                             }}
-                                            disabled={!editable}
+                                            disabled={!editable || readonly}
                                         />
                                     </Grid>
                                 </Grid>
@@ -162,7 +165,7 @@ class CollaboratorGoalList extends Component {
                     </Grid>
                     <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>{Resources.COLLABORATOR_GOAL_LIST_EDITION_ERROR_TEXT}</ErrorText> }
-                        <ProgressButton type='submit' text={Resources.COLLABORATOR_GOAL_LIST_EDITION_SUBMIT_BUTTON} loading={loading} disabled={!canSubmit || !editable} centered />
+                        <ProgressButton type='submit' text={Resources.COLLABORATOR_GOAL_LIST_EDITION_SUBMIT_BUTTON} loading={loading} disabled={!canSubmit || !editable || readonly} centered />
                     </div>
                 </Formsy>
             </div>

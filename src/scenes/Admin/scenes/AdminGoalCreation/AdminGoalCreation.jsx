@@ -479,37 +479,52 @@ class AdminGoalCreation extends MainLayoutComponent {
 
             fields = (
               <React.Fragment>
-                <Grid container spacing={1} direction="column">
+                <Grid container direction="row" justify="space-around" >
                   <Grid item>
-                    <Grid container alignItems='center'>
+                    <Grid container spacing={1} direction="column">
                       <Grid item>
-                        <Switch name='live' initial={ this.state.finalModel.live } label={Resources.ADMIN_GOAL_CREATION_LIVE_LABEL} />
+                        <Grid container alignItems='center'>
+                          <Grid item>
+                            <Switch name='live' initial={ this.state.finalModel.live } label={Resources.ADMIN_GOAL_CREATION_LIVE_LABEL} />
+                          </Grid>
+                          <Grid item>
+                            <Tooltip title={Resources.ADMIN_GOAL_CREATION_LIVE_INFOS}>
+                              <BlueText>
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                              </BlueText>
+                            </Tooltip>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+
+                      {
+                        _.get(currentType, 'code') === 'C' && (
+                          <Grid item>
+                            <Switch name='editable' initial={ this.state.finalModel.editable } label={Resources.ADMIN_GOAL_CREATION_EDITABLE_LABEL} />
+                          </Grid>
+                        )
+                      }
+                      {
+                        _.get(currentType, 'code') === 'T' && (
+                          <Grid item>
+                            <Switch name='admin_editable' initial={ this.state.finalModel.admin_editable } label={Resources.ADMIN_GOAL_CREATION_ADMIN_EDITABLE_LABEL} />
+                          </Grid>
+                        )
+                      }
+                    </Grid>
+                  </Grid>
+                  <Grid item>
+                    <Grid container spacing={1} direction="column">
+                      <Grid item>
+                        <Switch name='allow_over_target' initial={ this.state.finalModel.allow_over_target } label={Resources.ADMIN_GOAL_CREATION_ALLOW_OVER_TARGET_LABEL} />
                       </Grid>
                       <Grid item>
-                        <Tooltip title={Resources.ADMIN_GOAL_CREATION_LIVE_INFOS}>
-                          <BlueText>
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                          </BlueText>
-                        </Tooltip>
+                        <Switch name='past_editable' initial={ this.state.finalModel.past_editable } label={Resources.ADMIN_GOAL_CREATION_PAST_EDITABLE_LABEL} />
                       </Grid>
                     </Grid>
                   </Grid>
-
-                  {
-                    _.get(currentType, 'code') === 'C' && (
-                      <Grid item>
-                        <Switch name='editable' initial={ this.state.finalModel.editable } label={Resources.ADMIN_GOAL_CREATION_EDITABLE_LABEL} />
-                      </Grid>
-                    )
-                  }
-                  {
-                    _.get(currentType, 'code') === 'T' && (
-                      <Grid item>
-                        <Switch name='admin_editable' initial={ this.state.finalModel.admin_editable } label={Resources.ADMIN_GOAL_CREATION_ADMIN_EDITABLE_LABEL} />
-                      </Grid>
-                    )
-                  }
                 </Grid>
+
               </React.Fragment>
             )
             break

@@ -118,11 +118,13 @@ class CollaboratorGoalList extends Component {
         var allTarget = initialAllTarget;
         if (this.state.targetSum != null && !isRate) allTarget = this.state.targetSum;
         if (this.state.targetSum != null && isRate) allTarget = goalCount > 0 ? Math.ceil(this.state.targetSum / goalCount) : 0;
-        const remainingTarget = maxTarget - allTarget;
-        const canSubmit = remainingTarget >= 0;
-        const readonly = !parentGoal.goal.definition.isActive
+        const remainingTarget = maxTarget - allTarget
+        
+        const canSubmit = remainingTarget >= 0 || parentGoal.goal.definition.allow_over_target
         const now = new Date()
-        let showSubmit = false
+        const isPast = new Date(parentGoal.goal.end * 1000) < now
+        const readonly = !parentGoal.goal.definition.isActive
+        const editable = !isPast || parentGoal.goal.definition.past_editable
 
         return (
             <div>
@@ -152,9 +154,7 @@ class CollaboratorGoalList extends Component {
                             const photo = goal.collaborator.photo ? goal.collaborator.photo : '/assets/img/user/avatar.svg';
 
                             const editable = (goal.goal.goal.start.toDate() <= now && now <= goal.goal.goal.end.toDate()) || goal.goal.goal.start.toDate() >= now
-                            if(editable) {
-                              showSubmit = true
-                            }
+
                             return (
                                 <Grid key={goal.id} item xs={3} container spacing={1}>
                                     <Grid item>
@@ -177,9 +177,9 @@ class CollaboratorGoalList extends Component {
                             )
                         }) }
                     </Grid>
-                    {!readonly && showSubmit && <div className={classes.formFooter}>
+                    {!readonly && <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour la période sélectionnée</ErrorText> }
-                        <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit} centered />
+                        <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit || !editable || readonly} centered />
                     </div>}
                 </Formsy>
             </div>

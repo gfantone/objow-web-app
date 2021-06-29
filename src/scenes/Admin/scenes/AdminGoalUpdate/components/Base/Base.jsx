@@ -136,169 +136,185 @@ class Base extends Component {
         return (
             <div>
                 <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
-                  <Grid container direction="column" spacing={1}>
-                    <Grid item>
-                      <DefaultTitle>
-                        Selection du KPI de l'objectif
-                      </DefaultTitle>
-                    </Grid>
-                    <Grid item>
-                      <Card>
-                        <Grid container direction="row" spacing={2}>
-                          <Grid item xs={12} sm={6}>
-                            <Grid container direction="column" spacing={2}>
-                              <Grid item>
-                                <Select
-                                  name='kpiCategory'
-                                  initial={ _.get(definition, 'kpi.category.id') }
-                                  emptyText={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL}
-                                  label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL}
-                                  options={categories}
-                                  optionValueName='id'
-                                  optionTextName='name'
-                                  fullWidth
-                                  onChange={ this.setKpiCategory }
-                                />
+                  <Grid container direction="column" spacing={4}>
+                    <Grid item container direction="column" spacing={1}>
+                      <Grid item>
+                        <DefaultTitle>
+                          Selection du KPI de l'objectif
+                        </DefaultTitle>
+                      </Grid>
+                      <Grid item>
+                        <Card>
+                          <Grid container direction="row" spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                              <Grid container direction="column" spacing={2}>
+                                <Grid item>
+                                  <Select
+                                    name='kpiCategory'
+                                    initial={ _.get(definition, 'kpi.category.id') }
+                                    emptyText={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL}
+                                    label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL}
+                                    options={categories}
+                                    optionValueName='id'
+                                    optionTextName='name'
+                                    fullWidth
+                                    onChange={ this.setKpiCategory }
+                                    />
+                                </Grid>
+                                <Grid item>
+                                  <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ definition.kpi.id } options={
+                                      kpis.filter(
+                                        kpi => {
+                                          const currentCategory = this.state.kpiCategory || _.get(definition, 'kpi.category.id')
+                                          return kpi.id === definition.kpi.id || (kpi.periodicity.code !== 'C' && (!currentCategory || _.get(kpi, 'category.id') === parseInt(currentCategory)))
+                                        }
+                                      )
+                                    } optionValueName='id' optionTextName='name' fullWidth required />
+                                  </Grid>
+                                </Grid>
                               </Grid>
-                              <Grid item>
-                                <Select name='kpi' label={Resources.ADMIN_GOAL_CREATION_KPI_LABEL} initial={ definition.kpi.id } options={
-                                    kpis.filter(
-                                      kpi => {
-                                        const currentCategory = this.state.kpiCategory || _.get(definition, 'kpi.category.id')
-                                        return kpi.id === definition.kpi.id || (kpi.periodicity.code !== 'C' && (!currentCategory || _.get(kpi, 'category.id') === parseInt(currentCategory)))
-                                      }
-                                    )
-                                  } optionValueName='id' optionTextName='name' fullWidth required />
+                              <Grid item xs={12} sm={6}>
+                                <Grid container direction='column' spacing={2}>
+                                  <Grid item>
+                                    <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
+                                    <DefaultText style={{minHeight: 19}}>{unit}</DefaultText>
+                                  </Grid>
+                                  <Grid item>
+                                    <InfoText>{Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL}</InfoText>
+                                    <DefaultText style={{minHeight: 19}}>{_.get(definition.kpi, 'periodicity.description')}</DefaultText>
+                                  </Grid>
+                                  <Grid item>
+                                    <InfoText>{Resources.ADMIN_GOAL_CREATION_KPI_FORMAT_LABEL}</InfoText>
+                                    {
+                                      definition.kpi && <DefaultText style={{minHeight: 19}}>
+                                      { definition.kpi, 'manual' ? 'Manuel' : 'Automatique' }
+                                    </DefaultText>
+                                  }
                                 </Grid>
                               </Grid>
                             </Grid>
+                          </Grid>
+                        </Card>
+                      </Grid>
+                    </Grid>
+                    <Grid item container direction="column" spacing={1}>
+                      <Grid item>
+                        <DefaultTitle>
+                          Configuration de l'objectif
+                        </DefaultTitle>
+                      </Grid>
+                      <Grid item>
+                        <Card>
+                          <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
-                              <Grid container direction='column' spacing={2}>
+                              <TextField name='name' initial={ definition.name } label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='type' initial={ definition.type.id } disabled label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' fullWidth required />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='category' initial={ definition.category.id } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='periodicity' initial={ definition.periodicity.id } disabled label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities.filter(p => p.order >= _.get(definition.kpi, 'periodicity.order') && p.order > 1)} optionValueName='id' optionTextName='description' fullWidth required />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <TextField type='number' name='target' label={Resources.ADMIN_GOAL_UPDATE_TARGET_LABEL} initial={definition.target} fullWidth disabled={readonly} required />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <TextField type='number' name='default' label={Resources.ADMIN_GOAL_UPDATE_DEFAULT_LABEL} initial={definition.default} fullWidth disabled={readonly} required />
+                            </Grid>
+                            <Grid item xs={12} className={ this.props.classes.indications }>
+                              <DefaultText style={{ position: 'relative' }}>
+                                <FontAwesomeIcon
+                                  icon={this.state.showIndicationTools ? faChevronUp : faChevronDown}
+                                  onClick={() => this.setState({...this.state, showIndicationTools: !this.state.showIndicationTools})}
+                                  style={{ position: "absolute", left: '70px', cursor: 'pointer', zIndex: 50 }}
+                                  />
+                              </DefaultText>
+                              <TextField
+                                name='indication'
+                                initial={ definition.indication }
+                                readOnly={ false }
+                                onChange={() => {}}
+                                label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+                                fullWidth
+                                multiline
+                                rowsMax={10}
+                                />
+                              <RichText
+                                name='indication'
+                                initial={ JSON.parse(definition.indication) || [ { children: [{ text: '' }],}] }
+                                readOnly={ readonly }
+                                onChange={ this.handleIndicationChange }
+                                label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+                                displayTools={this.state.showIndicationTools}
+                                padding={'5px 0'}
+                                fullWidth
+                                multiline
+                                rowsMax={10}
+                                required
+                                />
+                            </Grid>
+                          </Grid>
+                        </Card>
+                      </Grid>
+                    </Grid>
+                    <Grid item container direction="column" spacing={1}>
+                      <Grid item>
+                        <DefaultTitle>
+                          Selection des options
+                        </DefaultTitle>
+                      </Grid>
+                      <Grid item>
+                        <Card>
+                          <Grid container direction="row" justify="space-around">
+                            <Grid item>
+                              <Grid container spacing={1} direction="column">
                                 <Grid item>
-                                  <InfoText>{Resources.ADMIN_GOAL_CREATION_UNIT_LABEL}</InfoText>
-                                  <DefaultText style={{minHeight: 19}}>{unit}</DefaultText>
+                                  <Grid container alignItems='center'>
+                                    <Grid item>
+                                      <Switch name='live' initial={ definition.live } label={Resources.ADMIN_GOAL_CREATION_LIVE_LABEL} />
+                                    </Grid>
+                                    <Grid item>
+                                      <Tooltip title={Resources.ADMIN_GOAL_CREATION_LIVE_INFOS}>
+                                        <BlueText>
+                                          <FontAwesomeIcon icon={faInfoCircle} />
+                                        </BlueText>
+                                      </Tooltip>
+                                    </Grid>
+                                  </Grid>
                                 </Grid>
-                                <Grid item>
-                                  <InfoText>{Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL}</InfoText>
-                                  <DefaultText style={{minHeight: 19}}>{_.get(definition.kpi, 'periodicity.description')}</DefaultText>
-                                </Grid>
-                                <Grid item>
-                                  <InfoText>{Resources.ADMIN_GOAL_CREATION_KPI_FORMAT_LABEL}</InfoText>
-                                  {
-                                    definition.kpi && <DefaultText style={{minHeight: 19}}>
-                                    { definition.kpi, 'manual' ? 'Manuel' : 'Automatique' }
-                                  </DefaultText>
+
+                                {
+                                  _.get(definition.type, 'code') === 'C' && (
+                                    <Grid item>
+                                      <Switch name='editable' initial={ definition.editable } label={Resources.ADMIN_GOAL_CREATION_EDITABLE_LABEL} />
+                                    </Grid>
+                                  )
+                                }
+                                {
+                                  _.get(definition.type, 'code') === 'T' && (
+                                    <Grid item>
+                                      <Switch name='admin_editable' initial={ definition.admin_editable } label={Resources.ADMIN_GOAL_CREATION_ADMIN_EDITABLE_LABEL} />
+                                    </Grid>
+                                  )
                                 }
                               </Grid>
                             </Grid>
-                          </Grid>
-                        </Grid>
-                      </Card>
-                    </Grid>
-                    <Grid item />
-                    <Grid item>
-                      <DefaultTitle>
-                        Configuration de l'objectif
-                      </DefaultTitle>
-                    </Grid>
-                    <Grid item>
-                      <Card>
-                        <Grid container spacing={2}>
-                          <Grid item xs={12} sm={6}>
-                            <TextField name='name' initial={ definition.name } label={Resources.ADMIN_GOAL_CREATION_NAME_LABEL} fullWidth required />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Select name='type' initial={ definition.type.id } disabled label={Resources.ADMIN_GOAL_CREATION_TYPE_LABEL} options={types} optionValueName='id' optionTextName='description' fullWidth required />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Select name='category' initial={ definition.category.id } label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth required />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <Select name='periodicity' initial={ definition.periodicity.id } disabled label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities.filter(p => p.order >= _.get(definition.kpi, 'periodicity.order') && p.order > 1)} optionValueName='id' optionTextName='description' fullWidth required />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <TextField type='number' name='target' label={Resources.ADMIN_GOAL_UPDATE_TARGET_LABEL} initial={definition.target} fullWidth disabled={readonly} required />
-                          </Grid>
-                          <Grid item xs={12} sm={6}>
-                            <TextField type='number' name='default' label={Resources.ADMIN_GOAL_UPDATE_DEFAULT_LABEL} initial={definition.default} fullWidth disabled={readonly} required />
-                          </Grid>
-                          <Grid item xs={12} className={ this.props.classes.indications }>
-                            <DefaultText style={{ position: 'relative' }}>
-                              <FontAwesomeIcon
-                                icon={this.state.showIndicationTools ? faChevronUp : faChevronDown}
-                                onClick={() => this.setState({...this.state, showIndicationTools: !this.state.showIndicationTools})}
-                                style={{ position: "absolute", left: '70px', cursor: 'pointer', zIndex: 50 }}
-                                />
-                            </DefaultText>
-                            <TextField
-                              name='indication'
-                              initial={ definition.indication }
-                              readOnly={ false }
-                              onChange={() => {}}
-                              label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-                              fullWidth
-                              multiline
-                              rowsMax={10}
-                              />
-                            <RichText
-                              name='indication'
-                              initial={ JSON.parse(definition.indication) || [ { children: [{ text: '' }],}] }
-                              readOnly={ readonly }
-                              onChange={ this.handleIndicationChange }
-                              label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-                              displayTools={this.state.showIndicationTools}
-                              padding={'5px 0'}
-                              fullWidth
-                              multiline
-                              rowsMax={10}
-                              required
-                              />
-                          </Grid>
-                        </Grid>
-                      </Card>
-                    </Grid>
-                    <Grid item />
-                    <Grid item>
-                      <DefaultTitle>
-                        Selection des options
-                      </DefaultTitle>
-                    </Grid>
-                    <Grid item>
-                      <Card>
-                        <Grid container>
-                          <Grid container spacing={1} direction="column">
                             <Grid item>
-                              <Grid container alignItems='center'>
+                              <Grid container spacing={1} direction="column">
                                 <Grid item>
-                                  <Switch name='live' initial={ definition.live } label={Resources.ADMIN_GOAL_CREATION_LIVE_LABEL} />
+                                  <Switch name='allow_over_target' initial={ definition.allow_over_target } label={Resources.ADMIN_GOAL_CREATION_ALLOW_OVER_TARGET_LABEL} />
                                 </Grid>
                                 <Grid item>
-                                  <Tooltip title={Resources.ADMIN_GOAL_CREATION_LIVE_INFOS}>
-                                    <BlueText>
-                                      <FontAwesomeIcon icon={faInfoCircle} />
-                                    </BlueText>
-                                  </Tooltip>
+                                  <Switch name='past_editable' initial={ definition.past_editable } label={Resources.ADMIN_GOAL_CREATION_PAST_EDITABLE_LABEL} />
                                 </Grid>
                               </Grid>
                             </Grid>
-
-                            {
-                              _.get(definition.type, 'code') === 'C' && (
-                                <Grid item>
-                                  <Switch name='editable' initial={ definition.editable } label={Resources.ADMIN_GOAL_CREATION_EDITABLE_LABEL} />
-                                </Grid>
-                              )
-                            }
-                            {
-                              _.get(definition.type, 'code') === 'T' && (
-                                <Grid item>
-                                  <Switch name='admin_editable' initial={ definition.admin_editable } label={Resources.ADMIN_GOAL_CREATION_ADMIN_EDITABLE_LABEL} />
-                                </Grid>
-                              )
-                            }
                           </Grid>
-                        </Grid>
-                      </Card>
+                        </Card>
+                      </Grid>
                     </Grid>
                   </Grid>
 

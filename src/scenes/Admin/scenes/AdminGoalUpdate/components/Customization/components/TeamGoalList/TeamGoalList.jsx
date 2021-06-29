@@ -109,10 +109,11 @@ class TeamGoalList extends Component {
         if (this.state.targetSum != null && !isRate) allTarget = this.state.targetSum
         if (this.state.targetSum != null && isRate) allTarget = goalCount > 0 ? Math.ceil(this.state.targetSum / goalCount) : 0
         const remainingTarget = maxTarget - allTarget
-        const canSubmit = remainingTarget >= 0
-        const readonly = !parentGoal.definition.isActive
+        const canSubmit = remainingTarget >= 0 || parentGoal.definition.allow_over_target
         const now = new Date()
-        let showSubmit = false
+        const isPast = new Date(parentGoal.end * 1000) < now
+        const readonly = !parentGoal.definition.isActive
+        const editable = !isPast || parentGoal.definition.past_editable
 
         return (
             <div>
@@ -139,10 +140,7 @@ class TeamGoalList extends Component {
                 <Formsy onChange={this.handleChange.bind(this)} onValidSubmit={this.handleSubmit.bind(this)}>
                     <Grid container spacing={2}>
                         { goals.map((goal) => {
-                            const editable = (goal.goal.start.toDate() <= now && now <= goal.goal.end.toDate()) || goal.goal.start.toDate() >= now
-                            if(editable) {
-                              showSubmit = true
-                            }
+
                             return (
                                 <Grid key={goal.id} item xs={3}>
                                     <TextField type='number' name={goal.id} label={goal.team.name} initial={goal.target} fullWidth required disabled={!editable || readonly}
@@ -160,9 +158,9 @@ class TeamGoalList extends Component {
                             )
                         }) }
                     </Grid>
-                    {!readonly && showSubmit && <div className={classes.formFooter}>
+                    {!readonly && <div className={classes.formFooter}>
                         { !canSubmit && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour la période sélectionnée</ErrorText> }
-                        <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit} centered />
+                        <ProgressButton type='submit' text='Valider' loading={loading} disabled={!canSubmit || !editable || readonly} centered />
                     </div>}
                 </Formsy>
             </div>

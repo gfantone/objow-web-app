@@ -642,6 +642,8 @@ class Spreadsheet extends Component {
         const onContextMenu = (e, cell, i, j) => cell.readOnly ? e.preventDefault() : null;
         // const selectedParam = {selected: this.state.selected}
 
+        const readonly = !definition.isActive
+
         return (
           <React.Fragment>
             <Card marginDisabled>
@@ -703,9 +705,9 @@ class Spreadsheet extends Component {
             </Card>
             <Grid container justify='center' style={{padding: 30}}>
               <Grid item>
-                { this.state.error && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour chaque période</ErrorText> }
+                { this.state.error && !definition.allow_over_target && <ErrorText className={classes.error} align='center'>Veuillez respecter l'objectif total alloué pour chaque période</ErrorText> }
                 <Formsy onValidSubmit={this.handleSubmit}>
-                  <ProgressButton disabled={this.state.error} type='submit' text='Valider' loading={loading} centered />
+                  <ProgressButton disabled={this.state.error && !definition.allow_over_target || readonly} type='submit' text='Valider' loading={loading} centered />
                 </Formsy>
               </Grid>
             </Grid>

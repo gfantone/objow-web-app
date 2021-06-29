@@ -101,10 +101,11 @@ class TeamGoalList extends Component {
         if (this.state.targetSum != null && !isRate) allTarget = this.state.targetSum
         if (this.state.targetSum != null && isRate) allTarget = goalCount > 0 ? Math.ceil(this.state.targetSum / goalCount) : 0
         const remainingTarget = maxTarget - allTarget
-        const canSubmit = remainingTarget >= 0
-        const readonly = !parentGoal.definition.isActive
+        const canSubmit = remainingTarget >= 0 || parentGoal.definition.allow_over_target
         const now = new Date();
-        const editable = new Date(parentGoal.end * 1000) >= now
+        const isPast = new Date(parentGoal.end * 1000) < now
+        const readonly = !parentGoal.definition.isActive
+        const editable = !isPast || parentGoal.definition.past_editable
 
         return (
             <div>
@@ -133,7 +134,7 @@ class TeamGoalList extends Component {
                         { goals.map((goal) => {
                             return (
                                 <Grid key={goal.id} item xs={3}>
-                                    <TextField type='number' name={goal.id} label={goal.team.name} initial={goal.target} fullWidth required disabled={readonly}
+                                    <TextField type='number' name={goal.id} label={goal.team.name} initial={goal.target} fullWidth required disabled={!editable || readonly}
                                         validations={{
                                             isInt: true,
                                             isMoreThanOrEquals: 0
