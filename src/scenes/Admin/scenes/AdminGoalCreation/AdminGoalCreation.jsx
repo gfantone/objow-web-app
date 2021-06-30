@@ -202,6 +202,7 @@ class AdminGoalCreation extends MainLayoutComponent {
 
     handleSubmitKpi = (model) => {
       this.props.kpiCreationActions.createKpi(model)
+      this.onNewKpiClose()
     }
 
     handlePreviousStep = () => {

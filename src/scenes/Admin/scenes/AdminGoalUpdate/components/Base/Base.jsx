@@ -5,17 +5,36 @@ import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {Grid} from '@material-ui/core'
 import { withStyles } from "@material-ui/core/styles"
-import {BlueText, Button, Card, DefaultText, DefaultTitle, Dialog, DialogActions, DialogContent, DialogTitle, InfoText, Loader, ProgressButton, Select, Switch, TextField, Tooltip, RichText} from '../../../../../../components'
+import {
+  BlueText,
+  Button,
+  Card,
+  DefaultText,
+  DefaultTitle,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  InfoText,
+  Loader,
+  ProgressButton,
+  Select,
+  Switch,
+  TextField,
+  Tooltip,
+  RichText
+} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import * as categoryListActions from '../../../../../../services/Categories/CategoryList/actions'
 import * as goalTypeListActions from '../../../../../../services/GoalTypes/GoalTypeList/actions'
 import * as kpiListActions from '../../../../../../services/Kpis/KpiList/actions'
+import * as kpiCreationActions from '../../../../../../services/Kpis/KpiCreation/actions'
 import * as periodicityListActions from '../../../../../../services/Periodicities/PeriodicityList/actions'
 import * as goalDefinitionUpdateActions from '../../../../../../services/GoalDefinitions/GoalDefinitionUpdate/actions'
 import * as goalDefinitionActivationUpdateActions from '../../../../../../services/GoalDefinitions/GoalDefinitionActivationUpdate/actions'
 import * as goalDefinitionRepartitionListActions from '../../../../../../services/GoalDefinitionRepartitions/GoalDefinitionRepartitionList/actions'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faInfoCircle, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faChevronDown, faChevronUp, faPlus } from "@fortawesome/free-solid-svg-icons";
 import _ from 'lodash'
 
 
@@ -24,6 +43,9 @@ const styles = {
     '& .MuiInputBase-root': {
       display: 'none'
     }
+  },
+  kpiDialog: {
+    width: 900
   }
 }
 
@@ -32,8 +54,11 @@ class Base extends Component {
       kpi: null,
       open: false,
       showIndicationTools: false,
+      newKpiOpen: false,
+      submitConfirmOpen: false,
       indication: null,
-      kpiCategory: null
+      kpiCategory: null,
+      model: null
     }
 
     constructor(props) {
@@ -77,16 +102,63 @@ class Base extends Component {
     }
 
     handleSubmit(model) {
-        if (!model.editable) model.editable = false
-        model.period = this.props.period
-        this.props.goalDefinitionUpdateActions.updateGoalDefinition(
-          this.props.id,
-          Object.assign(model, {indication: JSON.stringify(this.state.indication)})
-        )
+      const {definition} = this.props.goalDefinitionDetail
+      if(parseInt(definition.kpi.id) === parseInt(model.kpi)) {
+        this.setState({
+          ...this.state,
+          model
+        }, this.performSubmit)
+      } else {
+        this.setState({
+          ...this.state,
+          model,
+          submitConfirmOpen: true
+        })
+      }
     }
 
+    performSubmit = () => {
+      const { model } = this.state
+      if (!model.editable) model.editable = false
+      model.period = this.props.period
+      this.props.goalDefinitionUpdateActions.updateGoalDefinition(
+        this.props.id,
+        Object.assign(model, {indication: JSON.stringify(this.state.indication)})
+      )
+    }
+    handleConfirmClick = () => {
+      this.setState({
+        ...this.state,
+        submitConfirmOpen: false
+      }, this.performSubmit)
+    }
     renderLoader() {
         return <Loader centered />
+    }
+
+    handleSubmitKpi = (model) => {
+      this.props.kpiCreationActions.createKpi(model)
+      this.onNewKpiClose()
+    }
+
+
+    onNewKpiClose = () => {
+      this.setState({
+          ...this.state,
+          newKpiOpen: false
+      })
+    }
+    onNewKpiOpen = () => {
+      this.setState({
+          ...this.state,
+          newKpiOpen: true
+      })
+    }
+    setSubmitConfirmOpen = (value) => {
+      this.setState({
+          ...this.state,
+          submitConfirmOpen: value
+      })
     }
 
     renderData() {
@@ -170,6 +242,12 @@ class Base extends Component {
                                         }
                                       )
                                     } optionValueName='id' optionTextName='name' fullWidth required />
+                                  </Grid>
+                                  <Grid item>
+                                    <Button onClick={ this.onNewKpiOpen } text="nouveau">
+                                      <FontAwesomeIcon icon={faPlus} />
+                                      &nbsp;nouveau kpi
+                                    </Button>
                                   </Grid>
                                 </Grid>
                               </Grid>
@@ -357,10 +435,58 @@ class Base extends Component {
             this.props.history.goBack()
         }
 
+        const criticities = [
+          {order: 1, name: 'Basse'},
+          {order: 2, name: 'Moyenne'},
+          {order: 3, name: 'Haute'}
+        ]
+
         return (
             <div>
                 { loading && this.renderLoader() }
                 { !loading && categories && types  && kpis && periodicities && repartitions && this.renderData() }
+                <Dialog
+                    open={this.state.newKpiOpen}
+                    onClose={this.onNewKpiClose}
+                    classes={{ paper: this.props.classes.kpiDialog }}
+                >
+                    <DialogTitle>Demande de création de KPI</DialogTitle>
+                    <Formsy onValidSubmit={this.handleSubmitKpi.bind(this)}>
+                      <Grid container direction="column" spacing={2} >
+                        <Grid item>
+                          <Grid container direction="row" spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='criticity' label={Resources.ADMIN_GOAL_CREATION_CRITICITY_LABEL} options={criticities} optionValueName='order' optionTextName='name' fullWidth required />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth />
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <TextField name='name' label={Resources.ADMIN_GOAL_CREATION_KPI_NAME_LABEL} fullWidth required />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <TextField name='description' label={Resources.ADMIN_GOAL_CREATION_DESCRIPTION_LABEL} fullWidth required multiline rows={4} variant="outlined"/>
+                        </Grid>
+                      </Grid>
+                      <DialogActions>
+                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} loading={loading} centered />
+                          <Button onClick={this.onNewKpiClose} color="secondary">Annuler</Button>
+                      </DialogActions>
+                    </Formsy>
+                </Dialog>
+                <Dialog open={this.state.submitConfirmOpen} onClose={() => this.setSubmitConfirmOpen(false)}>
+                    <Formsy>
+                        <DialogContent>
+                            <DefaultText lowercase>{Resources.ADMIN_GOAL_UPDATE_CONFIRMATION_MESSAGE}</DefaultText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button color='secondary' onClick={() => this.setSubmitConfirmOpen(false)}>{Resources.GOAL_DUPLICATION_DIALOG_CONFIRMATION_NO_BUTTON}</Button>
+                            <ProgressButton type='submit' text={Resources.GOAL_DUPLICATION_DIALOG_CONFIRMATION_YES_BUTTON} onClick={this.handleConfirmClick} loading={loading} />
+                        </DialogActions>
+                    </Formsy>
+                </Dialog>
             </div>
         )
     }
@@ -381,6 +507,7 @@ const mapDispatchToProps = (dispatch) => ({
     categoryListActions: bindActionCreators(categoryListActions, dispatch),
     goalTypeListActions: bindActionCreators(goalTypeListActions, dispatch),
     kpiListActions: bindActionCreators(kpiListActions, dispatch),
+    kpiCreationActions: bindActionCreators(kpiCreationActions, dispatch),
     periodicityListActions: bindActionCreators(periodicityListActions, dispatch),
     goalDefinitionUpdateActions: bindActionCreators(goalDefinitionUpdateActions, dispatch),
     goalDefinitionRepartitionListActions: bindActionCreators(goalDefinitionRepartitionListActions, dispatch),
