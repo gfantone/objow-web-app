@@ -108,6 +108,8 @@ class AdminAccessRightList extends MainLayoutComponent {
         const MCRR = configs.filter(c => c.code == 'MCRR')[0];
         const CGRR = configs.filter(c => c.code == 'CGRR')[0];
         const CCRR = configs.filter(c => c.code == 'CCRR')[0];
+        const MFGR = configs.filter(c => c.code == 'MFGR')[0];
+        const CFGR = configs.filter(c => c.code == 'CFGR')[0];
 
         // Menu entries activations
         const MGLR = configs.filter(c => c.code === 'MGLR')[0];
@@ -146,6 +148,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                     <Card>
                                         <Select name={ MHPG.id } initial={MHPG.value} label={'Configuration de la page d\'accueil'} options={homePagesOptions.filter(homePage => homePage.availability.indexOf('M') >= 0)} optionValueName='path' optionTextName='title' fullWidth />
                                         <Switch name={MNCA.id} initial={MNCA.value.toBoolean()} label='Afficher les challenges futurs' />
+                                        <Switch name={MFGR.id} initial={MFGR.value.toBoolean()} label='Afficher les objectifs futurs' />
                                         <Switch name={MCLR.id} initial={MCLR.value.toBoolean()} label='Accès à la coaching list' />
                                         <Switch name={MCLE.id} initial={MCLE.value.toBoolean()} label='Modifier la coaching list' />
                                         <Switch name={MGLR.id} initial={MGLR.value.toBoolean()} label='Accès aux objectifs' disabled={ !this.state.activateManagerChallengeAccess && this.state.activateManagerGoalsAccess } onChange={ this.handleChangeValue('activateManagerGoalsAccess').bind(this) } />
@@ -177,6 +180,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                     <Card>
                                         <Select name={ CHPG.id } initial={CHPG.value} label={'Configuration de la page d\'accueil'} options={homePagesOptions.filter(homePage => homePage.availability.indexOf('C') >= 0)} optionValueName='path' optionTextName='title' fullWidth />
                                         <Switch name={CNCA.id} initial={CNCA.value.toBoolean()} label='Afficher les challenges futurs' />
+                                        <Switch name={CFGR.id} initial={CFGR.value.toBoolean()} label='Afficher les objectifs futurs' />
                                         <Switch name={CCLR.id} initial={CCLR.value.toBoolean()} label='Accès à la coaching list' />
                                         <Switch name={CCLE.id} initial={CCLE.value.toBoolean()} label='Modifier la coaching list' />
                                         <Switch name={CGLR.id} initial={CGLR.value.toBoolean()} label='Accès aux objectifs' disabled={ !this.state.activateCollaboratorChallengeAccess && this.state.activateCollaboratorGoalsAccess } onChange={ this.handleChangeValue('activateCollaboratorGoalsAccess').bind(this) } />

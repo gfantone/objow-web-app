@@ -18,7 +18,7 @@ const TimeFilter = ({ initial = 0, ...props }) => {
             <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
                 <RoundedTab label={Resources.TIME_FILTER_CURRENT_TAB} />
                 <RoundedTab label={Resources.TIME_FILTER_PAST_TAB} />
-                {(account.role.code != 'C' || account.hasNextChallengeAccess) && <RoundedTab label={Resources.CHALLENGE_TIME_FILTER_NEXT_TAB} />}
+                {(account.role.code != 'C' || account.hasNextGoalAccess) && <RoundedTab label={Resources.CHALLENGE_TIME_FILTER_NEXT_TAB} />}
             </RoundedTabs>
         </div>
     )
