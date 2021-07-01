@@ -12,11 +12,12 @@ const GoalIndication = ({ goal, type, ...props }) => {
     const {account} = props.accountDetail;
     const difference = getDifferenceWithToday(goal.end);
     const canEdit = (account.role.code == 'M' && account.team.id == goal.teamId || account.role.code == 'A') && difference <= 0;
-
+    const hasLevels = goal.levels && goal.levels.length > 0
+    console.log(hasLevels);
     return (
         <div>
             <Grid container spacing={2}>
-                <Grid item xs={12}>
+                { hasLevels && <Grid item xs={12}>
                     <Grid container spacing={1}>
                         <Grid item xs={12}>
                             <DefaultTitle>{Resources.GOAL_INDICATION_LEVEL_AREA}</DefaultTitle>
@@ -55,7 +56,7 @@ const GoalIndication = ({ goal, type, ...props }) => {
                             </Card>
                         </Grid>
                     </Grid>
-                </Grid>
+                </Grid>}
                 <Grid item xs={12}>
                     <Grid container spacing={1}>
                         <Grid item xs={12}>
@@ -100,7 +101,7 @@ const GoalIndication = ({ goal, type, ...props }) => {
                                         <Linkify>
 
                                               <RichText initial={JSON.parse(goal.definition.indication)} readOnly={ true } onChange={() => {}} />
-                                            
+
 
                                         </Linkify>
                                     </Grid>

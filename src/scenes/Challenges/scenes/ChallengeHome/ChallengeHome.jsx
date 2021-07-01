@@ -40,10 +40,9 @@ class ChallengeHome extends MainLayoutComponent {
     }
 
     componentDidMount() {
-
         const { account } = this.props.accountDetail;
+
         this.props.handleTitle(account.challengeWording || Resources.CHALLENGE_LONG_TITLE);
-        this.props.handleSubHeader(<AppBarSubTitle title={Resources.CHALLENGE_CATEGORY_LIST_TITLE} />)
         if (account.role.code == 'A') {
             this.props.handleButtons(<IconButton size='small' onClick={this.handleAdd.bind(this)}><FontAwesomeIcon icon={faPlus}/></IconButton>)
         }
@@ -61,22 +60,20 @@ class ChallengeHome extends MainLayoutComponent {
           return this.renderLoader()
         }
 
-        const displayFilterSelector = configs.find(c => c.code === 'CFIP').value.toBoolean()
+        // const displayFilterSelector = configs.find(c => c.code === 'CFIP').value.toBoolean()
 
         if(!account.hasChallengeAccess) {
           return <Redirect to={'/'} />
         }
 
 
-        if(this.state.filter === null && displayFilterSelector) {
-          this.props.handleMaxWidth('sm')
-          return(
-            <FilterSelector selectFilter={this.selectFilter}/>
-          )
-        }
-        this.props.handleMaxWidth('lg')
-        this.props.handleSubHeader()
-        
+        // if(this.state.filter === null && displayFilterSelector) {
+        //   this.props.handleMaxWidth('sm')
+        //   return(
+        //     <FilterSelector selectFilter={this.selectFilter}/>
+        //   )
+        // }
+
         if (account.role.code == 'A' && !this.state.team) {
           return (
             <div>

@@ -14,7 +14,8 @@ class TeamCollaboratorGoalDetail extends MainLayoutComponent {
         super(props);
         const { account } = this.props.accountDetail;
         this.state = {
-            page: account.hasGoalRankAccess ? 0 : 1
+            page: account.hasGoalRankAccess ? 0 : 1,
+            initialized: false
         }
     }
 
@@ -26,15 +27,26 @@ class TeamCollaboratorGoalDetail extends MainLayoutComponent {
     }
 
     componentDidMount() {
-        const { account } = this.props.accountDetail;
-        const { goal } = this.props.teamCollaboratorGoalDetail;
         const id = this.props.match.params.id;
         this.props.handleTitle(Resources.GOAL_LONG_TITLE);
-        this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasGoalRankAccess && goal.allow_ranking} />);
+
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
         this.props.teamCollaboratorGoalDetailActions.getTeamCollaboratorGoalDetail(id);
         this.props.collaboratorGoalRankListActions.getCollaboratorGoalRankListByTeamCollaboratorGoal(id)
+    }
+    componentDidUpdate() {
+      const { account } = this.props.accountDetail;
+      const { goal } = this.props.teamCollaboratorGoalDetail;
+
+      if(!this.state.initialized && goal && account) {
+        this.setState({
+          ...this.state,
+          initialized: true
+        }, () => {
+          this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasGoalRankAccess && goal.allow_ranking} />);
+        })
+      }
     }
 
     render() {

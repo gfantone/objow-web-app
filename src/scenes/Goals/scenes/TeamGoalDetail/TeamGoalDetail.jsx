@@ -26,15 +26,26 @@ class TeamGoalDetail extends MainLayoutComponent {
     };
 
     componentDidMount() {
-        const { account } = this.props.accountDetail;
-        const { goal } = this.props.teamGoalDetail;
         const id = this.props.match.params.id;
         this.props.handleTitle(Resources.GOAL_SHORT_TITLE);
-        this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasGoalRankAccess && goal.allow_ranking} />);
         this.props.handleMaxWidth('md');
         this.props.activateReturn();
         this.props.teamGoalDetailActions.getTeamGoalDetail(id);
         this.props.teamGoalRankListActions.getTeamGoalRankList(id)
+    }
+
+    componentDidUpdate() {
+      const { account } = this.props.accountDetail;
+      const { goal } = this.props.teamGoalDetail;
+
+      if(!this.state.initialized && goal && account) {
+        this.setState({
+          ...this.state,
+          initialized: true
+        }, () => {
+          this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasGoalRankAccess && goal.allow_ranking} />);
+        })
+      }
     }
 
     render() {

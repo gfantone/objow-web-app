@@ -38,8 +38,8 @@ const Goal = ({ goal, ...props }) => {
     const { classes } = props
     const progression = Math.round((goal.counter / goal.target) * 100)
     const typeStyle = goal.type === 'T' ? {color: goal.color} : null
-
     const hasRank = goal.rank && goal.allow_ranking
+    const hasPoints = goal.maxPoints > 0
 
     return (
         <div>
@@ -81,11 +81,11 @@ const Goal = ({ goal, ...props }) => {
                         <FontAwesomeIcon icon={faFlagCheckered} /> {goal.type == 'C' ? Resources.GOAL_PLAYER_TEXT.format(goal.participants) : Resources.GOAL_TEAM_TEXT.format(goal.participants)}
                     </DefaultText>
                 </Grid>}
-                <Grid item className={classes.info}>
+                { hasPoints && <Grid item className={classes.info}>
                     <DefaultText>
                         <FontAwesomeIcon icon={faFireAlt} /> {Resources.GOAL_POINTS_TEXT.format(goal.points)} <InfoText component='span'>{Resources.GOAL_MAX_POINTS_TEXT.format(goal.maxPoints)}</InfoText>
                     </DefaultText>
-                </Grid>
+                </Grid>}
                 <Grid item className={classes.info} xs zeroMinWidth>
                     <DefaultText align='right' noWrap style={typeStyle}>
                         <FontAwesomeIcon icon={goal.type == 'C' ? faUser : faUsers} /> { goal.type == 'C' ? Resources.GOAL_COLLABORATOR_TAG : Resources.GOAL_TEAM_TAG }
