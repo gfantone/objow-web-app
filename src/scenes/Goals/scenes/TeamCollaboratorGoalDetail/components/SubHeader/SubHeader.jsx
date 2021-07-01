@@ -48,11 +48,11 @@ const SubHeader = ({ activateRank, onChange, ...props }) => {
                 { loading && renderLoader() }
                 { !loading && goal && renderData() }
             </div>
-            { activateRank && <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
-                <RoundedTab label={Resources.TEAM_COLLABORATOR_GOAL_DETAIL_RANK_TAB} />
+            <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
+                { activateRank && <RoundedTab label={Resources.TEAM_COLLABORATOR_GOAL_DETAIL_RANK_TAB} /> }
                 <RoundedTab label={Resources.TEAM_COLLABORATOR_GOAL_DETAIL_INDICATION_TAB} />
                 { editable && <RoundedTab label={Resources.TEAM_COLLABORATOR_GOAL_DETAIL_EDIT_TAB} /> }
-            </RoundedTabs> }
+            </RoundedTabs>
         </div>
     )
 };

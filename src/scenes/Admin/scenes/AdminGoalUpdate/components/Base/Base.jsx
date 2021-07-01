@@ -378,6 +378,9 @@ class Base extends Component {
                                     </Grid>
                                   )
                                 }
+                                <Grid item>
+                                  <Switch name='allow_ranking' initial={ definition.allow_ranking } label={Resources.ADMIN_GOAL_CREATION_ALLOW_RANKING_LABEL} />
+                                </Grid>
                               </Grid>
                             </Grid>
                             <Grid item>

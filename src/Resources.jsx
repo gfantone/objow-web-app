@@ -55,6 +55,7 @@ export const ADMIN_GOAL_CREATION_LIVE_INFOS = "Si activé, les points seront aut
 export const ADMIN_GOAL_CREATION_EDITABLE_LABEL = "Objectif modifiable par les managers"
 export const ADMIN_GOAL_CREATION_PAST_EDITABLE_LABEL = "Objectif passé modifiable par les administrateurs"
 export const ADMIN_GOAL_CREATION_ALLOW_OVER_TARGET_LABEL = "Dépassement de l'objectif alloué"
+export const ADMIN_GOAL_CREATION_ALLOW_RANKING_LABEL = "Affichage du classement"
 export const ADMIN_GOAL_CREATION_ADMIN_EDITABLE_LABEL = "Objectif modifiable par les administrateurs"
 export const ADMIN_GOAL_CREATION_SUBMIT_BUTTON = "Valider"
 

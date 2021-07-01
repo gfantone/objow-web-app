@@ -39,6 +39,8 @@ const Goal = ({ goal, ...props }) => {
     const progression = Math.round((goal.counter / goal.target) * 100)
     const typeStyle = goal.type === 'T' ? {color: goal.color} : null
 
+    const hasRank = goal.rank && goal.allow_ranking
+
     return (
         <div>
             <Grid container>
@@ -69,12 +71,12 @@ const Goal = ({ goal, ...props }) => {
                 </Grid>
             </Grid>
             <Grid container className={classes.infos}>
-                {goal.rank && <Grid item>
+                {hasRank && <Grid item>
                     <DefaultText>
                         <FontAwesomeIcon icon={faFlagCheckered} /> {goal.rank == 1 ? Resources.GOAL_FIRST_RANK_TEXT.format(goal.rank) : Resources.GOAL_OTHER_RANK_TEXT.format(goal.rank)} <InfoText component='span'>{Resources.GOAL_MAX_RANK_TEXT.format(goal.participants)}</InfoText>
                     </DefaultText>
                 </Grid>}
-                {!goal.rank && <Grid item>
+                {!hasRank && <Grid item>
                     <DefaultText>
                         <FontAwesomeIcon icon={faFlagCheckered} /> {goal.type == 'C' ? Resources.GOAL_PLAYER_TEXT.format(goal.participants) : Resources.GOAL_TEAM_TEXT.format(goal.participants)}
                     </DefaultText>

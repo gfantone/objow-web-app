@@ -512,6 +512,9 @@ class AdminGoalCreation extends MainLayoutComponent {
                           </Grid>
                         )
                       }
+                      <Grid item>
+                        <Switch name='allow_ranking' initial={ this.state.finalModel.allow_ranking !== undefined ? this.state.finalModel.allow_ranking : true } label={Resources.ADMIN_GOAL_CREATION_ALLOW_RANKING_LABEL} />
+                      </Grid>
                     </Grid>
                   </Grid>
                   <Grid item>
