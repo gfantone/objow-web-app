@@ -163,7 +163,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
         return collaboratorGoals.concat(teamGoals).sort((a, b) => {
             if (a.end !== b.end) {
                 const comparison = a.end - b.end
-                return this.current === 1 ? comparison : comparison * -1
+                return parseInt(this.current) !== 1 ? comparison : comparison * -1
             } else {
                 if (a.definitionId < b.definitionId)
                     return -1

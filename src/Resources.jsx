@@ -82,7 +82,7 @@ export const ADMIN_GOAL_UPDATE_DISABLE_MESSAGE = "Êtes-vous sûr de vouloir arc
 export const ADMIN_GOAL_UPDATE_DISABLE_INFO = "Après l’archivage de cet objectif, il ne sera plus possible de le réactiver. Tous les points attribués sur les objectifs en cours et ultérieurs seront remis à disposition."
 export const ADMIN_GOAL_UPDATE_YES_BUTTON = "Oui"
 export const ADMIN_GOAL_UPDATE_NO_BUTTON = "Non"
-export const ADMIN_GOAL_UPDATE_CONFIRMATION_MESSAGE = "ÊTES-VOUS SÛR DE VOULOIR Modifier le KPI de cet objectif ? Cette modification peut avoir des conséquences sur l'historique des résultats. En cas de doute, n'hésitez pas à contacter nos services."
+export const ADMIN_GOAL_UPDATE_CONFIRMATION_MESSAGE = "Êtes-vous sûr de vouloir Modifier le KPI de cet objectif ? Cette modification peut avoir des conséquences sur l'historique des résultats. En cas de doute, n'hésitez pas à contacter nos services."
 
 
 // Admin - Home
