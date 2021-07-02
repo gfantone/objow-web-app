@@ -41,7 +41,8 @@ class TeamGoalDetail extends MainLayoutComponent {
       if(!this.state.initialized && goal && account) {
         this.setState({
           ...this.state,
-          initialized: true
+          initialized: true,
+          page: this.state.page === 0 && !goal.allow_ranking ? 1 : this.state.page
         }, () => {
           this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasGoalRankAccess && goal.allow_ranking} />);
         })
@@ -59,7 +60,7 @@ class TeamGoalDetail extends MainLayoutComponent {
 
         return (
             <div>
-                { account.hasGoalRankAccess && account.hasTeamRankAccess && this.state.page == 0 && goal && ranks && <TeamGoalRankList ranks={ranks} teamId={goal.teamId} /> }
+                { account.hasGoalRankAccess && account.hasTeamRankAccess && this.state.page == 0 && goal && ranks && goal.allow_ranking && <TeamGoalRankList ranks={ranks} teamId={goal.teamId} /> }
                 { this.state.page == 1 && goal && <GoalIndication goal={goal} type='T' /> }
                 { this.state.page == 2 && goal && <TeamGoalList /> }
             </div>

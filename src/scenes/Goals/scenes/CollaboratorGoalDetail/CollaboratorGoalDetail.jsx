@@ -41,7 +41,8 @@ class CollaboratorGoalDetail extends MainLayoutComponent {
       if(!this.state.initialized && goal && account) {
         this.setState({
           ...this.state,
-          initialized: true
+          initialized: true,
+          page: this.state.page === 0 && !goal.allow_ranking ? 1 : this.state.page
         }, () => {
           this.props.handleSubHeader(<SubHeader onChange={this.handlePageChange.bind(this)} activateRank={account.hasGoalRankAccess && goal.allow_ranking} />);
         })
@@ -58,7 +59,7 @@ class CollaboratorGoalDetail extends MainLayoutComponent {
         }
         return (
             <div>
-                { account.hasGoalRankAccess && this.state.page == 0 && goal && ranks && <CollaboratorGoalRankList ranks={ranks} collaboratorId={goal.collaboratorId} /> }
+                { account.hasGoalRankAccess && this.state.page == 0 && goal && goal.allow_ranking && ranks && <CollaboratorGoalRankList ranks={ranks} collaboratorId={goal.collaboratorId} /> }
                 { this.state.page == 1 && goal && <GoalIndication goal={goal} type='C' /> }
             </div>
         )

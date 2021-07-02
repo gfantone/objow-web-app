@@ -41,16 +41,17 @@ const SubHeader = ({ activateRank, onChange, ...props }) => {
         goal && account.role.code === 'A'
       )
     )
+
     return (
         <div>
             <div className={classes.root}>
                 { loading && renderLoader() }
                 { !loading && goal && renderData() }
             </div>
-            <RoundedTabs value={value} onChange={handleChange} variant='fullWidth'>
-                { activateRank && <RoundedTab label={Resources.TEAM_GOAL_DETAIL_RANK_TAB} /> }
-                <RoundedTab label={Resources.TEAM_GOAL_DETAIL_INDICATION_TAB} />
-                { editable && <RoundedTab label={Resources.TEAM_COLLABORATOR_GOAL_DETAIL_EDIT_TAB} /> }
+            <RoundedTabs value={!activateRank && value === 0 ? 1 : value} onChange={handleChange} variant='fullWidth'>
+                { activateRank && <RoundedTab value={0} label={Resources.TEAM_GOAL_DETAIL_RANK_TAB} /> }
+                <RoundedTab value={1} label={Resources.TEAM_GOAL_DETAIL_INDICATION_TAB} />
+                { editable && <RoundedTab value={2} label={Resources.TEAM_COLLABORATOR_GOAL_DETAIL_EDIT_TAB} /> }
             </RoundedTabs>
         </div>
     )
