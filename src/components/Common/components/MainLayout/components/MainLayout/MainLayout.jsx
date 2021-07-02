@@ -46,6 +46,13 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up('lg')]: {
             width: `calc(100% - ${drawerWidth}px)`,
             marginLeft: drawerWidth
+        },
+        '& a': {
+          color: 'rgb(15,111,222)',
+          textDecoration: 'none',
+          "&:active, &:hover": {
+            color: 'rgb(15,111,222)',
+          }
         }
     }
 }));
