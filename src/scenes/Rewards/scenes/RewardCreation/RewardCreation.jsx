@@ -62,7 +62,7 @@ class RewardCreation extends MainLayoutComponent {
     handleSubmit(model) {
         const data = new FormData()
         data.append('name', model.name)
-        data.append('description', model.description)
+        data.append('description', JSON.stringify(model.description))
         data.append('category', model.category)
         data.append('type', model.type)
         data.append('value', model.value)

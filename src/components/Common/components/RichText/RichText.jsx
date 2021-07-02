@@ -1,9 +1,10 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import isHotkey from 'is-hotkey'
+import isUrl from 'is-url'
 import {Editable, withReact, useSlate, Slate} from 'slate-react'
-import {createEditor, Editor, Element as SlateElement, Transforms} from 'slate'
+import {createEditor, Editor, Element as SlateElement, Transforms, Range} from 'slate'
 import {withHistory} from 'slate-history'
-import {Code, FormatBold, FormatItalic, FormatListBulleted, FormatListNumbered, FormatQuote, FormatUnderlined, LooksOne, LooksTwo} from '@material-ui/icons'
+import {Code, FormatBold, FormatItalic, FormatListBulleted, FormatListNumbered, FormatQuote, FormatUnderlined, LooksOne, LooksTwo, Link, LinkOff} from '@material-ui/icons'
 import {Button, Icon, Toolbar} from './components'
 import * as Resources from '../../../../Resources'
 import _ from 'lodash'
@@ -23,7 +24,7 @@ const RichText = ({initial, readOnly, onChange, padding, ...props}) => {
     const [value, setValue] = useState(initial)
     const renderElement = useCallback(props => <Element {...props} />, [])
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])
-    const editor = useMemo(() => withHistory(withReact(createEditor())), [])
+    const editor = useMemo(() => withLinks(withHistory(withReact(createEditor()))), [])
 
     useEffect(() => {
         onChange(initial)
@@ -52,6 +53,8 @@ const RichText = ({initial, readOnly, onChange, padding, ...props}) => {
                         <BlockButton format="block-quote" icon={<FormatQuote />} />
                         <BlockButton format="numbered-list" icon={<FormatListNumbered />} />
                         <BlockButton format="bulleted-list" icon={<FormatListBulleted />} />
+                        <LinkButton format="link" icon={<Link />} />
+                        <RemoveLinkButton format="link-off" icon={<LinkOff />} />
                     </Toolbar>}
                     <Editable
                         renderElement={renderElement}
@@ -136,6 +139,12 @@ const Element = ({ attributes, children, element }) => {
             return <li {...attributes}>{children}</li>
         case 'numbered-list':
             return <ol {...attributes}>{children}</ol>
+        case 'link':
+            return (
+              <a {...attributes} href={element.url}>
+                {children}
+              </a>
+            )
         default:
             return <p {...attributes}>{children}</p>
     }
@@ -190,5 +199,113 @@ const MarkButton = ({ format, icon }) => {
         </Button>
     )
 }
+
+
+// LINKS
+
+const withLinks = editor => {
+  const { insertData, insertText, isInline } = editor
+
+  editor.isInline = element => {
+    return element.type === 'link' ? true : isInline(element)
+  }
+
+  editor.insertText = text => {
+    if (text && isUrl(text)) {
+      wrapLink(editor, text)
+    } else {
+      insertText(text)
+    }
+  }
+
+  editor.insertData = data => {
+    const text = data.getData('text/plain')
+
+    if (text && isUrl(text)) {
+      wrapLink(editor, text)
+    } else {
+      insertData(data)
+    }
+  }
+
+  return editor
+}
+
+const insertLink = (editor, url) => {
+  if (editor.selection) {
+    wrapLink(editor, url)
+  }
+}
+
+const isLinkActive = editor => {
+  const [link] = Editor.nodes(editor, {
+    match: n =>
+      !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === 'link',
+  })
+  return !!link
+}
+
+const unwrapLink = editor => {
+  Transforms.unwrapNodes(editor, {
+    match: n =>
+      !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === 'link',
+  })
+}
+
+const wrapLink = (editor, url) => {
+  if (isLinkActive(editor)) {
+    unwrapLink(editor)
+  }
+
+  const { selection } = editor
+  const isCollapsed = selection && Range.isCollapsed(selection)
+  const link: LinkElement = {
+    type: 'link',
+    url,
+    children: isCollapsed ? [{ text: url }] : [],
+  }
+
+  if (isCollapsed) {
+    Transforms.insertNodes(editor, link)
+  } else {
+    Transforms.wrapNodes(editor, link, { split: true })
+    Transforms.collapse(editor, { edge: 'end' })
+  }
+}
+
+const LinkButton = () => {
+  const editor = useSlate()
+  return (
+    <Button
+      active={isLinkActive(editor)}
+      onMouseDown={event => {
+        event.preventDefault()
+        const url = window.prompt('Entrez l\'url du lien:')
+        if (!url) return
+        insertLink(editor, url)
+      }}
+    >
+      <Link />
+    </Button>
+  )
+}
+
+const RemoveLinkButton = () => {
+  const editor = useSlate()
+
+  return (
+    <Button
+      active={isLinkActive(editor)}
+      onMouseDown={event => {
+        if (isLinkActive(editor)) {
+          unwrapLink(editor)
+        }
+      }}
+    >
+      <LinkOff />
+    </Button>
+  )
+}
+
 
 export default RichText

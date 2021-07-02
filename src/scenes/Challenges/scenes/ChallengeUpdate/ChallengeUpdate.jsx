@@ -99,7 +99,7 @@ class ChallengeUpdate extends MainLayoutComponent {
         const challenge = Object.assign({
             id: this.props.match.params.id,
             name: model.name,
-            description: model.description,
+            description: JSON.stringify(model.description),
             start: model.start,
             end: model.end,
             type: model.type,

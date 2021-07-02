@@ -25,6 +25,7 @@
     "env-cmd": "^10.1.0",
     "formsy-react": "^2.0.2",
     "is-hotkey": "^0.2.0",
+    "is-url": "^1.2.4",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
     "lottie-web": "^5.6.4",
