@@ -7,7 +7,7 @@ import {withStyles} from '@material-ui/core/styles'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {ImageInput} from '../../components'
-import {AppBarSubTitle, Card, DefaultTitle, IconButton, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField} from '../../../../components'
+import {AppBarSubTitle, Card, DefaultTitle, IconButton, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField, RichTextField} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as rewardCategoryListActions from '../../../../services/RewardCategories/RewardCategoryList/actions'
 import * as rewardDetailActions from '../../../../services/Rewards/RewardDetail/actions'
@@ -133,10 +133,16 @@ class RewardUpdate extends MainLayoutComponent {
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12}>
-                                                        <TextField name='description' label={Resources.REWARD_UPDATE_DESCRIPTION_LABEL} initial={reward.description} multiline fullWidth required
-                                                                   validationErrors={{
-                                                                       isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR
-                                                                   }}/>
+                                                      <RichTextField
+                                                        name='description'
+                                                        label={Resources.REWARD_UPDATE_DESCRIPTION_LABEL}
+                                                        initial={reward.description}
+                                                        multiline
+                                                        fullWidth
+                                                        required
+                                                        validationErrors={{
+                                                           isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR
+                                                        }}/>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>

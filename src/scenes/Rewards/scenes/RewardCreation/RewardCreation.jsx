@@ -5,7 +5,7 @@ import Formsy from 'formsy-react'
 import {CardMedia, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {ImageInput} from '../../components'
-import {AppBarSubTitle, Card, DefaultTitle, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField} from '../../../../components'
+import {AppBarSubTitle, Card, DefaultTitle, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField, RichTextField} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as rewardCategoryListActions from '../../../../services/RewardCategories/RewardCategoryList/actions'
 import * as rewardCreationActions from '../../../../services/Rewards/RewardCreation/actions'
@@ -110,10 +110,16 @@ class RewardCreation extends MainLayoutComponent {
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12}>
-                                                        <TextField name='description' label={Resources.REWARD_CREATION_DESCRIPTION_LABEL} multiline fullWidth required
-                                                                   validationErrors={{
-                                                                       isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR
-                                                                   }}/>
+
+                                                        <RichTextField
+                                                          name='description'
+                                                          label={Resources.REWARD_CREATION_DESCRIPTION_LABEL}
+                                                          multiline
+                                                          fullWidth
+                                                          required
+                                                          validationErrors={{
+                                                             isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR
+                                                          }}/>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
