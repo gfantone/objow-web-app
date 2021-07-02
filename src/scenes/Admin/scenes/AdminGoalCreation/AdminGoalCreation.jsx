@@ -20,7 +20,7 @@ import {
   TextField,
   Tooltip,
   Stepper,
-  RichText,
+  RichTextField,
   TransferList,
   GreenRadio,
   Dialog,
@@ -114,6 +114,7 @@ class AdminGoalCreation extends MainLayoutComponent {
     }
 
     handleIndicationChange = (newIndication) => {
+      // console.log('set indication', newIndication);
       this.setState({
           ...this.state,
           finalModel: _.merge(this.state.finalModel, { indication: newIndication })
@@ -137,7 +138,6 @@ class AdminGoalCreation extends MainLayoutComponent {
     changeStep(model) {
       const currentStep = this.state.steps.find(step => step.active === true)
       // Reset participants if we change goal type (team or individual)
-
       const apply = () => {
         this.setState({
           ...this.state,
@@ -150,12 +150,11 @@ class AdminGoalCreation extends MainLayoutComponent {
             }
             return step
           }),
-          finalModel: Object.assign(_.merge(this.state.finalModel, model), {
+          finalModel: Object.assign(this.state.finalModel, model, {
             participants: this.state.participants
           })
         })
       }
-
       if(currentStep.order !== 3 || _.get(this.state.participants, 'length', 0) > 0) {
         if(model.type && this.state.finalModel.type !== model.type) {
           this.setParticipants([], apply)
@@ -331,31 +330,13 @@ class AdminGoalCreation extends MainLayoutComponent {
                 <Grid item xs={12} sm={6}>
                   <Select name='periodicity' initial={ this.state.finalModel.periodicity } label={Resources.ADMIN_GOAL_CREATION_PERIODICITY_LABEL} options={periodicities.filter(p => p.order >= _.get(kpi, 'periodicity.order') && p.order > 1)} optionValueName='id' optionTextName='description' fullWidth required />
                 </Grid>
-                <Grid item xs={12} className={ classes.indications }>
-                  <DefaultText style={{ position: 'relative' }}>
-                    <FontAwesomeIcon
-                      icon={this.state.showIndicationTools ? faChevronUp : faChevronDown}
-                      onClick={() => this.setState({...this.state, showIndicationTools: !this.state.showIndicationTools})}
-                      style={{ position: "absolute", left: '70px', cursor: 'pointer', zIndex: 50 }}
-                    />
-                  </DefaultText>
-                  <TextField
+                <Grid item xs={12}>
+                  <RichTextField
                     name='indication'
                     initial={ this.state.finalModel.indication }
                     readOnly={ false }
-                    onChange={() => {}}
-                    label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-                    fullWidth
-                    multiline
-                    rowsMax={10}
-                  />
-                  <RichText
-                    name='indication'
-                    initial={ this.state.finalModel.indication || [ { children: [{ text: '' }],}] }
-                    readOnly={ false }
                     onChange={ this.handleIndicationChange }
-                    label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-                    displayTools={this.state.showIndicationTools}
+                    label={ Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL }
                     padding={'5px 0'}
                     fullWidth
                     multiline
@@ -547,7 +528,7 @@ class AdminGoalCreation extends MainLayoutComponent {
         }
         return (
             <React.Fragment>
-              <Formsy ref={ this.form } onValidSubmit={this.handleSubmit.bind(this)}>
+              <Formsy ref={ this.form } onValidSubmit={this.handleSubmit.bind(this)} >
                 <Stepper steps={this.state.steps} />
                 <BigText style={{ textAlign: 'center', marginBottom: 10 }}>
                   { title }
@@ -616,7 +597,7 @@ class AdminGoalCreation extends MainLayoutComponent {
                     classes={{ paper: this.props.classes.kpiDialog }}
                 >
                     <DialogTitle>Demande de création de KPI</DialogTitle>
-                    <Formsy onValidSubmit={this.handleSubmitKpi.bind(this)}>
+                    <Formsy onValidSubmit={this.handleSubmitKpi.bind(this)} >
                       <Grid container direction="column" spacing={2} >
                         <Grid item>
                           <Grid container direction="row" spacing={2}>
