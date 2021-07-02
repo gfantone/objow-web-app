@@ -3,7 +3,7 @@ import {Grid} from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faEquals, faInfoCircle, faUser, faUsers} from '@fortawesome/free-solid-svg-icons'
 import {faStar} from '@fortawesome/free-regular-svg-icons'
-import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip} from '../../../../components'
+import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 
@@ -56,6 +56,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
         )
     }
 
+    
     return (
         <div>
             <Grid container spacing={4}>
@@ -195,11 +196,11 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                 <Grid item xs={12}>
                                     <DefaultText>
                                         {Resources.CHALLENGE_CONDITION_DESCRIPTION_LABEL}
-                                        <InfoText>
-                                            {challenge.description.split("\n").map((i, key) => {
-                                                return <div key={key}>{i}</div>
-                                            })}
-                                        </InfoText>
+                                        <RichText
+                                          initial={JSON.parse(challenge.description)}
+                                          readOnly={ true }
+                                          onChange={() => {}}
+                                        />
                                     </DefaultText>
                                 </Grid>
                             </Grid>

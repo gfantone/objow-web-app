@@ -22,7 +22,7 @@ import {
   Switch,
   TextField,
   Tooltip,
-  RichText
+  RichTextField
 } from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import * as categoryListActions from '../../../../../../services/Categories/CategoryList/actions'
@@ -95,6 +95,7 @@ class Base extends Component {
     }
 
     handleIndicationChange = (newIndication) => {
+      
       this.setState({
           ...this.state,
           indication: newIndication
@@ -302,37 +303,19 @@ class Base extends Component {
                             <Grid item xs={12} sm={6}>
                               <TextField type='number' name='default' label={Resources.ADMIN_GOAL_UPDATE_DEFAULT_LABEL} initial={definition.default} fullWidth disabled={readonly} required />
                             </Grid>
-                            <Grid item xs={12} className={ this.props.classes.indications }>
-                              <DefaultText style={{ position: 'relative' }}>
-                                <FontAwesomeIcon
-                                  icon={this.state.showIndicationTools ? faChevronUp : faChevronDown}
-                                  onClick={() => this.setState({...this.state, showIndicationTools: !this.state.showIndicationTools})}
-                                  style={{ position: "absolute", left: '70px', cursor: 'pointer', zIndex: 50 }}
-                                  />
-                              </DefaultText>
-                              <TextField
+                            <Grid item xs={12}>
+                              <RichTextField
                                 name='indication'
-                                initial={ definition.indication }
+                                initial={ JSON.parse(definition.indication) }
                                 readOnly={ false }
-                                onChange={() => {}}
-                                label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-                                fullWidth
-                                multiline
-                                rowsMax={10}
-                                />
-                              <RichText
-                                name='indication'
-                                initial={ JSON.parse(definition.indication) || [ { children: [{ text: '' }],}] }
-                                readOnly={ readonly }
                                 onChange={ this.handleIndicationChange }
-                                label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
-                                displayTools={this.state.showIndicationTools}
+                                label={ Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL }
                                 padding={'5px 0'}
                                 fullWidth
                                 multiline
                                 rowsMax={10}
                                 required
-                                />
+                              />
                             </Grid>
                           </Grid>
                         </Card>

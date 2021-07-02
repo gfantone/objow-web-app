@@ -30,7 +30,7 @@ const RichTextField = ({ name, label, initial, readOnly, onChange, classes }) =>
 
   const handleChange = (val) => {
       setValue(val);
-      if (onChange) onChange(value)
+      if (onChange) onChange(val)
   };
 
   return (
@@ -48,13 +48,13 @@ const RichTextField = ({ name, label, initial, readOnly, onChange, classes }) =>
         initial={ value || [ { children: [{ text: '' }],}] }
         readOnly={ readOnly !== undefined ? readOnly : false }
         onChange={() => {}}
-        label={Resources.ADMIN_GOAL_CREATION_INDICATION_LABEL}
+        label={ label }
         fullWidth
         multiline
         rowsMax={10}
       />
       <RichText
-        name='indication'
+        name={ name || 'indication' }
         initial={ value || [ { children: [{ text: '' }],}] }
         readOnly={ readOnly !== undefined ? readOnly : false }
         onChange={ handleChange }

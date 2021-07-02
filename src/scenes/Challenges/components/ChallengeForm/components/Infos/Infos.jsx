@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {CardMedia, Grid} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import {ImageInput} from './components'
-import {Card, DatePicker, DefaultTitle, InfoText, Select, TextField} from '../../../../../../components'
+import {Card, DatePicker, DefaultTitle, InfoText, Select, TextField, RichTextField} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 
 const useStyles = makeStyles({
@@ -62,15 +62,15 @@ const Infos = ({description, end, customImage, image, images, isUpdate, name, pe
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <TextField
-                                                fullWidth
-                                                initial={description}
-                                                label={Resources.CHALLENGE_CREATION_INFO_DESCRIPTION_LABEL}
-                                                multiline
-                                                name='description'
-                                                required
-                                                validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
+                                            <RichTextField
+                                              fullWidth
+                                              initial={JSON.parse(description)}
+                                              label={Resources.CHALLENGE_CREATION_INFO_DESCRIPTION_LABEL}
+                                              name='description'
+                                              required
+                                              validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                             />
+
                                         </Grid>
                                     </Grid>
                                 </div>
