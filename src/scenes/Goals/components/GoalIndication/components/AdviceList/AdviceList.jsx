@@ -64,7 +64,7 @@ const AdviceList = ({advices, goal, type, ...props}) => {
                                                     <TableChip label='>' style={{marginTop: 4}} />
                                                 </Grid>
                                                 <Grid item xs>
-                                                    <TextField name={`advices[${index}]`} initial={advice.text} multiline fullWidth />
+                                                    <TextField lowercase name={`advices[${index}]`} initial={advice.text} multiline fullWidth />
                                                 </Grid>
                                                 <Grid item>
                                                     <IconButton size='small' style={{marginTop: 4}} onClick={() => onRemove(advice.key)}>

@@ -129,7 +129,7 @@ class CoachingList extends MainLayoutComponent {
                                     </Grid>
                                     <Grid item xs>
                                         {!canUpdateCoaching && <Linkify><DefaultText>{item.instruction}</DefaultText></Linkify>}
-                                        {canUpdateCoaching && <TextField name='instruction' initial={item.instruction} onChange={this.handleChange(item.id)('instruction')} fullWidth multiline />}
+                                        {canUpdateCoaching && <TextField lowercase name='instruction' initial={item.instruction} onChange={this.handleChange(item.id)('instruction')} fullWidth multiline />}
                                     </Grid>
                                     <Grid item xs='auto'>
                                         <RadioGroup row>
