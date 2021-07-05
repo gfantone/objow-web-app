@@ -77,7 +77,7 @@ class ChallengeDuplication extends MainLayoutComponent {
 
       const challengeFormData = new FormData()
       challengeFormData.append('name', model.name)
-      challengeFormData.append('description', model.description)
+      challengeFormData.append('description', JSON.stringify(model.description))
       challengeFormData.append('start', start)
       challengeFormData.append('end', end)
       challengeFormData.append('type', model.type)
@@ -104,7 +104,7 @@ class ChallengeDuplication extends MainLayoutComponent {
       }
       const challenge = Object.assign({
           name: model.name,
-          description: model.description,
+          description: JSON.stringify(model.description),
           start: start,
           end: end,
           type: model.type,

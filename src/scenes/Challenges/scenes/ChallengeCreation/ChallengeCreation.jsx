@@ -90,7 +90,7 @@ class ChallengeCreation extends MainLayoutComponent {
         }
         const challenge = Object.assign({
             name: model.name,
-            description: model.description,
+            description: JSON.stringify(model.description),
             start: start,
             end: end,
             type: model.type,

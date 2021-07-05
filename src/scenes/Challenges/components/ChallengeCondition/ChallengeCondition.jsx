@@ -194,14 +194,14 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                     </DefaultText>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    
+                                    <DefaultTitle>
                                       {Resources.CHALLENGE_CONDITION_DESCRIPTION_LABEL}
-                                      <RichText
-                                        initial={JSON.parse(challenge.description)}
-                                        readOnly={ true }
-                                        onChange={() => {}}
-                                        />
-
+                                    </DefaultTitle>
+                                    <RichText
+                                      initial={JSON.parse(challenge.description)}
+                                      readOnly={ true }
+                                      onChange={() => {}}
+                                      />
                                 </Grid>
                             </Grid>
                         </Card>

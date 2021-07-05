@@ -5,7 +5,7 @@ import Formsy from 'formsy-react'
 import {CardMedia, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {ImageInput} from '../../components'
-import {AppBarSubTitle, Card, DefaultTitle, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField} from '../../../../components'
+import {AppBarSubTitle, Card, DefaultTitle, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField, RichTextField} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as rewardCategoryListActions from '../../../../services/RewardCategories/RewardCategoryList/actions'
 import * as rewardCreationActions from '../../../../services/Rewards/RewardCreation/actions'
@@ -76,7 +76,7 @@ class RewardDuplication extends MainLayoutComponent {
     handleSubmit(model) {
         const data = new FormData()
         data.append('name', model.name)
-        data.append('description', model.description)
+        data.append('description', JSON.stringify(model.description))
         data.append('category', model.category)
         data.append('type', model.type)
         data.append('value', model.value)
@@ -141,10 +141,17 @@ class RewardDuplication extends MainLayoutComponent {
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12}>
-                                                        <TextField name='description' label={Resources.REWARD_DUPLICATION_DESCRIPTION_LABEL} initial={reward.description} multiline fullWidth required
-                                                                   validationErrors={{
-                                                                       isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR
-                                                                   }}/>
+                                                      <RichTextField
+                                                        fullWidth
+                                                        initial={JSON.parse(reward.description)}
+                                                        label={Resources.CHALLENGE_CREATION_INFO_DESCRIPTION_LABEL}
+                                                        name='description'
+                                                        required
+
+                                                        validationErrors={{
+                                                          isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR
+                                                        }}
+                                                      />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>

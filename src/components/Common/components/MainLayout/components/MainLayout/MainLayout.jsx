@@ -49,7 +49,6 @@ const useStyles = makeStyles(theme => ({
         },
         '& a': {
           color: 'rgb(15,111,222)',
-          textDecoration: 'none',
           "&:active, &:hover": {
             color: 'rgb(15,111,222)',
           }
