@@ -136,7 +136,7 @@ class RewardUpdate extends MainLayoutComponent {
                                                       <RichTextField
                                                         name='description'
                                                         label={Resources.REWARD_UPDATE_DESCRIPTION_LABEL}
-                                                        initial={reward.description}
+                                                        initial={JSON.parse(reward.description)}
                                                         multiline
                                                         fullWidth
                                                         required
