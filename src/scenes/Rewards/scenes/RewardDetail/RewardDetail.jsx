@@ -8,7 +8,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCopy, faEdit, faFolderOpen} from '@fortawesome/free-solid-svg-icons'
 import {HorizontalExplanation, RewardDetailImage, SubHeader, VerticalExplanation} from './components'
 import {ShoppingCartAddingConfirmation, ShoppingCartButton} from '../../components'
-import {AccentText, BoldSpan, Card, DefaultText, DefaultTitle, IconButton, InfoText, Linkify, MainLayoutComponent, Quantity} from '../../../../components'
+import {AccentText, BoldSpan, Card, DefaultText, DefaultTitle, IconButton, InfoText, Linkify, MainLayoutComponent, Quantity, RichText} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 import * as rewardDetailActions from '../../../../services/Rewards/RewardDetail/actions'
@@ -151,11 +151,11 @@ class RewardDetail extends MainLayoutComponent {
                                         </Grid>}
                                         <Grid item xs={12}>
                                             <Linkify>
-                                                <InfoText>
-                                                    {reward.description.split("\n").map((i, key) => {
-                                                        return <div key={key}>{i}</div>;
-                                                    })}
-                                                </InfoText>
+                                              <RichText
+                                                initial={JSON.parse(reward.description)}
+                                                readOnly={ true }
+                                                onChange={() => {}}
+                                              />
                                             </Linkify>
                                         </Grid>
                                         <Grid item xs={12}>

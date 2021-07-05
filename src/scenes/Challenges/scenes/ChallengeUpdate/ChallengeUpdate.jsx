@@ -73,7 +73,7 @@ class ChallengeUpdate extends MainLayoutComponent {
         const challengeFormData = new FormData()
         challengeFormData.append('id', this.props.match.params.id)
         challengeFormData.append('name', model.name)
-        challengeFormData.append('description', model.description)
+        challengeFormData.append('description', JSON.stringify(model.description))
         challengeFormData.append('start', start)
         challengeFormData.append('end', end)
         challengeFormData.append('type', model.type)
