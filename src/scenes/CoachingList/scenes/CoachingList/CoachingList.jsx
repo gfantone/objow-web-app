@@ -128,7 +128,7 @@ class CoachingList extends MainLayoutComponent {
                                         <TableChip label='>' />
                                     </Grid>
                                     <Grid item xs>
-                                        {!canUpdateCoaching && <Linkify><DefaultText>{item.instruction}</DefaultText></Linkify>}
+                                        {!canUpdateCoaching && <Linkify><DefaultText lowercase>{item.instruction}</DefaultText></Linkify>}
                                         {canUpdateCoaching && <TextField lowercase name='instruction' initial={item.instruction} onChange={this.handleChange(item.id)('instruction')} fullWidth multiline />}
                                     </Grid>
                                     <Grid item xs='auto'>

@@ -17,7 +17,7 @@ const ReadonlyAdviceList = ({advices}) => {
                                     </Grid>
                                     <Grid item xs>
                                         <Linkify>
-                                            <DefaultText>{advice.text}</DefaultText>
+                                            <DefaultText lowercase>{advice.text}</DefaultText>
                                         </Linkify>
                                     </Grid>
                                 </Grid>
