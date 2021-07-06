@@ -99,10 +99,7 @@ const GoalIndication = ({ goal, type, ...props }) => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Linkify>
-
                                               <RichText initial={JSON.parse(goal.definition.indication)} readOnly={ true } onChange={() => {}} />
-
-
                                         </Linkify>
                                     </Grid>
                                 </Grid>

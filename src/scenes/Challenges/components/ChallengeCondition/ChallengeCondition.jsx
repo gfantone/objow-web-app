@@ -194,9 +194,9 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                     </DefaultText>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <DefaultTitle>
+                                    <DefaultText>
                                       {Resources.CHALLENGE_CONDITION_DESCRIPTION_LABEL}
-                                    </DefaultTitle>
+                                    </DefaultText>
                                     <RichText
                                       initial={JSON.parse(challenge.description)}
                                       readOnly={ true }
