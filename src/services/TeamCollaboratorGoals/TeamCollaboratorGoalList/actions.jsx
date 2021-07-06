@@ -4,7 +4,7 @@ export const getEmptyTeamCollaboratorGoalList = () => ({
     type: types.GET_EMPTY_TEAM_COLLABORATOR_GOAL_LIST
 })
 
-export const getTeamCollaboratorGoalList = (teamId, current, category, year, start, end, name) => ({
+export const getTeamCollaboratorGoalList = (teamId, current, category, year, start, end, name, definition) => ({
     type: types.GET_TEAM_COLLABORATOR_GOAL_LIST,
     teamId,
     current,
@@ -12,7 +12,8 @@ export const getTeamCollaboratorGoalList = (teamId, current, category, year, sta
     year,
     start,
     end,
-    name
+    name,
+    definition
 })
 
 export const getTeamCollaboratorGoalListByDefinitionAndTeam = (definitionId, teamId) => ({

@@ -4,7 +4,7 @@ export const getEmptyTeamGoalSummaryList = () => ({
     type: types.GET_EMPTY_TEAM_GOAL_SUMMARY_LIST
 })
 
-export const getTeamGoalSummaryListByCollaborator = (collaboratorId, current, category, year, start, end, name) => ({
+export const getTeamGoalSummaryListByCollaborator = (collaboratorId, current, category, year, start, end, name, definition) => ({
     type: types.GET_TEAM_GOAL_SUMMARY_LIST_BY_COLLABORATOR,
     collaboratorId,
     current,
@@ -12,7 +12,8 @@ export const getTeamGoalSummaryListByCollaborator = (collaboratorId, current, ca
     year,
     start,
     end,
-    name
+    name,
+    definition
 })
 
 export const getTeamGoalSummaryListByDefinitionAndCollaborator = (definitionId, collaboratorId) => ({
@@ -27,7 +28,7 @@ export const getTeamGoalSummaryListByDefinitionAndTeam = (definitionId, teamId) 
     teamId
 })
 
-export const getTeamGoalSummaryListByTeam = (teamId, current, category, year, start, end, name) => ({
+export const getTeamGoalSummaryListByTeam = (teamId, current, category, year, start, end, name, definition) => ({
     type: types.GET_TEAM_GOAL_SUMMARY_LIST_BY_TEAM,
     teamId,
     current,
@@ -35,7 +36,8 @@ export const getTeamGoalSummaryListByTeam = (teamId, current, category, year, st
     year,
     start,
     end,
-    name
+    name,
+    definition
 })
 
 export const getTeamGoalSummaryListSuccess = (goals) => ({

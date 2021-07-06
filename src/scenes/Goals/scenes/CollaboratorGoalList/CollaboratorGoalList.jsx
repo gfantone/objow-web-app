@@ -36,19 +36,21 @@ class CollaboratorGoalList extends MainLayoutComponent {
         this.name = null;
         this.onlyCollaborator = true;
         this.onlyTeam = true;
+        this.definition = null;
         this.state = {
             filterOpen: false,
             collaboratorFilterLoaded: false
         }
     }
 
-    refresh(id, current, category, year, start, end, name, onlyCollaborator, onlyTeam) {
+    refresh(id, current, category, year, start, end, name, onlyCollaborator, onlyTeam, definition) {
         var url = `/goals/collaborators/${id}/list?current=${current}`;
         if (category) url += `&category=${category}`;
         if (year) url += `&year=${year}`;
         if (start) url += `&start=${start.getTime()}`;
         if (end) url += `&end=${end.getTime()}`;
         if (name) url += `&name=${name}`;
+        if (name) url += `&definition=${definition}`;
         if (onlyCollaborator !== null) url += `&onlyCollaborator=${onlyCollaborator}`;
         if (onlyTeam !== null) url += `&onlyTeam=${onlyTeam}`;
         this.props.history.replace(url)
@@ -69,7 +71,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
     }
 
     handleTimeChange(current) {
-        this.refresh(this.id, current, this.category, this.year, this.start, this.end, this.name, this.onlyCollaborator, this.onlyTeam)
+        this.refresh(this.id, current, this.category, this.year, this.start, this.end, this.name, this.onlyCollaborator, this.onlyTeam, this.definition)
     }
 
     loadData(props) {
