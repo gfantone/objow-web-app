@@ -86,22 +86,32 @@ class GoalCollaboratorFilter extends Component {
 
     componentDidUpdate() {
       const { definitions } = this.props.goalDefinitionList;
-      if(!definitions && !this.state.initialized) {
+      const {categories: teamCategories} = this.props.teamGoalCategoryList
+      const {categories: collaboratorCategories} = this.props.collaboratorGoalCategoryList
+
+      if(!this.state.initialized) {
         this.updateGoalDefinitions()
       }
     }
 
     updateGoalDefinitions = () => {
       const { period: currentPeriod } = this.props.currentPeriodDetail;
+
       if(currentPeriod) {
         if(this.state.collaborator) {
           this.props.collaboratorGoalCategoryListActions.getCollaboratorGoalCategories(this.state.collaborator, currentPeriod.id)
           this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(this.state.collaborator, currentPeriod.id)
-          this.handleChange('initialized')(true)
+          this.setState({
+            ...this.state,
+            initialized: true
+          })
         } else if(this.state.team) {
           this.props.teamGoalCategoryListActions.getTeamGoalCategoryList(this.state.team, currentPeriod.id)
           this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(currentPeriod.id, this.state.team)
-          this.handleChange('initialized')(true)
+          this.setState({
+            ...this.state,
+            initialized: true
+          })
         }
       }
     }
@@ -116,6 +126,7 @@ class GoalCollaboratorFilter extends Component {
             || props.end != this.state.end
             || props.onlyCollaborator != this.state.onlyCollaborator
             || props.onlyTeam != this.state.onlyTeam
+            || props.definition != this.state.definition
         ) {
             this.setState({
                 ...this.state,
@@ -127,7 +138,8 @@ class GoalCollaboratorFilter extends Component {
                 end: props.end,
                 onlyCollaborator: props.onlyCollaborator,
                 onlyTeam: props.onlyTeam,
-                end: props.end
+                end: props.end,
+                definition: props.definition
             })
         }
     }
@@ -156,7 +168,7 @@ class GoalCollaboratorFilter extends Component {
         const { start, end, year, category, onlyCollaborator, onlyTeam, definition } = this.state;
 
         this.onExpand(null, false, () => {
-          this.props.onChange(category, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null);
+          this.props.onChange(category, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, definition);
           this.panel.current.click()
           this.props.onClose()
         })
@@ -164,16 +176,16 @@ class GoalCollaboratorFilter extends Component {
     }
 
     handleDeleteCollaborator = () => {
-      const { start, end, year, team, collaborator, category, onlyCollaborator, onlyTeam } = this.state;
+      const { start, end, year, team, collaborator, category, onlyCollaborator, onlyTeam, definition } = this.state;
 
-      this.props.onChange(category, team, null, year, start, end, onlyCollaborator || null, onlyTeam || null);
+      this.props.onChange(category, team, null, year, start, end, onlyCollaborator || null, onlyTeam || null, definition);
       this.props.onClose()
     }
 
     handleDeleteCategory = () => {
-      const { start, end, year, team, collaborator, category, onlyCollaborator, onlyTeam } = this.state;
+      const { start, end, year, team, collaborator, category, onlyCollaborator, onlyTeam, definition } = this.state;
 
-      this.props.onChange(null, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null);
+      this.props.onChange(null, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, definition);
       this.props.onClose()
     }
 
@@ -199,11 +211,12 @@ class GoalCollaboratorFilter extends Component {
         const { periods: previousPeriods } = this.props.previousPeriodList;
         const selectedTeam = this.state.team ? teams.filter(team => team.id == parseInt(this.state.team))[0] : null;
         const selectedCategory = this.state.category ? categories.filter(category => category.id == parseInt(this.state.category))[0] : null;
+        const selectedDefinition = this.state.definition ? definitions.filter(definition => definition.id == parseInt(this.state.definition))[0] : null;
         const collaborators = selectedTeam ? selectedTeam.collaborators : null;
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')} entityId={ _.get(selectedCollaborator, 'id') } fallbackName={ _.get(selectedCollaborator, 'fullname') } fontSize={ 10 } />
-
+        
         this.props.onLoaded()
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
@@ -245,6 +258,15 @@ class GoalCollaboratorFilter extends Component {
                       <Chip
                         size="small"
                         label={Resources.GOAL_FILTER_ALL_CATEGORY_LABEL}
+                        variant="outlined"
+                        className={this.props.classes.filterChip}
+                        />
+                    )  }
+
+                    { selectedDefinition && (
+                      <Chip
+                        size="small"
+                        label={selectedDefinition.name}
                         variant="outlined"
                         className={this.props.classes.filterChip}
                         />

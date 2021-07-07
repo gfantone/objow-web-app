@@ -50,7 +50,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
         if (start) url += `&start=${start.getTime()}`;
         if (end) url += `&end=${end.getTime()}`;
         if (name) url += `&name=${name}`;
-        if (name) url += `&definition=${definition}`;
+        if (definition) url += `&definition=${definition}`;
         if (onlyCollaborator !== null) url += `&onlyCollaborator=${onlyCollaborator}`;
         if (onlyTeam !== null) url += `&onlyTeam=${onlyTeam}`;
         this.props.history.replace(url)
@@ -89,12 +89,13 @@ class CollaboratorGoalList extends MainLayoutComponent {
         const currentEnd = this.end ? this.end.getTime().toString() : null;
         const nameParam = params.get('name');
         const name = nameParam ? decodeURIComponent(nameParam) : null;
+        const definition = params.get('definition');
         const onlyCollaboratorParam = params.get('onlyCollaborator');
         const onlyCollaborator = onlyCollaboratorParam ? onlyCollaboratorParam.toBoolean() : true;
         const onlyTeamParam = params.get('onlyTeam');
         const onlyTeam = onlyTeamParam ? onlyTeamParam.toBoolean() : true;
 
-        if (id != this.id || current != this.current || category != this.category || year != this.year || startParam != currentStart || endParam != currentEnd || name != this.name || onlyCollaborator != this.onlyCollaborator || onlyTeam != this.onlyTeam) {
+        if (id != this.id || current != this.current || category != this.category || year != this.year || startParam != currentStart || endParam != currentEnd || name != this.name || onlyCollaborator != this.onlyCollaborator || onlyTeam != this.onlyTeam || definition != this.definition) {
             this.id = id;
             this.current = current;
             this.category = category;
@@ -102,15 +103,16 @@ class CollaboratorGoalList extends MainLayoutComponent {
             this.start = start;
             this.end = end;
             this.name = name;
+            this.definition = definition;
             this.onlyCollaborator = onlyCollaborator;
             this.onlyTeam = onlyTeam;
             if (onlyCollaborator === true) {
-                this.props.collaboratorGoalSummaryListActions.getCollaboratorGoalSummaryList(id, this.current, this.category, this.year, start, end, this.name);
+                this.props.collaboratorGoalSummaryListActions.getCollaboratorGoalSummaryList(id, this.current, this.category, this.year, start, end, this.name, definition);
             } else {
                 this.props.collaboratorGoalSummaryListActions.getEmptyCollaboratorGoalSummaryList()
             }
             if (onlyTeam === true) {
-                this.props.teamGoalListSummaryActions.getTeamGoalSummaryListByCollaborator(id, this.current, this.category, this.year, start, end, this.name)
+                this.props.teamGoalListSummaryActions.getTeamGoalSummaryListByCollaborator(id, this.current, this.category, this.year, start, end, this.name, definition)
             } else {
                 this.props.teamGoalListSummaryActions.getEmptyTeamGoalSummaryList()
             }
@@ -134,7 +136,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
     applySearch(prevProps) {
         if (prevProps.search != this.props.search) {
             const search = this.props.search ? encodeURIComponent(this.props.search) : null;
-            this.refresh(this.id, this.current, this.category, this.year, this.start, this.end, search, this.onlyCollaborator, this.onlyTeam)
+            this.refresh(this.id, this.current, this.category, this.year, this.start, this.end, search, this.onlyCollaborator, this.onlyTeam, this.definition)
         }
     }
 
@@ -143,10 +145,10 @@ class CollaboratorGoalList extends MainLayoutComponent {
         this.applySearch(prevProps)
     }
 
-    handleFilterChange(category, team, collaborator, year, start, end, onlyCollaborator, onlyTeam) {
+    handleFilterChange(category, team, collaborator, year, start, end, onlyCollaborator, onlyTeam, definition) {
         const collaboratorId = this.props.accountDetail.account.role.code == 'C' ? this.id : collaborator;
         if (collaboratorId) {
-            this.refresh(collaboratorId, this.current, category, year, start, end, this.name, onlyCollaborator, onlyTeam)
+            this.refresh(collaboratorId, this.current, category, year, start, end, this.name, onlyCollaborator, onlyTeam, definition)
         } else {
             const teamId = this.props.accountDetail.account.role.code == 'M' ? this.props.collaboratorDetail.collaborator.team.id : team;
             var url = `/goals/teams/${teamId || this.props.match.params.id}/list?current=${this.current}`;
@@ -157,6 +159,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
             if (this.name) url += `&name=${this.name}`;
             if (onlyCollaborator !== null) url += `&onlyCollaborator=${onlyCollaborator}`;
             if (onlyTeam !== null) url += `&onlyTeam=${onlyTeam}`;
+            if (definition) url += `&definition=${definition}`;
             this.props.history.push(url)
         }
     }
@@ -248,6 +251,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
                   year={this.year}
                   start={this.start}
                   end={this.end}
+                  definition={this.definition}
                   onLoaded={this.onCollaboratorFilterLoaded.bind(this)}
                 />
                 { loading && this.renderLoader() }
