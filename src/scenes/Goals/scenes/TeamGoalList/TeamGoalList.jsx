@@ -14,6 +14,7 @@ import * as teamCollaboratorGoalListActions from '../../../../services/TeamColla
 import * as teamGoalSummaryListActions from '../../../../services/TeamGoalSummaries/TeamGoalSummaryList/actions'
 import '../../../../helpers/StringHelper'
 import {TEAM_GOAL_LIST_EMPTY_STATE_MESSAGE} from "../../../../Resources";
+import _ from 'lodash'
 
 const styles = {
     zoom: {
@@ -235,7 +236,12 @@ class TeamGoalList extends MainLayoutComponent {
         if (account.role.code == 'C' || account.role.code == 'M' && account.team.id != this.props.match.params.id) {
             return <Redirect to='/goals' />
         }
-
+        const allowedDefinitions = hasGoals && _.uniq(_.flatten(
+          [
+            ...collaboratorGoals.map(goal => goal.definitionId),
+            ...teamGoals.map(goal => goal.definitionId),
+          ]
+        ))
         return (
             <div>
                 <GoalCollaboratorFilter
@@ -248,6 +254,8 @@ class TeamGoalList extends MainLayoutComponent {
                   start={this.start}
                   end={this.end}
                   definition={this.definition}
+                  current={this.current}
+                  allowedDefinitions={allowedDefinitions}
                   onlyCollaborator={this.onlyCollaborator}
                   onlyTeam={this.onlyTeam}
                   onLoaded={this.onCollaboratorFilterLoaded.bind(this)}

@@ -70,6 +70,7 @@ class GoalCollaboratorFilter extends Component {
             onlyCollaborator: props.onlyCollaborator,
             onlyTeam: props.onlyTeam,
             definition: props.definition,
+            page: props.page,
             expandIcon: faChevronDown,
             initialized: false
         }
@@ -186,6 +187,21 @@ class GoalCollaboratorFilter extends Component {
       const { start, end, year, team, collaborator, category, onlyCollaborator, onlyTeam, definition } = this.state;
 
       this.props.onChange(null, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, definition);
+      this.setState({
+        ...this.state,
+        category: null
+      })
+      this.props.onClose()
+    }
+
+    handleDeleteDefinition = () => {
+      const { start, end, year, team, collaborator, category, onlyCollaborator, onlyTeam, definition } = this.state;
+
+      this.props.onChange(category, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, null);
+      this.setState({
+        ...this.state,
+        definition: null
+      })
       this.props.onClose()
     }
 
@@ -199,6 +215,10 @@ class GoalCollaboratorFilter extends Component {
         return <Loader centered />
     }
 
+    filterDefinitions = (definitions) => {
+      return definitions.filter(definition => this.props.allowedDefinitions ? this.props.allowedDefinitions.indexOf(definition.id) >= 0 : true)
+    }
+
     renderData() {
         const { account } = this.props.accountDetail;
         const { teams, loading } = this.props.teamList;
@@ -210,8 +230,8 @@ class GoalCollaboratorFilter extends Component {
         const { period: currentPeriod } = this.props.currentPeriodDetail;
         const { periods: previousPeriods } = this.props.previousPeriodList;
         const selectedTeam = this.state.team ? teams.filter(team => team.id == parseInt(this.state.team))[0] : null;
-        const selectedCategory = this.state.category ? categories.filter(category => category.id == parseInt(this.state.category))[0] : null;
-        const selectedDefinition = this.state.definition ? definitions.filter(definition => definition.id == parseInt(this.state.definition))[0] : null;
+        const selectedCategory = this.state.category && categories ? categories.filter(category => category.categoryId == parseInt(this.state.category))[0] : null;
+        const selectedDefinition = this.state.definition && definitions ? definitions.filter(definition => definition.id == parseInt(this.state.definition))[0] : null;
         const collaborators = selectedTeam ? selectedTeam.collaborators : null;
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
@@ -267,6 +287,7 @@ class GoalCollaboratorFilter extends Component {
                       <Chip
                         size="small"
                         label={selectedDefinition.name}
+                        onDelete={this.handleDeleteDefinition}
                         variant="outlined"
                         className={this.props.classes.filterChip}
                         />
@@ -296,9 +317,6 @@ class GoalCollaboratorFilter extends Component {
                         </Grid>
 
                         <Grid item xs={12} sm={6}>
-                            <Select name='category' label={Resources.GOAL_FILTER_CATEGORY_LABEL} options={categories} emptyText={Resources.GOAL_FILTER_CATEGORY_ALL_OPTION} optionValueName='id' optionTextName='name' fullWidth initial={this.state.category} onChange={this.handleChange('category').bind(this)} />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
                           { account.role.code != 'C' && collaborators &&
                             <Select
                               name='collaborator'
@@ -314,10 +332,23 @@ class GoalCollaboratorFilter extends Component {
                           }
                         </Grid>
                         <Grid item xs={12} sm={6}>
+                          <Select
+                            name='category'
+                            label={Resources.GOAL_FILTER_CATEGORY_LABEL}
+                            options={categories}
+                            emptyText={Resources.GOAL_FILTER_CATEGORY_ALL_OPTION}
+                            optionValueName='categoryId'
+                            optionTextName='name'
+                            fullWidth
+                            value={this.state.category}
+                            onChange={this.handleChange('category').bind(this)}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
                             <Select
                               name='definition'
                               label={Resources.GOAL_FILTER_GOAL_LABEL}
-                              options={definitions.filter(definition => !this.state.category || parseInt(this.state.category) === definition.categoryId)}
+                              options={this.filterDefinitions(definitions.filter(definition => !this.state.category || parseInt(this.state.category) === definition.categoryId))}
                               emptyText={Resources.CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION}
                               optionValueName='id'
                               optionTextName='name'

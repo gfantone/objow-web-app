@@ -14,6 +14,7 @@ import * as collaboratorDetailActions from '../../../../services/Collaborators/C
 import * as collaboratorGoalSummaryListActions from '../../../../services/CollaboratorGoalSummaries/CollaboratorGoalSummaryList/actions'
 import * as teamGoalListSummaryActions from '../../../../services/TeamGoalSummaries/TeamGoalSummaryList/actions'
 import '../../../../helpers/StringHelper'
+import _ from 'lodash'
 
 const styles = {
     zoom: {
@@ -238,6 +239,12 @@ class CollaboratorGoalList extends MainLayoutComponent {
         if(!account.hasGoalAccess) {
           return <Redirect to={'/challenges'} />
         }
+        const allowedDefinitions = hasGoals && _.uniq(_.flatten(
+          [
+            ...collaboratorGoals.map(goal => goal.definitionId),
+            ...teamGoals.map(goal => goal.definitionId),
+          ]
+        ))
 
         return (
             <div>
@@ -248,6 +255,8 @@ class CollaboratorGoalList extends MainLayoutComponent {
                   category={this.category}
                   team={teamId}
                   collaborator={collaboratorId}
+                  current={this.current}
+                  allowedDefinitions={allowedDefinitions}
                   year={this.year}
                   start={this.start}
                   end={this.end}
