@@ -141,7 +141,7 @@ const Element = ({ attributes, children, element }) => {
             return <ol {...attributes}>{children}</ol>
         case 'link':
             return (
-              <a {...attributes} href={element.url}>
+              <a {...attributes} target='_blank' href={element.url}>
                 {children}
               </a>
             )

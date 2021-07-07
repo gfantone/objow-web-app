@@ -4,7 +4,7 @@ import Linkify from 'react-linkify'
 const CustomLinkify = ({...props}) => {
     return (
         <Linkify componentDecorator={(decoratedHref, decoratedText, key) => (
-            <a target="blank" href={decoratedHref} key={key}>
+            <a target="_blank" href={decoratedHref} key={key}>
                 {decoratedText}
             </a>
         )}>{props.children}</Linkify>
