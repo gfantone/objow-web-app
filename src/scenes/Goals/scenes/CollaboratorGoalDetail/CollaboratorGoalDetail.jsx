@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Redirect } from 'react-router-dom'
-import { SubHeader } from './components'
+import { CollaboratorGoalList, SubHeader } from './components'
 import { CollaboratorGoalRankList, GoalIndication } from '../../components'
 import { MainLayoutComponent } from '../../../../components'
 import * as Resources from '../../../../Resources'
@@ -63,6 +63,7 @@ class CollaboratorGoalDetail extends MainLayoutComponent {
             <div>
                 { account.hasGoalRankAccess && this.state.page == 0 && goal && goal.allow_ranking && ranks && <CollaboratorGoalRankList ranks={ranks} collaboratorId={goal.collaboratorId} /> }
                 { this.state.page == 1 && goal && <GoalIndication goal={goal} type='C' /> }
+                { this.state.page == 2 && goal && <CollaboratorGoalList /> }
             </div>
         )
     }
