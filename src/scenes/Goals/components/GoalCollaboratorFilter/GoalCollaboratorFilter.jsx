@@ -216,7 +216,7 @@ class GoalCollaboratorFilter extends Component {
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')} entityId={ _.get(selectedCollaborator, 'id') } fallbackName={ _.get(selectedCollaborator, 'fullname') } fontSize={ 10 } />
-        
+
         this.props.onLoaded()
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
@@ -277,7 +277,7 @@ class GoalCollaboratorFilter extends Component {
               <ExpansionPanelDetails>
                 <Formsy onSubmit={this.handleSubmit.bind(this)} className={this.props.classes.filterForm} ref={this.filterForm}>
                     <Grid container spacing={2}>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} sm={6}>
                           { account.role.code == 'A' &&
                             <Select
                               name='team'
@@ -295,10 +295,10 @@ class GoalCollaboratorFilter extends Component {
                           }
                         </Grid>
 
-                        <Grid item xs={6}>
+                        <Grid item xs={12} sm={6}>
                             <Select name='category' label={Resources.GOAL_FILTER_CATEGORY_LABEL} options={categories} emptyText={Resources.GOAL_FILTER_CATEGORY_ALL_OPTION} optionValueName='id' optionTextName='name' fullWidth initial={this.state.category} onChange={this.handleChange('category').bind(this)} />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} sm={6}>
                           { account.role.code != 'C' && collaborators &&
                             <Select
                               name='collaborator'
@@ -313,12 +313,12 @@ class GoalCollaboratorFilter extends Component {
                               />
                           }
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} sm={6}>
                             <Select
                               name='definition'
                               label={Resources.GOAL_FILTER_GOAL_LABEL}
                               options={definitions.filter(definition => !this.state.category || parseInt(this.state.category) === definition.categoryId)}
-                              emptyText={Resources.GOAL_FILTER_CATEGORY_ALL_OPTION}
+                              emptyText={Resources.CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION}
                               optionValueName='id'
                               optionTextName='name'
                               fullWidth
