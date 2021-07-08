@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {Grid, IconButton} from '@material-ui/core'
-import {Card, DefaultTitle, ProgressButton, TableChip, TextField} from '../../../../../../components'
+import {Card, DefaultTitle, ProgressButton, TableChip, TextField, RichTextField} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +15,10 @@ const AdviceList = ({advices, goal, type, ...props}) => {
     const {loading} = props.goalAdviceListCreation;
 
     const onAdd = () => {
-        setNewAdvices(newAdvices => newAdvices.concat([{key: uuidv4(), text: ''}]))
+        setNewAdvices(newAdvices => newAdvices.concat([{
+          key: uuidv4(),
+          text: JSON.stringify([{"children": [{"text": ''}]}])
+        }]))
     };
 
     const onRemove = (key) => {
@@ -23,7 +26,8 @@ const AdviceList = ({advices, goal, type, ...props}) => {
     };
 
     const onSubmit = (model) => {
-        const advices = model.advices ? model.advices.map(x => ({text: x, goal: goal.goalId, team: goal.teamId})) : [];
+        const advices = model.advices ? model.advices.map(x => ({text: JSON.stringify(x), goal: goal.goalId, team: goal.teamId})) : [];
+
         switch (type) {
             case 'C':
                 props.goalAdviceListCreationActions.createGoalAdviceListByCollaboratorGoal(advices, goal.id);
@@ -64,7 +68,16 @@ const AdviceList = ({advices, goal, type, ...props}) => {
                                                     <TableChip label='>' style={{marginTop: 4}} />
                                                 </Grid>
                                                 <Grid item xs>
-                                                    <TextField lowercase name={`advices[${index}]`} initial={advice.text} multiline fullWidth />
+                                                  <RichTextField
+                                                    name={`advices[${index}]`}
+                                                    initial={ JSON.parse(advice.text) }
+                                                    readOnly={ false }
+                                                    noTool
+
+                                                    fullWidth
+                                                    multiline
+                                                    required
+                                                  />
                                                 </Grid>
                                                 <Grid item>
                                                     <IconButton size='small' style={{marginTop: 4}} onClick={() => onRemove(advice.key)}>

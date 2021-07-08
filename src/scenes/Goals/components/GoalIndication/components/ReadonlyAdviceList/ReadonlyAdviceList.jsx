@@ -1,6 +1,6 @@
 import React from 'react'
 import {Grid} from '@material-ui/core'
-import {Card, DefaultText, DefaultTitle, InfoText, Linkify, TableChip} from '../../../../../../components'
+import {Card, DefaultText, DefaultTitle, InfoText, Linkify, TableChip, RichText} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 
 const ReadonlyAdviceList = ({advices}) => {
@@ -16,8 +16,19 @@ const ReadonlyAdviceList = ({advices}) => {
                                         <TableChip label='>' />
                                     </Grid>
                                     <Grid item xs>
+
                                         <Linkify>
-                                            <DefaultText lowercase>{advice.text}</DefaultText>
+                                            <RichText
+                                              name='instruction'
+                                              initial={ JSON.parse(advice.text) }
+                                              readOnly={ true }
+                                              noTool
+                                              onChange={() => {}}
+                                              fullWidth
+                                              multiline
+                                              required
+                                            />
+
                                         </Linkify>
                                     </Grid>
                                 </Grid>

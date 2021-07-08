@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { Grid, IconButton, RadioGroup } from '@material-ui/core'
 import { SubHeader } from './components'
-import { DefaultText, EmptyState, GreenRadio, IconButton as HeaderIconButton, Linkify, MainLayoutComponent, OrangeRadio, ProgressButton, RedRadio, TableChip, TextField } from '../../../../components'
+import { DefaultText, EmptyState, GreenRadio, IconButton as HeaderIconButton, Linkify, MainLayoutComponent, OrangeRadio, ProgressButton, RedRadio, TableChip, TextField, RichTextField } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as coachingItemListActions from '../../../../services/CoachingItems/CoachingItemList/actions'
 import * as coachingItemListCreationActions from '../../../../services/CoachingItems/CoachingItemListCreation/actions'
@@ -116,7 +116,6 @@ class CoachingList extends MainLayoutComponent {
         const loading = coachingItemListCreationLoading || coachingItemListUpdateLoading;
         const isCollaborator = account.role.code == 'C';
         const canUpdateCoaching = !isCollaborator && account.canUpdateCoaching;
-
         return (
             <Formsy onSubmit={this.handleSubmit.bind(this)}>
                 <Grid container spacing={4}>
@@ -128,8 +127,29 @@ class CoachingList extends MainLayoutComponent {
                                         <TableChip label='>' />
                                     </Grid>
                                     <Grid item xs>
-                                        {!canUpdateCoaching && <Linkify><DefaultText lowercase>{item.instruction}</DefaultText></Linkify>}
-                                        {canUpdateCoaching && <TextField lowercase name='instruction' initial={item.instruction} onChange={this.handleChange(item.id)('instruction')} fullWidth multiline />}
+                                        {!canUpdateCoaching && <Linkify>
+                                          <RichTextField
+                                            name='instruction'
+                                            initial={ JSON.parse(item.instruction) }
+                                            readOnly={ true }
+                                            noTool
+                                            fullWidth
+                                            multiline
+                                            required
+                                          />
+                                        </Linkify>}
+                                        {canUpdateCoaching &&
+                                          <RichTextField
+                                            name='instruction'
+                                            initial={ JSON.parse(item.instruction) }
+                                            readOnly={ false }
+                                            noTool
+                                            onChange={ value => this.handleChange(item.id)('instruction')(JSON.stringify(value)) }
+                                            fullWidth
+                                            multiline
+                                            required
+                                          />
+                                        }
                                     </Grid>
                                     <Grid item xs='auto'>
                                         <RadioGroup row>

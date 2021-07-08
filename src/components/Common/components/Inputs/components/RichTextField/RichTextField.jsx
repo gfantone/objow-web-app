@@ -14,7 +14,7 @@ const styles = {
   }
 }
 
-const RichTextField = ({ name, label, initial, readOnly, onChange, classes }) => {
+const RichTextField = ({ name, label, initial, readOnly, onChange, classes, noTool }) => {
   const [showIndicationTools, setShowIndicationTools] = useState(false)
   const [value, setValue] = useState(initial)
   const textFieldRef = React.useRef()
@@ -35,13 +35,14 @@ const RichTextField = ({ name, label, initial, readOnly, onChange, classes }) =>
 
   return (
     <div className={ classes.indications }>
-      <DefaultText style={{ position: 'relative' }}>
-        <FontAwesomeIcon
-          icon={ showIndicationTools ? faChevronUp : faChevronDown }
-          onClick={() => setShowIndicationTools(!showIndicationTools)}
-          style={{ position: "absolute", left: '70px', cursor: 'pointer', zIndex: 50 }}
-        />
-      </DefaultText>
+      { !noTool && <DefaultText style={{ position: 'relative' }}>
+          <FontAwesomeIcon
+            icon={ showIndicationTools ? faChevronUp : faChevronDown }
+            onClick={() => setShowIndicationTools(!showIndicationTools)}
+            style={{ position: "absolute", left: '70px', cursor: 'pointer', zIndex: 50 }}
+          />
+        </DefaultText>
+      }
       <TextField
         ref={textFieldRef}
         name={ name || 'indication' }
@@ -52,6 +53,7 @@ const RichTextField = ({ name, label, initial, readOnly, onChange, classes }) =>
         fullWidth
         multiline
         rowsMax={10}
+        style={noTool ? {display: 'none'} : {}}
       />
       <RichText
         name={ name || 'indication' }

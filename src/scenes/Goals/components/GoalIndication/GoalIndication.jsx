@@ -13,7 +13,6 @@ const GoalIndication = ({ goal, type, ...props }) => {
     const difference = getDifferenceWithToday(goal.end);
     const canEdit = (account.role.code == 'M' && account.team.id == goal.teamId || account.role.code == 'A') && difference <= 0;
     const hasLevels = goal.levels && goal.levels.length > 0
-    console.log(hasLevels);
     return (
         <div>
             <Grid container spacing={2}>
