@@ -25,7 +25,7 @@ function* getGoalDefinitions(action) {
 
 function* getGoalDefinitionsByCollaborator(action) {
     try {
-        const {data: definitions} = yield call(api.collaborators.definitions, action.collaboratorId, action.periodId)
+        const {data: definitions} = yield call(api.collaborators.definitions, action.collaboratorId, action.periodId, action.current)
         yield put(getGoalDefinitionListSuccess(definitions))
     } catch(e) {
         yield put(getGoalDefinitionListError())
@@ -34,7 +34,7 @@ function* getGoalDefinitionsByCollaborator(action) {
 
 function* getGoalDefinitionsByTeam(action) {
     try {
-        const {data: definitions} = yield call(api.teams.definitions, action.teamId, action.periodId)
+        const {data: definitions} = yield call(api.teams.definitions, action.teamId, action.periodId, action.current)
         yield put(getGoalDefinitionListSuccess(definitions))
     } catch(e) {
         yield put(getGoalDefinitionListError())

@@ -9,16 +9,18 @@ export const getGoalDefinitionList = (periodId, isActive, includeData = false) =
     }
 }
 
-export const getGoalDefinitionListByCollaborator = (collaboratorId, periodId) => ({
+export const getGoalDefinitionListByCollaborator = (collaboratorId, periodId, current) => ({
     type: types.GET_GOAL_DEFINITION_LIST_BY_COLLABORATOR,
     collaboratorId,
-    periodId
+    periodId,
+    current
 })
 
-export const getGoalDefinitionListByTeam = (periodId, teamId) => ({
+export const getGoalDefinitionListByTeam = (periodId, teamId, current) => ({
     type: types.GET_GOAL_DEFINITION_LIST_BY_TEAM,
     periodId,
-    teamId
+    teamId,
+    current
 })
 
 export const getGoalDefinitionListSuccess = (definitions) => {

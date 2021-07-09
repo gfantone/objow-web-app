@@ -71,10 +71,12 @@ class GoalCollaboratorFilter extends Component {
             onlyTeam: props.onlyTeam,
             definition: props.definition,
             page: props.page,
+            current: props.current,
             expandIcon: faChevronDown,
             initialized: false
         }
         this.filterForm = React.createRef();
+        this.definitionSelect = React.createRef();
         this.panel = React.createRef();
     }
 
@@ -101,14 +103,14 @@ class GoalCollaboratorFilter extends Component {
       if(currentPeriod) {
         if(this.state.collaborator) {
           this.props.collaboratorGoalCategoryListActions.getCollaboratorGoalCategories(this.state.collaborator, currentPeriod.id)
-          this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(this.state.collaborator, currentPeriod.id)
+          this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(this.state.collaborator, currentPeriod.id, this.state.current)
           this.setState({
             ...this.state,
             initialized: true
           })
         } else if(this.state.team) {
           this.props.teamGoalCategoryListActions.getTeamGoalCategoryList(this.state.team, currentPeriod.id)
-          this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(currentPeriod.id, this.state.team)
+          this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(currentPeriod.id, this.state.team, this.state.current)
           this.setState({
             ...this.state,
             initialized: true
@@ -118,6 +120,7 @@ class GoalCollaboratorFilter extends Component {
     }
 
     componentWillReceiveProps(props) {
+
         if (
             props.team != this.state.team
             || props.collaborator != this.state.collaborator
@@ -131,7 +134,7 @@ class GoalCollaboratorFilter extends Component {
         ) {
             this.setState({
                 ...this.state,
-                category: props.category,
+                category: props.category || "",
                 team: props.team,
                 collaborator: props.collaborator,
                 year: props.year,
@@ -140,7 +143,8 @@ class GoalCollaboratorFilter extends Component {
                 onlyCollaborator: props.onlyCollaborator,
                 onlyTeam: props.onlyTeam,
                 end: props.end,
-                definition: props.definition
+                definition: props.definition || "",
+                current: props.current,
             })
         }
     }
@@ -186,23 +190,27 @@ class GoalCollaboratorFilter extends Component {
     handleDeleteCategory = () => {
       const { start, end, year, team, collaborator, category, onlyCollaborator, onlyTeam, definition } = this.state;
 
-      this.props.onChange(null, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, definition);
       this.setState({
         ...this.state,
-        category: null
+        category: ""
+      }, () => {
+        this.props.onChange("", team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, definition);
+        this.props.onClose()
       })
-      this.props.onClose()
+
     }
 
     handleDeleteDefinition = () => {
       const { start, end, year, team, collaborator, category, onlyCollaborator, onlyTeam, definition } = this.state;
 
-      this.props.onChange(category, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, null);
       this.setState({
         ...this.state,
-        definition: null
+        definition: ""
+      }, () => {
+        //
+        this.props.onChange(category, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, "");
+        this.props.onClose()
       })
-      this.props.onClose()
     }
 
     onExpand = (event, expanded, callback) => {
@@ -216,7 +224,7 @@ class GoalCollaboratorFilter extends Component {
     }
 
     filterDefinitions = (definitions) => {
-      return definitions.filter(definition => this.props.allowedDefinitions ? this.props.allowedDefinitions.indexOf(definition.id) >= 0 : true)
+      return definitions
     }
 
     renderData() {
@@ -236,7 +244,7 @@ class GoalCollaboratorFilter extends Component {
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')} entityId={ _.get(selectedCollaborator, 'id') } fallbackName={ _.get(selectedCollaborator, 'fullname') } fontSize={ 10 } />
-
+        console.log(this.state.category);
         this.props.onLoaded()
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
@@ -298,39 +306,39 @@ class GoalCollaboratorFilter extends Component {
               <ExpansionPanelDetails>
                 <Formsy onSubmit={this.handleSubmit.bind(this)} className={this.props.classes.filterForm} ref={this.filterForm}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                          { account.role.code == 'A' &&
-                            <Select
-                              name='team'
-                              label={Resources.CHALLENGE_FILTER_TEAM_LABEL}
-                              options={teams}
-                              optionValueName='id'
-                              optionTextName='name'
-                              emptyDisabled
-                              fullWidth
-                              initial={this.state.team}
-                              onChange={(value) => {
-                                this.resetCollaborator(() => this.handleChange('team')(value))
-                              }}
-                            />
-                          }
-                        </Grid>
-
-                        <Grid item xs={12} sm={6}>
-                          { account.role.code != 'C' && collaborators &&
-                            <Select
-                              name='collaborator'
-                              label={Resources.CHALLENGE_FILTER_COLLABORATOR_LABEL}
-                              options={collaborators}
-                              emptyText={Resources.CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION}
-                              optionValueName='id'
-                              optionTextName='fullname'
-                              fullWidth
-                              initial={this.state.collaborator}
-                              onChange={this.handleChange('collaborator').bind(this)}
+                        { account.role.code == 'A' &&
+                          <Grid item xs={12} sm={6}>
+                              <Select
+                                name='team'
+                                label={Resources.CHALLENGE_FILTER_TEAM_LABEL}
+                                options={teams}
+                                optionValueName='id'
+                                optionTextName='name'
+                                emptyDisabled
+                                fullWidth
+                                initial={this.state.team}
+                                onChange={(value) => {
+                                  this.resetCollaborator(() => this.handleChange('team')(value))
+                                }}
                               />
-                          }
-                        </Grid>
+                          </Grid>
+                        }
+
+                        { account.role.code != 'C' && collaborators &&
+                          <Grid item xs={12} sm={6}>
+                              <Select
+                                name='collaborator'
+                                label={Resources.CHALLENGE_FILTER_COLLABORATOR_LABEL}
+                                options={collaborators}
+                                emptyText={Resources.CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION}
+                                optionValueName='id'
+                                optionTextName='fullname'
+                                fullWidth
+                                initial={this.state.collaborator}
+                                onChange={this.handleChange('collaborator').bind(this)}
+                                />
+                          </Grid>
+                        }
                         <Grid item xs={12} sm={6}>
                           <Select
                             name='category'
@@ -340,7 +348,8 @@ class GoalCollaboratorFilter extends Component {
                             optionValueName='categoryId'
                             optionTextName='name'
                             fullWidth
-                            value={this.state.category}
+                            updateInitial
+                            initial={this.state.category}
                             onChange={this.handleChange('category').bind(this)}
                           />
                         </Grid>
@@ -348,10 +357,11 @@ class GoalCollaboratorFilter extends Component {
                             <Select
                               name='definition'
                               label={Resources.GOAL_FILTER_GOAL_LABEL}
-                              options={this.filterDefinitions(definitions.filter(definition => !this.state.category || parseInt(this.state.category) === definition.categoryId))}
+                              options={definitions}
                               emptyText={Resources.CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION}
                               optionValueName='id'
                               optionTextName='name'
+                              updateInitial
                               fullWidth
                               initial={this.state.definition}
                               onChange={this.handleChange('definition').bind(this)}
