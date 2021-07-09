@@ -120,6 +120,12 @@ class GoalCollaboratorFilter extends Component {
     }
 
     componentWillReceiveProps(props) {
+        if(props.current !== this.state.current) {
+          this.setState({
+            ...this.state,
+            current: props.current
+          }, this.updateGoalDefinitions)
+        }
 
         if (
             props.team != this.state.team
@@ -244,7 +250,7 @@ class GoalCollaboratorFilter extends Component {
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')} entityId={ _.get(selectedCollaborator, 'id') } fallbackName={ _.get(selectedCollaborator, 'fullname') } fontSize={ 10 } />
-        console.log(this.state.category);
+
         this.props.onLoaded()
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
