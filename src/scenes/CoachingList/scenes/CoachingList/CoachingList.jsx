@@ -19,7 +19,11 @@ import * as userDetailActions from '../../../../services/Users/UserDetail/action
 
 const styles = {
   coachingItem: {
-
+    '& .rich-text > div': {
+      backgroundColor: 'transparent !important',
+      borderBottom: '1px solid #333',
+      fontSize: '15px'
+    }
   }
 }
 

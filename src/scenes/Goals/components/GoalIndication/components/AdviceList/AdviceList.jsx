@@ -3,12 +3,23 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Formsy from 'formsy-react'
 import {Grid, IconButton} from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 import {Card, DefaultTitle, ProgressButton, TableChip, TextField, RichTextField} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 import {uuidv4} from '../../../../../../helpers/UUIDHelper'
 import * as goalAdviceListCreationActions from '../../../../../../services/GoalAdvices/GoalAdviceListCreation/actions'
+
+const styles = {
+  coachingItem: {
+    '& .rich-text > div': {
+      backgroundColor: 'transparent !important',
+      borderBottom: '1px solid #333',
+      fontSize: '15px'
+    }
+  }
+}
 
 const AdviceList = ({advices, goal, type, ...props}) => {
     const [newAdvices, setNewAdvices] = React.useState(advices.map(x => ({key: uuidv4(), text: x.text})));
@@ -67,7 +78,7 @@ const AdviceList = ({advices, goal, type, ...props}) => {
                                                 <Grid item>
                                                     <TableChip label='>' style={{marginTop: 4}} />
                                                 </Grid>
-                                                <Grid item xs>
+                                                <Grid item xs className={ props.classes.coachingItem }>
                                                   <RichTextField
                                                     name={`advices[${index}]`}
                                                     initial={ JSON.parse(advice.text) }
@@ -108,4 +119,4 @@ const mapDispatchToProps = (dispatch) => ({
     goalAdviceListCreationActions : bindActionCreators(goalAdviceListCreationActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdviceList)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AdviceList))
