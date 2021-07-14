@@ -100,6 +100,7 @@ class GoalCollaboratorFilter extends Component {
     updateGoalDefinitions = () => {
       const { period: currentPeriod } = this.props.currentPeriodDetail;
 
+      // console.log(this.state.collaborator);
       if(currentPeriod) {
         if(this.state.collaborator) {
           this.props.collaboratorGoalCategoryListActions.getCollaboratorGoalCategories(this.state.collaborator, currentPeriod.id)
@@ -120,6 +121,7 @@ class GoalCollaboratorFilter extends Component {
     }
 
     componentWillReceiveProps(props) {
+
         if(props.current !== this.state.current) {
           this.setState({
             ...this.state,
@@ -130,17 +132,17 @@ class GoalCollaboratorFilter extends Component {
         if (
             props.team != this.state.team
             || props.collaborator != this.state.collaborator
-            || props.category != this.state.category
+            || props.category !== null && props.category != this.state.category
             || props.year != this.state.year
             || props.start != this.state.start
             || props.end != this.state.end
             || props.onlyCollaborator != this.state.onlyCollaborator
             || props.onlyTeam != this.state.onlyTeam
-            || props.definition != this.state.definition
+            || props.definition !== null && props.definition != this.state.definition
         ) {
             this.setState({
                 ...this.state,
-                category: props.category || "",
+                category: props.category === null ? "" : props.category,
                 team: props.team,
                 collaborator: props.collaborator,
                 year: props.year,
@@ -149,9 +151,9 @@ class GoalCollaboratorFilter extends Component {
                 onlyCollaborator: props.onlyCollaborator,
                 onlyTeam: props.onlyTeam,
                 end: props.end,
-                definition: props.definition || "",
+                definition: props.definition === null ? "" : props.definition,
                 current: props.current,
-            })
+            }, this.updateGoalDefinitions)
         }
     }
 
@@ -230,7 +232,7 @@ class GoalCollaboratorFilter extends Component {
     }
 
     filterDefinitions = (definitions) => {
-      return definitions
+      return definitions.filter(definition => !this.state.category || parseInt(definition.categoryId) === parseInt(this.state.category))
     }
 
     renderData() {
@@ -363,7 +365,7 @@ class GoalCollaboratorFilter extends Component {
                             <Select
                               name='definition'
                               label={Resources.GOAL_FILTER_GOAL_LABEL}
-                              options={definitions}
+                              options={this.filterDefinitions(definitions)}
                               emptyText={Resources.CHALLENGE_FILTER_COLLABORATOR_ALL_OPTION}
                               optionValueName='id'
                               optionTextName='name'

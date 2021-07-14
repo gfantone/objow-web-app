@@ -30,14 +30,14 @@ class TeamGoalList extends MainLayoutComponent {
         super(props);
         this.id = null;
         this.current = 0;
-        this.category = null;
+        this.category = "";
         this.year = null;
         this.start = null;
         this.end = null;
         this.name = null;
         this.onlyCollaborator = true;
         this.onlyTeam = true;
-        this.definition = null;
+        this.definition = "";
         this.state = {
             filterOpen: false,
             collaboratorFilterLoaded: false
@@ -236,12 +236,7 @@ class TeamGoalList extends MainLayoutComponent {
         if (account.role.code == 'C' || account.role.code == 'M' && account.team.id != this.props.match.params.id) {
             return <Redirect to='/goals' />
         }
-        const allowedDefinitions = hasGoals && _.uniq(_.flatten(
-          [
-            ...collaboratorGoals.map(goal => goal.definitionId),
-            ...teamGoals.map(goal => goal.definitionId),
-          ]
-        ))
+
         return (
             <div>
                 <GoalCollaboratorFilter
@@ -255,7 +250,7 @@ class TeamGoalList extends MainLayoutComponent {
                   end={this.end}
                   definition={this.definition}
                   current={this.current}
-                  allowedDefinitions={allowedDefinitions}
+
                   onlyCollaborator={this.onlyCollaborator}
                   onlyTeam={this.onlyTeam}
                   onLoaded={this.onCollaboratorFilterLoaded.bind(this)}

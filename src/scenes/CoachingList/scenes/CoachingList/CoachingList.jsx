@@ -6,6 +6,7 @@ import Formsy from 'formsy-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { Grid, IconButton, RadioGroup } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 import { SubHeader } from './components'
 import { DefaultText, EmptyState, GreenRadio, IconButton as HeaderIconButton, Linkify, MainLayoutComponent, OrangeRadio, ProgressButton, RedRadio, TableChip, TextField, RichTextField } from '../../../../components'
 import * as Resources from '../../../../Resources'
@@ -15,6 +16,13 @@ import * as coachingItemListUpdateActions from '../../../../services/CoachingIte
 import * as coachingItemRemovingActions from '../../../../services/CoachingItems/CoachingItemRemoving/actions'
 import * as coachingItemUpdateActions from '../../../../services/CoachingItems/CoachingItemUpdate/actions'
 import * as userDetailActions from '../../../../services/Users/UserDetail/actions'
+
+const styles = {
+  coachingItem: {
+
+  }
+}
+
 
 class CoachingList extends MainLayoutComponent {
     constructor(props) {
@@ -126,7 +134,7 @@ class CoachingList extends MainLayoutComponent {
                                     <Grid item xs='auto'>
                                         <TableChip label='>' />
                                     </Grid>
-                                    <Grid item xs>
+                                    <Grid item xs className={ this.props.classes.coachingItem }>
                                         {!canUpdateCoaching && <Linkify>
                                           <RichTextField
                                             name='instruction'
@@ -209,4 +217,4 @@ const mapDispatchToProps = (dispatch) => ({
     coachingItemUpdateActions: bindActionCreators(coachingItemUpdateActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoachingList)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CoachingList))
