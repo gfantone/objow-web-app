@@ -30,6 +30,10 @@ const collaboratorGoals = {
     ranks(id) {
         const url = `${baseUrl}${id}/ranks/`;
         return instance.get(url)
+    },
+    goals(id) {
+      const url = `${baseUrl}${id}/goals/`;
+      return instance.get(url)
     }
 };
 

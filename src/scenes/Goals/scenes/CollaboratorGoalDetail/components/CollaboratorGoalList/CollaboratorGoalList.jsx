@@ -45,7 +45,8 @@ class CollaboratorGoalList extends Component {
 
     componentDidMount() {
         const { goal } = this.props.collaboratorGoalDetail;
-        this.props.collaboratorGoalListActions.getCollaboratorGoalListByTeamCollaboratorGoal(goal.goalId)
+
+        this.props.collaboratorGoalListActions.getCollaboratorGoalListByGoal(goal.id)
     }
 
     renderLoader() {
@@ -93,6 +94,7 @@ class CollaboratorGoalList extends Component {
     renderForm() {
         const { classes } = this.props;
         const { goals } = this.props.collaboratorGoalList;
+        console.log(goals);
         const { goal: parentGoal } = this.props.collaboratorGoalDetail;
         const { loading } = this.props.playerGoalListUpdate;
         const { account } = this.props.accountDetail;

@@ -45,6 +45,7 @@ class CollaboratorGoalList extends Component {
 
     componentDidMount() {
         const { goal } = this.props.teamCollaboratorGoalDetail;
+        
         this.props.collaboratorGoalListActions.getCollaboratorGoalListByTeamCollaboratorGoal(goal.id)
     }
 

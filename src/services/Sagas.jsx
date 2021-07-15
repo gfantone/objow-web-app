@@ -58,7 +58,7 @@ import watchCoachingItemListUpdate from './CoachingItems/CoachingItemListUpdate/
 import watchCoachingItemRemoving from './CoachingItems/CoachingItemRemoving/sagas'
 import watchCollaboratorDetail from './Collaborators/CollaboratorDetail/sagas'
 import watchCollaboratorGoalDetail from './CollaboratorGoals/CollaboratorGoalDetail/sagas'
-import {watchCollaboratorGoalListByTeamCollaboratorGoal} from './CollaboratorGoals/CollaboratorGoalList/sagas'
+import {watchCollaboratorGoalListByTeamCollaboratorGoal, watchCollaboratorGoalListByGoal} from './CollaboratorGoals/CollaboratorGoalList/sagas'
 import watchCollaboratorGoalListDuplication from './CollaboratorGoals/CollaboratorGoalListDuplication/sagas'
 import {watchCollaboratorGoalSummaryList, watchCollaboratorGoalSummaryListByDefinitionAndCollaborator} from './CollaboratorGoalSummaries/CollaboratorGoalSummaryList/sagas'
 import watchWaitingCollaboratorRewardOrderCount from "./CollaboratorRewardOrders/CollaboratorRewardOrderCount/sagas";
@@ -232,6 +232,7 @@ function* rootSaga() {
         watchCollaboratorGoalCategoryList(),
         watchCollaboratorGoalDetail(),
         watchCollaboratorGoalListByTeamCollaboratorGoal(),
+        watchCollaboratorGoalListByGoal(),
         watchCollaboratorGoalListDuplication(),
         watchCollaboratorGoalRankListByCollaboratorGOal(),
         watchCollaboratorGoalRankListByTeamCollaboratorGoal(),
