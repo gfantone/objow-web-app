@@ -198,12 +198,12 @@ class GoalCollaboratorFilter extends Component {
     handleDeleteCategory = () => {
       const { start, end, year, team, collaborator, category, onlyCollaborator, onlyTeam, definition } = this.state;
 
+      this.props.onChange("", team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, definition);
+      this.props.onClose()
       this.setState({
         ...this.state,
         category: ""
       }, () => {
-        this.props.onChange("", team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, definition);
-        this.props.onClose()
       })
 
     }
@@ -211,13 +211,13 @@ class GoalCollaboratorFilter extends Component {
     handleDeleteDefinition = () => {
       const { start, end, year, team, collaborator, category, onlyCollaborator, onlyTeam, definition } = this.state;
 
+      this.props.onChange(category, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, "");
+      this.props.onClose()
       this.setState({
         ...this.state,
         definition: ""
       }, () => {
         //
-        this.props.onChange(category, team, collaborator, year, start, end, onlyCollaborator || null, onlyTeam || null, "");
-        this.props.onClose()
       })
     }
 

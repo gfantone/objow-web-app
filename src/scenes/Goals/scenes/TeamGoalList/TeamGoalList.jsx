@@ -160,7 +160,7 @@ class TeamGoalList extends MainLayoutComponent {
             if (start) url += `&start=${start.getTime()}`;
             if (end) url += `&end=${end.getTime()}`;
             if (this.name) url += `&name=${this.name}`;
-            if (definition !== null) url += `&definition=${definition}`;
+            if (definition) url += `&definition=${definition}`;
             if (onlyCollaborator !== null) url += `&onlyCollaborator=${onlyCollaborator}`;
             if (onlyTeam !== null) url += `&onlyTeam=${onlyTeam}`;
             this.props.history.push(url)
