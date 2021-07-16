@@ -252,7 +252,7 @@ class GoalCollaboratorFilter extends Component {
         const selectedCollaborator = collaborators ? collaborators.filter(collaborator => collaborator.id === parseInt(this.state.collaborator))[0] : null;
         const periods = [currentPeriod].concat(previousPeriods);
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')} entityId={ _.get(selectedCollaborator, 'id') } fallbackName={ _.get(selectedCollaborator, 'fullname') } fontSize={ 10 } />
-
+        const selectSize = account.role.code == 'M' ? 4 : 6
         this.props.onLoaded()
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
@@ -315,7 +315,7 @@ class GoalCollaboratorFilter extends Component {
                 <Formsy onSubmit={this.handleSubmit.bind(this)} className={this.props.classes.filterForm} ref={this.filterForm}>
                     <Grid container spacing={2}>
                         { account.role.code == 'A' &&
-                          <Grid item xs={12} sm={6}>
+                          <Grid item xs={12} sm={selectSize}>
                               <Select
                                 name='team'
                                 label={Resources.CHALLENGE_FILTER_TEAM_LABEL}
@@ -333,7 +333,7 @@ class GoalCollaboratorFilter extends Component {
                         }
 
                         { account.role.code != 'C' && collaborators &&
-                          <Grid item xs={12} sm={6}>
+                          <Grid item xs={12} sm={selectSize}>
                               <Select
                                 name='collaborator'
                                 label={Resources.CHALLENGE_FILTER_COLLABORATOR_LABEL}
@@ -347,7 +347,7 @@ class GoalCollaboratorFilter extends Component {
                                 />
                           </Grid>
                         }
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={selectSize}>
                           <Select
                             name='category'
                             label={Resources.GOAL_FILTER_CATEGORY_LABEL}
@@ -361,7 +361,7 @@ class GoalCollaboratorFilter extends Component {
                             onChange={this.handleChange('category').bind(this)}
                           />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={selectSize}>
                             <Select
                               name='definition'
                               label={Resources.GOAL_FILTER_GOAL_LABEL}
