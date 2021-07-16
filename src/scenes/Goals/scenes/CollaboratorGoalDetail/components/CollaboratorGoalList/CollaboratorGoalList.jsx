@@ -178,13 +178,14 @@ class CollaboratorGoalList extends Component {
     }
 
     render() {
-        const { goals, loading } = this.props.collaboratorGoalList;
-
+        const { goals, loading: goalLoading } = this.props.collaboratorGoalList;
+        const { goal: parentGoal, loading: parentLoading } = this.props.teamCollaboratorGoalDetail;
+        const loading = goalLoading || parentLoading
         return (
             <div>
                 { loading && this.renderLoader() }
-                { !loading && goals && goals.length > 0 && this.renderForm() }
-                { !loading && goals && goals.length == 0 && this.renderEmptyState() }
+                { !loading && goals && goals.length > 0 && parentGoal && this.renderForm() }
+                { !loading && goals && goals.length == 0 && parentGoal && this.renderEmptyState() }
             </div>
         )
     }
