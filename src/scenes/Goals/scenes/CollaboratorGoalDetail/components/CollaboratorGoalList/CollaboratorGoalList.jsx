@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { AccentText, Card, DefaultText, DefaultTitle, EmptyState, ErrorText, InfoText, Loader, ProgressButton, TextField, Avatar } from '../../../../../../components'
 import * as collaboratorGoalListActions from '../../../../../../services/CollaboratorGoals/CollaboratorGoalList/actions'
 import * as playerGoalListUpdateActions from '../../../../../../services/PlayerGoals/PlayerGoalListUpdate/actions'
+import * as teamCollaboratorGoalDetailActions from '../../../../../../services/TeamCollaboratorGoals/TeamCollaboratorGoalDetail/actions'
 import '../../../../../../helpers/FormsyHelper'
 import * as Resources from "../../../../../../Resources";
 import _ from 'lodash'
@@ -45,7 +46,7 @@ class CollaboratorGoalList extends Component {
 
     componentDidMount() {
         const { goal } = this.props.collaboratorGoalDetail;
-
+        this.props.teamCollaboratorGoalDetailActions.getTeamCollaboratorGoalDetail(goal.teamCollaboratorGoalId);
         this.props.collaboratorGoalListActions.getCollaboratorGoalListByGoal(goal.id)
     }
 
@@ -94,8 +95,9 @@ class CollaboratorGoalList extends Component {
     renderForm() {
         const { classes } = this.props;
         const { goals } = this.props.collaboratorGoalList;
-        console.log(goals);
-        const { goal: parentGoal } = this.props.collaboratorGoalDetail;
+
+        const { goal: parentGoal } = this.props.teamCollaboratorGoalDetail;
+
         const { loading } = this.props.playerGoalListUpdate;
         const { account } = this.props.accountDetail;
         const goalCount = goals.length;
@@ -188,15 +190,17 @@ class CollaboratorGoalList extends Component {
     }
 }
 
-const mapStateToProps = ({ collaboratorGoalList, goalDefinitionDetail, playerGoalListUpdate, collaboratorGoalDetail, accountDetail }) => ({
+const mapStateToProps = ({ collaboratorGoalList, goalDefinitionDetail, playerGoalListUpdate, collaboratorGoalDetail, accountDetail, teamCollaboratorGoalDetail }) => ({
     collaboratorGoalList,
     goalDefinitionDetail,
     playerGoalListUpdate,
     collaboratorGoalDetail,
+    teamCollaboratorGoalDetail,
     accountDetail
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  teamCollaboratorGoalDetailActions: bindActionCreators(teamCollaboratorGoalDetailActions, dispatch),
     collaboratorGoalListActions: bindActionCreators(collaboratorGoalListActions, dispatch),
     playerGoalListUpdateActions: bindActionCreators(playerGoalListUpdateActions, dispatch)
 });
