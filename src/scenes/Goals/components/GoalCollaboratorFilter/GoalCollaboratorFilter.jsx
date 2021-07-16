@@ -254,6 +254,7 @@ class GoalCollaboratorFilter extends Component {
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')} entityId={ _.get(selectedCollaborator, 'id') } fallbackName={ _.get(selectedCollaborator, 'fullname') } fontSize={ 10 } />
         const selectSize = account.role.code == 'M' ? 4 : 6
         this.props.onLoaded()
+
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
               <ExpansionPanelSummary className={this.props.classes.expansionPanelSummary} ref={this.panel}>
@@ -324,7 +325,8 @@ class GoalCollaboratorFilter extends Component {
                                 optionTextName='name'
                                 emptyDisabled
                                 fullWidth
-                                initial={this.state.team}
+                                updateInitial
+                                initial={ selectedCollaborator && selectedCollaborator.team.id || this.state.team}
                                 onChange={(value) => {
                                   this.resetCollaborator(() => this.handleChange('team')(value))
                                 }}
