@@ -589,10 +589,10 @@ class Spreadsheet extends Component {
     }
     handleSubmit = () => {
       const {definition} = this.props.goalDefinitionDetail
-      const goalList = _.flatten(this.state.grid).filter(cell => cell.type === 'playerGoal' && cell.value && cell.id).map(goal => (
+      const goalList = _.flatten(this.state.grid).filter(cell => cell.type === 'playerGoal' && !_.isNull(cell.value) && !_.isUndefined(cell.value) && cell.id).map(goal => (
         {id: goal.id, target: goal.value}
       ))
-      
+
       if(_.get(definition, 'type.code') === 'C') {
         this.props.playerGoalListUpdateActions.updatePlayerGoalList(goalList)
       } else {

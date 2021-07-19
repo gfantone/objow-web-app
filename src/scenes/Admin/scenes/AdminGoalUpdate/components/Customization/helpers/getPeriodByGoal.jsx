@@ -1,6 +1,12 @@
 import _ from 'lodash'
 
 const getPeriodByGoal = (goal) => {
+  if(!goal) {
+    return {
+      name: '',
+      date: ''
+    }
+  }
   const definition= goal.definition
   const periodicity = _.get(definition, 'periodicity.code')
   if(periodicity === 'W') {
