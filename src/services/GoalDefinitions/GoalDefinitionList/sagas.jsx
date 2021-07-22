@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* getGoalDefinitions(action) {
     try {
-        var { data: definitions } = yield call(api.periods.goalDefinitions, action.periodId, action.isActive);
+        var { data: definitions } = yield call(api.periods.goalDefinitions, action.periodId, action.isActive, action.allDefinitions);
         if (action.includeData) {
             const levelCountList = yield all(definitions.map(definition => call(api.goalDefinitions.levelCount, definition.id)));
             const pointList = yield all(definitions.map(definition => call(api.goalDefinitions.points, definition.id)));
@@ -25,7 +25,18 @@ function* getGoalDefinitions(action) {
 
 function* getGoalDefinitionsByCollaborator(action) {
     try {
-        const {data: definitions} = yield call(api.collaborators.definitions, action.collaboratorId, action.periodId, action.current)
+        const {data: definitions} = yield call(api.collaborators.definitions, action.collaboratorId, action.periodId, action.current, action.detail)
+        if (action.detail) {
+            const levelCountList = yield all(definitions.map(definition => call(api.goalDefinitions.levelCount, definition.id)));
+            const pointList = yield all(definitions.map(definition => call(api.goalDefinitions.points, definition.id)));
+            const obtainedPointList = yield all(definitions.map(definition => call(api.goalDefinitions.obtainedPoints, definition.id)));
+            definitions.map(definition => {
+                const index = definitions.indexOf(definition);
+                definition.levels = levelCountList[index].data;
+                definition.points = pointList[index].data;
+                definition.obtainedPoints = obtainedPointList[index].data
+            })
+        }
         yield put(getGoalDefinitionListSuccess(definitions))
     } catch(e) {
         yield put(getGoalDefinitionListError())
@@ -34,7 +45,18 @@ function* getGoalDefinitionsByCollaborator(action) {
 
 function* getGoalDefinitionsByTeam(action) {
     try {
-        const {data: definitions} = yield call(api.teams.definitions, action.teamId, action.periodId, action.current)
+        const {data: definitions} = yield call(api.teams.definitions, action.teamId, action.periodId, action.current, action.detail)
+        if (action.detail) {
+            const levelCountList = yield all(definitions.map(definition => call(api.goalDefinitions.levelCount, definition.id)));
+            const pointList = yield all(definitions.map(definition => call(api.goalDefinitions.points, definition.id)));
+            const obtainedPointList = yield all(definitions.map(definition => call(api.goalDefinitions.obtainedPoints, definition.id)));
+            definitions.map(definition => {
+                const index = definitions.indexOf(definition);
+                definition.levels = levelCountList[index].data;
+                definition.points = pointList[index].data;
+                definition.obtainedPoints = obtainedPointList[index].data
+            })
+        }
         yield put(getGoalDefinitionListSuccess(definitions))
     } catch(e) {
         yield put(getGoalDefinitionListError())

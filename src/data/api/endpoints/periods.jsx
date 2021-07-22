@@ -46,8 +46,9 @@ const periods = {
         const url = `${baseUrl}current/`;
         return instance.get(url)
     },
-    goalDefinitions(id, isActive) {
-        const url = `${baseUrl}${id}/goal-definitions/?isActive=${isActive}`;
+    goalDefinitions(id, isActive, allDefinitions) {
+        let url = `${baseUrl}${id}/goal-definitions/?isActive=${isActive}`;
+        if (allDefinitions !== null) url = `${url}&allDefinitions=${allDefinitions}`
         return instance.get(url)
     },
     levels(id) {
