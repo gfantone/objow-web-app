@@ -45,7 +45,9 @@ const DataTable = (props) => {
             viewColumns: {
                 title: 'Afficher colonnes'
             }
-        }
+        },
+        rowsPerPage: 25,
+        rowsPerPageOptions: [25, 50, 100]
     }
 
     return (
