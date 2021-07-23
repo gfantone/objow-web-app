@@ -9,7 +9,8 @@ const collaborators = {
         return instance.get(url)
     },
     definitions(id, periodId, current) {
-        const url = `${baseUrl}${id}/definitions/?period=${periodId}&current=${current}`
+        let url = `${baseUrl}${id}/definitions/?period=${periodId}`
+        if(current !== undefined && current !== null) url = `${url}&current=${current}`
         return instance.get(url)
     },
     detail(id) {
