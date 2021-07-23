@@ -43,8 +43,13 @@ const goalDefinitions = {
         if (date) url += `?date=${date.toISOString()}`;
         return instance.get(url)
     },
-    levelCount(id) {
+    levelCount(id, team, collaborator) {
         const url = `${baseUrl}${id}/level-count/`;
+        if(team) {
+          url = `${url}?team=${team}`
+        } else if (collaborator) {
+          url = `${url}?collaborator=${collaborator}`
+        }
         return instance.get(url)
     },
     levels(id) {
@@ -54,12 +59,22 @@ const goalDefinitions = {
     list() {
         return instance.get(baseUrl)
     },
-    points(id) {
+    points(id, team, collaborator) {
         const url = `${baseUrl}${id}/points/`;
+        if(team) {
+          url = `${url}?team=${team}`
+        } else if (collaborator) {
+          url = `${url}?collaborator=${collaborator}`
+        }
         return instance.get(url)
     },
-    obtainedPoints(id) {
+    obtainedPoints(id, team, collaborator) {
         const url = `${baseUrl}${id}/obtained-points/`;
+        if(team) {
+          url = `${url}?team=${team}`
+        } else if (collaborator) {
+          url = `${url}?collaborator=${collaborator}`
+        }
         return instance.get(url)
     },
     teamCollaboratorGoals(id, date, team = null) {

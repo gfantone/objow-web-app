@@ -27,9 +27,9 @@ function* getGoalDefinitionsByCollaborator(action) {
     try {
         const {data: definitions} = yield call(api.collaborators.definitions, action.collaboratorId, action.periodId, action.current, action.detail)
         if (action.detail) {
-            const levelCountList = yield all(definitions.map(definition => call(api.goalDefinitions.levelCount, definition.id)));
-            const pointList = yield all(definitions.map(definition => call(api.goalDefinitions.points, definition.id)));
-            const obtainedPointList = yield all(definitions.map(definition => call(api.goalDefinitions.obtainedPoints, definition.id)));
+            const levelCountList = yield all(definitions.map(definition => call(api.goalDefinitions.levelCount, definition.id, null, action.collaboratorId)));
+            const pointList = yield all(definitions.map(definition => call(api.goalDefinitions.points, definition.id, null, action.collaboratorId)));
+            const obtainedPointList = yield all(definitions.map(definition => call(api.goalDefinitions.obtainedPoints, definition.id, null, action.collaboratorId)));
             definitions.map(definition => {
                 const index = definitions.indexOf(definition);
                 definition.levels = levelCountList[index].data;
@@ -47,9 +47,9 @@ function* getGoalDefinitionsByTeam(action) {
     try {
         const {data: definitions} = yield call(api.teams.definitions, action.teamId, action.periodId, action.current, action.detail)
         if (action.detail) {
-            const levelCountList = yield all(definitions.map(definition => call(api.goalDefinitions.levelCount, definition.id)));
-            const pointList = yield all(definitions.map(definition => call(api.goalDefinitions.points, definition.id)));
-            const obtainedPointList = yield all(definitions.map(definition => call(api.goalDefinitions.obtainedPoints, definition.id)));
+            const levelCountList = yield all(definitions.map(definition => call(api.goalDefinitions.levelCount, definition.id, action.teamId)));
+            const pointList = yield all(definitions.map(definition => call(api.goalDefinitions.points, definition.id, action.teamId)));
+            const obtainedPointList = yield all(definitions.map(definition => call(api.goalDefinitions.obtainedPoints, definition.id, action.teamId)));
             definitions.map(definition => {
                 const index = definitions.indexOf(definition);
                 definition.levels = levelCountList[index].data;

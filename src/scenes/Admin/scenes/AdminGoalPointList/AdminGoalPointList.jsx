@@ -64,7 +64,7 @@ class AdminGoalPointList extends MainLayoutComponent {
           this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(collaborator, periodId, null, true)
         } else if(team) {
           this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(periodId, team, null, true)
-        } else {
+        } else if(mode === 'global') {
           this.props.goalDefinitionListActions.getGoalDefinitionList(periodId, true, true, true);
         }
         this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPoints(periodId);
@@ -124,6 +124,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         const teamGoalPoints = configs.find(x => x.code == 'TPG');
         const usableCollaboratorGoalPoints = collaboratorGoalPoints ? collaboratorGoalPoints.value - collaboratorPoints : 0;
         const usableTeamGoalPoints = teamGoalPoints ? teamGoalPoints.value - teamPoints : 0;
+        
         var columns = [
             { name: 'id', label: 'Ref' },
             { name: 'name', label: 'Intitulé' },
