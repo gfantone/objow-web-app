@@ -124,14 +124,14 @@ class AdminGoalPointList extends MainLayoutComponent {
         const teamGoalPoints = configs.find(x => x.code == 'TPG');
         const usableCollaboratorGoalPoints = collaboratorGoalPoints ? collaboratorGoalPoints.value - collaboratorPoints : 0;
         const usableTeamGoalPoints = teamGoalPoints ? teamGoalPoints.value - teamPoints : 0;
-        
+
         var columns = [
             { name: 'id', label: 'Ref' },
             { name: 'name', label: 'Intitulé' },
             { name: 'type.description', label: 'Objectif' },
-            { name: 'points', label: 'Total pts mis en jeu' },
-            { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
-            { name: 'levels', label: 'Nbre de paliers' },
+            { name: 'pastPoints', label: 'Total pts mis en jeu' },
+            // { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
+            // { name: 'levels', label: 'Nbre de paliers' },
             { name: 'category.name', label: 'Catégorie' }
         ];
         const options = {
@@ -145,10 +145,24 @@ class AdminGoalPointList extends MainLayoutComponent {
                     <Card>
                         <Grid container spacing={2}>
                             <Grid item>
-                                <DefaultText>{usableCollaboratorGoalPoints} pts joueur disponible</DefaultText>
+                              <Grid container direction="column" alignItems="center" spacing={2}>
+                                <Grid item>
+                                  <DefaultText>{usableCollaboratorGoalPoints}</DefaultText>
+                                </Grid>
+                                <Grid item>
+                                  <DefaultText>pts joueur disponible</DefaultText>
+                                </Grid>
+                              </Grid>
                             </Grid>
                             <Grid item>
-                                <DefaultText>{usableTeamGoalPoints} pts équipe disponible</DefaultText>
+                              <Grid container direction="column" alignItems="center" spacing={2}>
+                                <Grid item>
+                                  <DefaultText>{usableTeamGoalPoints}</DefaultText>
+                                </Grid>
+                                <Grid item>
+                                  <DefaultText>pts équipe disponible</DefaultText>
+                                </Grid>
+                              </Grid>
                             </Grid>
                         </Grid>
                     </Card>

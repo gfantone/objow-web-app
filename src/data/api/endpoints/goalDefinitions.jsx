@@ -44,10 +44,12 @@ const goalDefinitions = {
         return instance.get(url)
     },
     levelCount(id, team, collaborator) {
-        const url = `${baseUrl}${id}/level-count/`;
+        let url = `${baseUrl}${id}/level-count`;
         if(team) {
+
           url = `${url}?team=${team}`
         } else if (collaborator) {
+
           url = `${url}?collaborator=${collaborator}`
         }
         return instance.get(url)
@@ -60,7 +62,8 @@ const goalDefinitions = {
         return instance.get(baseUrl)
     },
     points(id, team, collaborator) {
-        const url = `${baseUrl}${id}/points/`;
+        let url = `${baseUrl}${id}/points`;
+
         if(team) {
           url = `${url}?team=${team}`
         } else if (collaborator) {
@@ -69,7 +72,16 @@ const goalDefinitions = {
         return instance.get(url)
     },
     obtainedPoints(id, team, collaborator) {
-        const url = `${baseUrl}${id}/obtained-points/`;
+        let url = `${baseUrl}${id}/obtained-points`;
+        if(team) {
+          url = `${url}?team=${team}`
+        } else if (collaborator) {
+          url = `${url}?collaborator=${collaborator}`
+        }
+        return instance.get(url)
+    },
+    pastPoints(id, team, collaborator) {
+        let url = `${baseUrl}${id}/past-points`;
         if(team) {
           url = `${url}?team=${team}`
         } else if (collaborator) {
