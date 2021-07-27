@@ -7,10 +7,11 @@ export const getGoalDefinitionLevelCollaboratorPoints = (periodId) => {
     }
 };
 
-export const getGoalDefinitionLevelCollaboratorPointsSuccess = (points) => {
+export const getGoalDefinitionLevelCollaboratorPointsSuccess = ({usedPoints, currentPoints}) => {
     return {
         type: types.GET_GOAL_DEFINITION_LEVEL_COLLABORATOR_POINTS_SUCCESS,
-        points
+        usedPoints,
+        currentPoints
     }
 };
 

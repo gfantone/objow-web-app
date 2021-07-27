@@ -5,8 +5,13 @@ import api from '../../../data/api/api'
 
 function* getGoalDefinitionLevelTeamPoints(action) {
     try {
-        const { data: points } = yield call(api.periods.teamGoalUsedPoints, action.periodId);
-        yield put(getGoalDefinitionLevelTeamPointsSuccess(points))
+        const { data: usedPoints } = yield call(api.periods.teamGoalUsedPoints, action.periodId);
+        const { data: currentPoints } = yield call(api.periods.teamGoalCurrentPoints, action.periodId);
+        console.log(usedPoints, currentPoints);
+        yield put(getGoalDefinitionLevelTeamPointsSuccess({
+          usedPoints,
+          currentPoints
+        }))
     } catch(e) {
         yield put(getGoalDefinitionLevelTeamPointsError())
     }

@@ -38,6 +38,10 @@ const periods = {
         const url = `${baseUrl}${id}/collaborator-goal-used-points/`;
         return instance.get(url)
     },
+    collaboratorGoalCurrentPoints(id) {
+        const url = `${baseUrl}${id}/collaborator-goal-current-points/`;
+        return instance.get(url)
+    },
     configs(id) {
         const url = `${baseUrl}${id}/configs/`;
         return instance.get(url)
@@ -77,6 +81,10 @@ const periods = {
     },
     teamGoalUsedPoints(id) {
         const url = `${baseUrl}${id}/team-goal-used-points/`;
+        return instance.get(url)
+    },
+    teamGoalCurrentPoints(id) {
+        const url = `${baseUrl}${id}/team-goal-current-points/`;
         return instance.get(url)
     }
 };

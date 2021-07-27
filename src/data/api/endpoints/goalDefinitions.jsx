@@ -80,8 +80,17 @@ const goalDefinitions = {
         }
         return instance.get(url)
     },
-    pastPoints(id, team, collaborator) {
-        let url = `${baseUrl}${id}/past-points`;
+    usedPoints(id, team, collaborator) {
+        let url = `${baseUrl}${id}/used-points`;
+        if(team) {
+          url = `${url}?team=${team}`
+        } else if (collaborator) {
+          url = `${url}?collaborator=${collaborator}`
+        }
+        return instance.get(url)
+    },
+    currentPoints(id, team, collaborator) {
+        let url = `${baseUrl}${id}/current-points`;
         if(team) {
           url = `${url}?team=${team}`
         } else if (collaborator) {

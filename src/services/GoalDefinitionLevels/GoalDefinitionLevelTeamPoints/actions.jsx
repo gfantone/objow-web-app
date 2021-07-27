@@ -7,10 +7,11 @@ export const getGoalDefinitionLevelTeamPoints = (periodId) => {
     }
 };
 
-export const getGoalDefinitionLevelTeamPointsSuccess = (points) => {
+export const getGoalDefinitionLevelTeamPointsSuccess = ({usedPoints, currentPoints}) => {
     return {
         type: types.GET_GOAL_DEFINITION_LEVEL_TEAM_POINTS_SUCCESS,
-        points
+        usedPoints,
+        currentPoints
     }
 };
 

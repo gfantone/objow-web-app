@@ -5,8 +5,13 @@ import api from '../../../data/api/api'
 
 function* getGoalDefinitionLevelCollaboratorPoints(action) {
     try {
-        const { data: points } = yield call(api.periods.collaboratorGoalUsedPoints, action.periodId);
-        yield put(getGoalDefinitionLevelCollaboratorPointsSuccess(points))
+        const { data: usedPoints } = yield call(api.periods.collaboratorGoalUsedPoints, action.periodId);
+        const { data: currentPoints } = yield call(api.periods.collaboratorGoalCurrentPoints, action.periodId);
+        
+        yield put(getGoalDefinitionLevelCollaboratorPointsSuccess({
+          usedPoints,
+          currentPoints
+        }))
     } catch(e) {
         yield put(getGoalDefinitionLevelCollaboratorPointsError())
     }

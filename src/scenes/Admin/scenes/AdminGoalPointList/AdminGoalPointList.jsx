@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { AppBarSubTitle, Card, DataTable, DefaultText, Loader, MainLayoutComponent } from '../../../../components'
-import { ModeSelect, Filters } from './components'
+import { ModeSelect, Filters, ParticipantTypeFilter } from './components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as goalDefinitionLevelCollaboratorPointsActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelCollaoratorPoints/actions'
 import * as goalDefinitionLevelTeamPointsActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelTeamPoints/actions'
@@ -35,6 +35,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.collaborator = null
         this.state = {
           mode: null,
+          type: 'C'
           // team: null,
           // collaborator: null,
         }
@@ -91,11 +92,19 @@ class AdminGoalPointList extends MainLayoutComponent {
       this.loadData()
     }
 
+    handleTypeChange = (type) => {
+        this.setState({
+            ...this.state,
+            type: type
+        })
+    }
+
     componentDidMount() {
         const periodId = this.props.match.params.periodId;
         this.props.activateReturn();
         this.props.handleTitle('Administration');
-        this.props.handleSubHeader(<AppBarSubTitle title='Configuration des points des objectifs' />);
+        // this.props.handleSubHeader(<AppBarSubTitle title='Configuration des points des objectifs' />);
+        this.props.handleSubHeader(<ParticipantTypeFilter handleTypeChange={this.handleTypeChange} />)
         this.props.handleMaxWidth('lg');
         this.props.configListActions.getConfigList(periodId);
         this.loadData();
@@ -116,20 +125,24 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 
     renderData() {
+        console.log('render data');
         const { configs } = this.props.configList;
-        const { points: collaboratorPoints } = this.props.goalDefinitionLevelCollaboratorPoints;
-        const { points: teamPoints } = this.props.goalDefinitionLevelTeamPoints;
+        const { usedPoints: usedCollaboratorPoints, currentPoints: currentCollaboratorPoints } = this.props.goalDefinitionLevelCollaboratorPoints;
+        const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints } = this.props.goalDefinitionLevelTeamPoints;
+
         const { definitions } = this.props.goalDefinitionList;
-        const collaboratorGoalPoints = configs.find(x => x.code == 'CPG');
-        const teamGoalPoints = configs.find(x => x.code == 'TPG');
-        const usableCollaboratorGoalPoints = collaboratorGoalPoints ? collaboratorGoalPoints.value - collaboratorPoints : 0;
-        const usableTeamGoalPoints = teamGoalPoints ? teamGoalPoints.value - teamPoints : 0;
+        const { teams } = this.props.teamList;
+        const collaboratorGoalPoints = parseInt(configs.find(x => x.code == 'CPG').value) * teams.reduce((acc, team) => team.collaborators.length + acc, 0);
+        const teamGoalPoints = configs.find(x => x.code == 'TPG').value * teams.length;
+        const usableCollaboratorGoalPoints = collaboratorGoalPoints ? collaboratorGoalPoints - usedCollaboratorPoints - currentCollaboratorPoints : 0;
+        const usableTeamGoalPoints = teamGoalPoints ? teamGoalPoints - usedTeamPoints - currentTeamPoints : 0;
 
         var columns = [
             { name: 'id', label: 'Ref' },
             { name: 'name', label: 'Intitulé' },
             { name: 'type.description', label: 'Objectif' },
-            { name: 'pastPoints', label: 'Total pts mis en jeu' },
+            { name: 'usedPoints', label: 'Total pts mis en jeu' },
+            { name: 'currentPoints', label: 'Pts en cours de jeu' },
             // { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
             // { name: 'levels', label: 'Nbre de paliers' },
             { name: 'category.name', label: 'Catégorie' }
@@ -144,32 +157,62 @@ class AdminGoalPointList extends MainLayoutComponent {
                 <Grid item xs={12}>
                     <Card>
                         <Grid container spacing={2}>
-                            <Grid item>
-                              <Grid container direction="column" alignItems="center" spacing={2}>
-                                <Grid item>
-                                  <DefaultText>{usableCollaboratorGoalPoints}</DefaultText>
-                                </Grid>
-                                <Grid item>
-                                  <DefaultText>pts joueur disponible</DefaultText>
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid item>
-                              <Grid container direction="column" alignItems="center" spacing={2}>
-                                <Grid item>
-                                  <DefaultText>{usableTeamGoalPoints}</DefaultText>
-                                </Grid>
-                                <Grid item>
-                                  <DefaultText>pts équipe disponible</DefaultText>
+                          { this.state.type === 'C' && (
+                            <React.Fragment>
+                              <Grid item>
+                                <Grid container direction="column" alignItems="center" spacing={2}>
+                                  <Grid item>
+                                    <DefaultText>{usableCollaboratorGoalPoints}</DefaultText>
+                                  </Grid>
+                                  <Grid item>
+                                    <DefaultText>pts joueur disponible</DefaultText>
+                                  </Grid>
                                 </Grid>
                               </Grid>
-                            </Grid>
+                              <Grid item>
+                                <Grid container direction="column" alignItems="center" spacing={2}>
+                                  <Grid item>
+                                    <DefaultText>{usedCollaboratorPoints}</DefaultText>
+                                  </Grid>
+                                  <Grid item>
+                                    <DefaultText>pts joueur déjà mis en jeux</DefaultText>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                              <Grid item>
+                                <Grid container direction="column" alignItems="center" spacing={2}>
+                                  <Grid item>
+                                    <DefaultText>{currentCollaboratorPoints}</DefaultText>
+                                  </Grid>
+                                  <Grid item>
+                                    <DefaultText>pts joueur en cours de jeu</DefaultText>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </React.Fragment>
+                          ) }
+                          { this.state.type === 'T' && (
+                            <React.Fragment>
+                              <Grid item>
+                                <Grid container direction="column" alignItems="center" spacing={2}>
+                                  <Grid item>
+                                    <DefaultText>{usableTeamGoalPoints}</DefaultText>
+                                  </Grid>
+                                  <Grid item>
+                                    <DefaultText>pts équipe disponible</DefaultText>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </React.Fragment>
+                          ) }
                         </Grid>
                     </Card>
                 </Grid>
                 <Filters emptyTeam={ this.state.mode === 'global' } onChange={ this.onFilterChange } team={this.team} collaborator={this.collaborator}/>
                 <Grid item xs={12}>
-                    <DataTable data={definitions} columns={columns} options={options} />
+                    <DataTable data={
+                        definitions.filter(definition => definition.type.code === this.state.type)
+                    } columns={columns} options={options} />
                 </Grid>
             </Grid>
         )
@@ -177,18 +220,19 @@ class AdminGoalPointList extends MainLayoutComponent {
 
     render() {
         const { configs, loading: configfListLoading } = this.props.configList;
-        const { points: collaboratorPoints, loading: goalDefinitionLevelCollaboratorPointsLoading } = this.props.goalDefinitionLevelCollaboratorPoints;
-        const { points: teamPoints, loading: goalDefinitionLevelTeamPointsLoading } = this.props.goalDefinitionLevelTeamPoints;
+        const { usedPoints: usedCollaboratorPoints, currentPoints: currentCollaboratorPoints, loading: goalDefinitionLevelCollaboratorPointsLoading } = this.props.goalDefinitionLevelCollaboratorPoints;
+        const result = this.props.goalDefinitionLevelCollaboratorPoints;
+        const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints, loading: goalDefinitionLevelTeamPointsLoading } = this.props.goalDefinitionLevelTeamPoints;
         const { definitions, loading: goalDefinitionListLoading } = this.props.goalDefinitionList;
         const loading = configfListLoading || goalDefinitionLevelCollaboratorPointsLoading || goalDefinitionLevelTeamPointsLoading || goalDefinitionListLoading;
-
+        
         return (
             <div>
                 { !this.state.mode && <ModeSelect onChange={ this.onModeSelect } /> }
                 { this.state.mode && (
                   <React.Fragment>
                     { loading && this.renderLoader() }
-                    { !loading && configs && collaboratorPoints != null && teamPoints != null && definitions && this.renderData() }
+                    { !loading && configs && usedCollaboratorPoints != null && usedTeamPoints != null && definitions && this.renderData() }
                   </React.Fragment>
                 ) }
             </div>
@@ -196,11 +240,12 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ configList, goalDefinitionLevelCollaboratorPoints, goalDefinitionLevelTeamPoints, goalDefinitionList }) => ({
+const mapStateToProps = ({ configList, goalDefinitionLevelCollaboratorPoints, goalDefinitionLevelTeamPoints, goalDefinitionList, teamList }) => ({
     configList,
     goalDefinitionLevelCollaboratorPoints,
     goalDefinitionLevelTeamPoints,
-    goalDefinitionList
+    goalDefinitionList,
+    teamList
 });
 
 const mapDispatchToProps = (dispatch) => ({
