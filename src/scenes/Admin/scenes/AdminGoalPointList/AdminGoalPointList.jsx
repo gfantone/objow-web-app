@@ -62,14 +62,21 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.mode = mode
 
         if(collaborator) {
+          console.log('collaborator');
           this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(collaborator, periodId, null, true)
+          this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByCollaborator(periodId, collaborator);
+          this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByCollaborator(periodId, collaborator);
         } else if(team) {
+          console.log('team');
           this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(periodId, team, null, true)
-        } else if(mode === 'global') {
+          this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByTeam(periodId, team);
+          this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByTeam(periodId, team);
+        } else {
+          console.log('collaborator');
           this.props.goalDefinitionListActions.getGoalDefinitionList(periodId, true, true, true);
+          this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPoints(periodId);
+          this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPoints(periodId);
         }
-        this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPoints(periodId);
-        this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPoints(periodId);
       }
     }
 
@@ -78,6 +85,7 @@ class AdminGoalPointList extends MainLayoutComponent {
       const params = new URLSearchParams(window.location.search);
       const mode = params.get('mode');
       if(!this.state.mode && mode) {
+        this.props.handleSubHeader(<ParticipantTypeFilter handleTypeChange={this.handleTypeChange} />)
         this.setState({
           ...this.state,
           mode
@@ -103,8 +111,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         const periodId = this.props.match.params.periodId;
         this.props.activateReturn();
         this.props.handleTitle('Administration');
-        // this.props.handleSubHeader(<AppBarSubTitle title='Configuration des points des objectifs' />);
-        this.props.handleSubHeader(<ParticipantTypeFilter handleTypeChange={this.handleTypeChange} />)
+        this.props.handleSubHeader(<AppBarSubTitle title='Configuration des points des objectifs' />);
         this.props.handleMaxWidth('lg');
         this.props.configListActions.getConfigList(periodId);
         this.loadData();
@@ -125,7 +132,6 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 
     renderData() {
-        console.log('render data');
         const { configs } = this.props.configList;
         const { usedPoints: usedCollaboratorPoints, currentPoints: currentCollaboratorPoints } = this.props.goalDefinitionLevelCollaboratorPoints;
         const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints } = this.props.goalDefinitionLevelTeamPoints;
@@ -141,7 +147,7 @@ class AdminGoalPointList extends MainLayoutComponent {
             { name: 'id', label: 'Ref' },
             { name: 'name', label: 'Intitulé' },
             { name: 'type.description', label: 'Objectif' },
-            { name: 'usedPoints', label: 'Total pts mis en jeu' },
+            { name: 'usedPoints', label: 'Pts déjà mis en jeu' },
             { name: 'currentPoints', label: 'Pts en cours de jeu' },
             // { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
             // { name: 'levels', label: 'Nbre de paliers' },
@@ -155,7 +161,9 @@ class AdminGoalPointList extends MainLayoutComponent {
         return (
             <Grid container spacing={4}>
                 <Grid item xs={12}>
-                    <Card>
+                  <Grid container direction="row" spacing={4}>
+                    <Grid item>
+                      <Card>
                         <Grid container spacing={2}>
                           { this.state.type === 'C' && (
                             <React.Fragment>
@@ -175,7 +183,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                     <DefaultText>{usedCollaboratorPoints}</DefaultText>
                                   </Grid>
                                   <Grid item>
-                                    <DefaultText>pts joueur déjà mis en jeux</DefaultText>
+                                    <DefaultText>pts joueur déjà mis en jeu</DefaultText>
                                   </Grid>
                                 </Grid>
                               </Grid>
@@ -203,10 +211,35 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   </Grid>
                                 </Grid>
                               </Grid>
+                              <Grid item>
+                                <Grid container direction="column" alignItems="center" spacing={2}>
+                                  <Grid item>
+                                    <DefaultText>{usedTeamPoints}</DefaultText>
+                                  </Grid>
+                                  <Grid item>
+                                    <DefaultText>pts équipe déjà mis en jeu</DefaultText>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                              <Grid item>
+                                <Grid container direction="column" alignItems="center" spacing={2}>
+                                  <Grid item>
+                                    <DefaultText>{currentTeamPoints}</DefaultText>
+                                  </Grid>
+                                  <Grid item>
+                                    <DefaultText>pts équipe en cours de jeu</DefaultText>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
                             </React.Fragment>
                           ) }
                         </Grid>
-                    </Card>
+                      </Card>
+                    </Grid>
+                    <Grid item>
+                      
+                    </Grid>
+                  </Grid>
                 </Grid>
                 <Filters emptyTeam={ this.state.mode === 'global' } onChange={ this.onFilterChange } team={this.team} collaborator={this.collaborator}/>
                 <Grid item xs={12}>
@@ -225,7 +258,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints, loading: goalDefinitionLevelTeamPointsLoading } = this.props.goalDefinitionLevelTeamPoints;
         const { definitions, loading: goalDefinitionListLoading } = this.props.goalDefinitionList;
         const loading = configfListLoading || goalDefinitionLevelCollaboratorPointsLoading || goalDefinitionLevelTeamPointsLoading || goalDefinitionListLoading;
-        
+
         return (
             <div>
                 { !this.state.mode && <ModeSelect onChange={ this.onModeSelect } /> }

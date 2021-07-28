@@ -72,8 +72,16 @@ import {watchGoalAdviceListCreationByCollaboratorGoal, watchGoalAdviceListCreati
 import watchGoalListUpdate from './Goals/GoalListUpdate/sagas'
 import watchGoalDefinitionDetail from './GoalDefinitions/GoalDefinitionDetail/sagas'
 import watchGoalDefinitionCreation from './GoalDefinitions/GoalDefinitionCreation/sagas'
-import watchGoalDefinitionLevelCollaboratorPoints from './GoalDefinitionLevels/GoalDefinitionLevelCollaoratorPoints/sagas'
-import watchGoalDefinitionLevelTeamPoints from './GoalDefinitionLevels/GoalDefinitionLevelTeamPoints/sagas'
+import {
+  watchGoalDefinitionLevelCollaboratorPoints,
+  watchGoalDefinitionLevelCollaboratorPointsByTeam,
+  watchGoalDefinitionLevelCollaboratorPointsByCollaborator
+} from './GoalDefinitionLevels/GoalDefinitionLevelCollaoratorPoints/sagas'
+import {
+  watchGoalDefinitionLevelTeamPoints,
+  watchGoalDefinitionLevelTeamPointsByTeam,
+  watchGoalDefinitionLevelTeamPointsByCollaborator
+} from './GoalDefinitionLevels/GoalDefinitionLevelTeamPoints/sagas'
 import {watchGoalDefinitionList, watchGoalDefinitionListByCollaborator, watchGoalDefinitionListByTeam} from './GoalDefinitions/GoalDefinitionList/sagas'
 import watchGoalDefinitionUpdate from './GoalDefinitions/GoalDefinitionUpdate/sagas'
 import watchGoalDefinitionActivationUpdate from './GoalDefinitions/GoalDefinitionActivationUpdate/sagas'
@@ -266,9 +274,13 @@ function* rootSaga() {
         watchGoalDefinitionCreation(),
         watchGoalDefinitionDetail(),
         watchGoalDefinitionLevelCollaboratorPoints(),
+        watchGoalDefinitionLevelCollaboratorPointsByTeam(),
+        watchGoalDefinitionLevelCollaboratorPointsByCollaborator(),
         watchGoalDefinitionLevelList(),
         watchGoalDefinitionLevelListUpdate(),
         watchGoalDefinitionLevelTeamPoints(),
+        watchGoalDefinitionLevelTeamPointsByTeam(),
+        watchGoalDefinitionLevelTeamPointsByCollaborator(),
         watchGoalDefinitionList(),
         watchGoalDefinitionListByCollaborator(),
         watchGoalDefinitionListByTeam(),

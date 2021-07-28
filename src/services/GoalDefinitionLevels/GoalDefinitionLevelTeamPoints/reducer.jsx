@@ -2,8 +2,11 @@ import * as types from './actionTypes';
 import initialState from '../../../store/initialState';
 
 const GoalDefinitionLevelTeamPoints = (state = initialState.goalDefinitionLevelTeamPoints, action) => {
+  
     switch (action.type) {
         case types.GET_GOAL_DEFINITION_LEVEL_TEAM_POINTS:
+        case types.GET_GOAL_DEFINITION_LEVEL_TEAM_POINTS_BY_COLLABORATOR:
+        case types.GET_GOAL_DEFINITION_LEVEL_TEAM_POINTS_BY_TEAM:
             return {...state, points: null, loading: true, hasError: false}
 
         case types.GET_GOAL_DEFINITION_LEVEL_TEAM_POINTS_SUCCESS:

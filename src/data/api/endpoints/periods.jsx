@@ -34,12 +34,22 @@ const periods = {
         const url = `${baseUrl}${id}/collaborator-global-point-summary/`
         return instance.get(url)
     },
-    collaboratorGoalUsedPoints(id) {
-        const url = `${baseUrl}${id}/collaborator-goal-used-points/`;
+    collaboratorGoalUsedPoints(id, team, collaborator) {
+        let url = `${baseUrl}${id}/collaborator-goal-used-points/`;
+        if(team) {
+          url = `${url}?team=${team}`
+        } else if (collaborator) {
+          url = `${url}?collaborator=${collaborator}`
+        }
         return instance.get(url)
     },
-    collaboratorGoalCurrentPoints(id) {
-        const url = `${baseUrl}${id}/collaborator-goal-current-points/`;
+    collaboratorGoalCurrentPoints(id, team, collaborator) {
+        let url = `${baseUrl}${id}/collaborator-goal-current-points/`;
+        if(team) {
+          url = `${url}?team=${team}`
+        } else if (collaborator) {
+          url = `${url}?collaborator=${collaborator}`
+        }
         return instance.get(url)
     },
     configs(id) {
@@ -79,12 +89,22 @@ const periods = {
         const url = `${baseUrl}${id}/team-global-point-summary/`
         return instance.get(url)
     },
-    teamGoalUsedPoints(id) {
-        const url = `${baseUrl}${id}/team-goal-used-points/`;
+    teamGoalUsedPoints(id, team, collaborator) {
+        let url = `${baseUrl}${id}/team-goal-used-points/`;
+        if(team) {
+          url = `${url}?team=${team}`
+        } else if (collaborator) {
+          url = `${url}?collaborator=${collaborator}`
+        }
         return instance.get(url)
     },
-    teamGoalCurrentPoints(id) {
-        const url = `${baseUrl}${id}/team-goal-current-points/`;
+    teamGoalCurrentPoints(id, team, collaborator) {
+        let url = `${baseUrl}${id}/team-goal-current-points/`;
+        if(team) {
+          url = `${url}?team=${team}`
+        } else if (collaborator) {
+          url = `${url}?collaborator=${collaborator}`
+        }
         return instance.get(url)
     }
 };
