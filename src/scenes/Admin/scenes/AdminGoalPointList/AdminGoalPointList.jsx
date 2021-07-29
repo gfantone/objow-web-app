@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
+import ReactDataSheet from 'react-datasheet'
 import { AppBarSubTitle, Card, DataTable, DefaultText, Loader, MainLayoutComponent } from '../../../../components'
 import { ModeSelect, Filters, ParticipantTypeFilter } from './components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
@@ -138,15 +139,21 @@ class AdminGoalPointList extends MainLayoutComponent {
 
         const { definitions } = this.props.goalDefinitionList;
         const { teams } = this.props.teamList;
+
+
         const collaboratorGoalPoints = parseInt(configs.find(x => x.code == 'CPG').value) * teams.reduce((acc, team) => team.collaborators.length + acc, 0);
         const teamGoalPoints = configs.find(x => x.code == 'TPG').value * teams.length;
         const usableCollaboratorGoalPoints = collaboratorGoalPoints ? collaboratorGoalPoints - usedCollaboratorPoints - currentCollaboratorPoints : 0;
         const usableTeamGoalPoints = teamGoalPoints ? teamGoalPoints - usedTeamPoints - currentTeamPoints : 0;
 
+        const filteredDefinitions = definitions.filter(definition => definition.type.code === this.state.type)
+        const maxPoints = filteredDefinitions.reduce((acc, definition) => acc + definition.usedPoints + definition.currentPoints, 0)
+        const percentByDefinition = definition => Number(((definition.usedPoints + definition.currentPoints) / maxPoints * 100).toFixed(2))
+
         var columns = [
             { name: 'id', label: 'Ref' },
             { name: 'name', label: 'Intitulé' },
-            { name: 'type.description', label: 'Objectif' },
+            // { name: 'type.description', label: 'Objectif' },
             { name: 'usedPoints', label: 'Pts déjà mis en jeu' },
             { name: 'currentPoints', label: 'Pts en cours de jeu' },
             // { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
@@ -162,7 +169,7 @@ class AdminGoalPointList extends MainLayoutComponent {
             <Grid container spacing={4}>
                 <Grid item xs={12}>
                   <Grid container direction="row" spacing={4}>
-                    <Grid item>
+                    <Grid item sm={8}>
                       <Card>
                         <Grid container spacing={2}>
                           { this.state.type === 'C' && (
@@ -236,16 +243,52 @@ class AdminGoalPointList extends MainLayoutComponent {
                         </Grid>
                       </Card>
                     </Grid>
-                    <Grid item>
-                      
+                    <Grid item sm={4}>
+                      <Card>
+                        <ReactDataSheet
+                          data={[
+                            [
+                              { value: this.state.type === 'T' ? 'Points équipe' : 'Points joueurs', readOnly: true },
+                              { value: this.state.type === 'T' ? teamGoalPoints : collaboratorGoalPoints, readOnly: !this.team && this.collaborator }
+                            ]
+                          ]}
+                          valueRenderer={cell => cell.value}
+                        />
+                      </Card>
                     </Grid>
                   </Grid>
                 </Grid>
                 <Filters emptyTeam={ this.state.mode === 'global' } onChange={ this.onFilterChange } team={this.team} collaborator={this.collaborator}/>
                 <Grid item xs={12}>
-                    <DataTable data={
-                        definitions.filter(definition => definition.type.code === this.state.type)
-                    } columns={columns} options={options} />
+                  <Grid container spacing={4}>
+                    <Grid item sm={8}>
+                      <DataTable data={
+                          filteredDefinitions
+                        } columns={columns} options={options} />
+                    </Grid>
+                    <Grid item sm={4}>
+                      <Card>
+                        <ReactDataSheet
+                          data={[
+                            [ {value: 'Ref'}, {value: '%'}, {value: 'Points'} ],
+                            ...filteredDefinitions.map(definition => (
+                              [{
+                                value: definition.id
+                              }, {
+                                value: percentByDefinition(definition)
+                              },{
+                                value: definition.usedPoints + definition.currentPoints
+                              }]
+                            )),
+                            [ {value: 'Total'}, {value: `${
+                              filteredDefinitions.reduce((acc, definition) => acc + percentByDefinition(definition), 0)
+                            }`}, {value: maxPoints} ]
+                          ]}
+                          valueRenderer={cell => cell.value}
+                        />
+                      </Card>
+                    </Grid>
+                  </Grid>
                 </Grid>
             </Grid>
         )

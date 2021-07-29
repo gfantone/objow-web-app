@@ -430,6 +430,7 @@ class Spreadsheet extends Component {
           [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
           ...data
         ])
+
         this.setState({
           ...this.state,
           grid: validatedGrid.grid,
