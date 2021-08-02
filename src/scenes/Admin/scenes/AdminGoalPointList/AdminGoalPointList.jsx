@@ -5,12 +5,15 @@ import { bindActionCreators } from 'redux'
 import { Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import ReactDataSheet from 'react-datasheet'
-import { AppBarSubTitle, Card, DataTable, DefaultText, Loader, MainLayoutComponent } from '../../../../components'
+import Formsy from 'formsy-react'
+import { AppBarSubTitle, Card, DataTable, DefaultText, Loader, MainLayoutComponent, Select } from '../../../../components'
 import { ModeSelect, Filters, ParticipantTypeFilter } from './components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as goalDefinitionLevelCollaboratorPointsActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelCollaoratorPoints/actions'
 import * as goalDefinitionLevelTeamPointsActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelTeamPoints/actions'
 import * as goalDefinitionListActions from '../../../../services/GoalDefinitions/GoalDefinitionList/actions'
+import * as goalDefinitionPointRepartitionListActions from '../../../../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionList/actions'
+import * as goalDefinitionPointRepartitionModeListActions from '../../../../services/GoalDefinitionPointRepartitionModes/GoalDefinitionPointRepartitionModeList/actions'
 
 const styles = {
     root: {
@@ -62,18 +65,18 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.collaborator = collaborator
         this.mode = mode
 
+        this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList()
+        this.props.goalDefinitionPointRepartitionModeListActions.getGoalDefinitionPointRepartitionModeList()
+
         if(collaborator) {
-          console.log('collaborator');
           this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(collaborator, periodId, null, true)
           this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByCollaborator(periodId, collaborator);
           this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByCollaborator(periodId, collaborator);
         } else if(team) {
-          console.log('team');
           this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(periodId, team, null, true)
           this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByTeam(periodId, team);
           this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByTeam(periodId, team);
         } else {
-          console.log('collaborator');
           this.props.goalDefinitionListActions.getGoalDefinitionList(periodId, true, true, true);
           this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPoints(periodId);
           this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPoints(periodId);
@@ -150,7 +153,8 @@ class AdminGoalPointList extends MainLayoutComponent {
         const teamGoalPoints = baseTeamGoalPoints * teamParticipantsNumber;
         const usableCollaboratorGoalPoints = collaboratorGoalPoints ? collaboratorGoalPoints - usedCollaboratorPoints - currentCollaboratorPoints : 0;
         const usableTeamGoalPoints = teamGoalPoints ? teamGoalPoints - usedTeamPoints - currentTeamPoints : 0;
-
+        const { pointRepartitions } = this.props.goalDefinitionPointRepartitionList
+        const { modes: repartitionModes } = this.props.goalDefinitionPointRepartitionModeList
         const filteredDefinitions = definitions.filter(definition => definition.type.code === this.state.type)
         const totalPoints = filteredDefinitions.reduce((acc, definition) => acc + definition.usedPoints + definition.currentPoints, 0)
         const maxPoints = this.state.type === 'T' ? teamGoalPoints : collaboratorGoalPoints
@@ -285,31 +289,67 @@ class AdminGoalPointList extends MainLayoutComponent {
                     { displayRepartition && (
                       <Grid item sm={4}>
                         <Card>
-                          <ReactDataSheet
-                            data={[
-                              [ {value: 'Ref', readOnly: true}, {value: '%', readOnly: true}, {value: 'Points', readOnly: true} ],
-                              ...filteredDefinitions.map(definition => (
-                                [{
-                                  value: definition.id, readOnly: true
-                                }, {
-                                  value: percentByDefinition(definition), readOnly: true
-                                },{
-                                  value: definition.usedPoints + definition.currentPoints, readOnly: true
-                                }]
-                              )),
-                              [
-                                {value: 'Total utilisé', readOnly: true},
-                                {value: filteredDefinitions.reduce((acc, definition) => acc + percentByDefinition(definition), 0) , readOnly: true},
-                                {value: totalPoints, readOnly: true}
-                              ],
-                              [
-                                {value: 'Total max', readOnly: true},
-                                {value: '100', readOnly: true},
-                                {value: maxPoints, readOnly: true}
-                              ]
-                            ]}
-                            valueRenderer={cell => cell.value}
-                            />
+                          <Formsy onSubmit={() => {}} >
+                            <ReactDataSheet
+                              data={[
+                                [ {value: 'Ref', readOnly: true}, {value: '%', readOnly: true}, {value: 'Points alloués', readOnly: true}, {value: 'Points Max', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
+                                ...filteredDefinitions.map(definition => {
+                                  const repartition = pointRepartitions.filter(pointRepartition => (
+                                    pointRepartition.definition === definition.id && (
+                                      this.team && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
+                                    )
+
+                                  ))[0]
+                                  return (
+                                    [{
+                                      value: definition.id, readOnly: true
+                                    }, {
+                                      value: percentByDefinition(definition), readOnly: true
+                                    },{
+                                      value: definition.usedPoints + definition.currentPoints, readOnly: true
+                                    },
+                                    {
+                                      value: (repartition ? repartition.points : ''), readOnly: true
+                                    },
+                                    {
+                                      value: (repartition ? repartition.mode : ''), type: 'select', choices: repartitionModes
+                                    }
+                                    // {
+                                    //   value: (repartition && repartitionModes ? repartitionModes.find(mode => mode.id === repartition.mode).description : ''), readOnly: true
+                                    // }
+                                  ]
+                                )
+                              }
+                            ),
+                            [
+                              {value: 'Total utilisé', readOnly: true},
+                              {value: filteredDefinitions.reduce((acc, definition) => acc + percentByDefinition(definition), 0) , readOnly: true},
+                              {value: totalPoints, readOnly: true}
+                            ],
+                            [
+                              {value: 'Total max', readOnly: true},
+                              {value: '100', readOnly: true},
+                              {value: maxPoints, readOnly: true}
+                            ],
+                            [
+                              {value: 'Total max', readOnly: true},
+                              {value: '100', readOnly: true},
+                              {value: maxPoints, readOnly: true}
+                            ]
+                          ]}
+                          cellRenderer={(cell) => {
+                            if(cell.cell.type === 'select') {
+                              return (
+                                <td {...cell}>
+                                  <Select name={`repartitionMode${cell.cell.key}`} initial={cell.cell.value} optionValueName='id' optionTextName='description' options={repartitionModes} />
+                                </td>
+                              )
+                            }
+                            return <td {...cell}>{cell.children}</td>
+                          }}
+                          valueRenderer={cell => cell.value}
+                          />
+                          </Formsy>
                         </Card>
                       </Grid>
                     )}
@@ -322,10 +362,11 @@ class AdminGoalPointList extends MainLayoutComponent {
     render() {
         const { configs, loading: configfListLoading } = this.props.configList;
         const { usedPoints: usedCollaboratorPoints, currentPoints: currentCollaboratorPoints, loading: goalDefinitionLevelCollaboratorPointsLoading } = this.props.goalDefinitionLevelCollaboratorPoints;
-        const result = this.props.goalDefinitionLevelCollaboratorPoints;
+
         const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints, loading: goalDefinitionLevelTeamPointsLoading } = this.props.goalDefinitionLevelTeamPoints;
         const { definitions, loading: goalDefinitionListLoading } = this.props.goalDefinitionList;
         const loading = configfListLoading || goalDefinitionLevelCollaboratorPointsLoading || goalDefinitionLevelTeamPointsLoading || goalDefinitionListLoading;
+        const { pointRepartitions } = this.props.goalDefinitionPointRepartitionList
 
         return (
             <div>
@@ -341,11 +382,13 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ configList, goalDefinitionLevelCollaboratorPoints, goalDefinitionLevelTeamPoints, goalDefinitionList, teamList }) => ({
+const mapStateToProps = ({ configList, goalDefinitionLevelCollaboratorPoints, goalDefinitionLevelTeamPoints, goalDefinitionList, teamList, goalDefinitionPointRepartitionList, goalDefinitionPointRepartitionModeList }) => ({
     configList,
     goalDefinitionLevelCollaboratorPoints,
     goalDefinitionLevelTeamPoints,
     goalDefinitionList,
+    goalDefinitionPointRepartitionList,
+    goalDefinitionPointRepartitionModeList,
     teamList
 });
 
@@ -353,7 +396,9 @@ const mapDispatchToProps = (dispatch) => ({
     configListActions: bindActionCreators(configListActions, dispatch),
     goalDefinitionLevelCollaboratorPointsActions: bindActionCreators(goalDefinitionLevelCollaboratorPointsActions, dispatch),
     goalDefinitionLevelTeamPointsActions: bindActionCreators(goalDefinitionLevelTeamPointsActions, dispatch),
-    goalDefinitionListActions: bindActionCreators(goalDefinitionListActions, dispatch)
+    goalDefinitionListActions: bindActionCreators(goalDefinitionListActions, dispatch),
+    goalDefinitionPointRepartitionListActions: bindActionCreators(goalDefinitionPointRepartitionListActions, dispatch),
+    goalDefinitionPointRepartitionModeListActions: bindActionCreators(goalDefinitionPointRepartitionModeListActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(AdminGoalPointList)))

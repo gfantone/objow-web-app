@@ -81,6 +81,8 @@ const initialState = {
     goalDefinitionList: {definitions: [], count: 0, loading: false, hasError: false},
     goalDefinitionUpdate: {success: false, loading: false, hasError: false},
     goalDefinitionRepartitionList: {repartitions: [], count: 0, loading: false, hasError: false},
+    goalDefinitionPointRepartitionList: { pointRepartitions: [], count: 0, loading: false, hasError: false },
+    goalDefinitionPointRepartitionModeList: { modes: [], count: 0, loading: false, hasError: false },
     goalDetail: {goal: null, loading: false, hasError: false},
     goalList: {goals: null, loading: false, hasError: false},
     goalListUpdate: {success: false, loading: false, hasError: false},

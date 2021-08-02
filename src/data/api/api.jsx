@@ -23,6 +23,8 @@ import configs from './endpoints/configs'
 import goalDefinitionLevels from './endpoints/goalDefinitionLevels'
 import goalDefinitions from './endpoints/goalDefinitions'
 import goalDefinitionRepartitions from './endpoints/goalDefinitionRepartitions'
+import goalDefinitionPointRepartitions from './endpoints/goalDefinitionPointRepartitions'
+import goalDefinitionPointRepartitionModes from './endpoints/goalDefinitionPointRepartitionModes'
 import goalPoints from './endpoints/goalPoints'
 import goals from './endpoints/goals'
 import goalTypes from './endpoints/goalTypes'
@@ -87,6 +89,8 @@ const api = {
     goalDefinitionLevels,
     goalDefinitions,
     goalDefinitionRepartitions,
+    goalDefinitionPointRepartitions,
+    goalDefinitionPointRepartitionModes,
     goalPoints,
     goals,
     goalTypes,
