@@ -39,7 +39,8 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.collaborator = null
         this.state = {
           mode: null,
-          type: 'C'
+          type: 'C',
+          newRepartitions: []
           // team: null,
           // collaborator: null,
         }
@@ -135,6 +136,44 @@ class AdminGoalPointList extends MainLayoutComponent {
       this.refresh(team, collaborator)
     }
 
+    onSelectRepartitionMode = (definitionId, mode) => {
+      const newRepartition = {
+        definitionId: definitionId,
+        mode: parseInt(mode)
+      }
+      const newRepartitions = this.state.newRepartitions.find(repartition => repartition.definitionId === definitionId) ?
+        this.state.newRepartitions.map(repartition => repartition.definitionId === definitionId ? Object.assign({}, repartition, newRepartition) : repartition) :
+        [...this.state.newRepartitions, newRepartition]
+      this.setState({
+        ...this.state,
+        newRepartitions
+      })
+    }
+
+    onRepartitionChange = (changes, totalPoints) => {
+      let newRepartitions = [...this.state.newRepartitions]
+      changes.forEach(change => {
+        if(change.cell.type === 'repartitionPoints' || change.cell.type === 'repartitionPercent') {
+          let newRepartition = {
+            definitionId: change.cell.id,
+          }
+          if(change.cell.type === 'repartitionPoints') {
+            newRepartition.points = change.value
+          }
+          if(change.cell.type === 'repartitionPercent') {
+            newRepartition.points = Number((totalPoints * change.value / 100).toFixed(2))
+          }
+          newRepartitions = newRepartitions.find(repartition => repartition.definitionId === newRepartition.definitionId) ?
+            this.state.newRepartitions.map(repartition => repartition.definitionId === newRepartition.definitionId ? Object.assign({}, repartition, newRepartition) : repartition) :
+            [...this.state.newRepartitions, newRepartition]
+        }
+      })
+      this.setState({
+        ...this.state,
+        newRepartitions
+      })
+    }
+
     renderData() {
         const { configs } = this.props.configList;
         const { usedPoints: usedCollaboratorPoints, currentPoints: currentCollaboratorPoints } = this.props.goalDefinitionLevelCollaboratorPoints;
@@ -159,8 +198,9 @@ class AdminGoalPointList extends MainLayoutComponent {
         const totalPoints = filteredDefinitions.reduce((acc, definition) => acc + definition.usedPoints + definition.currentPoints, 0)
         const maxPoints = this.state.type === 'T' ? teamGoalPoints : collaboratorGoalPoints
 
+        const currentTeam = teams.find(team => this.team && team.id === parseInt(this.team))
+        const currentCollaborator = this.team && this.collaborator && currentTeam.collaborators.find(collaborator => collaborator.id === parseInt(this.collaborator))
 
-        const percentByDefinition = definition => Number(((definition.usedPoints + definition.currentPoints) / maxPoints * 100).toFixed(2))
 
         var columns = [
             { name: 'id', label: 'Ref' },
@@ -178,6 +218,9 @@ class AdminGoalPointList extends MainLayoutComponent {
         };
 
         const displayRepartition = this.team || this.collaborator
+
+        const percentByDefinition = definition => Number(((definition.usedPoints + definition.currentPoints) / maxPoints * 100).toFixed(2))
+        const totalPointsPercent = filteredDefinitions.reduce((acc, definition) => acc + percentByDefinition(definition), 0)
 
         return (
             <Grid container spacing={4}>
@@ -272,7 +315,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               ]
                             ]}
                             valueRenderer={cell => cell.value}
-                            />
+                          />
                         </Card>
                       </Grid>
                     ) }
@@ -292,62 +335,104 @@ class AdminGoalPointList extends MainLayoutComponent {
                           <Formsy onSubmit={() => {}} >
                             <ReactDataSheet
                               data={[
-                                [ {value: 'Ref', readOnly: true}, {value: '%', readOnly: true}, {value: 'Points alloués', readOnly: true}, {value: 'Points Max', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
+                                [ {value: 'Ref', readOnly: true}, {value: '% alloué', readOnly: true}, {value: 'Points alloués', readOnly: true}, {value: '% disponible', readOnly: true}, {value: 'Points Disponibles', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
                                 ...filteredDefinitions.map(definition => {
+                                  // If repartition is changed by select
+                                  const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.definitionId === definition.id)
+
+                                  // get currentRepartition by definition
                                   const repartition = pointRepartitions.filter(pointRepartition => (
                                     pointRepartition.definition === definition.id && (
                                       this.team && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
                                     )
-
                                   ))[0]
+                                  const mode = repartitionModes.find(mode => newRepartition ? mode.id === newRepartition.mode : mode.id === repartition.mode)
+
+                                  let repartitionPoints = repartition && mode.code === 'G' ? '-' : newRepartition && newRepartition.points || repartition.points
+
+                                  // Page filtered on team and current repartition is individual
+                                  if(this.team && !this.collaborator && mode.code === 'I') {
+                                    repartitionPoints = pointRepartitions
+                                      .filter(pointRepartition => currentTeam.collaborators.map(c => c.id).indexOf(pointRepartition.collaborator) >= 0)
+                                      .reduce((acc, pointRepartition) => acc + pointRepartition.points, 0)
+                                  }
+                                  // Page filtered on collaborator and current repartition is team
+                                  if(this.collaborator && mode.code === 'T') {
+                                    repartitionPoints = pointRepartitions
+                                      .find(pointRepartition => currentCollaborator && currentCollaborator.team.id === pointRepartition.team)
+                                  }
+
+                                  const repartitionReadonly = (
+                                    mode.code === 'G' ||
+                                    mode.code === 'T' && (!this.team || this.collaborator) ||
+                                    mode.code === 'I' && !this.collaborator
+                                  )
+
                                   return (
-                                    [{
-                                      value: definition.id, readOnly: true
-                                    }, {
-                                      value: percentByDefinition(definition), readOnly: true
-                                    },{
-                                      value: definition.usedPoints + definition.currentPoints, readOnly: true
-                                    },
-                                    {
-                                      value: (repartition ? repartition.points : ''), readOnly: true
-                                    },
-                                    {
-                                      value: (repartition ? repartition.mode : ''), type: 'select', choices: repartitionModes
-                                    }
-                                    // {
-                                    //   value: (repartition && repartitionModes ? repartitionModes.find(mode => mode.id === repartition.mode).description : ''), readOnly: true
-                                    // }
-                                  ]
+                                    [
+                                      {
+                                        value: definition.id, readOnly: true
+                                      }, {
+                                        value: percentByDefinition(definition), readOnly: true
+                                      },{
+                                        value: definition.usedPoints + definition.currentPoints, readOnly: true
+                                      },
+                                      {
+                                        value: mode.code === 'G' ? '-' : Number((repartitionPoints / maxPoints * 100).toFixed(2)),
+                                        readOnly: repartitionReadonly,
+                                        type: 'repartitionPercent',
+                                        id: definition.id
+                                      },
+                                      {
+                                        value: repartitionPoints,
+                                        readOnly: repartitionReadonly,
+                                        type: 'repartitionPoints',
+                                        id: definition.id
+                                      },
+                                      {
+                                        value: (mode ? mode : ''), type: 'select', choices: repartitionModes, id: definition.id
+                                      }
+                                    ]
+                                  )
+                                }),
+                                [
+                                  {value: 'Total utilisé', readOnly: true},
+                                  {value: totalPointsPercent , readOnly: true},
+                                  {value: totalPoints, readOnly: true}
+                                ],
+                                [
+                                  {value: 'Total alloué', readOnly: true},
+                                  {value: '100', readOnly: true},
+                                  {value: maxPoints, readOnly: true}
+                                ],
+                                [
+                                  {value: 'Total restant', readOnly: true},
+                                  {value: 100 - totalPointsPercent, readOnly: true},
+                                  {value: maxPoints - totalPoints, readOnly: true}
+                                ]
+                              ]}
+                            cellRenderer={(cell) => {
+                              if(cell.cell.type === 'select') {
+                                return (
+                                  <td {...cell}>
+                                    <Select
+                                      onChange={ (value) => this.onSelectRepartitionMode(cell.cell.id, value) }
+                                      name={`repartitionMode${cell.cell.key}`}
+                                      emptyDisabled
+                                      initial={cell.cell.value.id}
+                                      updateInitial
+                                      optionValueName='id'
+                                      optionTextName='description'
+                                      options={repartitionModes}
+                                      disabled={ !this.team || this.collaborator }
+                                    />
+                                  </td>
                                 )
                               }
-                            ),
-                            [
-                              {value: 'Total utilisé', readOnly: true},
-                              {value: filteredDefinitions.reduce((acc, definition) => acc + percentByDefinition(definition), 0) , readOnly: true},
-                              {value: totalPoints, readOnly: true}
-                            ],
-                            [
-                              {value: 'Total max', readOnly: true},
-                              {value: '100', readOnly: true},
-                              {value: maxPoints, readOnly: true}
-                            ],
-                            [
-                              {value: 'Total max', readOnly: true},
-                              {value: '100', readOnly: true},
-                              {value: maxPoints, readOnly: true}
-                            ]
-                          ]}
-                          cellRenderer={(cell) => {
-                            if(cell.cell.type === 'select') {
-                              return (
-                                <td {...cell}>
-                                  <Select name={`repartitionMode${cell.cell.key}`} initial={cell.cell.value} optionValueName='id' optionTextName='description' options={repartitionModes} />
-                                </td>
-                              )
-                            }
-                            return <td {...cell}>{cell.children}</td>
-                          }}
-                          valueRenderer={cell => cell.value}
+                              return <td {...cell}>{cell.children}</td>
+                            }}
+                            onCellsChanged={ changes => this.onRepartitionChange(changes, maxPoints) }
+                            valueRenderer={cell => cell.value}
                           />
                           </Formsy>
                         </Card>
