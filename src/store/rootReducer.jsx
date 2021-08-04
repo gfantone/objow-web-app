@@ -81,6 +81,7 @@ import goalDefinitionList from '../services/GoalDefinitions/GoalDefinitionList/r
 import goalDefinitionUpdate from '../services/GoalDefinitions/GoalDefinitionUpdate/reducer'
 import goalDefinitionRepartitionList from '../services/GoalDefinitionRepartitions/GoalDefinitionRepartitionList/reducer'
 import goalDefinitionPointRepartitionList from '../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionList/reducer'
+import goalDefinitionPointRepartitionListUpdate from '../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionListUpdate/reducer'
 import goalDefinitionPointRepartitionModeList from '../services/GoalDefinitionPointRepartitionModes/GoalDefinitionPointRepartitionModeList/reducer'
 import goalDetail from '../services/Goals/GoalDetail/reducer'
 import goalList from '../services/Goals/GoalList/reducer'

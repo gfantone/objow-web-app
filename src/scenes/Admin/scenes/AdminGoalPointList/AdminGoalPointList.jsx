@@ -6,13 +6,15 @@ import { Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import ReactDataSheet from 'react-datasheet'
 import Formsy from 'formsy-react'
-import { AppBarSubTitle, Card, DataTable, DefaultText, Loader, MainLayoutComponent, Select } from '../../../../components'
+import _ from 'lodash'
+import { AppBarSubTitle, Card, DataTable, DefaultText, Loader, MainLayoutComponent, Select, ProgressButton } from '../../../../components'
 import { ModeSelect, Filters, ParticipantTypeFilter } from './components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as goalDefinitionLevelCollaboratorPointsActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelCollaoratorPoints/actions'
 import * as goalDefinitionLevelTeamPointsActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelTeamPoints/actions'
 import * as goalDefinitionListActions from '../../../../services/GoalDefinitions/GoalDefinitionList/actions'
 import * as goalDefinitionPointRepartitionListActions from '../../../../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionList/actions'
+import * as goalDefinitionPointRepartitionListUpdateActions from '../../../../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionListUpdate/actions'
 import * as goalDefinitionPointRepartitionModeListActions from '../../../../services/GoalDefinitionPointRepartitionModes/GoalDefinitionPointRepartitionModeList/actions'
 
 const styles = {
@@ -136,13 +138,13 @@ class AdminGoalPointList extends MainLayoutComponent {
       this.refresh(team, collaborator)
     }
 
-    onSelectRepartitionMode = (definitionId, mode) => {
+    onSelectRepartitionMode = (repartitionId, mode) => {
       const newRepartition = {
-        definitionId: definitionId,
+        id: repartitionId,
         mode: parseInt(mode)
       }
-      const newRepartitions = this.state.newRepartitions.find(repartition => repartition.definitionId === definitionId) ?
-        this.state.newRepartitions.map(repartition => repartition.definitionId === definitionId ? Object.assign({}, repartition, newRepartition) : repartition) :
+      const newRepartitions = this.state.newRepartitions.find(repartition => repartition.id === repartitionId) ?
+        this.state.newRepartitions.map(repartition => repartition.id === repartitionId ? Object.assign({}, repartition, newRepartition) : repartition) :
         [...this.state.newRepartitions, newRepartition]
       this.setState({
         ...this.state,
@@ -155,7 +157,7 @@ class AdminGoalPointList extends MainLayoutComponent {
       changes.forEach(change => {
         if(change.cell.type === 'repartitionPoints' || change.cell.type === 'repartitionPercent') {
           let newRepartition = {
-            definitionId: change.cell.id,
+            id: change.cell.id,
           }
           if(change.cell.type === 'repartitionPoints') {
             newRepartition.points = change.value
@@ -163,8 +165,8 @@ class AdminGoalPointList extends MainLayoutComponent {
           if(change.cell.type === 'repartitionPercent') {
             newRepartition.points = Number((totalPoints * change.value / 100).toFixed(2))
           }
-          newRepartitions = newRepartitions.find(repartition => repartition.definitionId === newRepartition.definitionId) ?
-            this.state.newRepartitions.map(repartition => repartition.definitionId === newRepartition.definitionId ? Object.assign({}, repartition, newRepartition) : repartition) :
+          newRepartitions = newRepartitions.find(repartition => repartition.id === newRepartition.id) ?
+            this.state.newRepartitions.map(repartition => repartition.id === newRepartition.id ? Object.assign({}, repartition, newRepartition) : repartition) :
             [...this.state.newRepartitions, newRepartition]
         }
       })
@@ -172,6 +174,21 @@ class AdminGoalPointList extends MainLayoutComponent {
         ...this.state,
         newRepartitions
       })
+    }
+
+    onSubmitRepartitions = () => {
+
+      this.props.goalDefinitionPointRepartitionListUpdateActions.updateGoalDefinitionPointRepartitionList(this.state.newRepartitions.map(repartition => {
+        let result = {}
+        result.id = repartition.id
+        if(repartition.mode) {
+          result.mode_id = repartition.mode
+        }
+        if(repartition.points) {
+          result.points = repartition.points
+        }
+        return result
+      }))
     }
 
     renderData() {
@@ -199,7 +216,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         const maxPoints = this.state.type === 'T' ? teamGoalPoints : collaboratorGoalPoints
 
         const currentTeam = teams.find(team => this.team && team.id === parseInt(this.team))
-        const currentCollaborator = this.team && this.collaborator && currentTeam.collaborators.find(collaborator => collaborator.id === parseInt(this.collaborator))
+        const currentCollaborator = currentTeam && this.collaborator && currentTeam.collaborators.find(collaborator => collaborator.id === parseInt(this.collaborator))
 
 
         var columns = [
@@ -224,6 +241,7 @@ class AdminGoalPointList extends MainLayoutComponent {
 
         return (
             <Grid container spacing={4}>
+                <Filters emptyTeam={ this.state.mode === 'global' } onChange={ this.onFilterChange } team={this.team} collaborator={this.collaborator}/>
                 <Grid item xs={12}>
                   <Grid container direction="row" spacing={4}>
                     <Grid item sm={ displayRepartition ? 8 : 12}>
@@ -321,7 +339,6 @@ class AdminGoalPointList extends MainLayoutComponent {
                     ) }
                   </Grid>
                 </Grid>
-                <Filters emptyTeam={ this.state.mode === 'global' } onChange={ this.onFilterChange } team={this.team} collaborator={this.collaborator}/>
                 <Grid item xs={12}>
                   <Grid container spacing={4}>
                     <Grid item sm={displayRepartition ? 8 : 12}>
@@ -332,21 +349,23 @@ class AdminGoalPointList extends MainLayoutComponent {
                     { displayRepartition && (
                       <Grid item sm={4}>
                         <Card>
-                          <Formsy onSubmit={() => {}} >
+                          <Formsy onSubmit={this.onSubmitRepartitions} >
                             <ReactDataSheet
                               data={[
                                 [ {value: 'Ref', readOnly: true}, {value: '% alloué', readOnly: true}, {value: 'Points alloués', readOnly: true}, {value: '% disponible', readOnly: true}, {value: 'Points Disponibles', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
                                 ...filteredDefinitions.map(definition => {
                                   // If repartition is changed by select
-                                  const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.definitionId === definition.id)
 
                                   // get currentRepartition by definition
                                   const repartition = pointRepartitions.filter(pointRepartition => (
                                     pointRepartition.definition === definition.id && (
-                                      this.team && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
+                                      this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
                                     )
                                   ))[0]
-                                  const mode = repartitionModes.find(mode => newRepartition ? mode.id === newRepartition.mode : mode.id === repartition.mode)
+
+                                  const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
+
+                                  const mode = repartitionModes.find(mode => _.get(newRepartition, 'mode') ? mode.id === newRepartition.mode : mode.id === repartition.mode)
 
                                   let repartitionPoints = repartition && mode.code === 'G' ? '-' : newRepartition && newRepartition.points || repartition.points
 
@@ -358,8 +377,8 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   }
                                   // Page filtered on collaborator and current repartition is team
                                   if(this.collaborator && mode.code === 'T') {
-                                    repartitionPoints = pointRepartitions
-                                      .find(pointRepartition => currentCollaborator && currentCollaborator.team.id === pointRepartition.team)
+                                    repartitionPoints = _.get(pointRepartitions
+                                      .find(pointRepartition => currentCollaborator && currentCollaborator.team.id === pointRepartition.team), 'points', 0)
                                   }
 
                                   const repartitionReadonly = (
@@ -368,29 +387,32 @@ class AdminGoalPointList extends MainLayoutComponent {
                                     mode.code === 'I' && !this.collaborator
                                   )
 
+
                                   return (
                                     [
                                       {
                                         value: definition.id, readOnly: true
-                                      }, {
+                                      },
+                                      {
                                         value: percentByDefinition(definition), readOnly: true
-                                      },{
+                                      },
+                                      {
                                         value: definition.usedPoints + definition.currentPoints, readOnly: true
                                       },
                                       {
                                         value: mode.code === 'G' ? '-' : Number((repartitionPoints / maxPoints * 100).toFixed(2)),
                                         readOnly: repartitionReadonly,
                                         type: 'repartitionPercent',
-                                        id: definition.id
+                                        id: repartition.id,
                                       },
                                       {
                                         value: repartitionPoints,
                                         readOnly: repartitionReadonly,
                                         type: 'repartitionPoints',
-                                        id: definition.id
+                                        id: repartition.id
                                       },
                                       {
-                                        value: (mode ? mode : ''), type: 'select', choices: repartitionModes, id: definition.id
+                                        value: (mode ? mode : ''), type: 'select', choices: repartitionModes, id: repartition.id
                                       }
                                     ]
                                   )
@@ -411,29 +433,30 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   {value: maxPoints - totalPoints, readOnly: true}
                                 ]
                               ]}
-                            cellRenderer={(cell) => {
-                              if(cell.cell.type === 'select') {
-                                return (
-                                  <td {...cell}>
-                                    <Select
-                                      onChange={ (value) => this.onSelectRepartitionMode(cell.cell.id, value) }
-                                      name={`repartitionMode${cell.cell.key}`}
-                                      emptyDisabled
-                                      initial={cell.cell.value.id}
-                                      updateInitial
-                                      optionValueName='id'
-                                      optionTextName='description'
-                                      options={repartitionModes}
-                                      disabled={ !this.team || this.collaborator }
-                                    />
-                                  </td>
-                                )
-                              }
-                              return <td {...cell}>{cell.children}</td>
-                            }}
-                            onCellsChanged={ changes => this.onRepartitionChange(changes, maxPoints) }
-                            valueRenderer={cell => cell.value}
-                          />
+                              cellRenderer={(cell) => {
+                                if(cell.cell.type === 'select') {
+                                  return (
+                                    <td {...cell}>
+                                      <Select
+                                        onChange={ (value) => this.onSelectRepartitionMode(cell.cell.id, value) }
+                                        name={`repartitionMode${cell.cell.key}`}
+                                        emptyDisabled
+                                        initial={cell.cell.value.id}
+                                        updateInitial
+                                        optionValueName='id'
+                                        optionTextName='description'
+                                        options={repartitionModes}
+                                        disabled={ !this.team || this.collaborator }
+                                      />
+                                    </td>
+                                  )
+                                }
+                                return <td {...cell}>{cell.children}</td>
+                              }}
+                              onCellsChanged={ changes => this.onRepartitionChange(changes, maxPoints) }
+                              valueRenderer={cell => cell.value}
+                            />
+                          <ProgressButton type='submit' text={'Valider'} loading={false} centered />
                           </Formsy>
                         </Card>
                       </Grid>
@@ -450,8 +473,8 @@ class AdminGoalPointList extends MainLayoutComponent {
 
         const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints, loading: goalDefinitionLevelTeamPointsLoading } = this.props.goalDefinitionLevelTeamPoints;
         const { definitions, loading: goalDefinitionListLoading } = this.props.goalDefinitionList;
-        const loading = configfListLoading || goalDefinitionLevelCollaboratorPointsLoading || goalDefinitionLevelTeamPointsLoading || goalDefinitionListLoading;
-        const { pointRepartitions } = this.props.goalDefinitionPointRepartitionList
+        const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
+        const loading = configfListLoading || goalDefinitionLevelCollaboratorPointsLoading || goalDefinitionLevelTeamPointsLoading || goalDefinitionListLoading || goalDefinitionPointRepartitionLoading;
 
         return (
             <div>
@@ -459,7 +482,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                 { this.state.mode && (
                   <React.Fragment>
                     { loading && this.renderLoader() }
-                    { !loading && configs && usedCollaboratorPoints != null && usedTeamPoints != null && definitions && this.renderData() }
+                    { !loading && configs && usedCollaboratorPoints != null && usedTeamPoints != null && pointRepartitions && definitions && this.renderData() }
                   </React.Fragment>
                 ) }
             </div>
@@ -483,6 +506,7 @@ const mapDispatchToProps = (dispatch) => ({
     goalDefinitionLevelTeamPointsActions: bindActionCreators(goalDefinitionLevelTeamPointsActions, dispatch),
     goalDefinitionListActions: bindActionCreators(goalDefinitionListActions, dispatch),
     goalDefinitionPointRepartitionListActions: bindActionCreators(goalDefinitionPointRepartitionListActions, dispatch),
+    goalDefinitionPointRepartitionListUpdateActions: bindActionCreators(goalDefinitionPointRepartitionListUpdateActions, dispatch),
     goalDefinitionPointRepartitionModeListActions: bindActionCreators(goalDefinitionPointRepartitionModeListActions, dispatch)
 });
 
