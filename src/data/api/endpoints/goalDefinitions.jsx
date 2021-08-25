@@ -54,8 +54,14 @@ const goalDefinitions = {
         }
         return instance.get(url)
     },
-    levels(id) {
-        const url = `${baseUrl}${id}/levels/`;
+    levels(id, teamId, collaboratorId) {
+        let url = `${baseUrl}${id}/levels/`;
+        if(teamId) {
+          url = `${url}?team=${teamId}`
+        } else if (collaboratorId) {
+
+          url = `${url}?collaborator=${collaboratorId}`
+        }
         return instance.get(url)
     },
     list() {

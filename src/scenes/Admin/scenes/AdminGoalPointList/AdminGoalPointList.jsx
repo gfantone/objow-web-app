@@ -238,7 +238,37 @@ class AdminGoalPointList extends MainLayoutComponent {
         ];
         const options = {
             selectableRows: 'none',
-            onRowClick: (colData, cellMeta) => { this.props.history.push(`/admin/periods/${this.props.match.params.periodId}/goal-levels/${colData[0]}`) }
+            onRowClick: (colData, cellMeta) => {
+              let url = `/admin/periods/${this.props.match.params.periodId}/goal-levels/${colData[0]}`
+
+              if(this.mode === 'global') {
+                return this.props.history.push(url)
+              }
+
+              const definitionId = parseInt(colData[0])
+              // get currentRepartition by definition
+              const repartition = pointRepartitions.filter(pointRepartition => (
+                pointRepartition.definition === definitionId && (
+                  this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
+                )
+              ))[0]
+
+              const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
+
+              const mode = repartitionModes.find(mode => _.get(newRepartition, 'mode') ? mode.id === newRepartition.mode : mode.id === repartition.mode)
+
+              if(this.team && mode.code === 'T') {
+                url = url + `?team=${this.team}`
+                this.props.history.push(url)
+              }
+              else if(this.collaborator && mode.code === 'I') {
+                url = url + `?team=${this.team}&collaborator=${this.collaborator}`
+                this.props.history.push(url)
+              }
+              else if(!this.collaborator && !this.team && mode.code === 'G') {
+                this.props.history.push(url)
+              }
+            }
         };
 
         const displayRepartition = this.team || this.collaborator

@@ -5,7 +5,7 @@ import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { SubHeader } from './components'
+import { SubHeader, Filters } from './components'
 import { Card, DefaultText, DefaultTitle, EmptyState, HiddenInput, IconButton, MainLayoutComponent, ProgressButton, TextField } from '../../../../components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as goalDefinitionDetailActions from '../../../../services/GoalDefinitions/GoalDefinitionDetail/actions'
@@ -29,6 +29,20 @@ class AdminGoalPointConfig extends MainLayoutComponent {
             usedPoints: 0
         };
         this.props.goalDefinitionLevelListUpdateActions.clearGoalDefinitionLevelListUpdate()
+    }
+
+
+    loadData = () => {
+      const periodId = this.props.match.params.periodId;
+      const params = new URLSearchParams(window.location.search);
+      const collaborator = params.get('collaborator');
+      const team = params.get('team');
+      if(team !== this.team || collaborator !== this.collaborator) {
+        this.team = team
+        this.collaborator = collaborator
+
+        this.props.goalDefinitionLevelListActions.getGoalDefinitionLevelList(this.id, this.team, this.collaborator);
+      }
     }
 
     handleAdd() {
@@ -73,11 +87,11 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         this.props.handleSubHeader(<SubHeader />);
         this.props.handleButtons(<IconButton onClick={this.handleAdd.bind(this)} size='small'><FontAwesomeIcon icon={faPlus} /></IconButton>);
         this.props.goalDefinitionDetailActions.getGoalDefinition(this.id);
-        this.props.goalDefinitionLevelListActions.getGoalDefinitionLevelList(this.id);
         this.props.configListActions.getConfigList(this.props.match.params.periodId)
+        this.loadData()
     }
 
-    componentWillReceiveProps(props) {
+      componentWillReceiveProps(props) {
         const { levels } = props.goalDefinitionLevelList;
         if (!this.initialized && levels) {
             this.initialized = true;
@@ -106,6 +120,9 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
                 <Grid container spacing={4}>
+                    <Grid>
+                      <Filters onChange={() => {}} team={this.team} collaborator={this.collaborator}/>
+                    </Grid>
                     <Grid item xs={12}>
                         <Card>
                             <DefaultText>{usablePoints} pts utilisables</DefaultText>

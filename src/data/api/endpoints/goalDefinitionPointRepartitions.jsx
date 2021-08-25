@@ -7,7 +7,6 @@ const goalDefinitionPointRepartitions = {
         return instance.get(baseUrl)
     },
     update(pointRepartition) {
-      console.log(pointRepartition);
       const url = `${baseUrl}${pointRepartition.id}/`;
       return instance.put(url, pointRepartition)
     },

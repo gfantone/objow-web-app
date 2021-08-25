@@ -1,9 +1,11 @@
 import * as types from './actionTypes';
 
-export const getGoalDefinitionLevelList = (definitionId) => {
+export const getGoalDefinitionLevelList = (definitionId, teamId, collaboratorId) => {
     return {
         type: types.GET_GOAL_DEFINITION_LEVEL_LIST,
-        definitionId
+        definitionId,
+        teamId,
+        collaboratorId
     }
 }
 

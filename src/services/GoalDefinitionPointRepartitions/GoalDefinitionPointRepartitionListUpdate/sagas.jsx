@@ -5,7 +5,6 @@ import api from '../../../data/api/api'
 
 function* updateGoalDefinitionPointRepartitionList(action) {
     try {
-      console.log(action.pointRepartitions);
         yield all(action.pointRepartitions.map(pointRepartition => call(api.goalDefinitionPointRepartitions.update, pointRepartition)));
         yield put(updateGoalDefinitionPointRepartitionListSuccess())
     } catch(e) {

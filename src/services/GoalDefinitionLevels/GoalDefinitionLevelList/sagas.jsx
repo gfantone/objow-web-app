@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* getGoaLDefinitionLevelList(action) {
     try {
-        const { data: levels } = yield call(api.goalDefinitions.levels, action.definitionId)
+        const { data: levels } = yield call(api.goalDefinitions.levels, action.definitionId, action.teamId, action.collaboratorId)
         yield put(getGoalDefinitionLevelListSuccess(levels))
     } catch(e) {
         yield put(getGoalDefinitionLevelListError())
