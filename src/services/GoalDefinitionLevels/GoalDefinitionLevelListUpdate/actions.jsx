@@ -1,12 +1,14 @@
 import * as types from './actionTypes';
 
-export const updateGoalDefinitionLevelList = (definitionId, oldLevels, newLevels, removedLevels) => {
+export const updateGoalDefinitionLevelList = (definitionId, oldLevels, newLevels, removedLevels, team, collaborator) => {
     return {
         type: types.UPDATE_GOAL_DEFINITION_LEVEL_LIST,
         definitionId,
         oldLevels,
         newLevels,
-        removedLevels
+        removedLevels,
+        team,
+        collaborator
     }
 };
 

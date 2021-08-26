@@ -15,6 +15,10 @@ function* getGoalDefinition(action) {
         } else {
             definition.points = 0
         }
+        const usedPoints = yield call(api.goalDefinitions.usedPoints, definition.id);
+        const currentPoints = yield call(api.goalDefinitions.currentPoints, definition.id);
+        definition.usedPoints = usedPoints.data
+        definition.currentPoints = currentPoints.data
         yield put(getGoalDefinitionSuccess(definition))
     } catch(e) {
         yield put(getGoalDefinitionError())

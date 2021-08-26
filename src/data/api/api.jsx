@@ -21,6 +21,8 @@ import collaboratorRewardOrderSummaries from "./endpoints/collaboratorRewardOrde
 import collaborators from './endpoints/collaborators'
 import configs from './endpoints/configs'
 import goalDefinitionLevels from './endpoints/goalDefinitionLevels'
+import goalDefinitionLevelsByTeam from './endpoints/goalDefinitionLevelsByTeam'
+import goalDefinitionLevelsByCollaborator from './endpoints/goalDefinitionLevelsByCollaborator'
 import goalDefinitions from './endpoints/goalDefinitions'
 import goalDefinitionRepartitions from './endpoints/goalDefinitionRepartitions'
 import goalDefinitionPointRepartitions from './endpoints/goalDefinitionPointRepartitions'
@@ -87,6 +89,8 @@ const api = {
     collaborators,
     configs,
     goalDefinitionLevels,
+    goalDefinitionLevelsByCollaborator,
+    goalDefinitionLevelsByTeam,
     goalDefinitions,
     goalDefinitionRepartitions,
     goalDefinitionPointRepartitions,

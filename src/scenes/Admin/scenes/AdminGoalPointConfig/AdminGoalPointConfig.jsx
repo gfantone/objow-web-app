@@ -11,6 +11,8 @@ import * as configListActions from '../../../../services/Configs/ConfigList/acti
 import * as goalDefinitionDetailActions from '../../../../services/GoalDefinitions/GoalDefinitionDetail/actions'
 import * as goalDefinitionLevelListActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelList/actions'
 import * as goalDefinitionLevelListUpdateActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelListUpdate/actions'
+import * as goalDefinitionPointRepartitionListActions from '../../../../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionList/actions'
+import * as goalDefinitionPointRepartitionModeListActions from '../../../../services/GoalDefinitionPointRepartitionModes/GoalDefinitionPointRepartitionModeList/actions'
 import './helpers/GoalDefinitionLevelFormsyHelper'
 import '../../../../helpers/FormsyHelper'
 import '../../../../helpers/NumberHelper'
@@ -37,6 +39,8 @@ class AdminGoalPointConfig extends MainLayoutComponent {
       const params = new URLSearchParams(window.location.search);
       const collaborator = params.get('collaborator');
       const team = params.get('team');
+      this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList()
+      this.props.goalDefinitionPointRepartitionModeListActions.getGoalDefinitionPointRepartitionModeList()
       if(team !== this.team || collaborator !== this.collaborator) {
         this.team = team
         this.collaborator = collaborator
@@ -77,7 +81,8 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         });
         const oldLevels = levels.filter(level => !level.isNew);
         const newLevels = levels.filter(level => level.isNew);
-        this.props.goalDefinitionLevelListUpdateActions.updateGoalDefinitionLevelList(this.id, oldLevels, newLevels, this.removedLevels)
+
+        this.props.goalDefinitionLevelListUpdateActions.updateGoalDefinitionLevelList(this.id, oldLevels, newLevels, this.removedLevels, this.team, this.collaborator)
     }
 
     componentDidMount() {
@@ -114,19 +119,58 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const { configs } = this.props.configList;
         const { definition } = this.props.goalDefinitionDetail;
         const { loading } = this.props.goalDefinitionLevelListUpdate;
-        const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0;
-        const usablePoints = (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints;
-
+        // const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0;
+        // const usablePoints = (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints;
+        const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
+        const repartition = pointRepartitions.filter(pointRepartition => (
+          pointRepartition.definition === definition.id && (
+            this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
+          )
+        ))[0]
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
                 <Grid container spacing={4}>
-                    <Grid>
+                    <Grid item>
                       <Filters onChange={() => {}} team={this.team} collaborator={this.collaborator}/>
                     </Grid>
                     <Grid item xs={12}>
                         <Card>
-                            <DefaultText>{usablePoints} pts utilisables</DefaultText>
-                            <HiddenInput name='usablePoints' value={usablePoints} />
+                          {repartition && (
+                            <React.Fragment>
+                              <Grid container direction="row" spacing={2}>
+                                <Grid item>
+                                  <Grid container direction="column" alignItems="center" spacing={2}>
+                                    <Grid item>
+                                      <DefaultText>{repartition.points - definition.usedPoints}</DefaultText>
+                                    </Grid>
+                                    <Grid item>
+                                      <DefaultText>pts joueur disponible</DefaultText>
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                                <Grid item>
+                                  <Grid container direction="column" alignItems="center" spacing={2}>
+                                    <Grid item>
+                                      <DefaultText>{definition.usedPoints}</DefaultText>
+                                    </Grid>
+                                    <Grid item>
+                                      <DefaultText>pts joueur déjà mis en jeu</DefaultText>
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                                <Grid item>
+                                  <Grid container direction="column" alignItems="center" spacing={2}>
+                                    <Grid item>
+                                      <DefaultText>{definition.currentPoints}</DefaultText>
+                                    </Grid>
+                                    <Grid item>
+                                      <DefaultText>pts joueur en cours de jeu</DefaultText>
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </React.Fragment>
+                          )}
                         </Card>
                     </Grid>
                     { this.state.levels.map((level, index) => {
@@ -191,7 +235,8 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const { configs, loading: configListLoading } = this.props.configList;
         const { definition, loading: goalDefinitionDetailLoading } = this.props.goalDefinitionDetail;
         const { levels, loading: goalDefinitionLevelListLoading } = this.props.goalDefinitionLevelList;
-        const loading = configListLoading || goalDefinitionDetailLoading || goalDefinitionLevelListLoading;
+        const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
+        const loading = configListLoading || goalDefinitionDetailLoading || goalDefinitionLevelListLoading || goalDefinitionPointRepartitionLoading;
         const { success } = this.props.goalDefinitionLevelListUpdate;
 
         if (success) {
@@ -207,18 +252,22 @@ class AdminGoalPointConfig extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ configList, goalDefinitionDetail, goalDefinitionLevelList, goalDefinitionLevelListUpdate }) => ({
+const mapStateToProps = ({ configList, goalDefinitionDetail, goalDefinitionLevelList, goalDefinitionLevelListUpdate, goalDefinitionPointRepartitionList, goalDefinitionPointRepartitionModeList, }) => ({
     configList,
     goalDefinitionDetail,
     goalDefinitionLevelList,
-    goalDefinitionLevelListUpdate
+    goalDefinitionLevelListUpdate,
+    goalDefinitionPointRepartitionList,
+    goalDefinitionPointRepartitionModeList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     configListActions: bindActionCreators(configListActions, dispatch),
     goalDefinitionDetailActions: bindActionCreators(goalDefinitionDetailActions, dispatch),
     goalDefinitionLevelListActions: bindActionCreators(goalDefinitionLevelListActions, dispatch),
-    goalDefinitionLevelListUpdateActions: bindActionCreators(goalDefinitionLevelListUpdateActions, dispatch)
+    goalDefinitionLevelListUpdateActions: bindActionCreators(goalDefinitionLevelListUpdateActions, dispatch),
+    goalDefinitionPointRepartitionListActions: bindActionCreators(goalDefinitionPointRepartitionListActions, dispatch),
+    goalDefinitionPointRepartitionModeListActions: bindActionCreators(goalDefinitionPointRepartitionModeListActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminGoalPointConfig)
