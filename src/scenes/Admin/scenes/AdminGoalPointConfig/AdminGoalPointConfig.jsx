@@ -121,14 +121,18 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const { loading } = this.props.goalDefinitionLevelListUpdate;
         // const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0;
         // const usablePoints = (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints;
+
         const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
         const repartition = pointRepartitions.filter(pointRepartition => (
           pointRepartition.definition === definition.id && (
             this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
           )
         ))[0]
+        const usablePoints = repartition ? repartition.points - definition.usedPoints : 0
+
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
+                <HiddenInput name='usablePoints' value={usablePoints} />
                 <Grid container spacing={4}>
                     <Grid item>
                       <Filters onChange={() => {}} team={this.team} collaborator={this.collaborator}/>
@@ -141,7 +145,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                 <Grid item>
                                   <Grid container direction="column" alignItems="center" spacing={2}>
                                     <Grid item>
-                                      <DefaultText>{repartition.points - definition.usedPoints}</DefaultText>
+                                      <DefaultText>{usablePoints}</DefaultText>
                                     </Grid>
                                     <Grid item>
                                       <DefaultText>pts joueur disponible</DefaultText>
