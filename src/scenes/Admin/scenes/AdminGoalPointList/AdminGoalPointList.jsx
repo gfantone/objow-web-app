@@ -389,7 +389,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                           <Formsy onSubmit={this.onSubmitRepartitions} >
                             <ReactDataSheet
                               data={[
-                                [ {value: 'Ref', readOnly: true}, {value: '% alloué', readOnly: true}, {value: 'Points alloués', readOnly: true}, {value: '% disponible', readOnly: true}, {value: 'Points Disponibles', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
+                                [ {value: 'Ref', readOnly: true},  {value: 'Points alloués', readOnly: true}, {value: '% disponible', readOnly: true}, {value: 'Points Disponibles', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
                                 ...filteredDefinitions.map(definition => {
                                   // If repartition is changed by select
 
@@ -430,9 +430,9 @@ class AdminGoalPointList extends MainLayoutComponent {
                                       {
                                         value: definition.id, readOnly: true
                                       },
-                                      {
-                                        value: percentByDefinition(definition), readOnly: true
-                                      },
+                                      // {
+                                      //   value: percentByDefinition(definition), readOnly: true
+                                      // },
                                       {
                                         value: definition.usedPoints + definition.currentPoints, readOnly: true
                                       },
