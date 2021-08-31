@@ -12,7 +12,7 @@ const teams = {
         return instance.get(url)
     },
     definitions(id, periodId, current, detail) {
-        let url = `${baseUrl}${id}/definitions/?period=${periodId}&isActive=true`
+        let url = `${baseUrl}${id}/definitions/?period=${periodId}`
         if(current !== undefined && current !== null) url = `${url}&current=${current}`
         if (detail !== null) url = `${url}&detail=${detail}`
         return instance.get(url)

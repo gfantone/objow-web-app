@@ -389,7 +389,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                           <Formsy onSubmit={this.onSubmitRepartitions} >
                             <ReactDataSheet
                               data={[
-                                [ {value: 'Ref', readOnly: true},  {value: 'Points alloués', readOnly: true}, {value: '% disponible', readOnly: true}, {value: 'Points Disponibles', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
+                                [ {value: 'Ref', readOnly: true},  {value: 'Points alloués', readOnly: true}, {value: '% d\'importance', readOnly: true}, {value: 'Points Disponibles', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
                                 ...filteredDefinitions.map(definition => {
                                   // If repartition is changed by select
 
@@ -456,17 +456,17 @@ class AdminGoalPointList extends MainLayoutComponent {
                                 }),
                                 [
                                   {value: 'Total utilisé', readOnly: true},
-                                  {value: totalPointsPercent , readOnly: true},
+                                  // {value: totalPointsPercent , readOnly: true},
                                   {value: totalPoints, readOnly: true}
                                 ],
                                 [
                                   {value: 'Total alloué', readOnly: true},
-                                  {value: '100', readOnly: true},
+                                  // {value: '100', readOnly: true},
                                   {value: maxPoints, readOnly: true}
                                 ],
                                 [
                                   {value: 'Total restant', readOnly: true},
-                                  {value: 100 - totalPointsPercent, readOnly: true},
+                                  // {value: 100 - totalPointsPercent, readOnly: true},
                                   {value: maxPoints - totalPoints, readOnly: true}
                                 ]
                               ]}
