@@ -219,7 +219,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         const { pointRepartitions } = this.props.goalDefinitionPointRepartitionList
         const { modes: repartitionModes } = this.props.goalDefinitionPointRepartitionModeList
         const filteredDefinitions = definitions.filter(definition => definition.type.code === this.state.type)
-        const totalPoints = filteredDefinitions.reduce((acc, definition) => acc + definition.usedPoints + definition.currentPoints, 0)
+        const totalPoints = parseFloat(filteredDefinitions.reduce((acc, definition) => acc + definition.usedPoints + definition.currentPoints, 0).toFixed(2))
         const maxPoints = this.state.type === 'T' ? teamGoalPoints : collaboratorGoalPoints
 
         const currentTeam = teams.find(team => this.team && team.id === parseInt(this.team))
@@ -389,7 +389,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                           <Formsy onSubmit={this.onSubmitRepartitions} >
                             <ReactDataSheet
                               data={[
-                                [ {value: 'Ref', readOnly: true},  {value: 'Points alloués', readOnly: true}, {value: '% d\'importance', readOnly: true}, {value: 'Points Disponibles', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
+                                [ {value: 'Ref', readOnly: true},  {value: '% alloué', readOnly: true}, {value: 'Points alloués', readOnly: true}, {value: '% d\'importance', readOnly: true}, {value: 'Points Disponibles', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
                                 ...filteredDefinitions.map(definition => {
                                   // If repartition is changed by select
 
@@ -430,9 +430,9 @@ class AdminGoalPointList extends MainLayoutComponent {
                                       {
                                         value: definition.id, readOnly: true
                                       },
-                                      // {
-                                      //   value: percentByDefinition(definition), readOnly: true
-                                      // },
+                                      {
+                                        value: percentByDefinition(definition), readOnly: true
+                                      },
                                       {
                                         value: definition.usedPoints + definition.currentPoints, readOnly: true
                                       },
