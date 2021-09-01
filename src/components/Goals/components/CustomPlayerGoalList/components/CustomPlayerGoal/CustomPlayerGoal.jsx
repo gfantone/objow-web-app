@@ -12,7 +12,6 @@ const styles = {
 
 const CustomPlayerGoal = ({ classes, goal, onChange }) => {
     const photoSrc = goal.photo != null ? goal.photo : '/assets/img/user/avatar.svg'
-    console.log(goal);
     return (
         <div>
             <Grid container spacing={1}>

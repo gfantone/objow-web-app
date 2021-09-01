@@ -6,7 +6,6 @@ import api from '../../../data/api/api'
 function* getGoalDefinitionPointRepartitionModeList(action) {
     try {
         const { data: modes } = yield call(api.goalDefinitionPointRepartitionModes.list)
-        console.log(modes);
         yield put(getGoalDefinitionPointRepartitionModeListSuccess(modes))
     } catch(e) {
         yield put(getGoalDefinitionPointRepartitionModeListError())

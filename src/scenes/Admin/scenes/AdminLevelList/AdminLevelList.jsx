@@ -60,7 +60,6 @@ class AdminLevelList extends Component {
             { name: 'citation', label: 'Citation' },
             { name: 'icon.path', label: 'Icône', options: {
                 customBodyRender: value => {
-                    console.log(value);
                     return <CardMedia image={value} className={classes.icon} />
                 },
                 filter: false

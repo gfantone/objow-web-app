@@ -114,7 +114,6 @@ class AdminGoalCreation extends MainLayoutComponent {
     }
 
     handleIndicationChange = (newIndication) => {
-      // console.log('set indication', newIndication);
       this.setState({
           ...this.state,
           finalModel: _.merge(this.state.finalModel, { indication: newIndication })

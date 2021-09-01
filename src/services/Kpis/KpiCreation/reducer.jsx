@@ -4,7 +4,6 @@ import initialState from '../../../store/initialState';
 const KpiCreation = (state = initialState.kpiCreation, action) => {
     switch (action.type) {
         case types.CREATE_KPI:
-            console.log("qsdhqsdkjh");
             return {...state, success: null, loading: true, hasError: false}
 
         case types.CREATE_KPI_SUCCESS:

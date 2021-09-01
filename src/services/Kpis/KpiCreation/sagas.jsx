@@ -5,7 +5,6 @@ import api from '../../../data/api/api'
 
 function* createKpi(action) {
     try {
-        console.log("sagas");
         yield call(api.kpis.create, action.kpi)
         yield put(createKpiSuccess())
     } catch(e) {

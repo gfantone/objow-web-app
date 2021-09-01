@@ -44,8 +44,10 @@ class AdminGoalPointConfig extends MainLayoutComponent {
       if(team !== this.team || collaborator !== this.collaborator) {
         this.team = team
         this.collaborator = collaborator
-
+        this.props.goalDefinitionDetailActions.getGoalDefinition(this.id, this.team, this.collaborator);
         this.props.goalDefinitionLevelListActions.getGoalDefinitionLevelList(this.id, this.team, this.collaborator);
+      } else {
+        this.props.goalDefinitionDetailActions.getGoalDefinition(this.id);
       }
     }
 
@@ -91,7 +93,6 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         this.props.handleTitle('Administration');
         this.props.handleSubHeader(<SubHeader />);
         this.props.handleButtons(<IconButton onClick={this.handleAdd.bind(this)} size='small'><FontAwesomeIcon icon={faPlus} /></IconButton>);
-        this.props.goalDefinitionDetailActions.getGoalDefinition(this.id);
         this.props.configListActions.getConfigList(this.props.match.params.periodId)
         this.loadData()
     }
@@ -121,14 +122,19 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const { loading } = this.props.goalDefinitionLevelListUpdate;
         // const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0;
         // const usablePoints = (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints;
-
         const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
         const repartition = pointRepartitions.filter(pointRepartition => (
           pointRepartition.definition === definition.id && (
             this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
           )
         ))[0]
-        const usablePoints = repartition ? repartition.points - definition.usedPoints : 0
+
+        const usedPoints = repartition ? definition.usedPoints : (
+          this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0
+        )
+        const usablePoints = repartition ? repartition.points - definition.usedPoints : (
+          (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints
+        )
 
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
@@ -139,8 +145,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                     </Grid>
                     <Grid item xs={12}>
                         <Card>
-                          {repartition && (
-                            <React.Fragment>
+
                               <Grid container direction="row" spacing={2}>
                                 <Grid item>
                                   <Grid container direction="column" alignItems="center" spacing={2}>
@@ -155,7 +160,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                 <Grid item>
                                   <Grid container direction="column" alignItems="center" spacing={2}>
                                     <Grid item>
-                                      <DefaultText>{definition.usedPoints}</DefaultText>
+                                      <DefaultText>{usedPoints}</DefaultText>
                                     </Grid>
                                     <Grid item>
                                       <DefaultText>pts joueur déjà mis en jeu</DefaultText>
@@ -173,8 +178,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                   </Grid>
                                 </Grid>
                               </Grid>
-                            </React.Fragment>
-                          )}
+
                         </Card>
                     </Grid>
                     { this.state.levels.map((level, index) => {
