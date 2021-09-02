@@ -47,11 +47,11 @@ const Goal = ({ goal, ...props }) => {
       if(goal.type === 'T' && goal.pointRepartitionMode === 'T') {
         maxPointsKey = 'maxTeamPoints'
       } else {
-        if(goal.pointRepartitionMode === 'T') {
-          maxPointsKey = 'maxTeamCollaboratorPoints'
-        } else if(goal.pointRepartitionMode === 'I') {
+        // if(goal.pointRepartitionMode === 'T') {
+        //   maxPointsKey = 'maxTeamCollaboratorPoints'
+        // } else if(goal.pointRepartitionMode === 'I') {
           maxPointsKey = 'maxCollaboratorPoints'
-        }
+        // }
       }
     }
     const maxPoints = goal[maxPointsKey]
