@@ -4,7 +4,7 @@ export const getEmptyCollaboratorGoalSummaryList = () => ({
     type: types.GET_EMPTY_COLLABORATOR_GOAL_SUMMARY_LIST
 })
 
-export const getCollaboratorGoalSummaryList = (id, current, category, year, start, end, name, definition) => ({
+export const getCollaboratorGoalSummaryList = (id, current, category, year, start, end, name, definition, all) => ({
     type: types.GET_COLLABORATOR_GOAL_SUMMARY_LIST,
     id,
     current,
@@ -13,7 +13,8 @@ export const getCollaboratorGoalSummaryList = (id, current, category, year, star
     start,
     end,
     name,
-    definition
+    definition,
+    all
 })
 
 export const getCollaboratorGoalSummaryListByDefinitionAndCollaborator = (definitionId, collaboratorId) => ({

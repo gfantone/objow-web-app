@@ -107,13 +107,14 @@ class CollaboratorGoalList extends MainLayoutComponent {
             this.definition = definition;
             this.onlyCollaborator = onlyCollaborator;
             this.onlyTeam = onlyTeam;
+            const all = parseInt(this.current) === 1
             if (onlyCollaborator === true) {
-                this.props.collaboratorGoalSummaryListActions.getCollaboratorGoalSummaryList(id, this.current, this.category, this.year, start, end, this.name, definition);
+                this.props.collaboratorGoalSummaryListActions.getCollaboratorGoalSummaryList(id, this.current, this.category, this.year, start, end, this.name, definition, all);
             } else {
                 this.props.collaboratorGoalSummaryListActions.getEmptyCollaboratorGoalSummaryList()
             }
             if (onlyTeam === true) {
-                this.props.teamGoalListSummaryActions.getTeamGoalSummaryListByCollaborator(id, this.current, this.category, this.year, start, end, this.name, definition)
+                this.props.teamGoalListSummaryActions.getTeamGoalSummaryListByCollaborator(id, this.current, this.category, this.year, start, end, this.name, definition, all)
             } else {
                 this.props.teamGoalListSummaryActions.getEmptyTeamGoalSummaryList()
             }
@@ -205,7 +206,7 @@ class CollaboratorGoalList extends MainLayoutComponent {
         const goals = this.mergeGoals(collaboratorGoals, teamGoals);
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
-        
+
         return (
             <div>
               <Grid container spacing={3}>

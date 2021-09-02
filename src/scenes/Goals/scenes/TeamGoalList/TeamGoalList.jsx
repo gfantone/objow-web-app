@@ -107,13 +107,14 @@ class TeamGoalList extends MainLayoutComponent {
             this.definition = definition;
             this.onlyCollaborator = onlyCollaborator;
             this.onlyTeam = onlyTeam;
+            const all = parseInt(this.current) === 1
             if (onlyCollaborator === true) {
-                this.props.teamCollaboratorGoalListActions.getTeamCollaboratorGoalList(id, current, category, year, start, end, name, definition);
+                this.props.teamCollaboratorGoalListActions.getTeamCollaboratorGoalList(id, current, category, year, start, end, name, definition, all);
             } else {
                 this.props.teamCollaboratorGoalListActions.getEmptyTeamCollaboratorGoalList()
             }
             if (onlyTeam === true) {
-                this.props.teamGoalSummaryListActions.getTeamGoalSummaryListByTeam(id, current, category, year, start, end, name, definition)
+                this.props.teamGoalSummaryListActions.getTeamGoalSummaryListByTeam(id, current, category, year, start, end, name, definition, all)
             } else {
                 this.props.teamGoalSummaryListActions.getEmptyTeamGoalSummaryList()
             }

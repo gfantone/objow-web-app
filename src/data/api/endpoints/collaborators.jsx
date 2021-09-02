@@ -50,7 +50,7 @@ const collaborators = {
         if (type != null) url = `${url}&type=${type}`;
         return instance.get(url)
     },
-    collaboratorGoals(id, current, category, year, start, end, name, definition) {
+    collaboratorGoals(id, current, category, year, start, end, name, definition, all) {
         var url = `${baseUrl}${id}/collaborator-goals/?current=${current}`;
         if (category != null) url = `${url}&category=${category}`;
         if (year != null) url = `${url}&year=${year}`;
@@ -58,6 +58,7 @@ const collaborators = {
         if (end != null) url = `${url}&end=${end.toUTCJSON()}`;
         if (definition != null) url = `${url}&definition=${definition}`;
         if (name != null && name !== '') url = `${url}&name=${name}`;
+        if (all != null && all !== '') url = `${url}&all=${all}`;
         return instance.get(url)
     },
     collaboratorGoalStats(definitionId, collaboratorId) {
@@ -109,7 +110,7 @@ const collaborators = {
         if (type != null) url = `${url}&type=${type}`;
         return instance.get(url)
     },
-    teamGoals(id, current, category, year, start, end, name, definition) {
+    teamGoals(id, current, category, year, start, end, name, definition, all) {
         var url = `${baseUrl}${id}/team-goals/?current=${current}`;
         if (category != null) url = `${url}&category=${category}`;
         if (year != null) url = `${url}&year=${year}`;
@@ -117,6 +118,7 @@ const collaborators = {
         if (end != null) url = `${url}&end=${end.toUTCJSON()}`;
         if (definition != null) url = `${url}&definition=${definition}`;
         if (name != null && name !== '') url = `${url}&name=${name}`;
+        if (all != null && all !== '') url = `${url}&all=${all}`;
         return instance.get(url)
     },
     teamGoalStats(definitionId, collaboratorId) {
