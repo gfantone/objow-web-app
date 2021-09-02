@@ -39,7 +39,24 @@ const Goal = ({ goal, ...props }) => {
     const progression = Math.round((goal.counter / goal.target) * 100)
     const typeStyle = goal.type === 'T' ? {color: goal.color} : null
     const hasRank = goal.rank && goal.allow_ranking
-    const hasPoints = goal.maxPoints > 0
+
+    let maxPointsKey
+    if(goal.pointRepartitionMode === 'G') {
+      maxPointsKey = 'maxPoints'
+    } else {
+      if(goal.type === 'T' && goal.pointRepartitionMode === 'T') {
+        maxPointsKey = 'maxTeamPoints'
+      } else {
+        if(goal.pointRepartitionMode === 'T') {
+          maxPointsKey = 'maxTeamCollaboratorPoints'
+        } else if(goal.pointRepartitionMode === 'I') {
+          maxPointsKey = 'maxCollaboratorPoints'
+        }
+      }
+    }
+    const maxPoints = goal[maxPointsKey]
+    const hasPoints = goal[maxPointsKey] > 0
+
 
     return (
         <div>
@@ -83,7 +100,7 @@ const Goal = ({ goal, ...props }) => {
                 </Grid>}
                 { hasPoints && <Grid item className={classes.info}>
                     <DefaultText>
-                        <FontAwesomeIcon icon={faFireAlt} /> {Resources.GOAL_POINTS_TEXT.format(goal.points)} <InfoText component='span'>{Resources.GOAL_MAX_POINTS_TEXT.format(goal.maxPoints)}</InfoText>
+                        <FontAwesomeIcon icon={faFireAlt} /> {Resources.GOAL_POINTS_TEXT.format(goal.points)} <InfoText component='span'>{Resources.GOAL_MAX_POINTS_TEXT.format(maxPoints)}</InfoText>
                     </DefaultText>
                 </Grid>}
                 <Grid item className={classes.info} xs zeroMinWidth>
