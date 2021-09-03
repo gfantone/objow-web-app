@@ -274,7 +274,10 @@ class AdminGoalPointList extends MainLayoutComponent {
         const displayRepartition = this.team || this.collaborator
 
         const percentByDefinition = definition => Number(((definition.usedPoints + definition.currentPoints) / maxPoints * 100).toFixed(2))
-        const totalPointsPercent = filteredDefinitions.reduce((acc, definition) => acc + percentByDefinition(definition), 0)
+        const totalPointsPercent = Number(filteredDefinitions.reduce((acc, definition) => acc + percentByDefinition(definition), 0).toFixed(2))
+
+        let totalImportancePercent = 0
+        let totalAvailable = 0
 
         return (
             <Grid container spacing={4}>
@@ -424,6 +427,13 @@ class AdminGoalPointList extends MainLayoutComponent {
                                     mode.code === 'I' && !this.collaborator
                                   )
 
+                                  const importance_percent = mode.code === 'G' ? '-' : Number((repartitionPoints / (maxPoints - totalPoints) * 100).toFixed(2))
+                                  if(parseInt(importance_percent)) {
+                                    totalImportancePercent += importance_percent
+                                  }
+                                  if(parseInt(repartitionPoints)) {
+                                    totalAvailable += repartitionPoints
+                                  }
 
                                   return (
                                     [
@@ -437,7 +447,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                         value: definition.usedPoints + definition.currentPoints, readOnly: true
                                       },
                                       {
-                                        value: mode.code === 'G' ? '-' : Number((repartitionPoints / maxPoints * 100).toFixed(2)),
+                                        value: importance_percent,
                                         readOnly: repartitionReadonly,
                                         type: 'repartitionPercent',
                                         id: repartition.id,
@@ -455,20 +465,22 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   )
                                 }),
                                 [
-                                  {value: 'Total utilisé', readOnly: true},
-                                  // {value: totalPointsPercent , readOnly: true},
-                                  {value: totalPoints, readOnly: true}
-                                ],
-                                [
-                                  {value: 'Total alloué', readOnly: true},
-                                  // {value: '100', readOnly: true},
-                                  {value: maxPoints, readOnly: true}
-                                ],
-                                [
-                                  {value: 'Total restant', readOnly: true},
-                                  // {value: 100 - totalPointsPercent, readOnly: true},
-                                  {value: maxPoints - totalPoints, readOnly: true}
+                                  {value: 'Total', readOnly: true},
+                                  {value: totalPointsPercent , readOnly: true},
+                                  {value: totalPoints, readOnly: true},
+                                  {value: Number(totalImportancePercent.toFixed(2)), readOnly: true},
+                                  {value: Number(totalAvailable.toFixed(2)), readOnly: true}
+
                                 ]
+                                // [
+                                //   {value: 'Total alloué', readOnly: true},
+                                //   // {value: '100', readOnly: true},
+                                // ],
+                                // [
+                                //   {value: 'Total restant', readOnly: true},
+                                //   // {value: 100 - totalPointsPercent, readOnly: true},
+                                //   {value: maxPoints - totalPoints, readOnly: true}
+                                // ]
                               ]}
                               cellRenderer={(cell) => {
                                 if(cell.cell.type === 'select') {
