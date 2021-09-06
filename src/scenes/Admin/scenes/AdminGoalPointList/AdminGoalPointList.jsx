@@ -429,10 +429,10 @@ class AdminGoalPointList extends MainLayoutComponent {
 
                                   const importance_percent = mode.code === 'G' ? '-' : Number((repartitionPoints / (maxPoints - totalPoints) * 100).toFixed(2))
                                   if(parseInt(importance_percent)) {
-                                    totalImportancePercent += importance_percent
+                                    totalImportancePercent += Number(importance_percent)
                                   }
                                   if(parseInt(repartitionPoints)) {
-                                    totalAvailable += repartitionPoints
+                                    totalAvailable += Number(repartitionPoints)
                                   }
 
                                   return (
