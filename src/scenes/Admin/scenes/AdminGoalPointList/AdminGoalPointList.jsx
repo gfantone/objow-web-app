@@ -71,7 +71,6 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList()
         this.props.goalDefinitionPointRepartitionModeListActions.getGoalDefinitionPointRepartitionModeList()
         if(mode === 'team') {
-
           if(collaborator) {
             this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(collaborator, periodId, null, true)
             this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByCollaborator(periodId, collaborator);
