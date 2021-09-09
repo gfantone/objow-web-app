@@ -501,7 +501,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                 }
                                 return <td {...cell}>{cell.children}</td>
                               }}
-                              onCellsChanged={ changes => this.onRepartitionChange(changes, maxPoints) }
+                              onCellsChanged={ changes => this.onRepartitionChange(changes, maxPoints - totalPoints) }
                               valueRenderer={cell => cell.value}
                             />
                           <ProgressButton type='submit' text={'Valider'} loading={false} centered />

@@ -170,7 +170,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const usablePoints = repartition ? repartition.points - definition.usedPoints : (
           (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints
         )
-        console.log(teams);
+
         const playersNumber = teams.length && this.team && !this.collaborator ? teams.find(team => team.id === parseInt(this.team)).collaborators.length : null
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
@@ -179,8 +179,6 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                 <Grid container direction="row" spacing={4}>
                   <Grid item xs={8}>
                     <Grid container spacing={4}>
-
-
                       <Grid item xs={12}>
                         <Card>
                           <Grid container direction="row" spacing={2}>
@@ -279,7 +277,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                       <Grid item>
                         <ReactDataSheet
                           data={[
-                            [{value: 'Points joueurs', readOnly: true}, {value: 0}]
+                            [{value: 'Points joueurs', readOnly: true}, {value: 0, readOnly: true}]
                           ]}
                           valueRenderer={cell => cell.value}
                           />
@@ -288,7 +286,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                         <Grid item>
                           <ReactDataSheet
                             data={[
-                              [{value: 'Nombre de joueurs', readOnly: true}, {value: playersNumber}],
+                              [{value: 'Nombre de joueurs', readOnly: true}, {value: playersNumber, readOnly: true}],
                             ]}
                             valueRenderer={cell => cell.value}
                             />
@@ -297,8 +295,8 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                       <Grid item>
                         <ReactDataSheet
                           data={[
-                            [{value: 'Nombre de périodes totales', readOnly: true}, {value: periods.total}],
-                            [{value: 'Nombre de périodes restantes', readOnly: true}, {value: periods.remaining}]
+                            [{value: 'Nombre de périodes totales', readOnly: true}, {value: periods.total, readOnly: true}],
+                            [{value: 'Nombre de périodes restantes', readOnly: true}, {value: periods.remaining, readOnly: true}]
                           ]}
                           valueRenderer={cell => cell.value}
                           />
