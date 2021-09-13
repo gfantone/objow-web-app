@@ -16,6 +16,8 @@ import * as goalDefinitionListActions from '../../../../services/GoalDefinitions
 import * as goalDefinitionPointRepartitionListActions from '../../../../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionList/actions'
 import * as goalDefinitionPointRepartitionListUpdateActions from '../../../../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionListUpdate/actions'
 import * as goalDefinitionPointRepartitionModeListActions from '../../../../services/GoalDefinitionPointRepartitionModes/GoalDefinitionPointRepartitionModeList/actions'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 
 const styles = {
     root: {
@@ -30,6 +32,23 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    headerPoints: {
+      '& p': {
+        fontSize: 22,
+        fontWeight: 'bold'
+      }
+    },
+    usablePoints: {
+      '& p': {
+        color: '#00E58D'
+      }
+    },
+    usedPoints: {
+
+    },
+    currentPoints: {
+
     },
     error: {
 
@@ -255,6 +274,15 @@ class AdminGoalPointList extends MainLayoutComponent {
 
         var columns = [
             { name: 'id', label: 'Ref' },
+            { name: 'isActive', label: 'Actif', options: {
+              filter: false,
+              customBodyRender: (value, tableMeta, updateValue) => {
+                if(value) {
+                  return <FontAwesomeIcon icon={faCheckSquare} style={{fontSize: 20, color: '#00E58D'}}/>
+                }
+
+              }
+            } },
             { name: 'name', label: 'Intitulé' },
             // { name: 'type.description', label: 'Objectif' },
             { name: 'usedPoints', label: 'Pts déjà mis en jeu' },
@@ -265,7 +293,6 @@ class AdminGoalPointList extends MainLayoutComponent {
         ];
         const options = {
             selectableRows: 'none',
-            disabledLines,
             onRowClick: (colData, cellMeta) => {
               let url = `/admin/periods/${this.props.match.params.periodId}/goal-levels/${colData[0]}`
 
@@ -294,6 +321,18 @@ class AdminGoalPointList extends MainLayoutComponent {
               } else if(!this.collaborator && !this.team && mode.code === 'G') {
                 this.props.history.push(url)
               }
+            },
+            setRowProps: (row) => {
+              // console.log(parseInt(row[0]) === 171);
+              if(disabledLines && disabledLines[parseInt(row[0])] === true) {
+                return {
+                  style: {
+                    background: '#ededed',
+                    opacity: 0.6
+                  }
+                }
+
+              }
             }
         };
 
@@ -317,7 +356,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                             <React.Fragment>
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item>
+                                  <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
                                     <DefaultText>{usableCollaboratorGoalPoints}</DefaultText>
                                   </Grid>
                                   <Grid item>
@@ -327,7 +366,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               </Grid>
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item>
+                                  <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
                                     <DefaultText>{usedCollaboratorPoints}</DefaultText>
                                   </Grid>
                                   <Grid item>
@@ -337,7 +376,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               </Grid>
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item>
+                                  <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
                                     <DefaultText>{currentCollaboratorPoints}</DefaultText>
                                   </Grid>
                                   <Grid item>
@@ -351,7 +390,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                             <React.Fragment>
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item>
+                                  <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
                                     <DefaultText>{usableTeamGoalPoints}</DefaultText>
                                   </Grid>
                                   <Grid item>
@@ -361,7 +400,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               </Grid>
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item>
+                                  <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
                                     <DefaultText>{usedTeamPoints}</DefaultText>
                                   </Grid>
                                   <Grid item>
@@ -371,7 +410,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               </Grid>
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item>
+                                  <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
                                     <DefaultText>{currentTeamPoints}</DefaultText>
                                   </Grid>
                                   <Grid item>
@@ -420,7 +459,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               <Grid item>
                                 <ReactDataSheet
                                   data={[
-                                    [ {value: 'Ref', readOnly: true}, {value: '% d\'importance', readOnly: true}, {value: 'Points Disponibles', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
+                                    [ {value: 'Ref', readOnly: true}, {value: '% d\'importance', readOnly: true}, {value: 'Points Alloués', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
                                     ...filteredDefinitions.map(definition => {
                                       // If repartition is changed by select
 

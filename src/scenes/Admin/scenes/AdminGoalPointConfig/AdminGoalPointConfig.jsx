@@ -15,10 +15,32 @@ import * as goalDefinitionLevelListUpdateActions from '../../../../services/Goal
 import * as goalDefinitionPointRepartitionListActions from '../../../../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionList/actions'
 import * as goalDefinitionPointRepartitionModeListActions from '../../../../services/GoalDefinitionPointRepartitionModes/GoalDefinitionPointRepartitionModeList/actions'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
+import { withStyles } from '@material-ui/core/styles'
 import './helpers/GoalDefinitionLevelFormsyHelper'
 import '../../../../helpers/FormsyHelper'
 import '../../../../helpers/NumberHelper'
 import * as Resources from "../../../../Resources";
+
+const styles = {
+    headerPoints: {
+      '& p': {
+        fontSize: 22,
+        fontWeight: 'bold'
+      }
+    },
+    usablePoints: {
+      '& p': {
+        color: '#00E58D'
+      }
+    },
+    usedPoints: {
+
+    },
+    currentPoints: {
+
+    }
+};
+
 
 class AdminGoalPointConfig extends MainLayoutComponent {
     constructor(props) {
@@ -151,6 +173,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
     }
 
     renderData() {
+        const { classes } = this.props
         const { configs } = this.props.configList;
         const { definition } = this.props.goalDefinitionDetail;
         const { teams } = this.props.teamList;
@@ -184,7 +207,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                           <Grid container direction="row" spacing={2}>
                             <Grid item>
                               <Grid container direction="column" alignItems="center" spacing={2}>
-                                <Grid item>
+                                <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
                                   <DefaultText>{usablePoints}</DefaultText>
                                 </Grid>
                                 <Grid item>
@@ -194,7 +217,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                             </Grid>
                             <Grid item>
                               <Grid container direction="column" alignItems="center" spacing={2}>
-                                <Grid item>
+                                <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
                                   <DefaultText>{usedPoints}</DefaultText>
                                 </Grid>
                                 <Grid item>
@@ -204,7 +227,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                             </Grid>
                             <Grid item>
                               <Grid container direction="column" alignItems="center" spacing={2}>
-                                <Grid item>
+                                <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
                                   <DefaultText>{definition.currentPoints}</DefaultText>
                                 </Grid>
                                 <Grid item>
@@ -352,4 +375,4 @@ const mapDispatchToProps = (dispatch) => ({
     goalDefinitionPointRepartitionModeListActions: bindActionCreators(goalDefinitionPointRepartitionModeListActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminGoalPointConfig)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AdminGoalPointConfig))

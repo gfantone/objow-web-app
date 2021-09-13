@@ -52,22 +52,7 @@ const DataTable = (props) => {
             }
         },
         rowsPerPage: 25,
-        rowsPerPageOptions: [25, 50, 100],
-        setRowProps: (row) => {
-          // console.log(parseInt(row[0]) === 171);
-          if(options.disabledLines && options.disabledLines[parseInt(row[0])] === true) {
-            return {
-              style: {
-                background: '#ededed',
-                opacity: 0.6
-              }
-            }
-
-          }
-          // } else {
-          //   return {}
-          // }
-        }
+        rowsPerPageOptions: [25, 50, 100]
     }
 
     return (
