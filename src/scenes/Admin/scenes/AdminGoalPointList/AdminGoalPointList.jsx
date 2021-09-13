@@ -218,7 +218,7 @@ class AdminGoalPointList extends MainLayoutComponent {
           repartitionModes.find(mode => _.get(newRepartition, 'mode') ? mode.id === newRepartition.mode : mode.id === repartition.mode) :
           { code: 'G' }
 
-        disabledLines[definition.id] = !(this.team && mode.code === 'T' || this.collaborator && mode.code === 'I' || !this.collaborator && !this.team && mode.code === 'G')
+        disabledLines[definition.id] = !(this.team && !this.collaborator && mode.code === 'T' || this.collaborator && mode.code === 'I' || !this.collaborator && !this.team && mode.code === 'G')
       })
       return disabledLines
     }
@@ -285,7 +285,7 @@ class AdminGoalPointList extends MainLayoutComponent {
 
               const mode = repartitionModes.find(mode => newRepartition && _.get(newRepartition, 'mode') ? mode.id === newRepartition.mode : mode.id === repartition.mode)
 
-              if(this.team && mode.code === 'T') {
+              if(this.team && !this.collaborator && mode.code === 'T') {
                 url = url + `?team=${this.team}`
                 this.props.history.push(url)
               } else if(this.collaborator && mode.code === 'I') {
