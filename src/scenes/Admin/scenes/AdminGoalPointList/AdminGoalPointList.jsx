@@ -17,7 +17,9 @@ import * as goalDefinitionPointRepartitionListActions from '../../../../services
 import * as goalDefinitionPointRepartitionListUpdateActions from '../../../../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionListUpdate/actions'
 import * as goalDefinitionPointRepartitionModeListActions from '../../../../services/GoalDefinitionPointRepartitionModes/GoalDefinitionPointRepartitionModeList/actions'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+
 
 const styles = {
     root: {
@@ -33,6 +35,11 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
     },
+    headerPointsLabel: {
+      '& p': {
+        fontSize: 14,
+      }
+    },
     headerPoints: {
       '& p': {
         fontSize: 22,
@@ -45,7 +52,9 @@ const styles = {
       }
     },
     usedPoints: {
-
+      '& p': {
+        color: '#f2b666'
+      }
     },
     currentPoints: {
 
@@ -183,16 +192,19 @@ class AdminGoalPointList extends MainLayoutComponent {
     onRepartitionChange = (changes, totalPoints) => {
       let newRepartitions = [...this.state.newRepartitions]
       changes.forEach(change => {
-        if(change.cell.type === 'repartitionPoints' || change.cell.type === 'repartitionPercent') {
+        if(change.cell.type === 'repartitionPoints' || change.cell.type === 'importance_percent') {
           let newRepartition = {
             id: change.cell.id,
           }
           if(change.cell.type === 'repartitionPoints') {
             newRepartition.points = change.value
+            newRepartition.importance_percent = Number((change.value / totalPoints * 100).toFixed(2))
           }
-          if(change.cell.type === 'repartitionPercent') {
+          if(change.cell.type === 'importance_percent') {
             newRepartition.points = Number((totalPoints * change.value / 100).toFixed(2))
+            newRepartition.importance_percent = change.value
           }
+          // console.log(newRepartition);
           newRepartitions = newRepartitions.find(repartition => repartition.id === newRepartition.id) ?
             this.state.newRepartitions.map(repartition => repartition.id === newRepartition.id ? Object.assign({}, repartition, newRepartition) : repartition) :
             [...this.state.newRepartitions, newRepartition]
@@ -205,15 +217,17 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 
     onSubmitRepartitions = () => {
-
       this.props.goalDefinitionPointRepartitionListUpdateActions.updateGoalDefinitionPointRepartitionList(this.state.newRepartitions.map(repartition => {
+
         let result = {}
         result.id = repartition.id
         if(repartition.mode) {
           result.mode_id = repartition.mode
         }
-        if(repartition.points) {
-          result.points = repartition.points
+
+
+        if(repartition.importance_percent) {
+          result.points = repartition.importance_percent
         }
         return result
       }))
@@ -258,6 +272,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         const baseCollaboratorGoalPoints = parseInt(configs.find(x => x.code == 'CPG').value)
         const baseTeamGoalPoints = configs.find(x => x.code == 'TPG').value
         const collaboratorGoalPoints = baseCollaboratorGoalPoints * participantsNumber;
+        const baseGoalPoints = this.state.type === 'T' ? baseTeamGoalPoints : baseCollaboratorGoalPoints
         const teamGoalPoints = baseTeamGoalPoints * teamParticipantsNumber;
         const usableCollaboratorGoalPoints = collaboratorGoalPoints ? collaboratorGoalPoints - usedCollaboratorPoints - currentCollaboratorPoints : 0;
         const usableTeamGoalPoints = teamGoalPoints ? teamGoalPoints - usedTeamPoints - currentTeamPoints : 0;
@@ -278,7 +293,9 @@ class AdminGoalPointList extends MainLayoutComponent {
               filter: false,
               customBodyRender: (value, tableMeta, updateValue) => {
                 if(value) {
-                  return <FontAwesomeIcon icon={faCheckSquare} style={{fontSize: 20, color: '#00E58D'}}/>
+                  return <FontAwesomeIcon icon={faCheckCircle} style={{fontSize: 20, color: '#00E58D'}}/>
+                } else {
+                  return <FontAwesomeIcon icon={faTimesCircle} style={{fontSize: 20, color: '#E50000'}}/>
                 }
 
               }
@@ -351,7 +368,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                   <Grid container direction="row" spacing={4}>
                     <Grid item sm={ displayRepartition ? 8 : 12}>
                       <Card>
-                        <Grid container spacing={2}>
+                        <Grid container spacing={2} justify='space-around'>
                           { this.state.type === 'C' && (
                             <React.Fragment>
                               <Grid item>
@@ -359,8 +376,8 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
                                     <DefaultText>{usableCollaboratorGoalPoints}</DefaultText>
                                   </Grid>
-                                  <Grid item>
-                                    <DefaultText>pts joueur disponible</DefaultText>
+                                  <Grid item className={ classes.headerPointsLabel }>
+                                    <DefaultText>points joueur disponibles</DefaultText>
                                   </Grid>
                                 </Grid>
                               </Grid>
@@ -369,8 +386,9 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
                                     <DefaultText>{usedCollaboratorPoints}</DefaultText>
                                   </Grid>
-                                  <Grid item>
-                                    <DefaultText>pts joueur déjà mis en jeu</DefaultText>
+                                  <Grid item className={ classes.headerPointsLabel }>
+                                    <DefaultText>points joueur déjà mis en jeu</DefaultText>
+
                                   </Grid>
                                 </Grid>
                               </Grid>
@@ -379,8 +397,9 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
                                     <DefaultText>{currentCollaboratorPoints}</DefaultText>
                                   </Grid>
-                                  <Grid item>
-                                    <DefaultText>pts joueur en cours de jeu</DefaultText>
+                                  <Grid item className={ classes.headerPointsLabel }>
+                                    <DefaultText>points joueur en cours de jeu</DefaultText>
+
                                   </Grid>
                                 </Grid>
                               </Grid>
@@ -430,7 +449,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                             data={[
                               [
                                 { value: this.state.type === 'T' ? 'Points équipe' : 'Points joueurs', readOnly: true },
-                                { value: this.state.type === 'T' ? baseTeamGoalPoints : baseCollaboratorGoalPoints, readOnly: !this.team && this.collaborator }
+                                { value: baseGoalPoints, readOnly: !this.team && this.collaborator }
                               ],
                               [
                                 { value: this.state.type === 'T' ? `${ teams.length } équipes` : `${participantsNumber} joueurs`, readOnly: true },
@@ -460,46 +479,60 @@ class AdminGoalPointList extends MainLayoutComponent {
                                 <ReactDataSheet
                                   data={[
                                     [ {value: 'Ref', readOnly: true}, {value: '% d\'importance', readOnly: true}, {value: 'Points Alloués', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
-                                    ...filteredDefinitions.map(definition => {
-                                      // If repartition is changed by select
+                                      ...filteredDefinitions.map(definition => {
+                                        // If repartition is changed by select
 
-                                      // get currentRepartition by definition
-                                      const repartition = pointRepartitions.filter(pointRepartition => (
-                                        pointRepartition.definition === definition.id && (
-                                          this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
-                                        )
-                                      ))[0]
+                                        // get currentRepartition by definition
+                                        const repartition = pointRepartitions.filter(pointRepartition => (
+                                          pointRepartition.definition === definition.id && (
+                                            this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
+                                          )
+                                        ))[0]
 
-                                      const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
+                                        const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
 
-                                      const mode = repartitionModes.find(mode => _.get(newRepartition, 'mode') ? mode.id === newRepartition.mode : mode.id === repartition.mode)
+                                        const mode = repartitionModes.find(mode => _.get(newRepartition, 'mode') ? mode.id === newRepartition.mode : mode.id === repartition.mode)
 
-                                      let repartitionPoints = repartition && mode.code === 'G' ? definition.currentPoints : newRepartition && newRepartition.points || repartition.points
 
-                                      // Page filtered on team and current repartition is individual
-                                      if(this.team && !this.collaborator && mode.code === 'I') {
-                                        repartitionPoints = pointRepartitions
-                                        .filter(pointRepartition => currentTeam && currentTeam.collaborators.map(c => c.id).indexOf(pointRepartition.collaborator) >= 0)
-                                        .reduce((acc, pointRepartition) => acc + pointRepartition.points, 0)
-                                      }
-                                      // Page filtered on collaborator and current repartition is team
-                                      if(this.collaborator && mode.code === 'T') {
-                                        repartitionPoints = _.get(pointRepartitions
-                                          .find(pointRepartition => currentCollaborator && currentCollaborator.team.id === pointRepartition.team), 'points', 0)
+                                        let repartitionPoints = definition.currentPoints
+                                        let importance_percent = definition.currentPoints / (maxPoints) * 100
+
+                                        if(mode.code !== 'G') {
+                                          importance_percent = repartition && repartition.points
+                                          // console.log(definition.id, importance_percent);
+                                          // Page filtered on team and current repartition is individual
+                                          if(this.team && !this.collaborator && mode.code === 'I') {
+                                            const individualPoints = pointRepartitions
+                                              .filter(pointRepartition => pointRepartition.definition === definition.id && currentTeam && currentTeam.collaborators.map(c => c.id).indexOf(pointRepartition.collaborator) >= 0)
+                                              .reduce((acc, pointRepartition) => {
+                                                return acc + pointRepartition.points * baseGoalPoints / 100
+                                                // return acc + pointRepartition.points
+                                              }, 0)
+                                              // console.log(definition.id, individualPoints);
+                                            importance_percent = individualPoints / (maxPoints) * 100
+                                          }
+                                          // Page filtered on collaborator and current repartition is team
+                                          if(this.collaborator && mode.code === 'T') {
+                                            importance_percent = _.get(pointRepartitions
+                                              .find(pointRepartition => pointRepartition.definition === definition.id && currentCollaborator && currentCollaborator.team.id === pointRepartition.team), 'points', 0)
+                                          }
+
+                                          importance_percent = newRepartition && newRepartition.importance_percent || importance_percent
+
+                                          repartitionPoints = Number((maxPoints * importance_percent / 100).toFixed(2))
+                                          // console.log(newRepartition);
+                                          // console.log(definition.id, importance_percent);
                                         }
 
-                                        const repartitionReadonly = definition.currentPoints > 0 || (
+
+                                        const repartitionReadonly =
                                           mode.code === 'G' ||
+                                          // definition.currentPoints > repartitionPoints ||
                                           mode.code === 'T' && (!this.team || this.collaborator) ||
                                           mode.code === 'I' && !this.collaborator
-                                        )
-
-                                        const importance_percent = mode.code === 'G' ?
-                                        Number((definition.currentPoints / (maxPoints) * 100).toFixed(2)) :
-                                        Number((repartitionPoints / (maxPoints) * 100).toFixed(2))
 
                                         if(Number(importance_percent)) {
-                                          totalImportancePercent += Number(importance_percent)
+                                          totalImportancePercent += importance_percent
                                         }
                                         if(Number(repartitionPoints)) {
                                           totalAvailable += Number(repartitionPoints)
@@ -512,9 +545,9 @@ class AdminGoalPointList extends MainLayoutComponent {
                                             },
 
                                             {
-                                              value: importance_percent,
+                                              value: Number(importance_percent.toFixed(2)),
                                               readOnly: repartitionReadonly,
-                                              type: 'repartitionPercent',
+                                              type: 'importance_percent',
                                               id: repartition.id,
                                             },
                                             {

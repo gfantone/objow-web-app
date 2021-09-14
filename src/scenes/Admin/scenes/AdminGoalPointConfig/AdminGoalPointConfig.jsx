@@ -34,7 +34,9 @@ const styles = {
       }
     },
     usedPoints: {
-
+      '& p': {
+        color: '#f2b666'
+      }
     },
     currentPoints: {
 
