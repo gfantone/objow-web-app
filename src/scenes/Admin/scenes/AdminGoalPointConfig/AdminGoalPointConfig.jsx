@@ -7,7 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { SubHeader, Filters } from './components'
 import ReactDataSheet from 'react-datasheet'
-import { Card, DefaultText, DefaultTitle, EmptyState, HiddenInput, IconButton, MainLayoutComponent, ProgressButton, TextField } from '../../../../components'
+import { Card, DefaultText, DefaultTitle, BigText, EmptyState, HiddenInput, IconButton, MainLayoutComponent, ProgressButton, TextField, BoldSpan } from '../../../../components'
+import { Tag } from '../../../../components/Teams/components/Team/components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as goalDefinitionDetailActions from '../../../../services/GoalDefinitions/GoalDefinitionDetail/actions'
 import * as goalDefinitionLevelListActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelList/actions'
@@ -20,6 +21,7 @@ import './helpers/GoalDefinitionLevelFormsyHelper'
 import '../../../../helpers/FormsyHelper'
 import '../../../../helpers/NumberHelper'
 import * as Resources from "../../../../Resources";
+import _ from 'lodash'
 
 const styles = {
     headerPoints: {
@@ -146,6 +148,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
     periodsByDefinition = (definition) => {
       const now = new Date()
       const endOfYear = new Date(now.getFullYear(), 11, 31);
+
       if(definition.periodicity.code === 'Y'){
         return {
           total: 1,
@@ -178,6 +181,9 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const { classes } = this.props
         const { configs } = this.props.configList;
         const { definition } = this.props.goalDefinitionDetail;
+        const baseCollaboratorGoalPoints = parseInt(configs.find(x => x.code == 'CPG').value)
+        const baseTeamGoalPoints = configs.find(x => x.code == 'TPG').value
+        const baseGoalPoints = definition.type.code === 'T' ? baseTeamGoalPoints : baseCollaboratorGoalPoints
         const { teams } = this.props.teamList;
         const { loading } = this.props.goalDefinitionLevelListUpdate;
         // const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0;
@@ -188,15 +194,22 @@ class AdminGoalPointConfig extends MainLayoutComponent {
             this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
           )
         ))[0]
+        const currentTeam = this.team ? teams.find(team => team.id === parseInt(this.team)) : null
+        const playersNumber = teams.length && this.team && !this.collaborator ? teams.find(team => team.id === parseInt(this.team)).collaborators.length : null
         const periods = this.periodsByDefinition(definition);
         const usedPoints = repartition ? definition.usedPoints : (
           this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0
         )
-        const usablePoints = repartition ? repartition.points - definition.usedPoints : (
+        const usablePoints = repartition ? Number((repartition.points * baseGoalPoints * playersNumber / 100).toFixed(2)) : (
           (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints
         )
 
-        const playersNumber = teams.length && this.team && !this.collaborator ? teams.find(team => team.id === parseInt(this.team)).collaborators.length : null
+        const dataByPlayer = {
+          usablePoints: usablePoints / playersNumber,
+          currentPoints: definition.currentPoints / playersNumber
+
+        }
+        const maxByLevel = dataByPlayer.usablePoints / periods.remaining
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
                 <HiddenInput name='usablePoints' value={usablePoints} />
@@ -210,30 +223,30 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                             <Grid item>
                               <Grid container direction="column" alignItems="center" spacing={2}>
                                 <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
-                                  <DefaultText>{usablePoints}</DefaultText>
+                                  <DefaultText>{dataByPlayer.usablePoints - dataByPlayer.currentPoints}</DefaultText>
                                 </Grid>
                                 <Grid item>
-                                  <DefaultText>pts joueur disponible</DefaultText>
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid item>
-                              <Grid container direction="column" alignItems="center" spacing={2}>
-                                <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
-                                  <DefaultText>{usedPoints}</DefaultText>
-                                </Grid>
-                                <Grid item>
-                                  <DefaultText>pts joueur déjà mis en jeu</DefaultText>
+                                  <DefaultText>Points joueur disponible</DefaultText>
                                 </Grid>
                               </Grid>
                             </Grid>
                             <Grid item>
                               <Grid container direction="column" alignItems="center" spacing={2}>
                                 <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
-                                  <DefaultText>{definition.currentPoints}</DefaultText>
+                                  <DefaultText>{dataByPlayer.currentPoints}</DefaultText>
                                 </Grid>
                                 <Grid item>
-                                  <DefaultText>pts joueur en cours de jeu</DefaultText>
+                                  <DefaultText>Points joueur en cours de jeu</DefaultText>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item>
+                              <Grid container direction="column" alignItems="center" spacing={2}>
+                                <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
+                                  <DefaultText>{periods.remaining}</DefaultText>
+                                </Grid>
+                                <Grid item>
+                                  <DefaultText>Nombre de périodes restantes</DefaultText>
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -241,51 +254,71 @@ class AdminGoalPointConfig extends MainLayoutComponent {
 
                         </Card>
                       </Grid>
-                      { this.state.levels.map((level, index) => {
-                        const number = index + 1;
-                        const percentageValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `percentage[${index-1}]` } : { isMoreThanOrEquals: 0 };
-                        const pointValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `points[${index-1}]`, isGoalDefinitionLevelValid: true } : { isMoreThanOrEquals: 0, isGoalDefinitionLevelValid: true };
+                      <Grid item container direction="column" spacing={1}>
 
-                        return (
-                          <Grid key={level.id} item xs={6} container spacing={1}>
-                            <Grid item xs={12}>
-                              <DefaultTitle>Palier {number}</DefaultTitle>
-                            </Grid>
-                            <Grid item xs={12}>
-                              <Card>
-                                <Grid container spacing={2} alignItems='flex-end'>
-                                  <Grid item xs>
-                                    <TextField type='number' name={`percentage[${index}]`} label="% d'atteinte de l'objectif" initial={level.percentage.toFullPercentage()} fullWidth required
-                                      validations={percentageValidations}
-                                      validationErrors={{
-                                        isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                        isMoreThanOrEquals: 'Le pourcentage doit être supérieur ou égal 0',
-                                        isMoreThan: 'Le pourcentage doit être supérieur à celui du palier précédent'
-                                      }}
-                                      />
-                                  </Grid>
-                                  <Grid item xs>
-                                    <TextField type='number' name={`points[${index}]`} label='Points' initial={level.points} fullWidth required
-                                      validations={pointValidations}
-                                      validationErrors={{
-                                        isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                        isMoreThanOrEquals: 'Le nombre de points doit être supérieur ou égal à 0',
-                                        isMoreThan: 'Le nombre de points doit être supérieur à celui du palier précédent',
-                                        isGoalDefinitionLevelValid: 'Le nombre de points restant est insuffisant'
-                                      }}
-                                      />
-                                  </Grid>
-                                  <Grid item xs='auto'>
-                                    <IconButton color='secondary' size='small' onClick={this.handleRemove(index).bind(this)}>
-                                      <FontAwesomeIcon icon={faTrashAlt} />
-                                    </IconButton>
-                                  </Grid>
+                        <Grid item>
+                          <BigText>
+                            Configuration des paliers par joueur et par période
+                          </BigText>
+                        </Grid>
+                        <Grid item>
+                          <DefaultTitle>
+                            Périodicité : { definition.periodicity.description }
+                          </DefaultTitle>
+                        </Grid>
+                        <Grid item>
+                          <DefaultText>
+                            Points max par joueur et par période : { maxByLevel } points
+                          </DefaultText>
+                        </Grid>
+                        <Grid item>
+                          { this.state.levels.map((level, index) => {
+                            const number = index + 1;
+                            const percentageValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `percentage[${index-1}]` } : { isMoreThanOrEquals: 0 };
+                            const pointValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `points[${index-1}]`, isGoalDefinitionLevelValid: true } : { isMoreThanOrEquals: 0, isGoalDefinitionLevelValid: true };
+
+                            return (
+                              <Grid key={level.id} item xs={6} container spacing={1}>
+                                <Grid item xs={12}>
+                                  <DefaultTitle>Palier {number}</DefaultTitle>
                                 </Grid>
-                              </Card>
-                            </Grid>
-                          </Grid>
-                        )
-                      }) }
+                                <Grid item xs={12}>
+                                  <Card>
+                                    <Grid container spacing={2} alignItems='flex-end'>
+                                      <Grid item xs>
+                                        <TextField type='number' name={`percentage[${index}]`} label="% d'atteinte de l'objectif" initial={level.percentage.toFullPercentage()} fullWidth required
+                                          validations={percentageValidations}
+                                          validationErrors={{
+                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                            isMoreThanOrEquals: 'Le pourcentage doit être supérieur ou égal 0',
+                                            isMoreThan: 'Le pourcentage doit être supérieur à celui du palier précédent'
+                                          }}
+                                          />
+                                      </Grid>
+                                      <Grid item xs>
+                                        <TextField type='number' name={`points[${index}]`} label='Points' initial={level.points} fullWidth required
+                                          validations={pointValidations}
+                                          validationErrors={{
+                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                            isMoreThanOrEquals: 'Le nombre de points doit être supérieur ou égal à 0',
+                                            isMoreThan: 'Le nombre de points doit être supérieur à celui du palier précédent',
+                                            isGoalDefinitionLevelValid: 'Le nombre de points restant est insuffisant'
+                                          }}
+                                          />
+                                      </Grid>
+                                      <Grid item xs='auto'>
+                                        <IconButton color='secondary' size='small' onClick={this.handleRemove(index).bind(this)}>
+                                          <FontAwesomeIcon icon={faTrashAlt} />
+                                        </IconButton>
+                                      </Grid>
+                                    </Grid>
+                                  </Card>
+                                </Grid>
+                              </Grid>
+                            )
+                          }) }
+                        </Grid>
+                      </Grid>
                       { this.state.levels.length == 0 && <Grid item xs={12}>
                         <div>
                           <EmptyState title='Aucun palier trouvé' message='Créz un premier palier' />
@@ -299,32 +332,35 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                   <Grid item xs={4}>
                   <Card>
                     <Grid container spacing={2} direction="column">
+
                       <Grid item>
-                        <ReactDataSheet
-                          data={[
-                            [{value: 'Points joueurs', readOnly: true}, {value: 0, readOnly: true}]
-                          ]}
-                          valueRenderer={cell => cell.value}
-                          />
-                      </Grid>
-                      {playersNumber && (
-                        <Grid item>
-                          <ReactDataSheet
-                            data={[
-                              [{value: 'Nombre de joueurs', readOnly: true}, {value: playersNumber, readOnly: true}],
-                            ]}
-                            valueRenderer={cell => cell.value}
-                            />
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <DefaultText>Total points alloués : <BoldSpan component='span'>{usablePoints}</BoldSpan></DefaultText>
+                                    </Grid>
+                                    { repartition && (
+                                      <Grid item xs={12}>
+                                        <DefaultText>Pourcentage d'importance : <BoldSpan component='span'>{repartition.points}%</BoldSpan></DefaultText>
+                                      </Grid>
+                                    )}
+                                    <Grid item xs={12}>
+                                        <DefaultText>Total points déjà mis en jeu : <BoldSpan component='span'>{definition.usedPoints}</BoldSpan></DefaultText>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <DefaultText>Total points alloués restants : <BoldSpan component='span'>{usablePoints - definition.usedPoints}</BoldSpan></DefaultText>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} sm='auto'>
+                                <Grid container direction='column' >
+                                    <Grid item>
+                                      <Tag color={_.get(currentTeam, 'color.hex')}>{playersNumber} joueurs</Tag>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                         </Grid>
-                      )}
-                      <Grid item>
-                        <ReactDataSheet
-                          data={[
-                            [{value: 'Nombre de périodes totales', readOnly: true}, {value: periods.total, readOnly: true}],
-                            [{value: 'Nombre de périodes restantes', readOnly: true}, {value: periods.remaining, readOnly: true}]
-                          ]}
-                          valueRenderer={cell => cell.value}
-                          />
                       </Grid>
                     </Grid>
                   </Card>
