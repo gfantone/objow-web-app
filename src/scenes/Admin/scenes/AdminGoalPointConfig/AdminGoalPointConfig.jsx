@@ -212,7 +212,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const maxByLevel = dataByPlayer.usablePoints / periods.remaining
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
-                <HiddenInput name='usablePoints' value={usablePoints} />
+                <HiddenInput name='usablePoints' value={maxByLevel ? maxByLevel : 0} />
                 <Filters onChange={() => {}} team={this.team} collaborator={this.collaborator}/>
                 <Grid container direction="row" spacing={4}>
                   <Grid item xs={8}>
@@ -271,7 +271,9 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                             Points max par joueur et par période : { maxByLevel } points
                           </DefaultText>
                         </Grid>
-                        <Grid item>
+
+
+                        <Grid item container spacing={2}>
                           { this.state.levels.map((level, index) => {
                             const number = index + 1;
                             const percentageValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `percentage[${index-1}]` } : { isMoreThanOrEquals: 0 };
