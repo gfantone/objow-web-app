@@ -260,16 +260,19 @@ class AdminGoalPointList extends MainLayoutComponent {
         const { classes } = this.props;
         const { configs } = this.props.configList;
         // const { usedPoints: usedCollaboratorPoints, currentPoints: currentCollaboratorPoints } = this.props.goalDefinitionLevelCollaboratorPoints;
-        const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints } = this.props.goalDefinitionLevelTeamPoints;
+        // const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints } = this.props.goalDefinitionLevelTeamPoints;
 
         const { definitions } = this.props.goalDefinitionList;
         const { teams } = this.props.teamList;
 
-        const {usedCollaboratorPoints, currentCollaboratorPoints} = definitions.reduce((acc, definition) => {
+        const {usedCollaboratorPoints, currentCollaboratorPoints, usedTeamPoints, currentTeamPoints} = definitions.reduce((acc, definition) => {
           acc.usedCollaboratorPoints += definition.usedPoints
+          acc.usedTeamPoints += definition.usedPoints
+
           acc.currentCollaboratorPoints += definition.currentPoints
+          acc.currentTeamPoints += definition.currentPoints
           return acc
-        }, {usedCollaboratorPoints: 0, currentCollaboratorPoints: 0})
+        }, {usedCollaboratorPoints: 0, currentCollaboratorPoints: 0, usedTeamPoints: 0, currentTeamPoints: 0})
 
         const participantsNumber = teams.filter(team => this.team ? team.id === parseInt(this.team) : true).reduce((acc, team) => (
           team.collaborators.filter(collaborator => this.collaborator ? parseInt(this.collaborator) === collaborator.id : true).length + acc
@@ -639,10 +642,10 @@ class AdminGoalPointList extends MainLayoutComponent {
         const { configs, loading: configfListLoading } = this.props.configList;
         // const { usedPoints: usedCollaboratorPoints, currentPoints: currentCollaboratorPoints, loading: goalDefinitionLevelCollaboratorPointsLoading } = this.props.goalDefinitionLevelCollaboratorPoints;
 
-        const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints, loading: goalDefinitionLevelTeamPointsLoading } = this.props.goalDefinitionLevelTeamPoints;
+        // const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints, loading: goalDefinitionLevelTeamPointsLoading } = this.props.goalDefinitionLevelTeamPoints;
         const { definitions, loading: goalDefinitionListLoading } = this.props.goalDefinitionList;
         const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
-        const loading = configfListLoading ||  goalDefinitionLevelTeamPointsLoading || goalDefinitionListLoading || goalDefinitionPointRepartitionLoading;
+        const loading = configfListLoading  || goalDefinitionListLoading || goalDefinitionPointRepartitionLoading;
 
         return (
             <div>
@@ -650,7 +653,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                 { this.state.mode && (
                   <React.Fragment>
                     { loading && this.renderLoader() }
-                    { !loading && configs && usedTeamPoints != null && pointRepartitions && definitions && this.renderData() }
+                    { !loading && configs && pointRepartitions && definitions && this.renderData() }
                   </React.Fragment>
                 ) }
             </div>
