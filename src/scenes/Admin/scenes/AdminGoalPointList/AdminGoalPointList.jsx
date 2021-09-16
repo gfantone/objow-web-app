@@ -637,12 +637,12 @@ class AdminGoalPointList extends MainLayoutComponent {
 
     render() {
         const { configs, loading: configfListLoading } = this.props.configList;
-        const { usedPoints: usedCollaboratorPoints, currentPoints: currentCollaboratorPoints, loading: goalDefinitionLevelCollaboratorPointsLoading } = this.props.goalDefinitionLevelCollaboratorPoints;
+        // const { usedPoints: usedCollaboratorPoints, currentPoints: currentCollaboratorPoints, loading: goalDefinitionLevelCollaboratorPointsLoading } = this.props.goalDefinitionLevelCollaboratorPoints;
 
         const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints, loading: goalDefinitionLevelTeamPointsLoading } = this.props.goalDefinitionLevelTeamPoints;
         const { definitions, loading: goalDefinitionListLoading } = this.props.goalDefinitionList;
         const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
-        const loading = configfListLoading || goalDefinitionLevelCollaboratorPointsLoading || goalDefinitionLevelTeamPointsLoading || goalDefinitionListLoading || goalDefinitionPointRepartitionLoading;
+        const loading = configfListLoading ||  goalDefinitionLevelTeamPointsLoading || goalDefinitionListLoading || goalDefinitionPointRepartitionLoading;
 
         return (
             <div>
@@ -650,7 +650,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                 { this.state.mode && (
                   <React.Fragment>
                     { loading && this.renderLoader() }
-                    { !loading && configs && usedCollaboratorPoints != null && usedTeamPoints != null && pointRepartitions && definitions && this.renderData() }
+                    { !loading && configs && usedTeamPoints != null && pointRepartitions && definitions && this.renderData() }
                   </React.Fragment>
                 ) }
             </div>
