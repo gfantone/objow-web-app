@@ -186,6 +186,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const baseGoalPoints = definition.type.code === 'T' ? baseTeamGoalPoints : baseCollaboratorGoalPoints
         const { teams } = this.props.teamList;
         const { loading } = this.props.goalDefinitionLevelListUpdate;
+        const { modes: repartitionModes } = this.props.goalDefinitionPointRepartitionModeList
         // const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0;
         // const usablePoints = (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints;
         const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
@@ -194,6 +195,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
             this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
           )
         ))[0]
+        const repartitionMode = repartition && repartitionModes.find(mode => mode.id === repartition.mode)
         const currentTeam = this.team ? teams.find(team => team.id === parseInt(this.team)) : null
         const playersNumber = teams.length && this.team && !this.collaborator ? teams.find(team => team.id === parseInt(this.team)).collaborators.length : null
         const periods = this.periodsByDefinition(definition);
@@ -210,6 +212,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
 
         }
         const maxByLevel = dataByPlayer.usablePoints / periods.remaining
+
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
                 <HiddenInput name='usablePoints' value={maxByLevel ? maxByLevel : 0} />
@@ -332,6 +335,18 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                     </Grid>
                   </Grid>
                   <Grid item xs={4}>
+                  <Grid container direction='column' spacing={1}>
+                    <Grid item>
+                      <BigText>
+                        Informations générales
+                      </BigText>
+                    </Grid>
+                    <Grid item>
+                      <DefaultTitle>
+                        Mode de répartition actuel : { _.get(repartitionMode, 'description') }
+                      </DefaultTitle>
+                    </Grid>
+                  </Grid>
                   <Card>
                     <Grid container spacing={2} direction="column">
 
@@ -378,7 +393,8 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const { levels, loading: goalDefinitionLevelListLoading } = this.props.goalDefinitionLevelList;
         const { teams, loading: teamsLoading } = this.props.teamList;
         const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
-        const loading = configListLoading || goalDefinitionDetailLoading || goalDefinitionLevelListLoading || goalDefinitionPointRepartitionLoading ;
+        const { modes: repartitionModes, loading: goalDefinitionPointRepartitionModesLoading  } = this.props.goalDefinitionPointRepartitionModeList
+        const loading = configListLoading || goalDefinitionDetailLoading || goalDefinitionLevelListLoading || goalDefinitionPointRepartitionLoading || goalDefinitionPointRepartitionModesLoading;
 
         const { success } = this.props.goalDefinitionLevelListUpdate;
 

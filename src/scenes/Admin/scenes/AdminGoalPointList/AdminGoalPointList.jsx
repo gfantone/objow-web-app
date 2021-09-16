@@ -360,7 +360,7 @@ class AdminGoalPointList extends MainLayoutComponent {
 
         let totalImportancePercent = 0
         let totalAvailable = 0
-
+        let allRepartitionsValid = true
         return (
             <Grid container spacing={4}>
                 <Filters emptyTeam={ this.state.mode === 'global' } onChange={ this.onFilterChange } team={this.team} collaborator={this.collaborator}/>
@@ -520,9 +520,13 @@ class AdminGoalPointList extends MainLayoutComponent {
                                           importance_percent = newRepartition && newRepartition.importance_percent || importance_percent
 
                                           repartitionPoints = Number((maxPoints * importance_percent / 100).toFixed(2))
-                                          // console.log(newRepartition);
-                                          // console.log(definition.id, importance_percent);
+
+                                          // repartition points should not be under used points
+                                          if(mode.code === 'T' && repartitionPoints < definition.usedPoints) {
+                                            allRepartitionsValid = false
+                                          }
                                         }
+
 
 
                                         const repartitionReadonly =
@@ -602,7 +606,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                     valueRenderer={cell => cell.value}
                                     />
                               </Grid>
-                              {Number(totalImportancePercent) && totalImportancePercent > 100 && (
+                              {(Number(totalImportancePercent) && totalImportancePercent > 100 || !allRepartitionsValid) && (
                                 <Grid item justify='center'>
                                   <ErrorText className={classes.error} align='center'>{`Le total de points ne peut pas dépasser le total alloué pour les objectifs (${
                                     this.state.type === 'T' ? teamGoalPoints : collaboratorGoalPoints } points)`}</ErrorText>
