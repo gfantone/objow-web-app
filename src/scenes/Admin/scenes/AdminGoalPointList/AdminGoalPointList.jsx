@@ -545,12 +545,12 @@ class AdminGoalPointList extends MainLayoutComponent {
                                           mode.code === 'I' && !this.collaborator
 
                                         if(Number(importance_percent)) {
-                                          totalImportancePercent += importance_percent
+                                          totalImportancePercent += Number(importance_percent)
                                         }
                                         if(Number(repartitionPoints)) {
                                           totalAvailable += Number(repartitionPoints)
                                         }
-
+                                        console.log(importance_percent);
                                         return (
                                           [
                                             {
@@ -558,7 +558,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                             },
 
                                             {
-                                              value: Number(importance_percent.toFixed(2)),
+                                              value: Number(Number(importance_percent).toFixed(2)),
                                               readOnly: repartitionReadonly,
                                               type: 'importance_percent',
                                               id: repartition.id,
