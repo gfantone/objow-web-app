@@ -199,16 +199,17 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const currentTeam = this.team ? teams.find(team => team.id === parseInt(this.team)) : null
         const playersNumber = teams.length && this.team && !this.collaborator ? teams.find(team => team.id === parseInt(this.team)).collaborators.length : null
         const periods = this.periodsByDefinition(definition);
-        const usedPoints = repartition ? definition.usedPoints : (
-          this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0
-        )
+        const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0
+
+
         const usablePoints = repartition ? Number((repartition.points * baseGoalPoints * playersNumber / 100).toFixed(2)) : (
           (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints
         )
 
+
         const dataByPlayer = {
           usablePoints: usablePoints / playersNumber,
-          currentPoints: definition.currentPoints / playersNumber
+          currentPoints: usedPoints * periods.remaining
 
         }
         const maxByLevel = dataByPlayer.usablePoints / periods.remaining

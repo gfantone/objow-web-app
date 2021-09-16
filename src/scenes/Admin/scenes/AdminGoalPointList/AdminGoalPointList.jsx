@@ -256,6 +256,39 @@ class AdminGoalPointList extends MainLayoutComponent {
       return disabledLines
     }
 
+    addRepartitionPointsToDefinitions = (definitions) => {
+      const { teams } = this.props.teamList;
+      const participantsNumber = teams.filter(team => this.team ? team.id === parseInt(this.team) : true).reduce((acc, team) => (
+        team.collaborators.filter(collaborator => this.collaborator ? parseInt(this.collaborator) === collaborator.id : true).length + acc
+      ), 0)
+      const baseGoalPoints = this.getBaseGoalPoints() * participantsNumber
+      return definitions.map(definition => {
+        const { pointRepartitions } = this.props.goalDefinitionPointRepartitionList
+        const repartition = pointRepartitions.filter(pointRepartition => (
+          pointRepartition.definition === definition.id && (
+            this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
+          )
+        ))[0]
+
+        const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
+        const repartitionPoints = _.get(newRepartition, 'points') * baseGoalPoints / 100 || _.get(repartition, 'points')  * baseGoalPoints / 100 || definition.usedPoints + definition.currentPoints
+        return Object.assign({}, definition, {
+          usedPoints: definition.usedPoints.toLocaleString(),
+          currentPoints: definition.currentPoints.toLocaleString(),
+          repartitionPoints: Number(repartitionPoints.toFixed(2)).toLocaleString()
+        })
+      })
+
+
+    }
+
+    getBaseGoalPoints = () => {
+      const { configs } = this.props.configList;
+      const baseCollaboratorGoalPoints = parseInt(configs.find(x => x.code == 'CPG').value)
+      const baseTeamGoalPoints = configs.find(x => x.code == 'TPG').value
+      return this.state.type === 'T' ? baseTeamGoalPoints : baseCollaboratorGoalPoints
+    }
+
     renderData() {
         const { classes } = this.props;
         const { configs } = this.props.configList;
@@ -281,7 +314,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         const baseCollaboratorGoalPoints = parseInt(configs.find(x => x.code == 'CPG').value)
         const baseTeamGoalPoints = configs.find(x => x.code == 'TPG').value
         const collaboratorGoalPoints = baseCollaboratorGoalPoints * participantsNumber;
-        const baseGoalPoints = this.state.type === 'T' ? baseTeamGoalPoints : baseCollaboratorGoalPoints
+        const baseGoalPoints = this.getBaseGoalPoints()
         const teamGoalPoints = baseTeamGoalPoints * teamParticipantsNumber;
         const usableCollaboratorGoalPoints = collaboratorGoalPoints ? collaboratorGoalPoints - usedCollaboratorPoints - currentCollaboratorPoints : 0;
         const usableTeamGoalPoints = teamGoalPoints ? teamGoalPoints - usedTeamPoints - currentTeamPoints : 0;
@@ -313,6 +346,7 @@ class AdminGoalPointList extends MainLayoutComponent {
             // { name: 'type.description', label: 'Objectif' },
             { name: 'usedPoints', label: 'Pts déjà mis en jeu' },
             { name: 'currentPoints', label: 'Pts en cours de jeu' },
+            { name: 'repartitionPoints', label: 'Pts alloués' },
             // { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
             // { name: 'levels', label: 'Nbre de paliers' },
             { name: 'category.name', label: 'Catégorie' }
@@ -383,7 +417,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
                                   <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
-                                    <DefaultText>{usableCollaboratorGoalPoints}</DefaultText>
+                                    <DefaultText>{usableCollaboratorGoalPoints.toLocaleString()}</DefaultText>
                                   </Grid>
                                   <Grid item className={ classes.headerPointsLabel }>
                                     <DefaultText>points joueur disponibles</DefaultText>
@@ -393,7 +427,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
                                   <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
-                                    <DefaultText>{usedCollaboratorPoints}</DefaultText>
+                                    <DefaultText>{usedCollaboratorPoints.toLocaleString()}</DefaultText>
                                   </Grid>
                                   <Grid item className={ classes.headerPointsLabel }>
                                     <DefaultText>points joueur déjà mis en jeu</DefaultText>
@@ -404,7 +438,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
                                   <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
-                                    <DefaultText>{currentCollaboratorPoints}</DefaultText>
+                                    <DefaultText>{currentCollaboratorPoints.toLocaleString()}</DefaultText>
                                   </Grid>
                                   <Grid item className={ classes.headerPointsLabel }>
                                     <DefaultText>points joueur en cours de jeu</DefaultText>
@@ -419,7 +453,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
                                   <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
-                                    <DefaultText>{usableTeamGoalPoints}</DefaultText>
+                                    <DefaultText>{usableTeamGoalPoints.toLocaleString()}</DefaultText>
                                   </Grid>
                                   <Grid item>
                                     <DefaultText>pts équipe disponible</DefaultText>
@@ -429,7 +463,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
                                   <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
-                                    <DefaultText>{usedTeamPoints}</DefaultText>
+                                    <DefaultText>{usedTeamPoints.toLocaleString()}</DefaultText>
                                   </Grid>
                                   <Grid item>
                                     <DefaultText>pts équipe déjà mis en jeu</DefaultText>
@@ -439,7 +473,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
                                   <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
-                                    <DefaultText>{currentTeamPoints}</DefaultText>
+                                    <DefaultText>{currentTeamPoints.toLocaleString()}</DefaultText>
                                   </Grid>
                                   <Grid item>
                                     <DefaultText>pts équipe en cours de jeu</DefaultText>
@@ -458,11 +492,11 @@ class AdminGoalPointList extends MainLayoutComponent {
                             data={[
                               [
                                 { value: this.state.type === 'T' ? 'Points équipe' : 'Points joueurs', readOnly: true },
-                                { value: baseGoalPoints, readOnly: !this.team && this.collaborator }
+                                { value: baseGoalPoints.toLocaleString(), readOnly: !this.team && this.collaborator }
                               ],
                               [
                                 { value: this.state.type === 'T' ? `${ teams.length } équipes` : `${participantsNumber} joueurs`, readOnly: true },
-                                { value: this.state.type === 'T' ? teamGoalPoints : collaboratorGoalPoints, readOnly: !this.team && this.collaborator, readOnly: true }
+                                { value: this.state.type === 'T' ? teamGoalPoints.toLocaleString() : collaboratorGoalPoints.toLocaleString(), readOnly: !this.team && this.collaborator, readOnly: true }
                               ]
                             ]}
                             valueRenderer={cell => cell.value}
@@ -476,7 +510,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                   <Grid container spacing={4}>
                     <Grid item sm={displayRepartition ? 8 : 12}>
                       <DataTable data={
-                          filteredDefinitions
+                          this.addRepartitionPointsToDefinitions(filteredDefinitions)
                         } columns={columns} options={options} />
                     </Grid>
                     { displayRepartition && (
@@ -550,7 +584,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                         if(Number(repartitionPoints)) {
                                           totalAvailable += Number(repartitionPoints)
                                         }
-                                        console.log(importance_percent);
+
                                         return (
                                           [
                                             {
@@ -558,13 +592,13 @@ class AdminGoalPointList extends MainLayoutComponent {
                                             },
 
                                             {
-                                              value: Number(Number(importance_percent).toFixed(2)),
+                                              value: Number(Number(importance_percent).toFixed(2)).toLocaleString(),
                                               readOnly: repartitionReadonly,
                                               type: 'importance_percent',
                                               id: repartition.id,
                                             },
                                             {
-                                              value: repartitionPoints,
+                                              value: repartitionPoints.toLocaleString(),
                                               readOnly: repartitionReadonly,
                                               type: 'repartitionPoints',
                                               id: repartition.id
@@ -577,8 +611,8 @@ class AdminGoalPointList extends MainLayoutComponent {
                                       }),
                                       [
                                         {value: 'Total', readOnly: true},
-                                        {value: Number(totalImportancePercent.toFixed(2)), readOnly: true},
-                                        {value: Number(totalAvailable.toFixed(2)), readOnly: true}
+                                        {value: Number(totalImportancePercent.toFixed(2)).toLocaleString(), readOnly: true},
+                                        {value: Number(totalAvailable.toFixed(2)).toLocaleString(), readOnly: true}
 
                                       ]
                                       // [
@@ -618,7 +652,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               {(Number(totalImportancePercent) && totalImportancePercent > 100 || !allRepartitionsValid) && (
                                 <Grid item justify='center'>
                                   <ErrorText className={classes.error} align='center'>{`Le total de points ne peut pas dépasser le total alloué pour les objectifs (${
-                                    this.state.type === 'T' ? teamGoalPoints : collaboratorGoalPoints } points)`}</ErrorText>
+                                    this.state.type === 'T' ? teamGoalPoints.toLocaleString() : collaboratorGoalPoints.toLocaleString() } points)`}</ErrorText>
                                 </Grid>
                               )}
                               <Grid item xs={12} alignItems='center'>
