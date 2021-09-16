@@ -60,9 +60,10 @@ const periods = {
         const url = `${baseUrl}current/`;
         return instance.get(url)
     },
-    goalDefinitions(id, isActive, allDefinitions) {
+    goalDefinitions(id, isActive, allDefinitions, includeData) {
         let url = `${baseUrl}${id}/goal-definitions/?isActive=${isActive}`;
         if (allDefinitions !== null) url = `${url}&allDefinitions=${allDefinitions}`
+        if (includeData !== null) url = `${url}&includeData=${includeData}`
         return instance.get(url)
     },
     levels(id) {

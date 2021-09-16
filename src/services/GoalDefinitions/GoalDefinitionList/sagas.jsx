@@ -5,23 +5,23 @@ import api from '../../../data/api/api'
 
 function* getGoalDefinitions(action) {
     try {
-        var { data: definitions } = yield call(api.periods.goalDefinitions, action.periodId, action.isActive, action.allDefinitions);
-        if (action.includeData) {
-            // const levelCountList = yield all(definitions.map(definition => call(api.goalDefinitions.levelCount, definition.id)));
-            // const pointList = yield all(definitions.map(definition => call(api.goalDefinitions.points, definition.id)));
-            // const obtainedPointList = yield all(definitions.map(definition => call(api.goalDefinitions.obtainedPoints, definition.id)));
-            const usedPointList = yield all(definitions.map(definition => call(api.goalDefinitions.usedPoints, definition.id)));
-            const currentPointList = yield all(definitions.map(definition => call(api.goalDefinitions.currentPoints, definition.id)));
-
-            definitions.map(definition => {
-                const index = definitions.indexOf(definition);
-                // definition.levels = levelCountList[index].data;
-                // definition.points = pointList[index].data;
-                // definition.obtainedPoints = obtainedPointList[index].data
-                definition.usedPoints = usedPointList[index].data
-                definition.currentPoints = currentPointList[index].data
-            })
-        }
+        var { data: definitions } = yield call(api.periods.goalDefinitions, action.periodId, action.isActive, action.allDefinitions, action.includeData);
+        // if (action.includeData) {
+        //     // const levelCountList = yield all(definitions.map(definition => call(api.goalDefinitions.levelCount, definition.id)));
+        //     // const pointList = yield all(definitions.map(definition => call(api.goalDefinitions.points, definition.id)));
+        //     // const obtainedPointList = yield all(definitions.map(definition => call(api.goalDefinitions.obtainedPoints, definition.id)));
+        //     // const usedPointList = yield all(definitions.map(definition => call(api.goalDefinitions.usedPoints, definition.id)));
+        //     // const currentPointList = yield all(definitions.map(definition => call(api.goalDefinitions.currentPoints, definition.id)));
+        //
+        //     definitions.map(definition => {
+        //         const index = definitions.indexOf(definition);
+        //         // definition.levels = levelCountList[index].data;
+        //         // definition.points = pointList[index].data;
+        //         // definition.obtainedPoints = obtainedPointList[index].data
+        //         definition.usedPoints = usedPointList[index].data
+        //         definition.currentPoints = currentPointList[index].data
+        //     })
+        // }
         yield put(getGoalDefinitionListSuccess(definitions))
     } catch(e) {
         yield put(getGoalDefinitionListError())

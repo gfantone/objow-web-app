@@ -104,17 +104,17 @@ class AdminGoalPointList extends MainLayoutComponent {
         if(mode === 'team') {
           if(collaborator) {
             this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(collaborator, periodId, null, true)
-            this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByCollaborator(periodId, collaborator);
-            this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByCollaborator(periodId, collaborator);
+            // this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByCollaborator(periodId, collaborator);
+            // this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByCollaborator(periodId, collaborator);
           } else if(team) {
             this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(periodId, team, null, true)
-            this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByTeam(periodId, team);
-            this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByTeam(periodId, team);
+            // this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByTeam(periodId, team);
+            // this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByTeam(periodId, team);
           }
         } else {
           this.props.goalDefinitionListActions.getGoalDefinitionList(periodId, true, true, true);
-          this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPoints(periodId);
-          this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPoints(periodId);
+          // this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPoints(periodId);
+          // this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPoints(periodId);
         }
       }
     }
@@ -259,11 +259,17 @@ class AdminGoalPointList extends MainLayoutComponent {
     renderData() {
         const { classes } = this.props;
         const { configs } = this.props.configList;
-        const { usedPoints: usedCollaboratorPoints, currentPoints: currentCollaboratorPoints } = this.props.goalDefinitionLevelCollaboratorPoints;
+        // const { usedPoints: usedCollaboratorPoints, currentPoints: currentCollaboratorPoints } = this.props.goalDefinitionLevelCollaboratorPoints;
         const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints } = this.props.goalDefinitionLevelTeamPoints;
 
         const { definitions } = this.props.goalDefinitionList;
         const { teams } = this.props.teamList;
+
+        const {usedCollaboratorPoints, currentCollaboratorPoints} = definitions.reduce((acc, definition) => {
+          acc.usedCollaboratorPoints += definition.usedPoints
+          acc.currentCollaboratorPoints += definition.currentPoints
+          return acc
+        }, {usedCollaboratorPoints: 0, currentCollaboratorPoints: 0})
 
         const participantsNumber = teams.filter(team => this.team ? team.id === parseInt(this.team) : true).reduce((acc, team) => (
           team.collaborators.filter(collaborator => this.collaborator ? parseInt(this.collaborator) === collaborator.id : true).length + acc
@@ -604,7 +610,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                     }}
                                     onCellsChanged={ changes => this.onRepartitionChange(changes, maxPoints) }
                                     valueRenderer={cell => cell.value}
-                                    />
+                                  />
                               </Grid>
                               {(Number(totalImportancePercent) && totalImportancePercent > 100 || !allRepartitionsValid) && (
                                 <Grid item justify='center'>
