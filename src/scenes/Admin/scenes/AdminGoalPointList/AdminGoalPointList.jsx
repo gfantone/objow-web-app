@@ -7,7 +7,8 @@ import { withStyles } from '@material-ui/core/styles'
 import ReactDataSheet from 'react-datasheet'
 import Formsy from 'formsy-react'
 import _ from 'lodash'
-import { AppBarSubTitle, Card, DataTable, DefaultText, Loader, MainLayoutComponent, Select, ProgressButton, ErrorText } from '../../../../components'
+import { AppBarSubTitle, Card, DataTable, DefaultText, Loader, MainLayoutComponent, Select, ProgressButton, ErrorText, BoldSpan } from '../../../../components'
+import { Tag } from '../../../../components/Teams/components/Team/components'
 import { ModeSelect, Filters, ParticipantTypeFilter } from './components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as goalDefinitionLevelCollaboratorPointsActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelCollaoratorPoints/actions'
@@ -257,25 +258,25 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 
     addRepartitionPointsToDefinitions = (definitions) => {
-      const { teams } = this.props.teamList;
-      const participantsNumber = teams.filter(team => this.team ? team.id === parseInt(this.team) : true).reduce((acc, team) => (
-        team.collaborators.filter(collaborator => this.collaborator ? parseInt(this.collaborator) === collaborator.id : true).length + acc
-      ), 0)
-      const baseGoalPoints = this.getBaseGoalPoints() * participantsNumber
+      // const { teams } = this.props.teamList;
+      // const participantsNumber = teams.filter(team => this.team ? team.id === parseInt(this.team) : true).reduce((acc, team) => (
+      //   team.collaborators.filter(collaborator => this.collaborator ? parseInt(this.collaborator) === collaborator.id : true).length + acc
+      // ), 0)
+      // const baseGoalPoints = this.getBaseGoalPoints() * participantsNumber
       return definitions.map(definition => {
-        const { pointRepartitions } = this.props.goalDefinitionPointRepartitionList
-        const repartition = pointRepartitions.filter(pointRepartition => (
-          pointRepartition.definition === definition.id && (
-            this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
-          )
-        ))[0]
-
-        const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
-        const repartitionPoints = _.get(newRepartition, 'points') * baseGoalPoints / 100 || _.get(repartition, 'points')  * baseGoalPoints / 100 || definition.usedPoints + definition.currentPoints
+        // const { pointRepartitions } = this.props.goalDefinitionPointRepartitionList
+        // const repartition = pointRepartitions.filter(pointRepartition => (
+        //   pointRepartition.definition === definition.id && (
+        //     this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
+        //   )
+        // ))[0]
+        //
+        // const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
+        // const repartitionPoints = _.get(newRepartition, 'points') * baseGoalPoints / 100 || _.get(repartition, 'points')  * baseGoalPoints / 100 || definition.usedPoints + definition.currentPoints
         return Object.assign({}, definition, {
           usedPoints: definition.usedPoints.toLocaleString(),
           currentPoints: definition.currentPoints.toLocaleString(),
-          repartitionPoints: Number(repartitionPoints.toFixed(2)).toLocaleString()
+          // repartitionPoints: Number(repartitionPoints.toFixed(2)).toLocaleString()
         })
       })
 
@@ -346,7 +347,7 @@ class AdminGoalPointList extends MainLayoutComponent {
             // { name: 'type.description', label: 'Objectif' },
             { name: 'usedPoints', label: 'Pts déjà mis en jeu' },
             { name: 'currentPoints', label: 'Pts en cours de jeu' },
-            { name: 'repartitionPoints', label: 'Pts alloués' },
+            // { name: 'repartitionPoints', label: 'Pts alloués' },
             // { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
             // { name: 'levels', label: 'Nbre de paliers' },
             { name: 'category.name', label: 'Catégorie' }
@@ -405,270 +406,288 @@ class AdminGoalPointList extends MainLayoutComponent {
         let totalAvailable = 0
         let allRepartitionsValid = true
         return (
-            <Grid container spacing={4}>
-                <Filters emptyTeam={ this.state.mode === 'global' } onChange={ this.onFilterChange } team={this.team} collaborator={this.collaborator}/>
-                <Grid item xs={12}>
-                  <Grid container direction="row" spacing={4}>
-                    <Grid item sm={ displayRepartition ? 8 : 12}>
-                      <Card>
-                        <Grid container spacing={2} justify='space-around'>
-                          { this.state.type === 'C' && (
-                            <React.Fragment>
-                              <Grid item>
-                                <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
-                                    <DefaultText>{usableCollaboratorGoalPoints.toLocaleString()}</DefaultText>
-                                  </Grid>
-                                  <Grid item className={ classes.headerPointsLabel }>
-                                    <DefaultText>points joueur disponibles</DefaultText>
-                                  </Grid>
-                                </Grid>
-                              </Grid>
-                              <Grid item>
-                                <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
-                                    <DefaultText>{usedCollaboratorPoints.toLocaleString()}</DefaultText>
-                                  </Grid>
-                                  <Grid item className={ classes.headerPointsLabel }>
-                                    <DefaultText>points joueur déjà mis en jeu</DefaultText>
+          <React.Fragment>
 
-                                  </Grid>
-                                </Grid>
-                              </Grid>
-                              <Grid item>
-                                <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
-                                    <DefaultText>{currentCollaboratorPoints.toLocaleString()}</DefaultText>
-                                  </Grid>
-                                  <Grid item className={ classes.headerPointsLabel }>
-                                    <DefaultText>points joueur en cours de jeu</DefaultText>
+            <Grid container direction="row" spacing={4}>
 
-                                  </Grid>
+              <Grid item sm={ displayRepartition ? 8 : 12}>
+                <Grid container spacing={4}>
+                  <Grid item sm={12}>
+                    <Card>
+                      <Grid container spacing={2} justify='space-around'>
+                        { this.state.type === 'C' && (
+                          <React.Fragment>
+                            <Grid item>
+                              <Grid container direction="column" alignItems="center" spacing={2}>
+                                <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
+                                  <DefaultText>{usableCollaboratorGoalPoints.toLocaleString()}</DefaultText>
+                                </Grid>
+                                <Grid item className={ classes.headerPointsLabel }>
+                                  <DefaultText>points joueur disponibles</DefaultText>
                                 </Grid>
                               </Grid>
-                            </React.Fragment>
-                          ) }
-                          { this.state.type === 'T' && (
-                            <React.Fragment>
-                              <Grid item>
-                                <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
-                                    <DefaultText>{usableTeamGoalPoints.toLocaleString()}</DefaultText>
-                                  </Grid>
-                                  <Grid item>
-                                    <DefaultText>pts équipe disponible</DefaultText>
-                                  </Grid>
+                            </Grid>
+                            <Grid item>
+                              <Grid container direction="column" alignItems="center" spacing={2}>
+                                <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
+                                  <DefaultText>{usedCollaboratorPoints.toLocaleString()}</DefaultText>
+                                </Grid>
+                                <Grid item className={ classes.headerPointsLabel }>
+                                  <DefaultText>points joueur déjà mis en jeu</DefaultText>
+
                                 </Grid>
                               </Grid>
-                              <Grid item>
-                                <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
-                                    <DefaultText>{usedTeamPoints.toLocaleString()}</DefaultText>
-                                  </Grid>
-                                  <Grid item>
-                                    <DefaultText>pts équipe déjà mis en jeu</DefaultText>
-                                  </Grid>
+                            </Grid>
+                            <Grid item>
+                              <Grid container direction="column" alignItems="center" spacing={2}>
+                                <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
+                                  <DefaultText>{currentCollaboratorPoints.toLocaleString()}</DefaultText>
+                                </Grid>
+                                <Grid item className={ classes.headerPointsLabel }>
+                                  <DefaultText>points joueur en cours de jeu</DefaultText>
+
                                 </Grid>
                               </Grid>
-                              <Grid item>
-                                <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
-                                    <DefaultText>{currentTeamPoints.toLocaleString()}</DefaultText>
-                                  </Grid>
-                                  <Grid item>
-                                    <DefaultText>pts équipe en cours de jeu</DefaultText>
-                                  </Grid>
+                            </Grid>
+                          </React.Fragment>
+                        ) }
+                        { this.state.type === 'T' && (
+                          <React.Fragment>
+                            <Grid item>
+                              <Grid container direction="column" alignItems="center" spacing={2}>
+                                <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
+                                  <DefaultText>{usableTeamGoalPoints.toLocaleString()}</DefaultText>
+                                </Grid>
+                                <Grid item>
+                                  <DefaultText>pts équipe disponible</DefaultText>
                                 </Grid>
                               </Grid>
-                            </React.Fragment>
-                          ) }
-                        </Grid>
-                      </Card>
-                    </Grid>
-                    { displayRepartition && (
-                      <Grid item sm={4}>
-                        <Card>
-                          <ReactDataSheet
-                            data={[
-                              [
-                                { value: this.state.type === 'T' ? 'Points équipe' : 'Points joueurs', readOnly: true },
-                                { value: baseGoalPoints.toLocaleString(), readOnly: !this.team && this.collaborator }
-                              ],
-                              [
-                                { value: this.state.type === 'T' ? `${ teams.length } équipes` : `${participantsNumber} joueurs`, readOnly: true },
-                                { value: this.state.type === 'T' ? teamGoalPoints.toLocaleString() : collaboratorGoalPoints.toLocaleString(), readOnly: !this.team && this.collaborator, readOnly: true }
-                              ]
-                            ]}
-                            valueRenderer={cell => cell.value}
-                          />
-                        </Card>
+                            </Grid>
+                            <Grid item>
+                              <Grid container direction="column" alignItems="center" spacing={2}>
+                                <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
+                                  <DefaultText>{usedTeamPoints.toLocaleString()}</DefaultText>
+                                </Grid>
+                                <Grid item>
+                                  <DefaultText>pts équipe déjà mis en jeu</DefaultText>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item>
+                              <Grid container direction="column" alignItems="center" spacing={2}>
+                                <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
+                                  <DefaultText>{currentTeamPoints.toLocaleString()}</DefaultText>
+                                </Grid>
+                                <Grid item>
+                                  <DefaultText>pts équipe en cours de jeu</DefaultText>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </React.Fragment>
+                        ) }
                       </Grid>
-                    ) }
+                    </Card>
                   </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                  <Grid container spacing={4}>
-                    <Grid item sm={displayRepartition ? 8 : 12}>
-                      <DataTable data={
-                          this.addRepartitionPointsToDefinitions(filteredDefinitions)
-                        } columns={columns} options={options} />
+                  <Grid item sm={12}>
+                    <DataTable data={
+                        this.addRepartitionPointsToDefinitions(filteredDefinitions)
+                      } columns={columns} options={options} />
                     </Grid>
-                    { displayRepartition && (
-                      <Grid item sm={4}>
-                        <Card>
-                          <Formsy onSubmit={this.onSubmitRepartitions} >
-                            <Grid container spacing={2}>
-                              <Grid item>
-                                <ReactDataSheet
-                                  data={[
-                                    [ {value: 'Ref', readOnly: true}, {value: '% d\'importance', readOnly: true}, {value: 'Points Alloués', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
-                                      ...filteredDefinitions.map(definition => {
-                                        // If repartition is changed by select
 
-                                        // get currentRepartition by definition
-                                        const repartition = pointRepartitions.filter(pointRepartition => (
-                                          pointRepartition.definition === definition.id && (
-                                            this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
-                                          )
-                                        ))[0]
+                </Grid>
+              </Grid>
+              { displayRepartition && (
+                <Grid item sm={4}>
+                  <Card>
+                    <Grid container spacing={8}>
+                        <Grid item>
+                          <Grid container spacing={2}>
+                            <Grid item xs={12} sm>
+                              <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                  <DefaultText>Points par joueur : <BoldSpan component='span'>{baseGoalPoints.toLocaleString()}</BoldSpan></DefaultText>
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <DefaultText>Total points alloués : <BoldSpan component='span'>{this.state.type === 'T' ? teamGoalPoints.toLocaleString() : collaboratorGoalPoints.toLocaleString()}</BoldSpan></DefaultText>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={12} sm='auto'>
+                              <Grid container direction='column' >
+                                <Grid item>
+                                  { this.state.type === 'T' ? (
+                                    <Tag color='#333'>
+                                      {teams.length} équipes
+                                    </Tag>
 
-                                        const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
+                                  ) : (
+                                    <Tag color={_.get(currentTeam, 'color.hex')}>
+                                      {participantsNumber} joueurs
+                                    </Tag>
+                                  )
+                                }
 
-                                        const mode = repartitionModes.find(mode => _.get(newRepartition, 'mode') ? mode.id === newRepartition.mode : mode.id === repartition.mode)
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                        <Grid item>
 
+                        <Formsy onSubmit={this.onSubmitRepartitions} >
+                          <Grid container spacing={2}>
+                            <Grid item>
+                              <ReactDataSheet
+                                data={[
+                                  [ {value: 'Ref', readOnly: true}, {value: '% d\'importance', readOnly: true}, {value: 'Points Alloués', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
+                                  ...filteredDefinitions.map(definition => {
+                                    // If repartition is changed by select
 
-                                        let repartitionPoints = definition.currentPoints
-                                        let importance_percent = definition.currentPoints / (maxPoints) * 100
+                                    // get currentRepartition by definition
+                                    const repartition = pointRepartitions.filter(pointRepartition => (
+                                      pointRepartition.definition === definition.id && (
+                                        this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
+                                      )
+                                    ))[0]
 
-                                        if(mode.code !== 'G') {
-                                          importance_percent = repartition && repartition.points
-                                          // console.log(definition.id, importance_percent);
-                                          // Page filtered on team and current repartition is individual
-                                          if(this.team && !this.collaborator && mode.code === 'I') {
-                                            const individualPoints = pointRepartitions
-                                              .filter(pointRepartition => pointRepartition.definition === definition.id && currentTeam && currentTeam.collaborators.map(c => c.id).indexOf(pointRepartition.collaborator) >= 0)
-                                              .reduce((acc, pointRepartition) => {
-                                                return acc + pointRepartition.points * baseGoalPoints / 100
-                                                // return acc + pointRepartition.points
-                                              }, 0)
-                                              // console.log(definition.id, individualPoints);
-                                            importance_percent = individualPoints / (maxPoints) * 100
-                                          }
-                                          // Page filtered on collaborator and current repartition is team
-                                          if(this.collaborator && mode.code === 'T') {
-                                            importance_percent = _.get(pointRepartitions
-                                              .find(pointRepartition => pointRepartition.definition === definition.id && currentCollaborator && currentCollaborator.team.id === pointRepartition.team), 'points', 0)
-                                          }
+                                    const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
 
-                                          importance_percent = newRepartition && newRepartition.importance_percent || importance_percent
-
-                                          repartitionPoints = Number((maxPoints * importance_percent / 100).toFixed(2))
-
-                                          // repartition points should not be under used points
-                                          if(mode.code === 'T' && repartitionPoints < definition.usedPoints) {
-                                            allRepartitionsValid = false
-                                          }
-                                        }
+                                    const mode = repartitionModes.find(mode => _.get(newRepartition, 'mode') ? mode.id === newRepartition.mode : mode.id === repartition.mode)
 
 
+                                    let repartitionPoints = definition.currentPoints
+                                    let importance_percent = definition.currentPoints / (maxPoints) * 100
 
-                                        const repartitionReadonly =
-                                          mode.code === 'G' ||
-                                          // definition.currentPoints > repartitionPoints ||
-                                          mode.code === 'T' && (!this.team || this.collaborator) ||
-                                          mode.code === 'I' && !this.collaborator
-
-                                        if(Number(importance_percent)) {
-                                          totalImportancePercent += Number(importance_percent)
-                                        }
-                                        if(Number(repartitionPoints)) {
-                                          totalAvailable += Number(repartitionPoints)
-                                        }
-
-                                        return (
-                                          [
-                                            {
-                                              value: definition.id, readOnly: true
-                                            },
-
-                                            {
-                                              value: Number(Number(importance_percent).toFixed(2)).toLocaleString(),
-                                              readOnly: repartitionReadonly,
-                                              type: 'importance_percent',
-                                              id: repartition.id,
-                                            },
-                                            {
-                                              value: repartitionPoints.toLocaleString(),
-                                              readOnly: repartitionReadonly,
-                                              type: 'repartitionPoints',
-                                              id: repartition.id
-                                            },
-                                            {
-                                              value: (mode ? mode : ''), type: 'select', choices: repartitionModes, id: repartition.id
-                                            }
-                                          ]
-                                        )
-                                      }),
-                                      [
-                                        {value: 'Total', readOnly: true},
-                                        {value: Number(totalImportancePercent.toFixed(2)).toLocaleString(), readOnly: true},
-                                        {value: Number(totalAvailable.toFixed(2)).toLocaleString(), readOnly: true}
-
-                                      ]
-                                      // [
-                                      //   {value: 'Total alloué', readOnly: true},
-                                      //   // {value: '100', readOnly: true},
-                                      // ],
-                                      // [
-                                      //   {value: 'Total restant', readOnly: true},
-                                      //   // {value: 100 - totalPointsPercent, readOnly: true},
-                                      //   {value: maxPoints - totalPoints, readOnly: true}
-                                      // ]
-                                    ]}
-                                    cellRenderer={(cell) => {
-                                      if(cell.cell.type === 'select') {
-                                        return (
-                                          <td {...cell}>
-                                            <Select
-                                              onChange={ (value) => this.onSelectRepartitionMode(cell.cell.id, value) }
-                                              name={`repartitionMode${cell.cell.key}`}
-                                              emptyDisabled
-                                              initial={cell.cell.value.id}
-                                              updateInitial
-                                              optionValueName='id'
-                                              optionTextName='description'
-                                              options={repartitionModes}
-                                              disabled={ !this.team || this.collaborator }
-                                              />
-                                          </td>
-                                        )
+                                    if(mode.code !== 'G') {
+                                      importance_percent = repartition && repartition.points
+                                      // console.log(definition.id, importance_percent);
+                                      // Page filtered on team and current repartition is individual
+                                      if(this.team && !this.collaborator && mode.code === 'I') {
+                                        const individualPoints = pointRepartitions
+                                        .filter(pointRepartition => pointRepartition.definition === definition.id && currentTeam && currentTeam.collaborators.map(c => c.id).indexOf(pointRepartition.collaborator) >= 0)
+                                        .reduce((acc, pointRepartition) => {
+                                          return acc + pointRepartition.points * baseGoalPoints / 100
+                                          // return acc + pointRepartition.points
+                                        }, 0)
+                                        // console.log(definition.id, individualPoints);
+                                        importance_percent = individualPoints / (maxPoints) * 100
                                       }
-                                      return <td {...cell}>{cell.children}</td>
-                                    }}
-                                    onCellsChanged={ changes => this.onRepartitionChange(changes, maxPoints) }
-                                    valueRenderer={cell => cell.value}
+                                      // Page filtered on collaborator and current repartition is team
+                                      if(this.collaborator && mode.code === 'T') {
+                                        importance_percent = _.get(pointRepartitions
+                                          .find(pointRepartition => pointRepartition.definition === definition.id && currentCollaborator && currentCollaborator.team.id === pointRepartition.team), 'points', 0)
+                                        }
+
+                                        importance_percent = newRepartition && newRepartition.importance_percent || importance_percent
+
+                                        repartitionPoints = Number((maxPoints * importance_percent / 100).toFixed(2))
+
+                                        // repartition points should not be under used points
+                                        if(mode.code === 'T' && repartitionPoints < definition.usedPoints) {
+                                          allRepartitionsValid = false
+                                        }
+                                      }
+
+
+
+                                      const repartitionReadonly =
+                                      mode.code === 'G' ||
+                                      // definition.currentPoints > repartitionPoints ||
+                                      mode.code === 'T' && (!this.team || this.collaborator) ||
+                                      mode.code === 'I' && !this.collaborator
+
+                                      if(Number(importance_percent)) {
+                                        totalImportancePercent += Number(importance_percent)
+                                      }
+                                      if(Number(repartitionPoints)) {
+                                        totalAvailable += Number(repartitionPoints)
+                                      }
+
+                                      return (
+                                        [
+                                          {
+                                            value: definition.id, readOnly: true
+                                          },
+
+                                          {
+                                            value: Number(Number(importance_percent).toFixed(2)).toLocaleString(),
+                                            readOnly: repartitionReadonly,
+                                            type: 'importance_percent',
+                                            id: repartition.id,
+                                          },
+                                          {
+                                            value: repartitionPoints.toLocaleString(),
+                                            readOnly: repartitionReadonly,
+                                            type: 'repartitionPoints',
+                                            id: repartition.id
+                                          },
+                                          {
+                                            value: (mode ? mode : ''), type: 'select', choices: repartitionModes, id: repartition.id
+                                          }
+                                        ]
+                                      )
+                                    }),
+                                    [
+                                      {value: 'Total', readOnly: true},
+                                      {value: Number(totalImportancePercent.toFixed(2)).toLocaleString(), readOnly: true},
+                                      {value: Number(totalAvailable.toFixed(2)).toLocaleString(), readOnly: true}
+
+                                    ]
+                                    // [
+                                    //   {value: 'Total alloué', readOnly: true},
+                                    //   // {value: '100', readOnly: true},
+                                    // ],
+                                    // [
+                                    //   {value: 'Total restant', readOnly: true},
+                                    //   // {value: 100 - totalPointsPercent, readOnly: true},
+                                    //   {value: maxPoints - totalPoints, readOnly: true}
+                                    // ]
+                                  ]}
+                                  cellRenderer={(cell) => {
+                                    if(cell.cell.type === 'select') {
+                                      return (
+                                        <td {...cell}>
+                                          <Select
+                                            onChange={ (value) => this.onSelectRepartitionMode(cell.cell.id, value) }
+                                            name={`repartitionMode${cell.cell.key}`}
+                                            emptyDisabled
+                                            initial={cell.cell.value.id}
+                                            updateInitial
+                                            optionValueName='id'
+                                            optionTextName='description'
+                                            options={repartitionModes}
+                                            disabled={ !this.team || this.collaborator }
+                                            />
+                                        </td>
+                                      )
+                                    }
+                                    return <td {...cell}>{cell.children}</td>
+                                  }}
+                                  onCellsChanged={ changes => this.onRepartitionChange(changes, maxPoints) }
+                                  valueRenderer={cell => cell.value}
                                   />
                               </Grid>
                               {(Number(totalImportancePercent) && totalImportancePercent > 100 || !allRepartitionsValid) && (
                                 <Grid item justify='center'>
                                   <ErrorText className={classes.error} align='center'>{`Le total de points ne peut pas dépasser le total alloué pour les objectifs (${
-                                    this.state.type === 'T' ? teamGoalPoints.toLocaleString() : collaboratorGoalPoints.toLocaleString() } points)`}</ErrorText>
+                                      this.state.type === 'T' ? teamGoalPoints.toLocaleString() : collaboratorGoalPoints.toLocaleString() } points)`}</ErrorText>
+                                  </Grid>
+                                )}
+                                <Grid item xs={12} alignItems='center'>
+
+                                  <ProgressButton type='submit' text={'Valider'} disabled={ totalImportancePercent > 100 } loading={false} centered />
+
                                 </Grid>
-                              )}
-                              <Grid item xs={12} alignItems='center'>
-
-                                <ProgressButton type='submit' text={'Valider'} disabled={ totalImportancePercent > 100 } loading={false} centered />
-
                               </Grid>
-                            </Grid>
 
-                          </Formsy>
-                        </Card>
-                      </Grid>
-                    )}
-                  </Grid>
+                            </Formsy>
+                          </Grid>
+                    </Grid>
+                  </Card>
                 </Grid>
+              )}
             </Grid>
+          </React.Fragment>
         )
     }
 
