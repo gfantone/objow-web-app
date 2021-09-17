@@ -195,6 +195,8 @@ class AdminGoalPointConfig extends MainLayoutComponent {
             this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
           )
         ))[0]
+
+        const globalMode = !this.team && !this.collaborator
         const repartitionMode = repartition && repartitionModes.find(mode => mode.id === repartition.mode)
         const currentTeam = this.team ? teams.find(team => team.id === parseInt(this.team)) : null
         const playersNumber = teams.length && this.team && !this.collaborator ? teams.find(team => team.id === parseInt(this.team)).collaborators.length : null
@@ -208,9 +210,8 @@ class AdminGoalPointConfig extends MainLayoutComponent {
 
 
         const dataByPlayer = {
-          usablePoints: usablePoints / playersNumber,
-          currentPoints: usedPoints * periods.remaining
-
+          usablePoints: playersNumber ? usablePoints / playersNumber : usablePoints,
+          currentPoints: globalMode ? definition.currentPoints : usedPoints * periods.remaining
         }
         const maxByLevel = dataByPlayer.usablePoints / periods.remaining
 
@@ -259,22 +260,25 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                         </Card>
                       </Grid>
                       <Grid item container direction="column" spacing={1}>
-
-                        <Grid item>
-                          <BigText>
-                            Configuration des paliers par joueur et par période
-                          </BigText>
-                        </Grid>
-                        <Grid item>
-                          <DefaultTitle>
-                            Périodicité : { definition.periodicity.description }
-                          </DefaultTitle>
-                        </Grid>
-                        <Grid item>
-                          <DefaultText>
-                            Points max par joueur et par période : { maxByLevel } points
-                          </DefaultText>
-                        </Grid>
+                        { !globalMode && (
+                          <React.Fragment>
+                            <Grid item>
+                              <BigText>
+                                Configuration des paliers par joueur et par période
+                              </BigText>
+                            </Grid>
+                            <Grid item>
+                              <DefaultTitle>
+                                Périodicité : { definition.periodicity.description }
+                              </DefaultTitle>
+                            </Grid>
+                            <Grid item>
+                              <DefaultText>
+                                Points max par joueur et par période : { maxByLevel } points
+                              </DefaultText>
+                            </Grid>
+                          </React.Fragment>
+                        ) }
 
 
                         <Grid item container spacing={2}>

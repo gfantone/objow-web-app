@@ -300,18 +300,21 @@ class AdminGoalPointList extends MainLayoutComponent {
         const { teams } = this.props.teamList;
 
         const {usedCollaboratorPoints, currentCollaboratorPoints, usedTeamPoints, currentTeamPoints} = definitions.reduce((acc, definition) => {
-          acc.usedCollaboratorPoints += definition.usedPoints
-          acc.usedTeamPoints += definition.usedPoints
-
-          acc.currentCollaboratorPoints += definition.currentPoints
-          acc.currentTeamPoints += definition.currentPoints
+          if(definition.type.code === 'T') {
+            acc.usedTeamPoints += definition.usedPoints
+            acc.currentTeamPoints += definition.currentPoints
+          }
+          if(definition.type.code === 'C') {
+            acc.usedCollaboratorPoints += definition.usedPoints
+            acc.currentCollaboratorPoints += definition.currentPoints
+          }
           return acc
         }, {usedCollaboratorPoints: 0, currentCollaboratorPoints: 0, usedTeamPoints: 0, currentTeamPoints: 0})
-
+        console.log(usedTeamPoints, currentTeamPoints);
         const participantsNumber = teams.filter(team => this.team ? team.id === parseInt(this.team) : true).reduce((acc, team) => (
           team.collaborators.filter(collaborator => this.collaborator ? parseInt(this.collaborator) === collaborator.id : true).length + acc
         ), 0)
-        const teamParticipantsNumber = teams.filter(team => this.team ? team.id === parseInt(this.team) : true).length
+        const teamParticipantsNumber = teams.length
         const baseCollaboratorGoalPoints = parseInt(configs.find(x => x.code == 'CPG').value)
         const baseTeamGoalPoints = configs.find(x => x.code == 'TPG').value
         const collaboratorGoalPoints = baseCollaboratorGoalPoints * participantsNumber;
@@ -407,7 +410,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         let allRepartitionsValid = true
         return (
           <React.Fragment>
-
+            <Filters onChange={() => {}} team={this.team} collaborator={this.collaborator}/>
             <Grid container direction="row" spacing={4}>
 
               <Grid item sm={ displayRepartition ? 8 : 12}>
