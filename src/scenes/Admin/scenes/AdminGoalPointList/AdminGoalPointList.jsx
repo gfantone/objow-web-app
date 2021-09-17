@@ -327,10 +327,10 @@ class AdminGoalPointList extends MainLayoutComponent {
         const filteredDefinitions = definitions.filter(definition => definition.type.code === this.state.type)
         const totalPoints = parseFloat(filteredDefinitions.reduce((acc, definition) => acc + definition.usedPoints + definition.currentPoints, 0).toFixed(2))
         const maxPoints = this.state.type === 'T' ? teamGoalPoints : collaboratorGoalPoints
-
         const currentTeam = teams.find(team => this.team && team.id === parseInt(this.team))
         const currentCollaborator = currentTeam && this.collaborator && currentTeam.collaborators.find(collaborator => collaborator.id === parseInt(this.collaborator))
 
+        console.log(currentTeam);
         const disabledLines = this.getDisabledLinesFromDefinitions(definitions, pointRepartitions, repartitionModes)
 
         var columns = [
@@ -410,7 +410,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         let allRepartitionsValid = true
         return (
           <React.Fragment>
-            <Filters onChange={() => {}} team={this.team} collaborator={this.collaborator}/>
+            <Filters emptyTeam={ this.state.mode === 'global' } onChange={ this.onFilterChange } team={this.team} collaborator={this.collaborator}/>
             <Grid container direction="row" spacing={4}>
 
               <Grid item sm={ displayRepartition ? 8 : 12}>
