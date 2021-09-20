@@ -310,27 +310,21 @@ class AdminGoalPointList extends MainLayoutComponent {
           }
           return acc
         }, {usedCollaboratorPoints: 0, currentCollaboratorPoints: 0, usedTeamPoints: 0, currentTeamPoints: 0})
-        console.log(usedTeamPoints, currentTeamPoints);
-        const participantsNumber = teams.filter(team => this.team ? team.id === parseInt(this.team) : true).reduce((acc, team) => (
-          team.collaborators.filter(collaborator => this.collaborator ? parseInt(this.collaborator) === collaborator.id : true).length + acc
-        ), 0)
-        const teamParticipantsNumber = teams.length
+
         const baseCollaboratorGoalPoints = parseInt(configs.find(x => x.code == 'CPG').value)
         const baseTeamGoalPoints = configs.find(x => x.code == 'TPG').value
-        const collaboratorGoalPoints = baseCollaboratorGoalPoints * participantsNumber;
         const baseGoalPoints = this.getBaseGoalPoints()
-        const teamGoalPoints = baseTeamGoalPoints * teamParticipantsNumber;
-        const usableCollaboratorGoalPoints = collaboratorGoalPoints ? collaboratorGoalPoints - usedCollaboratorPoints - currentCollaboratorPoints : 0;
-        const usableTeamGoalPoints = teamGoalPoints ? teamGoalPoints - usedTeamPoints - currentTeamPoints : 0;
+
+        const usableCollaboratorGoalPoints = baseCollaboratorGoalPoints ? baseCollaboratorGoalPoints - usedCollaboratorPoints - currentCollaboratorPoints : 0;
+        const usableTeamGoalPoints = baseTeamGoalPoints ? baseTeamGoalPoints - usedTeamPoints - currentTeamPoints : 0;
         const { pointRepartitions } = this.props.goalDefinitionPointRepartitionList
         const { modes: repartitionModes } = this.props.goalDefinitionPointRepartitionModeList
         const filteredDefinitions = definitions.filter(definition => definition.type.code === this.state.type)
-        const totalPoints = parseFloat(filteredDefinitions.reduce((acc, definition) => acc + definition.usedPoints + definition.currentPoints, 0).toFixed(2))
-        const maxPoints = this.state.type === 'T' ? teamGoalPoints : collaboratorGoalPoints
+
+        const maxPoints = this.state.type === 'T' ? baseTeamGoalPoints : baseCollaboratorGoalPoints
         const currentTeam = teams.find(team => this.team && team.id === parseInt(this.team))
         const currentCollaborator = currentTeam && this.collaborator && currentTeam.collaborators.find(collaborator => collaborator.id === parseInt(this.collaborator))
 
-        console.log(currentTeam);
         const disabledLines = this.getDisabledLinesFromDefinitions(definitions, pointRepartitions, repartitionModes)
 
         var columns = [
@@ -387,7 +381,6 @@ class AdminGoalPointList extends MainLayoutComponent {
               }
             },
             setRowProps: (row) => {
-              // console.log(parseInt(row[0]) === 171);
               if(disabledLines && disabledLines[parseInt(row[0])] === true) {
                 return {
                   style: {
@@ -510,31 +503,10 @@ class AdminGoalPointList extends MainLayoutComponent {
                                 <Grid item xs={12}>
                                   <DefaultText>Points par joueur : <BoldSpan component='span'>{baseGoalPoints.toLocaleString()}</BoldSpan></DefaultText>
                                 </Grid>
-                                <Grid item xs={12}>
-                                  <DefaultText>Total points alloués : <BoldSpan component='span'>{this.state.type === 'T' ? teamGoalPoints.toLocaleString() : collaboratorGoalPoints.toLocaleString()}</BoldSpan></DefaultText>
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid item xs={12} sm='auto'>
-                              <Grid container direction='column' >
-                                <Grid item>
-                                  { this.state.type === 'T' ? (
-                                    <Tag color='#333'>
-                                      {teams.length} équipes
-                                    </Tag>
-
-                                  ) : (
-                                    <Tag color={_.get(currentTeam, 'color.hex')}>
-                                      {participantsNumber} joueurs
-                                    </Tag>
-                                  )
-                                }
-
                               </Grid>
                             </Grid>
                           </Grid>
                         </Grid>
-                      </Grid>
                         <Grid item>
 
                         <Formsy onSubmit={this.onSubmitRepartitions} >
@@ -558,21 +530,21 @@ class AdminGoalPointList extends MainLayoutComponent {
                                     const mode = repartitionModes.find(mode => _.get(newRepartition, 'mode') ? mode.id === newRepartition.mode : mode.id === repartition.mode)
 
 
-                                    let repartitionPoints = definition.currentPoints
-                                    let importance_percent = definition.currentPoints / (maxPoints) * 100
+                                    let repartitionPoints = definition.currentPoints + definition.usedPoints
+                                    let importance_percent = repartitionPoints / (maxPoints) * 100
 
                                     if(mode.code !== 'G') {
                                       importance_percent = repartition && repartition.points
-                                      // console.log(definition.id, importance_percent);
+
                                       // Page filtered on team and current repartition is individual
                                       if(this.team && !this.collaborator && mode.code === 'I') {
                                         const individualPoints = pointRepartitions
-                                        .filter(pointRepartition => pointRepartition.definition === definition.id && currentTeam && currentTeam.collaborators.map(c => c.id).indexOf(pointRepartition.collaborator) >= 0)
-                                        .reduce((acc, pointRepartition) => {
-                                          return acc + pointRepartition.points * baseGoalPoints / 100
-                                          // return acc + pointRepartition.points
-                                        }, 0)
-                                        // console.log(definition.id, individualPoints);
+                                          .filter(pointRepartition => pointRepartition.definition === definition.id && currentTeam && currentTeam.collaborators.map(c => c.id).indexOf(pointRepartition.collaborator) >= 0)
+                                          .reduce((acc, pointRepartition) => {
+                                            return acc + pointRepartition.points * baseGoalPoints / 100
+                                            // return acc + pointRepartition.points
+                                          }, 0)
+
                                         importance_percent = individualPoints / (maxPoints) * 100
                                       }
                                       // Page filtered on collaborator and current repartition is team
@@ -673,7 +645,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               {(Number(totalImportancePercent) && totalImportancePercent > 100 || !allRepartitionsValid) && (
                                 <Grid item justify='center'>
                                   <ErrorText className={classes.error} align='center'>{`Le total de points ne peut pas dépasser le total alloué pour les objectifs (${
-                                      this.state.type === 'T' ? teamGoalPoints.toLocaleString() : collaboratorGoalPoints.toLocaleString() } points)`}</ErrorText>
+                                      this.state.type === 'T' ? baseTeamGoalPoints.toLocaleString() : baseCollaboratorGoalPoints.toLocaleString() } points)`}</ErrorText>
                                   </Grid>
                                 )}
                                 <Grid item xs={12} alignItems='center'>
