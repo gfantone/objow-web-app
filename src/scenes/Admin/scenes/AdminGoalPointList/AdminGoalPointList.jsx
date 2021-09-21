@@ -327,7 +327,7 @@ class AdminGoalPointList extends MainLayoutComponent {
 
         const disabledLines = this.getDisabledLinesFromDefinitions(definitions, pointRepartitions, repartitionModes)
 
-        var columns = [
+        var columns = _.compact([
             { name: 'id', label: 'Ref' },
             { name: 'isActive', label: 'Actif', options: {
               filter: false,
@@ -342,13 +342,14 @@ class AdminGoalPointList extends MainLayoutComponent {
             } },
             { name: 'name', label: 'Intitulé' },
             // { name: 'type.description', label: 'Objectif' },
-            { name: 'usedPoints', label: 'Pts déjà mis en jeu' },
+            (this.state.mode !== 'global' ? { name: 'usedPoints', label: 'Pts déjà mis en jeu' } : null),
+
             { name: 'currentPoints', label: 'Pts en cours de jeu' },
             // { name: 'repartitionPoints', label: 'Pts alloués' },
             // { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
             // { name: 'levels', label: 'Nbre de paliers' },
             { name: 'category.name', label: 'Catégorie' }
-        ];
+        ]);
         const options = {
             selectableRows: 'none',
             onRowClick: (colData, cellMeta) => {
@@ -413,27 +414,31 @@ class AdminGoalPointList extends MainLayoutComponent {
                       <Grid container spacing={2} justify='space-around'>
                         { this.state.type === 'C' && (
                           <React.Fragment>
-                            <Grid item>
-                              <Grid container direction="column" alignItems="center" spacing={2}>
-                                <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
-                                  <DefaultText>{usableCollaboratorGoalPoints.toLocaleString()}</DefaultText>
+                            { this.state.mode !== 'global' && (
+                              <React.Fragment>
+                                <Grid item>
+                                  <Grid container direction="column" alignItems="center" spacing={2}>
+                                    <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
+                                      <DefaultText>{usableCollaboratorGoalPoints.toLocaleString()}</DefaultText>
+                                    </Grid>
+                                    <Grid item className={ classes.headerPointsLabel }>
+                                      <DefaultText>points joueur disponibles</DefaultText>
+                                    </Grid>
+                                  </Grid>
                                 </Grid>
-                                <Grid item className={ classes.headerPointsLabel }>
-                                  <DefaultText>points joueur disponibles</DefaultText>
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid item>
-                              <Grid container direction="column" alignItems="center" spacing={2}>
-                                <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
-                                  <DefaultText>{usedCollaboratorPoints.toLocaleString()}</DefaultText>
-                                </Grid>
-                                <Grid item className={ classes.headerPointsLabel }>
-                                  <DefaultText>points joueur déjà mis en jeu</DefaultText>
+                                <Grid item>
+                                  <Grid container direction="column" alignItems="center" spacing={2}>
+                                    <Grid item className={`${classes.headerPoints} ${classes.usedPoints}`}>
+                                      <DefaultText>{usedCollaboratorPoints.toLocaleString()}</DefaultText>
+                                    </Grid>
+                                    <Grid item className={ classes.headerPointsLabel }>
+                                      <DefaultText>points joueur déjà mis en jeu</DefaultText>
 
+                                    </Grid>
+                                  </Grid>
                                 </Grid>
-                              </Grid>
-                            </Grid>
+                              </React.Fragment>
+                            )}
                             <Grid item>
                               <Grid container direction="column" alignItems="center" spacing={2}>
                                 <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>

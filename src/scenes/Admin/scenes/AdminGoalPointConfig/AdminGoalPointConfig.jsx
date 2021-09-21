@@ -220,21 +220,23 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                 <HiddenInput name='usablePoints' value={maxByLevel ? maxByLevel : 0} />
                 <Filters onChange={() => {}} team={this.team} collaborator={this.collaborator}/>
                 <Grid container direction="row" spacing={4}>
-                  <Grid item xs={8}>
+                  <Grid item xs={ globalMode ? 12 : 8}>
                     <Grid container spacing={4}>
                       <Grid item xs={12}>
                         <Card>
                           <Grid container direction="row" spacing={2}>
-                            <Grid item>
-                              <Grid container direction="column" alignItems="center" spacing={2}>
-                                <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
-                                  <DefaultText>{dataByPlayer.usablePoints - dataByPlayer.currentPoints}</DefaultText>
-                                </Grid>
-                                <Grid item>
-                                  <DefaultText>Points joueur disponible</DefaultText>
+                            { !globalMode && (
+                              <Grid item>
+                                <Grid container direction="column" alignItems="center" spacing={2}>
+                                  <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
+                                    <DefaultText>{dataByPlayer.usablePoints - dataByPlayer.currentPoints}</DefaultText>
+                                  </Grid>
+                                  <Grid item>
+                                    <DefaultText>Points joueur disponible</DefaultText>
+                                  </Grid>
                                 </Grid>
                               </Grid>
-                            </Grid>
+                            ) }
                             <Grid item>
                               <Grid container direction="column" alignItems="center" spacing={2}>
                                 <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
@@ -259,6 +261,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
 
                         </Card>
                       </Grid>
+
                       <Grid item container direction="column" spacing={1}>
                         { !globalMode && (
                           <React.Fragment>
@@ -339,54 +342,56 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item xs={4}>
-                  <Grid container direction='column' spacing={1}>
-                    <Grid item>
-                      <BigText>
-                        Informations générales
-                      </BigText>
-                    </Grid>
-                    <Grid item>
-                      <DefaultTitle>
-                        Mode de répartition actuel : { _.get(repartitionMode, 'description') }
-                      </DefaultTitle>
-                    </Grid>
-                  </Grid>
-                  <Card>
-                    <Grid container spacing={2} direction="column">
-
-                      <Grid item>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <DefaultText>Total points alloués : <BoldSpan component='span'>{usablePoints}</BoldSpan></DefaultText>
-                                    </Grid>
-                                    { repartition && (
-                                      <Grid item xs={12}>
-                                        <DefaultText>Pourcentage d'importance : <BoldSpan component='span'>{repartition.points}%</BoldSpan></DefaultText>
-                                      </Grid>
-                                    )}
-                                    <Grid item xs={12}>
-                                        <DefaultText>Total points déjà mis en jeu : <BoldSpan component='span'>{definition.usedPoints}</BoldSpan></DefaultText>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <DefaultText>Total points alloués restants : <BoldSpan component='span'>{usablePoints - definition.usedPoints}</BoldSpan></DefaultText>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={12} sm='auto'>
-                                <Grid container direction='column' >
-                                    <Grid item>
-                                      <Tag color={_.get(currentTeam, 'color.hex')}>{playersNumber} joueurs</Tag>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
+                  { !globalMode && (
+                    <Grid item xs={4}>
+                      <Grid container direction='column' spacing={1}>
+                        <Grid item>
+                          <BigText>
+                            Informations générales
+                          </BigText>
+                        </Grid>
+                        <Grid item>
+                          <DefaultTitle>
+                            Mode de répartition actuel : { _.get(repartitionMode, 'description') }
+                          </DefaultTitle>
                         </Grid>
                       </Grid>
+                      <Card>
+                        <Grid container spacing={2} direction="column">
+
+                          <Grid item>
+                            <Grid container spacing={2}>
+                              <Grid item xs={12} sm>
+                                <Grid container spacing={2}>
+                                  <Grid item xs={12}>
+                                    <DefaultText>Total points alloués : <BoldSpan component='span'>{usablePoints}</BoldSpan></DefaultText>
+                                  </Grid>
+                                  { repartition && (
+                                    <Grid item xs={12}>
+                                      <DefaultText>Pourcentage d'importance : <BoldSpan component='span'>{repartition.points}%</BoldSpan></DefaultText>
+                                    </Grid>
+                                  )}
+                                  <Grid item xs={12}>
+                                    <DefaultText>Total points déjà mis en jeu : <BoldSpan component='span'>{definition.usedPoints}</BoldSpan></DefaultText>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                    <DefaultText>Total points alloués restants : <BoldSpan component='span'>{usablePoints - definition.usedPoints}</BoldSpan></DefaultText>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                              <Grid item xs={12} sm='auto'>
+                                <Grid container direction='column' >
+                                  <Grid item>
+                                    <Tag color={_.get(currentTeam, 'color.hex')}>{playersNumber} joueurs</Tag>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Card>
                     </Grid>
-                  </Card>
-                </Grid>
+                  ) }
                 </Grid>
             </Formsy>
         )
