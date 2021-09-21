@@ -56,11 +56,11 @@ const goalDefinitions = {
     },
     levels(id, teamId, collaboratorId) {
         let url = `${baseUrl}${id}/levels/`;
-        if(teamId) {
-          url = `${url}?team=${teamId}`
-        } else if (collaboratorId) {
+        if (collaboratorId) {
 
           url = `${url}?collaborator=${collaboratorId}`
+        } else if(teamId) {
+          url = `${url}?team=${teamId}`
         }
         return instance.get(url)
     },

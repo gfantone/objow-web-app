@@ -1,8 +1,9 @@
 import * as Formsy from 'formsy-react'
 
 Formsy.addValidationRule('isGoalDefinitionLevelValid', function (values, value, otherField) {
-    
+
     const usablePoints = values['usablePoints']
+
     var maxPoints = 0
     const pointNames = Object.keys(values).filter(x => x.startsWith('points'))
     pointNames.map(pointName => {

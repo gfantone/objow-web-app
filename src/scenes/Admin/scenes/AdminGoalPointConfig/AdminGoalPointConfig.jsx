@@ -204,16 +204,16 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0
 
 
-        const usablePoints = repartition ? Number((repartition.points * baseGoalPoints * playersNumber / 100).toFixed(2)) : (
+        const usablePoints = repartition ? Number((repartition.points * baseGoalPoints / 100).toFixed(2)) : (
           (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints
         )
 
 
         const dataByPlayer = {
-          usablePoints: playersNumber ? usablePoints / playersNumber : usablePoints,
           currentPoints: globalMode ? definition.currentPoints : usedPoints * periods.remaining
         }
-        const maxByLevel = dataByPlayer.usablePoints / periods.remaining
+        dataByPlayer['usablePoints'] = usablePoints - dataByPlayer.currentPoints - definition.usedPoints
+        const maxByLevel = parseInt((usablePoints - definition.usedPoints) / periods.remaining)
 
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
@@ -229,7 +229,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                               <Grid item>
                                 <Grid container direction="column" alignItems="center" spacing={2}>
                                   <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
-                                    <DefaultText>{dataByPlayer.usablePoints - dataByPlayer.currentPoints}</DefaultText>
+                                    <DefaultText>{dataByPlayer.usablePoints}</DefaultText>
                                   </Grid>
                                   <Grid item>
                                     <DefaultText>Points joueur disponible</DefaultText>

@@ -291,14 +291,14 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 
     getRepartitionModesByCurrentRepartition = (currentRepartition) => {
-      console.log(currentRepartition);
       const { modes: repartitionModes } = this.props.goalDefinitionPointRepartitionModeList;
       if(this.team && !this.collaborator) {
         // don't show individual on team mode
         return repartitionModes.filter(mode => mode.code !== 'I')
       } else if (this.collaborator) {
         // don't show non-current mode on individual mode
-        return repartitionModes.filter(mode => mode.code === 'I' || mode.id === _.get(currentRepartition, 'mode'))
+        // return repartitionModes.filter(mode => mode.code === 'I' || mode.id === _.get(currentRepartition, 'mode'))
+        return repartitionModes
       }
     }
 
