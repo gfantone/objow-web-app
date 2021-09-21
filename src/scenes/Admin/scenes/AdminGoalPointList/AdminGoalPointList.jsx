@@ -290,6 +290,18 @@ class AdminGoalPointList extends MainLayoutComponent {
       return this.state.type === 'T' ? baseTeamGoalPoints : baseCollaboratorGoalPoints
     }
 
+    getRepartitionModesByCurrentRepartition = (currentRepartition) => {
+      console.log(currentRepartition);
+      const { modes: repartitionModes } = this.props.goalDefinitionPointRepartitionModeList;
+      if(this.team && !this.collaborator) {
+        // don't show individual on team mode
+        return repartitionModes.filter(mode => mode.code !== 'I')
+      } else if (this.collaborator) {
+        // don't show non-current mode on individual mode
+        return repartitionModes.filter(mode => mode.code === 'I' || mode.id === _.get(currentRepartition, 'mode'))
+      }
+    }
+
     renderData() {
         const { classes } = this.props;
         const { configs } = this.props.configList;
@@ -602,7 +614,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                             id: repartition.id
                                           },
                                           {
-                                            value: (mode ? mode : ''), type: 'select', choices: repartitionModes, id: repartition.id
+                                            value: (mode ? mode : ''), type: 'select', choices: this.getRepartitionModesByCurrentRepartition(repartition), id: repartition.id
                                           }
                                         ]
                                       )
@@ -625,6 +637,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   ]}
                                   cellRenderer={(cell) => {
                                     if(cell.cell.type === 'select') {
+                                      console.log(cell);
                                       return (
                                         <td {...cell}>
                                           <Select
@@ -635,8 +648,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                             updateInitial
                                             optionValueName='id'
                                             optionTextName='description'
-                                            options={repartitionModes}
-                                            disabled={ !this.team || this.collaborator }
+                                            options={cell.cell.choices}
                                             />
                                         </td>
                                       )
