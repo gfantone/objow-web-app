@@ -157,12 +157,12 @@ class AdminGoalPointConfig extends MainLayoutComponent {
       } else if(definition.periodicity.code === 'S') {
         return {
           total: endOfYear.getSemesterNumber(),
-          remaining: endOfYear.getSemesterNumber() - now.getSemesterNumber()
+          remaining: endOfYear.getSemesterNumber() - now.getSemesterNumber() + 1
         }
       } else if(definition.periodicity.code === 'Q') {
         return {
           total: endOfYear.getQuarterNumber(),
-          remaining: endOfYear.getQuarterNumber() - now.getQuarterNumber()
+          remaining: endOfYear.getQuarterNumber() - now.getQuarterNumber() + 1
         }
       } else if(definition.periodicity.code === 'M') {
         return {
@@ -172,7 +172,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
       } else if(definition.periodicity.code === 'W') {
         return {
           total: endOfYear.getWeekNumber(),
-          remaining: endOfYear.getWeekNumber() - now.getWeekNumber()
+          remaining: endOfYear.getWeekNumber() - now.getWeekNumber() + 1
         }
       }
     }
