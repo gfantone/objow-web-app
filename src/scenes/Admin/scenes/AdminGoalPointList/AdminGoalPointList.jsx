@@ -62,7 +62,177 @@ const styles = {
     },
     error: {
 
-    }
+    },
+    spreadsheet: {
+      width: '100%',
+      paddingLeft: '250px',
+      position: 'relative',
+      '& .data-grid-container .data-grid': {
+        display: 'block',
+        overflowX: 'auto',
+        whiteSpace: 'nowrap',
+        '&::-webkit-scrollbar-track': {
+          background: '#ddd',
+          borderRadius: 8,
+        },
+        '&::-webkit-scrollbar-thumb': {
+          borderRadius: 8,
+          border: '2px solid #ddd',
+          background: '#888'
+
+        },
+        '&::-webkit-scrollbar': {
+          '-webkit-appearance': 'none',
+          '&:horizontal': {
+            height: 11
+          }
+        }
+      },
+      '& .data-grid-container .data-grid .cell > input': {
+        width: '100%',
+        height: '100%'
+      },
+      '& .data-grid-container .data-grid .cell.read-only': {
+        color: '#555555',
+        background: 'white',
+        '&.empty': {
+          background: 'rgb(251, 238, 237)',
+          border: 'none',
+          '&.selected': {
+            borderTop: '1px double rgb(33, 133, 208)',
+            borderRight: '1px double rgb(33, 133, 208)',
+            borderLeft: '1px double rgb(33, 133, 208)',
+            borderBottom: '1px double rgb(33, 133, 208)',
+          }
+        }
+      },
+      '& .data-grid-container .data-grid .cell.read-only.firstCell': {
+        textAlign: 'left'
+      },
+      '& .data-grid-container .data-grid .cell.read-only.headerCell': {
+        padding: '2px',
+        fontWeight: 'bold',
+        background: '#103D5C',
+        color: 'white'
+      },
+      '& .cell.baseCell.firstCell': {
+        paddingLeft: 5,
+        position: 'absolute',
+        lineHeight: 2,
+        // marginTop: '-1px',
+        width: '250px',
+        height: 31,
+        zIndex: 30,
+        left: 0,
+        fontWeight: 'bold',
+        borderTop: 0,
+        borderBottom: 0,
+        fontSize: 14,
+        '&.selected': {
+          borderTop: '1px double rgb(33, 133, 208)',
+          borderRight: '1px double rgb(33, 133, 208)',
+          borderLeft: '1px double rgb(33, 133, 208)',
+          borderBottom: '1px double rgb(33, 133, 208)',
+          zIndex: 40
+        }
+      },
+      // First cell of first line
+      '& tr:first-of-type .cell.baseCell.firstCell': {
+        borderTop: '1px solid #ddd',
+        marginTop: '-1px',
+        '&.selected': {
+          borderTop: '1px double rgb(33, 133, 208)',
+          borderRight: '1px double rgb(33, 133, 208)',
+          borderLeft: '1px double rgb(33, 133, 208)',
+          borderBottom: '1px double rgb(33, 133, 208)',
+        }
+      },
+      // First cell of last line
+      '& tr:last-of-type .cell.baseCell.firstCell': {
+        borderBottom: '1px solid #ddd',
+        '&.selected': {
+          borderTop: '1px double rgb(33, 133, 208)',
+          borderRight: '1px double rgb(33, 133, 208)',
+          borderLeft: '1px double rgb(33, 133, 208)',
+          borderBottom: '1px double rgb(33, 133, 208)',
+        }
+      },
+      '&  .data-grid-container .data-grid .cell.baseCell.firstLine': {
+        '&.read-only': {
+          color: '#333',
+          textTransform: 'capitalize',
+          fontWeight: 'bold',
+        },
+      },
+      // '& .cell.bottomSeparator': {
+      //   borderBottom: '1px solid #333'
+      // },
+      '& .cell.baseCell': {
+        lineHeight: 2,
+        height: 30,
+        zIndex: 10
+      },
+      '& .data-grid-container .data-grid .cell.dataCell': {
+        '&.read-only': {
+          textAlign: 'right',
+          color: '#ddd',
+        },
+        '&.period-W': {
+          minWidth: 110
+        },
+        '&.period-M': {
+          minWidth: 150
+        },
+        '&.period-Q': {
+          minWidth: 300
+        },
+        '&.period-S': {
+          minWidth: 300
+        },
+        '&.period-Y': {
+          minWidth: 300
+        },
+      },
+
+      '& .data-grid-container .data-grid .cell.read-only.pointsCell': {
+        background: '#eee',
+        color: '#333',
+      },
+
+      '& .data-grid-container .data-grid .cell.collaboratorCell': {
+        borderRight: '1px double #ADD8E6',
+        '&.read-only': {
+          // color: 'white',
+          color: '#333',
+          background: '#ADD8E6'
+        }
+      },
+      '&  .data-grid-container .data-grid .cell.read-only.footerCell': {
+
+          fontWeight: 'bold',
+          border: 'none',
+          color: '#333',
+          background: "#ddd",
+          textAlign: 'right',
+          fontSize: 16,
+          lineHeight: 1.7,
+          '&.error': {
+            color: '#E50000'
+          },
+          '&.valid': {
+            color: '#00E58D'
+          },
+          '&.firstCell':{
+            textAlign: 'left',
+          },
+          '&.selected': {
+            borderTop: '1px double rgb(33, 133, 208)',
+            borderRight: '1px double rgb(33, 133, 208)',
+            borderLeft: '1px double rgb(33, 133, 208)',
+            borderBottom: '1px double rgb(33, 133, 208)',
+          }
+      },
+    },
 };
 
 class AdminGoalPointList extends MainLayoutComponent {
@@ -436,7 +606,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                       <DefaultText>{usableCollaboratorGoalPoints.toLocaleString()}</DefaultText>
                                     </Grid>
                                     <Grid item className={ classes.headerPointsLabel }>
-                                      <DefaultText>points joueur disponibles</DefaultText>
+                                      <DefaultText>points / joueur disponibles</DefaultText>
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -446,7 +616,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                       <DefaultText>{usedCollaboratorPoints.toLocaleString()}</DefaultText>
                                     </Grid>
                                     <Grid item className={ classes.headerPointsLabel }>
-                                      <DefaultText>points joueur déjà mis en jeu</DefaultText>
+                                      <DefaultText>points / joueur déjà mis en jeu</DefaultText>
 
                                     </Grid>
                                   </Grid>
@@ -458,7 +628,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   <DefaultText>{currentCollaboratorPoints.toLocaleString()}</DefaultText>
                                 </Grid>
                                 <Grid item className={ classes.headerPointsLabel }>
-                                  <DefaultText>points joueur en cours de jeu</DefaultText>
+                                  <DefaultText>points / joueur en cours de jeu</DefaultText>
 
                                 </Grid>
                               </Grid>
@@ -473,7 +643,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   <DefaultText>{usableTeamGoalPoints.toLocaleString()}</DefaultText>
                                 </Grid>
                                 <Grid item>
-                                  <DefaultText>pts équipe disponible</DefaultText>
+                                  <DefaultText>pts / équipe disponible</DefaultText>
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -483,7 +653,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   <DefaultText>{usedTeamPoints.toLocaleString()}</DefaultText>
                                 </Grid>
                                 <Grid item>
-                                  <DefaultText>pts équipe déjà mis en jeu</DefaultText>
+                                  <DefaultText>pts / équipe déjà mis en jeu</DefaultText>
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -493,7 +663,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   <DefaultText>{currentTeamPoints.toLocaleString()}</DefaultText>
                                 </Grid>
                                 <Grid item>
-                                  <DefaultText>pts équipe en cours de jeu</DefaultText>
+                                  <DefaultText>pts / équipe en cours de jeu</DefaultText>
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -520,7 +690,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                             <Grid item xs={12} sm>
                               <Grid container spacing={2}>
                                 <Grid item xs={12}>
-                                  <DefaultText>Points par joueur : <BoldSpan component='span'>{baseGoalPoints.toLocaleString()}</BoldSpan></DefaultText>
+                                  <DefaultText>Max de points gagnables / joueur : <BoldSpan component='span'>{baseGoalPoints.toLocaleString()}</BoldSpan></DefaultText>
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -530,10 +700,10 @@ class AdminGoalPointList extends MainLayoutComponent {
 
                         <Formsy onSubmit={this.onSubmitRepartitions} >
                           <Grid container spacing={2}>
-                            <Grid item>
+                            <Grid item className={ classes.spreadsheet }>
                               <ReactDataSheet
                                 data={[
-                                  [ {value: 'Ref', readOnly: true}, {value: '% d\'importance', readOnly: true}, {value: 'Points Alloués', readOnly: true}, {value: 'Mode de répartition', readOnly: true} ],
+                                  [ {value: 'Ref', readOnly: true, className: 'headerCell'}, {value: '% d\'importance', readOnly: true, className: 'headerCell'}, {value: 'Points Alloués', readOnly: true, className: 'headerCell'}, {value: 'Mode de répartition', readOnly: true, className: 'headerCell'} ],
                                   ...filteredDefinitions.map(definition => {
                                     // If repartition is changed by select
 
@@ -598,7 +768,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                       return (
                                         [
                                           {
-                                            value: definition.id, readOnly: true
+                                            value: definition.id, readOnly: true, className: 'pointsCell'
                                           },
 
                                           {
@@ -606,23 +776,25 @@ class AdminGoalPointList extends MainLayoutComponent {
                                             readOnly: repartitionReadonly,
                                             type: 'importance_percent',
                                             id: repartition.id,
+                                            className: 'pointsCell'
                                           },
                                           {
                                             value: repartitionPoints.toLocaleString(),
                                             readOnly: repartitionReadonly,
                                             type: 'repartitionPoints',
-                                            id: repartition.id
+                                            id: repartition.id,
+                                            className: 'pointsCell'
                                           },
                                           {
-                                            value: (mode ? mode : ''), type: 'select', choices: this.getRepartitionModesByCurrentRepartition(repartition), id: repartition.id
+                                            value: (mode ? mode : ''), type: 'select', choices: this.getRepartitionModesByCurrentRepartition(repartition), id: repartition.id, className: 'pointsCell'
                                           }
                                         ]
                                       )
                                     }),
                                     [
-                                      {value: 'Total', readOnly: true},
-                                      {value: Number(totalImportancePercent.toFixed(2)).toLocaleString(), readOnly: true},
-                                      {value: Number(totalAvailable.toFixed(2)).toLocaleString(), readOnly: true}
+                                      {value: 'Total', readOnly: true, className: 'pointsCell'},
+                                      {value: Number(totalImportancePercent.toFixed(2)).toLocaleString(), readOnly: true, className: 'pointsCell'},
+                                      {value: Number(totalAvailable.toFixed(2)).toLocaleString(), readOnly: true, className: 'pointsCell'}
 
                                     ]
                                     // [
