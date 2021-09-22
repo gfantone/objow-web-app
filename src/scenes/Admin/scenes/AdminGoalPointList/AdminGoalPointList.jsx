@@ -101,15 +101,18 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.props.goalDefinitionPointRepartitionModeListActions.getGoalDefinitionPointRepartitionModeList()
         if(team || collaborator) {
           if(collaborator) {
+            console.log('by collab');
             this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(collaborator, periodId, null, true)
             // this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByCollaborator(periodId, collaborator);
             // this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByCollaborator(periodId, collaborator);
           } else if(team) {
+            console.log('by team');
             this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(periodId, team, null, true)
             // this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByTeam(periodId, team);
             // this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByTeam(periodId, team);
           }
         } else {
+          console.log('global');
           this.props.goalDefinitionListActions.getGoalDefinitionList(periodId, true, true, true);
           // this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPoints(periodId);
           // this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPoints(periodId);
@@ -170,7 +173,6 @@ class AdminGoalPointList extends MainLayoutComponent {
     // }
 
     onFilterChange = (team, collaborator) => {
-      console.log(team, collaborator);
       this.refresh(team, collaborator)
     }
 
@@ -695,7 +697,7 @@ class AdminGoalPointList extends MainLayoutComponent {
             <div>
                 <React.Fragment>
                   { loading && this.renderLoader() }
-                  { !loading && configs && pointRepartitions && definitions && this.renderData() }
+                  { !loading && configs && pointRepartitions && definitions && this.initialized && this.renderData() }
                 </React.Fragment>
             </div>
         )
