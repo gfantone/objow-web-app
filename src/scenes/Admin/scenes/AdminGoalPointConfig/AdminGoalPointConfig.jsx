@@ -4,10 +4,10 @@ import { bindActionCreators } from 'redux'
 import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faTrashAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { SubHeader, Filters } from './components'
 import ReactDataSheet from 'react-datasheet'
-import { Card, DefaultText, DefaultTitle, BigText, EmptyState, HiddenInput, IconButton, MainLayoutComponent, ProgressButton, TextField, BoldSpan } from '../../../../components'
+import { Card, DefaultText, DefaultTitle, BigText, EmptyState, HiddenInput, IconButton, MainLayoutComponent, ProgressButton, TextField, BoldSpan, Tooltip, BlueText } from '../../../../components'
 import { Tag } from '../../../../components/Teams/components/Team/components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as goalDefinitionDetailActions from '../../../../services/GoalDefinitions/GoalDefinitionDetail/actions'
@@ -217,128 +217,156 @@ class AdminGoalPointConfig extends MainLayoutComponent {
 
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
-                <HiddenInput name='usablePoints' value={maxByLevel ? maxByLevel : 0} />
-                <Filters onChange={() => {}} team={this.team} collaborator={this.collaborator}/>
+              <HiddenInput name='usablePoints' value={maxByLevel ? maxByLevel : 0} />
+              <Filters onChange={() => {}} team={this.team} collaborator={this.collaborator}/>
+
+              <Grid item>
                 <Grid container direction="row" spacing={4}>
+
                   <Grid item xs={ globalMode ? 12 : 8}>
-                    <Grid container spacing={4}>
-                      <Grid item xs={12}>
-                        <Card>
-                          <Grid container direction="row" spacing={2}>
-                            { !globalMode && (
-                              <Grid item>
-                                <Grid container direction="column" alignItems="center" spacing={2}>
-                                  <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
-                                    <DefaultText>{dataByPlayer.usablePoints}</DefaultText>
-                                  </Grid>
+                    <Grid container spacing={1}>
+                      <Grid item>
+                        <Grid container spacing={1}>
+                          <Grid item>
+                            <BigText>
+                              Configuration des paliers par joueur et par période
+                            </BigText>
+                          </Grid>
+                          <Grid item style={{fontSize: '18px'}}>
+                            <Tooltip title={'Configuration des paliers par joueur et par période'}>
+                              <BlueText>
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                              </BlueText>
+                            </Tooltip>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid item>
+                        <Grid container spacing={4}>
+                          <Grid item xs={12}>
+                            <Card>
+                              <Grid container direction="row" spacing={2}>
+                                { !globalMode && (
                                   <Grid item>
-                                    <DefaultText>Points joueur disponible</DefaultText>
+                                    <Grid container direction="column" alignItems="center" spacing={2}>
+                                      <Grid item className={`${classes.headerPoints} ${classes.usablePoints}`}>
+                                        <DefaultText>{dataByPlayer.usablePoints}</DefaultText>
+                                      </Grid>
+                                      <Grid item>
+                                        <DefaultText>Points joueur disponible</DefaultText>
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>
+                                ) }
+                                <Grid item>
+                                  <Grid container direction="column" alignItems="center" spacing={2}>
+                                    <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
+                                      <DefaultText>{dataByPlayer.currentPoints}</DefaultText>
+                                    </Grid>
+                                    <Grid item>
+                                      <DefaultText>Points joueur en cours de jeu</DefaultText>
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                                <Grid item>
+                                  <Grid container direction="column" alignItems="center" spacing={2}>
+                                    <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
+                                      <DefaultText>{periods.remaining}</DefaultText>
+                                    </Grid>
+                                    <Grid item>
+                                      <DefaultText>{Resources[`ADMIN_GOAL_POINT_CONFIG_TITLE_${ _.get(definition, 'periodicity.code') }`]}</DefaultText>
+                                    </Grid>
                                   </Grid>
                                 </Grid>
                               </Grid>
-                            ) }
-                            <Grid item>
-                              <Grid container direction="column" alignItems="center" spacing={2}>
-                                <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
-                                  <DefaultText>{dataByPlayer.currentPoints}</DefaultText>
-                                </Grid>
-                                <Grid item>
-                                  <DefaultText>Points joueur en cours de jeu</DefaultText>
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid item>
-                              <Grid container direction="column" alignItems="center" spacing={2}>
-                                <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
-                                  <DefaultText>{periods.remaining}</DefaultText>
-                                </Grid>
-                                <Grid item>
-                                  <DefaultText>Nombre de périodes restantes</DefaultText>
-                                </Grid>
-                              </Grid>
-                            </Grid>
+
+                            </Card>
                           </Grid>
 
-                        </Card>
-                      </Grid>
+                          <Grid item container direction="column" spacing={1}>
+                            <React.Fragment>
 
-                      <Grid item container direction="column" spacing={1}>
-                          <React.Fragment>
-                            <Grid item>
-                              <BigText>
-                                Configuration des paliers par joueur et par période
-                              </BigText>
-                            </Grid>
-                            <Grid item>
-                              <DefaultTitle>
-                                Périodicité : { definition.periodicity.description }
-                              </DefaultTitle>
-                            </Grid>
                               { !globalMode && (
                                 <Grid item>
-                                  <DefaultText>
-                                    Points max par joueur et par période : { maxByLevel } points
-                                  </DefaultText>
+                                  <BigText>
+                                    Points max par joueur et par période : <span style={{fontWeight: 'bold'}}>{ maxByLevel }</span>
+                                  </BigText>
                                 </Grid>
                               ) }
                             </React.Fragment>
 
 
-                        <Grid item container spacing={2}>
-                          { this.state.levels.map((level, index) => {
-                            const number = index + 1;
-                            const percentageValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `percentage[${index-1}]` } : { isMoreThanOrEquals: 0 };
-                            const pointValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `points[${index-1}]`, isGoalDefinitionLevelValid: true } : { isMoreThanOrEquals: 0, isGoalDefinitionLevelValid: true };
+                            <Grid item container spacing={2}>
+                              { this.state.levels.map((level, index) => {
+                                const number = index + 1;
+                                const percentageValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `percentage[${index-1}]` } : { isMoreThanOrEquals: 0 };
+                                const pointValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `points[${index-1}]`, isGoalDefinitionLevelValid: true } : { isMoreThanOrEquals: 0, isGoalDefinitionLevelValid: true };
 
-                            return (
-                              <Grid key={level.id} item xs={6} container spacing={1}>
+                                return (
+                                  <Grid key={level.id} item xs={6} container spacing={1}>
+                                    <Grid item xs={12}>
+                                      <DefaultTitle>Palier {number}</DefaultTitle>
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                      <Card>
+                                        <Grid container spacing={2} alignItems='flex-end'>
+                                          <Grid item xs>
+                                            <TextField type='number' name={`percentage[${index}]`} label="% d'atteinte de l'objectif" initial={level.percentage.toFullPercentage()} fullWidth required
+                                              validations={percentageValidations}
+                                              validationErrors={{
+                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                isMoreThanOrEquals: 'Le pourcentage doit être supérieur ou égal 0',
+                                                isMoreThan: 'Le pourcentage doit être supérieur à celui du palier précédent'
+                                              }}
+                                              />
+                                          </Grid>
+                                          <Grid item xs>
+                                            <TextField type='number' name={`points[${index}]`} label='Points' initial={level.points} fullWidth required
+                                              validations={pointValidations}
+                                              validationErrors={{
+                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                isMoreThanOrEquals: 'Le nombre de points doit être supérieur ou égal à 0',
+                                                isMoreThan: 'Le nombre de points doit être supérieur à celui du palier précédent',
+                                                isGoalDefinitionLevelValid: 'Le nombre de points restant est insuffisant'
+                                              }}
+                                              />
+                                          </Grid>
+                                          <Grid item xs='auto'>
+                                            <IconButton color='secondary' size='small' onClick={this.handleRemove(index).bind(this)}>
+                                              <FontAwesomeIcon icon={faTrashAlt} />
+                                            </IconButton>
+                                          </Grid>
+                                        </Grid>
+                                      </Card>
+                                    </Grid>
+                                  </Grid>
+                                )
+                              }) }
+                              <Grid item xs={6} container spacing={1}>
                                 <Grid item xs={12}>
-                                  <DefaultTitle>Palier {number}</DefaultTitle>
+                                  <DefaultTitle>Nouveau palier</DefaultTitle>
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid item xs={12} onClick={() => this.handleAdd()} style={{cursor: 'pointer'}}>
                                   <Card>
-                                    <Grid container spacing={2} alignItems='flex-end'>
-                                      <Grid item xs>
-                                        <TextField type='number' name={`percentage[${index}]`} label="% d'atteinte de l'objectif" initial={level.percentage.toFullPercentage()} fullWidth required
-                                          validations={percentageValidations}
-                                          validationErrors={{
-                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                            isMoreThanOrEquals: 'Le pourcentage doit être supérieur ou égal 0',
-                                            isMoreThan: 'Le pourcentage doit être supérieur à celui du palier précédent'
-                                          }}
-                                          />
-                                      </Grid>
-                                      <Grid item xs>
-                                        <TextField type='number' name={`points[${index}]`} label='Points' initial={level.points} fullWidth required
-                                          validations={pointValidations}
-                                          validationErrors={{
-                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                            isMoreThanOrEquals: 'Le nombre de points doit être supérieur ou égal à 0',
-                                            isMoreThan: 'Le nombre de points doit être supérieur à celui du palier précédent',
-                                            isGoalDefinitionLevelValid: 'Le nombre de points restant est insuffisant'
-                                          }}
-                                          />
-                                      </Grid>
-                                      <Grid item xs='auto'>
-                                        <IconButton color='secondary' size='small' onClick={this.handleRemove(index).bind(this)}>
-                                          <FontAwesomeIcon icon={faTrashAlt} />
-                                        </IconButton>
+                                    <Grid container justify='center' alignItems='center' style={{height: '44px'}}>
+                                      <Grid item style={{fontSize: '18px'}}>
+                                        <FontAwesomeIcon icon={faPlus} />
                                       </Grid>
                                     </Grid>
                                   </Card>
                                 </Grid>
                               </Grid>
-                            )
-                          }) }
+                            </Grid>
+                          </Grid>
+                          { this.state.levels.length == 0 && <Grid item xs={12}>
+                          <div>
+                            <EmptyState title='Aucun palier trouvé' message='Créz un premier palier' />
+                          </div>
+                        </Grid> }
+                        <Grid item xs={12}>
+                          <ProgressButton type='submit' text='Valider' loading={loading} centered />
                         </Grid>
                       </Grid>
-                      { this.state.levels.length == 0 && <Grid item xs={12}>
-                        <div>
-                          <EmptyState title='Aucun palier trouvé' message='Créz un premier palier' />
-                        </div>
-                      </Grid> }
-                      <Grid item xs={12}>
-                        <ProgressButton type='submit' text='Valider' loading={loading} centered />
                       </Grid>
                     </Grid>
                   </Grid>
@@ -346,53 +374,56 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                     <Grid item xs={4}>
                       <Grid container direction='column' spacing={1}>
                         <Grid item>
-                          <BigText>
-                            Informations générales
-                          </BigText>
-                        </Grid>
-                        <Grid item>
-                          <DefaultTitle>
-                            Mode de répartition actuel : { _.get(repartitionMode, 'description') }
-                          </DefaultTitle>
-                        </Grid>
-                      </Grid>
-                      <Card>
-                        <Grid container spacing={2} direction="column">
-
-                          <Grid item>
-                            <Grid container spacing={2}>
-                              <Grid item xs={12} sm>
-                                <Grid container spacing={2}>
-                                  <Grid item xs={12}>
-                                    <DefaultText>Total points alloués : <BoldSpan component='span'>{usablePoints}</BoldSpan></DefaultText>
-                                  </Grid>
-                                  { repartition && (
-                                    <Grid item xs={12}>
-                                      <DefaultText>Pourcentage d'importance : <BoldSpan component='span'>{repartition.points}%</BoldSpan></DefaultText>
-                                    </Grid>
-                                  )}
-                                  <Grid item xs={12}>
-                                    <DefaultText>Total points déjà mis en jeu : <BoldSpan component='span'>{definition.usedPoints}</BoldSpan></DefaultText>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <DefaultText>Total points alloués restants : <BoldSpan component='span'>{usablePoints - definition.usedPoints}</BoldSpan></DefaultText>
-                                  </Grid>
-                                </Grid>
-                              </Grid>
-                              <Grid item xs={12} sm='auto'>
-                                <Grid container direction='column' >
-                                  <Grid item>
-                                    <Tag color={_.get(currentTeam, 'color.hex')}>{playersNumber} joueurs</Tag>
-                                  </Grid>
-                                </Grid>
-                              </Grid>
+                          <Grid container spacing={1}>
+                            <Grid item>
+                              <BigText>
+                                Informations générales
+                              </BigText>
+                            </Grid>
+                            <Grid item style={{fontSize: '18px'}}>
+                              <Tooltip title={'Informations générales'}>
+                                <BlueText>
+                                  <FontAwesomeIcon icon={faInfoCircle} />
+                                </BlueText>
+                              </Tooltip>
                             </Grid>
                           </Grid>
                         </Grid>
-                      </Card>
+                        <Grid item>
+                          <Card>
+                            <Grid container spacing={2} direction="column">
+
+                              <Grid item>
+                                <Grid container spacing={2}>
+                                  <Grid item xs={12} sm>
+                                    <Grid container spacing={2}>
+                                      <Grid item xs={12}>
+                                        <DefaultText>Total points alloués : <BoldSpan component='span'>{usablePoints}</BoldSpan></DefaultText>
+                                      </Grid>
+                                      { repartition && (
+                                        <Grid item xs={12}>
+                                          <DefaultText>Pourcentage d'importance : <BoldSpan component='span'>{repartition.points}%</BoldSpan></DefaultText>
+                                        </Grid>
+                                      )}
+                                      <Grid item xs={12}>
+                                        <DefaultText>Total points déjà mis en jeu : <BoldSpan component='span'>{definition.usedPoints}</BoldSpan></DefaultText>
+                                      </Grid>
+                                      <Grid item xs={12}>
+                                        <DefaultText>Total points alloués restants : <BoldSpan component='span'>{usablePoints - definition.usedPoints}</BoldSpan></DefaultText>
+                                      </Grid>
+                                    </Grid>
+                                  </Grid>
+
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Card>
+                        </Grid>
+                      </Grid>
                     </Grid>
                   ) }
                 </Grid>
+              </Grid>
             </Formsy>
         )
     }

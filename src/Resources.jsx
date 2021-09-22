@@ -59,6 +59,13 @@ export const ADMIN_GOAL_CREATION_ALLOW_RANKING_LABEL = "Affichage du classement"
 export const ADMIN_GOAL_CREATION_ADMIN_EDITABLE_LABEL = "Objectif modifiable par les administrateurs"
 export const ADMIN_GOAL_CREATION_SUBMIT_BUTTON = "Valider"
 
+export const ADMIN_GOAL_POINT_CONFIG_TITLE_D = 'Nombre de jours restants'
+export const ADMIN_GOAL_POINT_CONFIG_TITLE_W = 'Nombre de semaines restantes'
+export const ADMIN_GOAL_POINT_CONFIG_TITLE_M = 'Nombre de mois restants'
+export const ADMIN_GOAL_POINT_CONFIG_TITLE_Q = 'Nombre de trimestres restants'
+export const ADMIN_GOAL_POINT_CONFIG_TITLE_S = 'Nombre de semestres restants'
+export const ADMIN_GOAL_POINT_CONFIG_TITLE_Y = 'Année en cours'
+
 // Admin - Goal update
 export const ADMIN_GOAL_UPDATE_BASE_TITLE = "Modification de l'objectif « {0} »"
 export const ADMIN_GOAL_UPDATE_READONLY_TITLE = "Visualisation de l'objectif « {0} »"

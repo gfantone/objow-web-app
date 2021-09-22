@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Grid, CardMedia } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import { DefaultText, TeamSelector, AdministratorCollaboratorSelector, AppBarSubTitle, MainLayoutComponent } from '../../../../components'
+import { DefaultText, BoldTitle, TeamSelector, AdministratorCollaboratorSelector, AppBarSubTitle, MainLayoutComponent } from '../../../../components'
 import { Redirect } from 'react-router-dom'
 
 const styles = {
@@ -17,7 +17,7 @@ const styles = {
 const AdminGoalPointModeSelect = ({ onChange, classes, ...props }) => {
   const global_icon = require(`../../../../assets/img/system/goalPoints/global.svg`)
   const team_icon = require(`../../../../assets/img/system/goalPoints/team.svg`)
-  // const individual_icon = require(`../../../../assets/img/system/goalPoints/TCO.svg`)
+  const individual_icon = require(`../../../../assets/img/system/goalPoints/teamwork-1.svg`)
 
 
   const [mode, setMode] = useState()
@@ -33,9 +33,9 @@ const AdminGoalPointModeSelect = ({ onChange, classes, ...props }) => {
                 <CardMedia image={global_icon} className={ classes.icon } />
               </Grid>
               <Grid item xs>
-                <DefaultText>
+                <BoldTitle>
                   Global
-                </DefaultText>
+                </BoldTitle>
               </Grid>
             </Grid>
           </Grid>
@@ -45,21 +45,21 @@ const AdminGoalPointModeSelect = ({ onChange, classes, ...props }) => {
                 <CardMedia image={team_icon} className={ classes.icon } />
               </Grid>
               <Grid item xs>
-                <DefaultText>
+                <BoldTitle>
                   Equipe
-                </DefaultText>
+                </BoldTitle>
               </Grid>
             </Grid>
           </Grid>
           <Grid item onClick={ () => setMode('individual') } className={ classes.link }>
             <Grid container spacing={2} direction="column" alignItems='center'>
               <Grid item>
-                <CardMedia image={team_icon} className={ classes.icon } />
+                <CardMedia image={individual_icon} className={ classes.icon } />
               </Grid>
               <Grid item xs>
-                <DefaultText>
+                <BoldTitle>
                   Individuel
-                </DefaultText>
+                </BoldTitle>
               </Grid>
             </Grid>
           </Grid>
@@ -95,7 +95,9 @@ class AdminGoalPointModeSelectWrapper extends MainLayoutComponent {
   render() {
     const MainComponent = withStyles(styles)(AdminGoalPointModeSelect)
     return (
-      <MainComponent {...this.props} />
+      <div style={{marginTop: '48px'}}>
+        <MainComponent {...this.props} />
+      </div>
     )
   }
 }
