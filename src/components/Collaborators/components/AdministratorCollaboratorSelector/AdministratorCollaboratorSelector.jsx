@@ -57,7 +57,7 @@ const AdministratorCollaboratorSelector = ({onClick, ...props}) => {
                                         {team.collaborators.map(collaborator => {
                                             const collaboratorKey = `C${collaborator.id}`
                                             return (
-                                                <Grid item xs={12} sm={6} md={4} lg={3} key={collaboratorKey} onClick={() => onClick(collaborator.id)}>
+                                                <Grid item xs={12} sm={6} md={4} lg={3} key={collaboratorKey} onClick={() => onClick(collaborator.id, team.id)}>
                                                     <Collaborator key={collaboratorKey} collaborator={collaborator} />
                                                 </Grid>
                                             )

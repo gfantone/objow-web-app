@@ -68,11 +68,10 @@ const styles = {
 class AdminGoalPointList extends MainLayoutComponent {
     constructor(props) {
         super(props)
-        this.mode = null
         this.team = null
         this.collaborator = null
+        this.initialized = false
         this.state = {
-          mode: null,
           type: 'C',
           newRepartitions: []
           // team: null,
@@ -83,9 +82,8 @@ class AdminGoalPointList extends MainLayoutComponent {
     refresh(team, collaborator) {
         const periodId = this.props.match.params.periodId;
         var url = `/admin/periods/${periodId}/goal-levels`;
-        if (this.state.mode) url += `?mode=${this.state.mode}`;
-        if (collaborator) url += `&collaborator=${collaborator}`;
-        if (team) url += `&team=${team}`;
+        if (team && !collaborator) url += `?team=${team}`;
+        if (team && collaborator) url += `?team=${team}&collaborator=${collaborator}`;
         this.props.history.replace(url)
     }
 
@@ -94,15 +92,14 @@ class AdminGoalPointList extends MainLayoutComponent {
       const params = new URLSearchParams(window.location.search);
       const collaborator = params.get('collaborator');
       const team = params.get('team');
-      const mode = params.get('mode');
-      if(team !== this.team || collaborator !== this.collaborator || mode !== this.mode) {
+      if(team !== this.team || collaborator !== this.collaborator || !this.initialized) {
         this.team = team
         this.collaborator = collaborator
-        this.mode = mode
+        this.initialized = true
 
         this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList()
         this.props.goalDefinitionPointRepartitionModeListActions.getGoalDefinitionPointRepartitionModeList()
-        if(mode === 'team') {
+        if(team || collaborator) {
           if(collaborator) {
             this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(collaborator, periodId, null, true)
             // this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByCollaborator(periodId, collaborator);
@@ -121,26 +118,25 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 
     componentDidUpdate() {
-      const { teams } = this.props.teamList;
-      const params = new URLSearchParams(window.location.search);
-      const mode = params.get('mode');
-      const team = params.get('team');
-      if(!this.state.mode && mode) {
-        this.props.handleSubHeader(<ParticipantTypeFilter handleTypeChange={this.handleTypeChange} />)
-        this.setState({
-          ...this.state,
-          mode
-        })
-      }
-      if(this.state.mode && !mode) {
-        this.setState({
-          ...this.state,
-          mode: null
-        })
-      }
-      if(teams && teams.length > 0 && this.state.mode === 'team' && !team) {
-        this.refresh(teams[0].id)
-      }
+      // const { teams } = this.props.teamList;
+      // const params = new URLSearchParams(window.location.search);
+      //
+      //
+      //   this.props.handleSubHeader(<ParticipantTypeFilter handleTypeChange={this.handleTypeChange} />)
+      //   this.setState({
+      //     ...this.state,
+      //     mode
+      //   })
+      // }
+      // if(this.state.mode && !mode) {
+      //   this.setState({
+      //     ...this.state,
+      //     mode: null
+      //   })
+      // }
+      // if(teams && teams.length > 0 && this.state.mode === 'team' && !team) {
+      //   this.refresh(teams[0].id)
+      // }
 
       this.loadData()
     }
@@ -156,7 +152,8 @@ class AdminGoalPointList extends MainLayoutComponent {
         const periodId = this.props.match.params.periodId;
         this.props.activateReturn();
         this.props.handleTitle('Administration');
-        this.props.handleSubHeader(<AppBarSubTitle title='Configuration des points des objectifs' />);
+        // this.props.handleSubHeader(<AppBarSubTitle title='Configuration des points des objectifs' />);
+        this.props.handleSubHeader(<ParticipantTypeFilter handleTypeChange={this.handleTypeChange} />)
         this.props.handleMaxWidth('lg');
         this.props.configListActions.getConfigList(periodId);
         this.loadData();
@@ -166,13 +163,14 @@ class AdminGoalPointList extends MainLayoutComponent {
         return <Loader centered />
     }
 
-    onModeSelect = (mode) => {
-      if(mode) {
-        this.props.history.push(`/admin/periods/${this.props.match.params.periodId}/goal-levels?mode=${mode}`)
-      }
-    }
+    // onModeSelect = (mode) => {
+    //   if(mode) {
+    //     this.props.history.push(`/admin/periods/${this.props.match.params.periodId}/goal-levels?mode=${mode}`)
+    //   }
+    // }
 
     onFilterChange = (team, collaborator) => {
+      console.log(team, collaborator);
       this.refresh(team, collaborator)
     }
 
@@ -354,7 +352,7 @@ class AdminGoalPointList extends MainLayoutComponent {
             } },
             { name: 'name', label: 'Intitulé' },
             // { name: 'type.description', label: 'Objectif' },
-            (this.state.mode !== 'global' ? { name: 'usedPoints', label: 'Pts déjà mis en jeu' } : null),
+            { name: 'usedPoints', label: 'Pts déjà mis en jeu' },
 
             { name: 'currentPoints', label: 'Pts en cours de jeu' },
             // { name: 'repartitionPoints', label: 'Pts alloués' },
@@ -411,22 +409,24 @@ class AdminGoalPointList extends MainLayoutComponent {
         const percentByDefinition = definition => Number(((definition.usedPoints + definition.currentPoints) / maxPoints * 100).toFixed(2))
         const totalPointsPercent = Number(filteredDefinitions.reduce((acc, definition) => acc + percentByDefinition(definition), 0).toFixed(2))
 
+        const globalMode = !this.team && !this.collaborator
+
         let totalImportancePercent = 0
         let totalAvailable = 0
         let allRepartitionsValid = true
         return (
           <React.Fragment>
-            <Filters emptyTeam={ this.state.mode === 'global' } onChange={ this.onFilterChange } team={this.team} collaborator={this.collaborator}/>
+            <Filters onChange={ this.onFilterChange } team={this.team} collaborator={this.collaborator}/>
             <Grid container direction="row" spacing={4}>
 
               <Grid item sm={ displayRepartition ? 8 : 12}>
                 <Grid container spacing={4}>
+                  { !globalMode && (
                   <Grid item sm={12}>
                     <Card>
                       <Grid container spacing={2} justify='space-around'>
                         { this.state.type === 'C' && (
                           <React.Fragment>
-                            { this.state.mode !== 'global' && (
                               <React.Fragment>
                                 <Grid item>
                                   <Grid container direction="column" alignItems="center" spacing={2}>
@@ -450,7 +450,6 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   </Grid>
                                 </Grid>
                               </React.Fragment>
-                            )}
                             <Grid item>
                               <Grid container direction="column" alignItems="center" spacing={2}>
                                 <Grid item className={`${classes.headerPoints} ${classes.currentPoints}`}>
@@ -463,7 +462,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                               </Grid>
                             </Grid>
                           </React.Fragment>
-                        ) }
+                        )}
                         { this.state.type === 'T' && (
                           <React.Fragment>
                             <Grid item>
@@ -501,6 +500,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                       </Grid>
                     </Card>
                   </Grid>
+                  ) }
                   <Grid item sm={12}>
                     <DataTable data={
                         this.addRepartitionPointsToDefinitions(filteredDefinitions)
@@ -580,8 +580,6 @@ class AdminGoalPointList extends MainLayoutComponent {
                                         }
                                       }
 
-
-
                                       const repartitionReadonly =
                                       mode.code === 'G' ||
                                       // definition.currentPoints > repartitionPoints ||
@@ -637,11 +635,12 @@ class AdminGoalPointList extends MainLayoutComponent {
                                   ]}
                                   cellRenderer={(cell) => {
                                     if(cell.cell.type === 'select') {
-                                      console.log(cell);
                                       return (
                                         <td {...cell}>
                                           <Select
-                                            onChange={ (value) => this.onSelectRepartitionMode(cell.cell.id, value) }
+                                            onChange={ (value) => {
+                                              this.onSelectRepartitionMode(cell.cell.id, value)
+                                            } }
                                             name={`repartitionMode${cell.cell.key}`}
                                             emptyDisabled
                                             initial={cell.cell.value.id}
@@ -694,13 +693,10 @@ class AdminGoalPointList extends MainLayoutComponent {
 
         return (
             <div>
-                { !this.state.mode && <ModeSelect onChange={ this.onModeSelect } /> }
-                { this.state.mode && (
-                  <React.Fragment>
-                    { loading && this.renderLoader() }
-                    { !loading && configs && pointRepartitions && definitions && this.renderData() }
-                  </React.Fragment>
-                ) }
+                <React.Fragment>
+                  { loading && this.renderLoader() }
+                  { !loading && configs && pointRepartitions && definitions && this.renderData() }
+                </React.Fragment>
             </div>
         )
     }

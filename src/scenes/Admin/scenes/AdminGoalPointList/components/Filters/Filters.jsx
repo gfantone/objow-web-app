@@ -155,9 +155,9 @@ class Filters extends Component {
         const chipAvatar = <Avatar src={_.get(selectedCollaborator, 'photo')} entityId={ _.get(selectedCollaborator, 'id') } fallbackName={ _.get(selectedCollaborator, 'fullname') } fontSize={ 10 } />
         const selectSize = 6
 
-        if(!this.state.team && !this.props.emptyTeam && teams.length > 0) {
-          this.props.onChange(_.toString(teams[0].id))
-        }
+        // if(!this.state.team && !this.props.emptyTeam && teams.length > 0) {
+        //   this.props.onChange(_.toString(teams[0].id))
+        // }
         const deleteTeam = selectedCollaborator ? {} : { onDelete: this.handleDeleteTeam }
         return (
             <ExpansionPanel className={this.props.classes.panel} onChange={this.onExpand}>
@@ -210,7 +210,7 @@ class Filters extends Component {
                                 optionValueName='id'
                                 optionTextName='name'
                                 emptyText={ Resources.GOAL_FILTER_ALL_TEAM_LABEL }
-                                emptyDisabled={ !this.props.emptyTeam }
+                                
                                 fullWidth
                                 updateInitial
                                 initial={ selectedCollaborator && selectedCollaborator.team.id || this.state.team }

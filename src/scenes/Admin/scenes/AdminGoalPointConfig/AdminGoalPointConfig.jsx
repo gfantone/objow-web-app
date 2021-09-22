@@ -263,7 +263,6 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                       </Grid>
 
                       <Grid item container direction="column" spacing={1}>
-                        { !globalMode && (
                           <React.Fragment>
                             <Grid item>
                               <BigText>
@@ -275,13 +274,14 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                 Périodicité : { definition.periodicity.description }
                               </DefaultTitle>
                             </Grid>
-                            <Grid item>
-                              <DefaultText>
-                                Points max par joueur et par période : { maxByLevel } points
-                              </DefaultText>
-                            </Grid>
-                          </React.Fragment>
-                        ) }
+                              { !globalMode && (
+                                <Grid item>
+                                  <DefaultText>
+                                    Points max par joueur et par période : { maxByLevel } points
+                                  </DefaultText>
+                                </Grid>
+                              ) }
+                            </React.Fragment>
 
 
                         <Grid item container spacing={2}>

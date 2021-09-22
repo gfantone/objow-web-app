@@ -136,7 +136,7 @@ class AdminHome extends MainLayoutComponent {
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/goals`}>
                                                 <DefaultText>{Resources.ADMIN_HOME_GOAL_LINK}</DefaultText>
                                             </GridLink>
-                                            <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/goal-levels`}>
+                                            <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/goal-levels/mode-select`}>
                                                 <DefaultText>{Resources.ADMIN_HOME_GOAL_LEVEL_LINK}</DefaultText>
                                             </GridLink>
                                             <GridLink item xs={12} component={Link} to={`/admin/periods/${periodId}/challenges`}>

@@ -3,7 +3,7 @@ import {BrowserRouter, Switch} from 'react-router-dom'
 import {AdminRoutes, AnonymousRoutes, FileRoutes, PartnerRoutes, MaintenanceRoutes, MainRoutes, ManagerRoutes} from './components'
 import * as scenes from './scenes'
 import IntermediateRoutes from "./components/Common/components/IntermadiateRoutes/IntermadiateRoutes";
-
+console.log(scenes);
 export default () => {
     return (
         <BrowserRouter>
@@ -100,6 +100,7 @@ export default () => {
                 <AdminRoutes exact path='/admin/logo' component={scenes.AdminLogo} />
                 <AdminRoutes exact path='/admin/periods/:periodId/points' component={scenes.AdminPointConfig} />
                 <AdminRoutes exact path='/admin/periods/:periodId/goal-levels' component={scenes.AdminGoalPointList} />
+                <AdminRoutes exact path='/admin/periods/:periodId/goal-levels/mode-select' component={scenes.AdminGoalPointModeSelect} />
                 <AdminRoutes exact path='/admin/periods/:periodId/goal-levels/:id' component={scenes.AdminGoalPointConfig} />
                 <AdminRoutes exact path='/admin/access/' component={scenes.AdminAccessRightList} />
                 <AdminRoutes exact path='/admin/teams/' component={scenes.AdminTeamList} />
