@@ -410,21 +410,22 @@ class AdminGoalPointList extends MainLayoutComponent {
 
       let disabledLines = {}
       definitions.forEach(definition => {
+        if(this.team || this.collaborator) {
+          // get currentRepartition by definition
+          const repartition = pointRepartitions.filter(pointRepartition => (
+            pointRepartition.definition === definition.id && (
+              this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
+            )
+          ))[0]
 
-        // get currentRepartition by definition
-        const repartition = pointRepartitions.filter(pointRepartition => (
-          pointRepartition.definition === definition.id && (
-            this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
-          )
-        ))[0]
+          const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
 
-        const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
-
-        const mode = repartition ?
+          const mode = repartition ?
           repartitionModes.find(mode => _.get(newRepartition, 'mode') ? mode.id === newRepartition.mode : mode.id === repartition.mode) :
           { code: 'G' }
 
-        disabledLines[definition.id] = !(this.team && !this.collaborator && mode.code === 'T' || this.collaborator && mode.code === 'I' || !this.collaborator && !this.team && mode.code === 'G')
+          disabledLines[definition.id] = !(this.team && !this.collaborator && mode.code === 'T' || this.collaborator && mode.code === 'I' || !this.collaborator && !this.team && mode.code === 'G')
+        }
       })
       return disabledLines
     }
@@ -530,17 +531,17 @@ class AdminGoalPointList extends MainLayoutComponent {
 
         var columns = _.compact([
             { name: 'id', label: 'Ref' },
-            { name: 'isActive', label: 'Actif', options: {
-              filter: false,
-              customBodyRender: (value, tableMeta, updateValue) => {
-                if(value) {
-                  return <FontAwesomeIcon icon={faCheckCircle} style={{fontSize: 20, color: '#00E58D'}}/>
-                } else {
-                  return <FontAwesomeIcon icon={faTimesCircle} style={{fontSize: 20, color: '#E50000'}}/>
-                }
-
-              }
-            } },
+            // { name: 'isActive', label: 'Actif', options: {
+            //   filter: false,
+            //   customBodyRender: (value, tableMeta, updateValue) => {
+            //     if(value) {
+            //       return <FontAwesomeIcon icon={faCheckCircle} style={{fontSize: 20, color: '#00E58D'}}/>
+            //     } else {
+            //       return <FontAwesomeIcon icon={faTimesCircle} style={{fontSize: 20, color: '#E50000'}}/>
+            //     }
+            //
+            //   }
+            // } },
             { name: 'customRepartitions', label: 'Personnalisations', options: {
               filter: false,
               customBodyRender: (value, tableMeta, updateValue) => {
