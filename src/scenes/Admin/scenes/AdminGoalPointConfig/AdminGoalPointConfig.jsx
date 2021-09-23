@@ -121,7 +121,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         this.props.activateReturn();
         this.props.handleTitle('Administration');
         this.props.handleSubHeader(<SubHeader />);
-        this.props.handleButtons(<IconButton onClick={this.handleAdd.bind(this)} size='small'><FontAwesomeIcon icon={faPlus} /></IconButton>);
+        // this.props.handleButtons(<IconButton onClick={this.handleAdd.bind(this)} size='small'><FontAwesomeIcon icon={faPlus} /></IconButton>);
         this.props.configListActions.getConfigList(this.props.match.params.periodId)
         this.loadData()
     }
@@ -233,7 +233,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                             </BigText>
                           </Grid>
                           <Grid item style={{fontSize: '18px'}}>
-                            <Tooltip title={'Configuration des paliers par joueur et par période'}>
+                            <Tooltip title={'Nombre de points utilisables sur l\'année, par collaborateur'}>
                               <BlueText>
                                 <FontAwesomeIcon icon={faInfoCircle} />
                               </BlueText>
@@ -346,7 +346,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                 <Grid item xs={12}>
                                   <DefaultTitle></DefaultTitle>
                                 </Grid>
-                                <Grid item xs={12} onClick={() => this.handleAdd()} style={{cursor: 'pointer'}}>
+                                <Grid item xs={12} onClick={() => this.handleAdd()} style={{cursor: 'pointer', marginTop: '20px'}}>
                                   <Card>
                                     <Grid container justify='center' alignItems='center' style={{height: '44px'}}>
                                       <Grid item style={{fontSize: '30px', color: '#00E58D'}}>
@@ -381,7 +381,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                               </BigText>
                             </Grid>
                             <Grid item style={{fontSize: '18px'}}>
-                              <Tooltip title={'Informations générales'}>
+                              <Tooltip title={'Nombre de points alloués pour l\'objectif'}>
                                 <BlueText>
                                   <FontAwesomeIcon icon={faInfoCircle} />
                                 </BlueText>

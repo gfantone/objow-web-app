@@ -542,7 +542,17 @@ class AdminGoalPointList extends MainLayoutComponent {
             //
             //   }
             // } },
-            { name: 'customRepartitions', label: 'Personnalisations', options: {
+
+            { name: 'name', label: 'Intitulé' },
+            // { name: 'type.description', label: 'Objectif' },
+            { name: 'usedPoints', label: 'Pts déjà mis en jeu' },
+
+            { name: 'currentPoints', label: 'Pts en cours de jeu' },
+            // { name: 'repartitionPoints', label: 'Pts alloués' },
+            // { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
+            // { name: 'levels', label: 'Nbre de paliers' },
+            { name: 'category.name', label: 'Catégorie' },
+            this.team && !this.collaborator ? { name: 'customRepartitions', label: 'Personnalisation individuelle', options: {
               filter: false,
               customBodyRender: (value, tableMeta, updateValue) => {
                 let entities = []
@@ -575,8 +585,10 @@ class AdminGoalPointList extends MainLayoutComponent {
                     <Grid container justify='center'>
                       <Grid item>
                         <Tooltip title={<div>{ toolTipText }</div>}>
-                          <BlueText style={{fontSize: "18px"}}>
-                            <FontAwesomeIcon icon={faInfoCircle} />
+                          <BlueText style={{fontSize: "26px"}}>
+                            <div style={{color: '#00E58D'}}>
+                              <FontAwesomeIcon icon={faCheckCircle} />
+                            </div>
                           </BlueText>
                         </Tooltip>
                       </Grid>
@@ -584,16 +596,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                   )
                 }
               }
-            } },
-            { name: 'name', label: 'Intitulé' },
-            // { name: 'type.description', label: 'Objectif' },
-            { name: 'usedPoints', label: 'Pts déjà mis en jeu' },
-
-            { name: 'currentPoints', label: 'Pts en cours de jeu' },
-            // { name: 'repartitionPoints', label: 'Pts alloués' },
-            // { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
-            // { name: 'levels', label: 'Nbre de paliers' },
-            { name: 'category.name', label: 'Catégorie' }
+            } } : null
         ]);
         const options = {
             selectableRows: 'none',
