@@ -344,12 +344,12 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                               }) }
                               <Grid item xs={6} container spacing={1}>
                                 <Grid item xs={12}>
-                                  <DefaultTitle>Nouveau palier</DefaultTitle>
+                                  <DefaultTitle></DefaultTitle>
                                 </Grid>
                                 <Grid item xs={12} onClick={() => this.handleAdd()} style={{cursor: 'pointer'}}>
                                   <Card>
                                     <Grid container justify='center' alignItems='center' style={{height: '44px'}}>
-                                      <Grid item style={{fontSize: '18px'}}>
+                                      <Grid item style={{fontSize: '30px', color: '#00E58D'}}>
                                         <FontAwesomeIcon icon={faPlus} />
                                       </Grid>
                                     </Grid>

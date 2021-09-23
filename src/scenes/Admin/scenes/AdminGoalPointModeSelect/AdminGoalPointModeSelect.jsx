@@ -26,44 +26,46 @@ const AdminGoalPointModeSelect = ({ onChange, classes, ...props }) => {
   return (
     <React.Fragment>
       { !mode && (
-        <Grid container direction="row" justify="center" spacing={8}>
-          <Grid item onClick={ () => setMode('global') } className={ classes.link }>
-            <Grid container spacing={2} direction="column" alignItems='center'>
-              <Grid item>
-                <CardMedia image={global_icon} className={ classes.icon } />
+        <div style={{marginTop: '48px'}}>
+          <Grid container direction="row" justify="center" spacing={8}>
+            <Grid item onClick={ () => setMode('global') } className={ classes.link }>
+              <Grid container spacing={2} direction="column" alignItems='center'>
+                <Grid item>
+                  <CardMedia image={global_icon} className={ classes.icon } />
+                </Grid>
+                <Grid item xs>
+                  <BoldTitle>
+                    Global
+                  </BoldTitle>
+                </Grid>
               </Grid>
-              <Grid item xs>
-                <BoldTitle>
-                  Global
-                </BoldTitle>
+            </Grid>
+            <Grid item onClick={ () => setMode('team') } className={ classes.link }>
+              <Grid container spacing={2} direction="column" alignItems='center'>
+                <Grid item>
+                  <CardMedia image={team_icon} className={ classes.icon } />
+                </Grid>
+                <Grid item xs>
+                  <BoldTitle>
+                    Equipe
+                  </BoldTitle>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item onClick={ () => setMode('individual') } className={ classes.link }>
+              <Grid container spacing={2} direction="column" alignItems='center'>
+                <Grid item>
+                  <CardMedia image={individual_icon} className={ classes.icon } />
+                </Grid>
+                <Grid item xs>
+                  <BoldTitle>
+                    Individuel
+                  </BoldTitle>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item onClick={ () => setMode('team') } className={ classes.link }>
-            <Grid container spacing={2} direction="column" alignItems='center'>
-              <Grid item>
-                <CardMedia image={team_icon} className={ classes.icon } />
-              </Grid>
-              <Grid item xs>
-                <BoldTitle>
-                  Equipe
-                </BoldTitle>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item onClick={ () => setMode('individual') } className={ classes.link }>
-            <Grid container spacing={2} direction="column" alignItems='center'>
-              <Grid item>
-                <CardMedia image={individual_icon} className={ classes.icon } />
-              </Grid>
-              <Grid item xs>
-                <BoldTitle>
-                  Individuel
-                </BoldTitle>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+        </div>
       ) }
       { mode === 'global' && (
         <Redirect to={`/admin/periods/${ props.match.params.periodId }/goal-levels`} />
@@ -95,7 +97,7 @@ class AdminGoalPointModeSelectWrapper extends MainLayoutComponent {
   render() {
     const MainComponent = withStyles(styles)(AdminGoalPointModeSelect)
     return (
-      <div style={{marginTop: '48px'}}>
+      <div >
         <MainComponent {...this.props} />
       </div>
     )
