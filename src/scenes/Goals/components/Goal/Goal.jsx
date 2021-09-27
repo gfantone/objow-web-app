@@ -41,19 +41,19 @@ const Goal = ({ goal, ...props }) => {
     const hasRank = goal.rank && goal.allow_ranking
 
     let maxPointsKey
-    if(goal.pointRepartitionMode === 'G') {
-      maxPointsKey = 'maxPoints'
-    } else {
-      if(goal.type === 'T' && goal.pointRepartitionMode === 'T') {
-        maxPointsKey = 'maxTeamPoints'
-      } else {
-        // if(goal.pointRepartitionMode === 'T') {
-        //   maxPointsKey = 'maxTeamCollaboratorPoints'
-        // } else if(goal.pointRepartitionMode === 'I') {
-          maxPointsKey = 'maxCollaboratorPoints'
-        // }
-      }
-    }
+    maxPointsKey = 'maxPoints'
+    // if(goal.pointRepartitionMode === 'G') {
+    // } else {
+    //   if(goal.type === 'T' && goal.pointRepartitionMode === 'T') {
+    //     maxPointsKey = 'maxTeamPoints'
+    //   } else {
+    //     // if(goal.pointRepartitionMode === 'T') {
+    //     //   maxPointsKey = 'maxTeamCollaboratorPoints'
+    //     // } else if(goal.pointRepartitionMode === 'I') {
+    //       maxPointsKey = 'maxCollaboratorPoints'
+    //     // }
+    //   }
+    // }
     const maxPoints = goal[maxPointsKey]
     const hasPoints = goal[maxPointsKey] > 0
 
