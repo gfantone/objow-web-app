@@ -300,7 +300,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                               { this.state.levels.map((level, index) => {
                                 const number = index + 1;
                                 const percentageValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `percentage[${index-1}]` } : { isMoreThanOrEquals: 0 };
-                                const pointValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `points[${index-1}]`, isGoalDefinitionLevelValid: true } : { isMoreThanOrEquals: 0, isGoalDefinitionLevelValid: true };
+                                const pointValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `points[${index-1}]`, isGoalDefinitionLevelValid: !globalMode } : { isMoreThanOrEquals: 0, isGoalDefinitionLevelValid: !globalMode };
 
                                 return (
                                   <Grid key={level.id} item xs={6} container spacing={1}>
