@@ -785,7 +785,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                 <DefaultText>{baseGoalPoints.toLocaleString()}</DefaultText>
                               </Grid>
                               <Grid item>
-                                <DefaultText>Max de points gagnables / joueur</DefaultText>
+                                <DefaultText>Max de points gagnables / { this.state.type === 'T' ? `équipe ${ currentTeam ? `(${currentTeam.collaborators.length} joueurs)` : '' }` :'joueur' }</DefaultText>
                               </Grid>
                             </Grid>
                           </Grid>
