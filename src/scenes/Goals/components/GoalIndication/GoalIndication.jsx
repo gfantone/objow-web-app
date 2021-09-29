@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faFolderOpen, faInfoCircle} from '@fortawesome/free-solid-svg-icons'
 import { AdviceList, LiveStatus, ReadonlyAdviceList } from './components'
-import {AnimationController, BlueText, Card, DefaultText, DefaultTitle, InfoText, Linkify, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText} from '../../../../components'
+import {AnimationController, BlueText, Card, DefaultText, DefaultTitle, InfoText, Linkify, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText, Collaborator} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import {getDifferenceWithToday} from '../../../../helpers/DateHelper'
 
@@ -15,6 +15,16 @@ const GoalIndication = ({ goal, type, customRepartitions, ...props }) => {
     const canEdit = (account.role.code == 'M' && account.team.id == goal.teamId || account.role.code == 'A') && difference <= 0;
     const hasLevels = goal.levels && goal.levels.length > 0
 
+  
+    const customRepartitionsTooltip = (
+      <Grid container spacing= {1} direction="column">
+        { customRepartitions.map((repartition) => (
+            <Grid item>
+              <Collaborator collaborator={repartition.collaborator} />
+            </Grid>
+        )) }
+      </Grid>
+    )
     return (
         <div>
             <Grid container spacing={2}>
@@ -62,18 +72,17 @@ const GoalIndication = ({ goal, type, customRepartitions, ...props }) => {
                                       <Grid container direction='column' spacing={1}>
                                         <Grid item>
                                           <DefaultTitle>
-                                            Paliers personnalisés
+                                            ⚠️ Paliers personnalisés&nbsp;
+                                            <Tooltip title={customRepartitionsTooltip} placement={'right'}>
+                                                <BlueText style={{ width: 'fit-content' }} component={'span'}>
+                                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                                </BlueText>
+                                            </Tooltip>
                                           </DefaultTitle>
                                         </Grid>
                                         <Grid item>
                                           <Grid container container direction='column' spacing={2}>
-                                            { customRepartitions.map(repartition => (
-                                              <Grid item>
-                                                <DefaultText>
-                                                  { repartition.collaborator.fullname }
-                                                </DefaultText>
-                                              </Grid>
-                                            )) }
+
                                           </Grid>
                                         </Grid>
                                       </Grid>

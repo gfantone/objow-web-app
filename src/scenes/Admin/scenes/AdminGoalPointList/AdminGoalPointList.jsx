@@ -549,7 +549,7 @@ class AdminGoalPointList extends MainLayoutComponent {
             // { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
             // { name: 'levels', label: 'Nbre de paliers' },
             { name: 'category.name', label: 'Catégorie' },
-            this.team && !this.collaborator ? { name: 'customRepartitions', label: 'Personnalisation individuelle', options: {
+            !this.team || (this.state.type !== 'T' && this.team && !this.collaborator) ? { name: 'customRepartitions', label: 'Personnalisation individuelle', options: {
               filter: false,
               customBodyRender: (value, tableMeta, updateValue) => {
                 let entities = []
