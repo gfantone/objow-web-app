@@ -10,8 +10,8 @@ const styles = {
 }
 
 const ParticipantTypeFilter = (props) => {
-    const {classes, handleTypeChange} = props
-    const [value, setValue] = React.useState(0);
+    const {classes, handleTypeChange, defaultType} = props
+    const [value, setValue] = React.useState(defaultType === 'C' ? 0 : 1);
 
     function handleChange(e, value) {
         let type = value == 0 ? 'C' : 'T'

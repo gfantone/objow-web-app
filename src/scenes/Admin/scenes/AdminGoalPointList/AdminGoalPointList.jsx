@@ -251,11 +251,12 @@ class AdminGoalPointList extends MainLayoutComponent {
         }
     }
 
-    refresh(team, collaborator) {
+    refresh(team, collaborator, type) {
         const periodId = this.props.match.params.periodId;
-        var url = `/admin/periods/${periodId}/goal-levels`;
-        if (team && !collaborator) url += `?team=${team}`;
-        if (team && collaborator) url += `?team=${team}&collaborator=${collaborator}`;
+        var url = `/admin/periods/${periodId}/goal-levels?type=${type || this.state.type}`;
+        if (team && !collaborator) url += `&team=${team}`;
+        if (team && collaborator) url += `&team=${team}&collaborator=${collaborator}`;
+
         this.props.history.replace(url)
     }
 
@@ -264,6 +265,13 @@ class AdminGoalPointList extends MainLayoutComponent {
       const params = new URLSearchParams(window.location.search);
       const collaborator = params.get('collaborator');
       const team = params.get('team');
+      const type = params.get('type');
+      if(type !== this.state.type) {
+        this.setState({
+          ...this.state,
+          type
+        })
+      }
       if(team !== this.team || collaborator !== this.collaborator || !this.initialized) {
         this.team = team
         this.collaborator = collaborator
@@ -317,15 +325,17 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.setState({
             ...this.state,
             type: type
-        })
+        }, this.refresh(this.team, this.collaborator, type))
     }
 
     componentDidMount() {
         const periodId = this.props.match.params.periodId;
+        const params = new URLSearchParams(window.location.search);
+        const type = params.get('type');
         this.props.activateReturn();
         this.props.handleTitle('Administration');
         // this.props.handleSubHeader(<AppBarSubTitle title='Configuration des points des objectifs' />);
-        this.props.handleSubHeader(<ParticipantTypeFilter handleTypeChange={this.handleTypeChange} />)
+        this.props.handleSubHeader(<ParticipantTypeFilter handleTypeChange={this.handleTypeChange} defaultType={type} />)
         this.props.handleMaxWidth('lg');
         this.props.configListActions.getConfigList(periodId);
         this.loadData();
@@ -598,7 +608,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         const options = {
             selectableRows: 'none',
             onRowClick: (colData, cellMeta) => {
-              let url = `/admin/periods/${this.props.match.params.periodId}/goal-levels/${colData[0]}`
+              let url = `/admin/periods/${this.props.match.params.periodId}/goal-levels/${colData[0]}?type=${this.state.type}`
 
               if(this.mode === 'global') {
                 return this.props.history.push(url)
