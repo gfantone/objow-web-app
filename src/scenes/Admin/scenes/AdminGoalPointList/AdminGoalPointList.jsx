@@ -481,14 +481,14 @@ class AdminGoalPointList extends MainLayoutComponent {
       return this.state.type === 'T' ? baseTeamGoalPoints : baseCollaboratorGoalPoints
     }
 
-    getRepartitionModesByCurrentRepartition = (currentRepartition) => {
+    getRepartitionModesByCurrentRepartition = (currentRepartition, currentTeamRepartition) => {
       const { modes: repartitionModes } = this.props.goalDefinitionPointRepartitionModeList;
       if(this.team && !this.collaborator) {
         // don't show individual on team mode
         return repartitionModes.filter(mode => mode.code !== 'I')
       } else if (this.collaborator) {
         // don't show non-current mode on individual mode
-        // return repartitionModes.filter(mode => mode.code === 'I' || mode.id === _.get(currentRepartition, 'mode'))
+        return repartitionModes.filter(mode => this.state.type === 'C' && mode.code === 'I' || mode.id === _.get(currentTeamRepartition, 'mode'))
         return repartitionModes
       }
     }
@@ -814,6 +814,12 @@ class AdminGoalPointList extends MainLayoutComponent {
                                           )
                                         ))[0]
 
+                                        const teamRepartition = pointRepartitions.filter(pointRepartition => (
+                                          pointRepartition.definition === definition.id && (
+                                            this.team  && pointRepartition.team === parseInt(this.team)
+                                          )
+                                        ))[0]
+
                                         const newRepartition = this.state.newRepartitions.find(newRepartition => newRepartition.id === repartition.id)
 
                                         const mode = repartitionModes.find(mode => _.get(newRepartition, 'mode') ? mode.id === newRepartition.mode : mode.id === repartition.mode)
@@ -889,7 +895,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                                 className: 'pointsCell'
                                               },
                                               {
-                                                value: (mode ? mode : ''), type: 'select', choices: this.getRepartitionModesByCurrentRepartition(repartition), id: repartition.id, className: 'pointsCell'
+                                                value: (mode ? mode : ''), type: 'select', choices: this.getRepartitionModesByCurrentRepartition(repartition, teamRepartition), id: repartition.id, className: 'pointsCell'
                                               }
                                             ]
                                           )
