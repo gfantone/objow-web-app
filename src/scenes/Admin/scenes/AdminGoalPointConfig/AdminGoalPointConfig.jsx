@@ -214,7 +214,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         }
         dataByPlayer['usablePoints'] = usablePoints - dataByPlayer.currentPoints - definition.usedPoints
         const maxByLevel = parseInt((usablePoints - definition.usedPoints) / periods.remaining)
-
+        console.log(definition);
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
               <HiddenInput name='usablePoints' value={maxByLevel ? maxByLevel : 0} />
@@ -331,31 +331,36 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                               }}
                                               />
                                           </Grid>
-                                          <Grid item xs='auto'>
-                                            <IconButton color='secondary' size='small' onClick={this.handleRemove(index).bind(this)}>
-                                              <FontAwesomeIcon icon={faTrashAlt} />
-                                            </IconButton>
-                                          </Grid>
+                                          { definition.isActive === true && (
+                                            <Grid item xs='auto'>
+                                              <IconButton color='secondary' size='small' onClick={this.handleRemove(index).bind(this)}>
+                                                <FontAwesomeIcon icon={faTrashAlt} />
+                                              </IconButton>
+                                            </Grid>
+                                          )}
                                         </Grid>
                                       </Card>
                                     </Grid>
                                   </Grid>
                                 )
                               }) }
-                              <Grid item xs={6} container spacing={1}>
-                                <Grid item xs={12}>
-                                  <DefaultTitle></DefaultTitle>
-                                </Grid>
-                                <Grid item xs={12} onClick={() => this.handleAdd()} style={{cursor: 'pointer', marginTop: '20px'}}>
-                                  <Card>
-                                    <Grid container justify='center' alignItems='center' style={{height: '44px'}}>
-                                      <Grid item style={{fontSize: '30px', color: '#00E58D'}}>
-                                        <FontAwesomeIcon icon={faPlus} />
+                              { definition.isActive && (
+
+                                <Grid item xs={6} container spacing={1}>
+                                  <Grid item xs={12}>
+                                    <DefaultTitle></DefaultTitle>
+                                  </Grid>
+                                  <Grid item xs={12} onClick={() => this.handleAdd()} style={{cursor: 'pointer', marginTop: '20px'}}>
+                                    <Card>
+                                      <Grid container justify='center' alignItems='center' style={{height: '44px'}}>
+                                        <Grid item style={{fontSize: '30px', color: '#00E58D'}}>
+                                          <FontAwesomeIcon icon={faPlus} />
+                                        </Grid>
                                       </Grid>
-                                    </Grid>
-                                  </Card>
+                                    </Card>
+                                  </Grid>
                                 </Grid>
-                              </Grid>
+                              ) }
                             </Grid>
                           </Grid>
                           { this.state.levels.length == 0 && <Grid item xs={12}>
@@ -364,7 +369,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                           </div>
                         </Grid> }
                         <Grid item xs={12}>
-                          <ProgressButton type='submit' text='Valider' loading={loading} centered />
+                          <ProgressButton type='submit' text='Valider' disabled={ !definition.isActive } loading={loading} centered />
                         </Grid>
                       </Grid>
                       </Grid>
