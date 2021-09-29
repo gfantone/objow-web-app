@@ -3,7 +3,6 @@ import {BrowserRouter, Switch} from 'react-router-dom'
 import {AdminRoutes, AnonymousRoutes, FileRoutes, PartnerRoutes, MaintenanceRoutes, MainRoutes, ManagerRoutes} from './components'
 import * as scenes from './scenes'
 import IntermediateRoutes from "./components/Common/components/IntermadiateRoutes/IntermadiateRoutes";
-console.log(scenes);
 export default () => {
     return (
         <BrowserRouter>

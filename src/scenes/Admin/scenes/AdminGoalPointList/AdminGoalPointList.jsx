@@ -273,18 +273,15 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.props.goalDefinitionPointRepartitionModeListActions.getGoalDefinitionPointRepartitionModeList()
         if(team || collaborator) {
           if(collaborator) {
-            console.log('by collab');
             this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(collaborator, periodId, null, true)
             // this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByCollaborator(periodId, collaborator);
             // this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByCollaborator(periodId, collaborator);
           } else if(team) {
-            console.log('by team');
             this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(periodId, team, null, true)
             // this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPointsByTeam(periodId, team);
             // this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPointsByTeam(periodId, team);
           }
         } else {
-          console.log('global');
           this.props.goalDefinitionListActions.getGoalDefinitionList(periodId, true, true, true);
           // this.props.goalDefinitionLevelCollaboratorPointsActions.getGoalDefinitionLevelCollaboratorPoints(periodId);
           // this.props.goalDefinitionLevelTeamPointsActions.getGoalDefinitionLevelTeamPoints(periodId);
@@ -371,10 +368,10 @@ class AdminGoalPointList extends MainLayoutComponent {
           }
           if(change.cell.type === 'repartitionPoints') {
             newRepartition.points = change.value
-            newRepartition.importance_percent = Number((change.value / totalPoints * 100).toFixed(2))
+            newRepartition.importance_percent = (change.value / totalPoints * 100)
           }
           if(change.cell.type === 'importance_percent') {
-            newRepartition.points = Number((totalPoints * change.value / 100).toFixed(2))
+            newRepartition.points = (totalPoints * change.value / 100)
             newRepartition.importance_percent = change.value
           }
           // console.log(newRepartition);
@@ -815,8 +812,10 @@ class AdminGoalPointList extends MainLayoutComponent {
                                         let repartitionPoints = definition.currentPoints + definition.usedPoints
                                         let importance_percent = repartitionPoints / (maxPoints) * 100
 
+
                                         if(mode.code !== 'G') {
                                           importance_percent = repartition && repartition.points
+
 
                                           // Page filtered on team and current repartition is individual
                                           if(this.team && !this.collaborator && mode.code === 'I') {
@@ -836,14 +835,15 @@ class AdminGoalPointList extends MainLayoutComponent {
                                             }
 
                                             importance_percent = newRepartition && newRepartition.importance_percent || importance_percent
-
-                                            repartitionPoints = Number((maxPoints * importance_percent / 100).toFixed(2))
+                                            repartitionPoints = (maxPoints * importance_percent / 100)
 
                                             // repartition points should not be under used points
                                             if(mode.code === 'T' && repartitionPoints < definition.usedPoints) {
                                               allRepartitionsValid = false
                                             }
                                           }
+
+
 
                                           const repartitionReadonly =
                                           mode.code === 'G' ||
