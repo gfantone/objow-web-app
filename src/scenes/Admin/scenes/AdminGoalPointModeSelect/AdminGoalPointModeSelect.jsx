@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Grid, CardMedia } from '@material-ui/core'
+import { withRouter } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { DefaultText, BoldTitle, TeamSelector, AdministratorCollaboratorSelector, AppBarSubTitle, MainLayoutComponent } from '../../../../components'
 import { Redirect } from 'react-router-dom'
@@ -14,7 +15,7 @@ const styles = {
   }
 }
 
-const AdminGoalPointModeSelect = ({ onChange, classes, ...props }) => {
+const AdminGoalPointModeSelect = ({ onChange, classes, history, ...props }) => {
   const global_icon = require(`../../../../assets/img/system/goalPoints/global.svg`)
   const team_icon = require(`../../../../assets/img/system/goalPoints/team.svg`)
   const individual_icon = require(`../../../../assets/img/system/goalPoints/teamwork-1.svg`)
@@ -23,6 +24,18 @@ const AdminGoalPointModeSelect = ({ onChange, classes, ...props }) => {
   const [mode, setMode] = useState()
   const [team, setTeam] = useState()
   const [collaborator, setCollaborator] = useState()
+
+  if(mode === 'global') {
+    history.push(`/admin/periods/${ props.match.params.periodId }/goal-levels?type=C`)
+  }
+  if(team && !collaborator) {
+    history.push(`/admin/periods/${ props.match.params.periodId }/goal-levels?type=C&team=${team}`)
+  }
+  if(collaborator && team) {
+    history.push(`/admin/periods/${ props.match.params.periodId }/goal-levels?type=C&collaborator=${ collaborator }&team=${team}`)
+  }
+
+
   return (
     <React.Fragment>
       { !mode && (
@@ -67,15 +80,7 @@ const AdminGoalPointModeSelect = ({ onChange, classes, ...props }) => {
           </Grid>
         </div>
       ) }
-      { mode === 'global' && (
-        <Redirect to={`/admin/periods/${ props.match.params.periodId }/goal-levels`} />
-      ) }
-      { team && !collaborator && (
-        <Redirect to={`/admin/periods/${ props.match.params.periodId }/goal-levels?team=${team}`} />
-      ) }
-      { collaborator && team && (
-        <Redirect to={`/admin/periods/${ props.match.params.periodId }/goal-levels?collaborator=${ collaborator }&team=${team}`} />
-      ) }
+
       { mode === 'team' && (
         <TeamSelector onClick={ team => {setTeam(team)} } />
       ) }
@@ -97,7 +102,7 @@ class AdminGoalPointModeSelectWrapper extends MainLayoutComponent {
     this.props.handleSubHeader(<AppBarSubTitle title='Configuration des points des objectifs' />);
   }
   render() {
-    const MainComponent = withStyles(styles)(AdminGoalPointModeSelect)
+    const MainComponent = withRouter(withStyles(styles)(AdminGoalPointModeSelect))
     return (
       <div >
         <MainComponent {...this.props} />
