@@ -1,8 +1,9 @@
 import * as actionTypes from './actionTypes'
 
-export const getGoalDefinitionPointRepartitionList = () => {
+export const getGoalDefinitionPointRepartitionList = (definition) => {
     return {
-        type: actionTypes.GET_GOAL_DEFINITION_POINT_REPARTITION_LIST
+        type: actionTypes.GET_GOAL_DEFINITION_POINT_REPARTITION_LIST,
+        definition
     }
 }
 

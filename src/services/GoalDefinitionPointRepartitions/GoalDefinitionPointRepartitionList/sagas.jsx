@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* getGoalDefinitionPointRepartitionList(action) {
     try {
-        const { data: pointRepartitions } = yield call(api.goalDefinitionPointRepartitions.list)
+        const { data: pointRepartitions } = yield call(api.goalDefinitionPointRepartitions.list, action.definition)
         yield put(getGoalDefinitionPointRepartitionListSuccess(pointRepartitions))
     } catch(e) {
         yield put(getGoalDefinitionPointRepartitionListError())

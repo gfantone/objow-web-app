@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {connect} from 'react-redux'
 import { Grid } from '@material-ui/core'
+import { bindActionCreators } from 'redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faFolderOpen, faInfoCircle} from '@fortawesome/free-solid-svg-icons'
 import { AdviceList, LiveStatus, ReadonlyAdviceList } from './components'
@@ -8,22 +9,25 @@ import {AnimationController, BlueText, Card, DefaultText, DefaultTitle, InfoText
 import * as Resources from '../../../../Resources'
 import {getDifferenceWithToday} from '../../../../helpers/DateHelper'
 
-const GoalIndication = ({ goal, type, ...props }) => {
+const GoalIndication = ({ goal, type, customRepartitions, ...props }) => {
     const {account} = props.accountDetail;
     const difference = getDifferenceWithToday(goal.end);
     const canEdit = (account.role.code == 'M' && account.team.id == goal.teamId || account.role.code == 'A') && difference <= 0;
     const hasLevels = goal.levels && goal.levels.length > 0
+
     return (
         <div>
             <Grid container spacing={2}>
-                { hasLevels && <Grid item xs={12}>
+                { (hasLevels || (customRepartitions && customRepartitions.length > 0)) && <Grid item xs={12}>
                     <Grid container spacing={1}>
                         <Grid item xs={12}>
                             <DefaultTitle>{Resources.GOAL_INDICATION_LEVEL_AREA}</DefaultTitle>
                         </Grid>
                         <Grid item xs={12}>
                             <Card marginDisabled>
-                                <Grid container justify='space-between'>
+                                <Grid container direction='column' spacing={2}>
+                                  <Grid item>
+                                    <Grid container justify='space-between'>
                                     <Grid item>
                                         <Table backgroundDisabled>
                                             <TableBody>
@@ -51,6 +55,30 @@ const GoalIndication = ({ goal, type, ...props }) => {
                                     <Grid item>
                                         <AnimationController />
                                     </Grid>
+                                </Grid>
+                                  </Grid>
+                                  { customRepartitions && customRepartitions.length > 0 && (
+                                    <Grid item style={{margin: "10px"}}>
+                                      <Grid container direction='column' spacing={1}>
+                                        <Grid item>
+                                          <DefaultTitle>
+                                            Paliers personnalisés
+                                          </DefaultTitle>
+                                        </Grid>
+                                        <Grid item>
+                                          <Grid container container direction='column' spacing={2}>
+                                            { customRepartitions.map(repartition => (
+                                              <Grid item>
+                                                <DefaultText>
+                                                  { repartition.collaborator.fullname }
+                                                </DefaultText>
+                                              </Grid>
+                                            )) }
+                                          </Grid>
+                                        </Grid>
+                                      </Grid>
+                                    </Grid>
+                                  ) }
                                 </Grid>
                             </Card>
                         </Grid>
@@ -116,7 +144,10 @@ const GoalIndication = ({ goal, type, ...props }) => {
 };
 
 const mapStateToProps = ({accountDetail}) => ({
-    accountDetail
+    accountDetail,
 });
 
-export default connect(mapStateToProps)(GoalIndication)
+const mapDispatchToProps = (dispatch) => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GoalIndication)

@@ -92,6 +92,8 @@ const AdminGoalPointModeSelect = ({ onChange, classes, ...props }) => {
 
 class AdminGoalPointModeSelectWrapper extends MainLayoutComponent {
   componentDidMount() {
+    this.props.activateReturn();
+    this.props.handleTitle('Administration');
     this.props.handleSubHeader(<AppBarSubTitle title='Configuration des points des objectifs' />);
   }
   render() {
