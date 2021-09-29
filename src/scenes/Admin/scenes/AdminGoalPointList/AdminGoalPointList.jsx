@@ -982,13 +982,14 @@ class AdminGoalPointList extends MainLayoutComponent {
         // const { usedPoints: usedTeamPoints, currentPoints: currentTeamPoints, loading: goalDefinitionLevelTeamPointsLoading } = this.props.goalDefinitionLevelTeamPoints;
         const { definitions, loading: goalDefinitionListLoading } = this.props.goalDefinitionList;
         const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
-        const loading = configfListLoading  || goalDefinitionListLoading || goalDefinitionPointRepartitionLoading;
+        const { modes: repartitionModes, loading: goalDefinitionPointRepartitionModeLoading  } = this.props.goalDefinitionPointRepartitionModeList
+        const loading = configfListLoading  || goalDefinitionListLoading || goalDefinitionPointRepartitionLoading || goalDefinitionPointRepartitionModeLoading;
 
         return (
             <div>
                 <React.Fragment>
                   { loading && this.renderLoader() }
-                  { !loading && configs && pointRepartitions && definitions && this.initialized && this.renderData() }
+                  { !loading && configs && pointRepartitions && definitions && repartitionModes && this.initialized && this.renderData() }
                 </React.Fragment>
             </div>
         )
