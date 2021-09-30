@@ -8,8 +8,11 @@ const goalDefinitions = {
         const url = `${baseUrl}current/`;
         return instance.get(url)
     },
-    detail(id) {
-        const url = `${baseUrl}${id}/`;
+    detail(id, detail) {
+        let url = `${baseUrl}${id}/`;
+        if(detail) {
+          url = `${url}?detail=${detail}`
+        }
         return instance.get(url)
     },
     collaboratorGoals(id, date, team) {

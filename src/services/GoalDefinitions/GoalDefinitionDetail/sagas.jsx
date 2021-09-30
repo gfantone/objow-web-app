@@ -5,16 +5,16 @@ import api from '../../../data/api/api'
 
 function* getGoalDefinition(action) {
     try {
-        var { data: definition } = yield call(api.goalDefinitions.detail, action.id);
-        if (definition.type.code == 'C') {
-            const { data: points } = yield call(api.periods.collaboratorGoalUsedPoints, definition.period);
-            definition.points = points
-        } else if (definition.type.code == 'T') {
-            const { data: points } = yield call(api.periods.teamGoalUsedPoints, definition.period);
-            definition.points = points
-        } else {
-            definition.points = 0
-        }
+        var { data: definition } = yield call(api.goalDefinitions.detail, action.id, action.detail);
+        // if (definition.type.code == 'C') {
+        //     const { data: points } = yield call(api.periods.collaboratorGoalUsedPoints, definition.period);
+        //     definition.points = points
+        // } else if (definition.type.code == 'T') {
+        //     const { data: points } = yield call(api.periods.teamGoalUsedPoints, definition.period);
+        //     definition.points = points
+        // } else {
+        //     definition.points = 0
+        // }
 
         const usedPoints = yield call(api.goalDefinitions.usedPoints, definition.id, action.team, action.collaborator);
         const currentPoints = yield call(api.goalDefinitions.currentPoints, definition.id, action.team, action.collaborator);

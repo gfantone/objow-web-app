@@ -1,11 +1,12 @@
 import * as types from './actionTypes';
 
-export const getGoalDefinition = (id, team, collaborator) => {
+export const getGoalDefinition = (id, team, collaborator, detail) => {
     return {
         type: types.GET_GOAL_DEFINITION,
         id,
         team,
-        collaborator
+        collaborator,
+        detail
     }
 };
 

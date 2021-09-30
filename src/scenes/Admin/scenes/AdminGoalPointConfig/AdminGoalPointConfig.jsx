@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTrashAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { SubHeader, Filters } from './components'
 import ReactDataSheet from 'react-datasheet'
-import { Card, DefaultText, DefaultTitle, BigText, EmptyState, HiddenInput, IconButton, MainLayoutComponent, ProgressButton, TextField, BoldSpan, Tooltip, BlueText } from '../../../../components'
+import { Card, DefaultText, DefaultTitle, BigText, EmptyState, ErrorText, HiddenInput, IconButton, MainLayoutComponent, ProgressButton, TextField, BoldSpan, Tooltip, BlueText } from '../../../../components'
 import { Tag } from '../../../../components/Teams/components/Team/components'
 import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import * as goalDefinitionDetailActions from '../../../../services/GoalDefinitions/GoalDefinitionDetail/actions'
@@ -67,13 +67,17 @@ class AdminGoalPointConfig extends MainLayoutComponent {
       const params = new URLSearchParams(window.location.search);
       const collaborator = params.get('collaborator');
       const team = params.get('team');
+      const { definition } = this.props.goalDefinitionDetail;
       this.props.teamListActions.getTeamList();
-      this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList()
+      if(definition) {
+
+        this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList(definition.id)
+      }
       this.props.goalDefinitionPointRepartitionModeListActions.getGoalDefinitionPointRepartitionModeList()
       if(team !== this.team || collaborator !== this.collaborator) {
         this.team = team
         this.collaborator = collaborator
-        this.props.goalDefinitionDetailActions.getGoalDefinition(this.id, this.team, this.collaborator);
+        this.props.goalDefinitionDetailActions.getGoalDefinition(this.id, this.team, this.collaborator, true);
         this.props.goalDefinitionLevelListActions.getGoalDefinitionLevelList(this.id, this.team, this.collaborator);
       } else {
         this.props.goalDefinitionDetailActions.getGoalDefinition(this.id);
@@ -204,9 +208,11 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0
 
 
-        const usablePoints = repartition ? Number((repartition.points * baseGoalPoints / 100).toFixed(2)) : (
-          (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints
-        )
+        // const usablePoints = repartition ? Number((repartition.points * baseGoalPoints / 100).toFixed(2)) : (
+        //   (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints
+        // )
+
+        const usablePoints = repartition ? Number((repartition.points * baseGoalPoints / 100).toFixed(2)) : 0
 
 
         const dataByPlayer = {
@@ -214,10 +220,15 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         }
         dataByPlayer['usablePoints'] = usablePoints - dataByPlayer.currentPoints - definition.usedPoints
         const maxByLevel = parseInt((usablePoints - definition.usedPoints) / periods.remaining)
-        console.log(definition);
+
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
-              <HiddenInput name='usablePoints' value={maxByLevel ? maxByLevel : 0} />
+              {
+                !globalMode && (
+
+                  <HiddenInput name='usablePoints' value={maxByLevel ? maxByLevel : 0} />
+                )
+              }
               <Filters onChange={() => {}} team={this.team} collaborator={this.collaborator}/>
 
               <Grid item>
@@ -300,7 +311,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                               { this.state.levels.map((level, index) => {
                                 const number = index + 1;
                                 const percentageValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `percentage[${index-1}]` } : { isMoreThanOrEquals: 0 };
-                                const pointValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `points[${index-1}]`, isGoalDefinitionLevelValid: !globalMode } : { isMoreThanOrEquals: 0, isGoalDefinitionLevelValid: !globalMode };
+                                const pointValidations = index > 0 ? { isMoreThanOrEquals: 0, isMoreThan: `points[${index-1}]`, isGoalDefinitionLevelValid: true } : { isMoreThanOrEquals: 0, isGoalDefinitionLevelValid: true };
 
                                 return (
                                   <Grid key={level.id} item xs={6} container spacing={1}>
@@ -312,6 +323,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                         <Grid container spacing={2} alignItems='flex-end'>
                                           <Grid item xs>
                                             <TextField type='number' name={`percentage[${index}]`} label="% d'atteinte de l'objectif" initial={level.percentage.toFullPercentage()} fullWidth required
+                                              disabled={ !definition.isActive }
                                               validations={percentageValidations}
                                               validationErrors={{
                                                 isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
@@ -322,6 +334,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                           </Grid>
                                           <Grid item xs>
                                             <TextField type='number' name={`points[${index}]`} label='Points' initial={level.points} fullWidth required
+                                              disabled={ !definition.isActive }
                                               validations={pointValidations}
                                               validationErrors={{
                                                 isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
@@ -368,6 +381,15 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                             <EmptyState title='Aucun palier trouvé' message='Créz un premier palier' />
                           </div>
                         </Grid> }
+                        {
+                          !definition.isActive && (
+                            <Grid item container spacing={2} justify='center'>
+                                <Grid item>
+                                  <ErrorText className={classes.error} align='center'>Objectif archivé</ErrorText>
+                                </Grid>
+                            </Grid>
+                          )
+                        }
                         <Grid item xs={12}>
                           <ProgressButton type='submit' text='Valider' disabled={ !definition.isActive } loading={loading} centered />
                         </Grid>
@@ -407,7 +429,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                       </Grid>
                                       { repartition && (
                                         <Grid item xs={12}>
-                                          <DefaultText>Pourcentage d'importance : <BoldSpan component='span'>{repartition.points}%</BoldSpan></DefaultText>
+                                          <DefaultText>Pourcentage d'importance : <BoldSpan component='span'>{Number(repartition.points).toFixed(2)}%</BoldSpan></DefaultText>
                                         </Grid>
                                       )}
                                       <Grid item xs={12}>

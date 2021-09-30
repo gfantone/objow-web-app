@@ -6,9 +6,9 @@ const goalDefinitionPointRepartitions = {
     list(definition) {
         let url = baseUrl;
         if(definition){
-          url = `${url}?definition_id=${definition}`
+          url = `${url}?definition=${definition}`
         }
-        return instance.get(baseUrl)
+        return instance.get(url)
     },
     update(pointRepartition) {
       const url = `${baseUrl}${pointRepartition.id}/`;

@@ -15,10 +15,10 @@ const GoalIndication = ({ goal, type, customRepartitions, ...props }) => {
     const canEdit = (account.role.code == 'M' && account.team.id == goal.teamId || account.role.code == 'A') && difference <= 0;
     const hasLevels = goal.levels && goal.levels.length > 0
 
-  
+
     const customRepartitionsTooltip = (
       <Grid container spacing= {1} direction="column">
-        { customRepartitions.map((repartition) => (
+        { customRepartitions && customRepartitions.map((repartition) => (
             <Grid item>
               <Collaborator collaborator={repartition.collaborator} />
             </Grid>

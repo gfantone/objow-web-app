@@ -245,7 +245,8 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.initialized = false
         this.state = {
           type: 'C',
-          newRepartitions: []
+          newRepartitions: [],
+          repartitionLoading: false
           // team: null,
           // collaborator: null,
         }
@@ -260,7 +261,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.props.history.replace(url)
     }
 
-    loadData = () => {
+    loadData = (force) => {
       const periodId = this.props.match.params.periodId;
       const params = new URLSearchParams(window.location.search);
       const collaborator = params.get('collaborator');
@@ -272,7 +273,7 @@ class AdminGoalPointList extends MainLayoutComponent {
           type
         })
       }
-      if(team !== this.team || collaborator !== this.collaborator || !this.initialized) {
+      if(team !== this.team || collaborator !== this.collaborator || !this.initialized || force) {
         this.team = team
         this.collaborator = collaborator
         this.initialized = true
@@ -356,6 +357,7 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 
     onSelectRepartitionMode = (repartitionId, mode) => {
+      
       const newRepartition = {
         id: repartitionId,
         mode: parseInt(mode)
@@ -366,7 +368,7 @@ class AdminGoalPointList extends MainLayoutComponent {
       this.setState({
         ...this.state,
         newRepartitions
-      })
+      }, this.onSubmitRepartitions)
     }
 
     onRepartitionChange = (changes, totalPoints) => {
@@ -390,6 +392,7 @@ class AdminGoalPointList extends MainLayoutComponent {
             [...this.state.newRepartitions, newRepartition]
         }
       })
+
       this.setState({
         ...this.state,
         newRepartitions
@@ -397,7 +400,8 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 
     onSubmitRepartitions = () => {
-      this.props.goalDefinitionPointRepartitionListUpdateActions.updateGoalDefinitionPointRepartitionList(this.state.newRepartitions.map(repartition => {
+      console.log('submit');
+      const {loading} = this.props.goalDefinitionPointRepartitionListUpdateActions.updateGoalDefinitionPointRepartitionList(this.state.newRepartitions.map(repartition => {
 
         let result = {}
         result.id = repartition.id
@@ -411,6 +415,13 @@ class AdminGoalPointList extends MainLayoutComponent {
         }
         return result
       }))
+      this.setState({
+        ...this.state,
+        repartitionLoading: loading
+      })
+      if(!loading) {
+        this.loadData(true)
+      }
     }
 
     getDisabledLinesFromDefinitions = (definitions, pointRepartitions, repartitionModes) => {
@@ -608,7 +619,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         const options = {
             selectableRows: 'none',
             onRowClick: (colData, cellMeta) => {
-              let url = `/admin/periods/${this.props.match.params.periodId}/goal-levels/${colData[0]}?type=${this.state.type}`
+              let url = `/admin/periods/${this.props.match.params.periodId}/goal-levels/${colData[0]}`
 
               if(this.mode === 'global') {
                 return this.props.history.push(url)
@@ -931,7 +942,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                                 optionValueName='id'
                                                 optionTextName='description'
                                                 options={cell.cell.choices}
-                                                />
+                                              />
                                             </td>
                                           )
                                         }
@@ -956,7 +967,7 @@ class AdminGoalPointList extends MainLayoutComponent {
                                     </Grid>
                                     <Grid item xs={12} alignItems='center'>
 
-                                      <ProgressButton type='submit' text={'Valider'} disabled={ totalImportancePercent > 100 || !allRepartitionsValid} loading={false} centered />
+                                      <ProgressButton type='submit' text={'Valider'} disabled={ totalImportancePercent > 100 || !allRepartitionsValid} loading={this.state.repartitionLoading} centered />
 
                                     </Grid>
                                   </Grid>
