@@ -15,6 +15,7 @@ import * as goalDefinitionLevelListActions from '../../../../services/GoalDefini
 import * as goalDefinitionLevelListUpdateActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelListUpdate/actions'
 import * as goalDefinitionPointRepartitionListActions from '../../../../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionList/actions'
 import * as goalDefinitionPointRepartitionModeListActions from '../../../../services/GoalDefinitionPointRepartitionModes/GoalDefinitionPointRepartitionModeList/actions'
+import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import { withStyles } from '@material-ui/core/styles'
 import './helpers/GoalDefinitionLevelFormsyHelper'
@@ -67,8 +68,9 @@ class AdminGoalPointConfig extends MainLayoutComponent {
       const params = new URLSearchParams(window.location.search);
       const collaborator = params.get('collaborator');
       const team = params.get('team');
-      const { definition } = this.props.goalDefinitionDetail;
+
       this.props.teamListActions.getTeamList();
+      this.props.currentPeriodDetailActions.getCurrentPeriodDetail();
 
       this.props.goalDefinitionPointRepartitionModeListActions.getGoalDefinitionPointRepartitionModeList()
       if(team !== this.team || collaborator !== this.collaborator) {
@@ -129,12 +131,11 @@ class AdminGoalPointConfig extends MainLayoutComponent {
 
     componentWillReceiveProps(props) {
         const { levels } = props.goalDefinitionLevelList;
-        const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
-        const { definition } = this.props.goalDefinitionDetail;
-        if(definition && !pointRepartitions) {
-          this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList(definition.id)
-        }
-        if (!this.initialized && levels) {
+        const { definition, loading: definitionLoading } = this.props.goalDefinitionDetail;
+        if (!this.initialized && levels && !definitionLoading) {
+            if(definition && !definitionLoading) {
+              this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList(definition.id)
+            }
             this.initialized = true;
             this.setState({
                 ...this.state,
@@ -193,15 +194,24 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const { teams } = this.props.teamList;
         const { loading } = this.props.goalDefinitionLevelListUpdate;
         const { modes: repartitionModes } = this.props.goalDefinitionPointRepartitionModeList
+        const { period: currentPeriod } = this.props.currentPeriodDetail;
+
         // const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0;
         // const usablePoints = (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints;
         const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
         const repartition = pointRepartitions.filter(pointRepartition => (
-          pointRepartition.definition === definition.id && (
-            this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) || this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
-          )
+          this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) ||
+          this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
         ))[0]
 
+
+        console.log(
+          pointRepartitions,
+          definition,
+          this.team,
+          pointRepartitions.filter(rep => rep.team === parseInt(this.team))
+        );
+        console.log('------------');
         const globalMode = !this.team && !this.collaborator
         const repartitionMode = repartition && repartitionModes.find(mode => mode.id === repartition.mode)
         const currentTeam = this.team ? teams.find(team => team.id === parseInt(this.team)) : null
@@ -242,11 +252,13 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                         <Grid container spacing={1}>
                           <Grid item>
                             <BigText>
-                              Configuration des paliers par joueur et par période
+                              {`Configuration des paliers par ${definition.type.code === 'T' ? 'équipe': 'joueur'} et par période`}
                             </BigText>
                           </Grid>
                           <Grid item style={{fontSize: '18px'}}>
-                            <Tooltip title={'Nombre de points utilisables sur l\'année, par collaborateur'}>
+                            <Tooltip title={
+                                `Nombre de points utilisables sur ${ Resources[`ADMIN_GOAL_POINT_CONFIG_TOOLTIP_${ _.get(definition, 'periodicity.code') }`] }, par ${definition.type.code === 'T' ? 'équipe': 'joueur'} sur l'année ${_.get(currentPeriod, 'name', '')}`
+                            }>
                               <BlueText>
                                 <FontAwesomeIcon icon={faInfoCircle} />
                               </BlueText>
@@ -266,7 +278,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                         <DefaultText>{dataByPlayer.usablePoints}</DefaultText>
                                       </Grid>
                                       <Grid item>
-                                        <DefaultText>Points joueur disponible</DefaultText>
+                                        <DefaultText>{`Points ${definition.type.code === 'T' ? 'équipe': 'joueur'} disponible`}</DefaultText>
                                       </Grid>
                                     </Grid>
                                   </Grid>
@@ -277,7 +289,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                                       <DefaultText>{dataByPlayer.currentPoints}</DefaultText>
                                     </Grid>
                                     <Grid item>
-                                      <DefaultText>Points joueur en cours de jeu</DefaultText>
+                                      <DefaultText>{`Points ${definition.type.code === 'T' ? 'équipe': 'joueur'} en cours de jeu`}</DefaultText>
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -302,7 +314,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                               { !globalMode && (
                                 <Grid item>
                                   <BigText>
-                                    Points max par joueur et par période : <span style={{fontWeight: 'bold'}}>{ maxByLevel }</span>
+                                    Points max par {definition.type.code === 'T' ? 'équipe': 'joueur'} et par période : <span style={{fontWeight: 'bold'}}>{ maxByLevel }</span>
                                   </BigText>
                                 </Grid>
                               ) }
@@ -410,7 +422,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
                               </BigText>
                             </Grid>
                             <Grid item style={{fontSize: '18px'}}>
-                              <Tooltip title={'Nombre de points alloués pour l\'objectif'}>
+                              <Tooltip title={`Nombre de points alloués pour l'objectif pour l'année ${ _.get(currentPeriod, 'name', '') }`}>
                                 <BlueText>
                                   <FontAwesomeIcon icon={faInfoCircle} />
                                 </BlueText>
@@ -464,6 +476,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const { teams, loading: teamsLoading } = this.props.teamList;
         const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
         const { modes: repartitionModes, loading: goalDefinitionPointRepartitionModesLoading  } = this.props.goalDefinitionPointRepartitionModeList
+
         const loading = configListLoading || goalDefinitionDetailLoading || goalDefinitionLevelListLoading || goalDefinitionPointRepartitionLoading || goalDefinitionPointRepartitionModesLoading;
 
         const { success } = this.props.goalDefinitionLevelListUpdate;
@@ -475,20 +488,21 @@ class AdminGoalPointConfig extends MainLayoutComponent {
 
         return (
             <div>
-                { !loading && configs && definition && levels && teams && pointRepartitions && this.renderData() }
+                { !loading && configs && definition && levels && teams && pointRepartitions && repartitionModes && this.renderData() }
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ configList, goalDefinitionDetail, goalDefinitionLevelList, goalDefinitionLevelListUpdate, goalDefinitionPointRepartitionList, goalDefinitionPointRepartitionModeList, teamList}) => ({
+const mapStateToProps = ({ currentPeriodDetail, configList, goalDefinitionDetail, goalDefinitionLevelList, goalDefinitionLevelListUpdate, goalDefinitionPointRepartitionList, goalDefinitionPointRepartitionModeList, teamList}) => ({
     configList,
     goalDefinitionDetail,
     goalDefinitionLevelList,
     goalDefinitionLevelListUpdate,
     goalDefinitionPointRepartitionList,
     goalDefinitionPointRepartitionModeList,
-    teamList
+    teamList,
+    currentPeriodDetail
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -498,7 +512,8 @@ const mapDispatchToProps = (dispatch) => ({
     goalDefinitionLevelListActions: bindActionCreators(goalDefinitionLevelListActions, dispatch),
     goalDefinitionLevelListUpdateActions: bindActionCreators(goalDefinitionLevelListUpdateActions, dispatch),
     goalDefinitionPointRepartitionListActions: bindActionCreators(goalDefinitionPointRepartitionListActions, dispatch),
-    goalDefinitionPointRepartitionModeListActions: bindActionCreators(goalDefinitionPointRepartitionModeListActions, dispatch)
+    goalDefinitionPointRepartitionModeListActions: bindActionCreators(goalDefinitionPointRepartitionModeListActions, dispatch),
+    currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AdminGoalPointConfig))
