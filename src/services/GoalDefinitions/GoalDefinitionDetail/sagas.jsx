@@ -5,7 +5,7 @@ import api from '../../../data/api/api'
 
 function* getGoalDefinition(action) {
     try {
-        var { data: definition } = yield call(api.goalDefinitions.detail, action.id, action.detail);
+        var { data: definition } = yield call(api.goalDefinitions.detail, action.id, action.team, action.collaborator, action.detail);
         // if (definition.type.code == 'C') {
         //     const { data: points } = yield call(api.periods.collaboratorGoalUsedPoints, definition.period);
         //     definition.points = points
@@ -16,10 +16,10 @@ function* getGoalDefinition(action) {
         //     definition.points = 0
         // }
 
-        const usedPoints = yield call(api.goalDefinitions.usedPoints, definition.id, action.team, action.collaborator);
-        const currentPoints = yield call(api.goalDefinitions.currentPoints, definition.id, action.team, action.collaborator);
-        definition.usedPoints = usedPoints.data
-        definition.currentPoints = currentPoints.data
+        // const usedPoints = yield call(api.goalDefinitions.usedPoints, definition.id, action.team, action.collaborator);
+        // const currentPoints = yield call(api.goalDefinitions.currentPoints, definition.id, action.team, action.collaborator);
+        // definition.usedPoints = usedPoints.data
+        // definition.currentPoints = currentPoints.data
         yield put(getGoalDefinitionSuccess(definition))
     } catch(e) {
         yield put(getGoalDefinitionError())
