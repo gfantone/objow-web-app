@@ -256,7 +256,8 @@ class AdminGoalPointList extends MainLayoutComponent {
         this.state = {
           type: 'C',
           newRepartitions: [],
-          repartitionLoading: false
+          repartitionLoading: false,
+          pendingRefresh: false,
           // team: null,
           // collaborator: null,
         }
@@ -329,6 +330,13 @@ class AdminGoalPointList extends MainLayoutComponent {
       // if(teams && teams.length > 0 && this.state.mode === 'team' && !team) {
       //   this.refresh(teams[0].id)
       // }
+      if(this.state.pendingRefresh && !this.state.repartitionLoading) {
+        this.setState({
+          ...this.state,
+          pendingRefresh: false
+        })
+        this.loadData(true)
+      }
 
       this.loadData()
     }
@@ -411,9 +419,7 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 
     onSubmitRepartitions = () => {
-      const { definitions } = this.props.goalDefinitionList;
       const {loading} = this.props.goalDefinitionPointRepartitionListUpdateActions.updateGoalDefinitionPointRepartitionList(this.state.newRepartitions.map(repartition => {
-        const definition = definitions.find(definition => definition.id === repartition.definition)
         let result = {}
         result.id = repartition.id
         if(repartition.mode) {
@@ -429,11 +435,9 @@ class AdminGoalPointList extends MainLayoutComponent {
       }))
       this.setState({
         ...this.state,
+        pendingRefresh: true,
         repartitionLoading: loading
       })
-      if(!loading) {
-        this.loadData(true)
-      }
     }
 
     getDisabledLinesFromDefinitions = (definitions, pointRepartitions, repartitionModes) => {
