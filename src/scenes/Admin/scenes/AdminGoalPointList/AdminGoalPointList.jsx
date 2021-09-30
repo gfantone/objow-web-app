@@ -357,7 +357,7 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 
     onSelectRepartitionMode = (repartitionId, mode) => {
-      
+
       const newRepartition = {
         id: repartitionId,
         mode: parseInt(mode)
@@ -546,6 +546,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         const currentCollaborator = currentTeam && this.collaborator && currentTeam.collaborators.find(collaborator => collaborator.id === parseInt(this.collaborator))
 
         const disabledLines = this.getDisabledLinesFromDefinitions(definitions, pointRepartitions, repartitionModes)
+        const globalMode = !this.team && !this.collaborator
 
         var columns = _.compact([
             { name: 'id', label: 'Ref' },
@@ -570,50 +571,53 @@ class AdminGoalPointList extends MainLayoutComponent {
             // { name: 'obtainedPoints', label: 'Total pts gagnés en moyenne' },
             // { name: 'levels', label: 'Nbre de paliers' },
             { name: 'category.name', label: 'Catégorie' },
-            !this.team || (this.state.type !== 'T' && this.team && !this.collaborator) ? { name: 'customRepartitions', label: 'Personnalisation individuelle', options: {
-              filter: false,
-              customBodyRender: (value, tableMeta, updateValue) => {
-                let entities = []
-                const entityKey = this.team ? 'collaborator' : 'team'
-                const baseRepartitionMode = this.team ?
-                  repartitionModes.find(mode => mode.code === 'I') :
-                  repartitionModes.find(mode => mode.code === 'T')
+            !this.team || (this.state.type !== 'T' && this.team && !this.collaborator) ? {
+              name: 'customRepartitions',
+              label: globalMode ? 'Personnalisation équipe' : 'Personnalisation individuelle',
+              options: {
+                filter: false,
+                customBodyRender: (value, tableMeta, updateValue) => {
+                  let entities = []
+                  const entityKey = this.team ? 'collaborator' : 'team'
+                  const baseRepartitionMode = this.team ?
+                    repartitionModes.find(mode => mode.code === 'I') :
+                    repartitionModes.find(mode => mode.code === 'T')
 
-                value.forEach((repartition, i) => {
-                  if(repartition.mode === baseRepartitionMode.id) {
-                    const newEntity = currentTeam ?
-                      currentTeam.collaborators.find(collaborator => collaborator.id === repartition.collaborator) :
-                      teams.find(team => team.id === repartition.team)
-                    if(newEntity) {
-                      entities = [...entities, newEntity]
+                  value.forEach((repartition, i) => {
+                    if(repartition.mode === baseRepartitionMode.id) {
+                      const newEntity = currentTeam ?
+                        currentTeam.collaborators.find(collaborator => collaborator.id === repartition.collaborator) :
+                        teams.find(team => team.id === repartition.team)
+                      if(newEntity) {
+                        entities = [...entities, newEntity]
+                      }
                     }
-                  }
-                });
-                if(entities.length > 0) {
-                  // {entities.map(entity => <div>{_.get(entity, 'fullname') || _.get(entity, 'name')}</div>)}
-                  const toolTipText = entities.reduce((acc, entity) => (
-                      <div>
-                        { acc }
-                        {`${_.get(entity, 'fullname') || _.get(entity, 'name')}`}
-                      </div>
-                    ), <div/>)
+                  });
+                  if(entities.length > 0) {
+                    // {entities.map(entity => <div>{_.get(entity, 'fullname') || _.get(entity, 'name')}</div>)}
+                    const toolTipText = entities.reduce((acc, entity) => (
+                        <div>
+                          { acc }
+                          {`${_.get(entity, 'fullname') || _.get(entity, 'name')}`}
+                        </div>
+                      ), <div/>)
 
-                  return(
+                    return(
 
-                    <Grid container justify='center'>
-                      <Grid item>
-                        <Tooltip title={<div>{ toolTipText }</div>}>
-                          <BlueText style={{fontSize: "26px"}}>
-                            <div style={{color: '#00E58D'}}>
-                              <FontAwesomeIcon icon={faCheckCircle} />
-                            </div>
-                          </BlueText>
-                        </Tooltip>
+                      <Grid container justify='center'>
+                        <Grid item>
+                          <Tooltip title={<div>{ toolTipText }</div>}>
+                            <BlueText style={{fontSize: "26px"}}>
+                              <div style={{color: '#00E58D'}}>
+                                <FontAwesomeIcon icon={faCheckCircle} />
+                              </div>
+                            </BlueText>
+                          </Tooltip>
+                        </Grid>
                       </Grid>
-                    </Grid>
-                  )
+                    )
+                  }
                 }
-              }
             } } : null
         ]);
         const options = {
@@ -665,7 +669,7 @@ class AdminGoalPointList extends MainLayoutComponent {
         const percentByDefinition = definition => Number(((definition.usedPoints + definition.currentPoints) / maxPoints * 100).toFixed(2))
         const totalPointsPercent = Number(filteredDefinitions.reduce((acc, definition) => acc + percentByDefinition(definition), 0).toFixed(2))
 
-        const globalMode = !this.team && !this.collaborator
+
 
         let totalImportancePercent = 0
         let totalAvailable = 0

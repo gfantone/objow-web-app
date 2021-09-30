@@ -69,10 +69,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
       const team = params.get('team');
       const { definition } = this.props.goalDefinitionDetail;
       this.props.teamListActions.getTeamList();
-      if(definition) {
 
-        this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList(definition.id)
-      }
       this.props.goalDefinitionPointRepartitionModeListActions.getGoalDefinitionPointRepartitionModeList()
       if(team !== this.team || collaborator !== this.collaborator) {
         this.team = team
@@ -130,8 +127,13 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         this.loadData()
     }
 
-      componentWillReceiveProps(props) {
+    componentWillReceiveProps(props) {
         const { levels } = props.goalDefinitionLevelList;
+        const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
+        const { definition } = this.props.goalDefinitionDetail;
+        if(definition && !pointRepartitions) {
+          this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList(definition.id)
+        }
         if (!this.initialized && levels) {
             this.initialized = true;
             this.setState({
@@ -473,7 +475,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
 
         return (
             <div>
-                { !loading && configs && definition && levels && teams && this.renderData() }
+                { !loading && configs && definition && levels && teams && pointRepartitions && this.renderData() }
             </div>
         )
     }
