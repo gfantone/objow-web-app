@@ -255,6 +255,7 @@ class AdminGoalPointList extends MainLayoutComponent {
     refresh(team, collaborator, type) {
         const periodId = this.props.match.params.periodId;
         var url = `/admin/periods/${periodId}/goal-levels?type=${type || this.state.type}`;
+
         if (team && !collaborator) url += `&team=${team}`;
         if (team && collaborator) url += `&team=${team}&collaborator=${collaborator}`;
 
@@ -353,6 +354,7 @@ class AdminGoalPointList extends MainLayoutComponent {
     // }
 
     onFilterChange = (team, collaborator) => {
+      console.log(team, collaborator);
       this.refresh(team, collaborator)
     }
 

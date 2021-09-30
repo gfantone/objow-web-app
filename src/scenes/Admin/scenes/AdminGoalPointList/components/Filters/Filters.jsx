@@ -98,6 +98,14 @@ class Filters extends Component {
         }, () => this.filterForm.current.submit())
     };
 
+    resetTeam = (callback) => {
+        this.setState({
+            ...this.state,
+            team: null,
+            collaborator: null
+        }, callback)
+    }
+
     resetCollaborator = (callback) => {
         this.setState({
             ...this.state,
@@ -210,12 +218,12 @@ class Filters extends Component {
                                 optionValueName='id'
                                 optionTextName='name'
                                 emptyText={ Resources.GOAL_FILTER_ALL_TEAM_LABEL }
-                                
+
                                 fullWidth
                                 updateInitial
                                 initial={ selectedCollaborator && selectedCollaborator.team.id || this.state.team }
                                 onChange={(value) => {
-                                  this.resetCollaborator(() => this.handleChange('team')(value))
+                                  this.resetTeam(() => this.handleChange('team')(value))
                                 }}
                               />
                           </Grid>
