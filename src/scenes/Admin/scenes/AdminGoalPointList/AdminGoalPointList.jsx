@@ -199,6 +199,16 @@ const styles = {
       '& .data-grid-container .data-grid .cell.read-only.pointsCell': {
         background: '#eee',
         color: '#333',
+        '&.error': {
+          color: '#E50000'
+        }
+      },
+
+      '& .data-grid-container .data-grid .cell.pointsCell': {
+        '&.error': {
+          background: '#ffebee',
+          color: '#E50000'
+        }
       },
 
       '& .data-grid-container .data-grid .cell.collaboratorCell': {
@@ -354,7 +364,6 @@ class AdminGoalPointList extends MainLayoutComponent {
     // }
 
     onFilterChange = (team, collaborator) => {
-      console.log(team, collaborator);
       this.refresh(team, collaborator)
     }
 
@@ -402,19 +411,20 @@ class AdminGoalPointList extends MainLayoutComponent {
     }
 
     onSubmitRepartitions = () => {
-      console.log('submit');
+      const { definitions } = this.props.goalDefinitionList;
       const {loading} = this.props.goalDefinitionPointRepartitionListUpdateActions.updateGoalDefinitionPointRepartitionList(this.state.newRepartitions.map(repartition => {
-
+        const definition = definitions.find(definition => definition.id === repartition.definition)
         let result = {}
         result.id = repartition.id
         if(repartition.mode) {
           result.mode_id = repartition.mode
         }
 
-
         if(repartition.importance_percent) {
           result.points = repartition.importance_percent
         }
+
+
         return result
       }))
       this.setState({
@@ -902,14 +912,14 @@ class AdminGoalPointList extends MainLayoutComponent {
                                                 readOnly: repartitionReadonly,
                                                 type: 'importance_percent',
                                                 id: repartition.id,
-                                                className: 'pointsCell'
+                                                className: `pointsCell ${ repartitionPoints < definition.usedPoints ? 'error' : '' }`
                                               },
                                               {
                                                 value: repartitionPoints.toLocaleString(),
                                                 readOnly: repartitionReadonly,
                                                 type: 'repartitionPoints',
                                                 id: repartition.id,
-                                                className: 'pointsCell'
+                                                className: `pointsCell ${ repartitionPoints < definition.usedPoints ? 'error' : '' }`
                                               },
                                               {
                                                 value: (mode ? mode : ''), type: 'select', choices: this.getRepartitionModesByCurrentRepartition(repartition, teamRepartition), id: repartition.id, className: 'pointsCell'
