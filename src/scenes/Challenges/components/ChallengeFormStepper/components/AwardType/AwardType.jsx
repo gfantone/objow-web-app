@@ -1,0 +1,67 @@
+import React from 'react'
+import {connect} from 'react-redux'
+import {CardMedia, Grid} from '@material-ui/core'
+import {makeStyles} from '@material-ui/core/styles'
+import {Card, BigText, DefaultText} from '../../../../../../components'
+import * as Resources from '../../../../../../Resources'
+
+const useStyles = makeStyles({
+    typeItem: {
+      cursor: 'pointer',
+      width: 300,
+      borderRadius: 3,
+      '& .MuiPaper-root': {
+        height: '100%'
+      }
+    },
+    active: {
+      background: '#00E58D'
+    },
+    icon: {
+      height: 120,
+      width: 120
+    }
+})
+
+const AwardType = ({types, currentType, setType, ...props}) => {
+    const classes = useStyles()
+    const icons = {
+      'R': require(`../../../../../../assets/img/system/challenge/icons/Ribbons.svg`),
+      'M': require(`../../../../../../assets/img/system/challenge/icons/Award.svg`)
+    }
+    const {account} = props.accountDetail
+
+    return (
+        <div>
+            <Grid container spacing={1} justify='space-around'>
+                { types.map(type => (
+                  <Grid item onClick={() => setType(type.id)} className={`${classes.typeItem} ${type.id === currentType ? classes.active : ''}`}>
+                    <Card>
+                      <Grid container spacing={1} direction='column' alignItems='center'>
+                        <Grid item>
+                          <CardMedia image={icons[type.code]} className={classes.icon} style={{height: '100%'}}/>
+                        </Grid>
+                        <Grid item>
+                          <BigText>
+                            {type.name}
+                          </BigText>
+                        </Grid>
+                        <Grid item style={{textAlign: 'center'}}>
+                          <DefaultText>
+                            {Resources[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${type.code}`]}
+                          </DefaultText>
+                        </Grid>
+                      </Grid>
+                    </Card>
+                  </Grid>
+                )) }
+            </Grid>
+        </div>
+    )
+}
+
+const mapStateToProps = ({accountDetail}) => ({
+    accountDetail
+})
+
+export default connect(mapStateToProps)(AwardType)

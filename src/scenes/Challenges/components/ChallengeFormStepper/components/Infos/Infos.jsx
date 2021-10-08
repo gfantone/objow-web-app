@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {CardMedia, Grid} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/styles'
 import {ImageInput} from './components'
-import {Card, DatePicker, DefaultTitle, InfoText, Select, TextField, RichTextField} from '../../../../../../components'
+import {Card, DefaultTitle, InfoText, Select, TextField, RichTextField} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
 
 const useStyles = makeStyles({
@@ -13,14 +13,11 @@ const useStyles = makeStyles({
     }
 })
 
-const Infos = ({description, end, customImage, image, images, isUpdate, name, period, onEndChange, onStartChange, onTypeChange, start, type, types, setCustomImage, ...props}) => {
+const Infos = ({description, end, customImage, image, images, isUpdate, name, period, onTypeChange, start, type, types, setCustomImage, ...props}) => {
     const classes = useStyles()
     const {account} = props.accountDetail
     const hasManager = account.role.code === 'M'
-    const today = new Date()
-    const startMinDate = new Date(today.getFullYear(), today.getMonth(), 1)
-    const startMaxDate = end ? end : period.end.toDate2()
-    const endMinDate = start ? start : today
+
     const [selectedImageId, setSelectedImageId] = React.useState(image ? image.id : null)
     const selectedImage = customImage ? {path: customImage} : images.find(x => x.id === image)
 
@@ -85,37 +82,8 @@ const Infos = ({description, end, customImage, image, images, isUpdate, name, pe
                                 </Grid>}
                                 {selectedImagePath && <CardMedia className={classes.image} image={selectedImagePath} />}
                             </Grid>
-                            <Grid item xs={3}>
-                                <DatePicker
-                                    clearable
-                                    format='dd/MM/yyyy'
-                                    fullWidth
-                                    initial={start}
-                                    label={Resources.CHALLENGE_CREATION_INFO_START_LABEL}
-                                    maxDate={startMaxDate}
-                                    minDate={startMinDate}
-                                    name='start'
-                                    required
-                                    validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
-                                    onChange={onStartChange}
-                                />
-                            </Grid>
-                            <Grid item xs={3}>
-                                <DatePicker
-                                    clearable
-                                    format='dd/MM/yyyy'
-                                    fullWidth
-                                    initial={end}
-                                    label={Resources.CHALLENGE_CREATION_INFO_END_LABEL}
-                                    maxDate={period.end.toDate2()}
-                                    minDate={endMinDate}
-                                    name='end'
-                                    required
-                                    validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
-                                    onChange={onEndChange}
-                                />
-                            </Grid>
-                            
+
+
                             <Grid item xs={12}>
                                 <ImageInput
                                     images={images}

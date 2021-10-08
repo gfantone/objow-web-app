@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faInfoCircle, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, InfoText, Select, TextField, Tooltip} from '../../../../../../../../components'
 import * as Resources from '../../../../../../../../Resources'
+import _ from 'lodash'
 
 const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemoveClick, ...props}) => {
     const [category, setCategory] = React.useState(goal ? goal.category : null)
@@ -11,7 +12,10 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
     const [kpi, setKpi] = React.useState(goal ? goal.kpi : null)
     const kpiObject = kpi ? kpis.find(x => x.id == kpi) : null
     const number = index + 1
-    const unit = kpiObject ? kpiObject.unit.name : null
+
+    const unit = _.get(kpiObject, 'unit.name')
+    const periodicity = _.get(kpiObject, 'periodicity.description')
+    const format = kpiObject ? kpiObject.manual ? 'Manuel' : 'Automatique' : ''
 
     function handleCategoryChange(newCategory) {
         setCategory(Number(newCategory))
@@ -66,9 +70,21 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                     <Grid item xs={12}>
                         <TextField name={`goalName[${index}]`} label={Resources.CHALLENGE_UPDATE_GOAL_NAME_LABEL} fullWidth required initial={goal ? goal.goalName : null} />
                     </Grid>
-                    <Grid item xs>
-                        <DefaultText>{Resources.CHALLENGE_UPDATE_GOAL_UNIT_LABEL}</DefaultText>
-                        <InfoText>{unit}</InfoText>
+                    <Grid item xs={12}>
+                      <Grid container>
+                        <Grid item xs>
+                          <DefaultText>{Resources.CHALLENGE_UPDATE_GOAL_UNIT_LABEL}</DefaultText>
+                          <InfoText>{unit}</InfoText>
+                        </Grid>
+                        <Grid item xs>
+                          <DefaultText>{Resources.CHALLENGE_UPDATE_GOAL_PERIODICITY_LABEL}</DefaultText>
+                          <InfoText>{periodicity}</InfoText>
+                        </Grid>
+                        <Grid item xs>
+                          <DefaultText>{Resources.CHALLENGE_UPDATE_GOAL_FORMAT_LABEL}</DefaultText>
+                          <InfoText>{format}</InfoText>
+                        </Grid>
+                      </Grid>
                     </Grid>
                     <Grid item xs>
                         <TextField name={`target[${index}]`} label={Resources.CHALLENGE_UPDATE_GOAL_TARGET_LABEL} fullWidth required initial={goal ? goal.target : null} />

@@ -27,7 +27,7 @@ class ChallengeCreation extends MainLayoutComponent {
         { order: 1, name: 'Type', active: true},
         { order: 2, name: 'Informations'},
         { order: 3, name: 'Participants'},
-        { order: 4, name: 'indicateurs et conditions'},
+        { order: 4, name: 'indicateurs et mécanismes'},
         { order: 5, name: 'Récompenses'},
         { order: 6, name: 'Options'},
         { order: 7, name: 'Validation'},
@@ -43,7 +43,7 @@ class ChallengeCreation extends MainLayoutComponent {
         this.form = React.createRef();
     }
 
-    handleAddGoal() {
+    handleAddGoal = () => {
         this.setState({
             ...this.state,
             goalAdding: 1
@@ -123,13 +123,17 @@ class ChallengeCreation extends MainLayoutComponent {
           })
         })
       }
-      // if(currentStep.order !== 3 || _.get(this.state.participants, 'length', 0) > 0) {
-      //   if(model.type && this.state.finalModel.type !== model.type) {
-      //     this.setParticipants([], apply)
-      //   } else {
+      const checkValidation = (
+        (currentStep.order !== 3 || _.get(this.state.participants, 'length', 0) > 0) &&
+        (currentStep.order !== 1 || this.state.finalModel.awardType)
+      )
+      if(checkValidation) {
+        // if(model.type && this.state.finalModel.type !== model.type) {
+        //   this.setParticipants([], apply)
+        // } else {
           apply()
-      //   }
-      // }
+        // }
+      }
     }
 
     setParticipants = (participants, callback) => {
@@ -138,6 +142,14 @@ class ChallengeCreation extends MainLayoutComponent {
           participants: participants
       }, callback)
     }
+
+    setAwardType = (awardType) => {
+      this.setState({
+        ...this.state,
+        finalModel: Object.assign(this.state.finalModel, {awardType})
+      })
+    }
+
     setStart = (start) => {
       this.setState({
         ...this.state,
@@ -167,49 +179,57 @@ class ChallengeCreation extends MainLayoutComponent {
     handleValidSubmit(model) {
         const currentStep = this.getCurrentStep()
         const nextStep = this.state.steps.find(step => step.order === currentStep.order + 1)
+        // console.log(this.state.finalModel, model);
         if(nextStep) {
           this.changeStep(model)
         } else {
           const { types } = this.props.challengeTypeList
-          model.start.setHours(0, 0, 0, 0)
-          model.end.setHours(23, 59, 59, 0)
-          const start = model.start.toUTCJSON();
-          const end = model.end.toUTCJSON();
+          const finalModel = this.state.finalModel
+          finalModel.start.setHours(0, 0, 0, 0)
+          finalModel.end.setHours(23, 59, 59, 0)
+          const start = finalModel.start.toUTCJSON();
+          const end = finalModel.end.toUTCJSON();
+
+          const participants = JSON.stringify(finalModel.participants.map(p => ({id: p.id})))
 
           const challengeFormData = new FormData()
-          challengeFormData.append('name', model.name)
-          challengeFormData.append('description', JSON.stringify(model.description))
+          challengeFormData.append('name', finalModel.name)
+          challengeFormData.append('description', JSON.stringify(finalModel.description))
           challengeFormData.append('start', start)
           challengeFormData.append('end', end)
-          challengeFormData.append('type', model.type)
-          challengeFormData.append('award_type', model.awardType)
-          challengeFormData.append('live', model.live ? model.live : false)
-          if(Number.isInteger(model.image)) {
-            challengeFormData.append('image', model.image)
+          challengeFormData.append('type', finalModel.type)
+          challengeFormData.append('award_type', finalModel.awardType)
+          challengeFormData.append('live', finalModel.live ? finalModel.live : false)
+          challengeFormData.append('participants', participants)
+
+          if(Number.isInteger(finalModel.image)) {
+            challengeFormData.append('image', finalModel.image)
           } else {
-            challengeFormData.append('customImage', model.image)
+            challengeFormData.append('customImage', finalModel.image)
           }
 
 
           // Set custom image if exists
-          const image = model.image.id ? {
-            image: model.image
+          const image = finalModel.image.id ? {
+            image: finalModel.image
           } : {
-            customImage: model.image
+            customImage: finalModel.image
           }
           const challenge = Object.assign({
-            name: model.name,
-            description: JSON.stringify(model.description),
+            name: finalModel.name,
+            description: JSON.stringify(finalModel.description),
             start: start,
             end: end,
-            type: model.type,
-            award_type: model.awardType,
-            live: model.live ? model.live : false
+            type: finalModel.type,
+            award_type: finalModel.awardType,
+            live: finalModel.live ? finalModel.live : false,
+            participants: participants
+
           }, image)
 
 
-          const teamId = types.find(x => x.id == model.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
-          this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, model.awards, model.goals, teamId)
+          const teamId = types.find(x => x.id == finalModel.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
+          this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, finalModel.awards, finalModel.goals, teamId)
         }
     }
 
@@ -277,8 +297,10 @@ class ChallengeCreation extends MainLayoutComponent {
                         setType={this.setType}
                         setCustomImage={this.setCustomImage}
                         setParticipants={this.setParticipants}
+                        setAwardType={this.setAwardType}
                         handlePreviousStep={this.handlePreviousStep}
                         handleNextStep={_.get(this.form, 'current.submit')}
+                        handleAddGoal={this.handleAddGoal}
                         challenge={this.state.finalModel}
                     />
                 </Formsy>

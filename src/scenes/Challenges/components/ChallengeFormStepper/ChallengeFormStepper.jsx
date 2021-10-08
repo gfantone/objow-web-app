@@ -1,9 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Grid} from '@material-ui/core'
-import {Awards, Goals, Infos} from './components'
-import {ProgressButton, Select, TransferList, Card} from '../../../../components'
+import {Awards, Goals, Infos, AwardType} from './components'
+import {ProgressButton, Select, TransferList, Card, BlueText, Switch, Tooltip, BigText} from '../../../../components'
+import {faInfoCircle, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import * as Resources from '../../../../Resources'
+import _ from 'lodash'
 
 const ChallengeFormStepper = ({
     actionLoading,
@@ -30,6 +33,8 @@ const ChallengeFormStepper = ({
     setType,
     setCustomImage,
     setParticipants,
+    setAwardType,
+    handleAddGoal,
     ...props
   }) => {
     const id = challenge.id || null
@@ -48,7 +53,7 @@ const ChallengeFormStepper = ({
     const participants = challenge.participants || []
 
 
-    const typeObject = types.find(x => x.id === type)
+    const typeObject = types.find(x => x.id === parseInt(type))
     const typeId = typeObject ? typeObject.id : null
     const typeCode = typeObject ? typeObject.code : null
     var finalTypes = types
@@ -66,7 +71,6 @@ const ChallengeFormStepper = ({
 
 
 
-
     function handleEndChange(newEnd) {
         setEnd(newEnd)
     }
@@ -77,18 +81,31 @@ const ChallengeFormStepper = ({
 
     function handleTypeChange(newType) {
         setType(Number(newType))
+        // setParticipants([])
     }
+
+    const maxAwardType = awardTypes[0].id
+    const finalInitialType = awardType ? awardType : maxAwardType
+    const isMaxAward = parseInt(awardType) === maxAwardType
+
     let fields
-    console.log(challenge);
+    let title
     switch(currentStep.order){
       case 1:
+        title = 'Sélection du mode de challenge'
         fields = <Grid item xs={12}>
+          <AwardType
+            types={awardTypes}
+            currentType={awardType}
+            setType={setAwardType}
+          />
         </Grid>
         break;
       case 2:
         // fields = <Grid item xs={12}>
         // </Grid>
         // break;
+        title = 'Configuration des informations'
         fields = <Grid item xs={12}>
           <Infos
             description={description}
@@ -111,6 +128,7 @@ const ChallengeFormStepper = ({
         // fields = <Grid item xs={12}>
         // </Grid>
         // break;
+        title = 'Sélection des participants'
         fields = <Grid item xs={12}>
           <Grid container direction='column' spacing={2}>
             <Grid item xs={12}>
@@ -119,7 +137,7 @@ const ChallengeFormStepper = ({
                     <Select
                         disabled={isUpdate}
                         fullWidth
-                        initial={type}
+                        initial={type || types[0].id}
                         label={Resources.CHALLENGE_CREATION_INFO_TYPE_LABEL}
                         name='type'
                         options={types}
@@ -128,6 +146,7 @@ const ChallengeFormStepper = ({
                         required
                         validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                         onChange={handleTypeChange}
+                        emptyDisabled
                     />
                   </Grid>
                 </Grid>
@@ -136,7 +155,7 @@ const ChallengeFormStepper = ({
               <Card>
                 <TransferList
                   listIn={ teams }
-                  enableCollaboratorSelect={ type === '1' }
+                  enableCollaboratorSelect={ _.get(typeObject, 'code') === 'CC' }
                   onChange={ setParticipants }
                   selected={participants}
                 />
@@ -149,12 +168,19 @@ const ChallengeFormStepper = ({
         // fields = <Grid item xs={12}>
         // </Grid>
         // break;
+        title = 'Configuration des indicateurs et des mécanismes du challenge'
         fields = <Grid item xs={12}>
           <Goals categories={categories}
             goals={goals}
             kpis={kpis}
             goalAdding={goalAdding}
             onGoalAdded={onGoalAdded}
+            period={period}
+            start={start}
+            onEndChange={handleEndChange}
+            onStartChange={handleStartChange}
+            handleAddGoal={handleAddGoal}
+            end={end}
           />
         </Grid>
         break;
@@ -163,6 +189,7 @@ const ChallengeFormStepper = ({
         // </Grid>
         // break;
         // console.log(awardType);
+        title = 'Sélection des récompenses'
         fields = <Grid item xs={12}>
             <Awards
                 challengeId={id}
@@ -183,11 +210,38 @@ const ChallengeFormStepper = ({
         </Grid>
         break;
       case 6:
+        title = 'Sélection des options'
         fields = <Grid item xs={12}>
+          {isMaxAward && <Card>
+              <Grid container alignItems='center'>
+                  <Grid item>
+                      <Switch name='live' label={Resources.CHALLENGE_AWARD_LIST_LIVE_LABEL} initial={live} />
+                  </Grid>
+                  <Grid item>
+                      <Tooltip title={Resources.CHALLENGE_AWARD_LIST_LIVE_INFOS}>
+                          <BlueText>
+                              <FontAwesomeIcon icon={faInfoCircle} />
+                          </BlueText>
+                      </Tooltip>
+                  </Grid>
+                </Grid>
+            </Card>}
         </Grid>
         break;
       case 7:
+        title = ''
         fields = <Grid item xs={12}>
+          <Card>
+            <div style={{ textAlign: 'center', margin: 'auto' }}>
+              <p style={{fontSize: 19, color: '#555555'}}>
+                Félicitations 🎉 !
+              </p>
+              <p style={{fontSize: 19, color: '#555555'}} >
+                Votre challenge est prêt à être diffusé !
+              </p>
+            </div>
+          </Card>
+
         </Grid>
         break;
     }
@@ -196,6 +250,11 @@ const ChallengeFormStepper = ({
     return (
         <div>
           <Grid container spacing={4}>
+              <Grid item style={{textAlign: 'center', width: '100%'}}>
+                <BigText>
+                  {title}
+                </BigText>
+              </Grid>
               { fields }
               <Grid item xs={12}>
                 <Grid container spacing={4} direction='row' justify='center'>

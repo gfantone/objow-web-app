@@ -25,6 +25,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     const [awards, setAwards] = React.useState(getInitialAwards)
     const [type, setType] = React.useState(finalInitialType)
     const isMaxAward = parseInt(type) === maxAwardType
+
     const usablePoints = points ? (!isMaxAward ? points.all : points.participant) : 0
 
     useEffect(() => {
@@ -51,7 +52,6 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     function handleTypeChange(newType) {
         setType(Number(newType))
     }
-    console.log(finalInitialType, types);
     return (
         <div>
             <Grid container spacing={1}>
@@ -70,11 +70,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                 <Grid item xs={12}>
                     <Card>
                         <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                {loading && <DefaultText>{Resources.CHALLENGE_AWARD_LIST_POINTS_CALCULATION_MESSAGE}</DefaultText>}
-                                {!loading && <DefaultText>{Resources.CHALLENGE_AWARD_LIST_USABLE_POINTS.format(usablePoints)}</DefaultText>}
-                                <HiddenInput name='usablePoints' value={usablePoints} />
-                            </Grid>
+
                             <Grid item xs={3}>
                                 <Select
                                     disabled={isUpdate}
@@ -94,7 +90,8 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                             {awards.map((award, index) => {
                                 const number = index + 1
                                 const label = isMaxAward ? (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_MAX_POINT_LABEL : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_MAX_POINT_LABEL) : (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_POINT_LABEL.format(number) : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_POINT_LABEL.format(number))
-                                const validations = isMaxAward ? 'isLessThanOrEquals:usablePoints' : 'isRankingValid'
+                                // const validations = isMaxAward ? 'isLessThanOrEquals:usablePoints' : 'isRankingValid'
+                                const validations = null
                                 const validationErrors = isMaxAward ? {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isLessThanOrEquals: 'La récompense est trop élevée',} : {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isRankingValid: 'La récompense est trop élevée'}
                                 return (
                                     <Grid key={award.key} item xs={3}>
@@ -114,20 +111,6 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                     </Grid>
                                 )
                             })}
-                            {isMaxAward && <Grid item xs>
-                                <Grid container alignItems='center'>
-                                    <Grid item>
-                                        <Switch name='live' label={Resources.CHALLENGE_AWARD_LIST_LIVE_LABEL} initial={initialLive} />
-                                    </Grid>
-                                    <Grid item>
-                                        <Tooltip title={Resources.CHALLENGE_AWARD_LIST_LIVE_INFOS}>
-                                            <BlueText>
-                                                <FontAwesomeIcon icon={faInfoCircle} />
-                                            </BlueText>
-                                        </Tooltip>
-                                    </Grid>
-                                </Grid>
-                            </Grid>}
                         </Grid>
                     </Card>
                 </Grid>
