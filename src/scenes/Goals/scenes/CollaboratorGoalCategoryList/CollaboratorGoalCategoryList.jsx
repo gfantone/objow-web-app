@@ -11,6 +11,7 @@ import {AppBarSubTitle, Category, GridLink, IconButton, Loader, MainLayoutCompon
 import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import * as collaboratorGoalCategoryListActions from '../../../../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/actions'
+import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import _ from 'lodash'
 
 class CollaboratorGoalCategoryList extends MainLayoutComponent {
@@ -52,6 +53,7 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
             this.id = id
             this.year = year
             this.props.collaboratorDetailActions.getCollaboratorDetail(id)
+            this.props.configListActions.getPermanentConfigList()
             this.props.collaboratorGoalCategoryListActions.getCollaboratorGoalCategories(id, this.year)
         }
     }
@@ -123,6 +125,7 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
         const collaboratorId = collaborator ? collaborator.id : null
         const marginTop = isWidthUp('sm', this.props.width) ? 48 : 16
         const { account } = this.props.accountDetail;
+        const {configs, loading: configListLoading} = this.props.configList
 
         if(!account.hasGoalAccess) {
           return <Redirect to={'/challenges'} />
@@ -130,8 +133,8 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
 
         return (
             <div style={{marginTop: marginTop}}>
-                {loading && this.renderLoader()}
-                {!loading && categories && this.renderData()}
+                {loading && configListLoading && this.renderLoader()}
+                {!loading && !configListLoading && configs && categories && this.renderData()}
                 <CategoryFilter
                     open={this.state.filterOpen}
                     onClose={this.handleFilterClose.bind(this)}
@@ -154,7 +157,8 @@ const mapStateToProps = ({accountDetail, collaboratorDetail, collaboratorGoalCat
 
 const mapDispatchToProps = (dispatch) => ({
     collaboratorDetailActions: bindActionCreators(collaboratorDetailActions, dispatch),
-    collaboratorGoalCategoryListActions: bindActionCreators(collaboratorGoalCategoryListActions, dispatch)
+    collaboratorGoalCategoryListActions: bindActionCreators(collaboratorGoalCategoryListActions, dispatch),
+    configListActions: bindActionCreators(configListActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(CollaboratorGoalCategoryList))

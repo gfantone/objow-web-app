@@ -10,6 +10,7 @@ import {CategoryFilter} from '../../components'
 import {AppBarSubTitle, Category, GridLink, IconButton, Loader, MainLayoutComponent} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as teamGoalCategoryListActions from '../../../../services/TeamGoalCategories/TeamGoalCategoryList/actions'
+import * as configListActions from '../../../../services/Configs/ConfigList/actions'
 import _ from 'lodash'
 
 class TeamGoalCategoryList extends MainLayoutComponent {
@@ -50,6 +51,7 @@ class TeamGoalCategoryList extends MainLayoutComponent {
         if (id != this.id || year != this.year) {
             this.id = id
             this.year = year
+            this.props.configListActions.getPermanentConfigList()
             this.props.teamGoalCategoryListActions.getTeamGoalCategoryList(id, this.year)
         }
     }
@@ -116,7 +118,7 @@ class TeamGoalCategoryList extends MainLayoutComponent {
     render() {
         const {categories, loading} = this.props.teamGoalCategoryList
         const marginTop = isWidthUp('sm', this.props.width) ? 48 : 16
-
+        const {configs, loading: configListLoading} = this.props.configList
         const { account } = this.props.accountDetail;
 
         if(!account.hasGoalAccess) {
@@ -125,8 +127,8 @@ class TeamGoalCategoryList extends MainLayoutComponent {
 
         return (
             <div style={{marginTop: marginTop}}>
-                {loading && this.renderLoader()}
-                {!loading && categories && this.renderData()}
+                {loading && configListLoading && this.renderLoader()}
+                {!loading && !configListLoading && configs && categories && this.renderData()}
                 <CategoryFilter
                     open={this.state.filterOpen}
                     onClose={this.handleFilterClose.bind(this)}
@@ -146,7 +148,8 @@ const mapStateToProps = ({accountDetail, teamGoalCategoryList, configList}) => (
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    teamGoalCategoryListActions: bindActionCreators(teamGoalCategoryListActions, dispatch)
+    teamGoalCategoryListActions: bindActionCreators(teamGoalCategoryListActions, dispatch),
+    configListActions: bindActionCreators(configListActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withWidth()(TeamGoalCategoryList))
