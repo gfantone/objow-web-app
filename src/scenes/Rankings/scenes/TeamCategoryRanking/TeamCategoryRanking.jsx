@@ -44,6 +44,10 @@ class TeamCategoryRanking extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
         const { ranks, loading } = this.props.teamCategoryRankList;
 
+        if (!account.hasRankingAccess) {
+            return <Redirect to={`/`} />
+        }
+
         if (!account.hasCategoryRankAccess) {
             return <Redirect to='/' />
         }

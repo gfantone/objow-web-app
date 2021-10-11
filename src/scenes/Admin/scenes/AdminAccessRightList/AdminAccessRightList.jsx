@@ -124,16 +124,35 @@ class AdminAccessRightList extends MainLayoutComponent {
         const CRUR = configs.filter(c => c.code === 'CRUR')[0];
         const MTMR = configs.filter(c => c.code === 'MTMR')[0];
         const CTMR = configs.filter(c => c.code === 'CTMR')[0];
+        const MRKR = configs.filter(c => c.code === 'MRKR')[0];
+        const CRKR = configs.filter(c => c.code === 'CRKR')[0];
 
         // Homepage
         const CHPG = configs.filter(c => c.code === 'CHPG')[0];
         const MHPG = configs.filter(c => c.code === 'MHPG')[0];
+
+        // Goal Filter
+        const GDTF = configs.filter(c => c.code === 'GDTF')[0];
 
         // Wording
         const CHAW = configs.filter(c => c.code === 'CHAW')[0];
 
         const { account } = this.props.accountDetail;
         const homePagesOptions = homePages(account);
+        const goalTimeFilters = [
+          {
+            value: '0',
+            description: 'Objectifs en cours'
+          },
+          {
+            value: '1',
+            description: 'Objectifs passés'
+          },
+          {
+            value: '2',
+            description: 'Objectifs futurs'
+          }
+        ]
 
         return (
             <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
@@ -156,6 +175,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         <Switch name={MTMR.id} initial={MTMR.value.toBoolean()} label='Accès aux équipes' />
                                         <Switch name={MBAR.id} initial={MBAR.value.toBoolean()} label='Accès aux défis' />
                                         <Switch name={MSTR.id} initial={MSTR.value.toBoolean()} label='Accès aux statistiques' />
+                                        <Switch name={MRKR.id} initial={MRKR.value.toBoolean()} label='Accès aux classements' />
                                         <Switch name={MRUR.id} initial={MRUR.value.toBoolean()} label='Accès aux règles du jeu' />
                                         <Switch name={MGOR.id} initial={MGOR.value.toBoolean()} label='Classement visible pour les objectifs' />
                                         <Switch name={MCHR.id} initial={MCHR.value.toBoolean()} label='Classement visible pour les challenges' />
@@ -189,6 +209,7 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         <Switch name={CTMR.id} initial={CTMR.value.toBoolean()} label='Accès aux équipes' />
                                         <Switch name={CBAR.id} initial={CBAR.value.toBoolean()} label='Accès aux défis' />
                                         <Switch name={CSTR.id} initial={CSTR.value.toBoolean()} label='Accès aux statistiques' />
+                                        <Switch name={CRKR.id} initial={CRKR.value.toBoolean()} label='Accès aux classements' />
                                         <Switch name={CRUR.id} initial={CRUR.value.toBoolean()} label='Accès aux règles du jeu' />
                                         <Switch name={CGOR.id} initial={CGOR.value.toBoolean()} label='Classement visible pour les objectifs' />
                                         <Switch name={CCHR.id} initial={CCHR.value.toBoolean()} label='Classement visible pour les challenges' />
@@ -197,6 +218,20 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         <Switch name={CCAR.id} initial={CCAR.value.toBoolean()} label='Classement visible pour les catégories' onChange={this.handleChangeValue('activateCollaboratorCategoryRanking').bind(this)} />
                                         { this.state.activateCollaboratorCategoryRanking && <TextField type={'number'} name={CCRR.id} initial={CCRR.value} label={'Classements des catégories limités aux X premiers'} fullWidth /> }
                                         <Switch name={CTER.id} initial={CTER.value.toBoolean()} label='Classement de mon équipe' />
+                                    </Card>
+                                </Grid>
+                            </Grid>
+                        </div>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <div>
+                            <Grid container spacing={1}>
+                                <Grid item xs={12}>
+                                    <DefaultTitle>Tous les utilisateurs</DefaultTitle>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Card>
+                                        <Select name={ GDTF.id } initial={GDTF.value} label={'Filtre par défaut sur les objectifs'} options={goalTimeFilters} optionValueName='value' optionTextName='description' fullWidth emptyDisabled />
                                     </Card>
                                 </Grid>
                             </Grid>

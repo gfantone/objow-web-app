@@ -7,6 +7,7 @@ import { CollaboratorRankingListFilter, PlayerRankList, SubHeader, TeamRankList 
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSlidersH} from "@fortawesome/free-solid-svg-icons";
+import {Redirect} from "react-router";
 
 class CollaboratorRankingList extends MainLayoutComponent {
     constructor(props) {
@@ -107,6 +108,11 @@ class CollaboratorRankingList extends MainLayoutComponent {
         const { collaborator } = this.props.collaboratorDetail;
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
+        const { account } = this.props.accountDetail;
+
+        if (!account.hasRankingAccess) {
+            return <Redirect to={`/`} />
+        }
 
         return (
             <div>

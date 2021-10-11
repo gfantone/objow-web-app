@@ -33,6 +33,10 @@ class TeamChallengeRanking extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
         const { ranks, loading } = this.props.teamChallengeGeneralRankList;
 
+        if (!account.hasRankingAccess) {
+            return <Redirect to={`/`} />
+        }
+
         if (!account.hasChallengeRankAccess) {
             return <Redirect to='/' />
         }

@@ -103,6 +103,10 @@ class PlayerCategoryRanking extends MainLayoutComponent {
         const { ranks, loading } = this.props.collaboratorCategoryRankList;
         const { collaborators, loading: collaboratorLoading } = this.props.collaboratorList;
 
+        if (!account.hasRankingAccess) {
+            return <Redirect to={`/`} />
+        }
+
         if (!account.hasCategoryRankAccess) {
             return <Redirect to='/' />
         }

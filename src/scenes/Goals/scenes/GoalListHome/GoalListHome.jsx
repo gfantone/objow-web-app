@@ -3,6 +3,7 @@ import { Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { MainLayoutComponent, TeamSelector } from '../../../../components'
 import * as Resources from '../../../../Resources'
+import _ from 'lodash'
 
 class GoalListHome extends MainLayoutComponent {
     componentDidMount() {
@@ -19,6 +20,8 @@ class GoalListHome extends MainLayoutComponent {
         if(!account.hasGoalAccess) {
           return <Redirect to={'/challenges'} />
         }
+
+
 
         if (account.role.code == 'C') {
             return <Redirect to={`/goals/collaborators/${account.id}/categories`} />
@@ -40,8 +43,9 @@ class GoalListHome extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({ accountDetail }) => ({
-    accountDetail
+const mapStateToProps = ({ accountDetail, configList }) => ({
+    accountDetail,
+    configList
 });
 
 export default connect(mapStateToProps)(withRouter(GoalListHome))

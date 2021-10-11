@@ -11,6 +11,7 @@ import {AppBarSubTitle, Category, GridLink, IconButton, Loader, MainLayoutCompon
 import * as Resources from '../../../../Resources'
 import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions'
 import * as collaboratorGoalCategoryListActions from '../../../../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/actions'
+import _ from 'lodash'
 
 class CollaboratorGoalCategoryList extends MainLayoutComponent {
     constructor(props) {
@@ -88,10 +89,13 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
 
     renderData() {
         const {categories} = this.props.collaboratorGoalCategoryList
+        const {configs} = this.props.configList
         const all_icon = require(`../../../../assets/img/system/categories/all.svg`)
         const all_category = {name: Resources.COLLABORATOR_GOAL_CATEGORY_LIST_ALL_LABEL, icon: all_icon}
         const allUrl = this.year ? `/goals/collaborators/${this.props.match.params.id}/list?year=${this.year}` : `/goals/collaborators/${this.props.match.params.id}/list`
         const spacing = isWidthUp('sm', this.props.width) ? 8 : 4
+
+        const currentTime = _.get(configs.find(c => c.code === 'GDTF'), 'value', '0');
 
         return (
             <div>
@@ -101,7 +105,7 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
                     </GridLink>
                     {categories.map(category => {
                         return (
-                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/goals/collaborators/${this.props.match.params.id}/list?category=${category.categoryId}&year=${category.periodId}`}>
+                            <GridLink key={category.id} item xs={12} sm={4} component={Link} to={`/goals/collaborators/${this.props.match.params.id}/list?category=${category.categoryId}&year=${category.periodId}&current=${currentTime}`}>
                                 <Category category={category} />
                             </GridLink>
                         )
@@ -140,10 +144,11 @@ class CollaboratorGoalCategoryList extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({accountDetail, collaboratorDetail, collaboratorGoalCategoryList}) => ({
+const mapStateToProps = ({accountDetail, collaboratorDetail, collaboratorGoalCategoryList, configList}) => ({
     accountDetail,
     collaboratorDetail,
-    collaboratorGoalCategoryList
+    collaboratorGoalCategoryList,
+    configList
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -81,6 +81,11 @@ class CollaboratorGeneralRanking extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
         const { ranks, loading } = this.props.collaboratorGeneralRankList;
         const { collaborators, loading: collaboratorLoading } = this.props.collaboratorList;
+
+        if (!account.hasRankingAccess) {
+            return <Redirect to={`/`} />
+        }
+
         if (!account.hasGeneralRankAccess) {
             return <Redirect to='/' />
         }

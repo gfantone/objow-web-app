@@ -93,6 +93,10 @@ class CollaboratorChallengeRanking extends MainLayoutComponent {
         const { ranks, loading } = this.props.collaboratorChallengeGeneralRankList;
         const { collaborators, loading: collaboratorLoading } = this.props.collaboratorList;
 
+        if (!account.hasRankingAccess) {
+            return <Redirect to={`/`} />
+        }
+
         if (!account.hasChallengeRankAccess) {
             return <Redirect to='/' />
         }

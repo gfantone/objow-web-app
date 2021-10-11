@@ -43,7 +43,7 @@ const DrawerContent = ({onNavigate, ...props }) => {
       },
       {
         component: <DrawerButton icon={faRandom} text={Resources.DRAWER_RANKINGS_BUTTON} src='/rankings' onNavigate={onNavigate} />,
-        permission: account.hasGeneralRankAccess || account.hasCategoryRankAccess || account.hasChallengeRankAccess
+        permission: account.hasRankingAccess && (account.hasGeneralRankAccess || account.hasCategoryRankAccess || account.hasChallengeRankAccess)
       },
       {
         component: <DrawerButton icon={faUsers} text={Resources.DRAWER_TEAMS_BUTTON} src='/teams' onNavigate={onNavigate} />,
