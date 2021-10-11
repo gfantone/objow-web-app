@@ -88,11 +88,12 @@ class TeamGoalCategoryList extends MainLayoutComponent {
         const {categories} = this.props.teamGoalCategoryList
         const all_icon = require(`../../../../assets/img/system/categories/all.svg`)
         const all_category = {name: Resources.TEAM_GOAL_CATEGORY_LIST_ALL_LABEL, icon: all_icon}
-        const allUrl = this.year ? `/goals/teams/${this.props.match.params.id}/list?year=${this.year}` : `/goals/teams/${this.props.match.params.id}/list`
-        const spacing = isWidthUp('sm', this.props.width) ? 8 : 4
         const {configs} = this.props.configList
-
         const currentTime = _.get(configs.find(c => c.code === 'GDTF'), 'value', '0');
+
+        const allUrl = this.year ? `/goals/teams/${this.props.match.params.id}/list?year=${this.year}&current=${currentTime}` : `/goals/teams/${this.props.match.params.id}/list?current=${currentTime}`
+        const spacing = isWidthUp('sm', this.props.width) ? 8 : 4
+
 
         return (
             <div>
