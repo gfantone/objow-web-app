@@ -139,7 +139,8 @@ class ChallengeCreation extends MainLayoutComponent {
     setParticipants = (participants, callback) => {
       this.setState({
           ...this.state,
-          participants: participants
+          participants: participants,
+          finalModel: Object.assign({}, this.state.finalModel, {participants})
       }, callback)
     }
 

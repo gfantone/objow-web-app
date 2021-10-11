@@ -81,9 +81,9 @@ const ChallengeFormStepper = ({
 
     function handleTypeChange(newType) {
         setType(Number(newType))
-        // setParticipants([])
+        setParticipants([])
     }
-
+    console.log(participants);
     const maxAwardType = awardTypes[0].id
     const finalInitialType = awardType ? awardType : maxAwardType
     const isMaxAward = parseInt(awardType) === maxAwardType
@@ -154,7 +154,7 @@ const ChallengeFormStepper = ({
             <Grid item>
               <Card>
                 <TransferList
-                  listIn={ teams }
+                  listIn={ teams.filter(team => _.get(account, 'role.code') !== 'M' || team.id === parseInt(team)) }
                   enableCollaboratorSelect={ _.get(typeObject, 'code') === 'CC' }
                   onChange={ setParticipants }
                   selected={participants}

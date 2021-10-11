@@ -26,8 +26,8 @@ const useStyles = makeStyles({
 const AwardType = ({types, currentType, setType, ...props}) => {
     const classes = useStyles()
     const icons = {
-      'R': require(`../../../../../../assets/img/system/challenge/icons/Ribbons.svg`),
-      'M': require(`../../../../../../assets/img/system/challenge/icons/Award.svg`)
+      'R': require(`../../../../../../assets/img/system/goalPoints/global.svg`),
+      'M': require(`../../../../../../assets/img/system/goalPoints/team.svg`)
     }
     const {account} = props.accountDetail
 
@@ -39,7 +39,7 @@ const AwardType = ({types, currentType, setType, ...props}) => {
                     <Card>
                       <Grid container spacing={1} direction='column' alignItems='center'>
                         <Grid item>
-                          <CardMedia image={icons[type.code]} className={classes.icon} style={{height: '100%'}}/>
+                          <CardMedia image={icons[type.code]} className={classes.icon} />
                         </Grid>
                         <Grid item>
                           <BigText>
