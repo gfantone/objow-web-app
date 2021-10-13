@@ -16,6 +16,10 @@ class RankingList extends MainLayoutComponent {
     render() {
         const { account } = this.props.accountDetail;
 
+        if (!account.hasRankingAccess) {
+            return <Redirect to={`/`} />
+        }
+
         if (account.role.code == 'C') {
             return <Redirect to={`/rankings/collaborators/${account.id}/list`} />
         }
