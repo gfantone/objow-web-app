@@ -105,10 +105,6 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                       </Grid>
 
                     </Grid>
-
-                    <Grid item xs>
-
-                    </Grid>
                 </Grid>
             </Card>
         </Grid>
