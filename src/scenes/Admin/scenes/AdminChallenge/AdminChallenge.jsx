@@ -87,13 +87,12 @@ class AdminChallenge extends MainLayoutComponent {
         const { loading } = this.props.challengeTypeListUpdate;
         const { configs } = this.props.configList;
         const { periodicities } = this.props.periodicityList;
-        const managerChallenge = types.find(x => x.code == 'CM');
+
         const teamChallenge = types.find(x => x.code == 'CT');
         const globalChallenge = types.find(x => x.code == 'CC');
-        const managerChallengePeriodicity = managerChallenge.periodicityId ? periodicities.find(x => x.id == managerChallenge.periodicityId) : this.state.managerChallengePeriodicity ? periodicities.find(x => x.id == this.state.managerChallengePeriodicity) : null;
-        const managerChallengePeriodPoints = managerChallenge.periodicityId ? managerChallenge.periodPoints : this.getPeriodPoints(managerChallenge.points, managerChallengePeriodicity);
-        const managerChallengeAddedPoints = managerChallenge.periodicityId ? managerChallenge.addedPoints : 0;
-        const managerChallengeNextPeriodPoints = managerChallenge.periodicityId ? managerChallenge.nextPeriodPoints : managerChallengePeriodPoints;
+
+        
+
         const globalChallengePeriodicity = globalChallenge.periodicityId ? periodicities.find(x => x.id == globalChallenge.periodicityId) : this.state.globalChallengePeriodicity ? periodicities.find(x => x.id == this.state.globalChallengePeriodicity) : null;
         const globalChallengePeriodPoints = globalChallenge.periodicityId ? globalChallenge.periodPoints : this.getPeriodPoints(globalChallenge.points, globalChallengePeriodicity);
         const globalChallengeAddedPoints = globalChallenge.periodicityId ? globalChallenge.addedPoints : 0;
@@ -111,52 +110,6 @@ class AdminChallenge extends MainLayoutComponent {
             <div>
                 <Forsmy onValidSubmit={this.handleSubmit.bind(this)}>
                     <Grid container spacing={4}>
-                        <Grid item xs={12}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableHeadCell>Categories</TableHeadCell>
-                                        <TableHeadCell style={{width:250}}>Périodicité</TableHeadCell>
-                                        <TableHeadCell>Pts/joueur mis en jeu (année en cours)</TableHeadCell>
-                                        <TableHeadCell>Pts/joueur utilisables par période</TableHeadCell>
-                                        <TableHeadCell>Pts/joueur remis en jeu ou ajouté (année en cours)</TableHeadCell>
-                                        <TableHeadCell>Pts/joueur utilisable prochaines périodes</TableHeadCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    <TableRow>
-                                        <TableCell>{managerChallenge.name}</TableCell>
-                                        <TableCell>
-                                            <Select name={managerChallenge.code} options={periodicities} initial={managerChallenge.periodicityId} onChange={this.handlePeriodicityChange('managerChallengePeriodicity').bind(this)} disabled={managerChallenge.periodicityId} optionValueName='id' optionTextName='description' />
-                                        </TableCell>
-                                        <TableCell>{managerChallenge.points}</TableCell>
-                                        <TableCell>{managerChallengePeriodPoints}</TableCell>
-                                        <TableCell>{managerChallengeAddedPoints}</TableCell>
-                                        <TableCell>{managerChallengeNextPeriodPoints}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>{globalChallenge.name}</TableCell>
-                                        <TableCell>
-                                            <Select name={globalChallenge.code} options={periodicities} initial={globalChallenge.periodicityId} onChange={this.handlePeriodicityChange('globalChallengePeriodicity').bind(this)} disabled={globalChallenge.periodicityId} optionValueName='id' optionTextName='description' />
-                                        </TableCell>
-                                        <TableCell>{globalChallenge.points}</TableCell>
-                                        <TableCell>{globalChallengePeriodPoints}</TableCell>
-                                        <TableCell>{globalChallengeAddedPoints}</TableCell>
-                                        <TableCell>{globalChallengeNextPeriodPoints}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>{teamChallenge.name}</TableCell>
-                                        <TableCell>
-                                            <Select name={teamChallenge.code} options={periodicities} initial={teamChallenge.periodicityId} onChange={this.handlePeriodicityChange('teamChallengePeriodicity').bind(this)} disabled={teamChallenge.periodicityId} optionValueName='id' optionTextName='description' />
-                                        </TableCell>
-                                        <TableCell>{teamChallenge.points}</TableCell>
-                                        <TableCell>{teamChallengePeriodPoints}</TableCell>
-                                        <TableCell>{teamChallengeAddedPoints}</TableCell>
-                                        <TableCell>{teamChallengeNextPeriodPoints}</TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            </Table>
-                        </Grid>
                         <Grid item xs={12}>
                             <Switch name={challengeRankActivation.id} label='Activer les challenges de type « Classement »' initial={challengeRankActivation.value.toBoolean()} />
                             <Switch name={challengeMaxActivation.id} label='Activer les challenges de type « Cumuler un maximum de points »' initial={challengeMaxActivation.value.toBoolean()} />
