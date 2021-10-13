@@ -83,11 +83,10 @@ const ChallengeFormStepper = ({
         setType(Number(newType))
         setParticipants([])
     }
-    console.log(participants);
     const maxAwardType = awardTypes[0].id
     const finalInitialType = awardType ? awardType : maxAwardType
     const isMaxAward = parseInt(awardType) === maxAwardType
-
+    console.log(teams);
     let fields
     let title
     switch(currentStep.order){
@@ -137,7 +136,7 @@ const ChallengeFormStepper = ({
                     <Select
                         disabled={isUpdate}
                         fullWidth
-                        initial={type || types[0].id}
+                        initial={type || _.get(types, '[0].id')}
                         label={Resources.CHALLENGE_CREATION_INFO_TYPE_LABEL}
                         name='type'
                         options={types}
@@ -154,7 +153,7 @@ const ChallengeFormStepper = ({
             <Grid item>
               <Card>
                 <TransferList
-                  listIn={ teams.filter(team => _.get(account, 'role.code') !== 'M' || team.id === parseInt(team)) }
+                  listIn={ teams }
                   enableCollaboratorSelect={ _.get(typeObject, 'code') === 'CC' }
                   onChange={ setParticipants }
                   selected={participants}
