@@ -1,8 +1,8 @@
 import React from 'react'
 import {Grid, IconButton} from '@material-ui/core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faInfoCircle, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
-import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, InfoText, Select, TextField, Tooltip} from '../../../../../../../../components'
+import {faInfoCircle, faTrashAlt, faEquals} from '@fortawesome/free-solid-svg-icons'
+import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, InfoText, Select, TextField, Tooltip, TableChip} from '../../../../../../../../components'
 import * as Resources from '../../../../../../../../Resources'
 import _ from 'lodash'
 
@@ -87,17 +87,27 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                       </Grid>
                     </Grid>
                     <Grid item xs>
-                        <TextField name={`target[${index}]`} label={Resources.CHALLENGE_UPDATE_GOAL_TARGET_LABEL} fullWidth required initial={goal ? goal.target : null} />
+                      <Grid container spacing={1}>
+                          <Grid item>
+                              <TableChip label={'>'} />
+                          </Grid>
+                          <Grid item>
+                              <TextField name={`target[${index}]`} label={Resources.CHALLENGE_UPDATE_GOAL_TARGET_LABEL} fullWidth required initial={goal ? goal.target : null} />
+                          </Grid>
+                          <Grid item>
+                              <DefaultText>
+                                  <FontAwesomeIcon icon={faEquals} />
+                              </DefaultText>
+                          </Grid>
+                          <Grid item>
+                              <TextField name={`points[${index}]`} label={Resources.CHALLENGE_UPDATE_GOAL_POINTS_LABEL} fullWidth required initial={goal ? goal.points : null} />
+                          </Grid>
+                      </Grid>
+
                     </Grid>
-                    <Grid item>
-                        <Tooltip title={Resources.CHALLENGE_UPDATE_GOAL_TARGET_INFO_TEXT}>
-                        <BlueText style={{ marginTop: 20 }}>
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                        </BlueText>
-                    </Tooltip>
-                    </Grid>
+
                     <Grid item xs>
-                        <TextField name={`points[${index}]`} label={Resources.CHALLENGE_UPDATE_GOAL_POINTS_LABEL} fullWidth required initial={goal ? goal.points : null} />
+
                     </Grid>
                 </Grid>
             </Card>
