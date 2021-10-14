@@ -87,7 +87,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                       </Grid>
                     </Grid>
                     <Grid item xs>
-                      <Grid container spacing={1}>
+                      <Grid container spacing={1} alignItems='center'>
                           <Grid item>
                               <TableChip label={'>'} />
                           </Grid>

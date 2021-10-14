@@ -59,10 +59,10 @@ class AdminChallenge extends MainLayoutComponent {
     };
 
     handleSubmit(model) {
-        const { types } = this.props.challengeTypeSummaryList;
-        const managerChallenge = types.find(x => x.code == 'CM');
-        const globalChallenge = types.find(x => x.code == 'CC');
-        const teamChallenge = types.find(x => x.code == 'CT');
+        // const { types } = this.props.challengeTypeSummaryList;
+        // const managerChallenge = types.find(x => x.code == 'CM');
+        // const globalChallenge = types.find(x => x.code == 'CC');
+        // const teamChallenge = types.find(x => x.code == 'CT');
         var configs = [];
         const keys = Object.keys(model);
         for (var i = 0; i < keys.length; i++) {
@@ -71,10 +71,10 @@ class AdminChallenge extends MainLayoutComponent {
                 configs.push({id: key, value: model[key]})
             }
         }
-        managerChallenge.periodicity = model.CM;
-        globalChallenge.periodicity = model.CC;
-        teamChallenge.periodicity = model.CT;
-        this.props.challengeTypeListUpdateActions.updateChallengeTypeList([managerChallenge, globalChallenge, teamChallenge]);
+        // managerChallenge.periodicity = model.CM;
+        // globalChallenge.periodicity = model.CC;
+        // teamChallenge.periodicity = model.CT;
+        // this.props.challengeTypeListUpdateActions.updateChallengeTypeList([managerChallenge, globalChallenge, teamChallenge]);
         this.props.configListUpdateActions.updateConfigList(configs)
     }
 
@@ -84,14 +84,14 @@ class AdminChallenge extends MainLayoutComponent {
 
     renderData() {
         const { types } = this.props.challengeTypeSummaryList;
-        const { loading } = this.props.challengeTypeListUpdate;
+        const { loading } = this.props.configListUpdate;
         const { configs } = this.props.configList;
         const { periodicities } = this.props.periodicityList;
 
         const teamChallenge = types.find(x => x.code == 'CT');
         const globalChallenge = types.find(x => x.code == 'CC');
 
-        
+
 
         const globalChallengePeriodicity = globalChallenge.periodicityId ? periodicities.find(x => x.id == globalChallenge.periodicityId) : this.state.globalChallengePeriodicity ? periodicities.find(x => x.id == this.state.globalChallengePeriodicity) : null;
         const globalChallengePeriodPoints = globalChallenge.periodicityId ? globalChallenge.periodPoints : this.getPeriodPoints(globalChallenge.points, globalChallengePeriodicity);
