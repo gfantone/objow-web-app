@@ -54,24 +54,22 @@ class TeamPointConfig extends Component {
                 percentage: { value: 0, display: true }
             }
         };
-        this.props.challengeTypeListUpdateActions.clearChallengeTypeListUpdate();
         this.props.configListUpdateActions.clearConfigListUpdate()
     }
 
     componentDidMount(props) {
         const periodId = this.props.period;
-        this.props.challengeTypeListActions.getChallengeTypeList(periodId);
         this.props.configListActions.getConfigList(periodId)
     }
 
     componentWillReceiveProps(props) {
-        const { types } = props.challengeTypeList;
+
         const { configs } = props.configList;
-        if (!this.initialized && types && configs) {
+        if (!this.initialized  && configs) {
             const rule = configs.find(x => x.code == 'TCRP');
             const global = configs.find(x => x.code == 'TPA');
             const goals = configs.find(x => x.code == 'TPG');
-            const challenges = types.find(x => x.code == 'CT');
+
             this.initialized = true;
             this.setState({
                 ...this.state,
@@ -86,11 +84,8 @@ class TeamPointConfig extends Component {
                     id: goals.id,
                     points: { value: goals.value, display: true },
                     percentage: { value: global.value > 0 ? Number((goals.value / global.value * 100).toFixed(2)) : 0, display: true }
-                },
-                challenges: {
-                    points: { value: challenges.currentPoints, display: true },
-                    percentage: { value: global.value > 0 ? Number((challenges.currentPoints / global.value).toFixed(2)) * 100 : 0, display: true }
                 }
+
             })
         }
     }
@@ -106,28 +101,28 @@ class TeamPointConfig extends Component {
         const points = value * 10;
         var global = this.state.global;
         var goals = this.state.goals;
-        var challenges = this.state.challenges;
+
         global.budget.value = value;
         global.points.value = points;
         goals.points.value = Math.round(points * (goals.percentage.value / 100));
-        challenges.points.value = Math.round(points * (challenges.percentage.value / 100));
+
         global.points.display = false;
         goals.points.display = false;
-        challenges.points.display = false;
+
         this.setState({
             ...this.state,
             global: global,
             goals: goals,
-            challenges: challenges,
+
         }, () => {
             global.points.display = true;
             goals.points.display = true;
-            challenges.points.display = true;
+
             this.setState({
                 ...this.state,
                 global: global,
                 goals: goals,
-                challenges: challenges,
+
             })
         })
     }
@@ -136,28 +131,28 @@ class TeamPointConfig extends Component {
         const budget = (value / 10).toFixed(2);
         var global = this.state.global;
         var goals = this.state.goals;
-        var challenges = this.state.challenges;
+
         global.points.value = value;
         global.budget.value = budget;
         goals.points.value = Math.round(value * (goals.percentage.value / 100));
-        challenges.points.value = Math.round(value * (challenges.percentage.value / 100));
+
         global.budget.display = false;
         goals.points.display = false;
-        challenges.points.display = false;
+
         this.setState({
             ...this.state,
             global: global,
             goals: goals,
-            challenges: challenges,
+
         }, () => {
             global.budget.display = true;
             goals.points.display = true;
-            challenges.points.display = true;
+
             this.setState({
                 ...this.state,
                 global: global,
                 goals: goals,
-                challenges: challenges,
+
             })
         })
     }
@@ -199,15 +194,15 @@ class TeamPointConfig extends Component {
     };
 
     handleSubmit(model) {
-        const { types } = this.props.challengeTypeList;
-        const challenges = types.find(x => x.code == 'CT');
+
+
         const configs = [
             { id: this.state.ruleId, value: model.rule },
             { id: this.state.global.id, value: model.global },
             { id: this.state.goals.id, value: model.goals }
         ];
-        challenges.currentPoints = model.challenges;
-        this.props.challengeTypeListUpdateActions.updateChallengeTypeList([challenges]);
+
+
         this.props.configListUpdateActions.updateConfigList(configs)
     }
 
@@ -217,9 +212,9 @@ class TeamPointConfig extends Component {
 
     renderData() {
         const { classes } = this.props;
-        const { loading: challengeTypeListUpdateLoading } = this.props.challengeTypeListUpdate;
+
         const { loading: configListUpdateLoading } = this.props.configListUpdate;
-        const loading = challengeTypeListUpdateLoading || configListUpdateLoading;
+        const loading =  configListUpdateLoading;
 
         return (
             <div>
@@ -276,32 +271,7 @@ class TeamPointConfig extends Component {
                                 </Card>
                             </Grid>
                         </Grid>
-                        <Grid item xs={6} container spacing={1}>
-                            <Grid item xs={12}>
-                                <DefaultTitle>Challenges</DefaultTitle>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Card>
-                                    <Grid container spacing={2}>
-                                        <Grid item>
-                                            { this.state.challenges.percentage.display && <TextField name='hello' type='number' label='%' initial={this.state.challenges.percentage.value} onChange={this.handlePercentageChange('challenges').bind(this)} /> }
-                                        </Grid>
-                                        <Grid item>
-                                            <FontAwesomeIcon icon={faAngleRight} className={classes.arrow} />
-                                        </Grid>
-                                        <Grid item>
-                                            { this.state.challenges.points.display && <TextField name='challenges' type='number' label='Pts' initial={this.state.challenges.points.value} onChange={this.handlePointsChange('challenges').bind(this)} required
-                                                validations='isTeamPointsValid'
-                                                validationErrors={{
-                                                    isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                                    isTeamPointsValid: 'Le somme des points est supérieur au maximum de points'
-                                                }}
-                                            /> }
-                                        </Grid>
-                                    </Grid>
-                                </Card>
-                            </Grid>
-                        </Grid>
+
                         <Grid item xs={12}>
                             <ProgressButton type='submit' text='Valider' centered loading={loading} />
                         </Grid>
@@ -312,22 +282,19 @@ class TeamPointConfig extends Component {
     }
 
     render() {
-        const { types, loading: challengeTypeListLoading } = this.props.challengeTypeList;
-        const { success: challengeTypeListUpdateSuccess } = this.props.challengeTypeListUpdate;
         const { configs, loading: configListLoading } = this.props.configList;
         const { success: configListUpdateSuccess } = this.props.configListUpdate;
-        const loading = challengeTypeListLoading || configListLoading;
-        const success = challengeTypeListUpdateSuccess && configListUpdateSuccess;
+        const loading = configListLoading;
+        const success = configListUpdateSuccess;
 
         if (success) {
-            this.props.challengeTypeListUpdateActions.clearChallengeTypeListUpdate();
             this.props.configListUpdateActions.clearConfigListUpdate()
         }
 
         return (
             <div>
                 { loading && this.renderLoader() }
-                { !loading && types && configs && this.renderData() }
+                { !loading && configs && this.renderData() }
             </div>
         )
     }

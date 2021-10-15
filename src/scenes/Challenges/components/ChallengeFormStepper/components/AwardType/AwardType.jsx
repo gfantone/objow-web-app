@@ -9,9 +9,10 @@ const useStyles = makeStyles({
     typeItem: {
       cursor: 'pointer',
       width: 300,
-      borderRadius: 3,
+      borderRadius: 34,
       '& .MuiPaper-root': {
-        height: '100%'
+        height: '100%',
+        borderRadius: 30,
       }
     },
     active: {

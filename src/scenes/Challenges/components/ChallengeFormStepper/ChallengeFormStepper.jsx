@@ -85,8 +85,7 @@ const ChallengeFormStepper = ({
     }
     const maxAwardType = awardTypes[0].id
     const finalInitialType = awardType ? awardType : maxAwardType
-    const isMaxAward = parseInt(awardType) === maxAwardType
-    console.log(teams);
+    const isMaxAward = parseInt(awardType) === maxAwardType  
     let fields
     let title
     switch(currentStep.order){

@@ -53,35 +53,29 @@ class PlayerPointConfig extends Component {
                 points: { value: 0, display: true },
                 percentage: { value: 0, display: true }
             },
-            managerChallenges: {
-                points: { value: 0, display: true },
-                percentage: { value: 0, display: true }
-            },
-            globalChallenges: {
-                points: { value: 0, display: true },
-                percentage: { value: 0, display: true }
-            }
+
+
         };
-        this.props.challengeTypeListUpdateActions.clearChallengeTypeListUpdate();
+
         this.props.configListUpdateActions.clearConfigListUpdate()
     }
 
     componentDidMount(props) {
         const periodId = this.props.period;
-        this.props.challengeTypeListActions.getChallengeTypeList(periodId);
+
         this.props.configListActions.getConfigList(periodId)
     }
 
     componentWillReceiveProps(props) {
-        const { types } = props.challengeTypeList;
+
         const { configs } = props.configList;
-        if (!this.initialized && types && configs) {
+        if (!this.initialized && configs) {
             const rule = configs.find(x => x.code == 'CCRP');
             const global = configs.find(x => x.code == 'CPA');
             const goals = configs.find(x => x.code == 'CPG');
             const badges = configs.find(x => x.code == 'CPB');
-            const managerChallenges = types.find(x => x.code == 'CM');
-            const globalChallenges = types.find(x => x.code == 'CC');
+
+
             this.initialized = true;
             this.setState({
                 ...this.state,
@@ -102,14 +96,8 @@ class PlayerPointConfig extends Component {
                     points: { value: badges.value, display: true },
                     percentage: { value: global.value > 0 ? Number((badges.value / global.value * 100).toFixed(2)) : 0, display: true }
                 },
-                managerChallenges: {
-                    points: { value: managerChallenges.currentPoints, display: true },
-                    percentage: { value: global.value > 0 ? Number((managerChallenges.currentPoints / global.value).toFixed(2)) * 100 : 0, display: true }
-                },
-                globalChallenges: {
-                    points: { value: globalChallenges.currentPoints, display: true },
-                    percentage: { value: global.value > 0 ? Number((globalChallenges.currentPoints / global.value).toFixed(2)) * 100 : 0, display: true }
-                }
+
+
             })
         }
     }
@@ -126,39 +114,38 @@ class PlayerPointConfig extends Component {
         var global = this.state.global;
         var goals = this.state.goals;
         var badges = this.state.badges;
-        var managerChallenges = this.state.managerChallenges;
-        var globalChallenges = this.state.globalChallenges;
+
+
         global.budget.value = value;
         global.points.value = points;
         goals.points.value = Math.round(points * (goals.percentage.value / 100));
         badges.points.value = Math.round(points * (badges.percentage.value / 100));
-        managerChallenges.points.value = Math.round(points * (managerChallenges.percentage.value / 100));
-        globalChallenges.points.value = Math.round(points * (globalChallenges.percentage.value / 100));
+
+
         global.points.display = false;
         goals.points.display = false;
         badges.points.display = false;
-        managerChallenges.points.display = false;
-        globalChallenges.points.display = false;
+
+
         this.setState({
             ...this.state,
             global: global,
             goals: goals,
             badges: badges,
-            managerChallenges: managerChallenges,
-            globalChallenges: globalChallenges
+
+
         }, () => {
             global.points.display = true;
             goals.points.display = true;
             badges.points.display = true;
-            managerChallenges.points.display = true;
-            globalChallenges.points.display = true;
+
+
             this.setState({
                 ...this.state,
                 global: global,
                 goals: goals,
                 badges: badges,
-                managerChallenges: managerChallenges,
-                globalChallenges: globalChallenges
+
             })
         })
     }
@@ -168,39 +155,39 @@ class PlayerPointConfig extends Component {
         var global = this.state.global;
         var goals = this.state.goals;
         var badges = this.state.badges;
-        var managerChallenges = this.state.managerChallenges;
-        var globalChallenges = this.state.globalChallenges;
+
+
         global.points.value = value;
         global.budget.value = budget;
         goals.points.value = Math.round(value * (goals.percentage.value / 100));
         badges.points.value = Math.round(value * (badges.percentage.value / 100));
-        managerChallenges.points.value = Math.round(value * (managerChallenges.percentage.value / 100));
-        globalChallenges.points.value = Math.round(value * (globalChallenges.percentage.value / 100));
+
+
         global.budget.display = false;
         goals.points.display = false;
         badges.points.display = false;
-        managerChallenges.points.display = false;
-        globalChallenges.points.display = false;
+
+
         this.setState({
             ...this.state,
             global: global,
             goals: goals,
             badges: badges,
-            managerChallenges: managerChallenges,
-            globalChallenges: globalChallenges
+
+
         }, () => {
             global.budget.display = true;
             goals.points.display = true;
             badges.points.display = true;
-            managerChallenges.points.display = true;
-            globalChallenges.points.display = true;
+
+
             this.setState({
                 ...this.state,
                 global: global,
                 goals: goals,
                 badges: badges,
-                managerChallenges: managerChallenges,
-                globalChallenges: globalChallenges
+
+
             })
         })
     }
@@ -242,18 +229,16 @@ class PlayerPointConfig extends Component {
     };
 
     handleSubmit(model) {
-        const { types } = this.props.challengeTypeList;
-        const managerChallenges = types.find(x => x.code == 'CM');
-        const globalChallenges = types.find(x => x.code == 'CC');
+
         const configs = [
             { id: this.state.ruleId, value: model.rule },
             { id: this.state.global.id, value: model.global },
             { id: this.state.goals.id, value: model.goals },
             { id: this.state.badges.id, value: model.badges },
         ];
-        managerChallenges.currentPoints = model.managerChallenges;
-        globalChallenges.currentPoints = model.globalChallenges;
-        this.props.challengeTypeListUpdateActions.updateChallengeTypeList([managerChallenges, globalChallenges]);
+
+
+
         this.props.configListUpdateActions.updateConfigList(configs)
     }
 
@@ -263,9 +248,10 @@ class PlayerPointConfig extends Component {
 
     renderData() {
         const { classes } = this.props;
-        const { loading: challengeTypeListUpdateLoading } = this.props.challengeTypeListUpdate;
+
         const { loading: configListUpdateLoading } = this.props.configListUpdate;
-        const loading = challengeTypeListUpdateLoading || configListUpdateLoading;
+        const loading = configListUpdateLoading;
+
 
         return (
             <div>
@@ -348,58 +334,8 @@ class PlayerPointConfig extends Component {
                                 </Card>
                             </Grid>
                         </Grid>
-                        <Grid item xs={6} container spacing={1}>
-                            <Grid item xs={12}>
-                                <DefaultTitle>Challenges managers</DefaultTitle>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Card>
-                                    <Grid container spacing={2}>
-                                        <Grid item>
-                                            { this.state.managerChallenges.percentage.display && <TextField name='hello' type='number' label='%' initial={this.state.managerChallenges.percentage.value} onChange={this.handlePercentageChange('managerChallenges').bind(this)} /> }
-                                        </Grid>
-                                        <Grid item>
-                                            <FontAwesomeIcon icon={faAngleRight} className={classes.arrow} />
-                                        </Grid>
-                                        <Grid item>
-                                            { this.state.managerChallenges.points.display && <TextField name='managerChallenges' type='number' label='Pts' initial={this.state.managerChallenges.points.value} onChange={this.handlePointsChange('managerChallenges').bind(this)} required
-                                                validations='isCollaboratorPointsValid'
-                                                validationErrors={{
-                                                    isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                                    isCollaboratorPointsValid: 'Le somme des points est supérieur au maximum de points'
-                                                }}
-                                            /> }
-                                        </Grid>
-                                    </Grid>
-                                </Card>
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={6} container spacing={1}>
-                            <Grid item xs={12}>
-                                <DefaultTitle>Challenges globaux</DefaultTitle>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Card>
-                                    <Grid container spacing={2}>
-                                        <Grid item>
-                                            { this.state.globalChallenges.percentage.display && <TextField name='hello' type='number' label='%' initial={this.state.globalChallenges.percentage.value} onChange={this.handlePercentageChange('globalChallenges').bind(this)} /> }
-                                        </Grid>
-                                        <Grid item>
-                                            <FontAwesomeIcon icon={faAngleRight} className={classes.arrow} />
-                                        </Grid>
-                                        <Grid item>
-                                            { this.state.globalChallenges.points.display && <TextField name='globalChallenges' type='number' label='Pts' initial={this.state.globalChallenges.points.value} onChange={this.handlePointsChange('globalChallenges').bind(this)} required
-                                                validations='isCollaboratorPointsValid'
-                                                validationErrors={{
-                                                    isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                                    isCollaboratorPointsValid: 'Le somme des points est supérieur au maximum de points'
-                                                }}
-                                            /> }
-                                        </Grid>
-                                    </Grid>
-                                </Card>
-                            </Grid>
-                        </Grid>
+
+
                         <Grid item xs={12}>
                             <ProgressButton type='submit' text='Valider' centered loading={loading} />
                         </Grid>
@@ -410,12 +346,10 @@ class PlayerPointConfig extends Component {
     }
 
     render() {
-        const { types, loading: challengeTypeListLoading } = this.props.challengeTypeList;
-        const { success: challengeTypeListUpdateSuccess } = this.props.challengeTypeListUpdate;
         const { configs, loading: configListLoading } = this.props.configList;
         const { success: configListUpdateSuccess } = this.props.configListUpdate;
-        const loading = challengeTypeListLoading || configListLoading;
-        const success = challengeTypeListUpdateSuccess && configListUpdateSuccess;
+        const loading =  configListLoading;
+        const success = configListUpdateSuccess;
 
         if (success) {
             this.props.challengeTypeListUpdateActions.clearChallengeTypeListUpdate();
@@ -425,7 +359,7 @@ class PlayerPointConfig extends Component {
         return (
             <div>
                 { loading && this.renderLoader() }
-                { !loading && types && configs && this.renderData() }
+                { !loading && configs && this.renderData() }
             </div>
         )
     }
