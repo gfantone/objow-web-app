@@ -35,6 +35,7 @@ const ChallengeFormStepper = ({
     setParticipants,
     setAwardType,
     handleAddGoal,
+    setNewKpiOpen,
     ...props
   }) => {
     const id = challenge.id || null
@@ -85,7 +86,7 @@ const ChallengeFormStepper = ({
     }
     const maxAwardType = awardTypes[0].id
     const finalInitialType = awardType ? awardType : maxAwardType
-    const isMaxAward = parseInt(awardType) === maxAwardType  
+    const isMaxAward = parseInt(awardType) === maxAwardType
     let fields
     let title
     switch(currentStep.order){
@@ -135,7 +136,7 @@ const ChallengeFormStepper = ({
                     <Select
                         disabled={isUpdate}
                         fullWidth
-                        initial={type || _.get(types, '[0].id')}
+                        initial={type}
                         label={Resources.CHALLENGE_CREATION_INFO_TYPE_LABEL}
                         name='type'
                         options={types}
@@ -144,21 +145,22 @@ const ChallengeFormStepper = ({
                         required
                         validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                         onChange={handleTypeChange}
-                        emptyDisabled
                     />
                   </Grid>
                 </Grid>
             </Grid>
-            <Grid item>
-              <Card>
-                <TransferList
-                  listIn={ teams }
-                  enableCollaboratorSelect={ _.get(typeObject, 'code') === 'CC' }
-                  onChange={ setParticipants }
-                  selected={participants}
-                />
-              </Card>
-            </Grid>
+            { type && (
+              <Grid item>
+                <Card>
+                  <TransferList
+                    listIn={ teams }
+                    enableCollaboratorSelect={ _.get(typeObject, 'code') === 'CC' }
+                    onChange={ setParticipants }
+                    selected={participants}
+                    />
+                </Card>
+              </Grid>
+            )}
           </Grid>
         </Grid>
         break;
@@ -179,6 +181,7 @@ const ChallengeFormStepper = ({
             onStartChange={handleStartChange}
             handleAddGoal={handleAddGoal}
             end={end}
+            setNewKpiOpen={setNewKpiOpen}
           />
         </Grid>
         break;

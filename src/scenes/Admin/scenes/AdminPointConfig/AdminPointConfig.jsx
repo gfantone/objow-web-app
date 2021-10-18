@@ -25,7 +25,6 @@ class AdminPointConfig extends MainLayoutComponent {
     }
 
     render() {
-      console.log('qdssqdqsd');
         const periodId = this.props.match.params.periodId;
         return (
             <div>

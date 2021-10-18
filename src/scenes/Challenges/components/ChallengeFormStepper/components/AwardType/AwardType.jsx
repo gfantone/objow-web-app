@@ -10,6 +10,10 @@ const useStyles = makeStyles({
       cursor: 'pointer',
       width: 300,
       borderRadius: 34,
+      transition: 'transform .5s',
+      '&:hover': {
+          transform: 'scale(1.05)'
+      },
       '& .MuiPaper-root': {
         height: '100%',
         borderRadius: 30,
@@ -48,7 +52,7 @@ const AwardType = ({types, currentType, setType, ...props}) => {
                           </BigText>
                         </Grid>
                         <Grid item style={{textAlign: 'center'}}>
-                          <DefaultText>
+                          <DefaultText lowercase>
                             {Resources[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${type.code}`]}
                           </DefaultText>
                         </Grid>
