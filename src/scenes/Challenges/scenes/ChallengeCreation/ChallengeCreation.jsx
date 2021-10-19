@@ -39,7 +39,7 @@ class ChallengeCreation extends MainLayoutComponent {
         { order: 4, name: 'indicateurs et mécanismes'},
         { order: 5, name: 'Récompenses'},
         // { order: 6, name: 'Options'},
-        { order: 7, name: 'Validation'},
+        { order: 6, name: 'Validation'},
       ],
       finalModel: {},
       participants: []

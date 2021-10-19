@@ -210,26 +210,26 @@ const ChallengeFormStepper = ({
             />
         </Grid>
         break;
+      // case 6:
+      //   title = 'Sélection des options'
+      //   fields = <Grid item xs={12}>
+      //     {isMaxAward && <Card>
+      //         <Grid container alignItems='center'>
+      //             <Grid item>
+      //                 <Switch name='live' label={Resources.CHALLENGE_AWARD_LIST_LIVE_LABEL} initial={live} />
+      //             </Grid>
+      //             <Grid item>
+      //                 <Tooltip title={Resources.CHALLENGE_AWARD_LIST_LIVE_INFOS}>
+      //                     <BlueText>
+      //                         <FontAwesomeIcon icon={faInfoCircle} />
+      //                     </BlueText>
+      //                 </Tooltip>
+      //             </Grid>
+      //           </Grid>
+      //       </Card>}
+      //   </Grid>
+      //   break;
       case 6:
-        title = 'Sélection des options'
-        fields = <Grid item xs={12}>
-          {isMaxAward && <Card>
-              <Grid container alignItems='center'>
-                  <Grid item>
-                      <Switch name='live' label={Resources.CHALLENGE_AWARD_LIST_LIVE_LABEL} initial={live} />
-                  </Grid>
-                  <Grid item>
-                      <Tooltip title={Resources.CHALLENGE_AWARD_LIST_LIVE_INFOS}>
-                          <BlueText>
-                              <FontAwesomeIcon icon={faInfoCircle} />
-                          </BlueText>
-                      </Tooltip>
-                  </Grid>
-                </Grid>
-            </Card>}
-        </Grid>
-        break;
-      case 7:
         title = ''
         fields = <Grid item xs={12}>
           <Card>
