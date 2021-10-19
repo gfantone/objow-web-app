@@ -17,6 +17,7 @@ import * as challengeTypeUsablePointsActions from '../../../../services/Challeng
 import * as challengeUpdateActions from '../../../../services/Challanges/ChallengeUpdate/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
+import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 
 class ChallengeUpdate extends MainLayoutComponent {
     state = {goalAdding: false}
@@ -49,6 +50,8 @@ class ChallengeUpdate extends MainLayoutComponent {
         this.props.challengeTypeListActions.getUsableChallengeTypeList()
         this.props.currentPeriodDetailActions.getCurrentPeriodDetail()
         this.props.kpiListActions.getKpiList()
+
+        this.props.teamListActions.getTeamList()
     }
 
     renderLoader() {
@@ -128,6 +131,7 @@ class ChallengeUpdate extends MainLayoutComponent {
         const {types} = this.props.challengeTypeList
         const {loading} = this.props.challengeUpdate
         const {kpis} = this.props.kpiList
+        const {teams} = this.props.teamList
 
         return (
             <div>
@@ -145,6 +149,7 @@ class ChallengeUpdate extends MainLayoutComponent {
                         types={types}
                         onGoalAdded={this.handleGoalAdded.bind(this)}
                         addGoal={this.handleAddGoal.bind(this)}
+                        teams={teams}
                     />
                 </Formsy>
             </div>
@@ -160,7 +165,8 @@ class ChallengeUpdate extends MainLayoutComponent {
         const {success} = this.props.challengeUpdate
         const {period, loading: currentPeriodDetailLoading} = this.props.currentPeriodDetail
         const {kpis, loading: kpiListLoading} = this.props.kpiList
-        const loading = categoryListLoading || challengeAwardTypeListLoading || challengeDetailLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading
+        const {teams, loading: teamListLoading} = this.props.teamList
+        const loading = categoryListLoading || challengeAwardTypeListLoading || challengeDetailLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading || teamListLoading
 
         const { account } = this.props.accountDetail;
 
@@ -177,13 +183,13 @@ class ChallengeUpdate extends MainLayoutComponent {
         return (
             <div>
                 {loading && this.renderLoader()}
-                {!loading && awardTypes && categories && challenge && period && images && types && kpis && this.renderData()}
+                {!loading && awardTypes && categories && challenge && period && images && types && kpis && teams && this.renderData()}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeDetail, challengeImageList, challengeTypeList, challengeUpdate, currentPeriodDetail, kpiList, accountDetail}) => ({
+const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeDetail, challengeImageList, challengeTypeList, challengeUpdate, currentPeriodDetail, kpiList, accountDetail, teamList}) => ({
     categoryList,
     accountDetail,
     challengeAwardTypeList,
@@ -192,7 +198,8 @@ const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeDetail,
     challengeTypeList,
     challengeUpdate,
     currentPeriodDetail,
-    kpiList
+    kpiList,
+    teamList
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -204,7 +211,8 @@ const mapDispatchToProps = (dispatch) => ({
     challengeTypeUsablePointsActions: bindActionCreators(challengeTypeUsablePointsActions, dispatch),
     challengeUpdateActions: bindActionCreators(challengeUpdateActions, dispatch),
     currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
-    kpiListActions: bindActionCreators(kpiListActions, dispatch)
+    kpiListActions: bindActionCreators(kpiListActions, dispatch),
+    teamListActions: bindActionCreators(teamListActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChallengeUpdate)

@@ -5,7 +5,7 @@ import {Awards, Goals, Infos, Participants} from './components'
 import {ProgressButton} from '../../../../components'
 import * as Resources from '../../../../Resources'
 
-const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images, isCreation, isDuplication, isUpdate, kpis, period, team, types, goalAdding, onGoalAdded, addGoal, ...props}) => {
+const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images, isCreation, isDuplication, isUpdate, kpis, period, team, types, goalAdding, onGoalAdded, addGoal, teams, ...props}) => {
     const id = challenge ? challenge.id : null
     const name = challenge ? challenge.name : null
     const description = challenge ? challenge.description : null
@@ -99,6 +99,7 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
                 <Grid item xs={12}>
                     <Participants
                       participants={participants}
+                      teams={teams}
                     />
                 </Grid>
 
