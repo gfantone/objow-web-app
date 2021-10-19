@@ -70,11 +70,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                 <Grid item xs={12}>
                     <Card>
                         <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                {loading && <DefaultText>{Resources.CHALLENGE_AWARD_LIST_POINTS_CALCULATION_MESSAGE}</DefaultText>}
-                                {!loading && <DefaultText>{Resources.CHALLENGE_AWARD_LIST_USABLE_POINTS.format(usablePoints)}</DefaultText>}
-                                <HiddenInput name='usablePoints' value={usablePoints} />
-                            </Grid>
+                            
                             <Grid item xs={3}>
                                 <Select
                                     disabled={isUpdate}

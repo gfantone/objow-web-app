@@ -40,7 +40,6 @@ class ChallengeUpdate extends MainLayoutComponent {
 
         this.props.handleTitle(account.challengeWording || Resources.CHALLENGE_LONG_TITLE)
         this.props.handleSubHeader(<AppBarSubTitle title={Resources.CHALLENGE_UPDATE_TITLE} />)
-        this.props.handleButtons(<MenuIconButton size={'small'} onClick={this.handleAddGoal.bind(this)}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>)
         this.props.handleMaxWidth('md')
         this.props.activateReturn()
         this.props.categoryListActions.getActiveCategoryList()
@@ -145,6 +144,7 @@ class ChallengeUpdate extends MainLayoutComponent {
                         period={period}
                         types={types}
                         onGoalAdded={this.handleGoalAdded.bind(this)}
+                        addGoal={this.handleAddGoal.bind(this)}
                     />
                 </Formsy>
             </div>
