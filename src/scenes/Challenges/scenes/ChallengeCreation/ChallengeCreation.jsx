@@ -38,7 +38,7 @@ class ChallengeCreation extends MainLayoutComponent {
         { order: 3, name: 'Participants'},
         { order: 4, name: 'indicateurs et mécanismes'},
         { order: 5, name: 'Récompenses'},
-        { order: 6, name: 'Options'},
+        // { order: 6, name: 'Options'},
         { order: 7, name: 'Validation'},
       ],
       finalModel: {},
@@ -63,7 +63,7 @@ class ChallengeCreation extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
         this.props.handleTitle(account.challengeWording || Resources.CHALLENGE_LONG_TITLE)
         this.props.handleSubHeader(<AppBarSubTitle title={Resources.CHALLENGE_CREATION_TITLE} />)
-        this.props.handleButtons(<MenuIconButton size={'small'} onClick={this.handleAddGoal.bind(this)}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>)
+        // this.props.handleButtons(<MenuIconButton size={'small'} onClick={this.handleAddGoal.bind(this)}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>)
         this.props.handleMaxWidth('md')
         this.props.activateReturn()
         this.props.categoryListActions.getActiveCategoryList()

@@ -31,8 +31,8 @@ const useStyles = makeStyles({
 const AwardType = ({types, currentType, setType, ...props}) => {
     const classes = useStyles()
     const icons = {
-      'R': require(`../../../../../../assets/img/system/goalPoints/global.svg`),
-      'M': require(`../../../../../../assets/img/system/goalPoints/team.svg`)
+      'R': require(`../../../../../../assets/img/system/challenge/icons/Ribbons.png`),
+      'M': require(`../../../../../../assets/img/system/challenge/icons/Rocket.png`)
     }
     const {account} = props.accountDetail
 
