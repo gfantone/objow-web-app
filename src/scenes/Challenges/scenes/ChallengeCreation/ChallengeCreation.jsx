@@ -317,6 +317,7 @@ class ChallengeCreation extends MainLayoutComponent {
                         teams={teams.filter(t => _.get(account, 'role.code') !== 'M' || _.get(account, 'team.id') === t.id )}
                         types={types}
                         onGoalAdded={this.handleGoalAdded.bind(this)}
+
                         currentStep={this.getCurrentStep()}
                         isLastStep={this.isLastStep()}
                         setStart={this.setStart}

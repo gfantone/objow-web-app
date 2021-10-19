@@ -107,7 +107,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                               <TableChip label={'>'} />
                           </Grid>
                           <Grid item>
-                              <TextField name={`target[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_TARGET_LABEL} fullWidth required initial={goal ? goal.target : null} />
+                              <TextField name={`target[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_TARGET_LABEL2} fullWidth required initial={goal ? goal.target : null} />
                           </Grid>
                           <Grid item>
                               <DefaultText>
@@ -115,7 +115,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                               </DefaultText>
                           </Grid>
                           <Grid item>
-                              <TextField name={`points[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_POINTS_LABEL} fullWidth required initial={goal ? goal.points : null} />
+                              <TextField name={`points[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_POINTS_LABEL2} fullWidth required initial={goal ? goal.points : null} />
                           </Grid>
                       </Grid>
 
