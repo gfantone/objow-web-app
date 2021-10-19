@@ -2,14 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { Redirect } from 'react-router-dom'
-import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent} from "../../../../components"
+import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Stepper} from "../../../../components"
 import * as challengeCreationActions from '../../../../services/Challanges/ChallangeCreaton/actions'
 import * as challengeTypeUsablePointsActions from '../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
 import * as Resources from "../../../../Resources"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faPlus} from "@fortawesome/free-solid-svg-icons"
 import Formsy from "formsy-react"
-import {ChallengeForm} from "../../components/ChallengeForm"
+import {ChallengeFormStepper} from "../../components/ChallengeFormStepper"
 import * as categoryListActions from "../../../../services/Categories/CategoryList/actions"
 import * as challengeAwardTypeListActions from "../../../../services/ChallengeAwardTypes/ChallengeAwardTypeList/actions"
 import * as challengeDetailActions from "../../../../services/Challanges/ChallengeDetail/actions"
@@ -20,7 +20,21 @@ import * as kpiListActions from "../../../../services/Kpis/KpiList/actions"
 import _ from 'lodash'
 
 class ChallengeDuplication extends MainLayoutComponent {
-    state = {goalAdding: false}
+    state = {
+      goalAdding: false,
+      steps: [
+        { order: 1, name: 'Type', active: true},
+        { order: 2, name: 'Informations'},
+        { order: 3, name: 'Participants'},
+        { order: 4, name: 'indicateurs et mécanismes'},
+        { order: 5, name: 'Récompenses'},
+        { order: 6, name: 'Options'},
+        { order: 7, name: 'Validation'},
+      ],
+      initialized: false,
+      finalModel: {},
+      participants: []
+    }
 
     constructor(props) {
         super(props)
@@ -67,42 +81,182 @@ class ChallengeDuplication extends MainLayoutComponent {
         })
     }
 
+    getCurrentStep = () => {
+      return this.state.steps.find(step => step.active === true)
+    }
+
+    setActiveStep = (newActiveStep) => {
+      this.setState({
+        ...this.state,
+        steps: this.state.steps.map(step => step.order === newActiveStep.order ? Object.assign(step, {active: true}) : Object.assign(step, {active: false}))
+      })
+    }
+
+    changeStep(model) {
+      const currentStep = this.getCurrentStep()
+      // Reset participants if we change goal type (team or individual)
+      const apply = () => {
+        let goals = []
+        if(model.kpi) {
+          for (var i = 0; i < model.kpi.length; i++) {
+            goals.push({ number: model.number[i], name: model.goalName[i], kpi: model.kpi[i], target: model.target[i], points: model.points[i] })
+          }
+        }
+        let awards = []
+        if(model.award) {
+          for (var i = 0; i < model.award.length; i++) {
+            const rank = i + 1
+            awards.push({ rank: rank, points: model.award[i] })
+          }
+        }
+        this.setState({
+          ...this.state,
+          steps: this.state.steps.map(step => {
+            if(step.order === currentStep.order) {
+              return Object.assign(step, {active: false, completed: true})
+            }
+            if(step.order === currentStep.order + 1) {
+              return Object.assign(step, {active: true})
+            }
+            return step
+          }),
+          finalModel: Object.assign(this.state.finalModel, model, {
+            participants: this.state.participants,
+            goals: model.kpi ? goals : this.state.finalModel.goals,
+            awards: model.award ? awards : this.state.finalModel.awards
+          })
+        })
+      }
+      const checkValidation = (
+        (currentStep.order !== 3 || _.get(this.state.participants, 'length', 0) > 0) &&
+        (currentStep.order !== 1 || this.state.finalModel.awardType)
+      )
+      if(checkValidation) {
+        // if(model.type && this.state.finalModel.type !== model.type) {
+        //   this.setParticipants([], apply)
+        // } else {
+          apply()
+        // }
+      }
+    }
+
+    setParticipants = (participants, callback) => {
+      this.setState({
+          ...this.state,
+          participants: participants,
+          finalModel: Object.assign({}, this.state.finalModel, {participants})
+      }, callback)
+    }
+
+    setAwardType = (awardType) => {
+      this.setState({
+        ...this.state,
+        finalModel: Object.assign(this.state.finalModel, {awardType})
+      })
+    }
+
+    setStart = (start) => {
+      this.setState({
+        ...this.state,
+        finalModel: Object.assign(this.state.finalModel, {start})
+      })
+    }
+
+    setEnd = (end) => {
+      this.setState({
+        ...this.state,
+        finalModel: Object.assign(this.state.finalModel, {end})
+      })
+    }
+    setType = (type) => {
+      this.setState({
+        ...this.state,
+        finalModel: Object.assign(this.state.finalModel, {type})
+      })
+    }
+
+    handleNextStep = () => {
+      this.form.current.submit()
+    }
+    handlePreviousStep = () => {
+
+      const currentStep = this.getCurrentStep()
+      const previousStep = this.state.steps.find(step => step.order === currentStep.order - 1);
+      if(previousStep) {
+        this.setState({
+          ...this.state,
+          steps: this.state.steps.map(step => {
+            if(step.order === currentStep.order) {
+              return Object.assign(step, {active: false, completed: false})
+            }
+            if(step.order === currentStep.order - 1) {
+              return Object.assign(step, {active: true, completed: false})
+            }
+            return step
+          })
+        })
+      }
+    }
+
+    isLastStep = () => {
+      const currentStep = this.getCurrentStep()
+      return currentStep.order >= this.state.steps.length
+    }
+
+    setNewKpiOpen = (value) => {
+      this.setState({
+        ...this.state,
+        newKpiOpen: value
+      })
+    }
+
+    handleSubmitKpi = (model) => {
+      this.props.kpiCreationActions.createKpi(model)
+      this.setNewKpiOpen(false)
+    }
+
     async handleValidSubmit(model) {
-      const { types } = this.props.challengeTypeList
-      const {challenge: base_challenge} = this.props.challengeDetail
-      model.start.setHours(0, 0, 0, 0)
-      model.end.setHours(23, 59, 59, 0)
-      const start = model.start.toUTCJSON();
-      const end = model.end.toUTCJSON();
+      const currentStep = this.getCurrentStep()
+      const nextStep = this.state.steps.find(step => step.order === currentStep.order + 1)
 
-      const challengeFormData = new FormData()
-      challengeFormData.append('name', model.name)
-      challengeFormData.append('description', JSON.stringify(model.description))
-      challengeFormData.append('start', start)
-      challengeFormData.append('end', end)
-      challengeFormData.append('type', model.type)
-      challengeFormData.append('award_type', model.awardType)
-      challengeFormData.append('live', model.live ? model.live : false)
-      challengeFormData.append('base_challenge', base_challenge.id)
-
-      if(Number.isInteger(model.image)) {
-        challengeFormData.append('image', model.image)
+      if(nextStep) {
+        this.changeStep(model)
       } else {
-        // Make blob file from url for dupplication
+        const { types } = this.props.challengeTypeList
+        const {challenge: base_challenge} = this.props.challengeDetail
+        model.start.setHours(0, 0, 0, 0)
+        model.end.setHours(23, 59, 59, 0)
+        const start = model.start.toUTCJSON();
+        const end = model.end.toUTCJSON();
 
-        // const splitFile = model.image.split('/')
-        // const fileName = splitFile[splitFile.length - 1]
-        // let file = await fetch(_.replace(model.image, 'https://', 'http://')).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
-        // challengeFormData.append('customImage', model.image)
-      }
+        const challengeFormData = new FormData()
+        challengeFormData.append('name', model.name)
+        challengeFormData.append('description', JSON.stringify(model.description))
+        challengeFormData.append('start', start)
+        challengeFormData.append('end', end)
+        challengeFormData.append('type', model.type)
+        challengeFormData.append('award_type', model.awardType)
+        challengeFormData.append('live', model.live ? model.live : false)
+        challengeFormData.append('base_challenge', base_challenge.id)
 
-      // Set custom image if exists
-      const image = model.image.id ? {
-        image: model.image
-      } : {
-        customImage: model.image
-      }
-      const challenge = Object.assign({
+        if(Number.isInteger(model.image)) {
+          challengeFormData.append('image', model.image)
+        } else {
+          // Make blob file from url for dupplication
+
+          // const splitFile = model.image.split('/')
+          // const fileName = splitFile[splitFile.length - 1]
+          // let file = await fetch(_.replace(model.image, 'https://', 'http://')).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
+          // challengeFormData.append('customImage', model.image)
+        }
+
+        // Set custom image if exists
+        const image = model.image.id ? {
+          image: model.image
+        } : {
+          customImage: model.image
+        }
+        const challenge = Object.assign({
           name: model.name,
           description: JSON.stringify(model.description),
           start: start,
@@ -111,21 +265,30 @@ class ChallengeDuplication extends MainLayoutComponent {
           award_type: model.awardType,
           live: model.live ? model.live : false,
           base_challenge: base_challenge.id
-      }, image)
+        }, image)
 
-      var goals = []
-      for (var i = 0; i < model.kpi.length; i++) {
+        var goals = []
+        for (var i = 0; i < model.kpi.length; i++) {
           goals.push({ number: model.number[i], name: model.goalName[i], kpi: model.kpi[i], target: model.target[i], points: model.points[i] })
-      }
-      var awards = []
-      for (var i = 0; i < model.award.length; i++) {
+        }
+        var awards = []
+        for (var i = 0; i < model.award.length; i++) {
           const rank = i + 1
           awards.push({ rank: rank, points: model.award[i] })
+        }
+
+        const teamId = types.find(x => x.id == model.type && x.code === 'CM') != null && this.teamId ? this.teamId : null
+
+        this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, awards, goals, teamId)
       }
+    }
 
-      const teamId = types.find(x => x.id == model.type && x.code === 'CM') != null && this.teamId ? this.teamId : null
-
-      this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, awards, goals, teamId)
+    challengeToModel = (challenge) => {
+      return {
+        name: challenge.name,
+        description: JSON.parse(challenge.description),
+        type: _.get(challenge, 'type.id')
+      }
     }
 
     renderData() {
@@ -138,10 +301,19 @@ class ChallengeDuplication extends MainLayoutComponent {
         const {loading} = this.props.challengeCreation
         const {kpis} = this.props.kpiList
 
+        if(!this.state.initialized) {
+          this.setState({
+            ...this.state,
+            initialized: true,
+            finalModel: this.challengeToModel(challenge)
+          })
+        }
+
         return (
             <div>
+                <Stepper steps={this.state.steps} />
                 <Formsy ref='form' onValidSubmit={this.handleValidSubmit.bind(this)}>
-                    <ChallengeForm
+                    <ChallengeFormStepper
                         actionLoading={loading}
                         awardTypes={awardTypes}
                         categories={categories}
@@ -154,6 +326,20 @@ class ChallengeDuplication extends MainLayoutComponent {
                         team={this.teamId}
                         types={types}
                         onGoalAdded={this.handleGoalAdded.bind(this)}
+
+                        currentStep={this.getCurrentStep()}
+                        isLastStep={this.isLastStep()}
+                        setStart={this.setStart}
+                        setEnd={this.setEnd}
+                        setType={this.setType}
+                        setCustomImage={this.setCustomImage}
+                        setParticipants={this.setParticipants}
+                        setAwardType={this.setAwardType}
+                        handlePreviousStep={this.handlePreviousStep}
+                        handleNextStep={_.get(this.form, 'current.submit')}
+                        handleAddGoal={this.handleAddGoal}
+                        challenge={this.state.finalModel}
+                        setNewKpiOpen={this.setNewKpiOpen}
                     />
                 </Formsy>
             </div>

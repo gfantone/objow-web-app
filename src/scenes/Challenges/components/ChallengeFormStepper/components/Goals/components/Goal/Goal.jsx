@@ -1,12 +1,15 @@
 import React from 'react'
 import {Grid, IconButton} from '@material-ui/core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faInfoCircle, faTrashAlt, faEquals} from '@fortawesome/free-solid-svg-icons'
-import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, InfoText, Select, TextField, Tooltip, TableChip} from '../../../../../../../../components'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import {faInfoCircle, faTrashAlt, faEquals, faPlus} from '@fortawesome/free-solid-svg-icons'
+import Formsy from 'formsy-react'
+import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, InfoText, TextField, Tooltip, TableChip, Button, Select} from '../../../../../../../../components'
 import * as Resources from '../../../../../../../../Resources'
 import _ from 'lodash'
 
-const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemoveClick, ...props}) => {
+const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemoveClick, classes, setNewKpiOpen, ...props}) => {
     const [category, setCategory] = React.useState(goal ? goal.category : null)
     const displayKpis = category ? kpis.filter(x => x.category && x.category.id == category) : kpis
     const [kpi, setKpi] = React.useState(goal ? goal.kpi : null)
@@ -26,14 +29,26 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
         setKpi(Number(newKpi))
     }
 
+
     return (
         <Grid key={goal.key} item xs={6}>
             <Card>
                 <Grid container spacing={2}>
                     <Grid item xs={12} container>
                         <Grid item xs>
-                            <DefaultTitle>{Resources.CHALLENGE_UPDATE_GOAL_TITLE.format(number)}</DefaultTitle>
-                            <HiddenInput name={`number[${index}]`} value={number} />
+                          <Grid container spacing={1} alignItems='center' justify="space-between">
+                            <Grid item>
+                              <DefaultTitle>{Resources.CHALLENGE_UPDATE_GOAL_TITLE.format(number)}</DefaultTitle>
+                              <HiddenInput name={`number[${index}]`} value={number} />
+                            </Grid>
+                            <Grid item>
+                              <Button onClick={ () => setNewKpiOpen(true) } text="nouveau">
+                                <FontAwesomeIcon icon={faPlus} />
+                                &nbsp;nouveau kpi
+                              </Button>
+                            </Grid>
+
+                          </Grid>
                         </Grid>
                         {!deletionDisabled && <Grid item>
                             <IconButton size='small' onClick={onRemoveClick}>
@@ -87,12 +102,12 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                       </Grid>
                     </Grid>
                     <Grid item xs>
-                      <Grid container spacing={1}>
+                      <Grid container spacing={1} alignItems='center'>
                           <Grid item>
                               <TableChip label={'>'} />
                           </Grid>
                           <Grid item>
-                              <TextField name={`target[${index}]`} label={Resources.CHALLENGE_UPDATE_GOAL_TARGET_LABEL} fullWidth required initial={goal ? goal.target : null} />
+                              <TextField name={`target[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_TARGET_LABEL2} fullWidth required initial={goal ? goal.target : null} />
                           </Grid>
                           <Grid item>
                               <DefaultText>
@@ -100,7 +115,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                               </DefaultText>
                           </Grid>
                           <Grid item>
-                              <TextField name={`points[${index}]`} label={Resources.CHALLENGE_UPDATE_GOAL_POINTS_LABEL} fullWidth required initial={goal ? goal.points : null} />
+                              <TextField name={`points[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_POINTS_LABEL2} fullWidth required initial={goal ? goal.points : null} />
                           </Grid>
                       </Grid>
 

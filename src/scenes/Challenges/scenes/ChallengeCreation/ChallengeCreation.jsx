@@ -1,12 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import {Grid} from '@material-ui/core'
 import Formsy from "formsy-react"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom'
+import {withStyles} from "@material-ui/core/styles";
 import {ChallengeFormStepper} from '../../components'
-import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Stepper} from '../../../../components'
+import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Stepper, Dialog, DialogTitle, Select, DialogActions, ProgressButton, TextField, Button} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as categoryListActions from "../../../../services/Categories/CategoryList/actions"
 import * as challengeAwardTypeListActions from "../../../../services/ChallengeAwardTypes/ChallengeAwardTypeList/actions"
@@ -18,7 +20,14 @@ import * as challengeTypeUsablePointsActions from '../../../../services/Challeng
 import * as currentPeriodDetailActions from "../../../../services/Periods/CurrentPeriodDetail/actions"
 import * as kpiListActions from "../../../../services/Kpis/KpiList/actions"
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
+import * as kpiCreationActions from '../../../../services/Kpis/KpiCreation/actions'
 import _ from 'lodash'
+
+const styles = {
+  kpiDialog: {
+    width: 900
+  }
+}
 
 class ChallengeCreation extends MainLayoutComponent {
     state = {
@@ -262,6 +271,19 @@ class ChallengeCreation extends MainLayoutComponent {
       return currentStep.order >= this.state.steps.length
     }
 
+    setNewKpiOpen = (value) => {
+      this.setState({
+        ...this.state,
+        newKpiOpen: value
+      })
+    }
+
+    handleSubmitKpi = (model) => {
+      this.props.kpiCreationActions.createKpi(model)
+      this.setNewKpiOpen(false)
+    }
+
+
     renderData() {
         const {categories} = this.props.categoryList
         const {types: awardTypes} = this.props.challengeAwardTypeList
@@ -273,7 +295,11 @@ class ChallengeCreation extends MainLayoutComponent {
         const team = this.props.match.params.id
         const { teams } = this.props.teamList;
         const { account } = this.props.accountDetail;
-
+        const criticities = [
+          {order: 1, name: 'Basse'},
+          {order: 2, name: 'Moyenne'},
+          {order: 3, name: 'Haute'}
+        ]
         return (
             <div>
                 <Stepper steps={this.state.steps} />
@@ -291,6 +317,7 @@ class ChallengeCreation extends MainLayoutComponent {
                         teams={teams.filter(t => _.get(account, 'role.code') !== 'M' || _.get(account, 'team.id') === t.id )}
                         types={types}
                         onGoalAdded={this.handleGoalAdded.bind(this)}
+
                         currentStep={this.getCurrentStep()}
                         isLastStep={this.isLastStep()}
                         setStart={this.setStart}
@@ -303,8 +330,41 @@ class ChallengeCreation extends MainLayoutComponent {
                         handleNextStep={_.get(this.form, 'current.submit')}
                         handleAddGoal={this.handleAddGoal}
                         challenge={this.state.finalModel}
+                        setNewKpiOpen={this.setNewKpiOpen}
                     />
                 </Formsy>
+
+                <Dialog
+                    open={this.state.newKpiOpen}
+                    onClose={() => this.setNewKpiOpen(false)}
+                    classes={{ paper: this.props.classes.kpiDialog }}
+                >
+                    <DialogTitle>Demande de création de KPI</DialogTitle>
+                    <Formsy onValidSubmit={this.handleSubmitKpi} >
+                      <Grid container direction="column" spacing={2} >
+                        <Grid item>
+                          <Grid container direction="row" spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='criticity' label={Resources.ADMIN_GOAL_CREATION_CRITICITY_LABEL} options={criticities} optionValueName='order' optionTextName='name' fullWidth required />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth />
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <TextField name='name' label={Resources.ADMIN_GOAL_CREATION_KPI_NAME_LABEL} fullWidth required />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <TextField name='description' label={Resources.ADMIN_GOAL_CREATION_DESCRIPTION_LABEL} fullWidth required multiline rows={4} variant="outlined"/>
+                        </Grid>
+                      </Grid>
+                      <DialogActions>
+                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                          <Button onClick={() => this.setNewKpiOpen(false)} color="secondary">Annuler</Button>
+                      </DialogActions>
+                    </Formsy>
+                </Dialog>
             </div>
         )
     }
@@ -363,7 +423,8 @@ const mapDispatchToProps = (dispatch) => ({
     challengeTypeUsablePointsActions: bindActionCreators(challengeTypeUsablePointsActions, dispatch),
     currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
     kpiListActions: bindActionCreators(kpiListActions, dispatch),
-    teamListActions: bindActionCreators(teamListActions, dispatch)
+    teamListActions: bindActionCreators(teamListActions, dispatch),
+    kpiCreationActions: bindActionCreators(kpiCreationActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChallengeCreation)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ChallengeCreation))

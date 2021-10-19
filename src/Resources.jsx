@@ -288,6 +288,8 @@ export const CHALLENGE_CREATION_GOAL_POINTS_LABEL = "Pts"
 export const CHALLENGE_CREATION_SUBMIT_BUTTON = "Valider"
 export const CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_M = "Récompense pour tous les participants remplissant les conditions définies"
 export const CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_R = "Récompense pour les X premiers à la fin du challenge"
+export const CHALLENGE_CREATION_GOAL_TARGET_LABEL2 = "Condition"
+export const CHALLENGE_CREATION_GOAL_POINTS_LABEL2 = "Score"
 
 // Challenge - Duplication
 export const CHALLENGE_DUPLICATION_TITLE = "Duplication d'un challenge"

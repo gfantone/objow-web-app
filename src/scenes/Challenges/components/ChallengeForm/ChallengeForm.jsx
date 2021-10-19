@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Grid} from '@material-ui/core'
-import {Awards, Goals, Infos} from './components'
+import {Awards, Goals, Infos, Participants} from './components'
 import {ProgressButton} from '../../../../components'
 import * as Resources from '../../../../Resources'
 
@@ -21,6 +21,8 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
     const awards = challenge ? challenge.awards : []
     const goals = challenge ? challenge.goals : null
     const live = challenge ? challenge.live : null
+    const participants = challenge ? challenge.participants : null
+
     var finalTypes = types
     const {account} = props.accountDetail
 
@@ -93,6 +95,12 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
                            onGoalAdded={onGoalAdded}
                     />
                 </Grid>
+                <Grid item xs={12}>
+                    <Participants
+                      participants={participants}
+                    />
+                </Grid>
+
                 <Grid item xs={12}>
                     <ProgressButton
                         centered

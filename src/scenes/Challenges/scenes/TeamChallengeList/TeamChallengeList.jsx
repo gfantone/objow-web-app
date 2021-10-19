@@ -173,12 +173,14 @@ class TeamChallengeList extends MainLayoutComponent {
         const { challenges: collaboratorChallenges } = this.props.teamCollaboratorChallengeList;
         const challenges = this.mergeChallenges(collaboratorChallenges, teamChallenges);
         const { configs } = this.props.configList;
+        const { account } = this.props.accountDetail;
 
         return (
-
-
             <Grid container spacing={2}>
-              { challenges.map(challenge=> {
+              { challenges.filter(challenge => {
+                const includesManagerTeam = account.team && challenge.participantTeamIds.indexOf(account.team.id) >= 0
+                return includesManagerTeam || account.role.code === 'A'
+              }).map(challenge=> {
                 const detailurl = challenge.typeCode != 'CT' ? `/challenges/detail/team-collaborator/${challenge.id}` : `/challenges/detail/team/${challenge.id}`;
 
                 return (
