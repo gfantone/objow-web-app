@@ -81,12 +81,15 @@ class TeamChallengeDetail extends MainLayoutComponent {
             const { account } = this.props.accountDetail;
             const { classes } = this.props;
             this.initialized = true;
-            if (account.role.code == 'A') {
+
+            const includesManagerTeam = account.team && challenge.participantTeamIds.length === 1 && challenge.participantTeamIds.indexOf(account.team.id) >= 0
+            const canEdit = account.hasManagerChallengeEditAccess && includesManagerTeam || account.role.code === 'A'
+            if (canEdit) {
                 this.props.handleButtons(<div>
                     <Tooltip title={Resources.TEAM_CHALLENGE_DETAIL_DUPLICATE_BUTTON}>
                         <IconButton size={'small'} onClick={this.handleDuplicate.bind(this)}><FontAwesomeIcon icon={faCopy}/></IconButton>
                     </Tooltip>
-                    
+
                     {challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DELETE_BUTTON}>
                       <IconButton size={'small'} onClick={() => this.setDeletePromptOpen(true)} className={classes.iconMargin}><FontAwesomeIcon icon={faTrash}/></IconButton>
                     </Tooltip>}

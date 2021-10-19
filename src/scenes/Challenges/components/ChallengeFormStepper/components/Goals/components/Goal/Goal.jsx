@@ -36,7 +36,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                 <Grid container spacing={2}>
                     <Grid item xs={12} container>
                         <Grid item xs>
-                          <Grid container spacing={1}>
+                          <Grid container spacing={1} alignItems='center' justify="space-between">
                             <Grid item>
                               <DefaultTitle>{Resources.CHALLENGE_UPDATE_GOAL_TITLE.format(number)}</DefaultTitle>
                               <HiddenInput name={`number[${index}]`} value={number} />
