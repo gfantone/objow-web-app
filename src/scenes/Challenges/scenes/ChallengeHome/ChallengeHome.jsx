@@ -29,7 +29,7 @@ class ChallengeHome extends MainLayoutComponent {
           ...this.state,
           team: id
         })
-        // this.props.history.push(`/challenges/team/${id}`)
+        this.props.history.push(`/challenges/team/${id}`)
     }
 
     selectFilter = (filter) => {
