@@ -18,7 +18,7 @@ const Infos = ({description, end, customImage, image, images, isUpdate, name, pe
     const {account} = props.accountDetail
     const hasManager = account.role.code === 'M'
 
-    const [selectedImageId, setSelectedImageId] = React.useState(image ? image.id : null)
+    const [selectedImageId, setSelectedImageId] = React.useState(image ? image : null)
     const selectedImage = customImage ? {path: customImage} : images.find(x => x.id === image)
 
     const [selectedImagePath, setSelectedImagePath] = React.useState(selectedImage ? selectedImage.path : null)

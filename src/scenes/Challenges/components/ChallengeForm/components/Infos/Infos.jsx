@@ -21,7 +21,7 @@ const Infos = ({description, end, customImage, image, images, isUpdate, name, pe
     const startMinDate = new Date(today.getFullYear(), today.getMonth(), 1)
     const startMaxDate = end ? end : period.end.toDate2()
     const endMinDate = start ? start : today
-    const [selectedImageId, setSelectedImageId] = React.useState(image ? image.id : null)
+    const [selectedImageId, setSelectedImageId] = React.useState(image ? image : null)
     const selectedImage = customImage ? {path: customImage} : images.find(x => x.id === selectedImageId)
 
     const [selectedImagePath, setSelectedImagePath] = React.useState(selectedImage ? selectedImage.path : null)

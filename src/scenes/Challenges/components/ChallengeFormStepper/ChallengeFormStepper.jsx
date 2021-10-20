@@ -44,7 +44,7 @@ const ChallengeFormStepper = ({
     const start = challenge.start || null
     const end =  challenge.end || null
     const type =  challenge.type || null
-
+    console.log(start, end);
     const image = challenge.image || null
     const customImage = challenge.customImage || null
     const awardType = challenge.awardType ? challenge.awardType : null
@@ -52,7 +52,6 @@ const ChallengeFormStepper = ({
     const goals = challenge.goals || null
     const live = challenge.live || null
     const participants = challenge.participants || []
-
 
     const typeObject = types.find(x => x.id === parseInt(type))
     const typeId = typeObject ? typeObject.id : null

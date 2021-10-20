@@ -92,15 +92,15 @@ const styles = {
 const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ...props }) => {
     const { classes } = props
     const [selectedList, setSelectedList] = useState(selected || [])
-
     const defaultChoices = () => {
       const result = _.compact(listIn.map(team => {
-          const collaborators = _.difference(team.collaborators, selectedList)
+          const collaborators = team.collaborators.filter(c => selectedList.filter(c2 => c.id === c2.id) <= 0)
+
           if(collaborators.length > 0) {
             return Object.assign(
               {},
               team,
-              { collaborators: _.difference(team.collaborators, selectedList) }
+              { collaborators: collaborators }
             )
           }
         }
@@ -118,13 +118,13 @@ const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ..
     }
 
     const removeItem = (item) => {
-      if(_.indexOf(selectedList, item) >= 0) {
-        setSelectedList(selectedList.filter(selectedItem => selectedItem !== item))
+      if(_.indexOf(selectedList.map(i => i.id), item.id) >= 0) {
+        setSelectedList(selectedList.filter(selectedItem => selectedItem.id !== item.id))
       }
     }
 
     const removeList = (items) => {
-      setSelectedList(selectedList.filter(selectedItem => items.indexOf(selectedItem) < 0))
+      setSelectedList(selectedList.filter(selectedItem => items.map(item => item).indexOf(selectedItem.id) < 0))
     }
 
     const addList = (items) => {
@@ -137,7 +137,8 @@ const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ..
 
     const getListByTeam = (collaborators) => {
       return _.compact(listIn.map(team => {
-        const selectedCollaborators = _.compact(_.intersection(collaborators, team.collaborators))
+        const selectedCollaborators = team.collaborators.filter(team_collaborator => _.intersection(team.collaborators.map(c => c.id), collaborators.map(c => c.id)).indexOf(team_collaborator.id) >= 0)
+
         if(selectedCollaborators.length > 0) {
           return Object.assign(
             {},
@@ -152,6 +153,7 @@ const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ..
       onChange(selectedList)
       setChoices(defaultChoices())
     }, [selectedList])
+    // console.log(selectedList);
     return (
       <Grid container direction="column" spacing={1}>
         <Grid item>

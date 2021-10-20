@@ -54,7 +54,6 @@ const ImageInput = ({ images = [], initial, label, name, onChange, required, ...
     const errorMessage = !(!props.isFormSubmitted && value == null) ? props.errorMessage : null;
     const hasError = !(!props.isFormSubmitted && value == null || props.isValid);
     const finalLabel = required ? `${label} *` : label;
-
     useEffect(() => {
         props.setValue(initial)
     }, []);

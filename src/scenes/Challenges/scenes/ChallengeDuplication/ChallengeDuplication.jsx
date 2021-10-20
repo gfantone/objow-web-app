@@ -17,6 +17,7 @@ import * as challengeImageListActions from "../../../../services/ChallengeImages
 import * as challengeTypeListActions from "../../../../services/ChallengeTypes/ChallengeTypeList/actions"
 import * as currentPeriodDetailActions from "../../../../services/Periods/CurrentPeriodDetail/actions"
 import * as kpiListActions from "../../../../services/Kpis/KpiList/actions"
+import * as teamListActions from "../../../../services/Teams/TeamList/actions"
 import _ from 'lodash'
 
 class ChallengeDuplication extends MainLayoutComponent {
@@ -28,8 +29,8 @@ class ChallengeDuplication extends MainLayoutComponent {
         { order: 3, name: 'Participants'},
         { order: 4, name: 'indicateurs et mécanismes'},
         { order: 5, name: 'Récompenses'},
-        { order: 6, name: 'Options'},
-        { order: 7, name: 'Validation'},
+        // { order: 6, name: 'Options'},
+        { order: 6, name: 'Validation'},
       ],
       initialized: false,
       finalModel: {},
@@ -65,6 +66,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         this.props.challengeTypeListActions.getUsableChallengeTypeList()
         this.props.currentPeriodDetailActions.getCurrentPeriodDetail()
         this.props.kpiListActions.getKpiList()
+        this.props.teamListActions.getTeamList()
         const params = new URLSearchParams(window.location.search)
         const teamParam = params.get('team')
         this.teamId = teamParam ? Number(teamParam) : null
@@ -109,6 +111,7 @@ class ChallengeDuplication extends MainLayoutComponent {
             awards.push({ rank: rank, points: model.award[i] })
           }
         }
+
         this.setState({
           ...this.state,
           steps: this.state.steps.map(step => {
@@ -141,6 +144,7 @@ class ChallengeDuplication extends MainLayoutComponent {
     }
 
     setParticipants = (participants, callback) => {
+
       this.setState({
           ...this.state,
           participants: participants,
@@ -223,71 +227,74 @@ class ChallengeDuplication extends MainLayoutComponent {
         this.changeStep(model)
       } else {
         const { types } = this.props.challengeTypeList
-        const {challenge: base_challenge} = this.props.challengeDetail
-        model.start.setHours(0, 0, 0, 0)
-        model.end.setHours(23, 59, 59, 0)
-        const start = model.start.toUTCJSON();
-        const end = model.end.toUTCJSON();
+        const finalModel = this.state.finalModel
+        finalModel.start.setHours(0, 0, 0, 0)
+        finalModel.end.setHours(23, 59, 59, 0)
+        const start = finalModel.start.toUTCJSON();
+        const end = finalModel.end.toUTCJSON();
+
+        const participants = JSON.stringify(finalModel.participants.map(p => ({id: p.id})))
 
         const challengeFormData = new FormData()
-        challengeFormData.append('name', model.name)
-        challengeFormData.append('description', JSON.stringify(model.description))
+        challengeFormData.append('name', finalModel.name)
+        challengeFormData.append('description', JSON.stringify(finalModel.description))
         challengeFormData.append('start', start)
         challengeFormData.append('end', end)
-        challengeFormData.append('type', model.type)
-        challengeFormData.append('award_type', model.awardType)
-        challengeFormData.append('live', model.live ? model.live : false)
-        challengeFormData.append('base_challenge', base_challenge.id)
+        challengeFormData.append('type', finalModel.type)
+        challengeFormData.append('award_type', finalModel.awardType)
+        challengeFormData.append('live', finalModel.live ? finalModel.live : false)
+        challengeFormData.append('participants', participants)
 
-        if(Number.isInteger(model.image)) {
-          challengeFormData.append('image', model.image)
+        if(Number.isInteger(finalModel.image)) {
+          challengeFormData.append('image', finalModel.image)
         } else {
-          // Make blob file from url for dupplication
-
-          // const splitFile = model.image.split('/')
-          // const fileName = splitFile[splitFile.length - 1]
-          // let file = await fetch(_.replace(model.image, 'https://', 'http://')).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
-          // challengeFormData.append('customImage', model.image)
+          challengeFormData.append('customImage', finalModel.image)
         }
+
 
         // Set custom image if exists
-        const image = model.image.id ? {
-          image: model.image
+        const image = finalModel.image.id ? {
+          image: finalModel.image
         } : {
-          customImage: model.image
+          customImage: finalModel.image
         }
         const challenge = Object.assign({
-          name: model.name,
-          description: JSON.stringify(model.description),
+          name: finalModel.name,
+          description: JSON.stringify(finalModel.description),
           start: start,
           end: end,
-          type: model.type,
-          award_type: model.awardType,
-          live: model.live ? model.live : false,
-          base_challenge: base_challenge.id
+          type: finalModel.type,
+          award_type: finalModel.awardType,
+          live: finalModel.live ? finalModel.live : false,
+          participants: participants
+
         }, image)
 
-        var goals = []
-        for (var i = 0; i < model.kpi.length; i++) {
-          goals.push({ number: model.number[i], name: model.goalName[i], kpi: model.kpi[i], target: model.target[i], points: model.points[i] })
-        }
-        var awards = []
-        for (var i = 0; i < model.award.length; i++) {
-          const rank = i + 1
-          awards.push({ rank: rank, points: model.award[i] })
-        }
 
-        const teamId = types.find(x => x.id == model.type && x.code === 'CM') != null && this.teamId ? this.teamId : null
-
-        this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, awards, goals, teamId)
+        const teamId = types.find(x => x.id == finalModel.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
+        this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, finalModel.awards, finalModel.goals, teamId)
       }
     }
 
     challengeToModel = (challenge) => {
+      const {teams} = this.props.teamList
+      const participants = challenge.type.code === "CT" ?
+        _.flatten(teams.filter(team => challenge.participants.map(p => p.id).indexOf(team.id) >= 0).map(team => team.collaborators)) :
+        challenge.participants
+
       return {
         name: challenge.name,
         description: JSON.parse(challenge.description),
-        type: _.get(challenge, 'type.id')
+        image: _.get(challenge, 'image.id'),
+        customImage: challenge.customImage,
+        awardType: _.get(challenge, 'award_type'),
+        type: _.get(challenge, 'type.id'),
+        live: _.get(challenge, 'live'),
+        start: _.get(challenge, 'start').toDate2(),
+        end: _.get(challenge, 'end').toDate2(),
+        participants: participants,
+        awards: _.get(challenge, 'awards'),
+        goals: _.get(challenge, 'goals').map(goal => Object.assign(goal, {kpi: goal.kpi.id})),
       }
     }
 
@@ -300,15 +307,18 @@ class ChallengeDuplication extends MainLayoutComponent {
         const {types} = this.props.challengeTypeList
         const {loading} = this.props.challengeCreation
         const {kpis} = this.props.kpiList
+        const {teams} = this.props.teamList
+        const { account } = this.props.accountDetail;
 
         if(!this.state.initialized) {
+          const finalModel = this.challengeToModel(challenge)
           this.setState({
             ...this.state,
             initialized: true,
-            finalModel: this.challengeToModel(challenge)
+            finalModel: finalModel,
+            participants: finalModel.participants
           })
         }
-
         return (
             <div>
                 <Stepper steps={this.state.steps} />
@@ -340,6 +350,7 @@ class ChallengeDuplication extends MainLayoutComponent {
                         handleAddGoal={this.handleAddGoal}
                         challenge={this.state.finalModel}
                         setNewKpiOpen={this.setNewKpiOpen}
+                        teams={teams.filter(t => _.get(account, 'role.code') !== 'M' || _.get(account, 'team.id') === t.id )}
                     />
                 </Formsy>
             </div>
@@ -355,7 +366,8 @@ class ChallengeDuplication extends MainLayoutComponent {
         const {success} = this.props.challengeCreation
         const {period, loading: currentPeriodDetailLoading} = this.props.currentPeriodDetail
         const {kpis, loading: kpiListLoading} = this.props.kpiList
-        const loading = categoryListLoading || challengeAwardTypeListLoading || challengeDetailLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading
+        const {teams, loading: teamListLoading} = this.props.teamList
+        const loading = categoryListLoading || challengeAwardTypeListLoading || challengeDetailLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading || teamListLoading
 
         const { account } = this.props.accountDetail;
 
@@ -372,13 +384,13 @@ class ChallengeDuplication extends MainLayoutComponent {
         return (
             <div>
                 {loading && this.renderLoader()}
-                {!loading && awardTypes && categories && challenge && period && images && types && kpis && this.renderData()}
+                {!loading && awardTypes && categories && challenge && period && images && types && kpis && teams && this.renderData()}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeCreation, challengeDetail, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, accountDetail}) => ({
+const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeCreation, challengeDetail, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, accountDetail, teamList}) => ({
     categoryList,
     accountDetail,
     challengeAwardTypeList,
@@ -387,7 +399,8 @@ const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeCreatio
     challengeImageList,
     challengeTypeList,
     currentPeriodDetail,
-    kpiList
+    kpiList,
+    teamList
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -399,7 +412,8 @@ const mapDispatchToProps = (dispatch) => ({
     challengeTypeListActions: bindActionCreators(challengeTypeListActions, dispatch),
     challengeTypeUsablePointsActions: bindActionCreators(challengeTypeUsablePointsActions, dispatch),
     currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
-    kpiListActions: bindActionCreators(kpiListActions, dispatch)
+    kpiListActions: bindActionCreators(kpiListActions, dispatch),
+    teamListActions: bindActionCreators(teamListActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChallengeDuplication)
