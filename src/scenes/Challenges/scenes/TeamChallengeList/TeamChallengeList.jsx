@@ -168,19 +168,25 @@ class TeamChallengeList extends MainLayoutComponent {
         return <EmptyState title={Resources.TEAM_CHALLENGE_LIST_EMPTY_STATE_TITLE} message={Resources.TEAM_CHALLENGE_LIST_EMPTY_STATE_MESSAGE} />
     }
 
+    getChallengeList = (challenges) => {
+      const teamId = this.props.match.params.id;
+      const { account } = this.props.accountDetail;
+      return challenges.filter(challenge => {
+        const includesManagerTeam = account.team && challenge.participantTeamIds.indexOf(account.team.id) >= 0
+        return includesManagerTeam || account.role.code === 'A' && challenge.participantTeamIds.indexOf(parseInt(teamId)) >= 0
+      })
+    }
+
     renderData() {
         const { challenges: teamChallenges } = this.props.teamChallengeList;
         const { challenges: collaboratorChallenges } = this.props.teamCollaboratorChallengeList;
         const challenges = this.mergeChallenges(collaboratorChallenges, teamChallenges);
         const { configs } = this.props.configList;
         const { account } = this.props.accountDetail;
-        const teamId = this.props.match.params.id;
+
         return (
             <Grid container spacing={2}>
-              { challenges.filter(challenge => {
-                const includesManagerTeam = account.team && challenge.participantTeamIds.indexOf(account.team.id) >= 0
-                return includesManagerTeam || account.role.code === 'A' && challenge.participantTeamIds.indexOf(parseInt(teamId)) >= 0
-              }).map(challenge=> {
+              { this.getChallengeList(challenges).map(challenge=> {
                 const detailurl = challenge.typeCode != 'CT' ? `/challenges/detail/team-collaborator/${challenge.id}` : `/challenges/detail/team/${challenge.id}`;
 
                 return (
@@ -208,6 +214,12 @@ class TeamChallengeList extends MainLayoutComponent {
           return <Redirect to={'/'} />
         }
 
+        let hasChallenges = false
+
+        if(teamChallenges && collaboratorChallenges){
+          hasChallenges = this.getChallengeList(this.mergeChallenges(teamChallenges, collaboratorChallenges)).length > 0
+        }
+
 
         return (
             <div>
@@ -223,8 +235,8 @@ class TeamChallengeList extends MainLayoutComponent {
                   onLoaded={ this.onCollaboratorFilterLoaded.bind(this) }
                 />
                 { loading && this.renderLoader() }
-                { !loading && collaboratorChallenges && teamChallenges && configs &&(collaboratorChallenges.length > 0 || teamChallenges.length > 0) && this.renderData() }
-                { !loading && collaboratorChallenges && teamChallenges && configs && collaboratorChallenges.length == 0 && teamChallenges.length == 0 && this.renderEmptyState() }
+                { !loading && collaboratorChallenges && teamChallenges && configs && hasChallenges && this.renderData() }
+                { !loading && collaboratorChallenges && teamChallenges && configs && !hasChallenges && this.renderEmptyState() }
                 {
                   this.state.filterOpen &&
                   <ChallengeFilter
