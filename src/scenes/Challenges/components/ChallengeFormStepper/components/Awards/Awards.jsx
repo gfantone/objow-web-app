@@ -13,7 +13,8 @@ import './helpers/FormsyHelper'
 const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialLive = false, initialType, isCreation, isDuplication, isUpdate, start, team, types, ...props}) => {
     const getInitialAwards = () => {
         if (initialAwards && initialAwards.length > 0) {
-            return initialAwards.map(x => ({key: uuidv4(), points: x.points}))
+            const awardType = types.find(t => t.id === parseInt(initialType))
+            return initialAwards.filter((award, index) => awardType.code === "M" ? index === 0 : true).map(x => ({key: uuidv4(), points: x.points}))
         } else {
             return [{key: uuidv4(), points: null}]
         }

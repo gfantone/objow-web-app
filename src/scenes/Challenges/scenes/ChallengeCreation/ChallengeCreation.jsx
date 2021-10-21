@@ -154,9 +154,12 @@ class ChallengeCreation extends MainLayoutComponent {
     }
 
     setAwardType = (awardType) => {
+      const {types: awardTypes} = this.props.challengeAwardTypeList
       this.setState({
         ...this.state,
-        finalModel: Object.assign(this.state.finalModel, {awardType})
+        finalModel: Object.assign(this.state.finalModel, {
+          awardType
+        })
       })
     }
 

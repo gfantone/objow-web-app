@@ -82,6 +82,7 @@ const ChallengeFormStepper = ({
         setType(Number(newType))
         setParticipants([])
     }
+    console.log(challenge);
     const maxAwardType = awardTypes[0].id
     const finalInitialType = awardType ? awardType : maxAwardType
     const isMaxAward = parseInt(awardType) === maxAwardType
