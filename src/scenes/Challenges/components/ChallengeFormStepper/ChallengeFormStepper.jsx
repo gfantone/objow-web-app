@@ -44,7 +44,6 @@ const ChallengeFormStepper = ({
     const start = challenge.start || null
     const end =  challenge.end || null
     const type =  challenge.type || null
-    console.log(start, end);
     const image = challenge.image || null
     const customImage = challenge.customImage || null
     const awardType = challenge.awardType ? challenge.awardType : null

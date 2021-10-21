@@ -253,11 +253,34 @@ class ChallengeDuplication extends MainLayoutComponent {
 
 
         // Set custom image if exists
-        const image = finalModel.image.id ? {
-          image: finalModel.image
-        } : {
-          customImage: finalModel.image
+        let image
+        if(finalModel.image.id) {
+          console.log("image id");
+          image = {
+            image: finalModel.image
+          }
+        } else if(typeof finalModel.customImage === 'string' || finalModel.customImage instanceof String) {
+          console.log("make blob");
+          // Make blob file from url for dupplication
+
+          const splitFile = finalModel.customImage.split('/')
+          const fileName = splitFile[splitFile.length - 1]
+          let file = await fetch(_.replace(finalModel.customImage, 'https://', 'http://')).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
+          console.log(file);
+          challengeFormData.append('customImage', file)
+          image = {
+            customImage: file
+          }
+        } else {
+          console.log("else");
+          image = {
+            customImage: finalModel.image
+          }
         }
+
+        console.log(image);
+
+
         const challenge = Object.assign({
           name: finalModel.name,
           description: JSON.stringify(finalModel.description),

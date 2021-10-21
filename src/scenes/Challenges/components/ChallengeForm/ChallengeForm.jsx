@@ -4,6 +4,7 @@ import {Grid} from '@material-ui/core'
 import {Awards, Goals, Infos, Participants} from './components'
 import {ProgressButton} from '../../../../components'
 import * as Resources from '../../../../Resources'
+import _ from 'lodash'
 
 const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images, isCreation, isDuplication, isUpdate, kpis, period, team, types, goalAdding, onGoalAdded, addGoal, teams, ...props}) => {
     const id = challenge ? challenge.id : null
@@ -15,7 +16,7 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
     const typeObject = types.find(x => x.id === type)
     const typeId = typeObject ? typeObject.id : null
     const typeCode = typeObject ? typeObject.code : null
-    const image = challenge ? challenge.image : null
+    const image = challenge ? _.get(challenge, 'image.id') : null
     const customImage = challenge ? challenge.customImage : null
     const awardType = challenge ? challenge.award_type : null
     const awards = challenge ? challenge.awards : []
