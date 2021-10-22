@@ -15,7 +15,6 @@ const kpis = {
         return instance.get(baseUrl)
     },
     create(kpi) {
-      console.log("qsdkjhsqgd");
       return instance.post(baseUrl, kpi)
     },
     update(id, isActive, params) {

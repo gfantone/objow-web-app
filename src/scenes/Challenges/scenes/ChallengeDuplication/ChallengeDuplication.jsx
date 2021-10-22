@@ -56,7 +56,6 @@ class ChallengeDuplication extends MainLayoutComponent {
 
         this.props.handleTitle(account.challengeWording || Resources.CHALLENGE_LONG_TITLE)
         this.props.handleSubHeader(<AppBarSubTitle title={Resources.CHALLENGE_DUPLICATION_TITLE} />)
-        this.props.handleButtons(<MenuIconButton size={'small'} onClick={this.handleAddGoal.bind(this)}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>)
         this.props.handleMaxWidth('md')
         this.props.activateReturn()
         this.props.categoryListActions.getActiveCategoryList()
@@ -255,30 +254,25 @@ class ChallengeDuplication extends MainLayoutComponent {
         // Set custom image if exists
         let image
         if(finalModel.image.id) {
-          console.log("image id");
           image = {
             image: finalModel.image
           }
         } else if(typeof finalModel.customImage === 'string' || finalModel.customImage instanceof String) {
-          console.log("make blob");
           // Make blob file from url for dupplication
 
           const splitFile = finalModel.customImage.split('/')
           const fileName = splitFile[splitFile.length - 1]
-          let file = await fetch(_.replace(finalModel.customImage, 'https://', 'http://')).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
-          console.log(file);
+          let file = await fetch(finalModel.customImage).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
+
           challengeFormData.append('customImage', file)
           image = {
             customImage: file
           }
         } else {
-          console.log("else");
           image = {
             customImage: finalModel.image
           }
         }
-
-        console.log(image);
 
 
         const challenge = Object.assign({
