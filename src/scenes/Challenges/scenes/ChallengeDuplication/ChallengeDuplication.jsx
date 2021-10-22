@@ -43,7 +43,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         this.props.challengeTypeUsablePointsActions.clearChallengeTypeUsablePoints()
     }
 
-    handleAddGoal() {
+    handleAddGoal = () => {
         this.setState({
             ...this.state,
             goalAdding: 1
@@ -333,8 +333,8 @@ class ChallengeDuplication extends MainLayoutComponent {
         awardType: _.get(challenge, 'award_type'),
         type: _.get(challenge, 'type.id'),
         live: _.get(challenge, 'live'),
-        start: _.get(challenge, 'start').toDate2(),
-        end: _.get(challenge, 'end').toDate2(),
+        // start: _.get(challenge, 'start').toDate2(),
+        // end: _.get(challenge, 'end').toDate2(),
         participants: participants,
         awards: _.get(challenge, 'awards'),
         goals: _.get(challenge, 'goals').map(goal => Object.assign(goal, {kpi: goal.kpi.id})),
