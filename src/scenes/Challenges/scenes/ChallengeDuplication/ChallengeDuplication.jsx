@@ -244,43 +244,48 @@ class ChallengeDuplication extends MainLayoutComponent {
         challengeFormData.append('live', finalModel.live ? finalModel.live : false)
         challengeFormData.append('participants', participants)
 
+        let image
         if(Number.isInteger(finalModel.image)) {
           challengeFormData.append('image', finalModel.image)
-        } else {
-          challengeFormData.append('customImage', finalModel.image)
+          image = {
+            image: finalModel.image
+          }
         }
+        // else {
+        //   challengeFormData.append('customImage', finalModel.image)
+        // }
 
 
-        // // Set custom image if exists
-        // let image
+        // Set custom image if exists
         // if(finalModel.image.id) {
         //   image = {
         //     image: finalModel.image
         //   }
         // }
-        // else if(typeof finalModel.customImage === 'string' || finalModel.customImage instanceof String) {
-        //   // Make blob file from url for dupplication
-        //
-        //   const splitFile = finalModel.customImage.split('/')
-        //   const fileName = splitFile[splitFile.length - 1]
-        //   let file = await fetch(finalModel.customImage).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
-        //
-        //   challengeFormData.append('customImage', file)
-        //   image = {
-        //     customImage: file
-        //   }
-        // } else {
-        //   image = {
-        //     customImage: finalModel.image
-        //   }
-        // }
+        if(finalModel.customImagePath) {
+          // Make blob file from url for dupplication
 
-        // Set custom image if exists
-        const image = finalModel.image.id ? {
-          image: finalModel.image
-        } : {
-          customImage: finalModel.image
+          // const splitFile = finalModel.customImage.split('/')
+          // const fileName = splitFile[splitFile.length - 1]
+          // let file = await fetch(finalModel.customImage).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
+
+          challengeFormData.append('customImageSmall', finalModel.customImagePath)
+          image = {
+            customImageSmall: finalModel.customImagePath,
+            customImage: null
+          }
+        } else {
+          image = {
+            customImage: finalModel.image
+          }
         }
+
+        // // Set custom image if exists
+        // const image = finalModel.image.id ? {
+        //   image: finalModel.image
+        // } : {
+        //   customImage: finalModel.image
+        // }
 
 
         let challenge = Object.assign({
@@ -298,24 +303,9 @@ class ChallengeDuplication extends MainLayoutComponent {
 
         const teamId = types.find(x => x.id == finalModel.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
 
-        if (typeof finalModel.image === 'string' || finalModel.image instanceof String) {
 
-          var filename = finalModel.image.split('/').pop()
-          var blob = null
-          var xhr = new XMLHttpRequest()
-          xhr.open("GET", finalModel.image)
-          xhr.responseType = "blob"
-          xhr.onload = function()
-          {
-            blob = xhr.response
-            challenge = Object.assign(challenge, {customImage: blob})
-            challengeFormData.append('customImage', blob, filename)
-            this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, finalModel.awards, finalModel.goals, teamId)
-          }.bind(this)
-          xhr.send()
-        } else {
-          this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, finalModel.awards, finalModel.goals, teamId)
-        }
+        this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, finalModel.awards, finalModel.goals, teamId)
+
       }
     }
 
@@ -330,6 +320,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         description: JSON.parse(challenge.description),
         image: _.get(challenge, 'image.id'),
         customImage: challenge.customImage,
+        customImagePath: challenge.custom_image_path,
         awardType: _.get(challenge, 'award_type'),
         type: _.get(challenge, 'type.id'),
         live: _.get(challenge, 'live'),
