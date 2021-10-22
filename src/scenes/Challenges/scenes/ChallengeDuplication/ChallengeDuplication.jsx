@@ -251,31 +251,39 @@ class ChallengeDuplication extends MainLayoutComponent {
         }
 
 
+        // // Set custom image if exists
+        // let image
+        // if(finalModel.image.id) {
+        //   image = {
+        //     image: finalModel.image
+        //   }
+        // }
+        // else if(typeof finalModel.customImage === 'string' || finalModel.customImage instanceof String) {
+        //   // Make blob file from url for dupplication
+        //
+        //   const splitFile = finalModel.customImage.split('/')
+        //   const fileName = splitFile[splitFile.length - 1]
+        //   let file = await fetch(finalModel.customImage).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
+        //
+        //   challengeFormData.append('customImage', file)
+        //   image = {
+        //     customImage: file
+        //   }
+        // } else {
+        //   image = {
+        //     customImage: finalModel.image
+        //   }
+        // }
+
         // Set custom image if exists
-        let image
-        if(finalModel.image.id) {
-          image = {
-            image: finalModel.image
-          }
-        } else if(typeof finalModel.customImage === 'string' || finalModel.customImage instanceof String) {
-          // Make blob file from url for dupplication
-
-          const splitFile = finalModel.customImage.split('/')
-          const fileName = splitFile[splitFile.length - 1]
-          let file = await fetch(finalModel.customImage).then(r => r.blob()).then(blobFile => new File([blobFile], fileName, { type: `${fileName.split('.')[1]}` }))
-
-          challengeFormData.append('customImage', file)
-          image = {
-            customImage: file
-          }
-        } else {
-          image = {
-            customImage: finalModel.image
-          }
+        const image = finalModel.image.id ? {
+          image: finalModel.image
+        } : {
+          customImage: finalModel.image
         }
 
 
-        const challenge = Object.assign({
+        let challenge = Object.assign({
           name: finalModel.name,
           description: JSON.stringify(finalModel.description),
           start: start,
@@ -289,7 +297,25 @@ class ChallengeDuplication extends MainLayoutComponent {
 
 
         const teamId = types.find(x => x.id == finalModel.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
-        this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, finalModel.awards, finalModel.goals, teamId)
+
+        if (typeof finalModel.image === 'string' || finalModel.image instanceof String) {
+
+          var filename = finalModel.image.split('/').pop()
+          var blob = null
+          var xhr = new XMLHttpRequest()
+          xhr.open("GET", finalModel.image)
+          xhr.responseType = "blob"
+          xhr.onload = function()
+          {
+            blob = xhr.response
+            challenge = Object.assign(challenge, {customImage: blob})
+            challengeFormData.append('customImage', blob, filename)
+            this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, finalModel.awards, finalModel.goals, teamId)
+          }.bind(this)
+          xhr.send()
+        } else {
+          this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, finalModel.awards, finalModel.goals, teamId)
+        }
       }
     }
 

@@ -65,7 +65,7 @@ const ChallengeFormStepper = ({
             finalTypes = finalTypes.filter(x => x.code !== 'CM')
         }
     }
-
+    console.log(challenge);
     const hasChallengeManager = finalTypes.find(x => x.code === 'CM') != null
 
 
