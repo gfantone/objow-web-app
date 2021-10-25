@@ -89,8 +89,8 @@ const Challenge = ({challenge, ...props}) => {
                           <DefaultText className={ classes.smallText }>
                             <FontAwesomeIcon icon={faFireAlt} />
                             &nbsp;
-                            {Resources.CHALLENGE_POINTS.format(challenge.points)}
-                            
+                            {Resources.CHALLENGE_POINTS.format(challenge.goalPoints)}
+
                           </DefaultText>
                         </Grid>
                         { !hasParticipants &&
