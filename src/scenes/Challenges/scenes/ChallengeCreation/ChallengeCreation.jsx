@@ -34,7 +34,7 @@ class ChallengeCreation extends MainLayoutComponent {
       goalAdding: false,
       steps: [
         { order: 1, name: 'Participants', active: true},
-        { order: 2, name: 'Type'},
+        { order: 2, name: 'Mode'},
         { order: 3, name: 'Informations'},
         { order: 4, name: 'indicateurs et mécanismes'},
         { order: 5, name: 'Récompenses'},
