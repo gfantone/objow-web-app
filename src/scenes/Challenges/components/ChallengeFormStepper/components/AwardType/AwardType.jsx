@@ -48,11 +48,11 @@ const AwardType = ({types, currentType, setType, participantsNumber, ...props}) 
 
     return (
         <div>
-            <Grid container spacing={2} justify='space-around'>
+            <Grid container spacing={1} justify='space-around'>
                 { types.filter(
                   type => !participantsConditions[type.code].minimum || participantsNumber >= participantsConditions[type.code].minimum
                 ).map(type => (
-                  <Grid item onClick={() => setType(type.id)} className={`${classes.typeItem} ${type.id === currentType ? classes.active : ''}`}>
+                  <Grid item onClick={() => setType(type.id)} className={`${classes.typeItem} ${type.id === currentType ? classes.active : ''}`} style={{marginBottom: 20}}>
                     <Card>
                       <Grid container spacing={1} direction='column' alignItems='center'>
                         <Grid item>

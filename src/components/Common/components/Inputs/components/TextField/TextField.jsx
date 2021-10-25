@@ -38,9 +38,9 @@ const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = 
     const [value, setValue] = React.useState(initial);
     const hasError = props.isFormSubmitted && !props.isValid;
     const errorMessage = hasError ? props.errorMessage : null;
-
     useEffect(() => {
         props.setValue(initial)
+        setValue(initial)
     }, [initial]);
 
     const handleChange = (event) => {
@@ -49,7 +49,7 @@ const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = 
         setValue(value);
         if (props.onChange) props.onChange(value)
     };
-
+    
     return (
         <div>
             <TextField
