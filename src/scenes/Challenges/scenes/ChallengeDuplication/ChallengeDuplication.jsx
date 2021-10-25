@@ -71,6 +71,22 @@ class ChallengeDuplication extends MainLayoutComponent {
         this.teamId = teamParam ? Number(teamParam) : null
     }
 
+    componentWillReceiveProps(props) {
+      const {challenge} = props.challengeDetail
+
+      if(challenge && (
+        !this.state.initialized || _.get(this.state.finalModel, 'id') && _.get(this.state.finalModel, 'id') !== _.get(challenge, 'id')
+      )) {
+        const finalModel = this.challengeToModel(challenge)
+        this.setState({
+          ...this.state,
+          initialized: true,
+          finalModel: finalModel,
+          participants: finalModel.participants
+        })
+      }
+    }
+
     renderLoader() {
         return <Loader centered />
     }
@@ -328,7 +344,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         // end: _.get(challenge, 'end').toDate2(),
         participants: participants,
         awards: _.get(challenge, 'awards'),
-        goals: _.get(challenge, 'goals').map(goal => Object.assign(goal, {kpi: goal.kpi.id})),
+        goals: _.get(challenge, 'goals').map(goal => Object.assign(goal, {kpi: _.get(goal, 'kpi.id')})),
       }
     }
 
@@ -344,15 +360,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         const {teams} = this.props.teamList
         const { account } = this.props.accountDetail;
 
-        if(!this.state.initialized) {
-          const finalModel = this.challengeToModel(challenge)
-          this.setState({
-            ...this.state,
-            initialized: true,
-            finalModel: finalModel,
-            participants: finalModel.participants
-          })
-        }
+
         return (
             <div>
                 <Stepper steps={this.state.steps} />
