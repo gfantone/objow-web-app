@@ -32,13 +32,14 @@ const AwardType = ({types, currentType, setType, ...props}) => {
     const classes = useStyles()
     const icons = {
       'R': require(`../../../../../../assets/img/system/challenge/icons/Ribbons.png`),
-      'M': require(`../../../../../../assets/img/system/challenge/icons/Rocket.png`)
+      'M': require(`../../../../../../assets/img/system/challenge/icons/Rocket.png`),
+      'P': require(`../../../../../../assets/img/system/challenge/icons/Levels.png`)
     }
     const {account} = props.accountDetail
 
     return (
         <div>
-            <Grid container spacing={1} justify='space-around'>
+            <Grid container spacing={2} justify='space-around'>
                 { types.map(type => (
                   <Grid item onClick={() => setType(type.id)} className={`${classes.typeItem} ${type.id === currentType ? classes.active : ''}`}>
                     <Card>
