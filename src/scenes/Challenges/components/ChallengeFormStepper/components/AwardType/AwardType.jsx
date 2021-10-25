@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     }
 })
 
-const AwardType = ({types, currentType, setType, ...props}) => {
+const AwardType = ({types, currentType, setType, participantsNumber, ...props}) => {
     const classes = useStyles()
     const icons = {
       'R': require(`../../../../../../assets/img/system/challenge/icons/Ribbons.png`),
@@ -36,11 +36,22 @@ const AwardType = ({types, currentType, setType, ...props}) => {
       'P': require(`../../../../../../assets/img/system/challenge/icons/Levels.png`)
     }
     const {account} = props.accountDetail
+    const participantsConditions = {
+      'R': {
+        minimum: 2
+      },
+      'M': {
+      },
+      'P': {
+      }
+    }
 
     return (
         <div>
             <Grid container spacing={2} justify='space-around'>
-                { types.map(type => (
+                { types.filter(
+                  type => !participantsConditions[type.code].minimum || participantsNumber >= participantsConditions[type.code].minimum
+                ).map(type => (
                   <Grid item onClick={() => setType(type.id)} className={`${classes.typeItem} ${type.id === currentType ? classes.active : ''}`}>
                     <Card>
                       <Grid container spacing={1} direction='column' alignItems='center'>

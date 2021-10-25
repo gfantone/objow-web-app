@@ -87,39 +87,6 @@ const ChallengeFormStepper = ({
     let fields
     let title
     switch(currentStep.order){
-      case 2:
-        title = 'Sélection du mode de challenge'
-        fields = <Grid item xs={12}>
-          <AwardType
-            types={awardTypes}
-            currentType={awardType}
-            setType={setAwardType}
-          />
-        </Grid>
-        break;
-      case 3:
-        // fields = <Grid item xs={12}>
-        // </Grid>
-        // break;
-        title = 'Configuration des informations'
-        fields = <Grid item xs={12}>
-          <Infos
-            description={description}
-            end={end}
-            image={image}
-            customImage={customImage}
-            images={images}
-            name={name}
-            period={period}
-            start={start}
-            type={type}
-            types={finalTypes}
-            onEndChange={handleEndChange}
-            onStartChange={handleStartChange}
-            setCustomImage={setCustomImage}
-          />
-        </Grid>
-        break;
       case 1:
         // fields = <Grid item xs={12}>
         // </Grid>
@@ -159,6 +126,44 @@ const ChallengeFormStepper = ({
               </Grid>
             )}
           </Grid>
+        </Grid>
+        break;
+      case 2:
+        title = 'Sélection du mode de challenge'
+        const participantsNumber = _.get(typeObject, 'code') === 'CC' ?
+          participants.length :
+          _.uniq(participants.map(p => p.team.id)).length
+
+        fields = <Grid item xs={12}>
+          <AwardType
+            types={awardTypes}
+            currentType={awardType}
+            setType={setAwardType}
+            participantsNumber={participantsNumber}
+          />
+        </Grid>
+        break;
+      case 3:
+        // fields = <Grid item xs={12}>
+        // </Grid>
+        // break;
+        title = 'Configuration des informations'
+        fields = <Grid item xs={12}>
+          <Infos
+            description={description}
+            end={end}
+            image={image}
+            customImage={customImage}
+            images={images}
+            name={name}
+            period={period}
+            start={start}
+            type={type}
+            types={finalTypes}
+            onEndChange={handleEndChange}
+            onStartChange={handleStartChange}
+            setCustomImage={setCustomImage}
+          />
         </Grid>
         break;
       case 4:
