@@ -85,7 +85,7 @@ class CollaboratorChallengeRanking extends MainLayoutComponent {
           team ? this.addColorToRanks(ranks, collaborators).filter(rank =>
             _.get(collaborators.find(c => c.id === _.get(rank, 'collaboratorId')), 'team.id') === parseInt(team)
           ) : this.addColorToRanks(ranks, collaborators)
-        } collaboratorId={this.props.match.params.collaborator} />
+        } collaboratorId={this.props.match.params.collaborator} pointsLabel={Resources.TEAM_CHALLENGE_RANKING_POINTS_COLUMN} />
     }
 
     render() {

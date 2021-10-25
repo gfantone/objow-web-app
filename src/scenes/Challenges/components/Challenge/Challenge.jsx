@@ -90,10 +90,7 @@ const Challenge = ({challenge, ...props}) => {
                             <FontAwesomeIcon icon={faFireAlt} />
                             &nbsp;
                             {Resources.CHALLENGE_POINTS.format(challenge.points)}
-                            &nbsp;
-                            <InfoText component='span' className={ classes.smallText }>/&nbsp;
-                              {Resources.CHALLENGE_MAX_POINTS.format(challenge.maxPoints)}
-                            </InfoText>
+                            
                           </DefaultText>
                         </Grid>
                         { !hasParticipants &&

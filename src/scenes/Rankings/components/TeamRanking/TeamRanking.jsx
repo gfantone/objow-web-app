@@ -7,7 +7,7 @@ import {TeamRank} from './components'
 import {Table, TableHead, TableHeadCell, TableRow} from '../../../../components'
 import * as Resources from '../../../../Resources'
 
-const TeamRanking = ({ranking, teamId}) => {
+const TeamRanking = ({ranking, teamId, pointsLabel}) => {
     return (
         <div>
             <Table>
@@ -20,7 +20,7 @@ const TeamRanking = ({ranking, teamId}) => {
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faStar} />
                         </TableHeadCell>
-                        <TableHeadCell align='right'>{Resources.TEAM_RANKING_POINTS_COLUMN}</TableHeadCell>
+                        <TableHeadCell align='right'>{ pointsLabel || Resources.TEAM_RANKING_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faRandom} />
                         </TableHeadCell>

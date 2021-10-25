@@ -206,7 +206,7 @@ export const CHALLENGE_FIRST_RANK = "{0}er"
 export const CHALLENGE_OTHER_RANK = "{0}ème"
 export const CHALLENGE_COLLABORATORS = "{0} joueurs"
 export const CHALLENGE_TEAMS = "{0} équipes"
-export const CHALLENGE_POINTS = "{0} PTS"
+export const CHALLENGE_POINTS = "Score : {0}"
 export const CHALLENGE_MAX_POINTS = "{0} MAX"
 
 
@@ -264,7 +264,7 @@ export const CHALLENGE_FILTER_SUBMIT_BUTTON = "Filtrer"
 
 // Challenge - Team challenge ranking
 export const COLLABORATOR_CHALLENGE_RANKING_COLLABORATOR_COLUMN = "Joueurs"
-export const COLLABORATOR_CHALLENGE_RANKING_POINTS_COLUMN = "PTS"
+export const COLLABORATOR_CHALLENGE_RANKING_POINTS_COLUMN = "Score"
 
 // Challenge - Creation
 export const CHALLENGE_CREATION_TITLE = "Création d'un challenge"
@@ -284,12 +284,12 @@ export const CHALLENGE_CREATION_GOAL_NAME_LABEL = "Intitulé"
 export const CHALLENGE_CREATION_GOAL_UNIT_LABEL = "Unité"
 export const CHALLENGE_CREATION_GOAL_TARGET_LABEL = "Objectif"
 export const CHALLENGE_CREATION_GOAL_TARGET_INFO_TEXT = "La condition fixée ici peut être atteinte plusieurs fois. Chaque fois que celle-ci est atteinte elle rapporte le nombre de points associés."
-export const CHALLENGE_CREATION_GOAL_POINTS_LABEL = "Pts"
+export const CHALLENGE_CREATION_GOAL_POINTS_LABEL = "Score"
 export const CHALLENGE_CREATION_SUBMIT_BUTTON = "Valider"
 export const CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_M = "Récompense pour tous les participants remplissant les conditions définies"
 export const CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_R = "Récompense pour les X premiers à la fin du challenge"
 export const CHALLENGE_CREATION_GOAL_TARGET_LABEL2 = "Condition"
-export const CHALLENGE_CREATION_GOAL_POINTS_LABEL2 = "Pts"
+export const CHALLENGE_CREATION_GOAL_POINTS_LABEL2 = "Score"
 
 // Challenge - Duplication
 export const CHALLENGE_DUPLICATION_TITLE = "Duplication d'un challenge"
@@ -326,7 +326,7 @@ export const TEAM_CHALLENGE_LIST_EMPTY_STATE_MESSAGE = "Si vous avez appliqué d
 
 // Challenge - Team challenge ranking
 export const TEAM_CHALLENGE_RANKING_TEAM_COLUMN = "Équipes"
-export const TEAM_CHALLENGE_RANKING_POINTS_COLUMN = "PTS"
+export const TEAM_CHALLENGE_RANKING_POINTS_COLUMN = "Score"
 
 // Challenge - Team collaborator challenge detail
 export const TEAM_COLLABORATOR_CHALLENGE_DETAIL_RANK_TAB = "Classements"
@@ -360,7 +360,7 @@ export const CHALLENGE_UPDATE_GOAL_PERIODICITY_LABEL = "Periodicité"
 export const CHALLENGE_UPDATE_GOAL_FORMAT_LABEL = "Format"
 export const CHALLENGE_UPDATE_GOAL_TARGET_LABEL = "Objectif"
 export const CHALLENGE_UPDATE_GOAL_TARGET_INFO_TEXT = "La condition fixée ici peut être atteinte plusieurs fois. Chaque fois que celle-ci est atteinte elle rapporte le nombre de points associés."
-export const CHALLENGE_UPDATE_GOAL_POINTS_LABEL = "Pts"
+export const CHALLENGE_UPDATE_GOAL_POINTS_LABEL = "Score"
 export const CHALLENGE_UPDATE_SUBMIT_BUTTON = "Valider"
 
 // Chart

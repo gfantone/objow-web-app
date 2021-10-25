@@ -7,9 +7,9 @@ import {PlayerRank} from './components'
 import {Table, TableHead, TableHeadCell, TableRow} from '../../../../components'
 import * as Resources from '../../../../Resources'
 
-const PlayerRanking = ({ranking, collaboratorId}) => {
+const PlayerRanking = ({ranking, collaboratorId, pointsLabel}) => {
     const rankColSpan = ranking && ranking.length > 0 && ranking[0].color ? 2 : 1
-    
+
     return (
         <div>
             <Table>
@@ -23,7 +23,7 @@ const PlayerRanking = ({ranking, collaboratorId}) => {
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faStar} />
                         </TableHeadCell>
-                        <TableHeadCell align='right'>{Resources.COLLABORATOR_RANKING_POINTS_COLUMN}</TableHeadCell>
+                        <TableHeadCell align='right'>{pointsLabel || Resources.COLLABORATOR_RANKING_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faRandom} />
                         </TableHeadCell>

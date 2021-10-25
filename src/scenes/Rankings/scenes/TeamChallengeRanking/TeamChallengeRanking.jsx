@@ -26,7 +26,7 @@ class TeamChallengeRanking extends MainLayoutComponent {
 
     renderData() {
         const { ranks } = this.props.teamChallengeGeneralRankList;
-        return <TeamRanking ranking={ranks} teamId={this.props.match.params.team} />
+        return <TeamRanking ranking={ranks} teamId={this.props.match.params.team} pointsLabel={Resources.TEAM_CHALLENGE_RANKING_POINTS_COLUMN} />
     }
 
     render() {

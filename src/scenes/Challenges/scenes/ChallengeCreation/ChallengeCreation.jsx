@@ -33,9 +33,9 @@ class ChallengeCreation extends MainLayoutComponent {
     state = {
       goalAdding: false,
       steps: [
-        { order: 1, name: 'Type', active: true},
-        { order: 2, name: 'Informations'},
-        { order: 3, name: 'Participants'},
+        { order: 1, name: 'Participants', active: true},
+        { order: 2, name: 'Type'},
+        { order: 3, name: 'Informations'},
         { order: 4, name: 'indicateurs et mécanismes'},
         { order: 5, name: 'Récompenses'},
         // { order: 6, name: 'Options'},
@@ -133,8 +133,8 @@ class ChallengeCreation extends MainLayoutComponent {
         })
       }
       const checkValidation = (
-        (currentStep.order !== 3 || _.get(this.state.participants, 'length', 0) > 0) &&
-        (currentStep.order !== 1 || this.state.finalModel.awardType)
+        (currentStep.order !== 1 || _.get(this.state.participants, 'length', 0) > 0) &&
+        (currentStep.order !== 2 || this.state.finalModel.awardType)
       )
       if(checkValidation) {
         // if(model.type && this.state.finalModel.type !== model.type) {

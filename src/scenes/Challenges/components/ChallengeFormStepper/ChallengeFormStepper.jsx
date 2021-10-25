@@ -87,7 +87,7 @@ const ChallengeFormStepper = ({
     let fields
     let title
     switch(currentStep.order){
-      case 1:
+      case 2:
         title = 'Sélection du mode de challenge'
         fields = <Grid item xs={12}>
           <AwardType
@@ -97,7 +97,7 @@ const ChallengeFormStepper = ({
           />
         </Grid>
         break;
-      case 2:
+      case 3:
         // fields = <Grid item xs={12}>
         // </Grid>
         // break;
@@ -120,7 +120,7 @@ const ChallengeFormStepper = ({
           />
         </Grid>
         break;
-      case 3:
+      case 1:
         // fields = <Grid item xs={12}>
         // </Grid>
         // break;
