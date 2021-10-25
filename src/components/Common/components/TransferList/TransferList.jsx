@@ -124,7 +124,7 @@ const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ..
     }
 
     const removeList = (items) => {
-      setSelectedList(selectedList.filter(selectedItem => items.map(item => item).indexOf(selectedItem.id) < 0))
+      setSelectedList(selectedList.filter(selectedItem => items.map(item => item.id).indexOf(selectedItem.id) < 0))
     }
 
     const addList = (items) => {
