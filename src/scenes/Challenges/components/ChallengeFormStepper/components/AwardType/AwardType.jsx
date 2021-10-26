@@ -78,6 +78,7 @@ const AwardType = ({types, currentType, setType, participantsNumber, ...props}) 
     }
 
     const isDisabled = type => (
+      type.code === 'P' ||
       typesData[type.code].minimumParticipants && participantsNumber < typesData[type.code].minimumParticipants
     )
 
@@ -103,10 +104,17 @@ const AwardType = ({types, currentType, setType, participantsNumber, ...props}) 
                             {Resources[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${type.code}`]}
                           </DefaultText>
                         </Grid>
-                        {isDisabled(type) && (
+                        {isDisabled(type) && typesData[type.code].minimumParticipants && (
                           <Grid item>
                               <DefaultText lowercase style={{color: '#E50000', textAlign: 'center'}}>
                                 {Resources[`CHALLENGE_CREATION_AWARD_TYPE_MINIMUM_PARTICIPANTS`].format(typesData[type.code].minimumParticipants)}
+                              </DefaultText>
+                          </Grid>
+                        )}
+                        {isDisabled(type) && type.code === 'P' && (
+                          <Grid item>
+                              <DefaultText lowercase style={{color: '#E50000', textAlign: 'center'}}>
+                                Bientôt disponible
                               </DefaultText>
                           </Grid>
                         )}
@@ -128,7 +136,7 @@ const AwardType = ({types, currentType, setType, participantsNumber, ...props}) 
                             </Grid>
                             <Grid item>
                               { typesData[type.code].availableReward.indexOf('gift') >= 0 && (
-                                <Grid container spacing={1}>
+                                <Grid container spacing={1} style={{filter: 'grayscale(1)', opacity: 0.6}}>
                                   <Grid item>
                                     <CardMedia image={giftImage} className={classes.rewardTypeIcon} />
                                   </Grid>

@@ -189,8 +189,8 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                 <Grid item xs={12}>
                                     <DefaultText>
                                         <FontAwesomeIcon icon={faStar} /> {Resources.CHALLENGE_CONDITION_TYPE.format(challenge.awardName)}
-                                        { challenge.awardCode == 'M' && <InfoText>Dans ce challenge, les participants peuvent tous gagner des points, dans la limite du maximum défini.</InfoText> }
-                                        { challenge.awardCode == 'R' && <InfoText>Dans ce challenge, les points réellement gagnés en fin de challenge sont les gains définis ci-après.</InfoText> }
+                                        <InfoText>{Resources.[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${challenge.awardCode}`]}</InfoText>
+
                                     </DefaultText>
                                 </Grid>
                                 <Grid item xs={12}>
