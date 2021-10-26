@@ -234,7 +234,7 @@ export const COLLABORATOR_CHALLENGE_LIST_EMPTY_STATE_TITLE = "Aucun challenge tr
 export const COLLABORATOR_CHALLENGE_LIST_EMPTY_STATE_MESSAGE = "Si vous avez appliqué des filtres, changez-les pour afficher d'autres challenges"
 
 // Challenge - Condition
-export const CHALLENGE_CONDITION_CONDITION_AREA = "Conditions"
+export const CHALLENGE_CONDITION_CONDITION_AREA = "Indicateurs"
 export const CHALLENGE_CONDITION_GOAL_INFO = "La condition fixée ici peut être atteinte plusieurs fois. Chaque fois que celle-ci est atteinte elle rapporte le nombre de points associés"
 export const CHALLENGE_CONDITION_POINT_TARGET = "{0} PTS"
 export const CHALLENGE_CONDITION_POINT_COUNTER = "{0} PTS"

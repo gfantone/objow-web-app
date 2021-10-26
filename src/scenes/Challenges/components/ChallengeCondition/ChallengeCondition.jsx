@@ -104,44 +104,58 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                             </Grid>
                                                                             <Grid item xs={12}>
                                                                                 <div>
-                                                                                    <Grid container spacing={1}>
-                                                                                        <Grid item>
-                                                                                            <TableChip label={'>'} />
-                                                                                        </Grid>
-                                                                                        <Grid item>
-                                                                                            <DefaultText>{goal.target}</DefaultText>
-                                                                                        </Grid>
-                                                                                        <Grid item>
-                                                                                            <DefaultText>
-                                                                                                <FontAwesomeIcon icon={faEquals} />
-                                                                                            </DefaultText>
-                                                                                        </Grid>
-                                                                                        <Grid item>
-                                                                                            <BlueTag>{Resources.CHALLENGE_CONDITION_POINT_TARGET.format(goal.targetPoints)}</BlueTag>
-                                                                                        </Grid>
-                                                                                    </Grid>
+                                                                                  <table >
+                                                                                    <tbody>
+                                                                                      <tr>
+                                                                                        <td style={{padding: 0}}>
+                                                                                          <DefaultText lowercase style={{textAlign: 'right', paddingRight: 5}}>
+                                                                                            Condition :
+                                                                                          </DefaultText>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                          <Grid container spacing={1} style={{marginTop: 0}}>
+                                                                                              <Grid item>
+                                                                                                  <DefaultText>{goal.target}</DefaultText>
+                                                                                              </Grid>
+                                                                                              <Grid item>
+                                                                                                  <DefaultText>
+                                                                                                      <FontAwesomeIcon icon={faEquals} />
+                                                                                                  </DefaultText>
+                                                                                              </Grid>
+                                                                                              <Grid item>
+                                                                                                  <BlueTag>{Resources.CHALLENGE_CONDITION_POINT_TARGET.format(goal.targetPoints)}</BlueTag>
+                                                                                              </Grid>
+                                                                                          </Grid>
+                                                                                        </td>
+                                                                                      </tr>
+                                                                                      <tr>
+                                                                                        <td style={{padding: 0}}>
+                                                                                          <DefaultText lowercase style={{textAlign: 'right', paddingRight: 5}}>
+                                                                                            Réalisé :
+                                                                                          </DefaultText>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                          <Grid container spacing={1} style={{marginTop: '-1px'}}>
+                                                                                              <Grid item>
+                                                                                                  <AccentText>{goal.counter}</AccentText>
+                                                                                              </Grid>
+                                                                                              <Grid item>
+                                                                                                  <AccentText>
+                                                                                                      <FontAwesomeIcon icon={faAngleRight} />
+                                                                                                  </AccentText>
+                                                                                              </Grid>
+                                                                                              <Grid item>
+                                                                                                  <AccentTag>{Resources.CHALLENGE_CONDITION_POINT_COUNTER.format(goal.points)}</AccentTag>
+                                                                                              </Grid>
+                                                                                          </Grid>
+                                                                                        </td>
+                                                                                      </tr>
+                                                                                    </tbody>
+                                                                                  </table>
+
                                                                                 </div>
                                                                             </Grid>
-                                                                            <Grid item xs={12}>
-                                                                                <div>
-                                                                                    <Grid container spacing={1}>
-                                                                                        <Grid item>
-                                                                                            <TableChip label={'>'} color={'primary'} />
-                                                                                        </Grid>
-                                                                                        <Grid item>
-                                                                                            <AccentText>{goal.counter}</AccentText>
-                                                                                        </Grid>
-                                                                                        <Grid item>
-                                                                                            <AccentText>
-                                                                                                <FontAwesomeIcon icon={faAngleRight} />
-                                                                                            </AccentText>
-                                                                                        </Grid>
-                                                                                        <Grid item>
-                                                                                            <AccentTag>{Resources.CHALLENGE_CONDITION_POINT_COUNTER.format(goal.points)}</AccentTag>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                </div>
-                                                                            </Grid>
+
                                                                         </Grid>
                                                                     </div>
                                                                 </Grid>
@@ -189,7 +203,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                 <Grid item xs={12}>
                                     <DefaultText>
                                         <FontAwesomeIcon icon={faStar} /> {Resources.CHALLENGE_CONDITION_TYPE.format(challenge.awardName)}
-                                        <InfoText>{Resources.[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${challenge.awardCode}`]}</InfoText>
+                                        <InfoText>{Resources.[`CHALLENGE_CREATION_AWARD_TYPE  _DESCRIPTION_${challenge.awardCode}`]}</InfoText>
 
                                     </DefaultText>
                                 </Grid>
