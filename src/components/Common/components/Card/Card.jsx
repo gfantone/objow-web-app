@@ -12,9 +12,9 @@ const styles = {
     }
 }
 
-const CustomCard = ({className, marginDisabled = false, ...props}) => {
+const CustomCard = ({className, contentClassName = null, marginDisabled = false, ...props}) => {
     const {classes} = props
-    const contentClass = !marginDisabled ? classes.content : null
+    const contentClass = !marginDisabled ? classes.content : contentClassName
 
     return (
         <Card classes={{root: classes.card}} className={className}>

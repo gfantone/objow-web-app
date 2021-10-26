@@ -41,7 +41,7 @@ const ChallengeSimple = ({challenge, ...props}) => {
                 </Grid>
                 <Grid item>
                     <DefaultText>
-                        <FontAwesomeIcon icon={faFireAlt} /> {Resources.CHALLENGE_POINTS.format(challenge.points)} <InfoText component='span'></InfoText
+                        <FontAwesomeIcon icon={faFireAlt} /> {Resources.CHALLENGE_POINTS.format(challenge.goalPoints)} <InfoText component='span'></InfoText
                     ></DefaultText>
                 </Grid>
                 <Grid item xs>

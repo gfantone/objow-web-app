@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {faInfoCircle, faTrashAlt, faEquals, faPlus} from '@fortawesome/free-solid-svg-icons'
 import Formsy from 'formsy-react'
-import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, InfoText, TextField, Tooltip, TableChip, Button, Select} from '../../../../../../../../components'
+import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, InfoText, TextField, Tooltip, TableChip, Button, Select, IconButton as MenuIconButton} from '../../../../../../../../components'
 import * as Resources from '../../../../../../../../Resources'
 import _ from 'lodash'
 
@@ -43,12 +43,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                               <DefaultTitle>{Resources.CHALLENGE_UPDATE_GOAL_TITLE.format(number)}</DefaultTitle>
                               <HiddenInput name={`number[${index}]`} value={number} />
                             </Grid>
-                            <Grid item>
-                              <Button onClick={ () => setNewKpiOpen(true) } text="nouveau">
-                                <FontAwesomeIcon icon={faPlus} />
-                                &nbsp;nouveau kpi
-                              </Button>
-                            </Grid>
+
                           </Grid>
                         </Grid>
                         {!deletionDisabled && <Grid item>
@@ -69,6 +64,19 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                             optionValueName='id'
                             onChange={handleCategoryChange}
                         />
+                    </Grid>
+                    <Grid item style={{position: 'relative'}}>
+                      <DefaultTitle>
+                        <MenuIconButton size={'small'} onClick={() => setNewKpiOpen(true)} style={{
+                            position: 'absolute',
+                            top: '20px',
+                            left: '33px',
+                            zIndex: 100,
+                            fontSize: '14px',
+                          }}>
+                          <FontAwesomeIcon icon={faPlus} style={{color: "#00E58D"}}/>
+                        </MenuIconButton>
+                      </DefaultTitle>
                     </Grid>
                     <Grid item xs={12}>
                         <Select
@@ -107,7 +115,9 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                     <Grid item xs>
                       <Grid container spacing={1} alignItems='center'>
                           <Grid item>
-                              <TableChip label={'>'} />
+                            <DefaultText style={{fontSize: 16}}>
+                              👉
+                            </DefaultText>
                           </Grid>
                           <Grid item>
                               <TextField name={`target[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_TARGET_LABEL2} fullWidth required initial={goal ? goal.target : null} />
