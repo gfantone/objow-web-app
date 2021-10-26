@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid} from '@material-ui/core'
+import {Grid, CardMedia} from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faEquals, faInfoCircle, faUser, faUsers} from '@fortawesome/free-solid-svg-icons'
 import {faStar} from '@fortawesome/free-regular-svg-icons'
@@ -29,6 +29,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
             </Grid>
         )
     }
+    const coinImage = require(`../../../../assets/img/system/challenge/icons/coin.png`)
 
     const renderRankingAwards = () => {
         return (
@@ -131,7 +132,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                       <tr>
                                                                                         <td style={{padding: 0}}>
                                                                                           <DefaultText lowercase style={{textAlign: 'right', paddingRight: 5}}>
-                                                                                            Réalisé :
+                                                                                            👉 Réalisé :
                                                                                           </DefaultText>
                                                                                         </td>
                                                                                         <td>
@@ -203,7 +204,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                 <Grid item xs={12}>
                                     <DefaultText>
                                         <FontAwesomeIcon icon={faStar} /> {Resources.CHALLENGE_CONDITION_TYPE.format(challenge.awardName)}
-                                        <InfoText>{Resources.[`CHALLENGE_CREATION_AWARD_TYPE  _DESCRIPTION_${challenge.awardCode}`]}</InfoText>
+                                        <InfoText>{Resources.[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${challenge.awardCode}`]}</InfoText>
 
                                     </DefaultText>
                                 </Grid>
@@ -227,6 +228,16 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                     </Grid>
                     <Grid item xs={12}>
                         <Card>
+                            <Grid container spacing={1} style={{marginBottom: 5}}>
+                              <Grid item>
+                                <CardMedia image={coinImage} style={{height: 25, width: 25}} />
+                              </Grid>
+                              <Grid item>
+                                <DefaultText style={{marginTop: 3}}>
+                                  Points
+                                </DefaultText>
+                              </Grid>
+                            </Grid>
                             { challenge.awardCode == 'M' && renderMaximumAward() }
                             { challenge.awardCode == 'R' && renderRankingAwards() }
                         </Card>
