@@ -57,6 +57,7 @@
     "build:external": "env-cmd -f .env.external react-scripts --max_old_space_size=4096 build",
     "build:dev": "env-cmd -f .env.external-dev react-scripts --max_old_space_size=4096 build",
     "build:sandbox": "env-cmd -f .env.external-sandbox react-scripts --max_old_space_size=4096 build",
+    "build:mgen": "env-cmd -f .env.external-mgen react-scripts --max_old_space_size=4096 build",
     "postbuild": "npm run generate-build-meta",
     "generate-build-meta": "./node_modules/react-clear-cache/bin/cli.js",
     "test": "react-scripts test",
