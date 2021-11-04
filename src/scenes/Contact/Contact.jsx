@@ -23,6 +23,8 @@ const Contact = ({...props}) => {
         setSelectedType(type)
     };
 
+    const iframeUrl = 'https://firetiger.fr/help'
+
     return (
         <div>
             <Grid container spacing={4}>
@@ -45,6 +47,20 @@ const Contact = ({...props}) => {
                 <Grid item xs={12}>
                     { selectedType == 1 && <EvolutionRequest /> }
                     { selectedType == 2 && <IncidentReporting /> }
+                </Grid>
+                <Grid item xs={12}>
+                  <iframe
+                    src={ iframeUrl }
+                    scrolling='no'
+                    frameborder="0"
+                    id="myframe1"
+                    onLoad={() => {
+
+                      console.log(document.getElementById('myframe1').contentWindow.document.getElementById('pass'))
+                    }}
+                    allowtransparency
+                  />
+
                 </Grid>
             </Grid>
         </div>
