@@ -9,26 +9,31 @@ import * as Resources from '../../../../../../Resources'
 import * as challengeTypeUsablePointsActions from '../../../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
 import {uuidv4} from "../../../../../../helpers/UUIDHelper"
 import './helpers/FormsyHelper'
+import _ from 'lodash'
 
-const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialLive = false, initialType, isCreation, isDuplication, isUpdate, start, team, types, ...props}) => {
+const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialLive = false, initialType, initialRewardType, isCreation, isDuplication, isUpdate, start, team, types, rewardTypes, setConfigRewardOpen, ...props}) => {
     const getInitialAwards = () => {
         if (initialAwards && initialAwards.length > 0) {
             const awardType = types.find(t => t.id === parseInt(initialType))
-            return initialAwards.filter((award, index) => awardType.code === "M" ? index === 0 : true).map(x => ({key: uuidv4(), points: x.points}))
+            return initialAwards.filter((award, index) => awardType.code === "M" ? index === 0 : true).map(x => ({key: uuidv4(), points: x.points, reward: x.reward}))
         } else {
-            return [{key: uuidv4(), points: null}]
+            return [{key: uuidv4(), points: null, reward: null}]
         }
     }
 
     const {points, loading} = props.challengeTypeUsablePoints
     const maxAwardType = types[0].id
     const finalInitialType = initialType ? initialType : maxAwardType
+    const finalInitialRewardType = initialRewardType ? initialRewardType : rewardTypes[0].id
     const [awards, setAwards] = React.useState(getInitialAwards)
-    const [type, setType] = React.useState(finalInitialType)
+    // const [type, setType] = React.useState(finalInitialType)
+    const [type, setType] = React.useState(1)
+    const [rewardType, setRewardType] = React.useState(finalInitialRewardType)
     const isMaxAward = parseInt(type) === maxAwardType
     const currentType = types.find(t => parseInt(type) === t.id)
+    const currentRewardType = rewardTypes.find(t => parseInt(rewardType) === t.id)
     const usablePoints = points ? (!isMaxAward ? points.all : points.participant) : 0
-
+    console.log(_.slice(awards, 1));
     const icons = {
       'R': require(`../../../../../../assets/img/system/challenge/icons/Ribbons.png`),
       'M': require(`../../../../../../assets/img/system/challenge/icons/Rocket.png`)
@@ -58,6 +63,10 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     function handleTypeChange(newType) {
         setType(Number(newType))
     }
+    function handleRewardTypeChange(newType) {
+        setRewardType(Number(newType))
+    }
+
     return (
         <div>
             <Grid container spacing={2} justify="center">
@@ -89,7 +98,18 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
                         <Grid item>
-                            <DefaultTitle>Points</DefaultTitle>
+                          <Select
+                            name='rewardType'
+                            label='Récompenses'
+                            initial={initialRewardType}
+                            options={rewardTypes}
+                            optionValueName='id'
+                            optionTextName='name'
+                            emptyDisabled
+                            onChange={handleRewardTypeChange}
+                            fullWidth
+                          />
+
                         </Grid>
                         {!isMaxAward && <Grid item>
                             <IconButton size='small' onClick={handleAddAwardClick}>
@@ -107,15 +127,33 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 // const validations = isMaxAward ? 'isLessThanOrEquals:usablePoints' : 'isRankingValid'
                                 const validations = null
                                 const validationErrors = isMaxAward ? {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isLessThanOrEquals: 'La récompense est trop élevée',} : {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isRankingValid: 'La récompense est trop élevée'}
+                                
                                 return (
                                     <Grid key={award.key} item xs={3}>
                                         <Grid container spacing={1} alignItems='flex-end'>
-                                            <Grid item xs>
+                                            {currentRewardType.code === 'G' && (
+                                              <Grid item xs style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
+                                                {award.reward && (
+                                                  <DefaultText>
+                                                    {award.reward.name}
+                                                  </DefaultText>
+                                                )}
+                                                {!award.reward && (
+                                                  <Card>
+                                                    Ajouter une récompense
+                                                  </Card>
+                                                )}
+                                              </Grid>
+                                            )}
+                                            {currentRewardType.code === 'P' && (
+                                              <Grid item xs>
                                                 <TextField name={`award[${index}]`} label={label} fullWidth required initial={award.points}
-                                                           validations={validations}
-                                                           validationErrors={validationErrors}
-                                                />
-                                            </Grid>
+                                                  validations={validations}
+                                                  validationErrors={validationErrors}
+                                                  />
+                                              </Grid>
+                                            )}
+
                                             {!isMaxAward && awards.length > 1 && <Grid item>
                                                 <IconButton size='small' onClick={() => handleRemoveAwardClick(award.key)}>
                                                     <FontAwesomeIcon icon={faTrashAlt} />

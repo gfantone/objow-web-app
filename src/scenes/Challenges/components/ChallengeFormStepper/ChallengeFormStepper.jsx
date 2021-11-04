@@ -11,6 +11,7 @@ import _ from 'lodash'
 const ChallengeFormStepper = ({
     actionLoading,
     awardTypes,
+    rewardTypes,
     categories,
     images,
     isCreation,
@@ -36,6 +37,7 @@ const ChallengeFormStepper = ({
     setAwardType,
     handleAddGoal,
     setNewKpiOpen,
+    setConfigRewardOpen,
     ...props
   }) => {
     const id = challenge.id || null
@@ -47,6 +49,7 @@ const ChallengeFormStepper = ({
     const image = challenge.image || null
     const customImage = challenge.customImage || null
     const awardType = challenge.awardType ? challenge.awardType : null
+    const rewardType = challenge.rewardType ? challenge.rewardType : null
     const awards = challenge.awards || []
     const goals = challenge.goals || null
     const live = challenge.live || null
@@ -203,12 +206,15 @@ const ChallengeFormStepper = ({
                 initialAwards={awards}
                 initialLive={live}
                 initialType={awardType}
+                initialRewardType={rewardType}
                 isCreation={isCreation}
                 isDuplication={isDuplication}
                 isUpdate={isUpdate}
                 start={start}
                 team={team}
                 types={awardTypes}
+                rewardTypes={rewardTypes}
+                setConfigRewardOpen={setConfigRewardOpen}
             />
         </Grid>
         break;

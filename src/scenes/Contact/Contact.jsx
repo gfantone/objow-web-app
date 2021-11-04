@@ -48,20 +48,6 @@ const Contact = ({...props}) => {
                     { selectedType == 1 && <EvolutionRequest /> }
                     { selectedType == 2 && <IncidentReporting /> }
                 </Grid>
-                <Grid item xs={12}>
-                  <iframe
-                    src={ iframeUrl }
-                    scrolling='no'
-                    frameborder="0"
-                    id="myframe1"
-                    onLoad={() => {
-
-                      console.log(document.getElementById('myframe1').contentWindow.document.getElementById('pass'))
-                    }}
-                    allowtransparency
-                  />
-
-                </Grid>
             </Grid>
         </div>
     )

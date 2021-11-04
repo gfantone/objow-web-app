@@ -7,11 +7,12 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom'
 import {withStyles} from "@material-ui/core/styles";
-import {ChallengeFormStepper} from '../../components'
+import {ChallengeFormStepper, ChallengeRewardForm} from '../../components'
 import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Stepper, Dialog, DialogTitle, Select, DialogActions, ProgressButton, TextField, Button} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as categoryListActions from "../../../../services/Categories/CategoryList/actions"
 import * as challengeAwardTypeListActions from "../../../../services/ChallengeAwardTypes/ChallengeAwardTypeList/actions"
+import * as challengeRewardTypeListActions from "../../../../services/ChallengeRewardTypes/ChallengeRewardTypeList/actions"
 import * as challengeCreationActions from '../../../../services/Challanges/ChallangeCreaton/actions'
 import * as challengeDetailActions from "../../../../services/Challanges/ChallengeDetail/actions"
 import * as challengeImageListActions from "../../../../services/ChallengeImages/ChallengeImageList/actions"
@@ -33,15 +34,17 @@ class ChallengeCreation extends MainLayoutComponent {
     state = {
       goalAdding: false,
       steps: [
-        { order: 1, name: 'Participants', active: true},
+        { order: 1, name: 'Participants'},
         { order: 2, name: 'Mode'},
         { order: 3, name: 'Informations'},
         { order: 4, name: 'indicateurs et mécanismes'},
-        { order: 5, name: 'Récompenses'},
+        { order: 5, name: 'Récompenses', active: true},
         // { order: 6, name: 'Options'},
         { order: 6, name: 'Validation'},
       ],
       finalModel: {},
+      configRewardOpen: false,
+      currentAwards: [],
       participants: []
     }
 
@@ -68,6 +71,7 @@ class ChallengeCreation extends MainLayoutComponent {
         this.props.activateReturn()
         this.props.categoryListActions.getActiveCategoryList()
         this.props.challengeAwardTypeListActions.getChallengeAwardTypeList()
+        this.props.challengeRewardTypeListActions.getChallengeRewardTypeList()
         this.props.challengeImageListActions.getChallengeImageList()
         this.props.challengeTypeListActions.getUsableChallengeTypeList()
         this.props.currentPeriodDetailActions.getCurrentPeriodDetail()
@@ -286,10 +290,36 @@ class ChallengeCreation extends MainLayoutComponent {
       this.setNewKpiOpen(false)
     }
 
+    handleSubmitReward = (model) => {
+      const newAward = Object.assign({}, this.state.currentAward, {
+        reward: Object.assign({}, _.get(this.state.currentAward, 'reward'), model)
+      })
+      const newAwards = [
+        ..._.slice(this.state.currentAwards, 0, this.state.currentAwardIndex),
+        newAward,
+        ..._.slice(this.state.currentAwards, this.state.currentAwardIndex + 1),
+
+      ]
+      this.state.setAwards(newAwards)
+      this.setConfigRewardOpen(false)
+    }
+
+    setConfigRewardOpen = (value, awards, currentAward, currentAwardIndex, setAwards) => {
+      this.setState({
+        ...this.state,
+        currentAwards: awards || this.state.currentAwards,
+        currentAward: currentAward || this.state.currentAward,
+        currentAwardIndex: currentAwardIndex !== undefined ? currentAwardIndex : this.state.currentAwardIndex,
+        setAwards: setAwards || this.state.setAwards,
+        configRewardOpen: value
+      })
+    }
+
 
     renderData() {
         const {categories} = this.props.categoryList
         const {types: awardTypes} = this.props.challengeAwardTypeList
+        const {types: rewardTypes} = this.props.challengeRewardTypeList
         const {images} = this.props.challengeImageList
         const {period} = this.props.currentPeriodDetail
         const {types} = this.props.challengeTypeList
@@ -310,6 +340,7 @@ class ChallengeCreation extends MainLayoutComponent {
                     <ChallengeFormStepper
                         actionLoading={loading}
                         awardTypes={awardTypes}
+                        rewardTypes={rewardTypes}
                         categories={categories}
                         goalAdding={this.state.goalAdding}
                         images={images}
@@ -334,6 +365,7 @@ class ChallengeCreation extends MainLayoutComponent {
                         handleAddGoal={this.handleAddGoal}
                         challenge={this.state.finalModel}
                         setNewKpiOpen={this.setNewKpiOpen}
+                        setConfigRewardOpen={this.setConfigRewardOpen}
                     />
                 </Formsy>
 
@@ -368,6 +400,20 @@ class ChallengeCreation extends MainLayoutComponent {
                       </DialogActions>
                     </Formsy>
                 </Dialog>
+                <Dialog
+                    open={this.state.configRewardOpen}
+                    onClose={() => this.state.setConfigRewardOpen(false)}
+                    classes={{ paper: this.props.classes.kpiDialog }}
+                >
+                    <DialogTitle>Création de récompense</DialogTitle>
+                    <Formsy onValidSubmit={this.handleSubmitReward} >
+                      <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
+                      <DialogActions>
+                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                          <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
+                      </DialogActions>
+                    </Formsy>
+                </Dialog>
             </div>
         )
     }
@@ -375,15 +421,17 @@ class ChallengeCreation extends MainLayoutComponent {
     render() {
         const {categories, loading: categoryListLoading} = this.props.categoryList
         const {types: awardTypes, loading: challengeAwardTypeListLoading} = this.props.challengeAwardTypeList
+        const {types: rewardTypes, loading: challengeRewardTypeListLoading} = this.props.challengeRewardTypeList
         const {images, loading: challengeImageListLoading} = this.props.challengeImageList
         const {types, loading: challengeTypeListLoading} = this.props.challengeTypeList
         const {success} = this.props.challengeCreation
         const {period, loading: currentPeriodDetailLoading} = this.props.currentPeriodDetail
         const {kpis, loading: kpiListLoading} = this.props.kpiList
         const { teams, loading: teamLoading } = this.props.teamList;
-        const loading = categoryListLoading || challengeAwardTypeListLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading || teamLoading
+        const loading = categoryListLoading || challengeAwardTypeListLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading || teamLoading || challengeRewardTypeListLoading
 
         const { account } = this.props.accountDetail;
+
 
         if(!account.hasChallengeAccess) {
           return <Redirect to={'/'} />
@@ -398,16 +446,17 @@ class ChallengeCreation extends MainLayoutComponent {
         return (
             <div>
                 {loading && this.renderLoader()}
-                {!loading && awardTypes && categories && period && images && types && kpis && teams && this.renderData()}
+                {!loading && awardTypes && rewardTypes && categories && period && images && types && kpis && teams && this.renderData()}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({accountDetail, categoryList, challengeAwardTypeList, challengeCreation, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, teamList}) => ({
+const mapStateToProps = ({accountDetail, categoryList, challengeAwardTypeList, challengeRewardTypeList, challengeCreation, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, teamList}) => ({
     categoryList,
     accountDetail,
     challengeAwardTypeList,
+    challengeRewardTypeList,
     challengeCreation,
     challengeImageList,
     challengeTypeList,
@@ -419,6 +468,7 @@ const mapStateToProps = ({accountDetail, categoryList, challengeAwardTypeList, c
 const mapDispatchToProps = (dispatch) => ({
     categoryListActions: bindActionCreators(categoryListActions, dispatch),
     challengeAwardTypeListActions: bindActionCreators(challengeAwardTypeListActions, dispatch),
+    challengeRewardTypeListActions: bindActionCreators(challengeRewardTypeListActions, dispatch),
     challengeCreationActions: bindActionCreators(challengeCreationActions, dispatch),
     challengeDetailActions: bindActionCreators(challengeDetailActions, dispatch),
     challengeImageListActions: bindActionCreators(challengeImageListActions, dispatch),

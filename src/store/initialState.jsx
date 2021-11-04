@@ -19,6 +19,7 @@ const initialState = {
     categoryList: {categories: null, loading: false, hasError: false},
     categoryUpdate: {success: false, loading: false, hasError: false},
     challengeAwardTypeList: {types: null, loading: false, hasError: false},
+    challengeRewardTypeList: {types: null, loading: false, hasError: false},
     challengeCreation: {success: false, loading: false, hasError: false},
     challengeDetail: {challenge: null, loading: false, hasError: false},
     challengeImageList: {images: null, loading: false, hasError: false},

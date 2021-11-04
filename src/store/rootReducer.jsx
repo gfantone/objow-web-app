@@ -19,6 +19,7 @@ import categoryIconList from '../services/CategoryIcons/CategoryIconList/reducer
 import categoryList from '../services/Categories/CategoryList/reducer'
 import categoryUpdate from '../services/Categories/CategoryUpdate/reducer'
 import challengeAwardTypeList from '../services/ChallengeAwardTypes/ChallengeAwardTypeList/reducer'
+import challengeRewardTypeList from '../services/ChallengeRewardTypes/ChallengeRewardTypeList/reducer'
 import challengeCreation from '../services/Challanges/ChallangeCreaton/reducer'
 import challengeDetail from '../services/Challanges/ChallengeDetail/reducer'
 import challengeImageList from '../services/ChallengeImages/ChallengeImageList/reducer'
@@ -198,6 +199,7 @@ const rootReducer = combineReducers({
     categoryList,
     categoryUpdate,
     challengeAwardTypeList,
+    challengeRewardTypeList,
     challengeCreation,
     challengeDetail,
     challengeImageList,
