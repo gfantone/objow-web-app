@@ -8,8 +8,9 @@ function* createChallenge(action) {
 
         const { data: challenge } = yield call(api.challenges.create, action.challengeFormData, action.teamId);
 
-        action.awards.map(award => {
+        action.awards.map((award, index) => {
             award.challenge = challenge.id
+            award.rank = index
             if(award.reward) {
               award.reward = Object.assign(
                 {},

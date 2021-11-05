@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faEquals, faInfoCircle, faUser, faUsers} from '@fortawesome/free-solid-svg-icons'
 import {faStar} from '@fortawesome/free-regular-svg-icons'
 import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText, Linkify} from '../../../../components'
+import {ChallengeReward} from '../'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 
@@ -11,6 +12,11 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
     const start = challenge.start.toDate2().toLocaleDateString()
     const end = challenge.end.toDate2().toLocaleDateString()
     const typeIcon = challenge.typeCode === 'CT' ? faUsers : faUser
+
+    const coinImage = require(`../../../../assets/img/system/challenge/icons/coin.png`)
+    const giftImage = require(`../../../../assets/img/system/challenge/icons/gift.png`)
+
+    const rewardTypeIcon = challenge.rewardTypeCode === 'G' ? giftImage : coinImage
 
     const renderMaximumAward = () => {
         const award = challenge.awards[0]
@@ -29,26 +35,47 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
             </Grid>
         )
     }
-    const coinImage = require(`../../../../assets/img/system/challenge/icons/coin.png`)
+
 
     const renderRankingAwards = () => {
         return (
             <Grid container spacing={1}>
                 {challenge.awards.map(award => {
+
                     return (
-                        <Grid item xs={12}>
+                        <Grid item xs={4}>
                             <div>
-                                <Grid container spacing={1}>
+                                {challenge.rewardTypeCode === 'P' && (
+
+                                  <Grid container spacing={1}>
                                     <Grid item>
-                                        <TableChip label={'>'} />
+                                      <TableChip label={'>'} />
                                     </Grid>
                                     <Grid item>
-                                        <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultText>
+                                      <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultText>
                                     </Grid>
                                     <Grid item>
-                                        <AccentTag>{Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}</AccentTag>
+                                      <AccentTag>{Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}</AccentTag>
                                     </Grid>
-                                </Grid>
+                                  </Grid>
+                                )}
+                                {challenge.rewardTypeCode === 'G' && (
+                                  <Grid container direction="column" spacing={1} >
+                                    <Grid item>
+                                      <Grid container spacing={1}>
+                                        <Grid item>
+                                          <TableChip label={'>'} />
+                                        </Grid>
+                                        <Grid item>
+                                          <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultText>
+                                        </Grid>
+                                      </Grid>
+                                    </Grid>
+                                    <Grid item>
+                                      <ChallengeReward reward={award.reward} />
+                                    </Grid>
+                                  </Grid>
+                                )}
                             </div>
                         </Grid>
                     )
@@ -230,11 +257,11 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                         <Card>
                             <Grid container spacing={1} style={{marginBottom: 5}}>
                               <Grid item>
-                                <CardMedia image={coinImage} style={{height: 25, width: 25}} />
+                                <CardMedia image={rewardTypeIcon} style={{height: 25, width: 25}} />
                               </Grid>
                               <Grid item>
                                 <DefaultText style={{marginTop: 3}}>
-                                  Points
+                                  {challenge.rewardTypeName}
                                 </DefaultText>
                               </Grid>
                             </Grid>

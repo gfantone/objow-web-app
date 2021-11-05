@@ -4,7 +4,7 @@ import {withStyles} from '@material-ui/core/styles'
 import {RewardImage} from './components'
 import {DefaultText, InfoText} from '../../../../components'
 import * as Resources from '../../../../Resources'
-
+import _ from 'lodash'
 const styles = {
 
 }
@@ -16,7 +16,7 @@ const ChallengeReward = ({reward, ...props}) => {
         <div>
             <Grid container direction="column" spacing={1}>
               <Grid item>
-                <RewardImage image={reward.image} />
+                <RewardImage image={_.get(reward, 'image.path', reward.image)} />
               </Grid>
               <Grid item>
                 <DefaultText lowercase>

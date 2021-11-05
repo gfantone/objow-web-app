@@ -132,10 +132,10 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                   image: award.reward.image && rewardImages ? rewardImages.find(i => i.id === parseInt(award.reward.image)).path : null
                                 }) : null
                                 return (
-                                    <Grid key={award.key} item xs={3}>
+                                    <Grid key={award.key} item xs={4}>
                                         <Grid container spacing={1} alignItems='flex-end'>
                                             {currentRewardType.code === 'G' && (
-                                              <Grid item xs style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
+                                              <Grid item xs={10} style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
                                                 {award.reward && (
                                                   <ChallengeReward reward={reward} />
                                                 )}
