@@ -26,14 +26,14 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     const finalInitialType = initialType ? initialType : maxAwardType
     const finalInitialRewardType = initialRewardType ? initialRewardType : rewardTypes[0].id
     const [awards, setAwards] = React.useState(getInitialAwards)
-    // const [type, setType] = React.useState(finalInitialType)
-    const [type, setType] = React.useState(1)
+    const [type, setType] = React.useState(finalInitialType)
+    // const [type, setType] = React.useState(1)
     const [rewardType, setRewardType] = React.useState(finalInitialRewardType)
     const isMaxAward = parseInt(type) === maxAwardType
     const currentType = types.find(t => parseInt(type) === t.id)
     const currentRewardType = rewardTypes.find(t => parseInt(rewardType) === t.id)
     const usablePoints = points ? (!isMaxAward ? points.all : points.participant) : 0
-    console.log(_.slice(awards, 1));
+    // console.log(_.slice(awards, 1));
     const icons = {
       'R': require(`../../../../../../assets/img/system/challenge/icons/Ribbons.png`),
       'M': require(`../../../../../../assets/img/system/challenge/icons/Rocket.png`)
@@ -127,7 +127,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 // const validations = isMaxAward ? 'isLessThanOrEquals:usablePoints' : 'isRankingValid'
                                 const validations = null
                                 const validationErrors = isMaxAward ? {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isLessThanOrEquals: 'La récompense est trop élevée',} : {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isRankingValid: 'La récompense est trop élevée'}
-                                
+
                                 return (
                                     <Grid key={award.key} item xs={3}>
                                         <Grid container spacing={1} alignItems='flex-end'>

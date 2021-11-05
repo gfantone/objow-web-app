@@ -7,6 +7,7 @@ const challenges = {
     create(challenge, teamId) {
         var url = `${baseUrl}`;
         if (teamId) url += `?team=${teamId}`;
+        console.log('post challenge', challenge);
         return instance.post(url, challenge)
     },
     update(challengeFormData, challenge) {

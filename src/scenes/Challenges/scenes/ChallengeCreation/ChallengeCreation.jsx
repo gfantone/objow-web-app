@@ -34,11 +34,11 @@ class ChallengeCreation extends MainLayoutComponent {
     state = {
       goalAdding: false,
       steps: [
-        { order: 1, name: 'Participants'},
+        { order: 1, name: 'Participants', active: true},
         { order: 2, name: 'Mode'},
         { order: 3, name: 'Informations'},
         { order: 4, name: 'indicateurs et mécanismes'},
-        { order: 5, name: 'Récompenses', active: true},
+        { order: 5, name: 'Récompenses'},
         // { order: 6, name: 'Options'},
         { order: 6, name: 'Validation'},
       ],
@@ -196,7 +196,8 @@ class ChallengeCreation extends MainLayoutComponent {
     handleValidSubmit(model) {
         const currentStep = this.getCurrentStep()
         const nextStep = this.state.steps.find(step => step.order === currentStep.order + 1)
-        // console.log(this.state.finalModel, model);
+        const {types: rewardTypes} = this.props.challengeRewardTypeList
+
         if(nextStep) {
           this.changeStep(model)
         } else {
@@ -216,6 +217,7 @@ class ChallengeCreation extends MainLayoutComponent {
           challengeFormData.append('end', end)
           challengeFormData.append('type', finalModel.type)
           challengeFormData.append('award_type', finalModel.awardType)
+          challengeFormData.append('reward_type', finalModel.rewardType)
           challengeFormData.append('live', finalModel.live ? finalModel.live : false)
           challengeFormData.append('participants', participants)
 
@@ -239,14 +241,17 @@ class ChallengeCreation extends MainLayoutComponent {
             end: end,
             type: finalModel.type,
             award_type: finalModel.awardType,
+            reward_type: finalModel.rewardType,
             live: finalModel.live ? finalModel.live : false,
             participants: participants
 
           }, image)
 
-
+          const currentRewardType = rewardTypes.find(rewardType => rewardType.id === parseInt(finalModel.rewardType))
+          const awards = currentRewardType.code === 'G' ? this.state.currentAwards : finalModel.awards
           const teamId = types.find(x => x.id == finalModel.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
-          this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, finalModel.awards, finalModel.goals, teamId)
+          console.log(challenge, challengeFormData, awards, finalModel.goals, teamId);
+          this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, awards, finalModel.goals, teamId)
         }
     }
 
@@ -301,7 +306,11 @@ class ChallengeCreation extends MainLayoutComponent {
 
       ]
       this.state.setAwards(newAwards)
-      this.setConfigRewardOpen(false)
+      this.setState({
+        ...this.state,
+        currentAwards: newAwards,
+        configRewardOpen: false
+      })
     }
 
     setConfigRewardOpen = (value, awards, currentAward, currentAwardIndex, setAwards) => {
