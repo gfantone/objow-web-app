@@ -5,13 +5,14 @@ import {Grid, IconButton, CardMedia} from '@material-ui/core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faInfoCircle, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, Select, Switch, TextField, Tooltip} from '../../../../../../components'
+import {ChallengeReward} from '../../../'
 import * as Resources from '../../../../../../Resources'
 import * as challengeTypeUsablePointsActions from '../../../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
 import {uuidv4} from "../../../../../../helpers/UUIDHelper"
 import './helpers/FormsyHelper'
 import _ from 'lodash'
 
-const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialLive = false, initialType, initialRewardType, isCreation, isDuplication, isUpdate, start, team, types, rewardTypes, setConfigRewardOpen, ...props}) => {
+const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialLive = false, initialType, initialRewardType, isCreation, isDuplication, isUpdate, start, team, types, rewardTypes, setConfigRewardOpen, rewardImages, ...props}) => {
     const getInitialAwards = () => {
         if (initialAwards && initialAwards.length > 0) {
             const awardType = types.find(t => t.id === parseInt(initialType))
@@ -26,8 +27,8 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     const finalInitialType = initialType ? initialType : maxAwardType
     const finalInitialRewardType = initialRewardType ? initialRewardType : rewardTypes[0].id
     const [awards, setAwards] = React.useState(getInitialAwards)
-    const [type, setType] = React.useState(finalInitialType)
-    // const [type, setType] = React.useState(1)
+    // const [type, setType] = React.useState(finalInitialType)
+    const [type, setType] = React.useState(1)
     const [rewardType, setRewardType] = React.useState(finalInitialRewardType)
     const isMaxAward = parseInt(type) === maxAwardType
     const currentType = types.find(t => parseInt(type) === t.id)
@@ -127,16 +128,16 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 // const validations = isMaxAward ? 'isLessThanOrEquals:usablePoints' : 'isRankingValid'
                                 const validations = null
                                 const validationErrors = isMaxAward ? {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isLessThanOrEquals: 'La récompense est trop élevée',} : {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isRankingValid: 'La récompense est trop élevée'}
-
+                                const reward = award.reward ? Object.assign({}, award.reward, {
+                                  image: award.reward.image && rewardImages ? rewardImages.find(i => i.id === parseInt(award.reward.image)).path : null
+                                }) : null
                                 return (
                                     <Grid key={award.key} item xs={3}>
                                         <Grid container spacing={1} alignItems='flex-end'>
                                             {currentRewardType.code === 'G' && (
                                               <Grid item xs style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
                                                 {award.reward && (
-                                                  <DefaultText>
-                                                    {award.reward.name}
-                                                  </DefaultText>
+                                                  <ChallengeReward reward={reward} />
                                                 )}
                                                 {!award.reward && (
                                                   <Card>

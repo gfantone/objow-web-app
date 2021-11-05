@@ -38,6 +38,7 @@ const ChallengeFormStepper = ({
     handleAddGoal,
     setNewKpiOpen,
     setConfigRewardOpen,
+    rewardImages,
     ...props
   }) => {
     const id = challenge.id || null
@@ -215,6 +216,7 @@ const ChallengeFormStepper = ({
                 types={awardTypes}
                 rewardTypes={rewardTypes}
                 setConfigRewardOpen={setConfigRewardOpen}
+                rewardImages={rewardImages}
             />
         </Grid>
         break;
