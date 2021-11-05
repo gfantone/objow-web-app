@@ -62,13 +62,14 @@ class ChallengeRewardForm extends React.Component {
         const {reward} = this.props
         let image
 
-        if(_.get(reward, 'image')) {
+        if(_.get(reward, 'image.path')) {
+          image = _.get(reward, 'image.path')
+        }else if(_.get(reward, 'image')) {
           const selectedImage = images.find(x => x.id === parseInt(_.get(reward, 'image')))
           const path = selectedImage ? selectedImage.path : null
           image = path
         }
         image = this.state.image ? this.state.image : image
-
         return (
             <div>
 
@@ -97,7 +98,11 @@ class ChallengeRewardForm extends React.Component {
                                                         <RichTextField
                                                           name='description'
                                                           label={Resources.REWARD_CREATION_DESCRIPTION_LABEL}
-                                                          initial={_.get(reward, 'description')}
+                                                          initial={
+                                                            _.isString(_.get(reward, 'description')) ?
+                                                            JSON.parse(_.get(reward, 'description')) :
+                                                            _.get(reward, 'description')
+                                                          }
                                                           multiline
                                                           fullWidth
                                                           required

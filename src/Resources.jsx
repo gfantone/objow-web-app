@@ -275,6 +275,7 @@ export const CHALLENGE_CREATION_INFO_NO_IMAGE_TEXT = "Aucune image sélectionée
 export const CHALLENGE_CREATION_INFO_START_LABEL = "Début"
 export const CHALLENGE_CREATION_INFO_END_LABEL = "Fin"
 export const CHALLENGE_CREATION_INFO_TYPE_LABEL = "Type"
+export const CHALLENGE_CREATION_INFO_AWARD_TYPE_LABEL = "Mode"
 export const CHALLENGE_CREATION_INFO_IMAGE_LABEL = "Sélectionner une image..."
 export const CHALLENGE_CREATION_GOAL_AREA = "Indicateurs"
 export const CHALLENGE_CREATION_GOAL_TITLE = "Indicateur {0}"

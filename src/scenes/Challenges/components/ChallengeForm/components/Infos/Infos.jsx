@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     }
 })
 
-const Infos = ({description, end, customImage, image, images, isUpdate, name, period, onEndChange, onStartChange, onTypeChange, start, type, types, ...props}) => {
+const Infos = ({description, end, customImage, image, images, isUpdate, name, period, onEndChange, onStartChange, onTypeChange, start, type, types, awardType, awardTypes, ...props}) => {
     const classes = useStyles()
     const {account} = props.accountDetail
     const hasManager = account.role.code === 'M'
@@ -23,7 +23,6 @@ const Infos = ({description, end, customImage, image, images, isUpdate, name, pe
     const endMinDate = start ? start : today
     const [selectedImageId, setSelectedImageId] = React.useState(image ? image : null)
     const selectedImage = customImage ? {path: customImage} : images.find(x => x.id === selectedImageId)
-
     const [selectedImagePath, setSelectedImagePath] = React.useState(selectedImage ? selectedImage.path : null)
 
     function handleImageChange(id) {
@@ -126,6 +125,19 @@ const Infos = ({description, end, customImage, image, images, isUpdate, name, pe
                                     required
                                     validationErrors={{isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR}}
                                     onChange={onTypeChange}
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Select
+                                    fullWidth
+                                    disabled
+                                    initial={awardType}
+                                    label={Resources.CHALLENGE_CREATION_INFO_AWARD_TYPE_LABEL}
+                                    name='awardType'
+                                    options={awardTypes}
+                                    optionTextName='name'
+                                    optionValueName='id'
+                                    required
                                 />
                             </Grid>
                             <Grid item xs={12}>

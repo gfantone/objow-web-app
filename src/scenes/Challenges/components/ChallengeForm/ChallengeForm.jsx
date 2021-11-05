@@ -6,7 +6,7 @@ import {ProgressButton} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import _ from 'lodash'
 
-const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images, isCreation, isDuplication, isUpdate, kpis, period, team, types, goalAdding, onGoalAdded, addGoal, teams, ...props}) => {
+const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, challenge, images, isCreation, isDuplication, isUpdate, kpis, period, team, types, goalAdding, onGoalAdded, addGoal, teams, setConfigRewardOpen, rewardImages, ...props}) => {
     const id = challenge ? challenge.id : null
     const name = challenge ? challenge.name : null
     const description = challenge ? challenge.description : null
@@ -19,6 +19,7 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
     const image = challenge ? _.get(challenge, 'image.id') : null
     const customImage = challenge ? challenge.customImage : null
     const awardType = challenge ? challenge.award_type : null
+    const rewardType = challenge ? challenge.reward_type : null
     const awards = challenge ? challenge.awards : []
     const goals = challenge ? challenge.goals : null
     const live = challenge ? challenge.live : null
@@ -68,6 +69,8 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
                         onEndChange={handleEndChange}
                         onStartChange={handleStartChange}
                         onTypeChange={handleTypeChange}
+                        awardTypes={awardTypes}
+                        awardType={awardType}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -80,12 +83,16 @@ const ChallengeForm = ({actionLoading, awardTypes, categories, challenge, images
                         initialAwards={awards}
                         initialLive={live}
                         initialType={awardType}
+                        initialRewardType={rewardType}
                         isCreation={isCreation}
                         isDuplication={isDuplication}
                         isUpdate={isUpdate}
                         start={start}
                         team={team}
                         types={awardTypes}
+                        rewardTypes={rewardTypes}
+                        setConfigRewardOpen={setConfigRewardOpen}
+                        rewardImages={rewardImages}
                     />
                 </Grid>
                 <Grid item xs={12}>
