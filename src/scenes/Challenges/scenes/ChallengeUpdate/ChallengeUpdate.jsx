@@ -65,7 +65,15 @@ class ChallengeUpdate extends MainLayoutComponent {
 
         this.props.teamListActions.getTeamList()
     }
-
+    componentWillReceiveProps() {
+      const {challenge} = this.props.challengeDetail
+      if(challenge && !this.state.currentAwards) {
+        this.setState({
+          ...this.state,
+          currentAwards: challenge.awards
+        })
+      }
+    }
     renderLoader() {
         return <Loader centered />
     }
@@ -125,10 +133,14 @@ class ChallengeUpdate extends MainLayoutComponent {
         for (var i = 0; i < model.kpi.length; i++) {
             goals.push({ number: model.number[i], name: model.goalName[i], kpi: model.kpi[i], target: model.target[i], points: model.points[i], challenge: challenge.id })
         }
-        var awards = []
-        for (var i = 0; i < model.award.length; i++) {
+        let awards = []
+        if(this.state.currentAwards) {
+          awards = this.state.currentAwards
+        } else {
+          for (var i = 0; i < model.award.length; i++) {
             const rank = i + 1
             awards.push({ rank: rank, points: model.award[i], challenge: challenge.id })
+          }
         }
         const teamId = types.find(x => x.id == model.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
         this.props.challengeUpdateActions.updateChallenge(challenge, challengeFormData, awards, goals)
