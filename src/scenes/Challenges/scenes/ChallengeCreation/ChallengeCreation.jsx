@@ -35,11 +35,11 @@ class ChallengeCreation extends MainLayoutComponent {
     state = {
       goalAdding: false,
       steps: [
-        { order: 1, name: 'Participants'},
+        { order: 1, name: 'Participants', active: true},
         { order: 2, name: 'Mode'},
         { order: 3, name: 'Informations'},
         { order: 4, name: 'indicateurs et mécanismes'},
-        { order: 5, name: 'Récompenses', active: true},
+        { order: 5, name: 'Récompenses'},
         // { order: 6, name: 'Options'},
         { order: 6, name: 'Validation'},
       ],

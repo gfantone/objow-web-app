@@ -136,7 +136,7 @@ const AwardType = ({types, currentType, setType, participantsNumber, ...props}) 
                             </Grid>
                             <Grid item>
                               { typesData[type.code].availableReward.indexOf('gift') >= 0 && (
-                                <Grid container spacing={1} style={{filter: 'grayscale(1)', opacity: 0.6}}>
+                                <Grid container spacing={1}>
                                   <Grid item>
                                     <CardMedia image={giftImage} className={classes.rewardTypeIcon} />
                                   </Grid>

@@ -27,8 +27,8 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     const finalInitialType = initialType ? initialType : maxAwardType
     const finalInitialRewardType = initialRewardType ? initialRewardType : rewardTypes[0].id
     const [awards, setAwards] = React.useState(getInitialAwards)
-    // const [type, setType] = React.useState(finalInitialType)
-    const [type, setType] = React.useState(1)
+    const [type, setType] = React.useState(finalInitialType)
+    // const [type, setType] = React.useState(1)
     const [rewardType, setRewardType] = React.useState(finalInitialRewardType)
     const isMaxAward = parseInt(type) === maxAwardType
     const currentType = types.find(t => parseInt(type) === t.id)
@@ -133,17 +133,28 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 }) : null
                                 return (
                                     <Grid key={award.key} item xs={4}>
-                                        <Grid container spacing={1} alignItems='flex-end'>
+                                        <Grid container spacing={1} alignItems='flex-end' >
                                             {currentRewardType.code === 'G' && (
                                               <Grid item xs={10} style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
-                                                {award.reward && (
-                                                  <ChallengeReward reward={reward} />
-                                                )}
-                                                {!award.reward && (
-                                                  <Card>
-                                                    Ajouter une récompense
-                                                  </Card>
-                                                )}
+                                                <Grid container direction='column' spacing={1}>
+                                                  <Grid item>
+                                                    <DefaultText>
+                                                      {label}
+                                                    </DefaultText>
+                                                  </Grid>
+                                                  <Grid item>
+                                                    {award.reward && (
+                                                      <ChallengeReward reward={reward} />
+                                                    )}
+                                                    {!award.reward && (
+                                                      <Card>
+                                                        <DefaultText style={{textAlign: 'center', color: '#00E58D'}} lowercase>
+                                                          Ajouter une récompense
+                                                        </DefaultText>
+                                                      </Card>
+                                                    )}
+                                                  </Grid>
+                                                </Grid>
                                               </Grid>
                                             )}
                                             {currentRewardType.code === 'P' && (

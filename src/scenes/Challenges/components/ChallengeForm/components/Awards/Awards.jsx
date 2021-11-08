@@ -111,14 +111,25 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                         <Grid container spacing={1} alignItems='flex-end'>
                                             {currentRewardType.code === 'G' && (
                                               <Grid item xs={10} style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
-                                                {award.reward && (
-                                                  <ChallengeReward reward={reward} />
-                                                )}
-                                                {!award.reward && (
-                                                  <Card>
-                                                    Ajouter une récompense
-                                                  </Card>
-                                                )}
+                                                <Grid container direction='column' spacing={1}>
+                                                  <Grid item>
+                                                    <DefaultText>
+                                                      {label}
+                                                    </DefaultText>
+                                                  </Grid>
+                                                  <Grid item>
+                                                    {award.reward && (
+                                                      <ChallengeReward reward={reward} />
+                                                    )}
+                                                    {!award.reward && (
+                                                      <Card>
+                                                        <DefaultText style={{textAlign: 'center', color: '#00E58D'}} lowercase>
+                                                          Ajouter une récompense
+                                                        </DefaultText>
+                                                      </Card>
+                                                    )}
+                                                  </Grid>
+                                                </Grid>
                                               </Grid>
                                             )}
                                             {currentRewardType.code === 'P' && (

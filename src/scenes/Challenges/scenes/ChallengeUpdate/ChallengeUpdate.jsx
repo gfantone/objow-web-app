@@ -68,9 +68,10 @@ class ChallengeUpdate extends MainLayoutComponent {
     }
     componentWillReceiveProps() {
       const {challenge} = this.props.challengeDetail
-      if(challenge && !this.state.currentAwards) {
+      if(challenge && challenge.id !== this.state.challengeId) {
         this.setState({
           ...this.state,
+          challengeId: challenge.id,
           currentAwards: challenge.awards
         })
       }
@@ -143,7 +144,7 @@ class ChallengeUpdate extends MainLayoutComponent {
             awards.push({ rank: rank, points: model.award[i], challenge: challenge.id })
           }
         }
-        console.log(awards);
+        
         const teamId = types.find(x => x.id == model.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
         this.props.challengeUpdateActions.updateChallenge(challenge, challengeFormData, awards, goals)
     }
