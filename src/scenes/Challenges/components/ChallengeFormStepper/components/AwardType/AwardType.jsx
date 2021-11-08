@@ -53,7 +53,7 @@ const useStyles = makeStyles({
     }
 })
 
-const AwardType = ({types, currentType, setType, participantsNumber, ...props}) => {
+const AwardType = ({types, currentType, setType, participantsNumber, participantType, ...props}) => {
     const classes = useStyles()
     const coinImage = require(`../../../../../../assets/img/system/challenge/icons/coin.png`)
     const giftImage = require(`../../../../../../assets/img/system/challenge/icons/gift.png`)
@@ -85,7 +85,7 @@ const AwardType = ({types, currentType, setType, participantsNumber, ...props}) 
         disabled: true
       }
     }
-    console.log(types);
+
     const isDisabled = type => (
       typesData[type.code].disabled ||
       typesData[type.code].minimumParticipants && participantsNumber < typesData[type.code].minimumParticipants
@@ -116,7 +116,10 @@ const AwardType = ({types, currentType, setType, participantsNumber, ...props}) 
                         {isDisabled(type) && typesData[type.code].minimumParticipants && (
                           <Grid item>
                               <DefaultText lowercase style={{color: '#E50000', textAlign: 'center'}}>
-                                {Resources[`CHALLENGE_CREATION_AWARD_TYPE_MINIMUM_PARTICIPANTS`].format(typesData[type.code].minimumParticipants)}
+                                {Resources[`CHALLENGE_CREATION_AWARD_TYPE_MINIMUM_PARTICIPANTS`].format(
+                                  typesData[type.code].minimumParticipants,
+                                  _.get(participantType, 'code') === 'CC' ? 'participants' : 'équipes'
+                                )}
                               </DefaultText>
                           </Grid>
                         )}

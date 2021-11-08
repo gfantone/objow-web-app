@@ -290,7 +290,7 @@ export const CHALLENGE_CREATION_SUBMIT_BUTTON = "Valider"
 export const CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_M = "Les participants peuvent gagner des points dans la limite du maximum défini"
 export const CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_R = "Récompense pour les X premiers à la fin du challenge"
 export const CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_P = "La récompense obtenue par les participants dépend du niveau de performance atteint"
-export const CHALLENGE_CREATION_AWARD_TYPE_MINIMUM_PARTICIPANTS = "Ce mode nécessite au moins {0} participants"
+export const CHALLENGE_CREATION_AWARD_TYPE_MINIMUM_PARTICIPANTS = "Ce mode nécessite au moins {0} {1}"
 export const CHALLENGE_CREATION_GOAL_TARGET_LABEL2 = "Condition"
 export const CHALLENGE_CREATION_GOAL_POINTS_LABEL2 = "Pts"
 

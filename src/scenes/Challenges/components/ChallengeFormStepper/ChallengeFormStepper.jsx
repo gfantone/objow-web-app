@@ -144,6 +144,7 @@ const ChallengeFormStepper = ({
             currentType={awardType}
             setType={setAwardType}
             participantsNumber={participantsNumber}
+            participantType={typeObject}
           />
         </Grid>
         break;
