@@ -90,6 +90,7 @@ class ChallengeUpdate extends MainLayoutComponent {
     handleValidSubmit(model) {
         const { types } = this.props.challengeTypeList
         const {types: rewardTypes} = this.props.challengeRewardTypeList
+        const {types: awardTypes} = this.props.challengeAwardTypeList
 
         model.start.setHours(0, 0, 0, 0)
         model.end.setHours(23, 59, 59, 0)
@@ -140,13 +141,11 @@ class ChallengeUpdate extends MainLayoutComponent {
             goals.push({ number: model.number[i], name: model.goalName[i], kpi: model.kpi[i], target: model.target[i], points: model.points[i], challenge: challenge.id })
         }
         const currentRewardType = rewardTypes.find(rewardType => rewardType.id === parseInt(challenge.reward_type))
+        const currentAwardType = awardTypes.find(awardType => awardType.id === parseInt(challenge.award_type))
         let awards = []
-        if(this.state.currentAwards) {
+        if(_.get(currentRewardType, 'code') === 'G') {
           awards = this.state.currentAwards.filter(award => {
-            if(_.get(currentRewardType, 'code') === 'G') {
-              return !!award.reward
-            }
-            return award
+            return !!award.reward
           })
         } else {
           for (var i = 0; i < model.award.length; i++) {
