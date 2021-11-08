@@ -53,38 +53,10 @@ const useStyles = makeStyles({
     }
 })
 
-const AwardType = ({types, currentType, setType, participantsNumber, participantType, ...props}) => {
+const AwardType = ({types, currentType, setType, participantsNumber, participantType, typesData, ...props}) => {
     const classes = useStyles()
     const coinImage = require(`../../../../../../assets/img/system/challenge/icons/coin.png`)
     const giftImage = require(`../../../../../../assets/img/system/challenge/icons/gift.png`)
-
-    const typesData = {
-      'R': {
-        minimumParticipants: 2,
-        order: 1,
-        icon: require(`../../../../../../assets/img/system/challenge/icons/Ribbons.png`),
-        availableReward: ['points', 'gift']
-      },
-      'M': {
-        order: 2,
-        icon: require(`../../../../../../assets/img/system/challenge/icons/Rocket.png`),
-        availableReward: ['points']
-      },
-      'P': {
-        order: 3,
-        icon: require(`../../../../../../assets/img/system/challenge/icons/Levels.png`),
-        availableReward: ['gift'],
-        soon: true,
-        disabled: true
-      },
-      'C': {
-        order: 4,
-        icon: require(`../../../../../../assets/img/system/challenge/icons/race.png`),
-        availableReward: ['gift'],
-        soon: true,
-        disabled: true
-      }
-    }
 
     const isDisabled = type => (
       typesData[type.code].disabled ||

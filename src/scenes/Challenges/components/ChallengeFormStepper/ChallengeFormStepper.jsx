@@ -62,6 +62,35 @@ const ChallengeFormStepper = ({
     var finalTypes = types
     const {account} = props.accountDetail
 
+
+    const typesData = {
+      'R': {
+        minimumParticipants: 2,
+        order: 1,
+        icon: require(`../../../../assets/img/system/challenge/icons/Ribbons.png`),
+        availableReward: ['points', 'gift']
+      },
+      'M': {
+        order: 2,
+        icon: require(`../../../../assets/img/system/challenge/icons/Rocket.png`),
+        availableReward: ['points']
+      },
+      'P': {
+        order: 3,
+        icon: require(`../../../../assets/img/system/challenge/icons/Levels.png`),
+        availableReward: ['gift'],
+        soon: true,
+        disabled: true
+      },
+      'C': {
+        order: 4,
+        icon: require(`../../../../assets/img/system/challenge/icons/race.png`),
+        availableReward: ['gift'],
+        soon: true,
+        disabled: true
+      }
+    }
+
     if (!isUpdate) {
         if (account.role.code === 'M') {
             finalTypes = finalTypes.filter(x => x.code === 'CM')
@@ -141,6 +170,7 @@ const ChallengeFormStepper = ({
         fields = <Grid item xs={12}>
           <AwardType
             types={awardTypes}
+            typesData={typesData}
             currentType={awardType}
             setType={setAwardType}
             participantsNumber={participantsNumber}
@@ -198,6 +228,10 @@ const ChallengeFormStepper = ({
         // break;
         // console.log(awardType);
         title = 'Sélection des récompenses'
+        const currentAwardType = awardTypes.find(at => at.id === parseInt(awardType))
+        const availableRewardTypes = rewardTypes.filter(rt =>
+          typesData[currentAwardType.code].availableReward.indexOf(rt.code === 'G' ? 'gift' : 'points') >= 0
+        )
         fields = <Grid item xs={12}>
             <Awards
                 challengeId={id}
@@ -215,7 +249,7 @@ const ChallengeFormStepper = ({
                 start={start}
                 team={team}
                 types={awardTypes}
-                rewardTypes={rewardTypes}
+                rewardTypes={availableRewardTypes}
                 setConfigRewardOpen={setConfigRewardOpen}
                 rewardImages={rewardImages}
             />
