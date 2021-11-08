@@ -70,6 +70,7 @@ class ChallengeRewardForm extends React.Component {
           image = path
         }
         image = this.state.image ? this.state.image : image
+        const imageId = _.get(reward, 'image.id', _.get(reward, 'image'))
         return (
             <div>
 
@@ -145,7 +146,7 @@ class ChallengeRewardForm extends React.Component {
                                             </Grid>
 
                                             <Grid item xs={12}>
-                                                <ImageInput name='image' label={Resources.REWARD_CREATION_IMAGE_LABEL} images={images} onChange={this.handleImageChange.bind(this)} required />
+                                                <ImageInput name='image' initial={imageId} label={Resources.REWARD_CREATION_IMAGE_LABEL} images={images} onChange={this.handleImageChange.bind(this)} required />
                                             </Grid>
                                         </Grid>
                                     </Card>

@@ -5,7 +5,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import {ImageInput} from './components'
 import {Card, DatePicker, DefaultTitle, InfoText, Select, TextField, RichTextField} from '../../../../../../components'
 import * as Resources from '../../../../../../Resources'
-
+import _ from 'lodash'
 const useStyles = makeStyles({
     image: {
         height: '100%',
@@ -21,7 +21,7 @@ const Infos = ({description, end, customImage, image, images, isUpdate, name, pe
     const startMinDate = new Date(today.getFullYear(), today.getMonth(), 1)
     const startMaxDate = end ? end : period.end.toDate2()
     const endMinDate = start ? start : today
-    const [selectedImageId, setSelectedImageId] = React.useState(image ? image : null)
+    const [selectedImageId, setSelectedImageId] = React.useState(_.get(image, 'id', image))
     const selectedImage = customImage ? {path: customImage} : images.find(x => x.id === selectedImageId)
     const [selectedImagePath, setSelectedImagePath] = React.useState(selectedImage ? selectedImage.path : null)
 

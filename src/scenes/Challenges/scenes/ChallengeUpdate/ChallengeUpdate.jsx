@@ -57,6 +57,7 @@ class ChallengeUpdate extends MainLayoutComponent {
         this.props.activateReturn()
         this.props.categoryListActions.getActiveCategoryList()
         this.props.challengeAwardTypeListActions.getChallengeAwardTypeList()
+        this.props.challengeRewardTypeListActions.getChallengeRewardTypeList()
         this.props.challengeDetailActions.getChallengeDetail(id)
         this.props.challengeImageListActions.getChallengeImageList()
         this.props.challengeTypeListActions.getUsableChallengeTypeList()
@@ -191,6 +192,8 @@ class ChallengeUpdate extends MainLayoutComponent {
         const {classes} = this.props
 
 
+
+
         // const currentReward = _.isString(_.get(this.state, 'currentAward.reward.description')) ?
         //   _.get(this.state, 'currentAward.reward') :
         //   Object.assign({}, _.get(this.state, 'currentAward.reward'), {
@@ -250,7 +253,6 @@ class ChallengeUpdate extends MainLayoutComponent {
         const loading = categoryListLoading || challengeAwardTypeListLoading || challengeRewardTypeListLoading || challengeDetailLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading || teamListLoading
 
         const { account } = this.props.accountDetail;
-
         if(!account.hasChallengeAccess) {
           return <Redirect to={'/'} />
         }
