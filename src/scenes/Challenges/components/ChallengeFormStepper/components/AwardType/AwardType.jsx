@@ -66,7 +66,7 @@ const AwardType = ({types, currentType, setType, participantsNumber, participant
     return (
         <div>
             <Grid container spacing={1} justify='space-around'>
-                { _.sortBy(types, type => typesData[type.code].order).map(type => (
+                { _.sortBy(types, type => _.get(typesData[type.code], 'order')).map(type => (
                   <Grid item onClick={() => !isDisabled(type) && setType(type.id)} className={
                       `${classes.typeItem} ${type.id === currentType ? classes.active : ''} ${isDisabled(type) ? classes.disabledItem : ''}`
                     } style={{marginBottom: 20, position: 'relative'}}>
