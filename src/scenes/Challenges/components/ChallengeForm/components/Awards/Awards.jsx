@@ -31,7 +31,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     // const [type, setType] = React.useState(1)
     const [rewardType, setRewardType] = React.useState(finalInitialRewardType)
     const isMaxAward = parseInt(type) === maxAwardType
-  
+
     const currentType = types.find(t => parseInt(type) === t.id)
     const currentRewardType = rewardTypes.find(t => parseInt(rewardType) === t.id)
     const usablePoints = points ? (!isMaxAward ? points.all : points.participant) : 0
@@ -118,7 +118,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                                       {label}
                                                     </DefaultText>
                                                   </Grid>
-                                                  <Grid item>
+                                                  <Grid item xs={12}>
                                                     {award.reward && (
                                                       <ChallengeReward reward={reward} />
                                                     )}

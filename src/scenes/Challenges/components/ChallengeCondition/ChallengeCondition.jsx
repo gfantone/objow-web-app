@@ -75,7 +75,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                             </Grid>
                                           </Grid>
                                         </Grid>
-                                        <Grid item>
+                                        <Grid item style={{maxWidth: 250}}>
                                           <ChallengeReward reward={award.reward} />
                                         </Grid>
                                       </Grid>

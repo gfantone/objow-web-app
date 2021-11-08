@@ -85,7 +85,7 @@ const ChallengeFormStepper = ({
       'C': {
         order: 4,
         icon: require(`../../../../assets/img/system/challenge/icons/race.png`),
-        availableReward: ['gift'],
+        availableReward: ['gift', 'points'],
         soon: true,
         disabled: true
       }
