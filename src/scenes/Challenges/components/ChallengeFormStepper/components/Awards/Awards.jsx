@@ -23,18 +23,20 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     }
 
     const {points, loading} = props.challengeTypeUsablePoints
-    const maxAwardType = types[0].id
+    const maxAwardType = types.find(t => t.code === 'M').id
     const finalInitialType = initialType ? initialType : maxAwardType
     const finalInitialRewardType = initialRewardType ? initialRewardType : rewardTypes[0].id
     const [awards, setAwards] = React.useState(getInitialAwards)
     const [type, setType] = React.useState(finalInitialType)
-    // const [type, setType] = React.useState(1)
+    // const [type, setType] = React.useState(2)
+    
     const [rewardType, setRewardType] = React.useState(finalInitialRewardType)
     const isMaxAward = parseInt(type) === maxAwardType
     const currentType = types.find(t => parseInt(type) === t.id)
     const currentRewardType = rewardTypes.find(t => parseInt(rewardType) === t.id)
     const usablePoints = points ? (!isMaxAward ? points.all : points.participant) : 0
     // console.log(_.slice(awards, 1));
+
     const icons = {
       'R': require(`../../../../../../assets/img/system/challenge/icons/Ribbons.png`),
       'M': require(`../../../../../../assets/img/system/challenge/icons/Rocket.png`)
@@ -102,7 +104,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                           <Select
                             name='rewardType'
                             label='Récompenses'
-                            initial={initialRewardType}
+                            initial={finalInitialRewardType}
                             options={rewardTypes}
                             optionValueName='id'
                             optionTextName='name'
@@ -125,6 +127,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                             {awards.map((award, index) => {
                                 const number = index + 1
                                 const label = isMaxAward ? (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_MAX_POINT_LABEL : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_MAX_POINT_LABEL) : (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_POINT_LABEL.format(number) : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_POINT_LABEL.format(number))
+                                console.log(challengeTypeCode);
                                 // const validations = isMaxAward ? 'isLessThanOrEquals:usablePoints' : 'isRankingValid'
                                 const validations = null
                                 const validationErrors = isMaxAward ? {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isLessThanOrEquals: 'La récompense est trop élevée',} : {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isRankingValid: 'La récompense est trop élevée'}
