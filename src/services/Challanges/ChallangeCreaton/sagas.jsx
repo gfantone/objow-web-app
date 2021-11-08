@@ -10,7 +10,7 @@ function* createChallenge(action) {
 
         action.awards.map((award, index) => {
             award.challenge = challenge.id
-            award.rank = index
+            award.rank = index + 1
             if(award.reward) {
               award.reward = Object.assign(
                 {},
