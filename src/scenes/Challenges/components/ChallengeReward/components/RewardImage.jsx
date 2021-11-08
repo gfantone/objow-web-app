@@ -8,7 +8,8 @@ const styles = {
         // marginLeft: -16,
         // marginRight: -16,
         // marginTop: -16,
-        backgroundSize: 'cover'
+        backgroundSize: 'cover',
+        borderRadius: 15
     }
 };
 

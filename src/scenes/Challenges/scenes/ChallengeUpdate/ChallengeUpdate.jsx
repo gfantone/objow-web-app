@@ -89,6 +89,8 @@ class ChallengeUpdate extends MainLayoutComponent {
 
     handleValidSubmit(model) {
         const { types } = this.props.challengeTypeList
+        const {types: rewardTypes} = this.props.challengeRewardTypeList
+
         model.start.setHours(0, 0, 0, 0)
         model.end.setHours(23, 59, 59, 0)
         const start = model.start.toUTCJSON();
@@ -102,6 +104,7 @@ class ChallengeUpdate extends MainLayoutComponent {
         challengeFormData.append('end', end)
         challengeFormData.append('type', model.type)
         challengeFormData.append('award_type', model.awardType)
+        challengeFormData.append('reward_type', model.rewardType)
         challengeFormData.append('live', model.live ? model.live : false)
 
         if(Number.isInteger(model.image)) {
@@ -127,6 +130,7 @@ class ChallengeUpdate extends MainLayoutComponent {
             start: model.start,
             end: model.end,
             type: model.type,
+            reward_type: model.rewardType,
             award_type: model.awardType,
             live: model.live ? model.live : false
         }, image)
@@ -135,16 +139,22 @@ class ChallengeUpdate extends MainLayoutComponent {
         for (var i = 0; i < model.kpi.length; i++) {
             goals.push({ number: model.number[i], name: model.goalName[i], kpi: model.kpi[i], target: model.target[i], points: model.points[i], challenge: challenge.id })
         }
+        const currentRewardType = rewardTypes.find(rewardType => rewardType.id === parseInt(challenge.reward_type))
         let awards = []
         if(this.state.currentAwards) {
-          awards = this.state.currentAwards
+          awards = this.state.currentAwards.filter(award => {
+            if(_.get(currentRewardType, 'code') === 'G') {
+              return !!award.reward
+            }
+            return award
+          })
         } else {
           for (var i = 0; i < model.award.length; i++) {
             const rank = i + 1
             awards.push({ rank: rank, points: model.award[i], challenge: challenge.id })
           }
         }
-        
+
         const teamId = types.find(x => x.id == model.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
         this.props.challengeUpdateActions.updateChallenge(challenge, challengeFormData, awards, goals)
     }

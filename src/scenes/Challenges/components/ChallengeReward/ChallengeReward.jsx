@@ -70,7 +70,7 @@ const ChallengeReward = ({reward, ...props}) => {
                   </Grid>
               </Grid>
           </Grid>
-            
+
         </div>
     )
 }

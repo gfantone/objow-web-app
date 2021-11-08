@@ -199,7 +199,6 @@ class ChallengeCreation extends MainLayoutComponent {
         const currentStep = this.getCurrentStep()
         const nextStep = this.state.steps.find(step => step.order === currentStep.order + 1)
         const {types: rewardTypes} = this.props.challengeRewardTypeList
-        console.log(model);
         if(nextStep) {
           this.changeStep(model)
         } else {
@@ -250,10 +249,19 @@ class ChallengeCreation extends MainLayoutComponent {
           }, image)
 
           const currentRewardType = rewardTypes.find(rewardType => rewardType.id === parseInt(finalModel.rewardType))
-          const awards = _.get(currentRewardType, 'code') === 'G' ? this.state.currentAwards : finalModel.awards
+          const awards = _.get(currentRewardType, 'code') === 'G' ?
+            // gift awards should have reward
+            this.state.currentAwards.filter(award => !!award.reward) :
+            finalModel.awards
           const teamId = types.find(x => x.id == finalModel.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
 
-          this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, awards, finalModel.goals, teamId)
+          this.props.challengeCreationActions.createChallenge(
+            challenge,
+            challengeFormData,
+            awards,
+            finalModel.goals,
+            teamId
+          )
         }
     }
 

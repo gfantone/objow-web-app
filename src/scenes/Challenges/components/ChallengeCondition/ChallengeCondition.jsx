@@ -143,13 +143,13 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                   <table >
                                                                                     <tbody>
                                                                                       <tr>
-                                                                                        <td style={{padding: 0}}>
-                                                                                          <DefaultText lowercase style={{textAlign: 'right', paddingRight: 5}}>
+                                                                                        <td style={{padding: 0, width: '30%'}}>
+                                                                                          <DefaultText lowercase style={{textAlign: 'right', paddingRight: 5, fontSize: 13}}>
                                                                                             Condition :
                                                                                           </DefaultText>
                                                                                         </td>
                                                                                         <td>
-                                                                                          <Grid container spacing={1} style={{marginTop: 0}}>
+                                                                                          <Grid container spacing={1} style={{marginTop: 0, width: '70%'}}>
                                                                                               <Grid item>
                                                                                                   <DefaultText>{goal.target}</DefaultText>
                                                                                               </Grid>
@@ -165,12 +165,12 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                         </td>
                                                                                       </tr>
                                                                                       <tr>
-                                                                                        <td style={{padding: 0}}>
-                                                                                          <DefaultText lowercase style={{textAlign: 'right', paddingRight: 5}}>
+                                                                                        <td style={{padding: 0, width: '30%'}}>
+                                                                                          <DefaultText lowercase style={{textAlign: 'right', paddingRight: 5, fontSize: 13}}>
                                                                                             👉 Réalisé :
                                                                                           </DefaultText>
                                                                                         </td>
-                                                                                        <td>
+                                                                                        <td style={{width: '70%'}}>
                                                                                           <Grid container spacing={1} style={{marginTop: '-1px'}}>
                                                                                               <Grid item>
                                                                                                   <AccentText>{goal.counter}</AccentText>
@@ -268,9 +268,9 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                 <CardMedia image={rewardTypeIcon} style={{height: 25, width: 25}} />
                               </Grid>
                               <Grid item>
-                                <DefaultText style={{marginTop: 3}}>
+                                <DefaultTitle style={{marginTop: 3}}>
                                   {challenge.rewardTypeName}
-                                </DefaultText>
+                                </DefaultTitle>
                               </Grid>
                             </Grid>
                             { challenge.awardCode == 'M' && renderMaximumAward() }

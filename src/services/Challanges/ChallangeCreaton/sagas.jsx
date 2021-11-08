@@ -5,7 +5,6 @@ import api from '../../../data/api/api'
 
 function* createChallenge(action) {
     try {
-
         const { data: challenge } = yield call(api.challenges.create, action.challengeFormData, action.teamId);
 
         action.awards.map((award, index) => {
@@ -24,6 +23,7 @@ function* createChallenge(action) {
         action.goals.map(goal => {
             goal.challenge = challenge.id
         });
+
         yield call(api.challenges.changeAwards, challenge.id, action.awards);
         yield call(api.challenges.changeGoals, challenge.id, action.goals);
         yield put(createChallengeSuccess())
