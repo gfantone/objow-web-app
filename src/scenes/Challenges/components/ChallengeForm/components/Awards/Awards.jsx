@@ -54,12 +54,17 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
         }
     }, [challengeTypeCode, challengeTypeId, end, start])
 
+    useEffect(() => {
+        setConfigRewardOpen(false, awards)
+    }, [awards])
+
     function handleAddAwardClick() {
         setAwards(awards => [...awards, {key: uuidv4(), points: null}])
     }
 
     function handleRemoveAwardClick(key) {
         setAwards(x => x.filter(y => y.key != key))
+
     }
 
     function handleTypeChange(newType) {
