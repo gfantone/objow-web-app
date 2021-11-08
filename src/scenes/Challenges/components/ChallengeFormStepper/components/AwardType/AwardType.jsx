@@ -73,12 +73,21 @@ const AwardType = ({types, currentType, setType, participantsNumber, ...props}) 
       'P': {
         order: 3,
         icon: require(`../../../../../../assets/img/system/challenge/icons/Levels.png`),
-        availableReward: ['gift']
+        availableReward: ['gift'],
+        soon: true,
+        disabled: true
+      },
+      'C': {
+        order: 4,
+        icon: require(`../../../../../../assets/img/system/challenge/icons/race.png`),
+        availableReward: ['gift'],
+        soon: true,
+        disabled: true
       }
     }
-
+    console.log(types);
     const isDisabled = type => (
-      type.code === 'P' ||
+      typesData[type.code].disabled ||
       typesData[type.code].minimumParticipants && participantsNumber < typesData[type.code].minimumParticipants
     )
 
@@ -111,7 +120,7 @@ const AwardType = ({types, currentType, setType, participantsNumber, ...props}) 
                               </DefaultText>
                           </Grid>
                         )}
-                        {isDisabled(type) && type.code === 'P' && (
+                        {isDisabled(type) && typesData[type.code].soon && (
                           <Grid item>
                               <DefaultText lowercase style={{color: '#E50000', textAlign: 'center'}}>
                                 Bientôt disponible
