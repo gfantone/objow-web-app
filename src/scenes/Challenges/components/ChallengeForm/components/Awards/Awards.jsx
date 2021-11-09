@@ -16,9 +16,9 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     const getInitialAwards = () => {
         if (initialAwards && initialAwards.length > 0) {
             const awardType = types.find(t => t.id === parseInt(initialType))
-            return initialAwards.filter((award, index) => awardType.code === "M" ? index === 0 : true).map(x => ({key: uuidv4(), points: x.points, reward: x.reward}))
+            return initialAwards.filter((award, index) => awardType.code === "M" ? index === 0 : true).map(x => ({key: uuidv4(), points: x.points, reward: x.reward, target: x.target}))
         } else {
-            return [{key: uuidv4(), points: null, reward: null}]
+            return [{key: uuidv4(), points: null, reward: null, target: null}]
         }
     }
 
@@ -100,7 +100,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                 </Grid>
                 <Grid item xs={12}>
                     <Card>
-                        <Grid container spacing={1} direction="column">
+                        <Grid container spacing={4} direction="column">
                           <Grid item xs={6}>
                             <Select
                               name='rewardType'
@@ -114,12 +114,20 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                               onChange={handleRewardTypeChange}
                               fullWidth
                             />
+                            {rewardTypes.length <= 1 && (
+                              <HiddenInput name='rewardType' value={finalInitialRewardType}/>
+                            )}
                           </Grid>
                           <Grid item>
                             <Grid container spacing={2}>
                             {awards.map((award, index) => {
                                 const number = index + 1
-                                const label = isMaxAward ? (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_MAX_POINT_LABEL : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_MAX_POINT_LABEL) : (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_POINT_LABEL.format(number) : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_POINT_LABEL.format(number))
+                                const labels = {
+                                  'M': (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_MAX_POINT_LABEL : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_MAX_POINT_LABEL),
+                                  'R': (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_POINT_LABEL.format(number) : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_POINT_LABEL.format(number)),
+                                  'P': Resources.CHALLENGE_AWARD_STEP_POINT_LABEL.format(number)
+                                }
+                                const label = labels[currentType.code]
                                 // const validations = isMaxAward ? 'isLessThanOrEquals:usablePoints' : 'isRankingValid'
                                 const validations = null
                                 const validationErrors = isMaxAward ? {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isLessThanOrEquals: 'La récompense est trop élevée',} : {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isRankingValid: 'La récompense est trop élevée'}
@@ -130,14 +138,22 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                     <Grid key={award.key} item xs={4}>
                                         <Grid container spacing={1} alignItems='flex-end'>
                                             {currentRewardType.code === 'G' && (
-                                              <Grid item xs={10} style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
+                                              <Grid item xs={10} >
                                                 <Grid container direction='column' spacing={1}>
                                                   <Grid item>
                                                     <DefaultText>
                                                       {label}
                                                     </DefaultText>
                                                   </Grid>
-                                                  <Grid item xs={12}>
+                                                  {currentType.code === 'P' && (
+                                                    <Grid item xs={12}>
+                                                      <TextField name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
+                                                        validations={validations}
+                                                        validationErrors={validationErrors}
+                                                      />
+                                                    </Grid>
+                                                  )}
+                                                  <Grid item xs={12} style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
                                                     {award.reward && (
                                                       <ChallengeReward reward={reward} />
                                                     )}

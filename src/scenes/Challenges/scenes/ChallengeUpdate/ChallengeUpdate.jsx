@@ -146,7 +146,15 @@ class ChallengeUpdate extends MainLayoutComponent {
         if(_.get(currentRewardType, 'code') === 'G') {
           awards = this.state.currentAwards.filter(award => {
             return !!award.reward
+          }).map((award, index) => {
+            if(model.awardTarget) {
+              return Object.assign({}, award, {
+                target: model.awardTarget[index]
+              })
+            }
+            return award
           })
+
         } else {
           for (var i = 0; i < model.award.length; i++) {
             const rank = i + 1

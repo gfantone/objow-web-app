@@ -120,6 +120,17 @@ class ChallengeCreation extends MainLayoutComponent {
             awards.push({ rank: rank, points: model.award[i] })
           }
         }
+        // Set award target for mode palier
+        let currentAwards = this.state.currentAwards
+        if(model.awardTarget && this.state.currentAwards) {
+          console.log(model.awardTarget, this.state.currentAwards);
+          currentAwards = this.state.currentAwards.map((award, index) => {
+            return Object.assign({}, award, {
+              target: model.awardTarget[index]
+            })
+          })
+        }
+
         this.setState({
           ...this.state,
           steps: this.state.steps.map(step => {
@@ -131,6 +142,7 @@ class ChallengeCreation extends MainLayoutComponent {
             }
             return step
           }),
+          currentAwards: currentAwards,
           finalModel: Object.assign(this.state.finalModel, model, {
             participants: this.state.participants,
             goals: model.kpi ? goals : this.state.finalModel.goals,

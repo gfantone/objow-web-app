@@ -92,6 +92,66 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
         )
     }
 
+    const renderStepAwards = () => {
+        return (
+              <Table backgroundDisabled>
+                <TableBody>
+                  <Grid container spacing={1}>
+                  {challenge.awards.map(award => {
+
+                    return (
+                        <Grid item xs={12}>
+                            <div>
+                                {challenge.rewardTypeCode === 'P' && (
+
+                                  <Grid container spacing={1}>
+                                    <Grid item>
+                                      <TableChip label={'>'} />
+                                    </Grid>
+                                    <Grid item>
+                                      <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultText>
+                                    </Grid>
+                                    <Grid item>
+                                      <AccentTag>{Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}</AccentTag>
+                                    </Grid>
+                                  </Grid>
+                                )}
+                                {challenge.rewardTypeCode === 'G' && (
+                                  <TableRow>
+                                    <TableCell style={{width: 270}}>
+                                      <Grid container direction="column" spacing={1}>
+                                        <Grid item>
+                                          <Grid container spacing={1}>
+                                            <Grid item>
+                                              <TableChip label={'>'} />
+                                            </Grid>
+                                            <Grid item>
+                                              <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultText>
+                                            </Grid>
+                                          </Grid>
+                                        </Grid>
+                                        <Grid item>
+                                          <DefaultText>
+                                            { Resources.CHALLENGE_AWARD_TARGET_LABEL }:  {award.target}
+                                          </DefaultText>
+                                        </Grid>
+                                        <Grid item style={{maxWidth: 250}}>
+                                          <ChallengeReward reward={award.reward} />
+                                        </Grid>
+                                      </Grid>
+                                    </TableCell>
+                                  </TableRow>
+                                )}
+                            </div>
+                        </Grid>
+                    )
+                })}
+                </Grid>
+              </TableBody>
+            </Table>
+        )
+    }
+
 
     return (
         <div>
@@ -275,6 +335,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                             </Grid>
                             { challenge.awardCode == 'M' && renderMaximumAward() }
                             { challenge.awardCode == 'R' && renderRankingAwards() }
+                            { challenge.awardCode == 'P' && renderStepAwards() }
                         </Card>
                     </Grid>
                 </Grid>
