@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux'
 import {Grid, IconButton, CardMedia} from '@material-ui/core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faInfoCircle, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
-import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, Select, Switch, TextField, Tooltip} from '../../../../../../components'
+import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, Select, Switch, TextField, Tooltip, IconButton as MenuIconButton} from '../../../../../../components'
 import {ChallengeReward} from '../../../'
 import * as Resources from '../../../../../../Resources'
 import * as challengeTypeUsablePointsActions from '../../../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
@@ -103,31 +103,43 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
             </Grid>
             <Grid container spacing={1}>
                 <Grid item xs={12}>
-                    <Grid container spacing={2}>
-                        <Grid item>
+                  <Grid container spacing={1}>
+                    <Grid item>
+                      <DefaultTitle>
+                        { Resources.REWARD_TITLE }
+                      </DefaultTitle>
+                    </Grid>
+                    {!isMaxAward && (
+
+                      <Grid item>
+                        <DefaultTitle>
+                          <MenuIconButton size={'small'} onClick={handleAddAwardClick} style={{marginTop: '-4px', color: '#00E58D', fontSize: '18px' }}>
+                            <FontAwesomeIcon icon={faPlus} />
+                          </MenuIconButton>
+                        </DefaultTitle>
+                      </Grid>
+                    )}
+                  </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                    <Card>
+                      <Grid container spacing={1} direction="column">
+                        <Grid item xs={6}>
                           <Select
                             name='rewardType'
                             label='Récompenses'
-                            initial={finalInitialRewardType}
+                            initial={initialRewardType}
                             options={rewardTypes}
                             optionValueName='id'
                             optionTextName='name'
                             emptyDisabled
+                            disabled={rewardTypes.length <= 1}
                             onChange={handleRewardTypeChange}
                             fullWidth
                           />
-
                         </Grid>
-                        {!isMaxAward && <Grid item>
-                            <IconButton size='small' onClick={handleAddAwardClick}>
-                                <FontAwesomeIcon size='xs' icon={faPlus} />
-                            </IconButton>
-                        </Grid>}
-                    </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                    <Card>
-                        <Grid container spacing={2}>
+                        <Grid item>
+                          <Grid container spacing={2}>
                             {awards.map((award, index) => {
                                 const number = index + 1
                                 const label = isMaxAward ? (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_MAX_POINT_LABEL : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_MAX_POINT_LABEL) : (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_POINT_LABEL.format(number) : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_POINT_LABEL.format(number))
@@ -196,6 +208,8 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 </Grid>
                             </Grid>}
                         </Grid>
+                        </Grid>
+                      </Grid>
                     </Card>
                 </Grid>
             </Grid>

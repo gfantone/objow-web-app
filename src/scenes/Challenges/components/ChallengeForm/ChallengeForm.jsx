@@ -28,6 +28,39 @@ const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, chal
     var finalTypes = types
     const {account} = props.accountDetail
 
+    const typesData = {
+      'R': {
+        minimumParticipants: 2,
+        order: 1,
+        icon: require(`../../../../assets/img/system/challenge/icons/Ribbons.png`),
+        availableReward: ['points', 'gift']
+      },
+      'M': {
+        order: 2,
+        icon: require(`../../../../assets/img/system/challenge/icons/Rocket.png`),
+        availableReward: ['points']
+      },
+      'P': {
+        order: 3,
+        icon: require(`../../../../assets/img/system/challenge/icons/Levels.png`),
+        availableReward: ['gift'],
+        soon: true,
+        disabled: true
+      },
+      'C': {
+        order: 4,
+        icon: require(`../../../../assets/img/system/challenge/icons/race.png`),
+        availableReward: ['gift', 'points'],
+        soon: true,
+        disabled: true
+      }
+    }
+
+    const currentAwardType = awardTypes.find(at => at.id === parseInt(awardType))
+    const availableRewardTypes = rewardTypes.filter(rt =>
+      typesData[currentAwardType.code].availableReward.indexOf(rt.code === 'G' ? 'gift' : 'points') >= 0
+    )
+
     if (!isUpdate) {
         if (account.role.code === 'M') {
             finalTypes = finalTypes.filter(x => x.code === 'CM')
@@ -90,7 +123,7 @@ const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, chal
                         start={start}
                         team={team}
                         types={awardTypes}
-                        rewardTypes={rewardTypes}
+                        rewardTypes={availableRewardTypes}
                         setConfigRewardOpen={setConfigRewardOpen}
                         rewardImages={rewardImages}
                     />

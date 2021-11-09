@@ -33,7 +33,7 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, addGoal, ...pr
                     </Grid>
                     <Grid item>
                       <DefaultTitle>
-                        <MenuIconButton size={'small'} onClick={addGoal} style={{marginTop: '-2px', color: '#555', fontSize: '18px' }}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>
+                        <MenuIconButton size={'small'} onClick={addGoal} style={{marginTop: '-4px', color: '#00E58D', fontSize: '18px' }}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>
                       </DefaultTitle>
                     </Grid>
                   </Grid>
