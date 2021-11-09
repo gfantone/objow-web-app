@@ -39,7 +39,8 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
 
     const icons = {
       'R': require(`../../../../../../assets/img/system/challenge/icons/Ribbons.png`),
-      'M': require(`../../../../../../assets/img/system/challenge/icons/Rocket.png`)
+      'M': require(`../../../../../../assets/img/system/challenge/icons/Rocket.png`),
+      'P': require(`../../../../../../assets/img/system/challenge/icons/Levels.png`)
     }
 
     useEffect(() => {
