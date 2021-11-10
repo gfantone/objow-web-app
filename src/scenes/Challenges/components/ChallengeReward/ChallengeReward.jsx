@@ -50,7 +50,7 @@ const ChallengeReward = ({reward, ...props}) => {
 
     return (
         <div>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
               <Grid item xs={12}>
 
                   <div className={classes.imageContainer}>
@@ -58,13 +58,10 @@ const ChallengeReward = ({reward, ...props}) => {
                   </div>
 
               </Grid>
-              <Grid item xs={12}>
-                  <Grid container spacing={2}>
-
+              <Grid item xs={12} >
+                  <Grid container>
                       <Grid item xs>
-
                           <DefaultText className={classes.name} style={{width: '100%'}}>{reward.name}</DefaultText>
-
                       </Grid>
 
                   </Grid>

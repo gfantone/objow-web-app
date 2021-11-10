@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faEquals, faInfoCircle, faUser, faUsers} from '@fortawesome/free-solid-svg-icons'
 import {faStar} from '@fortawesome/free-regular-svg-icons'
 import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText, Linkify} from '../../../../components'
-import {ChallengeReward} from '../'
+import {ChallengeReward, ChallengeRewardCard} from '../'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 
@@ -23,15 +23,15 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
 
         return (
             <Grid container spacing={1}>
-                <Grid item>
-                    <TableChip label={'>'} />
-                </Grid>
-                <Grid item>
-                    <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_MAX_POINTS_LABEL : Resources.CHALLENGE_CONDITION_COLLABORATOR_MAX_POINTS_LABEL}</DefaultText>
-                </Grid>
-                <Grid item>
-                    <AccentTag>{Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}</AccentTag>
-                </Grid>
+              <Grid item>
+                <TableChip label={'>'} />
+              </Grid>
+              <Grid item>
+                <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_MAX_POINTS_LABEL : Resources.CHALLENGE_CONDITION_COLLABORATOR_MAX_POINTS_LABEL}</DefaultText>
+              </Grid>
+              <Grid item>
+                <AccentTag>{Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}</AccentTag>
+              </Grid>
             </Grid>
         )
     }
@@ -150,6 +150,64 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
               </TableBody>
             </Table>
         )
+    }
+
+
+    const renderAwards = () => {
+      return (
+        <Grid container spacing={1}>
+          {challenge.awards.map(award => {
+            return(
+              <Grid key={award.key} item xs={4}>
+              <Grid container spacing={1} direction="column">
+                <Grid item >
+                  <ChallengeRewardCard>
+                    <Grid container spacing={1} alignItems='flex-end'>
+                      {challenge.rewardTypeCode === 'G' && (
+                        <Grid item xs={12} >
+                          <Grid container direction='column' spacing={2}>
+                            <Grid item>
+                              <Grid container justify='space-between'>
+                                <Grid item>
+                                  <DefaultTitle>
+                                    {challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}
+                                  </DefaultTitle>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+
+                            {challenge.awardCode === 'P' && (
+                              <Grid item xs={8} style={{alignSelf: "center"}}>
+                                <DefaultText>{award.target}</DefaultText>
+                              </Grid>
+                            )}
+                            <Grid item xs={12}>
+                              {award.reward && (
+                                <ChallengeReward reward={award.reward} />
+                              )}
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      )}
+                      {challenge.rewardTypeCode === 'P' && (
+                        <React.Fragment>
+                          <Grid item xs>
+                            <DefaultText>
+                              {challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}
+                            </DefaultText>
+                          </Grid>
+                        </React.Fragment>
+                      )}
+                    </Grid>
+                  </ChallengeRewardCard>
+                </Grid>
+              </Grid>
+            </Grid>
+            )
+          })}
+        </Grid>
+
+      )
     }
 
 
@@ -322,21 +380,24 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                         <DefaultTitle>{Resources.CHALLENGE_CONDITION_AWARD_AREA}</DefaultTitle>
                     </Grid>
                     <Grid item xs={12}>
-                        <Card>
-                            <Grid container spacing={1} style={{marginBottom: 5}}>
-                              <Grid item>
-                                <CardMedia image={rewardTypeIcon} style={{height: 25, width: 25}} />
-                              </Grid>
-                              <Grid item>
-                                <DefaultTitle style={{marginTop: 3}}>
-                                  {challenge.rewardTypeName}
-                                </DefaultTitle>
-                              </Grid>
-                            </Grid>
+
+                        <Grid container spacing={1} style={{marginBottom: 5}}>
+                          <Grid item>
+                            <CardMedia image={rewardTypeIcon} style={{height: 25, width: 25}} />
+                          </Grid>
+                          <Grid item>
+                            <DefaultTitle style={{marginTop: 3}}>
+                              {challenge.rewardTypeName}
+                            </DefaultTitle>
+                          </Grid>
+                        </Grid>
+                        { challenge.rewardTypeCode === 'G' ? renderAwards() : (
+                          <Card>
                             { challenge.awardCode == 'M' && renderMaximumAward() }
                             { challenge.awardCode == 'R' && renderRankingAwards() }
                             { challenge.awardCode == 'P' && renderStepAwards() }
-                        </Card>
+                          </Card>
+                        ) }
                     </Grid>
                 </Grid>
             </Grid>

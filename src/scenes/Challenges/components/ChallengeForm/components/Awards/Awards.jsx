@@ -5,7 +5,7 @@ import {Grid, IconButton, CardMedia} from '@material-ui/core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faInfoCircle, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, Select, Switch, TextField, Tooltip, IconButton as MenuIconButton} from '../../../../../../components'
-import {ChallengeReward} from '../../../'
+import {ChallengeReward, ChallengeRewardCard} from '../../../'
 import * as Resources from '../../../../../../Resources'
 import * as challengeTypeUsablePointsActions from '../../../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
 import {uuidv4} from "../../../../../../helpers/UUIDHelper"
@@ -137,57 +137,69 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 return (
                                     <Grid key={award.key} item xs={4}>
                                       <Grid container spacing={1} direction="column">
-                                        <Grid item>
-                                          <DefaultTitle>
-                                            {label}
-                                          </DefaultTitle>
-                                        </Grid>
-                                        <Grid item>
-                                          <Card>
-                                        <Grid container spacing={1} alignItems='flex-end'>
-                                            {currentRewardType.code === 'G' && (
-                                              <Grid item xs={10} >
-                                                <Grid container direction='column' spacing={1}>
+                                        <Grid item >
+                                          <ChallengeRewardCard>
+                                            <Grid container spacing={1} alignItems='flex-end'>
+                                                {currentRewardType.code === 'G' && (
+                                                  <Grid item xs={12} >
+                                                    <Grid container direction='column' spacing={2}>
+                                                      <Grid item>
+                                                        <Grid container justify='space-between'>
+                                                          <Grid item>
+                                                            <DefaultTitle>
+                                                              {label}
+                                                            </DefaultTitle>
+                                                          </Grid>
 
-                                                  {currentType.code === 'P' && (
-                                                    <Grid item xs={12}>
-                                                      <TextField name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
+                                                          {!isMaxAward && awards.length > 1 && <Grid item>
+                                                              <IconButton size='small' onClick={() => handleRemoveAwardClick(award.key)}>
+                                                                  <FontAwesomeIcon icon={faTrashAlt} />
+                                                              </IconButton>
+                                                          </Grid>}
+
+                                                        </Grid>
+                                                      </Grid>
+
+                                                      {currentType.code === 'P' && (
+                                                        <Grid item xs={8} style={{alignSelf: "center"}}>
+                                                          <TextField mediumLabel name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
+                                                            validations={validations}
+                                                            validationErrors={validationErrors}
+                                                          />
+                                                        </Grid>
+                                                      )}
+                                                      <Grid item xs={12} style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
+                                                        {award.reward && (
+                                                          <ChallengeReward reward={reward} />
+                                                        )}
+                                                        {!award.reward && (
+                                                          <Card>
+                                                            <DefaultText style={{textAlign: 'center', color: '#00E58D'}} lowercase>
+                                                              Ajouter une récompense
+                                                            </DefaultText>
+                                                          </Card>
+                                                        )}
+                                                      </Grid>
+                                                    </Grid>
+                                                  </Grid>
+                                                )}
+                                                {currentRewardType.code === 'P' && (
+                                                  <React.Fragment>
+                                                    <Grid item xs>
+                                                      <TextField name={`award[${index}]`} label={label} fullWidth required initial={award.points}
                                                         validations={validations}
                                                         validationErrors={validationErrors}
-                                                      />
+                                                        />
                                                     </Grid>
-                                                  )}
-                                                  <Grid item xs={12} style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
-                                                    {award.reward && (
-                                                      <ChallengeReward reward={reward} />
-                                                    )}
-                                                    {!award.reward && (
-                                                      <Card>
-                                                        <DefaultText style={{textAlign: 'center', color: '#00E58D'}} lowercase>
-                                                          Ajouter une récompense
-                                                        </DefaultText>
-                                                      </Card>
-                                                    )}
-                                                  </Grid>
-                                                </Grid>
-                                              </Grid>
-                                            )}
-                                            {currentRewardType.code === 'P' && (
-                                              <Grid item xs>
-                                                <TextField name={`award[${index}]`} label={label} fullWidth required initial={award.points}
-                                                  validations={validations}
-                                                  validationErrors={validationErrors}
-                                                  />
-                                              </Grid>
-                                            )}
-
-                                            {!isMaxAward && awards.length > 1 && <Grid item>
-                                                <IconButton size='small' onClick={() => handleRemoveAwardClick(award.key)}>
-                                                    <FontAwesomeIcon icon={faTrashAlt} />
-                                                </IconButton>
-                                            </Grid>}
-                                        </Grid>
-                                      </Card>
+                                                    {!isMaxAward && awards.length > 1 && <Grid item>
+                                                      <IconButton size='small' onClick={() => handleRemoveAwardClick(award.key)}>
+                                                        <FontAwesomeIcon icon={faTrashAlt} />
+                                                      </IconButton>
+                                                    </Grid>}
+                                                  </React.Fragment>
+                                                )}
+                                            </Grid>
+                                          </ChallengeRewardCard>
                                         </Grid>
                                       </Grid>
                                     </Grid>

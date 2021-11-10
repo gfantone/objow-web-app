@@ -5,7 +5,7 @@ import Formsy from 'formsy-react'
 import {CardMedia, Grid} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {ImageInput} from '../../components'
-import {AppBarSubTitle, Card, DefaultTitle, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField, RichTextField} from '../../../../components'
+import {AppBarSubTitle, Card, DefaultTitle, InfoText, Loader, MainLayoutComponent, ProgressButton, Select, TextField, RichTextField, HiddenInput} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as rewardCategoryListActions from '../../../../services/RewardCategories/RewardCategoryList/actions'
 import * as rewardImageListActions from '../../../../services/RewardImages/RewardImageList/actions'
@@ -129,11 +129,15 @@ class ChallengeRewardForm extends React.Component {
                                                 />
                                             </Grid>
                                             <Grid item xs={6}>
-                                                <Select name='type' initial={_.get(reward, 'type')} label={Resources.REWARD_CREATION_TYPE_LABEL} options={types} optionValueName={'id'} optionTextName={'name'} fullWidth required
+                                                <Select name='type' disabled initial={_.get(reward, 'type')} label={Resources.REWARD_CREATION_TYPE_LABEL} options={types} optionValueName={'id'} optionTextName={'name'} fullWidth required
                                                         validationErrors={{
                                                             isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR
                                                         }}
                                                 />
+                                              <HiddenInput
+                                                name='type'
+                                                value={_.get(reward, 'type')}
+                                              />
                                             </Grid>
                                             <Grid item xs={6}>
                                                 <TextField type='number' name='value' initial={_.get(reward, 'value')} label={Resources.REWARD_CREATION_VALUE_LABEL} endAdornment={Resources.REWARD_CREATION_VALUE_SUFFIX_LABEL} fullWidth required

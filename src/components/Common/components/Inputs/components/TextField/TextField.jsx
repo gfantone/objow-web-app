@@ -25,6 +25,12 @@ const styles = {
       transform: 'none',
       top: "-5px"
     },
+    mediumLabel: {
+      fontSize: '12px !important',
+      textAlign: 'center',
+      transform: 'none',
+      top: "-5px"
+    },
     label: {
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
@@ -33,7 +39,7 @@ const styles = {
     }
 };
 
-const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = null, label, name, required, disabled, placeholder, lowercase, type = 'text', bigLabel, ...props }) => {
+const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = null, label, name, required, disabled, placeholder, lowercase, type = 'text', bigLabel, mediumLabel, ...props }) => {
     const { classes } = props;
     const [value, setValue] = React.useState(initial);
     const hasError = props.isFormSubmitted && !props.isValid;
@@ -49,7 +55,7 @@ const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = 
         setValue(value);
         if (props.onChange) props.onChange(value)
     };
-    
+
     return (
         <div>
             <TextField
@@ -66,8 +72,8 @@ const CustomTextField = ({ endAdornment = null, fullWidth, multiline, initial = 
                     endAdornment: endAdornment ? <InputAdornment position="end">{endAdornment}</InputAdornment> : null,
                 }}
                 InputLabelProps={{
-                    shrink: !bigLabel,
-                    className: `${classes.label} ${bigLabel ? classes.bigLabel : ''}`
+                    shrink: !bigLabel && !mediumLabel,
+                    className: `${classes.label} ${bigLabel ? classes.bigLabel : ''} ${mediumLabel ? classes.mediumLabel : ''}`
                 }}
                 classes={{ root: lowercase ? classes.lowercase : classes.root }}
                 helperText={errorMessage}
