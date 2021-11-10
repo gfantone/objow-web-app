@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import { createChallengeSuccess, createChallengeError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
-
+import _ from 'lodash'
 function* createChallenge(action) {
     try {
         const { data: challenge } = yield call(api.challenges.create, action.challengeFormData, action.teamId);
@@ -15,7 +15,7 @@ function* createChallenge(action) {
                 {},
                 award.reward,
                 {
-                  description: JSON.stringify(award.reward.description)
+                  description: _.isString(award.reward.description) ? award.reward.description : JSON.stringify(award.reward.description)
                 }
               )
             }

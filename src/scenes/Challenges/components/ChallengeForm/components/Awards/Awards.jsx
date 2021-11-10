@@ -100,7 +100,6 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
 
                 </Grid>
                 <Grid item xs={12}>
-                    <Card>
                         <Grid container spacing={4} direction="column">
                           <Grid item xs={6}>
                             <Select
@@ -137,6 +136,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 }) : null
                                 return (
                                     <Grid key={award.key} item xs={4}>
+                                      <Card>
                                         <Grid container spacing={1} alignItems='flex-end'>
                                             {currentRewardType.code === 'G' && (
                                               <Grid item xs={10} >
@@ -184,6 +184,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                                 </IconButton>
                                             </Grid>}
                                         </Grid>
+                                      </Card>
                                     </Grid>
                                 )
                             })}
@@ -205,7 +206,6 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                           </Grid>
                         </Grid>
 
-                    </Card>
                 </Grid>
             </Grid>
         </div>
