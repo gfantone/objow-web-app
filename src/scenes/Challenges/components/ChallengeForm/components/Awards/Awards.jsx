@@ -136,16 +136,19 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 }) : null
                                 return (
                                     <Grid key={award.key} item xs={4}>
-                                      <Card>
+                                      <Grid container spacing={1} direction="column">
+                                        <Grid item>
+                                          <DefaultTitle>
+                                            {label}
+                                          </DefaultTitle>
+                                        </Grid>
+                                        <Grid item>
+                                          <Card>
                                         <Grid container spacing={1} alignItems='flex-end'>
                                             {currentRewardType.code === 'G' && (
                                               <Grid item xs={10} >
                                                 <Grid container direction='column' spacing={1}>
-                                                  <Grid item>
-                                                    <DefaultText>
-                                                      {label}
-                                                    </DefaultText>
-                                                  </Grid>
+
                                                   {currentType.code === 'P' && (
                                                     <Grid item xs={12}>
                                                       <TextField name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
@@ -185,6 +188,8 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                             </Grid>}
                                         </Grid>
                                       </Card>
+                                        </Grid>
+                                      </Grid>
                                     </Grid>
                                 )
                             })}

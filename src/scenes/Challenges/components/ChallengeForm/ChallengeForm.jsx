@@ -107,34 +107,34 @@ const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, chal
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <Awards
-                        challengeId={id}
-                        challengeTypeCode={typeCode}
-                        challengeTypeId={typeId}
-                        end={end}
-                        hasChallengeManager={hasChallengeManager}
-                        initialAwards={awards}
-                        initialLive={live}
-                        initialType={awardType}
-                        initialRewardType={rewardType}
-                        isCreation={isCreation}
-                        isDuplication={isDuplication}
-                        isUpdate={isUpdate}
-                        start={start}
-                        team={team}
-                        types={awardTypes}
-                        rewardTypes={availableRewardTypes}
-                        setConfigRewardOpen={setConfigRewardOpen}
-                        rewardImages={rewardImages}
-                    />
-                </Grid>
-                <Grid item xs={12}>
                     <Goals categories={categories}
                            goals={goals}
                            kpis={kpis}
                            goalAdding={goalAdding}
                            onGoalAdded={onGoalAdded}
                            addGoal={addGoal}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                  <Awards
+                    challengeId={id}
+                    challengeTypeCode={typeCode}
+                    challengeTypeId={typeId}
+                    end={end}
+                    hasChallengeManager={hasChallengeManager}
+                    initialAwards={awards}
+                    initialLive={live}
+                    initialType={awardType}
+                    initialRewardType={rewardType}
+                    isCreation={isCreation}
+                    isDuplication={isDuplication}
+                    isUpdate={isUpdate}
+                    start={start}
+                    team={team}
+                    types={awardTypes}
+                    rewardTypes={availableRewardTypes}
+                    setConfigRewardOpen={setConfigRewardOpen}
+                    rewardImages={rewardImages}
                     />
                 </Grid>
                 <Grid item xs={12}>
