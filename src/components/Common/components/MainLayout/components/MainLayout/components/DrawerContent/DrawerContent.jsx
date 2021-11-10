@@ -34,7 +34,7 @@ const DrawerContent = ({onNavigate, ...props }) => {
         permission: account.hasChallengeAccess
       },
       {
-        component: <DrawerButton icon={faTrophy} text={Resources.DRAWER_BADGES_BUTTON} src='/badges' onNavigate={onNavigate} />,
+        component: <DrawerButton icon={faTrophy} text={account.badgeWording ||Resources.DRAWER_BADGES_BUTTON} src='/badges' onNavigate={onNavigate} />,
         permission: account.hasBadgeAccess
       },
       {
@@ -59,7 +59,7 @@ const DrawerContent = ({onNavigate, ...props }) => {
         permission: account.hasRewardAccess
       },
       {
-        component: <DrawerButton icon={faBook} text={Resources.DRAWER_RULES_BUTTON} src='/rules' onNavigate={onNavigate} />,
+        component: <DrawerButton icon={faBook} text={account.rulesWording || Resources.DRAWER_RULES_BUTTON} src='/rules' onNavigate={onNavigate} />,
         permission: account.hasRulesAccess
       },
 

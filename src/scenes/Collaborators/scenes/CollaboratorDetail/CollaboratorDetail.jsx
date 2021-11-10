@@ -252,7 +252,7 @@ class CollaboratorDetail extends MainLayoutComponent {
                     { _.get(CBAR, 'value', "true") === "true" &&
                       <Grid item container spacing={1} xs={12}>
                           <Grid spacing={1} item xs={12}>
-                              <DefaultTitle>{Resources.COLLABORATOR_DETAIL_BADGE_AREA}</DefaultTitle>
+                              <DefaultTitle>{account.badgeWording || Resources.COLLABORATOR_DETAIL_BADGE_AREA}</DefaultTitle>
                           </Grid>
                           <Grid spacing={1} item xs={12}>
                               <Card>

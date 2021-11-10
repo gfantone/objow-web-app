@@ -6,7 +6,8 @@ import * as Resources from '../../../../Resources'
 
 class BadgeHome extends MainLayoutComponent {
     componentDidMount() {
-        this.props.handleTitle(Resources.BADGE_LONG_TITLE)
+        const { account } = this.props.accountDetail;
+        this.props.handleTitle(account.badgeWording || Resources.BADGE_LONG_TITLE)
     }
 
     handleClick(id) {

@@ -136,6 +136,8 @@ class AdminAccessRightList extends MainLayoutComponent {
 
         // Wording
         const CHAW = configs.filter(c => c.code === 'CHAW')[0];
+        const RULW = configs.filter(c => c.code === 'RULW')[0];
+        const BDGW = configs.filter(c => c.code === 'BDGW')[0];
 
         const { account } = this.props.accountDetail;
         const homePagesOptions = homePages(account);
@@ -205,7 +207,6 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         <Switch name={CCLE.id} initial={CCLE.value.toBoolean()} label='Modifier la coaching list' />
                                         <Switch name={CGLR.id} initial={CGLR.value.toBoolean()} label='Accès aux objectifs' disabled={ !this.state.activateCollaboratorChallengeAccess && this.state.activateCollaboratorGoalsAccess } onChange={ this.handleChangeValue('activateCollaboratorGoalsAccess').bind(this) } />
                                         <Switch name={CCGR.id} initial={CCGR.value.toBoolean()} label='Accès aux challenges' disabled={ this.state.activateCollaboratorChallengeAccess && !this.state.activateCollaboratorGoalsAccess } onChange={ this.handleChangeValue('activateCollaboratorChallengeAccess').bind(this) } />
-                                        <TextField type='text' name={CHAW.id} initial={CHAW.value} placeholder={ Resources.DRAWER_CHALLENGES_BUTTON } label={'Wording des challenges'}  fullWidth lowercase />
                                         <Switch name={CTMR.id} initial={CTMR.value.toBoolean()} label='Accès aux équipes' />
                                         <Switch name={CBAR.id} initial={CBAR.value.toBoolean()} label='Accès aux défis' />
                                         <Switch name={CSTR.id} initial={CSTR.value.toBoolean()} label='Accès aux statistiques' />
@@ -231,7 +232,24 @@ class AdminAccessRightList extends MainLayoutComponent {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Card>
-                                        <Select name={ GDTF.id } initial={GDTF.value} label={'Filtre par défaut sur les objectifs'} options={goalTimeFilters} optionValueName='value' optionTextName='description' fullWidth emptyDisabled />
+                                        <Grid container direction="column" spacing={1}>
+                                          <Grid item>
+                                            <Select name={ GDTF.id } initial={GDTF.value} label={'Filtre par défaut sur les objectifs'} options={goalTimeFilters} optionValueName='value' optionTextName='description' fullWidth emptyDisabled />
+                                          </Grid>
+                                          <Grid item>
+                                            <Grid container spacing={1}>
+                                              <Grid item xs={6}>
+                                                <TextField type='text' name={CHAW.id} initial={CHAW.value} placeholder={ Resources.DRAWER_CHALLENGES_BUTTON } label={'Wording des challenges'}  fullWidth lowercase />
+                                              </Grid>
+                                              <Grid item xs={6}>
+                                                <TextField type='text' name={BDGW.id} initial={BDGW.value} placeholder={ Resources.DRAWER_BADGES_BUTTON } label={'Wording des Badges'}  fullWidth lowercase />
+                                              </Grid>
+                                              <Grid item xs={6}>
+                                                <TextField type='text' name={RULW.id} initial={RULW.value} placeholder={ Resources.DRAWER_RULES_BUTTON } label={'Wording des Règles du jeu'}  fullWidth lowercase />
+                                              </Grid>
+                                            </Grid>
+                                          </Grid>
+                                        </Grid>
                                     </Card>
                                 </Grid>
                             </Grid>
