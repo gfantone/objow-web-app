@@ -20,6 +20,7 @@ import * as challengeImageListActions from "../../../../services/ChallengeImages
 import * as challengeTypeListActions from "../../../../services/ChallengeTypes/ChallengeTypeList/actions"
 import * as challengeTypeUsablePointsActions from '../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
 import * as currentPeriodDetailActions from "../../../../services/Periods/CurrentPeriodDetail/actions"
+import * as rewardTypeListActions from '../../../../services/RewardTypes/RewardTypeList/actions'
 import * as kpiListActions from "../../../../services/Kpis/KpiList/actions"
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import * as kpiCreationActions from '../../../../services/Kpis/KpiCreation/actions'
@@ -79,6 +80,7 @@ class ChallengeCreation extends MainLayoutComponent {
         this.props.rewardImageListActions.getRewardImageList()
         this.props.kpiListActions.getKpiList()
         this.props.teamListActions.getTeamList()
+        this.props.rewardTypeListActions.getRewardTypeList()
     }
 
     renderLoader() {
@@ -336,10 +338,22 @@ class ChallengeCreation extends MainLayoutComponent {
     }
 
     setConfigRewardOpen = (value, awards, currentAward, currentAwardIndex, setAwards) => {
+      const {types: rewardTypes} = this.props.rewardTypeList
+      const {types} = this.props.challengeTypeList
+      const currentType = types.find(t => t.id === parseInt(_.get(this.state, 'finalModel.type')))
+      const defaultReward = {
+        type: currentType.code === 'CC' ?
+          rewardTypes.find(t => t.code === 'P').id :
+          rewardTypes.find(t => t.code === 'T').id
+      }
+      // console.log(currentAward ? Object.assign({}, currentAward, { reward: currentAward.reward || defaultReward }) : this.state.currentAward);
       this.setState({
         ...this.state,
         currentAwards: awards || this.state.currentAwards,
-        currentAward: currentAward || this.state.currentAward,
+        currentAward: currentAward ?
+          Object.assign({}, currentAward, { reward: currentAward.reward ? Object.assign({}, currentAward.reward, defaultReward) : defaultReward }) :
+          this.state.currentAward,
+        // currentAward: currentAward || this.state.currentAward,
         currentAwardIndex: currentAwardIndex !== undefined ? currentAwardIndex : this.state.currentAwardIndex,
         setAwards: setAwards || this.state.setAwards,
         configRewardOpen: value
@@ -365,6 +379,7 @@ class ChallengeCreation extends MainLayoutComponent {
           {order: 2, name: 'Moyenne'},
           {order: 3, name: 'Haute'}
         ]
+
         return (
             <div>
                 <Stepper steps={this.state.steps} />
@@ -454,7 +469,8 @@ class ChallengeCreation extends MainLayoutComponent {
     render() {
         const {categories, loading: categoryListLoading} = this.props.categoryList
         const {types: awardTypes, loading: challengeAwardTypeListLoading} = this.props.challengeAwardTypeList
-        const {types: rewardTypes, loading: challengeRewardTypeListLoading} = this.props.challengeRewardTypeList
+        const {types: challengeRewardTypes, loading: challengeRewardTypeListLoading} = this.props.challengeRewardTypeList
+        const {types: rewardTypes, loading: rewardTypeListLoading} = this.props.rewardTypeList
         const {images, loading: challengeImageListLoading} = this.props.challengeImageList
 
         const {types, loading: challengeTypeListLoading} = this.props.challengeTypeList
@@ -480,17 +496,18 @@ class ChallengeCreation extends MainLayoutComponent {
         return (
             <div>
                 {loading && this.renderLoader()}
-                {!loading && awardTypes && rewardTypes && categories && period && images && types && kpis && teams && this.renderData()}
+                {!loading && awardTypes && challengeRewardTypes && categories && period && images && types && kpis && teams && this.renderData()}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({accountDetail, categoryList, challengeAwardTypeList, challengeRewardTypeList, challengeCreation, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, rewardImageList, teamList}) => ({
+const mapStateToProps = ({accountDetail, categoryList, challengeAwardTypeList, challengeRewardTypeList, rewardTypeList, challengeCreation, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, rewardImageList, teamList}) => ({
     categoryList,
     accountDetail,
     challengeAwardTypeList,
     challengeRewardTypeList,
+    rewardTypeList,
     challengeCreation,
     challengeImageList,
     challengeTypeList,
@@ -514,6 +531,7 @@ const mapDispatchToProps = (dispatch) => ({
     teamListActions: bindActionCreators(teamListActions, dispatch),
     kpiCreationActions: bindActionCreators(kpiCreationActions, dispatch),
     rewardImageListActions: bindActionCreators(rewardImageListActions, dispatch),
+    rewardTypeListActions: bindActionCreators(rewardTypeListActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ChallengeCreation))
