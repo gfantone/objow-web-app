@@ -177,8 +177,10 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                             </Grid>
 
                             {challenge.awardCode === 'P' && (
-                              <Grid item xs={8} style={{alignSelf: "center"}}>
-                                <DefaultText>{award.target}</DefaultText>
+                              <Grid item style={{alignSelf: "center"}}>
+                                <DefaultText>
+                                  { Resources.CHALLENGE_AWARD_TARGET_LABEL }:  {award.target}
+                                </DefaultText>
                               </Grid>
                             )}
                             <Grid item xs={12}>
