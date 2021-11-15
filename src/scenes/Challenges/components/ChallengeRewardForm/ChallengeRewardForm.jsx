@@ -86,7 +86,7 @@ class ChallengeRewardForm extends React.Component {
                                             <Grid item xs={8}>
                                                 <Grid container spacing={2}>
                                                     <Grid item xs={12}>
-                                                        <TextField name='name' initial={_.get(reward, 'name')} label={Resources.REWARD_CREATION_NAME_LABEL} fullWidth required
+                                                        <TextField lowercase name='name' initial={_.get(reward, 'name')} label={Resources.REWARD_CREATION_NAME_LABEL} fullWidth required
                                                                    validations='maxLength:128'
                                                                    validationErrors={{
                                                                        isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,

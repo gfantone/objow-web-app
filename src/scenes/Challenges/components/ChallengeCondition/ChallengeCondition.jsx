@@ -155,7 +155,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
 
     const renderAwards = () => {
       return (
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           {challenge.awards.map(award => {
             return(
               <Grid key={award.key} item xs={12} sm={6} md={4}>
@@ -177,7 +177,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                             </Grid>
 
                             {challenge.awardCode === 'P' && (
-                              <Grid item style={{alignSelf: "center"}}>
+                              <Grid item>
                                 <DefaultText>
                                   { Resources.CHALLENGE_AWARD_TARGET_LABEL }:  {award.target}
                                 </DefaultText>

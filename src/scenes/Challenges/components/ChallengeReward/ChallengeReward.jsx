@@ -60,8 +60,8 @@ const ChallengeReward = ({reward, ...props}) => {
               </Grid>
               <Grid item xs={12} >
                   <Grid container>
-                      <Grid item xs>
-                          <DefaultText className={classes.name} style={{width: '100%'}}>{reward.name}</DefaultText>
+                      <Grid item xs style={{height:'3em'}}>
+                          <DefaultText lowercase className={classes.name} style={{width: '100%'}}>{reward.name}</DefaultText>
                       </Grid>
 
                   </Grid>
