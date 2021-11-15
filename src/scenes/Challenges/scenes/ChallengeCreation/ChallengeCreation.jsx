@@ -125,7 +125,6 @@ class ChallengeCreation extends MainLayoutComponent {
         // Set award target for mode palier
         let currentAwards = this.state.currentAwards
         if(model.awardTarget && this.state.currentAwards) {
-          console.log(model.awardTarget, this.state.currentAwards);
           currentAwards = this.state.currentAwards.map((award, index) => {
             return Object.assign({}, award, {
               target: model.awardTarget[index]

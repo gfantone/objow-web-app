@@ -158,9 +158,9 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
         <Grid container spacing={1}>
           {challenge.awards.map(award => {
             return(
-              <Grid key={award.key} item xs={4}>
+              <Grid key={award.key} item xs={12} sm={6} md={4}>
               <Grid container spacing={1} direction="column">
-                <Grid item >
+                <Grid item xs={12}>
                   <ChallengeRewardCard>
                     <Grid container spacing={1} alignItems='flex-end'>
                       {challenge.rewardTypeCode === 'G' && (

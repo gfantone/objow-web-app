@@ -159,9 +159,9 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                   image: award.reward.image && rewardImages ? rewardImages.find(i => i.id === parseInt(award.reward.image)).path : null
                                 }) : null
                                 return (
-                                  <Grid key={award.key} item xs={4}>
+                                  <Grid key={award.key} item xs={12} sm={6} md={4}>
                                     <Grid container spacing={1} direction="column">
-                                      <Grid item >
+                                      <Grid item xs={12}>
                                         <ChallengeRewardCard>
                                           <Grid container spacing={1} alignItems='flex-end'>
                                               {currentRewardType.code === 'G' && (
