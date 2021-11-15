@@ -19,8 +19,10 @@ const styles = {
 
 class BadgeDetail extends MainLayoutComponent {
     componentDidMount() {
+        const { account } = this.props.accountDetail;
+        
         this.badgeId = this.props.match.params.id
-        this.props.handleTitle(Resources.BADGE_SHORT_TITLE)
+        this.props.handleTitle(account.badgeWording || Resources.BADGE_SHORT_TITLE)
         this.props.handleSubHeader(<SubHeader />)
         this.props.activateReturn()
         this.props.collaboratorBadgeSummaryDetailActions.getCollaboratorBadgeSummary(this.badgeId)

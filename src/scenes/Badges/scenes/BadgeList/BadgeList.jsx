@@ -73,10 +73,11 @@ class BadgeList extends MainLayoutComponent {
     }
 
     componentDidMount() {
+        const { account } = this.props.accountDetail;
         const params = new URLSearchParams(window.location.search)
         const currentParam = params.get('current')
         const current = currentParam ? currentParam.toBoolean() : this.current
-        this.props.handleTitle(Resources.BADGE_SHORT_TITLE)
+        this.props.handleTitle(account.badgeWording || Resources.BADGE_SHORT_TITLE)
         this.props.handleSubHeader(<SubHeader initial={current} onChange={this.handleChange.bind(this)} />)
         this.props.handleButtons(<IconButton size='small' onClick={this.handleFilterOpen.bind(this)}><FontAwesomeIcon icon={faSlidersH} /></IconButton>)
         if (this.props.accountDetail.account.role.code != 'C') {
