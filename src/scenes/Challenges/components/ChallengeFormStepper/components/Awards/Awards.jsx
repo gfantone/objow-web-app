@@ -127,7 +127,6 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                         <Grid item xs={6}>
                           <Select
                             name='rewardType'
-                            label='Récompenses'
                             initial={finalInitialRewardType}
                             options={rewardTypes}
                             optionValueName='id'
@@ -186,7 +185,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                                   <React.Fragment>
                                                     {currentType.code === 'P' && (
                                                       <Grid item xs={8}>
-                                                        <TextField mediumLabel name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
+                                                        <TextField name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
                                                           validations={validations}
                                                           validationErrors={validationErrors}
                                                           />

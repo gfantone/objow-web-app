@@ -20,7 +20,7 @@ class GameRules extends MainLayoutComponent {
 
     componentDidMount() {
         const {account} = this.props.accountDetail
-        this.props.handleTitle(Resources.GAME_RULES_TITLE)
+        this.props.handleTitle(account.rulesWording || Resources.GAME_RULES_TITLE)
         if (account.role.code === 'A') {
             this.props.handleButtons(<AppBarIconButton size='small' onClick={this.handleEditClick(true).bind(this)}><FontAwesomeIcon icon={faEdit} /></AppBarIconButton>);
         }

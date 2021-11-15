@@ -26,7 +26,6 @@ const styles = {
       top: "-5px"
     },
     mediumLabel: {
-      fontSize: '12px !important',
       transform: 'none',
       top: "-5px"
     },

@@ -132,7 +132,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                         </Grid>
                                         <Grid item>
                                           <DefaultText>
-                                            { Resources.CHALLENGE_AWARD_TARGET_LABEL }:  {award.target}
+                                            { Resources.CHALLENGE_AWARD_TARGET_LABEL } : {award.target}
                                           </DefaultText>
                                         </Grid>
                                         <Grid item style={{maxWidth: 250}}>
@@ -179,7 +179,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                             {challenge.awardCode === 'P' && (
                               <Grid item>
                                 <DefaultText>
-                                  { Resources.CHALLENGE_AWARD_TARGET_LABEL }:  {award.target}
+                                  { Resources.CHALLENGE_AWARD_TARGET_LABEL } : {award.target}
                                 </DefaultText>
                               </Grid>
                             )}
