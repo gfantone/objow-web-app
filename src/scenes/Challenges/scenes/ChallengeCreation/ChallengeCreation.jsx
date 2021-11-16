@@ -28,7 +28,8 @@ import _ from 'lodash'
 
 const styles = {
   kpiDialog: {
-    width: 900
+    width: 900,
+    maxWidth: 900
   }
 }
 
@@ -466,14 +467,20 @@ class ChallengeCreation extends MainLayoutComponent {
                     onClose={() => this.setConfigRewardOpen(false)}
                     classes={{ paper: this.props.classes.kpiDialog }}
                 >
-                    <DialogTitle>Création de récompense</DialogTitle>
-                    <Formsy onValidSubmit={this.handleSubmitReward} >
-                      <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
-                      <DialogActions>
-                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
-                          <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
-                      </DialogActions>
-                    </Formsy>
+                    <Grid container spacing={1} direction="column">
+                      <Grid item style={{paddingTop: 0}}>
+                        <DialogTitle>Création de récompense</DialogTitle>
+                      </Grid>
+                      <Grid item>
+                        <Formsy onValidSubmit={this.handleSubmitReward} >
+                          <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
+                          <DialogActions>
+                            <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                            <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
+                          </DialogActions>
+                        </Formsy>
+                      </Grid>
+                    </Grid>
                 </Dialog>
             </div>
         )
