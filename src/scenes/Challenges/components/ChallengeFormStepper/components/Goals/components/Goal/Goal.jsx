@@ -12,7 +12,7 @@ import _ from 'lodash'
 const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemoveClick, classes, setNewKpiOpen, ...props}) => {
     const [category, setCategory] = React.useState(goal ? goal.category : null)
     const displayKpis = category ? kpis.filter(x => x.category && x.category.id == category) : kpis
-    const [goalName, setGoalName] = React.useState()
+    const [goalName, setGoalName] = React.useState(goal ? goal.goalName : null)
     const [kpi, setKpi] = React.useState(goal ? goal.kpi : null)
     const kpiObject = kpi ? kpis.find(x => x.id == kpi) : null
     const number = index + 1
@@ -93,7 +93,13 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                     </Grid>
                     <Grid item xs={12}>
 
-                      <TextField name={`goalName[${index}]`} label={Resources.CHALLENGE_UPDATE_GOAL_NAME_LABEL} fullWidth required initial={ _.get(goal, 'name', goalName)} />
+                      <TextField
+                        name={`goalName[${index}]`}
+                        label={Resources.CHALLENGE_UPDATE_GOAL_NAME_LABEL}
+                        fullWidth
+                        required
+                        initial={ _.get(goal, 'name', goalName) }
+                      />
 
                     </Grid>
                     <Grid item xs={12}>
