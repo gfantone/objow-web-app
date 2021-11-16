@@ -379,6 +379,20 @@ class ChallengeCreation extends MainLayoutComponent {
           {order: 3, name: 'Haute'}
         ]
 
+
+
+        const currentRewardType = _.get(this.state, 'finalModel.rewardType') && rewardTypes.find(rewardType => rewardType.id === parseInt(this.state.finalModel.rewardType))
+        const awards = _.get(currentRewardType, 'code') === 'G' ?
+          // gift awards should have reward
+          this.state.currentAwards.filter(award => !!award.reward) :
+          this.state.finalModel.awards
+
+
+        const challenge = Object.assign({}, this.state.finalModel, {
+          awards
+        })
+
+
         return (
             <div>
                 <Stepper steps={this.state.steps} />
@@ -409,7 +423,7 @@ class ChallengeCreation extends MainLayoutComponent {
                         handlePreviousStep={this.handlePreviousStep}
                         handleNextStep={_.get(this.form, 'current.submit')}
                         handleAddGoal={this.handleAddGoal}
-                        challenge={this.state.finalModel}
+                        challenge={challenge}
                         setNewKpiOpen={this.setNewKpiOpen}
                         setConfigRewardOpen={this.setConfigRewardOpen}
                         rewardImages={rewardImages}
