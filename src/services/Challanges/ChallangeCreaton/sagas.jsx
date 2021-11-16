@@ -15,7 +15,8 @@ function* createChallenge(action) {
                 {},
                 award.reward,
                 {
-                  description: _.isString(award.reward.description) ? award.reward.description : JSON.stringify(award.reward.description)
+                  image: _.get(award.reward, 'image.id', _.get(award.reward, 'image')),
+                  description: typeof(award.reward.description) !== 'string' ? JSON.stringify(award.reward.description) : award.reward.description
                 }
               )
             }

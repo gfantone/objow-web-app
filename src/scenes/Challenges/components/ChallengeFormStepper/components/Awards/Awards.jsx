@@ -16,7 +16,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     const getInitialAwards = () => {
         if (initialAwards && initialAwards.length > 0) {
             const awardType = types.find(t => t.id === parseInt(initialType))
-            return initialAwards.filter((award, index) => awardType.code === "M" ? index === 0 : true).map(x => ({key: uuidv4(), points: x.points, reward: x.reward}))
+            return initialAwards.filter((award, index) => awardType.code === "M" ? index === 0 : true).map(x => ({key: uuidv4(), points: x.points, reward: x.reward, target: x.target}))
         } else {
             return [{key: uuidv4(), points: null, reward: null}]
         }
@@ -36,7 +36,6 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     const currentRewardType = rewardTypes.find(t => parseInt(rewardType) === t.id)
     const usablePoints = points ? (!isMaxAward ? points.all : points.participant) : 0
     // console.log(_.slice(awards, 1));
-
     const icons = {
       'R': require(`../../../../../../assets/img/system/challenge/icons/Ribbons.png`),
       'M': require(`../../../../../../assets/img/system/challenge/icons/Rocket.png`),
@@ -155,7 +154,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 const validations = null
                                 const validationErrors = isMaxAward ? {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isLessThanOrEquals: 'La récompense est trop élevée',} : {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isRankingValid: 'La récompense est trop élevée'}
                                 const reward = award.reward ? Object.assign({}, award.reward, {
-                                  image: award.reward.image && rewardImages ? rewardImages.find(i => i.id === parseInt(award.reward.image)).path : null
+                                  image: _.get(award, 'reward.image.path') || (award.reward.image && rewardImages ? rewardImages.find(i => i.id === parseInt(award.reward.image)).path : null)
                                 }) : null
                                 return (
                                   <Grid key={award.key} item xs={12} sm={6} md={4}>

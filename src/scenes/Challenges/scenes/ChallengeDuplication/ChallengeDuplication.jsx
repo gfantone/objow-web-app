@@ -2,23 +2,35 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { Redirect } from 'react-router-dom'
-import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Stepper} from "../../../../components"
+import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Stepper, Dialog, DialogTitle, DialogActions, ProgressButton, TextField, Button} from "../../../../components"
 import * as challengeCreationActions from '../../../../services/Challanges/ChallangeCreaton/actions'
 import * as challengeTypeUsablePointsActions from '../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
 import * as Resources from "../../../../Resources"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faPlus} from "@fortawesome/free-solid-svg-icons"
 import Formsy from "formsy-react"
-import {ChallengeFormStepper} from "../../components/ChallengeFormStepper"
+import {Grid} from '@material-ui/core'
+import {withStyles} from "@material-ui/core/styles";
+import {ChallengeFormStepper, ChallengeRewardForm} from "../../components"
 import * as categoryListActions from "../../../../services/Categories/CategoryList/actions"
 import * as challengeAwardTypeListActions from "../../../../services/ChallengeAwardTypes/ChallengeAwardTypeList/actions"
+import * as challengeRewardTypeListActions from "../../../../services/ChallengeRewardTypes/ChallengeRewardTypeList/actions"
 import * as challengeDetailActions from "../../../../services/Challanges/ChallengeDetail/actions"
 import * as challengeImageListActions from "../../../../services/ChallengeImages/ChallengeImageList/actions"
 import * as challengeTypeListActions from "../../../../services/ChallengeTypes/ChallengeTypeList/actions"
+import * as rewardTypeListActions from '../../../../services/RewardTypes/RewardTypeList/actions'
 import * as currentPeriodDetailActions from "../../../../services/Periods/CurrentPeriodDetail/actions"
 import * as kpiListActions from "../../../../services/Kpis/KpiList/actions"
 import * as teamListActions from "../../../../services/Teams/TeamList/actions"
 import _ from 'lodash'
+
+
+const styles = {
+  kpiDialog: {
+    width: 900,
+    maxWidth: 900
+  }
+}
 
 class ChallengeDuplication extends MainLayoutComponent {
     state = {
@@ -60,12 +72,15 @@ class ChallengeDuplication extends MainLayoutComponent {
         this.props.activateReturn()
         this.props.categoryListActions.getActiveCategoryList()
         this.props.challengeAwardTypeListActions.getChallengeAwardTypeList()
+        this.props.challengeRewardTypeListActions.getChallengeRewardTypeList()
         this.props.challengeDetailActions.getChallengeDetail(id)
         this.props.challengeImageListActions.getChallengeImageList()
         this.props.challengeTypeListActions.getUsableChallengeTypeList()
         this.props.currentPeriodDetailActions.getCurrentPeriodDetail()
         this.props.kpiListActions.getKpiList()
         this.props.teamListActions.getTeamList()
+        this.props.rewardTypeListActions.getRewardTypeList()
+
         const params = new URLSearchParams(window.location.search)
         const teamParam = params.get('team')
         this.teamId = teamParam ? Number(teamParam) : null
@@ -257,6 +272,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         challengeFormData.append('end', end)
         challengeFormData.append('type', finalModel.type)
         challengeFormData.append('award_type', finalModel.awardType)
+        challengeFormData.append('reward_type', finalModel.rewardType)
         challengeFormData.append('live', finalModel.live ? finalModel.live : false)
         challengeFormData.append('participants', participants)
 
@@ -311,6 +327,7 @@ class ChallengeDuplication extends MainLayoutComponent {
           end: end,
           type: finalModel.type,
           award_type: finalModel.awardType,
+          award_type: finalModel.rewardType,
           live: finalModel.live ? finalModel.live : false,
           participants: participants
 
@@ -348,9 +365,33 @@ class ChallengeDuplication extends MainLayoutComponent {
       }
     }
 
+    setConfigRewardOpen = (value, awards, currentAward, currentAwardIndex, setAwards) => {
+      const {types: rewardTypes} = this.props.rewardTypeList
+      const {types} = this.props.challengeTypeList
+      const currentType = types.find(t => t.id === parseInt(_.get(this.state, 'finalModel.type')))
+      const defaultReward = {
+        type: currentType.code === 'CC' ?
+          rewardTypes.find(t => t.code === 'P').id :
+          rewardTypes.find(t => t.code === 'T').id
+      }
+      // console.log(currentAward ? Object.assign({}, currentAward, { reward: currentAward.reward || defaultReward }) : this.state.currentAward);
+      this.setState({
+        ...this.state,
+        currentAwards: awards || this.state.currentAwards,
+        currentAward: currentAward ?
+          Object.assign({}, currentAward, { reward: currentAward.reward ? Object.assign({}, currentAward.reward, defaultReward) : defaultReward }) :
+          this.state.currentAward,
+        // currentAward: currentAward || this.state.currentAward,
+        currentAwardIndex: currentAwardIndex !== undefined ? currentAwardIndex : this.state.currentAwardIndex,
+        setAwards: setAwards || this.state.setAwards,
+        configRewardOpen: value
+      })
+    }
+
     renderData() {
         const {categories} = this.props.categoryList
         const {types: awardTypes} = this.props.challengeAwardTypeList
+        const {types: rewardTypes} = this.props.challengeRewardTypeList
         const {challenge} = this.props.challengeDetail
         const {images} = this.props.challengeImageList
         const {period} = this.props.currentPeriodDetail
@@ -368,6 +409,7 @@ class ChallengeDuplication extends MainLayoutComponent {
                     <ChallengeFormStepper
                         actionLoading={loading}
                         awardTypes={awardTypes}
+                        rewardTypes={rewardTypes}
                         categories={categories}
                         challenge={challenge}
                         goalAdding={this.state.goalAdding}
@@ -392,9 +434,30 @@ class ChallengeDuplication extends MainLayoutComponent {
                         handleAddGoal={this.handleAddGoal}
                         challenge={this.state.finalModel}
                         setNewKpiOpen={this.setNewKpiOpen}
+                        setConfigRewardOpen={this.setConfigRewardOpen}
                         teams={teams.filter(t => _.get(account, 'role.code') !== 'M' || _.get(account, 'team.id') === t.id )}
                     />
                 </Formsy>
+                <Dialog
+                    open={this.state.configRewardOpen}
+                    onClose={() => this.setConfigRewardOpen(false)}
+                    classes={{ paper: this.props.classes.kpiDialog }}
+                >
+                    <Grid container spacing={1} direction="column">
+                      <Grid item style={{paddingTop: 0}}>
+                        <DialogTitle>Création de récompense</DialogTitle>
+                      </Grid>
+                      <Grid item>
+                        <Formsy onValidSubmit={this.handleSubmitReward} >
+                          <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
+                          <DialogActions>
+                            <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                            <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
+                          </DialogActions>
+                        </Formsy>
+                      </Grid>
+                    </Grid>
+                </Dialog>
             </div>
         )
     }
@@ -402,6 +465,8 @@ class ChallengeDuplication extends MainLayoutComponent {
     render() {
         const {categories, loading: categoryListLoading} = this.props.categoryList
         const {types: awardTypes, loading: challengeAwardTypeListLoading} = this.props.challengeAwardTypeList
+        const {types: challengeRewardTypes, loading: challengeRewardTypeListLoading} = this.props.challengeRewardTypeList
+        const {types: rewardTypes, loading: rewardTypeListLoading} = this.props.rewardTypeList
         const {challenge, loading: challengeDetailLoading} = this.props.challengeDetail
         const {images, loading: challengeImageListLoading} = this.props.challengeImageList
         const {types, loading: challengeTypeListLoading} = this.props.challengeTypeList
@@ -409,7 +474,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         const {period, loading: currentPeriodDetailLoading} = this.props.currentPeriodDetail
         const {kpis, loading: kpiListLoading} = this.props.kpiList
         const {teams, loading: teamListLoading} = this.props.teamList
-        const loading = categoryListLoading || challengeAwardTypeListLoading || challengeDetailLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading || teamListLoading
+        const loading = categoryListLoading || challengeAwardTypeListLoading || challengeImageListLoading || challengeTypeListLoading || currentPeriodDetailLoading || kpiListLoading || teamListLoading || challengeRewardTypeListLoading
 
         const { account } = this.props.accountDetail;
 
@@ -426,16 +491,18 @@ class ChallengeDuplication extends MainLayoutComponent {
         return (
             <div>
                 {loading && this.renderLoader()}
-                {!loading && awardTypes && categories && challenge && period && images && types && kpis && teams && this.renderData()}
+                {!loading && awardTypes && challengeRewardTypes && categories && challenge && period && images && types && kpis && teams && this.renderData()}
             </div>
         )
     }
 }
 
-const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeCreation, challengeDetail, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, accountDetail, teamList}) => ({
+const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeRewardTypeList, rewardTypeList, challengeCreation, challengeDetail, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, accountDetail, teamList}) => ({
     categoryList,
     accountDetail,
     challengeAwardTypeList,
+    challengeRewardTypeList,
+    rewardTypeList,
     challengeCreation,
     challengeDetail,
     challengeImageList,
@@ -448,6 +515,7 @@ const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeCreatio
 const mapDispatchToProps = (dispatch) => ({
     categoryListActions: bindActionCreators(categoryListActions, dispatch),
     challengeAwardTypeListActions: bindActionCreators(challengeAwardTypeListActions, dispatch),
+    challengeRewardTypeListActions: bindActionCreators(challengeRewardTypeListActions, dispatch),
     challengeCreationActions: bindActionCreators(challengeCreationActions, dispatch),
     challengeDetailActions: bindActionCreators(challengeDetailActions, dispatch),
     challengeImageListActions: bindActionCreators(challengeImageListActions, dispatch),
@@ -455,7 +523,8 @@ const mapDispatchToProps = (dispatch) => ({
     challengeTypeUsablePointsActions: bindActionCreators(challengeTypeUsablePointsActions, dispatch),
     currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
     kpiListActions: bindActionCreators(kpiListActions, dispatch),
-    teamListActions: bindActionCreators(teamListActions, dispatch)
+    teamListActions: bindActionCreators(teamListActions, dispatch),
+    rewardTypeListActions: bindActionCreators(rewardTypeListActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChallengeDuplication)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ChallengeDuplication))
