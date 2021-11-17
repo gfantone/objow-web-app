@@ -122,7 +122,7 @@ class ChallengeRewardForm extends React.Component {
                                                 { image && <CardMedia image={image} className={classes.image} /> }
                                             </Grid>
                                             <Grid item xs={6}>
-                                                <Select name='category' initial={_.get(reward, 'category')} label={Resources.REWARD_CREATION_CATEGORY_LABEL} options={categories} optionValueName={'id'} optionTextName={'name'} fullWidth
+                                                <Select name='category' initial={_.get(reward, 'category.id', _.get(reward, 'category'))} label={Resources.REWARD_CREATION_CATEGORY_LABEL} options={categories} optionValueName={'id'} optionTextName={'name'} fullWidth
                                                         validationErrors={{
                                                             isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR
                                                         }}

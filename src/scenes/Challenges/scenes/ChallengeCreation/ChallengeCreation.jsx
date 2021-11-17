@@ -14,6 +14,7 @@ import * as categoryListActions from "../../../../services/Categories/CategoryLi
 import * as challengeAwardTypeListActions from "../../../../services/ChallengeAwardTypes/ChallengeAwardTypeList/actions"
 import * as challengeRewardTypeListActions from "../../../../services/ChallengeRewardTypes/ChallengeRewardTypeList/actions"
 import * as rewardImageListActions from '../../../../services/RewardImages/RewardImageList/actions'
+import * as rewardCategoryListActions from '../../../../services/RewardCategories/RewardCategoryList/actions'
 import * as challengeCreationActions from '../../../../services/Challanges/ChallangeCreaton/actions'
 import * as challengeDetailActions from "../../../../services/Challanges/ChallengeDetail/actions"
 import * as challengeImageListActions from "../../../../services/ChallengeImages/ChallengeImageList/actions"
@@ -82,6 +83,7 @@ class ChallengeCreation extends MainLayoutComponent {
         this.props.kpiListActions.getKpiList()
         this.props.teamListActions.getTeamList()
         this.props.rewardTypeListActions.getRewardTypeList()
+        this.props.rewardCategoryListActions.getActiveRewardCategoryList()
     }
 
     renderLoader() {
@@ -367,6 +369,7 @@ class ChallengeCreation extends MainLayoutComponent {
         const {types: rewardTypes} = this.props.challengeRewardTypeList
         const {images} = this.props.challengeImageList
         const {images: rewardImages} = this.props.rewardImageList
+        const {categories: rewardCategories} = this.props.rewardCategoryList
         const {period} = this.props.currentPeriodDetail
         const {types} = this.props.challengeTypeList
         const {loading} = this.props.challengeCreation
@@ -374,6 +377,7 @@ class ChallengeCreation extends MainLayoutComponent {
         const team = this.props.match.params.id
         const { teams } = this.props.teamList;
         const { account } = this.props.accountDetail;
+
         const criticities = [
           {order: 1, name: 'Basse'},
           {order: 2, name: 'Moyenne'},
@@ -428,6 +432,7 @@ class ChallengeCreation extends MainLayoutComponent {
                         setNewKpiOpen={this.setNewKpiOpen}
                         setConfigRewardOpen={this.setConfigRewardOpen}
                         rewardImages={rewardImages}
+                        rewardCategories={rewardCategories}
                     />
                 </Formsy>
 
@@ -522,7 +527,7 @@ class ChallengeCreation extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({accountDetail, categoryList, challengeAwardTypeList, challengeRewardTypeList, rewardTypeList, challengeCreation, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, rewardImageList, teamList}) => ({
+const mapStateToProps = ({accountDetail, categoryList, challengeAwardTypeList, challengeRewardTypeList, rewardTypeList, challengeCreation, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, rewardImageList, rewardCategoryList, teamList}) => ({
     categoryList,
     accountDetail,
     challengeAwardTypeList,
@@ -534,6 +539,7 @@ const mapStateToProps = ({accountDetail, categoryList, challengeAwardTypeList, c
     currentPeriodDetail,
     kpiList,
     rewardImageList,
+    rewardCategoryList,
     teamList
 })
 
@@ -551,6 +557,7 @@ const mapDispatchToProps = (dispatch) => ({
     teamListActions: bindActionCreators(teamListActions, dispatch),
     kpiCreationActions: bindActionCreators(kpiCreationActions, dispatch),
     rewardImageListActions: bindActionCreators(rewardImageListActions, dispatch),
+    rewardCategoryListActions: bindActionCreators(rewardCategoryListActions, dispatch),
     rewardTypeListActions: bindActionCreators(rewardTypeListActions, dispatch)
 })
 

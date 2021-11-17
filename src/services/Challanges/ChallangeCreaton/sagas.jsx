@@ -16,6 +16,7 @@ function* createChallenge(action) {
                 award.reward,
                 {
                   image: _.get(award.reward, 'image.id', _.get(award.reward, 'image')),
+                  category: _.get(award.reward, 'category.id', _.get(award.reward, 'category')),
                   description: typeof(award.reward.description) !== 'string' ? JSON.stringify(award.reward.description) : award.reward.description
                 }
               )

@@ -11,6 +11,7 @@ import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponen
 import * as Resources from '../../../../Resources'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as rewardImageListActions from '../../../../services/RewardImages/RewardImageList/actions'
+import * as rewardCategoryListActions from '../../../../services/RewardCategories/RewardCategoryList/actions'
 import * as challengeAwardTypeListActions from '../../../../services/ChallengeAwardTypes/ChallengeAwardTypeList/actions'
 import * as challengeRewardTypeListActions from '../../../../services/ChallengeRewardTypes/ChallengeRewardTypeList/actions'
 import * as rewardTypeListActions from '../../../../services/RewardTypes/RewardTypeList/actions'
@@ -26,7 +27,8 @@ import _ from 'lodash'
 
 const styles = {
   kpiDialog: {
-    width: 900
+    width: 900,
+    maxWidth: 900
   }
 }
 
@@ -65,6 +67,7 @@ class ChallengeUpdate extends MainLayoutComponent {
         this.props.currentPeriodDetailActions.getCurrentPeriodDetail()
         this.props.kpiListActions.getKpiList()
         this.props.rewardTypeListActions.getRewardTypeList()
+        this.props.rewardCategoryListActions.getActiveRewardCategoryList()
 
         this.props.teamListActions.getTeamList()
     }
@@ -217,6 +220,7 @@ class ChallengeUpdate extends MainLayoutComponent {
         const {types: rewardTypes} = this.props.challengeRewardTypeList
         const {challenge} = this.props.challengeDetail
         const {images: rewardImages} = this.props.rewardImageList
+        const {categories: rewardCategories} = this.props.rewardCategoryList
         const {images} = this.props.challengeImageList
         const {period} = this.props.currentPeriodDetail
         const {types} = this.props.challengeTypeList
@@ -253,6 +257,7 @@ class ChallengeUpdate extends MainLayoutComponent {
                         teams={teams}
                         setConfigRewardOpen={this.setConfigRewardOpen}
                         rewardImages={rewardImages}
+                        rewardCategories={rewardCategories}
                     />
                 </Formsy>
                 <Dialog
@@ -306,7 +311,7 @@ class ChallengeUpdate extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeRewardTypeList, rewardTypeList, challengeDetail, challengeImageList, challengeTypeList, challengeUpdate, currentPeriodDetail, kpiList, accountDetail, teamList, rewardImageList}) => ({
+const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeRewardTypeList, rewardTypeList, challengeDetail, challengeImageList, challengeTypeList, challengeUpdate, currentPeriodDetail, kpiList, accountDetail, teamList, rewardImageList, rewardCategoryList}) => ({
     categoryList,
     accountDetail,
     challengeAwardTypeList,
@@ -319,6 +324,7 @@ const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeRewardT
     currentPeriodDetail,
     kpiList,
     rewardImageList,
+    rewardCategoryList,
     teamList
 })
 
@@ -335,6 +341,7 @@ const mapDispatchToProps = (dispatch) => ({
     kpiListActions: bindActionCreators(kpiListActions, dispatch),
     teamListActions: bindActionCreators(teamListActions, dispatch),
     rewardImageListActions: bindActionCreators(rewardImageListActions, dispatch),
+    rewardCategoryListActions: bindActionCreators(rewardCategoryListActions, dispatch),
     rewardTypeListActions: bindActionCreators(rewardTypeListActions, dispatch)
 })
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Grid} from '@material-ui/core'
+import {Grid, CardMedia} from '@material-ui/core'
 import {withStyles} from '@material-ui/core/styles'
 import {RewardImage} from './components'
 import {DefaultText, InfoText} from '../../../../components'
@@ -8,7 +8,8 @@ import _ from 'lodash'
 const styles = {
   icon: {
       width: 39,
-      height: 39
+      height: 39,
+      marginRight: 10
   },
   imageContainer: {
       width: '100%',
@@ -47,7 +48,7 @@ const styles = {
 
 const ChallengeReward = ({reward, ...props}) => {
     const {classes} = props
-
+    const categoryIcon = _.get(reward, 'category.icon.path')
     return (
         <div>
           <Grid container spacing={1}>
@@ -60,6 +61,11 @@ const ChallengeReward = ({reward, ...props}) => {
               </Grid>
               <Grid item xs={12} >
                   <Grid container>
+                      <Grid item>
+                          {categoryIcon && (
+                            <CardMedia image={categoryIcon} className={classes.icon} />
+                          )}
+                      </Grid>
                       <Grid item xs style={{height:'3em'}}>
                           <DefaultText lowercase className={classes.name} style={{width: '100%'}}>{reward.name}</DefaultText>
                       </Grid>

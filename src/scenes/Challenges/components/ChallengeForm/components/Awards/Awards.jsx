@@ -12,7 +12,7 @@ import {uuidv4} from "../../../../../../helpers/UUIDHelper"
 import './helpers/FormsyHelper'
 import _ from 'lodash'
 
-const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialLive = false, initialType, initialRewardType, isCreation, isDuplication, isUpdate, start, team, types, rewardTypes, setConfigRewardOpen, rewardImages, ...props}) => {
+const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialLive = false, initialType, initialRewardType, isCreation, isDuplication, isUpdate, start, team, types, rewardTypes, setConfigRewardOpen, rewardImages, rewardCategories, ...props}) => {
     const getInitialAwards = () => {
         if (initialAwards && initialAwards.length > 0) {
             const awardType = types.find(t => t.id === parseInt(initialType))
@@ -21,6 +21,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
             return [{key: uuidv4(), points: null, reward: null, target: null}]
         }
     }
+    console.log(rewardCategories);
 
     const {points, loading} = props.challengeTypeUsablePoints
     const maxAwardType = types.find(t => t.code === 'M').id
@@ -131,7 +132,8 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 const validations = null
                                 const validationErrors = isMaxAward ? {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isLessThanOrEquals: 'La récompense est trop élevée',} : {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isRankingValid: 'La récompense est trop élevée'}
                                 const reward = award.reward ? Object.assign({}, award.reward, {
-                                  image: _.get(award, 'reward.image.path') || (award.reward.image && rewardImages ? rewardImages.find(i => i.id === parseInt(award.reward.image)).path : null)
+                                  image: _.get(award, 'reward.image.path') || (award.reward.image && rewardImages ? rewardImages.find(i => i.id === parseInt(award.reward.image)).path : null),
+                                  category: _.get(award, 'reward.category.id') ? _.get(award, 'reward.category') : rewardCategories && award.reward.category && rewardCategories.find(c => c.id === parseInt(award.reward.category))
                                 }) : null
                                 return (
                                     <Grid key={award.key} item xs={12} sm={6} md={4}>

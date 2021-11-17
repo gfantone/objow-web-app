@@ -19,6 +19,8 @@ import * as challengeDetailActions from "../../../../services/Challanges/Challen
 import * as challengeImageListActions from "../../../../services/ChallengeImages/ChallengeImageList/actions"
 import * as challengeTypeListActions from "../../../../services/ChallengeTypes/ChallengeTypeList/actions"
 import * as rewardTypeListActions from '../../../../services/RewardTypes/RewardTypeList/actions'
+import * as rewardCategoryListActions from '../../../../services/RewardCategories/RewardCategoryList/actions'
+import * as rewardImageListActions from '../../../../services/RewardImages/RewardImageList/actions'
 import * as currentPeriodDetailActions from "../../../../services/Periods/CurrentPeriodDetail/actions"
 import * as kpiListActions from "../../../../services/Kpis/KpiList/actions"
 import * as teamListActions from "../../../../services/Teams/TeamList/actions"
@@ -80,6 +82,8 @@ class ChallengeDuplication extends MainLayoutComponent {
         this.props.kpiListActions.getKpiList()
         this.props.teamListActions.getTeamList()
         this.props.rewardTypeListActions.getRewardTypeList()
+        this.props.rewardCategoryListActions.getActiveRewardCategoryList()
+        this.props.rewardImageListActions.getRewardImageList()
 
         const params = new URLSearchParams(window.location.search)
         const teamParam = params.get('team')
@@ -365,6 +369,24 @@ class ChallengeDuplication extends MainLayoutComponent {
       }
     }
 
+    handleSubmitReward = (model) => {
+      const newAward = Object.assign({}, this.state.currentAward, {
+        reward: Object.assign({}, _.get(this.state.currentAward, 'reward'), model)
+      })
+      const newAwards = [
+        ..._.slice(this.state.currentAwards, 0, this.state.currentAwardIndex),
+        newAward,
+        ..._.slice(this.state.currentAwards, this.state.currentAwardIndex + 1),
+
+      ]
+      this.state.setAwards(newAwards)
+      this.setState({
+        ...this.state,
+        currentAwards: newAwards,
+        configRewardOpen: false
+      })
+    }
+
     setConfigRewardOpen = (value, awards, currentAward, currentAwardIndex, setAwards) => {
       const {types: rewardTypes} = this.props.rewardTypeList
       const {types} = this.props.challengeTypeList
@@ -392,6 +414,8 @@ class ChallengeDuplication extends MainLayoutComponent {
         const {categories} = this.props.categoryList
         const {types: awardTypes} = this.props.challengeAwardTypeList
         const {types: rewardTypes} = this.props.challengeRewardTypeList
+        const {images: rewardImages} = this.props.rewardImageList
+        const {categories: rewardCategories} = this.props.rewardCategoryList
         const {challenge} = this.props.challengeDetail
         const {images} = this.props.challengeImageList
         const {period} = this.props.currentPeriodDetail
@@ -436,6 +460,8 @@ class ChallengeDuplication extends MainLayoutComponent {
                         setNewKpiOpen={this.setNewKpiOpen}
                         setConfigRewardOpen={this.setConfigRewardOpen}
                         teams={teams.filter(t => _.get(account, 'role.code') !== 'M' || _.get(account, 'team.id') === t.id )}
+                        rewardImages={rewardImages}
+                        rewardCategories={rewardCategories}
                     />
                 </Formsy>
                 <Dialog
@@ -497,7 +523,7 @@ class ChallengeDuplication extends MainLayoutComponent {
     }
 }
 
-const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeRewardTypeList, rewardTypeList, challengeCreation, challengeDetail, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, accountDetail, teamList}) => ({
+const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeRewardTypeList, rewardTypeList, challengeCreation, challengeDetail, challengeImageList, challengeTypeList, currentPeriodDetail, kpiList, accountDetail, rewardImageList, rewardCategoryList, teamList}) => ({
     categoryList,
     accountDetail,
     challengeAwardTypeList,
@@ -508,6 +534,8 @@ const mapStateToProps = ({categoryList, challengeAwardTypeList, challengeRewardT
     challengeImageList,
     challengeTypeList,
     currentPeriodDetail,
+    rewardImageList,
+    rewardCategoryList,
     kpiList,
     teamList
 })
@@ -524,6 +552,8 @@ const mapDispatchToProps = (dispatch) => ({
     currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
     kpiListActions: bindActionCreators(kpiListActions, dispatch),
     teamListActions: bindActionCreators(teamListActions, dispatch),
+    rewardImageListActions: bindActionCreators(rewardImageListActions, dispatch),
+    rewardCategoryListActions: bindActionCreators(rewardCategoryListActions, dispatch),
     rewardTypeListActions: bindActionCreators(rewardTypeListActions, dispatch)
 })
 
