@@ -59,9 +59,9 @@ const RichText = ({initial, readOnly, onChange, padding, ...props}) => {
                     <Editable
                         renderElement={renderElement}
                         renderLeaf={renderLeaf}
-                        placeholder={Resources.RICH_TEXT_PLACEHOLDER}
+                        placeholder={!readOnly && Resources.RICH_TEXT_PLACEHOLDER}
                         spellCheck
-                        
+
                         onKeyDown={event => {
                             for (const hotkey in HOTKEYS) {
                                 if (isHotkey(hotkey, event)) {

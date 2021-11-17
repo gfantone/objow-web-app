@@ -8,7 +8,8 @@ const styles = {
         paddingRight: 0,
         paddingBottom: 0,
         padding: 0,
-        textAlign: 'justify'
+        textAlign: 'justify',
+        fontSize: '1.35rem'
     }
 };
 

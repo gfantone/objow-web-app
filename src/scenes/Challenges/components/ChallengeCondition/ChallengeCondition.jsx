@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Grid, CardMedia} from '@material-ui/core'
+import {withStyles} from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faEquals, faInfoCircle, faUser, faUsers} from '@fortawesome/free-solid-svg-icons'
 import {faStar} from '@fortawesome/free-regular-svg-icons'
-import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText, Linkify} from '../../../../components'
-import {ChallengeReward, ChallengeRewardCard} from '../'
+import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText, Linkify, Dialog} from '../../../../components'
+import {ChallengeReward, ChallengeRewardDetail, ChallengeRewardCard} from '../'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
 
+const styles = {
+  rewardDialog: {
+    width: 900,
+    maxWidth: 900
+  }
+}
+
 const ChallengeCondition = ({ challenge, goals, ...props }) => {
+    const [rewardDetail, setRewardDetail] = useState()
     const start = challenge.start.toDate2().toLocaleDateString()
     const end = challenge.end.toDate2().toLocaleDateString()
     const typeIcon = challenge.typeCode === 'CT' ? faUsers : faUser
@@ -45,7 +54,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                   {challenge.awards.map(award => {
 
                     return (
-                        <Grid item xs={12}>
+                        <Grid item xs={12} onClick={() => award.reward && setRewardDetail(Object.assign({}, award.reward))}>
                             <div>
                                 {challenge.rewardTypeCode === 'P' && (
 
@@ -100,7 +109,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                   {challenge.awards.map(award => {
 
                     return (
-                        <Grid item xs={12}>
+                        <Grid item xs={12} onClick={() => award.reward && setRewardDetail(Object.assign({}, award.reward))}>
                             <div>
                                 {challenge.rewardTypeCode === 'P' && (
 
@@ -158,7 +167,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
         <Grid container spacing={2}>
           {challenge.awards.map(award => {
             return(
-              <Grid key={award.key} item xs={12} sm={6} md={4}>
+              <Grid key={award.key} item xs={12} sm={6} md={4} onClick={() => award.reward && setRewardDetail(Object.assign({}, award.reward))}>
               <Grid container spacing={1} direction="column">
                 <Grid item xs={12}>
                   <ChallengeRewardCard>
@@ -403,8 +412,19 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                     </Grid>
                 </Grid>
             </Grid>
+            <Dialog
+                open={rewardDetail}
+                classes={{ paper: props.classes.rewardDialog }}
+                onClose={() => setRewardDetail(null)}
+            >
+                <Grid container spacing={1} direction="column">
+                  <Grid item>
+                      <ChallengeRewardDetail reward={rewardDetail}/>
+                  </Grid>
+                </Grid>
+            </Dialog>
         </div>
     )
 }
 
-export default ChallengeCondition
+export default withStyles(styles)(ChallengeCondition)

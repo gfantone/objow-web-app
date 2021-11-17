@@ -5,6 +5,7 @@ import Formsy from "formsy-react"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom'
+import { Grid } from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import {ChallengeForm, ChallengeRewardForm} from '../../components'
 import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Dialog, DialogTitle, DialogActions, ProgressButton, Button} from '../../../../components'
@@ -265,14 +266,21 @@ class ChallengeUpdate extends MainLayoutComponent {
                     onClose={() => this.setConfigRewardOpen(false)}
                     classes={{ paper: this.props.classes.kpiDialog }}
                 >
+
+                <Grid container spacing={1} direction="column">
+                  <Grid item style={{paddingTop: 0}}>
                     <DialogTitle>Création de récompense</DialogTitle>
+                  </Grid>
+                  <Grid item>
                     <Formsy onValidSubmit={this.handleSubmitReward} >
                       <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
                       <DialogActions>
-                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
-                          <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
+                        <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                        <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
                       </DialogActions>
                     </Formsy>
+                  </Grid>
+                </Grid>
                 </Dialog>
             </div>
         )
