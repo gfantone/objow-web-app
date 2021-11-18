@@ -37,7 +37,7 @@ const styles = {
     '& .MuiMobileStepper-dotActive': {
 
         backgroundColor: '#00E58D'
-      
+
     }
   }
 }
@@ -74,8 +74,8 @@ const CustomStepper = ({ classes, steps, handleNextStep, handlePreviousStep, ...
           activeStep={currentStepIndex}
           className={classes.mobileStepper}
           nextButton={
-            <Button size="small" onClick={handleNextStep} style={{width: 100}} disabled={currentStepIndex === steps.length - 1}>
-              Suivant
+            <Button type='submit' size="small" onClick={handleNextStep} style={{width: 100}}>
+              {currentStepIndex >= steps.length - 1 ? 'Terminer' : 'Suivant'}
 
             </Button>
           }

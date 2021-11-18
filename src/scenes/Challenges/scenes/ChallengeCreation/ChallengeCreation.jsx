@@ -397,7 +397,7 @@ class ChallengeCreation extends MainLayoutComponent {
           awards
         })
 
-
+        console.log(_.get(this.form, 'current.submit'));
         return (
             <div>
                 <Stepper

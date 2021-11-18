@@ -55,6 +55,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         super(props)
         this.props.challengeCreationActions.clearChallengeCreation()
         this.props.challengeTypeUsablePointsActions.clearChallengeTypeUsablePoints()
+        this.form = React.createRef();
     }
 
     handleAddGoal = () => {
@@ -426,10 +427,15 @@ class ChallengeDuplication extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
 
 
+
         return (
             <div>
-                <Stepper steps={this.state.steps} />
                 <Formsy ref='form' onValidSubmit={this.handleValidSubmit.bind(this)}>
+                    <Stepper
+                      steps={this.state.steps}
+                      handlePreviousStep={this.handlePreviousStep}
+                      handleNextStep={() =>{ _.get(this.form, 'current.submit') && _.get(this.form, 'current.submit')() }}
+                    />
                     <ChallengeFormStepper
                         actionLoading={loading}
                         awardTypes={awardTypes}

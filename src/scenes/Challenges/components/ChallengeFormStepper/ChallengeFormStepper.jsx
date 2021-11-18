@@ -295,7 +295,7 @@ const ChallengeFormStepper = ({
         break;
     }
 
-
+    console.log(handleNextStep);
     return (
         <div>
           <Grid container spacing={4} style={{paddingBottom: isMobile ? 40 : 0}}>
@@ -305,28 +305,30 @@ const ChallengeFormStepper = ({
                 </BigText>
               </Grid>
               { fields }
-              <Grid item xs={12}>
-                <Grid container spacing={4} direction='row' justify='center'>
-                  { currentStep.order > 1 &&
-                    <Grid item>
-                      <ProgressButton onClick={ (e) => {
-                        e.preventDefault()
-                        handlePreviousStep()
-                      } } color="secondary" text="précédent" centered />
+              {!isMobile && (
+                <Grid item xs={12}>
+                  <Grid container spacing={4} direction='row' justify='center'>
+                    { currentStep.order > 1 &&
+                      <Grid item>
+                        <ProgressButton onClick={ (e) => {
+                            e.preventDefault()
+                            handlePreviousStep()
+                          } } color="secondary" text="précédent" centered />
+                        </Grid>
+                      }
+                      { !isLastStep &&
+                        <Grid item>
+                          <ProgressButton text="suivant" centered />
+                        </Grid>
+                      }
+                      { isLastStep &&
+                        <Grid item>
+                          <ProgressButton text="Valider" centered />
+                        </Grid>
+                      }
                     </Grid>
-                  }
-                  { !isLastStep &&
-                    <Grid item>
-                      <ProgressButton onClick={ handleNextStep } text="suivant" centered />
-                    </Grid>
-                  }
-                  { isLastStep &&
-                    <Grid item>
-                      <ProgressButton onClick={ handleNextStep } text="Valider" centered />
-                    </Grid>
-                  }
-                </Grid>
-              </Grid>
+                  </Grid>
+              )}
           </Grid>
         </div>
     )
