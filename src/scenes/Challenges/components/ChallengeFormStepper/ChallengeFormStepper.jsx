@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Grid} from '@material-ui/core'
+import withWidth, {isWidthDown} from '@material-ui/core/withWidth'
 import {Awards, Goals, Infos, AwardType} from './components'
 import {ProgressButton, Select, TransferList, Card, BlueText, Switch, Tooltip, BigText} from '../../../../components'
 import {faInfoCircle, faPlus} from '@fortawesome/free-solid-svg-icons'
@@ -63,6 +64,8 @@ const ChallengeFormStepper = ({
     var finalTypes = types
     const {account} = props.accountDetail
 
+
+    const isMobile = isWidthDown('xs', props.width)
 
     const typesData = {
       'R': {
@@ -295,7 +298,7 @@ const ChallengeFormStepper = ({
 
     return (
         <div>
-          <Grid container spacing={4}>
+          <Grid container spacing={4} style={{paddingBottom: isMobile ? 40 : 0}}>
               <Grid item style={{textAlign: 'center', width: '100%'}}>
                 <BigText>
                   {title}
@@ -333,4 +336,4 @@ const mapStateToProps = ({accountDetail}) => ({
     accountDetail
 })
 
-export default connect(mapStateToProps)(ChallengeFormStepper)
+export default connect(mapStateToProps)(withWidth()(ChallengeFormStepper))

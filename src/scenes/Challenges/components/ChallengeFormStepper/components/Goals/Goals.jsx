@@ -88,16 +88,18 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, onEndChange, o
                     <Grid item xs={12}>
                       <Grid item container spacing={2}>
                         {currentGoals.map((goal, index) => {
-                          return <Goal
-                            key={goal.key}
-                            categories={categories}
-                            deletionDisabled={deletionDisabled}
-                            goal={goal}
-                            index={index}
-                            kpis={kpis}
-                            onRemoveClick={() => handleRemoveGoalClick(goal.key)}
-                            setNewKpiOpen={setNewKpiOpen}
+                          return (
+                            <Goal
+                              key={goal.key}
+                              categories={categories}
+                              deletionDisabled={deletionDisabled}
+                              goal={goal}
+                              index={index}
+                              kpis={kpis}
+                              onRemoveClick={() => handleRemoveGoalClick(goal.key)}
+                              setNewKpiOpen={setNewKpiOpen}
                             />
+                          )
                         })}
                       </Grid>
                     </Grid>

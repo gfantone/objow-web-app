@@ -17,7 +17,8 @@ const styles = {
   boxWrapper: {
     padding: '15px',
     borderRadius: '6px',
-    background: "#f7f8fc"
+    background: "#f7f8fc",
+    height: '100%'
   },
   item: {
     marginBottom: 10,
@@ -156,92 +157,97 @@ const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ..
     // console.log(selectedList);
     return (
       <Grid container direction="column" spacing={1}>
-        <Grid item>
-          <Grid container direction="row" justify="space-between">
-            <Grid item xs={5}>
-              <DefaultTitle className={ classes.title }>
-                Selection
-              </DefaultTitle>
-            </Grid>
-            <Grid item xs={5}>
-              <DefaultTitle className={ classes.title }>
-                Participants
-              </DefaultTitle>
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid item>
-          <Grid container direction="row" justify="space-between">
-            <Grid item xs={5} className={ classes.boxWrapper }>
-              { choices.map((choice, choiceKey) => (
 
-                <div className={ classes.panelWrapper }>
-                  <div style={{position: 'static'}}>
-                    <div className={ classes.item }>
-                      <TeamThumb team={ choice } />
-                      <IconButton size='small' onClick={() => addList(choice.collaborators)} className={ classes.itemIcon } >
-                        <FontAwesomeIcon icon={faPlus} className={ classes.addIcon } />
-                      </IconButton>
-                    </div>
-                    { enableCollaboratorSelect && (
+        <Grid item xs>
+          <Grid container direction="row" spacing={4} justify="space-between">
+            <Grid item xs={12} sm={6} container direction="column">
 
-                      <ExpansionPanel className={classes.panel}>
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} className={classes.panelSummary}>
-                        </ExpansionPanelSummary>
-                        <ExpansionPanelDetails className={classes.panelDetails}>
-                          <Grid container key={choiceKey}>
-                            { choice.collaborators.map((collaborator, collaboratorKey) => (
-                              <Grid item className={ classes.item } style={{ width: '100%' }}>
-                                <Collaborator key={collaboratorKey} collaborator={collaborator} />
-                                <IconButton size='small' onClick={() => selectItem(collaborator)} className={ classes.itemIcon } >
-                                  <FontAwesomeIcon icon={faPlus} className={ classes.addIcon } />
-                                </IconButton>
+                <Grid item>
+                  <DefaultTitle className={ classes.title }>
+                    Selection
+                  </DefaultTitle>
+                </Grid>
+                <Grid xs item className={ classes.boxWrapper }>
+                  { choices.map((choice, choiceKey) => (
+
+                    <div className={ classes.panelWrapper }>
+                      <div style={{position: 'static'}}>
+                        <div className={ classes.item }>
+                          <TeamThumb team={ choice } />
+                          <IconButton size='small' onClick={() => addList(choice.collaborators)} className={ classes.itemIcon } >
+                            <FontAwesomeIcon icon={faPlus} className={ classes.addIcon } />
+                          </IconButton>
+                        </div>
+                        { enableCollaboratorSelect && (
+
+                          <ExpansionPanel className={classes.panel}>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} className={classes.panelSummary}>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails className={classes.panelDetails}>
+                              <Grid container key={choiceKey}>
+                                { choice.collaborators.map((collaborator, collaboratorKey) => (
+                                  <Grid item className={ classes.item } style={{ width: '100%' }}>
+                                    <Collaborator key={collaboratorKey} collaborator={collaborator} />
+                                    <IconButton size='small' onClick={() => selectItem(collaborator)} className={ classes.itemIcon } >
+                                      <FontAwesomeIcon icon={faPlus} className={ classes.addIcon } />
+                                    </IconButton>
+                                  </Grid>
+                                )) }
                               </Grid>
-                            )) }
-                          </Grid>
-                        </ExpansionPanelDetails>
-                      </ExpansionPanel>
-                    )}
-                  </div>
-                </div>
-              )) }
-            </Grid>
-            <Grid item xs={5} className={ classes.boxWrapper }>
-              { getListByTeam(selectedList).map((team, teamKey) => (
-                <React.Fragment>
-                  <div className={ classes.panelWrapper }>
-                    <div style={{position: 'static'}}>
-                      <div className={ classes.item }>
-                        <TeamThumb team={ team }/>
-                        <IconButton size='small' onClick={() => removeList(team.collaborators)} className={ `${classes.itemIcon} ${classes.teamItemIcon}` } >
-                          <FontAwesomeIcon icon={faMinus} className={ classes.deleteIcon } />
-                        </IconButton>
+                            </ExpansionPanelDetails>
+                          </ExpansionPanel>
+                        )}
                       </div>
-                      { enableCollaboratorSelect && (
-                        <ExpansionPanel className={classes.panel}>
-                          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} className={classes.panelSummary}>
-                          </ExpansionPanelSummary>
-                          <ExpansionPanelDetails className={classes.panelDetails}>
-                            <Grid container key={teamKey}>
-                              { team.collaborators.map((collaborator, collaboratorKey) => (
-                                <Grid item className={ classes.item } style={{ width: '100%' }}>
-                                  <Collaborator key={collaboratorKey} collaborator={collaborator} />
-                                  <IconButton size='small' onClick={() => removeItem(collaborator)} className={ classes.itemIcon } >
-                                    <FontAwesomeIcon icon={faMinus} className={ classes.deleteIcon } />
-                                  </IconButton>
-                                </Grid>
-                              )) }
-                            </Grid>
-                          </ExpansionPanelDetails>
-                        </ExpansionPanel>
-                      )}
                     </div>
-                  </div>
+                  )) }
+                </Grid>
 
-
-                </React.Fragment>
-              )) }
             </Grid>
+            <Grid item xs={12} sm={6} container direction="column">
+
+                <Grid item>
+                  <DefaultTitle className={ classes.title }>
+                    Participants
+                  </DefaultTitle>
+                </Grid>
+                <Grid xs item className={ classes.boxWrapper }>
+                  { getListByTeam(selectedList).map((team, teamKey) => (
+                    <React.Fragment>
+                      <div className={ classes.panelWrapper }>
+                        <div style={{position: 'static'}}>
+                          <div className={ classes.item }>
+                            <TeamThumb team={ team }/>
+                            <IconButton size='small' onClick={() => removeList(team.collaborators)} className={ `${classes.itemIcon} ${classes.teamItemIcon}` } >
+                              <FontAwesomeIcon icon={faMinus} className={ classes.deleteIcon } />
+                            </IconButton>
+                          </div>
+                          { enableCollaboratorSelect && (
+                            <ExpansionPanel className={classes.panel}>
+                              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} className={classes.panelSummary}>
+                              </ExpansionPanelSummary>
+                              <ExpansionPanelDetails className={classes.panelDetails}>
+                                <Grid container key={teamKey}>
+                                  { team.collaborators.map((collaborator, collaboratorKey) => (
+                                    <Grid item className={ classes.item } style={{ width: '100%' }}>
+                                      <Collaborator key={collaboratorKey} collaborator={collaborator} />
+                                      <IconButton size='small' onClick={() => removeItem(collaborator)} className={ classes.itemIcon } >
+                                        <FontAwesomeIcon icon={faMinus} className={ classes.deleteIcon } />
+                                      </IconButton>
+                                    </Grid>
+                                  )) }
+                                </Grid>
+                              </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                          )}
+                        </div>
+                      </div>
+
+
+                    </React.Fragment>
+                  )) }
+                </Grid>
+            </Grid>
+
           </Grid>
         </Grid>
       </Grid>

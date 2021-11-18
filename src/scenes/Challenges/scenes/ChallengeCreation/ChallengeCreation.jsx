@@ -400,7 +400,11 @@ class ChallengeCreation extends MainLayoutComponent {
 
         return (
             <div>
-                <Stepper steps={this.state.steps} />
+                <Stepper
+                  steps={this.state.steps}
+                  handlePreviousStep={this.handlePreviousStep}
+                  handleNextStep={_.get(this.form, 'current.submit')}
+                />
                 <Formsy ref={this.form} onValidSubmit={this.handleValidSubmit.bind(this)}>
                     <ChallengeFormStepper
                         actionLoading={loading}
