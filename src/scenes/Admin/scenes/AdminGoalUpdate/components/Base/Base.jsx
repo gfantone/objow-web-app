@@ -95,7 +95,7 @@ class Base extends Component {
     }
 
     handleIndicationChange = (newIndication) => {
-      
+
       this.setState({
           ...this.state,
           indication: newIndication
@@ -239,9 +239,11 @@ class Base extends Component {
                                       kpis.filter(
                                         kpi => {
                                           const currentCategory = this.state.kpiCategory || _.get(definition, 'kpi.category.id')
-                                          return kpi.id === definition.kpi.id || (kpi.periodicity.code !== 'C' && (!currentCategory || _.get(kpi, 'category.id') === parseInt(currentCategory)))
+                                          return kpi.id === definition.kpi.id || ( kpi.periodicity.code !== 'C' && (!this.state.kpiCategory || _.get(kpi, 'category.id') === parseInt(this.state.kpiCategory)))
+                                          // return kpi.id === definition.kpi.id || (kpi.periodicity.code !== 'C' && (!currentCategory || _.get(kpi, 'category.id') === parseInt(currentCategory)))
                                         }
                                       )
+
                                     } optionValueName='id' optionTextName='name' fullWidth required />
                                   </Grid>
                                   <Grid item>
