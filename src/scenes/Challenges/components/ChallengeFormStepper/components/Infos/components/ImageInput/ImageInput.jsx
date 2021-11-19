@@ -98,7 +98,7 @@ const ImageInput = ({ images = [], initial, label, name, onChange, required, ...
                         <Grid item xs={12}>
                             <InfoText>{Resources.REWARD_IMAGE_INPUT_INFOS}</InfoText>
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={6} sm={3}>
                             <Grid container justify='center' alignItems='center' onClick={handleImport} className={classes.customImage}>
                                 <Grid item>
                                     <DefaultText align='center'>
@@ -112,7 +112,7 @@ const ImageInput = ({ images = [], initial, label, name, onChange, required, ...
                         { images.map((image) => {
                             const imageClass = value == image.id ? classes.selectedImage : classes.image;
                             return (
-                                <Grid key={image.id} item xs={3} onClick={handleValue(image.id)}>
+                                <Grid key={image.id} item xs={6} sm={3} onClick={handleValue(image.id)}>
                                     <CardMedia image={image.path} className={imageClass} />
                                 </Grid>
                             )

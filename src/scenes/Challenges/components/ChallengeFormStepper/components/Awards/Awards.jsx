@@ -76,14 +76,14 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
 
     return (
         <div>
-            <Grid container spacing={2} justify="center">
-              <Grid item xs={6}>
+            <Grid container spacing={2} justify="center" style={{marginBottom: 20}}>
+              <Grid item xs={10} sm={6}>
                 <Card>
                   <Grid container spacing={1} alignItems="center">
                     <Grid item>
                       <CardMedia image={icons[currentType.code]} style={{width: 75, height: 75}} />
                     </Grid>
-                    <Grid item style={{width:"80%"}}>
+                    <Grid item xs>
                       <Grid container direction="column" spacing={1}>
                         <Grid item>
                           <DefaultTitle>

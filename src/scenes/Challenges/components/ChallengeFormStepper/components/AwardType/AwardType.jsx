@@ -106,7 +106,7 @@ const AwardType = ({types, currentType, setType, participantsNumber, participant
                           <Grid container justify='space-between'>
                             <Grid item>
                               { typesData[type.code].availableReward.indexOf('points') >= 0 && (
-                                <Grid container spacing={1}>
+                                <Grid container spacing={1} style={{width: 100}}>
                                   <Grid item>
                                     <CardMedia image={coinImage} className={classes.rewardTypeIcon} />
                                   </Grid>
@@ -120,7 +120,7 @@ const AwardType = ({types, currentType, setType, participantsNumber, participant
                             </Grid>
                             <Grid item>
                               { typesData[type.code].availableReward.indexOf('gift') >= 0 && (
-                                <Grid container spacing={1}>
+                                <Grid container spacing={1} style={{width: 100}}>
                                   <Grid item>
                                     <CardMedia image={giftImage} className={classes.rewardTypeIcon} />
                                   </Grid>

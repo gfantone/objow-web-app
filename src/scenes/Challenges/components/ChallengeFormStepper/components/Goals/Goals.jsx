@@ -34,7 +34,7 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, onEndChange, o
               <Grid item>
                 <Card>
                   <Grid container spacing={2} justify='center' direction='row'>
-                      <Grid item xs={3}>
+                      <Grid item xs={6} sm={3}>
                         <DatePicker
                           clearable
                           format='dd/MM/yyyy'
@@ -49,7 +49,7 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, onEndChange, o
                           onChange={onStartChange}
                         />
                       </Grid>
-                      <Grid item xs={3}>
+                      <Grid item xs={6} sm={3}>
                         <DatePicker
                           clearable
                           format='dd/MM/yyyy'

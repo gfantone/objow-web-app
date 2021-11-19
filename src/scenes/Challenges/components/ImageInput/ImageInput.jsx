@@ -66,7 +66,7 @@ const ImageInput = ({ images = [], initial, label, name, onChange, required, ...
                         { images.map((image) => {
                             const imageClass = value == image.id ? classes.selectedImage : classes.image;
                             return (
-                                <Grid key={image.id} item xs={3} onClick={handleValue(image.id)}>
+                                <Grid key={image.id} item xs={6} sm={3} onClick={handleValue(image.id)}>
                                     <CardMedia image={image.path} className={imageClass} />
                                 </Grid>
                             )

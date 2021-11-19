@@ -120,15 +120,15 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                     </Grid>
                     <Grid item xs>
                       <Grid container spacing={1} alignItems='center'>
-                          <Grid item>
+                          <Grid item >
                             <DefaultText style={{fontSize: 16}}>
                               👉
                             </DefaultText>
                           </Grid>
-                          <Grid item>
+                          <Grid item xs>
                               <TextField name={`target[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_TARGET_LABEL2} fullWidth required initial={goal ? goal.target : null} />
                           </Grid>
-                          <Grid item>
+                          <Grid item >
                             <Grid container  direction="column">
                               <Grid item>
                                 <Tooltip title={Resources.CHALLENGE_UPDATE_GOAL_TARGET_INFO_TEXT}>
@@ -144,7 +144,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                               </Grid>
                             </Grid>
                           </Grid>
-                          <Grid item>
+                          <Grid item xs>
                               <TextField name={`points[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_POINTS_LABEL2} fullWidth required initial={goal ? goal.points : null} />
                           </Grid>
                       </Grid>
