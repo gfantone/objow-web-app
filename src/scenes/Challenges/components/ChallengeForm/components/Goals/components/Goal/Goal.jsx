@@ -23,7 +23,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
     }
 
     return (
-        <Grid key={goal.key} item xs={6}>
+        <Grid key={goal.key} item xs={12} sm={6}>
             <Card>
                 <Grid container spacing={2}>
                     <Grid item xs={12} container>
