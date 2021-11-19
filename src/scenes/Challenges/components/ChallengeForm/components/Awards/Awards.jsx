@@ -21,7 +21,6 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
             return [{key: uuidv4(), points: null, reward: null, target: null}]
         }
     }
-    console.log(rewardCategories);
 
     const {points, loading} = props.challengeTypeUsablePoints
     const maxAwardType = types.find(t => t.code === 'M').id
@@ -164,9 +163,12 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                                     {currentType.code === 'P' && (
                                                       <Grid item xs={8}>
                                                         <TextField name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
-                                                          validations={validations}
-                                                          validationErrors={validationErrors}
-                                                          />
+                                                          validations='isInt'
+                                                          validationErrors={{
+                                                              isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                              isInt: Resources.COMMON_IS_INT_ERROR
+                                                          }}
+                                                        />
                                                       </Grid>
                                                     )}
                                                     <Grid item xs={12} style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
@@ -187,9 +189,12 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                                   <React.Fragment>
                                                     <Grid item xs>
                                                       <TextField name={`award[${index}]`} label="Points" fullWidth required initial={award.points}
-                                                        validations={validations}
-                                                        validationErrors={validationErrors}
-                                                        />
+                                                        validations='isInt'
+                                                        validationErrors={{
+                                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                            isInt: Resources.COMMON_IS_INT_ERROR
+                                                        }}
+                                                      />
                                                     </Grid>
                                                   </React.Fragment>
                                                 )}

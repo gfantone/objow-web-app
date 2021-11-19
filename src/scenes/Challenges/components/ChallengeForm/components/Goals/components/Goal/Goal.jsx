@@ -71,7 +71,18 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                         <InfoText>{unit}</InfoText>
                     </Grid>
                     <Grid item xs>
-                        <TextField name={`target[${index}]`} label={Resources.CHALLENGE_UPDATE_GOAL_TARGET_LABEL} fullWidth required initial={goal ? goal.target : null} />
+                        <TextField
+                          name={`target[${index}]`}
+                          label={Resources.CHALLENGE_UPDATE_GOAL_TARGET_LABEL}
+                          fullWidth
+                          required
+                          initial={goal ? goal.target : null}
+                          validations='isInt'
+                          validationErrors={{
+                              isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                              isInt: Resources.COMMON_IS_INT_ERROR
+                          }}
+                        />
                     </Grid>
                     <Grid item>
                         <Tooltip title={Resources.CHALLENGE_UPDATE_GOAL_TARGET_INFO_TEXT}>
@@ -81,7 +92,18 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                     </Tooltip>
                     </Grid>
                     <Grid item xs>
-                        <TextField name={`points[${index}]`} label={Resources.CHALLENGE_UPDATE_GOAL_POINTS_LABEL} fullWidth required initial={goal ? goal.points : null} />
+                        <TextField
+                          name={`points[${index}]`}
+                          label={Resources.CHALLENGE_UPDATE_GOAL_POINTS_LABEL}
+                          fullWidth
+                          required
+                          initial={goal ? goal.points : null}
+                          validations='isInt'
+                          validationErrors={{
+                              isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                              isInt: Resources.COMMON_IS_INT_ERROR
+                          }}
+                        />
                     </Grid>
                 </Grid>
             </Card>

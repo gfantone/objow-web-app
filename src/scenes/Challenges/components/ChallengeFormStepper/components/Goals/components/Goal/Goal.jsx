@@ -126,7 +126,18 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                             </DefaultText>
                           </Grid>
                           <Grid item xs>
-                              <TextField name={`target[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_TARGET_LABEL2} fullWidth required initial={goal ? goal.target : null} />
+                              <TextField
+                                name={`target[${index}]`}
+                                label={Resources.CHALLENGE_CREATION_GOAL_TARGET_LABEL2}
+                                fullWidth
+                                required
+                                initial={goal ? goal.target : null}
+                                validations='isInt'
+                                validationErrors={{
+                                    isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                    isInt: Resources.COMMON_IS_INT_ERROR
+                                }}
+                              />
                           </Grid>
                           <Grid item >
                             <Grid container  direction="column">
@@ -145,7 +156,18 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                             </Grid>
                           </Grid>
                           <Grid item xs>
-                              <TextField name={`points[${index}]`} label={Resources.CHALLENGE_CREATION_GOAL_POINTS_LABEL2} fullWidth required initial={goal ? goal.points : null} />
+                              <TextField
+                                name={`points[${index}]`}
+                                label={Resources.CHALLENGE_CREATION_GOAL_POINTS_LABEL2}
+                                fullWidth
+                                required
+                                initial={goal ? goal.points : null}
+                                validations='isInt'
+                                validationErrors={{
+                                    isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                    isInt: Resources.COMMON_IS_INT_ERROR
+                                }}
+                              />
                           </Grid>
                       </Grid>
 

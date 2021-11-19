@@ -186,8 +186,11 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                                     {currentType.code === 'P' && (
                                                       <Grid item xs={8}>
                                                         <TextField name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
-                                                          validations={validations}
-                                                          validationErrors={validationErrors}
+                                                          validations='isInt'
+                                                          validationErrors={{
+                                                              isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                              isInt: Resources.COMMON_IS_INT_ERROR
+                                                          }}
                                                           />
                                                       </Grid>
                                                     )}
@@ -211,8 +214,11 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                                 <React.Fragment>
                                                   <Grid item xs>
                                                     <TextField name={`award[${index}]`} label="Points" fullWidth required initial={award.points}
-                                                      validations={validations}
-                                                      validationErrors={validationErrors}
+                                                      validations='isInt'
+                                                      validationErrors={{
+                                                          isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                          isInt: Resources.COMMON_IS_INT_ERROR
+                                                      }}
                                                       />
                                                   </Grid>
                                                 </React.Fragment>
