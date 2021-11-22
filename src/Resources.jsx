@@ -296,6 +296,7 @@ export const CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_C = "Récompense pour les
 export const CHALLENGE_CREATION_AWARD_TYPE_MINIMUM_PARTICIPANTS = "Ce mode nécessite au moins {0} {1}"
 export const CHALLENGE_CREATION_GOAL_TARGET_LABEL2 = "Condition"
 export const CHALLENGE_CREATION_GOAL_POINTS_LABEL2 = "Pts"
+export const CHALLENGE_STEP_MODE_INFORMATION = "Maximum 1 récompense par participant (la récompense gagnée est celle du plus haut palier)"
 
 // Challenge - Duplication
 export const CHALLENGE_DUPLICATION_TITLE = "Duplication d'un challenge"

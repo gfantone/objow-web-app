@@ -88,6 +88,13 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                         <Grid item>
                           <DefaultTitle>
                             Mode : { currentType.name }
+                            <span style={{marginLeft: 5, lineHeight: 1, verticalAlign: 'middle'}}>
+                              <Tooltip title={Resources.CHALLENGE_STEP_MODE_INFORMATION} placement={'right'}>
+                                <BlueText style={{ width: 'fit-content' }} component={'span'}>
+                                  <FontAwesomeIcon icon={faInfoCircle} />
+                                </BlueText>
+                              </Tooltip>
+                            </span>
                           </DefaultTitle>
                         </Grid>
                         <Grid item>

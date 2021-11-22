@@ -30,7 +30,7 @@ const Participants = ({participants, teams, setParticipantsEditOpen, ...props}) 
 
                       <Grid container spacing={2}>
                         { participants && participants.map(participant => (
-                          <Grid item>
+                          <Grid item xs={12} sm={4}>
                             {
                               participant.fullname ? (
                                 <Collaborator collaborator={participant}/>
