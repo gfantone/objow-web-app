@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom'
 import { Grid } from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import {ChallengeForm, ChallengeRewardForm} from '../../components'
-import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Dialog, DialogTitle, DialogActions, ProgressButton, Button} from '../../../../components'
+import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Dialog, DialogTitle, DialogActions, ProgressButton, Button, TransferList} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as rewardImageListActions from '../../../../services/RewardImages/RewardImageList/actions'
@@ -103,6 +103,9 @@ class ChallengeUpdate extends MainLayoutComponent {
         const start = model.start.toUTCJSON();
         const end = model.end.toUTCJSON();
 
+
+        const participants = this.state.newParticipants ? JSON.stringify(this.state.newParticipants.map(p => ({id: p.id}))) : null
+
         const challengeFormData = new FormData()
         challengeFormData.append('id', this.props.match.params.id)
         challengeFormData.append('name', model.name)
@@ -113,6 +116,9 @@ class ChallengeUpdate extends MainLayoutComponent {
         challengeFormData.append('award_type', model.awardType)
         challengeFormData.append('reward_type', model.rewardType)
         challengeFormData.append('live', model.live ? model.live : false)
+        if(participants) {
+          challengeFormData.append('participants', participants)
+        }
 
         if(Number.isInteger(model.image)) {
           challengeFormData.append('image', model.image)
@@ -130,6 +136,9 @@ class ChallengeUpdate extends MainLayoutComponent {
         } : {
           customImage: model.image
         }
+        const participantsObject = participants ? {
+          participants: participants
+        } : {}
         const challenge = Object.assign({
             id: this.props.match.params.id,
             name: model.name,
@@ -139,8 +148,8 @@ class ChallengeUpdate extends MainLayoutComponent {
             type: model.type,
             reward_type: model.rewardType,
             award_type: model.awardType,
-            live: model.live ? model.live : false
-        }, image)
+            live: model.live ? model.live : false,
+        }, image, participantsObject)
 
         var goals = []
         for (var i = 0; i < model.kpi.length; i++) {
@@ -214,6 +223,27 @@ class ChallengeUpdate extends MainLayoutComponent {
       })
     }
 
+    setParticipantsEditOpen = (value) => {
+      this.setState({
+        participantsEditOpen: value
+      })
+    }
+    handleChangeParticipants = (participants) => {
+      console.log(participants);
+      this.setState({
+        ...this.state,
+        newTempParticipants: participants
+      })
+    }
+
+    handleSubmitParticipants = () => {
+      this.setState({
+        ...this.state,
+        newParticipants: this.state.newTempParticipants,
+        participantsEditOpen: false
+      })
+    }
+
 
     renderData() {
         const {categories} = this.props.categoryList
@@ -230,7 +260,18 @@ class ChallengeUpdate extends MainLayoutComponent {
         const {teams} = this.props.teamList
         const {classes} = this.props
 
+        const currentType = _.get(challenge, 'type')
 
+        const getTeamByCollaboratorList = collaborator_ids => {
+          return teams.filter(team => collaborator_ids.indexOf(team.id) >= 0)
+        }
+
+
+        const participants = currentType.code === 'CC' ?
+            _.get(this.state, 'newParticipants') || _.get(challenge, 'participants') :
+            (_.get(this.state, 'newParticipants') ?
+              _.flatten(getTeamByCollaboratorList(_.get(this.state, 'newParticipants').map(p => p.team.id)).map(team => team.collaborators)) :
+              _.flatten(getTeamByCollaboratorList(_.get(challenge, 'participants').map(p => p.id)).map(team => team.collaborators)))
 
 
         // const currentReward = _.isString(_.get(this.state, 'currentAward.reward.description')) ?
@@ -257,8 +298,10 @@ class ChallengeUpdate extends MainLayoutComponent {
                         addGoal={this.handleAddGoal.bind(this)}
                         teams={teams}
                         setConfigRewardOpen={this.setConfigRewardOpen}
+                        setParticipantsEditOpen={this.setParticipantsEditOpen}
                         rewardImages={rewardImages}
                         rewardCategories={rewardCategories}
+                        newParticipants={_.get(this.state, 'newParticipants') && _.flatten(getTeamByCollaboratorList(_.get(this.state, 'newParticipants').map(p => p.team.id)))}
                     />
                 </Formsy>
                 <Dialog
@@ -267,20 +310,46 @@ class ChallengeUpdate extends MainLayoutComponent {
                     classes={{ paper: this.props.classes.kpiDialog }}
                 >
 
-                <Grid container spacing={1} direction="column">
-                  <Grid item style={{paddingTop: 0}}>
-                    <DialogTitle>Création de récompense</DialogTitle>
+                  <Grid container spacing={1} direction="column">
+                    <Grid item style={{paddingTop: 0}}>
+                      <DialogTitle>Création de récompense</DialogTitle>
+                    </Grid>
+                    <Grid item>
+                      <Formsy onValidSubmit={this.handleSubmitReward} >
+                        <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
+                        <DialogActions>
+                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                          <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
+                        </DialogActions>
+                      </Formsy>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <Formsy onValidSubmit={this.handleSubmitReward} >
-                      <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
-                      <DialogActions>
-                        <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
-                        <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
-                      </DialogActions>
-                    </Formsy>
+                </Dialog>
+                <Dialog
+                    open={this.state.participantsEditOpen}
+                    onClose={() => this.setParticipantsEditOpen(false)}
+                    classes={{ paper: this.props.classes.kpiDialog }}
+                >
+
+                  <Grid container spacing={1} direction="column">
+                    <Grid item style={{paddingTop: 0}}>
+                      <DialogTitle>Edition des participants</DialogTitle>
+                    </Grid>
+                    <Grid item>
+                      <Formsy onValidSubmit={this.handleSubmitParticipants} >
+                        <TransferList
+                          listIn={ teams }
+                          enableCollaboratorSelect={ _.get(currentType, 'code') === 'CC' }
+                          onChange={ this.handleChangeParticipants }
+                          selected={participants}
+                        />
+                        <DialogActions>
+                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                          <Button onClick={() => this.setParticipantsEditOpen(false)} color="secondary">Annuler</Button>
+                        </DialogActions>
+                      </Formsy>
+                    </Grid>
                   </Grid>
-                </Grid>
                 </Dialog>
             </div>
         )

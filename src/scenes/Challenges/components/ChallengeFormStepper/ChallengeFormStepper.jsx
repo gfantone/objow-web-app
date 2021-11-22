@@ -295,7 +295,6 @@ const ChallengeFormStepper = ({
         break;
     }
 
-    console.log(handleNextStep);
     return (
         <div>
           <Grid container spacing={4} style={{paddingBottom: isMobile ? 40 : 0}}>
