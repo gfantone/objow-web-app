@@ -65,19 +65,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                             onChange={handleCategoryChange}
                         />
                     </Grid>
-                    <Grid item style={{position: 'relative'}}>
-                      <DefaultTitle>
-                        <MenuIconButton size={'small'} onClick={() => setNewKpiOpen(true)} style={{
-                            position: 'absolute',
-                            top: '20px',
-                            left: '33px',
-                            zIndex: 100,
-                            fontSize: '14px',
-                          }}>
-                          <FontAwesomeIcon icon={faPlus} style={{color: "#00E58D"}}/>
-                        </MenuIconButton>
-                      </DefaultTitle>
-                    </Grid>
+                    
                     <Grid item xs={12}>
                         <Select
                             fullWidth

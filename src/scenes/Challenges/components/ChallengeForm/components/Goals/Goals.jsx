@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {Grid} from '@material-ui/core'
 import {Goal} from './components'
-import {DefaultTitle, IconButton as MenuIconButton} from '../../../../../../components'
+import {DefaultTitle, IconButton as MenuIconButton, Card, DefaultText } from '../../../../../../components'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import * as Resources from '../../../../../../Resources'
@@ -31,11 +31,7 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, addGoal, ...pr
                     <Grid item>
                       <DefaultTitle>{Resources.CHALLENGE_CREATION_GOAL_AREA}</DefaultTitle>
                     </Grid>
-                    <Grid item>
-                      <DefaultTitle>
-                        <MenuIconButton size={'small'} onClick={addGoal} style={{marginTop: '-4px', color: '#00E58D', fontSize: '18px' }}><FontAwesomeIcon icon={faPlus} /></MenuIconButton>
-                      </DefaultTitle>
-                    </Grid>
+
                   </Grid>
 
                 </Grid>
@@ -53,6 +49,15 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, addGoal, ...pr
                                 onRemoveClick={() => handleRemoveGoalClick(goal.key)}
                             />
                         })}
+                        <Grid item xs={12} sm={6}>
+                          <div onClick={addGoal} style={{cursor: 'pointer'}}>
+                            <Card>
+                              <DefaultText style={{textAlign: 'center', color: '#00E58D'}} lowercase>
+                                Ajouter un indicateur
+                              </DefaultText>
+                            </Card>
+                          </div>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>

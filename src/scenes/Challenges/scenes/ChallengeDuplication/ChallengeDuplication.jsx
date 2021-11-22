@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { Redirect } from 'react-router-dom'
-import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Stepper, Dialog, DialogTitle, DialogActions, ProgressButton, TextField, Button} from "../../../../components"
+import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Stepper, Dialog, DialogTitle, DialogActions, ProgressButton, TextField, Button, Select} from "../../../../components"
 import * as challengeCreationActions from '../../../../services/Challanges/ChallangeCreaton/actions'
 import * as challengeTypeUsablePointsActions from '../../../../services/ChallengeTypes/ChallengeTypeUsablePoints/actions'
 import * as Resources from "../../../../Resources"
@@ -254,6 +254,7 @@ class ChallengeDuplication extends MainLayoutComponent {
     }
 
     setNewKpiOpen = (value) => {
+
       this.setState({
         ...this.state,
         newKpiOpen: value
@@ -453,6 +454,11 @@ class ChallengeDuplication extends MainLayoutComponent {
           this.state.currentAwards.filter(award => !!award.reward) :
           this.state.finalModel.awards
 
+        const criticities = [
+          {order: 1, name: 'Basse'},
+          {order: 2, name: 'Moyenne'},
+          {order: 3, name: 'Haute'}
+        ]
 
         const currentChallenge = Object.assign({}, this.state.finalModel, {
           awards
@@ -500,6 +506,39 @@ class ChallengeDuplication extends MainLayoutComponent {
                         rewardCategories={rewardCategories}
                     />
                 </Formsy>
+                <Dialog
+                    open={this.state.newKpiOpen}
+                    onClose={() => this.setNewKpiOpen(false)}
+                    classes={{ paper: this.props.classes.kpiDialog }}
+                >
+                    <DialogTitle>Demande de création de KPI</DialogTitle>
+                    <Formsy onValidSubmit={this.handleSubmitKpi} >
+                      <Grid container direction="column" spacing={2} >
+                        <Grid item>
+                          <Grid container direction="row" spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='criticity' label={Resources.ADMIN_GOAL_CREATION_CRITICITY_LABEL} options={criticities} optionValueName='order' optionTextName='name' fullWidth required />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth />
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <TextField name='name' label={Resources.ADMIN_GOAL_CREATION_KPI_NAME_LABEL} fullWidth required />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <TextField name='description' label={Resources.ADMIN_GOAL_CREATION_DESCRIPTION_LABEL} fullWidth required multiline rows={4} variant="outlined"/>
+                        </Grid>
+                      </Grid>
+                      <Grid item>
+                        <DialogActions>
+                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                          <Button onClick={() => this.setNewKpiOpen(false)} color="secondary">Annuler</Button>
+                        </DialogActions>
+                      </Grid>
+                    </Formsy>
+                </Dialog>
                 <Dialog
                     open={this.state.configRewardOpen}
                     onClose={() => this.setConfigRewardOpen(false)}

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {Grid} from '@material-ui/core'
 import {Goal} from './components'
-import {DefaultTitle, DatePicker, Card, IconButton as MenuIconButton} from '../../../../../../components'
+import {DefaultTitle, DatePicker, Card, IconButton as MenuIconButton, DefaultText} from '../../../../../../components'
 import {faPlus} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import * as Resources from '../../../../../../Resources'
@@ -27,7 +27,7 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, onEndChange, o
     function handleRemoveGoalClick(key) {
         setCurrentGoals(x => x.filter(y => y.key != key))
     }
-
+    console.log(setNewKpiOpen);
     return (
         <div>
             <Grid container spacing={2} direction='column'>
@@ -77,7 +77,7 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, onEndChange, o
                         </Grid>
                         <Grid item>
                           <DefaultTitle>
-                            <MenuIconButton size={'small'} onClick={handleAddGoal} style={{marginTop: '-2px', color: '#555', fontSize: '18px' }}>
+                            <MenuIconButton size={'small'} onClick={() => setNewKpiOpen(true)} style={{marginTop: '-2px', color: '#555', fontSize: '18px' }}>
                               <FontAwesomeIcon icon={faPlus} style={{color: "#00E58D"}}/>
                             </MenuIconButton>
                           </DefaultTitle>
@@ -101,6 +101,15 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, onEndChange, o
                             />
                           )
                         })}
+                        <Grid item xs={12} sm={6}>
+                          <div onClick={handleAddGoal} style={{cursor: 'pointer'}}>
+                            <Card>
+                              <DefaultText style={{textAlign: 'center', color: '#00E58D'}} lowercase>
+                                Ajouter un indicateur
+                              </DefaultText>
+                            </Card>
+                          </div>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
