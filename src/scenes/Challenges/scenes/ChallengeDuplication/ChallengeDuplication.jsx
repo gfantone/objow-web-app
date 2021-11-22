@@ -147,6 +147,16 @@ class ChallengeDuplication extends MainLayoutComponent {
           }
         }
 
+        // Set award target for mode palier
+        let currentAwards = this.state.currentAwards
+        if(model.awardTarget && this.state.currentAwards) {
+          currentAwards = this.state.currentAwards.map((award, index) => {
+            return Object.assign({}, award, {
+              target: model.awardTarget[index]
+            })
+          })
+        }
+
         this.setState({
           ...this.state,
           steps: this.state.steps.map(step => {
@@ -158,6 +168,7 @@ class ChallengeDuplication extends MainLayoutComponent {
             }
             return step
           }),
+          currentAwards: currentAwards,
           finalModel: Object.assign(this.state.finalModel, model, {
             participants: this.state.participants,
             goals: model.kpi ? goals : this.state.finalModel.goals,
@@ -258,6 +269,8 @@ class ChallengeDuplication extends MainLayoutComponent {
       const currentStep = this.getCurrentStep()
       const nextStep = this.state.steps.find(step => step.order === currentStep.order + 1)
 
+      const {types: rewardTypes} = this.props.challengeRewardTypeList
+
       if(nextStep) {
         this.changeStep(model)
       } else {
@@ -338,11 +351,17 @@ class ChallengeDuplication extends MainLayoutComponent {
 
         }, image)
 
+        const currentRewardType = rewardTypes.find(rewardType => rewardType.id === parseInt(finalModel.rewardType))
+        const awards = _.get(currentRewardType, 'code') === 'G' ?
+          // gift awards should have reward
+          this.state.currentAwards.filter(award => !!award.reward) :
+          finalModel.awards
+
 
         const teamId = types.find(x => x.id == finalModel.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
 
 
-        this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, finalModel.awards, finalModel.goals, teamId)
+        this.props.challengeCreationActions.createChallenge(challenge, challengeFormData, awards, finalModel.goals, teamId)
 
       }
     }
@@ -392,6 +411,7 @@ class ChallengeDuplication extends MainLayoutComponent {
       const {types: rewardTypes} = this.props.rewardTypeList
       const {types} = this.props.challengeTypeList
       const currentType = types.find(t => t.id === parseInt(_.get(this.state, 'finalModel.type')))
+
       const defaultReward = {
         type: currentType.code === 'CC' ?
           rewardTypes.find(t => t.code === 'P').id :
@@ -427,6 +447,16 @@ class ChallengeDuplication extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
 
 
+        const currentRewardType = _.get(this.state, 'finalModel.rewardType') && rewardTypes.find(rewardType => rewardType.id === parseInt(this.state.finalModel.rewardType))
+        const awards = _.get(currentRewardType, 'code') === 'G' ?
+          // gift awards should have reward
+          this.state.currentAwards.filter(award => !!award.reward) :
+          this.state.finalModel.awards
+
+
+        const currentChallenge = Object.assign({}, this.state.finalModel, {
+          awards
+        })
 
         return (
             <div>
@@ -441,7 +471,7 @@ class ChallengeDuplication extends MainLayoutComponent {
                         awardTypes={awardTypes}
                         rewardTypes={rewardTypes}
                         categories={categories}
-                        challenge={challenge}
+
                         goalAdding={this.state.goalAdding}
                         images={images}
                         isDuplication
@@ -462,7 +492,7 @@ class ChallengeDuplication extends MainLayoutComponent {
                         handlePreviousStep={this.handlePreviousStep}
                         handleNextStep={_.get(this.form, 'current.submit')}
                         handleAddGoal={this.handleAddGoal}
-                        challenge={this.state.finalModel}
+                        challenge={currentChallenge}
                         setNewKpiOpen={this.setNewKpiOpen}
                         setConfigRewardOpen={this.setConfigRewardOpen}
                         teams={teams.filter(t => _.get(account, 'role.code') !== 'M' || _.get(account, 'team.id') === t.id )}
@@ -475,20 +505,23 @@ class ChallengeDuplication extends MainLayoutComponent {
                     onClose={() => this.setConfigRewardOpen(false)}
                     classes={{ paper: this.props.classes.kpiDialog }}
                 >
+                  <Formsy onValidSubmit={this.handleSubmitReward} >
                     <Grid container spacing={1} direction="column">
                       <Grid item style={{paddingTop: 0}}>
                         <DialogTitle>Création de récompense</DialogTitle>
                       </Grid>
                       <Grid item>
-                        <Formsy onValidSubmit={this.handleSubmitReward} >
                           <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
-                          <DialogActions>
-                            <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
-                            <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
-                          </DialogActions>
-                        </Formsy>
+
+                      </Grid>
+                      <Grid item>
+                        <DialogActions>
+                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                          <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
+                        </DialogActions>
                       </Grid>
                     </Grid>
+                  </Formsy>
                 </Dialog>
             </div>
         )

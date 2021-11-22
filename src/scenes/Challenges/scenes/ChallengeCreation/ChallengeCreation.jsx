@@ -397,7 +397,6 @@ class ChallengeCreation extends MainLayoutComponent {
           awards
         })
 
-        console.log(_.get(this.form, 'current.submit'));
         return (
             <div>
                 <Stepper
@@ -465,10 +464,12 @@ class ChallengeCreation extends MainLayoutComponent {
                           <TextField name='description' label={Resources.ADMIN_GOAL_CREATION_DESCRIPTION_LABEL} fullWidth required multiline rows={4} variant="outlined"/>
                         </Grid>
                       </Grid>
-                      <DialogActions>
+                      <Grid item>
+                        <DialogActions>
                           <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
                           <Button onClick={() => this.setNewKpiOpen(false)} color="secondary">Annuler</Button>
-                      </DialogActions>
+                        </DialogActions>
+                      </Grid>
                     </Formsy>
                 </Dialog>
                 <Dialog
@@ -476,20 +477,22 @@ class ChallengeCreation extends MainLayoutComponent {
                     onClose={() => this.setConfigRewardOpen(false)}
                     classes={{ paper: this.props.classes.kpiDialog }}
                 >
+                  <Formsy onValidSubmit={this.handleSubmitReward} >
                     <Grid container spacing={1} direction="column">
                       <Grid item style={{paddingTop: 0}}>
                         <DialogTitle>Création de récompense</DialogTitle>
                       </Grid>
-                      <Grid item>
-                        <Formsy onValidSubmit={this.handleSubmitReward} >
-                          <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
-                          <DialogActions>
-                            <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
-                            <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
-                          </DialogActions>
-                        </Formsy>
-                      </Grid>
+                        <Grid item>
+                            <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
+                        </Grid>
                     </Grid>
+                    <Grid item>
+                      <DialogActions>
+                        <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                        <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
+                      </DialogActions>
+                    </Grid>
+                  </Formsy>
                 </Dialog>
             </div>
         )

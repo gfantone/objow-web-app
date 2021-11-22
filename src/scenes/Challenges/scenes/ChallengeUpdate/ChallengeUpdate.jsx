@@ -229,7 +229,6 @@ class ChallengeUpdate extends MainLayoutComponent {
       })
     }
     handleChangeParticipants = (participants) => {
-      console.log(participants);
       this.setState({
         ...this.state,
         newTempParticipants: participants
@@ -273,6 +272,12 @@ class ChallengeUpdate extends MainLayoutComponent {
               _.flatten(getTeamByCollaboratorList(_.get(this.state, 'newParticipants').map(p => p.team.id)).map(team => team.collaborators)) :
               _.flatten(getTeamByCollaboratorList(_.get(challenge, 'participants').map(p => p.id)).map(team => team.collaborators)))
 
+        const newParticipants = _.get(this.state, 'newParticipants') && (
+          currentType.code === 'CC' ?
+            _.get(this.state, 'newParticipants') :
+            _.flatten(getTeamByCollaboratorList(_.get(this.state, 'newParticipants').map(p => p.team.id)))
+        )
+
 
         // const currentReward = _.isString(_.get(this.state, 'currentAward.reward.description')) ?
         //   _.get(this.state, 'currentAward.reward') :
@@ -301,7 +306,7 @@ class ChallengeUpdate extends MainLayoutComponent {
                         setParticipantsEditOpen={this.setParticipantsEditOpen}
                         rewardImages={rewardImages}
                         rewardCategories={rewardCategories}
-                        newParticipants={_.get(this.state, 'newParticipants') && _.flatten(getTeamByCollaboratorList(_.get(this.state, 'newParticipants').map(p => p.team.id)))}
+                        newParticipants={newParticipants}
                     />
                 </Formsy>
                 <Dialog
@@ -310,20 +315,22 @@ class ChallengeUpdate extends MainLayoutComponent {
                     classes={{ paper: this.props.classes.kpiDialog }}
                 >
 
-                  <Grid container spacing={1} direction="column">
-                    <Grid item style={{paddingTop: 0}}>
-                      <DialogTitle>Création de récompense</DialogTitle>
-                    </Grid>
-                    <Grid item>
-                      <Formsy onValidSubmit={this.handleSubmitReward} >
-                        <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
+                  <Formsy onValidSubmit={this.handleSubmitReward} >
+                    <Grid container spacing={1} direction="column">
+                      <Grid item style={{paddingTop: 0}}>
+                        <DialogTitle>Création de récompense</DialogTitle>
+                      </Grid>
+                      <Grid item>
+                          <ChallengeRewardForm reward={_.get(this.state, 'currentAward.reward')}/>
+                      </Grid>
+                      <Grid item>
                         <DialogActions>
                           <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
                           <Button onClick={() => this.setConfigRewardOpen(false)} color="secondary">Annuler</Button>
                         </DialogActions>
-                      </Formsy>
+                      </Grid>
                     </Grid>
-                  </Grid>
+                  </Formsy>
                 </Dialog>
                 <Dialog
                     open={this.state.participantsEditOpen}
@@ -331,25 +338,27 @@ class ChallengeUpdate extends MainLayoutComponent {
                     classes={{ paper: this.props.classes.kpiDialog }}
                 >
 
-                  <Grid container spacing={1} direction="column">
-                    <Grid item style={{paddingTop: 0}}>
-                      <DialogTitle>Edition des participants</DialogTitle>
+                  <Formsy onValidSubmit={this.handleSubmitParticipants} >
+                    <Grid container spacing={1} direction="column">
+                      <Grid item style={{paddingTop: 0}}>
+                        <DialogTitle>Edition des participants</DialogTitle>
+                      </Grid>
+                        <Grid item>
+                            <TransferList
+                              listIn={ teams }
+                              enableCollaboratorSelect={ _.get(currentType, 'code') === 'CC' }
+                              onChange={ this.handleChangeParticipants }
+                              selected={participants}
+                            />
+                        </Grid>
+                        <Grid item>
+                          <DialogActions>
+                            <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                            <Button onClick={() => this.setParticipantsEditOpen(false)} color="secondary">Annuler</Button>
+                          </DialogActions>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                      <Formsy onValidSubmit={this.handleSubmitParticipants} >
-                        <TransferList
-                          listIn={ teams }
-                          enableCollaboratorSelect={ _.get(currentType, 'code') === 'CC' }
-                          onChange={ this.handleChangeParticipants }
-                          selected={participants}
-                        />
-                        <DialogActions>
-                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
-                          <Button onClick={() => this.setParticipantsEditOpen(false)} color="secondary">Annuler</Button>
-                        </DialogActions>
-                      </Formsy>
-                    </Grid>
-                  </Grid>
+                  </Formsy>
                 </Dialog>
             </div>
         )
