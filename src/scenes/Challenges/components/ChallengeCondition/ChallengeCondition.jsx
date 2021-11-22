@@ -4,7 +4,7 @@ import {withStyles} from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faEquals, faInfoCircle, faUser, faUsers} from '@fortawesome/free-solid-svg-icons'
 import {faStar} from '@fortawesome/free-regular-svg-icons'
-import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText, Linkify, Dialog} from '../../../../components'
+import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText, Linkify, Dialog, BigText} from '../../../../components'
 import {ChallengeReward, ChallengeRewardDetail, ChallengeRewardCard} from '../'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
@@ -13,6 +13,10 @@ const styles = {
   rewardDialog: {
     width: 900,
     maxWidth: 900
+  },
+  icon: {
+    height: 100,
+    width: 100
   }
 }
 
@@ -24,6 +28,13 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
 
     const coinImage = require(`../../../../assets/img/system/challenge/icons/coin.png`)
     const giftImage = require(`../../../../assets/img/system/challenge/icons/gift.png`)
+
+    const modeIcons = {
+      'R': require(`../../../../assets/img/system/challenge/icons/Ribbons.png`),
+      'M': require(`../../../../assets/img/system/challenge/icons/Rocket.png`),
+      'P': require(`../../../../assets/img/system/challenge/icons/Levels.png`),
+      'C': require(`../../../../assets/img/system/challenge/icons/race.png`)
+    }
 
     const rewardTypeIcon = challenge.rewardTypeCode === 'G' ? giftImage : coinImage
 
@@ -351,38 +362,62 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                     </Grid>
                     <Grid item xs={12}>
                         <Card>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <DefaultTitle>{challenge.name}</DefaultTitle>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <DefaultText>
-                                        <FontAwesomeIcon icon={faCalendarAlt} /> {Resources.CHALLENGE_CONDITION_PERIOD.format(start, end)}
-                                    </DefaultText>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <DefaultText>
-                                        <FontAwesomeIcon icon={typeIcon} /> {challenge.typeName}
-                                    </DefaultText>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <DefaultText>
-                                        <FontAwesomeIcon icon={faStar} /> {Resources.CHALLENGE_CONDITION_TYPE.format(challenge.awardName)}
-                                        <InfoText>{Resources.[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${challenge.awardCode}`]}</InfoText>
+                            <Grid container spacing={1}>
+                              <Grid item xs={12} sm={8}>
+                                <Grid container spacing={2}>
+                                  <Grid item xs={12}>
+                                      <DefaultTitle>{challenge.name}</DefaultTitle>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                      <DefaultText>
+                                          <FontAwesomeIcon icon={faCalendarAlt} /> {Resources.CHALLENGE_CONDITION_PERIOD.format(start, end)}
+                                      </DefaultText>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                      <DefaultText>
+                                          <FontAwesomeIcon icon={typeIcon} /> {challenge.typeName}
+                                      </DefaultText>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                      <DefaultText>
+                                          <FontAwesomeIcon icon={faStar} /> {Resources.CHALLENGE_CONDITION_TYPE.format(challenge.awardName)}
+                                          <InfoText>{Resources.[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${challenge.awardCode}`]}</InfoText>
 
-                                    </DefaultText>
+                                      </DefaultText>
+                                  </Grid>
+                                  <Grid item xs={12}>
+                                      <DefaultText>
+                                        {Resources.CHALLENGE_CONDITION_DESCRIPTION_LABEL}
+                                      </DefaultText>
+                                      <RichText
+                                        initial={JSON.parse(challenge.description)}
+                                        readOnly={ true }
+                                        onChange={() => {}}
+                                        />
+                                  </Grid>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <DefaultText>
-                                      {Resources.CHALLENGE_CONDITION_DESCRIPTION_LABEL}
+                              </Grid>
+
+                              <Grid item xs={12} sm={4}>
+                                <Grid container spacing={1} direction='column' alignItems='center'>
+                                  <Grid item>
+                                    <CardMedia image={modeIcons[challenge.awardCode]} className={props.classes.icon} />
+                                  </Grid>
+                                  <Grid item>
+                                    <BigText>
+                                      {challenge.awardName}
+                                    </BigText>
+                                  </Grid>
+                                  <Grid item style={{textAlign: 'center'}}>
+                                    <DefaultText lowercase style={{fontSize: 14}}>
+                                      {Resources[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${challenge.awardCode}`]}
                                     </DefaultText>
-                                    <RichText
-                                      initial={JSON.parse(challenge.description)}
-                                      readOnly={ true }
-                                      onChange={() => {}}
-                                      />
+                                  </Grid>
                                 </Grid>
+                              </Grid>
                             </Grid>
+
+
                         </Card>
                     </Grid>
                 </Grid>
