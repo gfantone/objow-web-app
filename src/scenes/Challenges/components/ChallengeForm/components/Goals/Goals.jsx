@@ -52,9 +52,9 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, addGoal, ...pr
                         <Grid item xs={12} sm={6}>
                           <div onClick={addGoal} style={{cursor: 'pointer'}}>
                             <Card>
-                              <DefaultText style={{textAlign: 'center', color: '#00E58D'}} lowercase>
+                              <DefaultTitle style={{textAlign: 'center', color: '#00E58D'}} lowercase>
                                 Ajouter un indicateur
-                              </DefaultText>
+                              </DefaultTitle>
                             </Card>
                           </div>
                         </Grid>

@@ -65,7 +65,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                   {challenge.awards.map(award => {
 
                     return (
-                        <Grid item xs={12} onClick={() => award.reward && setRewardDetail(Object.assign({}, award.reward))}>
+                        <Grid item xs={12} style={{ cursor: 'pointer' }} onClick={() => award.reward && setRewardDetail(Object.assign({}, award.reward))}>
                             <div>
                                 {challenge.rewardTypeCode === 'P' && (
 
@@ -120,7 +120,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                   {challenge.awards.map(award => {
 
                     return (
-                        <Grid item xs={12} onClick={() => award.reward && setRewardDetail(Object.assign({}, award.reward))}>
+                        <Grid item xs={12} style={{ cursor: 'pointer' }} onClick={() => award.reward && setRewardDetail(Object.assign({}, award.reward))}>
                             <div>
                                 {challenge.rewardTypeCode === 'P' && (
 
@@ -178,7 +178,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
         <Grid container spacing={2}>
           {challenge.awards.map(award => {
             return(
-              <Grid key={award.key} item xs={12} sm={6} md={4} onClick={() => award.reward && setRewardDetail(Object.assign({}, award.reward))}>
+              <Grid key={award.key} item xs={12} sm={6} md={4} style={{ cursor: 'pointer' }} onClick={() => award.reward && setRewardDetail(Object.assign({}, award.reward))}>
               <Grid container spacing={1} direction="column">
                 <Grid item xs={12}>
                   <ChallengeRewardCard>
@@ -373,18 +373,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                           <FontAwesomeIcon icon={faCalendarAlt} /> {Resources.CHALLENGE_CONDITION_PERIOD.format(start, end)}
                                       </DefaultText>
                                   </Grid>
-                                  <Grid item xs={12}>
-                                      <DefaultText>
-                                          <FontAwesomeIcon icon={typeIcon} /> {challenge.typeName}
-                                      </DefaultText>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                      <DefaultText>
-                                          <FontAwesomeIcon icon={faStar} /> {Resources.CHALLENGE_CONDITION_TYPE.format(challenge.awardName)}
-                                          <InfoText>{Resources.[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${challenge.awardCode}`]}</InfoText>
 
-                                      </DefaultText>
-                                  </Grid>
                                   <Grid item xs={12}>
                                       <DefaultText>
                                         {Resources.CHALLENGE_CONDITION_DESCRIPTION_LABEL}
@@ -405,7 +394,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                   </Grid>
                                   <Grid item>
                                     <BigText>
-                                      {challenge.awardName}
+                                      Mode {challenge.awardName}
                                     </BigText>
                                   </Grid>
                                   <Grid item style={{textAlign: 'center'}}>
