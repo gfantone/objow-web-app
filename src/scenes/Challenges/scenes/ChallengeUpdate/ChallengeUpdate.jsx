@@ -47,7 +47,6 @@ class ChallengeUpdate extends MainLayoutComponent {
             ...this.state,
             goalAdding: 1,
             configRewardOpen: false,
-            currentAwards: [],
         })
     }
 
@@ -178,6 +177,7 @@ class ChallengeUpdate extends MainLayoutComponent {
         }
 
         const teamId = types.find(x => x.id == model.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
+        
         this.props.challengeUpdateActions.updateChallenge(challenge, challengeFormData, awards, goals)
     }
 
