@@ -113,6 +113,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
     }
 
     const renderStepAwards = () => {
+        console.log('render step');
         return (
               <Table backgroundDisabled>
                 <TableBody>
@@ -129,7 +130,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                       <TableChip label={'>'} />
                                     </Grid>
                                     <Grid item>
-                                      <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultText>
+                                      <DefaultText>{Resources.CHALLENGE_AWARD_STEP_POINT_LABEL.format(award.rank)}</DefaultText>
                                     </Grid>
                                     <Grid item>
                                       <AccentTag>{Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}</AccentTag>
@@ -146,7 +147,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                               <TableChip label={'>'} />
                                             </Grid>
                                             <Grid item>
-                                              <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultText>
+                                              <DefaultText>{Resources.CHALLENGE_AWARD_STEP_POINT_LABEL.format(award.rank)}</DefaultText>
                                             </Grid>
                                           </Grid>
                                         </Grid>
@@ -189,9 +190,13 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                             <Grid item>
                               <Grid container justify='space-between'>
                                 <Grid item>
-                                  <DefaultTitle>
-                                    {challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}
-                                  </DefaultTitle>
+                                  {challenge.awardCode === 'P' ? (
+                                    <DefaultText>{Resources.CHALLENGE_AWARD_STEP_POINT_LABEL.format(award.rank)}</DefaultText>
+                                  ) : (
+                                    <DefaultTitle>
+                                      {challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}
+                                    </DefaultTitle>
+                                  )}
                                 </Grid>
                               </Grid>
                             </Grid>
@@ -399,6 +404,16 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                   <Grid item>
                                     <BigText>
                                       Mode {challenge.awardName}
+                                      {challenge.awardCode === 'P' && (
+                                        
+                                        <span style={{marginLeft: 5, lineHeight: 1, verticalAlign: 'middle'}}>
+                                          <Tooltip title={Resources.CHALLENGE_STEP_MODE_INFORMATION} placement={'right'}>
+                                            <BlueText style={{ width: 'fit-content' }} component={'span'}>
+                                              <FontAwesomeIcon icon={faInfoCircle} />
+                                            </BlueText>
+                                          </Tooltip>
+                                        </span>
+                                      )}
                                     </BigText>
                                   </Grid>
                                   <Grid item style={{textAlign: 'center'}}>
