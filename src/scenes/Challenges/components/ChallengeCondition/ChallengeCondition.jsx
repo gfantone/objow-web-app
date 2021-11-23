@@ -373,7 +373,11 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                           <FontAwesomeIcon icon={faCalendarAlt} /> {Resources.CHALLENGE_CONDITION_PERIOD.format(start, end)}
                                       </DefaultText>
                                   </Grid>
-
+                                  <Grid item xs={12}>
+                                      <DefaultText>
+                                          <FontAwesomeIcon icon={typeIcon} /> {challenge.typeName}
+                                      </DefaultText>
+                                  </Grid>
                                   <Grid item xs={12}>
                                       <DefaultText>
                                         {Resources.CHALLENGE_CONDITION_DESCRIPTION_LABEL}
