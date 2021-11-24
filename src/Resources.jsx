@@ -369,6 +369,7 @@ export const CHALLENGE_UPDATE_GOAL_TARGET_LABEL = "Condition"
 export const CHALLENGE_UPDATE_GOAL_TARGET_INFO_TEXT = "La condition fixée ici peut être atteinte plusieurs fois. Chaque fois que celle-ci est atteinte elle rapporte le nombre de points associés."
 export const CHALLENGE_UPDATE_GOAL_POINTS_LABEL = "Pts"
 export const CHALLENGE_UPDATE_SUBMIT_BUTTON = "Valider"
+export const CHALLENGE_UPDATE_AWARD_ERROR = "Ajoutez au moins une récompense"
 
 // Chart
 export const CHART_X_LEGEND = "Période"

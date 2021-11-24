@@ -177,8 +177,16 @@ class ChallengeUpdate extends MainLayoutComponent {
         }
 
         const teamId = types.find(x => x.id == model.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
-        
-        this.props.challengeUpdateActions.updateChallenge(challenge, challengeFormData, awards, goals)
+
+        if(awards.length > 0) {
+
+          this.props.challengeUpdateActions.updateChallenge(challenge, challengeFormData, awards, goals)
+        } else {
+          this.setState({
+            ...this.state,
+            awardError: true
+          })
+        }
     }
 
     handleSubmitReward = (model) => {
@@ -307,6 +315,7 @@ class ChallengeUpdate extends MainLayoutComponent {
                         rewardImages={rewardImages}
                         rewardCategories={rewardCategories}
                         newParticipants={newParticipants}
+                        awardError={this.state.awardError}
                     />
                 </Formsy>
                 <Dialog

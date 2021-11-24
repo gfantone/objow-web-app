@@ -2,11 +2,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Grid} from '@material-ui/core'
 import {Awards, Goals, Infos, Participants} from './components'
-import {ProgressButton} from '../../../../components'
+import {ProgressButton, ErrorText} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import _ from 'lodash'
 
-const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, challenge, images, isCreation, isDuplication, isUpdate, kpis, period, team, types, goalAdding, onGoalAdded, addGoal, teams, setConfigRewardOpen, rewardImages, rewardCategories, handleChangeParticipants, setParticipantsEditOpen, newParticipants, ...props}) => {
+const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, challenge, images, isCreation, isDuplication, isUpdate, kpis, period, team, types, goalAdding, onGoalAdded, addGoal, teams, setConfigRewardOpen, rewardImages, rewardCategories, handleChangeParticipants, setParticipantsEditOpen, newParticipants, awardError, ...props}) => {
     const id = challenge ? challenge.id : null
     const name = challenge ? challenge.name : null
     const description = challenge ? challenge.description : null
@@ -136,7 +136,12 @@ const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, chal
                     setConfigRewardOpen={setConfigRewardOpen}
                     rewardImages={rewardImages}
                     rewardCategories={rewardCategories}
-                    />
+                  />
+                {awardError && (
+                  <ErrorText>
+                    {Resources.CHALLENGE_UPDATE_AWARD_ERROR}
+                  </ErrorText>
+                )}
                 </Grid>
                 <Grid item xs={12}>
                     <Participants

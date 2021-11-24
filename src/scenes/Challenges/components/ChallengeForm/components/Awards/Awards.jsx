@@ -127,9 +127,16 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                   'P': Resources.CHALLENGE_AWARD_STEP_POINT_LABEL.format(number)
                                 }
                                 const label = labels[currentType.code]
-                                // const validations = isMaxAward ? 'isLessThanOrEquals:usablePoints' : 'isRankingValid'
-                                const validations = null
-                                const validationErrors = isMaxAward ? {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isLessThanOrEquals: 'La récompense est trop élevée',} : {isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR, isRankingValid: 'La récompense est trop élevée'}
+                                const validations = isMaxAward ? 'isInt' : {isRankingIncreasing: true, isInt: true}
+
+                                const validationErrors = isMaxAward ? {
+                                  isInt: Resources.COMMON_IS_INT_ERROR,
+                                  isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                } : {
+                                  isInt: Resources.COMMON_IS_INT_ERROR,
+                                  isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                  isRankingIncreasing: 'Les récompenses doivent être décroissantes'
+                                }
                                 const reward = award.reward ? Object.assign({}, award.reward, {
                                   image: _.get(award, 'reward.image.path') || (award.reward.image && rewardImages ? rewardImages.find(i => i.id === parseInt(award.reward.image)).path : null),
                                   category: _.get(award, 'reward.category.id') ? _.get(award, 'reward.category') : rewardCategories && award.reward.category && rewardCategories.find(c => c.id === parseInt(award.reward.category))
@@ -163,10 +170,14 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                                     {currentType.code === 'P' && (
                                                       <Grid item xs={8}>
                                                         <TextField name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
-                                                          validations='isInt'
+                                                          validations={{
+                                                            isStepsIncreasing: true,
+                                                            isInt: true
+                                                          }}
                                                           validationErrors={{
                                                               isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                                              isInt: Resources.COMMON_IS_INT_ERROR
+                                                              isInt: Resources.COMMON_IS_INT_ERROR,
+                                                              isStepsIncreasing: 'Les scores à atteindre doivent être croissants'
                                                           }}
                                                         />
                                                       </Grid>
@@ -189,11 +200,8 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                                   <React.Fragment>
                                                     <Grid item xs>
                                                       <TextField name={`award[${index}]`} label="Points" fullWidth required initial={award.points}
-                                                        validations='isInt'
-                                                        validationErrors={{
-                                                            isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                                            isInt: Resources.COMMON_IS_INT_ERROR
-                                                        }}
+                                                        validations={ validations }
+                                                        validationErrors={validationErrors}
                                                       />
                                                     </Grid>
                                                   </React.Fragment>
