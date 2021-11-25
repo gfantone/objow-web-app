@@ -24,6 +24,7 @@ import * as rewardImageListActions from '../../../../services/RewardImages/Rewar
 import * as currentPeriodDetailActions from "../../../../services/Periods/CurrentPeriodDetail/actions"
 import * as kpiListActions from "../../../../services/Kpis/KpiList/actions"
 import * as teamListActions from "../../../../services/Teams/TeamList/actions"
+import * as kpiCreationActions from '../../../../services/Kpis/KpiCreation/actions'
 import _ from 'lodash'
 
 
@@ -592,7 +593,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         if (success) {
             this.props.challengeCreationActions.clearChallengeCreation()
             this.props.challengeTypeUsablePointsActions.clearChallengeTypeUsablePoints()
-            this.props.history.goBack()
+            this.props.history.push('/challenges')
         }
 
         return (
@@ -635,7 +636,8 @@ const mapDispatchToProps = (dispatch) => ({
     teamListActions: bindActionCreators(teamListActions, dispatch),
     rewardImageListActions: bindActionCreators(rewardImageListActions, dispatch),
     rewardCategoryListActions: bindActionCreators(rewardCategoryListActions, dispatch),
-    rewardTypeListActions: bindActionCreators(rewardTypeListActions, dispatch)
+    rewardTypeListActions: bindActionCreators(rewardTypeListActions, dispatch),
+    kpiCreationActions: bindActionCreators(kpiCreationActions, dispatch),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ChallengeDuplication))

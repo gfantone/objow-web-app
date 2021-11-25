@@ -156,7 +156,9 @@ const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ..
     }, [selectedList])
 
     React.useEffect(() => {
-      setSelectedList(selected)
+      if(_.differenceBy(_.sortBy(selected, 'id'), _.sortBy(selectedList, 'id'), 'id').length > 0 || selected.length !== selectedList.length) {
+        setSelectedList(selected)
+      }
     }, [selected])
 
     // console.log(selectedList);

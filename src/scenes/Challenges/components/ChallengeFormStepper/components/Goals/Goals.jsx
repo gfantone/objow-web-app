@@ -27,7 +27,6 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, onEndChange, o
     function handleRemoveGoalClick(key) {
         setCurrentGoals(x => x.filter(y => y.key != key))
     }
-    console.log(setNewKpiOpen);
     return (
         <div>
             <Grid container spacing={2} direction='column'>

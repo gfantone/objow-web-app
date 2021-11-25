@@ -28,7 +28,7 @@ function* createChallenge(action) {
 
         yield call(api.challenges.changeAwards, challenge.id, action.awards);
         yield call(api.challenges.changeGoals, challenge.id, action.goals);
-        yield put(createChallengeSuccess())
+        yield put(createChallengeSuccess(challenge.id))
     } catch(e) {
         yield put(createChallengeError())
     }

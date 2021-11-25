@@ -7,7 +7,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import * as Resources from '../../../../../../Resources'
 import {uuidv4} from "../../../../../../helpers/UUIDHelper"
 
-const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, addGoal, ...props}) => {
+const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, addGoal, setNewKpiOpen, ...props}) => {
     const [currentGoals, setCurrentGoals] = React.useState(goals ? goals.map(x => ({key: uuidv4(), category: x.kpi.category ? x.kpi.category.id : null, kpi: x.kpi.id, goalName: x.name, target: x.target, points: x.points})) : [{key: uuidv4(), category: null, kpi: null, goalName: null, target: null, points: null}])
     const deletionDisabled = currentGoals.length === 1
 
@@ -28,9 +28,18 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, addGoal, ...pr
 
                 <Grid item xs={12}>
                   <Grid container spacing={1}>
-                    <Grid item>
-                      <DefaultTitle>{Resources.CHALLENGE_CREATION_GOAL_AREA}</DefaultTitle>
-                    </Grid>
+
+                      <Grid item>
+                        <DefaultTitle>{Resources.CHALLENGE_CREATION_GOAL_AREA}</DefaultTitle>
+                      </Grid>
+                      <Grid item>
+                        <DefaultTitle>
+                          <MenuIconButton size={'small'} onClick={() => setNewKpiOpen(true)} style={{marginTop: '-2px', color: '#555', fontSize: '18px' }}>
+                            <FontAwesomeIcon icon={faPlus} style={{color: "#00E58D"}}/>
+                          </MenuIconButton>
+                        </DefaultTitle>
+                      </Grid>
+
 
                   </Grid>
 

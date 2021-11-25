@@ -6,7 +6,7 @@ import {ProgressButton, ErrorText} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import _ from 'lodash'
 
-const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, challenge, images, isCreation, isDuplication, isUpdate, kpis, period, team, types, goalAdding, onGoalAdded, addGoal, teams, setConfigRewardOpen, rewardImages, rewardCategories, handleChangeParticipants, setParticipantsEditOpen, newParticipants, awardError, ...props}) => {
+const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, challenge, images, isCreation, isDuplication, isUpdate, kpis, period, team, types, goalAdding, onGoalAdded, addGoal, teams, setConfigRewardOpen, rewardImages, rewardCategories, handleChangeParticipants, setParticipantsEditOpen, newParticipants, awardError, setNewKpiOpen, ...props}) => {
     const id = challenge ? challenge.id : null
     const name = challenge ? challenge.name : null
     const description = challenge ? challenge.description : null
@@ -113,6 +113,7 @@ const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, chal
                            goalAdding={goalAdding}
                            onGoalAdded={onGoalAdded}
                            addGoal={addGoal}
+                           setNewKpiOpen={setNewKpiOpen}
                     />
                 </Grid>
                 <Grid item xs={12}>

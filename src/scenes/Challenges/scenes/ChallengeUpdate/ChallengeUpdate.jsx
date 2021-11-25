@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom'
 import { Grid } from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import {ChallengeForm, ChallengeRewardForm} from '../../components'
-import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Dialog, DialogTitle, DialogActions, ProgressButton, Button, TransferList} from '../../../../components'
+import {AppBarSubTitle, IconButton as MenuIconButton, Loader, MainLayoutComponent, Dialog, DialogTitle, DialogActions, ProgressButton, Button, TransferList, Select, TextField} from '../../../../components'
 import * as Resources from '../../../../Resources'
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions'
 import * as rewardImageListActions from '../../../../services/RewardImages/RewardImageList/actions'
@@ -24,6 +24,7 @@ import * as challengeUpdateActions from '../../../../services/Challanges/Challen
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
 import * as kpiListActions from '../../../../services/Kpis/KpiList/actions'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
+import * as kpiCreationActions from '../../../../services/Kpis/KpiCreation/actions'
 import _ from 'lodash'
 
 const styles = {
@@ -251,6 +252,19 @@ class ChallengeUpdate extends MainLayoutComponent {
       })
     }
 
+    setNewKpiOpen = (value) => {
+
+      this.setState({
+        ...this.state,
+        newKpiOpen: value
+      })
+    }
+
+    handleSubmitKpi = (model) => {
+      this.props.kpiCreationActions.createKpi(model)
+      this.setNewKpiOpen(false)
+    }
+
 
     renderData() {
         const {categories} = this.props.categoryList
@@ -275,9 +289,9 @@ class ChallengeUpdate extends MainLayoutComponent {
 
 
         const participants = currentType.code === 'CC' ?
-            _.get(this.state, 'newParticipants') || _.get(challenge, 'participants') :
-            (_.get(this.state, 'newParticipants') ?
-              _.flatten(getTeamByCollaboratorList(_.get(this.state, 'newParticipants').map(p => p.team.id)).map(team => team.collaborators)) :
+            _.get(this.state, 'newTempParticipants') || _.get(challenge, 'participants') :
+            (_.get(this.state, 'newTempParticipants') ?
+              _.flatten(getTeamByCollaboratorList(_.get(this.state, 'newTempParticipants').map(p => p.team.id)).map(team => team.collaborators)) :
               _.flatten(getTeamByCollaboratorList(_.get(challenge, 'participants').map(p => p.id)).map(team => team.collaborators)))
 
         const newParticipants = _.get(this.state, 'newParticipants') && (
@@ -286,6 +300,11 @@ class ChallengeUpdate extends MainLayoutComponent {
             _.flatten(getTeamByCollaboratorList(_.get(this.state, 'newParticipants').map(p => p.team.id)))
         )
 
+        const criticities = [
+          {order: 1, name: 'Basse'},
+          {order: 2, name: 'Moyenne'},
+          {order: 3, name: 'Haute'}
+        ]
 
         // const currentReward = _.isString(_.get(this.state, 'currentAward.reward.description')) ?
         //   _.get(this.state, 'currentAward.reward') :
@@ -316,8 +335,43 @@ class ChallengeUpdate extends MainLayoutComponent {
                         rewardCategories={rewardCategories}
                         newParticipants={newParticipants}
                         awardError={this.state.awardError}
+                        setNewKpiOpen={this.setNewKpiOpen}
                     />
                 </Formsy>
+
+                <Dialog
+                    open={this.state.newKpiOpen}
+                    onClose={() => this.setNewKpiOpen(false)}
+                    classes={{ paper: this.props.classes.kpiDialog }}
+                >
+                    <DialogTitle>Demande de création de KPI</DialogTitle>
+                    <Formsy onValidSubmit={this.handleSubmitKpi} >
+                      <Grid container direction="column" spacing={2} >
+                        <Grid item>
+                          <Grid container direction="row" spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='criticity' label={Resources.ADMIN_GOAL_CREATION_CRITICITY_LABEL} options={criticities} optionValueName='order' optionTextName='name' fullWidth required />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <Select name='category' label={Resources.ADMIN_GOAL_CREATION_CATEGORY_LABEL} options={categories} optionValueName='id' optionTextName='name' fullWidth />
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <TextField name='name' label={Resources.ADMIN_GOAL_CREATION_KPI_NAME_LABEL} fullWidth required />
+                        </Grid>
+                        <Grid item xs={12} sm={12}>
+                          <TextField name='description' label={Resources.ADMIN_GOAL_CREATION_DESCRIPTION_LABEL} fullWidth required multiline rows={4} variant="outlined"/>
+                        </Grid>
+                      </Grid>
+                      <Grid item>
+                        <DialogActions>
+                          <ProgressButton type='submit' text={Resources.ADMIN_GOAL_CREATION_SUBMIT_BUTTON} centered />
+                          <Button onClick={() => this.setNewKpiOpen(false)} color="secondary">Annuler</Button>
+                        </DialogActions>
+                      </Grid>
+                    </Formsy>
+                </Dialog>
                 <Dialog
                     open={this.state.configRewardOpen}
                     onClose={() => this.setConfigRewardOpen(false)}
@@ -437,7 +491,8 @@ const mapDispatchToProps = (dispatch) => ({
     teamListActions: bindActionCreators(teamListActions, dispatch),
     rewardImageListActions: bindActionCreators(rewardImageListActions, dispatch),
     rewardCategoryListActions: bindActionCreators(rewardCategoryListActions, dispatch),
-    rewardTypeListActions: bindActionCreators(rewardTypeListActions, dispatch)
+    rewardTypeListActions: bindActionCreators(rewardTypeListActions, dispatch),
+    kpiCreationActions: bindActionCreators(kpiCreationActions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ChallengeUpdate))
