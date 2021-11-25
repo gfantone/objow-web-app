@@ -93,11 +93,13 @@ class ChallengeDuplication extends MainLayoutComponent {
 
     componentWillReceiveProps(props) {
       const {challenge} = props.challengeDetail
+      const {teams} = props.teamList
 
-      if(challenge && (
+      if(challenge && teams && teams.length > 0 && (
         !this.state.initialized || _.get(this.state.finalModel, 'id') && _.get(this.state.finalModel, 'id') !== _.get(challenge, 'id')
       )) {
-        const finalModel = this.challengeToModel(challenge)
+
+        const finalModel = this.challengeToModel(challenge, teams)
         this.setState({
           ...this.state,
           initialized: true,
@@ -367,8 +369,9 @@ class ChallengeDuplication extends MainLayoutComponent {
       }
     }
 
-    challengeToModel = (challenge) => {
-      const {teams} = this.props.teamList
+    challengeToModel = (challenge, teams) => {
+      const participantIds = challenge.participants.map(p => p.id)
+
       const participants = challenge.type.code === "CT" ?
         _.flatten(teams.filter(team => challenge.participants.map(p => p.id).indexOf(team.id) >= 0).map(team => team.collaborators)) :
         challenge.participants
