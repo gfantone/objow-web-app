@@ -154,6 +154,11 @@ const TransferList = ({ listIn, selected, onChange, enableCollaboratorSelect, ..
       onChange(selectedList)
       setChoices(defaultChoices())
     }, [selectedList])
+
+    React.useEffect(() => {
+      setSelectedList(selected)
+    }, [selected])
+
     // console.log(selectedList);
     return (
       <Grid container direction="column" spacing={1}>

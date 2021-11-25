@@ -126,6 +126,7 @@ const ChallengeFormStepper = ({
         // fields = <Grid item xs={12}>
         // </Grid>
         // break;
+        console.log(participants);
         title = 'Sélection des participants'
         fields = <Grid item xs={12}>
           <Grid container direction='column' spacing={2}>
