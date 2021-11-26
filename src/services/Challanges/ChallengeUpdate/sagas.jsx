@@ -11,6 +11,7 @@ function* updateChallenge(action) {
         action.awards.map((award, index) => {
             award.challenge = action.challenge.id
             award.rank = index + 1
+            award.points = award.points === null ? 0 : award.points
             if(award.reward) {
               award.reward = Object.assign(
                 {},
