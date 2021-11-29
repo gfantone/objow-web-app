@@ -135,18 +135,20 @@ class ChallengeDuplication extends MainLayoutComponent {
     changeStep(model) {
       const currentStep = this.getCurrentStep()
       // Reset participants if we change goal type (team or individual)
+      let awards = []
+      if(model.award) {
+        for (var i = 0; i < model.award.length; i++) {
+          const rank = i + 1
+          awards.push({ rank: rank, points: model.award[i] })
+        }
+      }
+      const validAwards = currentStep.order !== 5 || (model.award || this.state.currentAwards && this.state.currentAwards.length > 0 && this.state.currentAwards[0].reward)
+
       const apply = () => {
         let goals = []
         if(model.kpi) {
           for (var i = 0; i < model.kpi.length; i++) {
             goals.push({ number: model.number[i], name: model.goalName[i], kpi: model.kpi[i], target: model.target[i], points: model.points[i] })
-          }
-        }
-        let awards = []
-        if(model.award) {
-          for (var i = 0; i < model.award.length; i++) {
-            const rank = i + 1
-            awards.push({ rank: rank, points: model.award[i] })
           }
         }
 
@@ -172,6 +174,7 @@ class ChallengeDuplication extends MainLayoutComponent {
             return step
           }),
           currentAwards: currentAwards,
+          awardError: !validAwards,
           finalModel: Object.assign(this.state.finalModel, model, {
             participants: this.state.participants,
             goals: model.kpi ? goals : this.state.finalModel.goals,
@@ -181,7 +184,8 @@ class ChallengeDuplication extends MainLayoutComponent {
       }
       const checkValidation = (
         (currentStep.order !== 1 || _.get(this.state.participants, 'length', 0) > 0) &&
-        (currentStep.order !== 2 || this.state.finalModel.awardType)
+        (currentStep.order !== 2 || this.state.finalModel.awardType) &&
+        (currentStep.order !== 5 || validAwards)
       )
       if(checkValidation) {
         // if(model.type && this.state.finalModel.type !== model.type) {
@@ -189,6 +193,11 @@ class ChallengeDuplication extends MainLayoutComponent {
         // } else {
           apply()
         // }
+      } else {
+        this.setState({
+          ...this.state,
+          awardError: !validAwards
+        })
       }
     }
 
@@ -458,7 +467,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         const currentAwards = _.get(currentRewardType, 'code') === 'G' ?
           this.state.currentAwards || this.state.finalModel.awards :
           this.state.finalModel.awards
-          
+
         const awards = _.get(currentRewardType, 'code') === 'G' ?
           // gift awards should have reward
           currentAwards.filter(award => !!award.reward) :
@@ -514,6 +523,7 @@ class ChallengeDuplication extends MainLayoutComponent {
                         teams={teams.filter(t => _.get(account, 'role.code') !== 'M' || _.get(account, 'team.id') === t.id )}
                         rewardImages={rewardImages}
                         rewardCategories={rewardCategories}
+                        awardError={this.state.awardError}
                     />
                 </Formsy>
                 <Dialog

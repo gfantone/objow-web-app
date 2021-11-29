@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Grid} from '@material-ui/core'
 import withWidth, {isWidthDown} from '@material-ui/core/withWidth'
 import {Awards, Goals, Infos, AwardType} from './components'
-import {ProgressButton, Select, TransferList, Card, BlueText, Switch, Tooltip, BigText} from '../../../../components'
+import {ProgressButton, Select, TransferList, Card, BlueText, Switch, Tooltip, BigText, ErrorText} from '../../../../components'
 import {faInfoCircle, faPlus} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import * as Resources from '../../../../Resources'
@@ -41,6 +41,7 @@ const ChallengeFormStepper = ({
     setConfigRewardOpen,
     rewardImages,
     rewardCategories,
+    awardError,
     ...props
   }) => {
     const id = challenge.id || null
@@ -253,6 +254,11 @@ const ChallengeFormStepper = ({
                 rewardImages={rewardImages}
                 rewardCategories={rewardCategories}
             />
+            {awardError && (
+              <ErrorText style={{textAlign: 'center'}}>
+                {Resources.CHALLENGE_UPDATE_AWARD_ERROR}
+              </ErrorText>
+            )}
         </Grid>
         break;
       // case 6:
