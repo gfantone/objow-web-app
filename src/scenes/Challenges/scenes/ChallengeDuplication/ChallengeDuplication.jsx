@@ -384,6 +384,7 @@ class ChallengeDuplication extends MainLayoutComponent {
         customImage: challenge.customImage,
         customImagePath: challenge.custom_image_path,
         awardType: _.get(challenge, 'award_type'),
+        rewardType: _.get(challenge, 'reward_type'),
         type: _.get(challenge, 'type.id'),
         live: _.get(challenge, 'live'),
         // start: _.get(challenge, 'start').toDate2(),
@@ -453,10 +454,15 @@ class ChallengeDuplication extends MainLayoutComponent {
 
 
         const currentRewardType = _.get(this.state, 'finalModel.rewardType') && rewardTypes.find(rewardType => rewardType.id === parseInt(this.state.finalModel.rewardType))
+
+        const currentAwards = _.get(currentRewardType, 'code') === 'G' ?
+          this.state.currentAwards || this.state.finalModel.awards :
+          this.state.finalModel.awards
+          
         const awards = _.get(currentRewardType, 'code') === 'G' ?
           // gift awards should have reward
-          this.state.currentAwards.filter(award => !!award.reward) :
-          this.state.finalModel.awards
+          currentAwards.filter(award => !!award.reward) :
+          currentAwards
 
         const criticities = [
           {order: 1, name: 'Basse'},
