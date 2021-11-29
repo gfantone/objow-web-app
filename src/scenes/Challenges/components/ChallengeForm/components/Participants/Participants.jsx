@@ -90,7 +90,7 @@ const Participants = ({participants, teams, setParticipantsEditOpen, classes, ..
                             ) : (
                               <React.Fragment>
                                 {participants.map(participant => (
-                                  <Grid item xs={12} sm={4}>
+                                  <Grid item xs={12} sm={6}>
                                     <TeamThumb team={teams.find(team => team.id === participant.id)}/>
                                   </Grid>
                                 ))}
