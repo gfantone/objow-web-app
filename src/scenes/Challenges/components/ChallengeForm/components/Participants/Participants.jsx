@@ -1,6 +1,6 @@
 import React from 'react'
-import {DefaultTitle, TeamThumb, Collaborator, IconButton as MenuIconButton} from '../../../../../../components'
-import {Card, Grid, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails} from '@material-ui/core'
+import {DefaultTitle, Team, Collaborator, IconButton as MenuIconButton, Card} from '../../../../../../components'
+import {Grid, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEdit} from '@fortawesome/free-solid-svg-icons'
@@ -12,14 +12,26 @@ const styles = {
     panel: {
         backgroundColor: 'initial',
         borderRadius: 'initial',
-        boxShadow: 'none'
+        boxShadow: 'none',
+        '& .MuiExpansionPanelSummary-content.Mui-expanded': {
+          margin: '12px 0'
+        }
     },
     panelSummary: {
-        padding: 'initial'
+        padding: 'initial',
+        position: 'relative',
+        '& .MuiButtonBase-root': {
+          position: 'absolute',
+          right: 10,
+          top: '50%',
+          marginTop: -15
+        }
     },
     panelDetails: {
         padding: 'initial',
-        paddingBottom: 24
+        paddingLeft: 20,
+        paddingBottom: 24,
+
     }
 }
 
@@ -29,13 +41,13 @@ const Participants = ({participants, teams, setParticipantsEditOpen, classes, ..
       participants.reduce(
         (acc, participant) => {
           if(!acc[participant.team.id]) {
-            acc[participant.team.id] = {participants: [], team: participant.team}
+            acc[participant.team.id] = {collaborators: [], team: participant.team}
           }
-          acc[participant.team.id].participants = [...acc[participant.team.id].participants, participant]
+          acc[participant.team.id].collaborators = [...acc[participant.team.id].collaborators, participant]
           return acc
         }
       , {}) : {}
-
+      console.log(participantsByTeam);
     return (
         <div>
             <Grid container spacing={1}>
@@ -59,22 +71,28 @@ const Participants = ({participants, teams, setParticipantsEditOpen, classes, ..
                         { participants && (
                           <React.Fragment>
                             {_.get(participants, '[0].fullname') ? (
-                              <React.Fragment>
+                              <Grid container spacing={2}>
                                 {
                                   Object.keys(participantsByTeam).map(teamKey => (
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} sm={6}>
                                       <ExpansionPanel className={classes.panel}>
                                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} className={classes.panelSummary}>
-                                          <DefaultTitle key={participantsByTeam[teamKey].team.id}>
-                                            {participantsByTeam[teamKey].team.name}
-                                          </DefaultTitle>
+                                          <Grid container>
+                                            <Grid item xs={12}>
+                                              <Card>
+                                                <Team
+                                                  team={Object.assign({}, participantsByTeam[teamKey].team, {collaborators: participantsByTeam[teamKey].collaborators})}
+                                                />
+                                              </Card>
+                                            </Grid>
+                                          </Grid>
                                         </ExpansionPanelSummary>
                                         <ExpansionPanelDetails className={classes.panelDetails}>
                                           <Grid container key={participantsByTeam[teamKey].team.id} spacing={2}>
-                                            {participantsByTeam[teamKey].participants.map(collaborator => {
+                                            {participantsByTeam[teamKey].collaborators.map(collaborator => {
                                               const collaboratorKey = `C${collaborator.id}`
                                               return (
-                                                <Grid item xs={12} sm={6} md={4} lg={3} key={collaboratorKey}>
+                                                <Grid item xs={12} key={collaboratorKey}>
                                                   <Collaborator key={collaboratorKey} collaborator={collaborator} />
                                                 </Grid>
                                               )
@@ -86,12 +104,14 @@ const Participants = ({participants, teams, setParticipantsEditOpen, classes, ..
                                     </Grid>
                                   ))
                                 }
-                              </React.Fragment>
+                              </Grid>
                             ) : (
                               <React.Fragment>
                                 {participants.map(participant => (
                                   <Grid item xs={12} sm={6}>
-                                    <TeamThumb team={teams.find(team => team.id === participant.id)}/>
+                                    <Card>
+                                      <Team team={teams.find(team => team.id === participant.id)}/>
+                                    </Card>
                                   </Grid>
                                 ))}
                               </React.Fragment>
