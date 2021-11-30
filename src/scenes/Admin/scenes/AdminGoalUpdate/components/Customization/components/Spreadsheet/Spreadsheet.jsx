@@ -245,6 +245,7 @@ class Spreadsheet extends Component {
         teams.forEach((team, teamIndex) => {
           data = [...data, []]
           if(goalsByTeam[team.id]) {
+            // goals.forEach((goal, periodIndex))
             goalsByTeam[team.id].forEach((playerGoalsByPeriod, periodIndex) => {
               const period = getPeriodByGoal(goals[periodIndex])
 
@@ -329,6 +330,7 @@ class Spreadsheet extends Component {
             })
           }
         });
+
         const validatedGrid = this.addValidationsToGrid([
           [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
           ..._.flatten(data)

@@ -536,13 +536,16 @@ class AdminGoalPointList extends MainLayoutComponent {
         const { teams } = this.props.teamList;
 
         const {usedCollaboratorPoints, currentCollaboratorPoints, usedTeamPoints, currentTeamPoints} = definitions.reduce((acc, definition) => {
-          if(definition.type.code === 'T') {
-            acc.usedTeamPoints += definition.usedPoints
-            acc.currentTeamPoints += definition.currentPoints
-          }
-          if(definition.type.code === 'C') {
-            acc.usedCollaboratorPoints += definition.usedPoints
-            acc.currentCollaboratorPoints += definition.currentPoints
+          if(definition.isActive === true) {
+
+            if(definition.type.code === 'T') {
+              acc.usedTeamPoints += definition.usedPoints
+              acc.currentTeamPoints += definition.currentPoints
+            }
+            if(definition.type.code === 'C') {
+              acc.usedCollaboratorPoints += definition.usedPoints
+              acc.currentCollaboratorPoints += definition.currentPoints
+            }
           }
           return acc
         }, {usedCollaboratorPoints: 0, currentCollaboratorPoints: 0, usedTeamPoints: 0, currentTeamPoints: 0})
