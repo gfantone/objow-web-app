@@ -223,11 +223,11 @@ class Spreadsheet extends Component {
       const { goals: teamPlayerGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalBulkList
       const now = new Date()
       const goalsByTeam = {}
+      const { team: teamId } = this.props;
       let team;
       let collaborators = []
 
       if(playerGoals && teamPlayerGoals && playerGoals.length > 0 && teamPlayerGoals.length > 0) {
-
         playerGoals.forEach((response) => {
           team = _.get(response, 'data[0].collaborator.team.id');
           collaborators =  [...collaborators, _.get(response, 'data').map(goal => goal.collaborator)]
@@ -242,15 +242,17 @@ class Spreadsheet extends Component {
 
         let data = []
         let bottomSeparatorClass = ''
-        teams.forEach((team, teamIndex) => {
+        const teamIndex = 0
+        // teams.forEach((team, teamIndex) => {
           data = [...data, []]
-          if(goalsByTeam[team.id]) {
+          // if(goalsByTeam[team.id]) {
             // goals.forEach((goal, periodIndex))
-            goalsByTeam[team.id].forEach((playerGoalsByPeriod, periodIndex) => {
+            playerGoals.forEach((playerGoalsByPeriod, periodIndex) => {
+
               const period = getPeriodByGoal(goals[periodIndex])
 
               collaborators.forEach((collaborator, collaboratorIndex) => {
-                const playerGoalByPeriod = playerGoalsByPeriod.find(g => g.collaborator.id === collaborator.id)
+                const playerGoalByPeriod = playerGoalsByPeriod.data.find(g => g.collaborator.id === collaborator.id)
                 if(data[teamIndex].length < collaboratorIndex + 1) {
                   data[teamIndex] = [...data[teamIndex], [{
                     value: _.get(collaborator, 'fullname'),
@@ -258,10 +260,11 @@ class Spreadsheet extends Component {
                     className: 'firstCell collaboratorCell baseCell'
                   }]]
                 }
-                bottomSeparatorClass = collaboratorIndex >= playerGoalsByPeriod.length - 1 ? 'bottomSeparator' : ''
+                bottomSeparatorClass = collaboratorIndex >= playerGoalsByPeriod.data.length - 1 ? 'bottomSeparator' : ''
                 const goal = goals[periodIndex]
-                const playerGoal = goalsByTeam[team.id][periodIndex][collaboratorIndex]
-                const editable = playerGoal && (
+
+                const playerGoal = playerGoalByPeriod
+                const editable = playerGoal !== undefined && (
                   (
                     (
                       goal.start.toDate() <= now && now <= goal.end.toDate()
@@ -269,17 +272,19 @@ class Spreadsheet extends Component {
                   ) || (definition.past_editable && account.role.code === 'A'))
 
                 data[teamIndex][collaboratorIndex] = [...data[teamIndex][collaboratorIndex], {
-                  value: playerGoal ? playerGoal.target : '',
+                  value: playerGoal !== undefined ? playerGoal.target : '',
                   className: `dataCell baseCell ${bottomSeparatorClass} ${!playerGoal ? 'empty' : ''} period-${definition.periodicity.code}`,
                   period: period.name,
                   readOnly: !editable || !definition.isActive,
                   type: 'playerGoal',
-                  id: playerGoal ? goalsByTeam[team.id][periodIndex][collaboratorIndex].id : ''
+                  id: playerGoal !== undefined ? playerGoal.id : ''
                 }]
 
               })
 
               const lineNumber = collaborators.length
+
+              const teamPlayerGoal = teamPlayerGoals[periodIndex].data.find(g => _.get(g, 'team.id') === parseInt(teamId))
               // Total by team
               data[teamIndex][lineNumber] = data[teamIndex][lineNumber] || [{
                 value: `Objectif alloué`,
@@ -291,12 +296,12 @@ class Spreadsheet extends Component {
                 type: 'availableTarget',
                 period: period.name,
                 readOnly: true,
-                value: _.get(teamPlayerGoals[periodIndex].data[teamIndex], 'target'),
+                value: _.get(teamPlayerGoal, 'target'),
                 className: 'baseCell footerCell topSeparator'
               }]
               const usedTarget = _.get(definition, 'kpi.unit.isRate', false) ?
-                Math.ceil(playerGoalsByPeriod.reduce((acc, goal) => acc + goal.target, 0) / playerGoalsByPeriod.length) :
-                playerGoalsByPeriod.reduce((acc, goal) => acc + goal.target, 0)
+                Math.ceil(playerGoalsByPeriod.data.reduce((acc, goal) => acc + goal.target, 0) / playerGoalsByPeriod.data.length) :
+                playerGoalsByPeriod.data.reduce((acc, goal) => acc + goal.target, 0)
 
               // Used by team
               data[teamIndex][lineNumber + 1] = data[teamIndex][lineNumber + 1] || [{
@@ -304,9 +309,8 @@ class Spreadsheet extends Component {
                 readOnly: true,
                 className: 'firstCell baseCell totalCell footerCell'
               }]
-
               data[teamIndex][lineNumber + 1] = [...data[teamIndex][lineNumber + 1], {
-                value: usedTarget,
+                value: parseInt(usedTarget),
                 type: 'usedTarget',
                 period: period.name,
                 readOnly: true,
@@ -321,15 +325,15 @@ class Spreadsheet extends Component {
               }]
 
               data[teamIndex][lineNumber + 2] = [...data[teamIndex][lineNumber + 2], {
-                value: _.get(teamPlayerGoals[periodIndex].data[teamIndex], 'target') - usedTarget,
+                value: _.get(teamPlayerGoal, 'target') - usedTarget,
                 readOnly: true,
                 type: 'remainingTarget',
                 period: period.name,
                 className: 'baseCell footerCell'
               }]
             })
-          }
-        });
+          // }
+        // });
 
         const validatedGrid = this.addValidationsToGrid([
           [{ value: '', readOnly: true, className: 'firstCell baseCell firstLine' }, ...goals.map(goal => ({value: getPeriodByGoal(goal).name, readOnly: true, className: 'dataCell baseCell firstLine'}) )],
@@ -523,8 +527,8 @@ class Spreadsheet extends Component {
         const periodDataCells = _.flatten(grid).filter(cell => cell.period === period.name)
         const playersDataList = periodDataCells.filter(cell => cell.type === 'playerGoal')
         const playersData = _.get(definition, 'kpi.unit.isRate', false) ?
-          Math.ceil(playersDataList.reduce((acc, cell) => cell.value + acc, 0) / playersDataList.length) :
-          playersDataList.reduce((acc, cell) => cell.value + acc, 0)
+          Math.ceil(playersDataList.reduce((acc, cell) => (parseInt(cell.value) || 0) + acc, 0) / playersDataList.length) :
+          playersDataList.reduce((acc, cell) => (parseInt(cell.value) || 0) + acc, 0)
 
         const available = _.get(periodDataCells.find(cell => cell.type === 'availableTarget'), 'value')
         const used = periodDataCells.find(cell => cell.type === 'usedTarget')
