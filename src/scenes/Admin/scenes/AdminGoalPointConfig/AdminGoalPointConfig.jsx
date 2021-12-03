@@ -153,36 +153,46 @@ class AdminGoalPointConfig extends MainLayoutComponent {
     }
 
     periodsByDefinition = (definition) => {
-      const now = new Date()
+      const { period: currentPeriod } = this.props.currentPeriodDetail;
+      const year = _.get(currentPeriod, 'name')
+      let now = new Date()
+
       const endOfYear = new Date(now.getFullYear(), 11, 31);
 
+      let result = {}
       if(definition.periodicity.code === 'Y'){
-        return {
+        result = {
           total: 1,
           remaining: 1
         }
       } else if(definition.periodicity.code === 'S') {
-        return {
+        result = {
           total: endOfYear.getSemesterNumber(),
           remaining: endOfYear.getSemesterNumber() - now.getSemesterNumber() + 1
         }
       } else if(definition.periodicity.code === 'Q') {
-        return {
+        result = {
           total: endOfYear.getQuarterNumber(),
           remaining: endOfYear.getQuarterNumber() - now.getQuarterNumber() + 1
         }
       } else if(definition.periodicity.code === 'M') {
-        return {
+        result = {
           total: endOfYear.getMonth() + 1,
           remaining: endOfYear.getMonth() - now.getMonth() + 1
         }
       } else if(definition.periodicity.code === 'W') {
-        return {
+        result = {
           total: endOfYear.getWeekNumber(),
           remaining: endOfYear.getWeekNumber() - now.getWeekNumber() + 1
         }
       }
+      // handle other years config
+      if(year && now.getFullYear() !== parseInt(year)) {
+        result.remaining = result.total
+      }
+      return result
     }
+
 
     renderData() {
         const { classes } = this.props
@@ -224,7 +234,6 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         }
         dataByPlayer['usablePoints'] = usablePoints - dataByPlayer.currentPoints - definition.usedPoints
         const maxByLevel = parseInt((usablePoints - definition.usedPoints) / periods.remaining)
-
         return (
             <Formsy ref='form' onValidSubmit={this.handleSubmit.bind(this)}>
               {

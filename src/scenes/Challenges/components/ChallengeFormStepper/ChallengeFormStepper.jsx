@@ -325,7 +325,7 @@ const ChallengeFormStepper = ({
                       }
                       { isLastStep &&
                         <Grid item>
-                          <ProgressButton text="Valider" centered />
+                          <ProgressButton text="Valider" loading={actionLoading} centered />
                         </Grid>
                       }
                     </Grid>
