@@ -5,7 +5,7 @@ let GoalDefinitionList = (state = initialState.goalDefinition, action) => {
     switch (action.type) {
         case types.GET_GOAL_DEFINITION:
             return {...state, definition: null, loading: true, hasError: false}
-            
+
         case types.GET_GOAL_DEFINITION_SUCCESS:
             return {...state, definition: action.definition, loading: false, hasError: false}
 

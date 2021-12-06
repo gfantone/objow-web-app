@@ -134,11 +134,12 @@ class AdminGoalPointConfig extends MainLayoutComponent {
     componentWillReceiveProps(props) {
         const { levels } = props.goalDefinitionLevelList;
         const { definition, loading: definitionLoading } = this.props.goalDefinitionDetail;
-        if (!this.initialized && levels && !definitionLoading) {
-            if(definition && !definitionLoading) {
-              this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList(definition.id)
-            }
 
+        if(!this.initialized && definition) {
+          this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList(definition.id)
+        }
+
+        if (!this.initialized && levels) {
             this.setState({
                 ...this.state,
                 levels: levels
@@ -232,7 +233,6 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         // )
 
         const usablePoints = repartition ? Number((repartition.points * baseGoalPoints / 100).toFixed(2)) : 0
-
 
         const dataByPlayer = {
           currentPoints: globalMode ? definition.currentPoints : usedPoints * periods.remaining
