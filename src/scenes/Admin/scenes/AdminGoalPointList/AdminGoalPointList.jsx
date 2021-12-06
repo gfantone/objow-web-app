@@ -866,7 +866,6 @@ class AdminGoalPointList extends MainLayoutComponent {
                                         if(mode.code !== 'G') {
                                           importance_percent = repartition && repartition.points
 
-
                                           // Page filtered on team and current repartition is individual
                                           if(this.team && !this.collaborator && mode.code === 'I') {
                                             const individualPoints = pointRepartitions
@@ -882,13 +881,13 @@ class AdminGoalPointList extends MainLayoutComponent {
                                           if(this.collaborator && mode.code === 'T') {
                                             importance_percent = _.get(pointRepartitions
                                               .find(pointRepartition => pointRepartition.definition === definition.id && currentCollaborator && currentCollaborator.team.id === pointRepartition.team), 'points', 0)
-                                            }
+                                          }
 
-                                            importance_percent = newRepartition && newRepartition.importance_percent || importance_percent
-                                            repartitionPoints = (maxPoints * importance_percent / 100)
+                                          importance_percent = newRepartition && newRepartition.importance_percent || importance_percent
+                                          repartitionPoints = (maxPoints * importance_percent / 100)
 
-                                            // repartition points should not be under used points
-                                            if(mode.code === 'T' && repartitionPoints < definition.usedPoints) {
+                                          // repartition points should not be under used points
+                                          if(mode.code !== 'G' && repartitionPoints < definition.usedPoints) {
                                               allRepartitionsValid = false
                                             }
                                           }

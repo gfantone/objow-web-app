@@ -206,6 +206,7 @@ class Base extends Component {
             Resources[`ADMIN_GOAL_CREATION_REPARTITION_GLOBAL${ definition.type.code === 'C' ? '' : '_TEAM' }`].format(explanationPeriods[definition.periodicity.code])
             : Resources[`ADMIN_GOAL_CREATION_REPARTITION_INDIVIDUAL${ definition.type.code === 'C' ? '' : '_TEAM' }`].format(explanationPeriods[definition.periodicity.code])
         )
+        console.log(definition.kpi);
         return (
             <div>
                 <Formsy onValidSubmit={this.handleSubmit.bind(this)}>
@@ -268,7 +269,7 @@ class Base extends Component {
                                     <InfoText>{Resources.ADMIN_GOAL_CREATION_KPI_FORMAT_LABEL}</InfoText>
                                     {
                                       definition.kpi && <DefaultText style={{minHeight: 19}}>
-                                      { definition.kpi, 'manual' ? 'Manuel' : 'Automatique' }
+                                      { _.get(definition.kpi, 'manual') ? 'Manuel' : 'Automatique' }
                                     </DefaultText>
                                   }
                                 </Grid>

@@ -16,6 +16,7 @@ import * as goalDefinitionLevelListUpdateActions from '../../../../services/Goal
 import * as goalDefinitionPointRepartitionListActions from '../../../../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionList/actions'
 import * as goalDefinitionPointRepartitionModeListActions from '../../../../services/GoalDefinitionPointRepartitionModes/GoalDefinitionPointRepartitionModeList/actions'
 import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions'
+import * as periodListActions from '../../../../services/Periods/PeriodList/actions'
 import * as teamListActions from '../../../../services/Teams/TeamList/actions'
 import { withStyles } from '@material-ui/core/styles'
 import './helpers/GoalDefinitionLevelFormsyHelper'
@@ -125,6 +126,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         this.props.handleTitle('Administration');
         this.props.handleSubHeader(<SubHeader />);
         // this.props.handleButtons(<IconButton onClick={this.handleAdd.bind(this)} size='small'><FontAwesomeIcon icon={faPlus} /></IconButton>);
+        this.props.periodListActions.getPeriodList()
         this.props.configListActions.getConfigList(this.props.match.params.periodId)
         this.loadData()
     }
@@ -153,7 +155,9 @@ class AdminGoalPointConfig extends MainLayoutComponent {
     }
 
     periodsByDefinition = (definition) => {
-      const { period: currentPeriod } = this.props.currentPeriodDetail;
+      // const { period: currentPeriod } = this.props.currentPeriodDetail;
+      const { periods, loading: periodsLoading } = this.props.periodList;
+      const currentPeriod = periods.find(period => period.id === parseInt(this.props.match.params.periodId))
       const year = _.get(currentPeriod, 'name')
       let now = new Date()
 
@@ -186,6 +190,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
           remaining: endOfYear.getWeekNumber() - now.getWeekNumber() + 1
         }
       }
+
       // handle other years config
       if(year && now.getFullYear() !== parseInt(year)) {
         result.remaining = result.total
@@ -477,8 +482,9 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const { teams, loading: teamsLoading } = this.props.teamList;
         const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
         const { modes: repartitionModes, loading: goalDefinitionPointRepartitionModesLoading  } = this.props.goalDefinitionPointRepartitionModeList
+        const { periods, loading: periodsLoading } = this.props.periodList;
 
-        const loading = configListLoading || goalDefinitionDetailLoading || goalDefinitionLevelListLoading || goalDefinitionPointRepartitionLoading || goalDefinitionPointRepartitionModesLoading || !this.initialized;
+        const loading = configListLoading || goalDefinitionDetailLoading || goalDefinitionLevelListLoading || goalDefinitionPointRepartitionLoading || goalDefinitionPointRepartitionModesLoading || periodsLoading || !this.initialized;
 
         const { success } = this.props.goalDefinitionLevelListUpdate;
 
@@ -489,13 +495,13 @@ class AdminGoalPointConfig extends MainLayoutComponent {
 
         return (
             <div>
-                { !loading && configs && definition && levels && teams && pointRepartitions && repartitionModes && this.renderData() }
+                { !loading && configs && definition && levels && teams && pointRepartitions && repartitionModes && periods && this.renderData() }
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ currentPeriodDetail, configList, goalDefinitionDetail, goalDefinitionLevelList, goalDefinitionLevelListUpdate, goalDefinitionPointRepartitionList, goalDefinitionPointRepartitionModeList, teamList}) => ({
+const mapStateToProps = ({ currentPeriodDetail, configList, goalDefinitionDetail, goalDefinitionLevelList, goalDefinitionLevelListUpdate, goalDefinitionPointRepartitionList, goalDefinitionPointRepartitionModeList, teamList, periodList}) => ({
     configList,
     goalDefinitionDetail,
     goalDefinitionLevelList,
@@ -503,7 +509,8 @@ const mapStateToProps = ({ currentPeriodDetail, configList, goalDefinitionDetail
     goalDefinitionPointRepartitionList,
     goalDefinitionPointRepartitionModeList,
     teamList,
-    currentPeriodDetail
+    currentPeriodDetail,
+    periodList
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -515,6 +522,7 @@ const mapDispatchToProps = (dispatch) => ({
     goalDefinitionPointRepartitionListActions: bindActionCreators(goalDefinitionPointRepartitionListActions, dispatch),
     goalDefinitionPointRepartitionModeListActions: bindActionCreators(goalDefinitionPointRepartitionModeListActions, dispatch),
     currentPeriodDetailActions: bindActionCreators(currentPeriodDetailActions, dispatch),
+    periodListActions: bindActionCreators(periodListActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AdminGoalPointConfig))
