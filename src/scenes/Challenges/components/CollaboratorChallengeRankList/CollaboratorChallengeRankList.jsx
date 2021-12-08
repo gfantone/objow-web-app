@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortAmountDown, faRandom } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
-import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, FullTableCell, Avatar } from '../../../../components'
+import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, TableRowDisabled, FullTableCell, Avatar } from '../../../../components'
 import * as Resources from '../../../../Resources'
 
 const styles = {
@@ -39,8 +39,9 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
                         const selected = rank.collaborator ? rank.collaborator.id == collaboratorId : false
                         const color = !selected ? 'default' : 'primary'
                         const teamColor = _.get(rank, 'collaborator.team.color.hex')
+                        const TableRowComponent = rank.race_position ? TableRowDisabled : TableRow
                         return (
-                            <TableRow key={rank.id}>
+                            <TableRowComponent key={rank.id}>
                                 <FullTableCell style={{backgroundColor: teamColor, width: 4}} />
                                 <TableCell>
                                     <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
@@ -53,7 +54,7 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
                                 <TableCell>
                                     <RankEvolution evolution={rank.evolution} />
                                 </TableCell>
-                            </TableRow>
+                            </TableRowComponent>
                         )
                     }) }
                 </TableBody>

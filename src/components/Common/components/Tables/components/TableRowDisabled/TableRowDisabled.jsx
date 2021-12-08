@@ -3,6 +3,7 @@ import {withStyles} from '@material-ui/core/styles'
 
 const styles = {
     root: {
+        background: '#ccc',
         '& > td, & > th': {
             padding: 8
         },

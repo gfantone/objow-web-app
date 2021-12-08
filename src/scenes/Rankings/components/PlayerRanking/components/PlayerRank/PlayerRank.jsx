@@ -1,6 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import {FixedTableCell, FlexibleTableCell, FullTableCell, RankEvolution, TableCell, TableChip, TableRow, Avatar} from '../../../../../../components'
+import {FixedTableCell, FlexibleTableCell, FullTableCell, RankEvolution, TableCell, TableChip, TableRow, TableRowDisabled, Avatar} from '../../../../../../components'
 import _ from 'lodash'
 
 const styles = {
@@ -10,16 +10,17 @@ const styles = {
     }
 };
 
-const PlayerRank = ({rank, selected, ...props}) => {
+const PlayerRank = ({rank, selected, raceFinisher, ...props}) => {
     const { classes } = props;
     const photo = rank.photo ? rank.photo : '/assets/img/user/avatar.svg';
     const color = !selected ? 'default' : 'primary'
+    const TableRowComponent = raceFinisher ? TableRowDisabled : TableRow
     const teamColor = rank.color ? rank.color : '#fff'
-
+    console.log('raceFinisher');
     return (
-        <TableRow>
+        <TableRowComponent>
             {<FullTableCell style={{backgroundColor: teamColor || 'white', width: 4}} />}
-            <TableCell>
+            <TableCell style={{backgroundColor: 'red'}}>
                 <TableChip size='small' color={color} label={rank.rank ? rank.rank : '-'} />
             </TableCell>
             <FixedTableCell>
@@ -40,7 +41,7 @@ const PlayerRank = ({rank, selected, ...props}) => {
             <TableCell align='right'>
                 <RankEvolution evolution={rank.evolution} />
             </TableCell>
-        </TableRow>
+        </TableRowComponent>
     )
 };
 

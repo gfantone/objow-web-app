@@ -1,7 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRandom, faSortAmountDown } from '@fortawesome/free-solid-svg-icons'
-import { FullTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow } from '../../../../components'
+import { FullTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, TableRowDisabled } from '../../../../components'
 import * as Resources from '../../../../Resources'
 
 const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
@@ -24,9 +24,9 @@ const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
                     { ranks.map(rank => {
                         const selected = rank.team ? rank.team.id == teamId : false
                         const color = !selected ? 'default' : 'primary'
-
+                        const TableRowComponent = rank.race_position ? TableRowDisabled : TableRow
                         return (
-                            <TableRow>
+                            <TableRowComponent>
                                 <FullTableCell style={{backgroundColor: rank.team.color.hex, width: 4}} />
                                 <TableCell>
                                     <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
@@ -36,7 +36,7 @@ const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
                                 <TableCell>
                                     <RankEvolution evolution={rank.evolution} />
                                 </TableCell>
-                            </TableRow>
+                            </TableRowComponent>
                         )
                     }) }
                 </TableBody>
