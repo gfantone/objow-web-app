@@ -39,7 +39,8 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     const icons = {
       'R': require(`../../../../../../assets/img/system/challenge/icons/Ribbons.png`),
       'M': require(`../../../../../../assets/img/system/challenge/icons/Rocket.png`),
-      'P': require(`../../../../../../assets/img/system/challenge/icons/Levels.png`)
+      'P': require(`../../../../../../assets/img/system/challenge/icons/Levels.png`),
+      'C': require(`../../../../../../assets/img/system/challenge/icons/race.png`)
     }
 
     useEffect(() => {
@@ -156,6 +157,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 const labels = {
                                   'M': (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_MAX_POINT_LABEL : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_MAX_POINT_LABEL),
                                   'R': (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_POINT_LABEL.format(number) : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_POINT_LABEL.format(number)),
+                                  'C': (challengeTypeCode === 'CT' ? Resources.CHALLENGE_AWARD_LIST_TEAM_POINT_LABEL.format(number) : Resources.CHALLENGE_AWARD_LIST_COLLABORATOR_POINT_LABEL.format(number)),
                                   'P': Resources.CHALLENGE_AWARD_STEP_POINT_LABEL.format(number)
                                 }
                                 const label = labels[currentType.code]

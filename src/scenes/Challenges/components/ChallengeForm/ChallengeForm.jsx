@@ -114,6 +114,7 @@ const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, chal
                            onGoalAdded={onGoalAdded}
                            addGoal={addGoal}
                            setNewKpiOpen={setNewKpiOpen}
+                           awardType={currentAwardType}
                     />
                 </Grid>
                 <Grid item xs={12}>

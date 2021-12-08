@@ -113,7 +113,6 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
     }
 
     const renderStepAwards = () => {
-        console.log('render step');
         return (
               <Table backgroundDisabled>
                 <TableBody>
@@ -405,7 +404,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                     <BigText>
                                       Mode {challenge.awardName}
                                       {challenge.awardCode === 'P' && (
-                                        
+
                                         <span style={{marginLeft: 5, lineHeight: 1, verticalAlign: 'middle'}}>
                                           <Tooltip title={Resources.CHALLENGE_STEP_MODE_INFORMATION} placement={'right'}>
                                             <BlueText style={{ width: 'fit-content' }} component={'span'}>
@@ -449,6 +448,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                           <Card>
                             { challenge.awardCode == 'M' && renderMaximumAward() }
                             { challenge.awardCode == 'R' && renderRankingAwards() }
+                            { challenge.awardCode == 'C' && renderRankingAwards() }
                             { challenge.awardCode == 'P' && renderStepAwards() }
                           </Card>
                         ) }

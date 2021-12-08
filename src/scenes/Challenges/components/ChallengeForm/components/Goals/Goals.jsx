@@ -7,7 +7,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import * as Resources from '../../../../../../Resources'
 import {uuidv4} from "../../../../../../helpers/UUIDHelper"
 
-const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, addGoal, setNewKpiOpen, ...props}) => {
+const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, addGoal, setNewKpiOpen, awardType, ...props}) => {
     const [currentGoals, setCurrentGoals] = React.useState(goals ? goals.map(x => ({key: uuidv4(), category: x.kpi.category ? x.kpi.category.id : null, kpi: x.kpi.id, goalName: x.name, target: x.target, points: x.points})) : [{key: uuidv4(), category: null, kpi: null, goalName: null, target: null, points: null}])
     const deletionDisabled = currentGoals.length === 1
 
@@ -56,6 +56,7 @@ const Goals = ({categories, goals, kpis, goalAdding, onGoalAdded, addGoal, setNe
                                 index={index}
                                 kpis={kpis}
                                 onRemoveClick={() => handleRemoveGoalClick(goal.key)}
+                                awardType={awardType}
                             />
                         })}
                         <Grid item xs={12} sm={6}>

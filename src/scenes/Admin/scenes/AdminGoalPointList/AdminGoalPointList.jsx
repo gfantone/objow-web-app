@@ -888,9 +888,9 @@ class AdminGoalPointList extends MainLayoutComponent {
 
                                           // repartition points should not be under used points
                                           if(mode.code !== 'G' && repartitionPoints < definition.usedPoints) {
-                                              allRepartitionsValid = false
-                                            }
+                                            allRepartitionsValid = false
                                           }
+                                        }
 
 
 

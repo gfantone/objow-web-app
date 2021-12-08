@@ -89,8 +89,6 @@ const ChallengeFormStepper = ({
         order: 4,
         icon: require(`../../../../assets/img/system/challenge/icons/race.png`),
         availableReward: ['gift', 'points'],
-        soon: true,
-        disabled: true
       }
     }
 
@@ -122,6 +120,7 @@ const ChallengeFormStepper = ({
     const isMaxAward = parseInt(awardType) === maxAwardType
     let fields
     let title
+    const currentAwardType = awardTypes.find(at => at.id === parseInt(awardType))
     switch(currentStep.order){
       case 1:
         title = 'Sélection des participants'
@@ -205,6 +204,7 @@ const ChallengeFormStepper = ({
         // fields = <Grid item xs={12}>
         // </Grid>
         // break;
+
         title = 'Configuration des indicateurs et des mécanismes du challenge'
         fields = <Grid item xs={12}>
           <Goals categories={categories}
@@ -219,6 +219,7 @@ const ChallengeFormStepper = ({
             handleAddGoal={handleAddGoal}
             end={end}
             setNewKpiOpen={setNewKpiOpen}
+            awardType={currentAwardType}
           />
         </Grid>
         break;
@@ -228,7 +229,7 @@ const ChallengeFormStepper = ({
         // break;
         // console.log(awardType);
         title = 'Sélection des récompenses'
-        const currentAwardType = awardTypes.find(at => at.id === parseInt(awardType))
+
         const availableRewardTypes = rewardTypes.filter(rt =>
           typesData[currentAwardType.code].availableReward.indexOf(rt.code === 'G' ? 'gift' : 'points') >= 0
         )

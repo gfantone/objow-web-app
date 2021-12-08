@@ -9,7 +9,7 @@ import {BlueText, Card, DefaultText, DefaultTitle, HiddenInput, InfoText, TextFi
 import * as Resources from '../../../../../../../../Resources'
 import _ from 'lodash'
 
-const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemoveClick, classes, setNewKpiOpen, ...props}) => {
+const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemoveClick, classes, setNewKpiOpen, awardType, ...props}) => {
     const [category, setCategory] = React.useState(goal ? goal.category : null)
     const displayKpis = category ? kpis.filter(x => x.category && x.category.id == category) : kpis
     const [goalName, setGoalName] = React.useState(goal ? goal.goalName : null)
@@ -31,6 +31,8 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
         setGoalName(kpiObject.name)
         setKpi(Number(newKpi))
     }
+
+    const raceMode = _.get(awardType, 'code') === 'C'
 
     return (
         <Grid key={goal.key} item xs={12} sm={6}>
@@ -136,14 +138,26 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                                   </BlueText>
                                 </Tooltip>
                               </Grid>
-                              <Grid item>
-                                <DefaultText>
-                                  <FontAwesomeIcon icon={faEquals} />
-                                </DefaultText>
-                              </Grid>
+                              { !raceMode && (
+
+                                <Grid item>
+                                  <DefaultText>
+                                    <FontAwesomeIcon icon={faEquals} />
+                                  </DefaultText>
+                                </Grid>
+                              )}
                             </Grid>
                           </Grid>
-                          <Grid item xs>
+                          { raceMode && (
+                            <Grid item xs>
+                              <HiddenInput
+                                name={`points[${index}]`}
+                                value={1}
+                                />
+                            </Grid>
+                          )}
+                          { !raceMode && (
+                            <Grid item xs>
                               <TextField
                                 name={`points[${index}]`}
                                 label={Resources.CHALLENGE_CREATION_GOAL_POINTS_LABEL2}
@@ -152,11 +166,12 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                                 initial={goal ? goal.points : null}
                                 validations='isInt'
                                 validationErrors={{
-                                    isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                    isInt: Resources.COMMON_IS_INT_ERROR
+                                  isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                  isInt: Resources.COMMON_IS_INT_ERROR
                                 }}
-                              />
-                          </Grid>
+                                />
+                            </Grid>
+                          )}
                       </Grid>
 
                     </Grid>
