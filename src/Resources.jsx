@@ -238,7 +238,7 @@ export const COLLABORATOR_CHALLENGE_LIST_EMPTY_STATE_MESSAGE = "Si vous avez app
 // Challenge - Condition
 export const CHALLENGE_CONDITION_CONDITION_AREA = "Indicateurs"
 export const CHALLENGE_CONDITION_GOAL_INFO = "La condition fixée ici peut être atteinte plusieurs fois. Chaque fois que celle-ci est atteinte elle rapporte le nombre de points associés"
-export const CHALLENGE_RACE_CONDITION_GOAL_INFO = "Chaque condition doit être atteinte au moins une fois pour être validée"
+export const CHALLENGE_RACE_CONDITION_GOAL_INFO = "Si l'objectif est atteint, il rapporte 1 point de score"
 export const CHALLENGE_CONDITION_POINT_TARGET = "{0} PTS"
 export const CHALLENGE_CONDITION_POINT_COUNTER = "{0} PTS"
 export const CHALLENGE_CONDITION_DESCRIPTION_AREA = "Description"

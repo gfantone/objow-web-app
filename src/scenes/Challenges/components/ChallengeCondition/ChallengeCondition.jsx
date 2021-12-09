@@ -4,7 +4,7 @@ import {withStyles} from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAngleRight, faBalanceScale, faCalendarAlt, faEquals, faInfoCircle, faUser, faUsers} from '@fortawesome/free-solid-svg-icons'
 import {faStar} from '@fortawesome/free-regular-svg-icons'
-import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText, Linkify, Dialog, BigText} from '../../../../components'
+import {AccentTag, AccentText, AnimationController, BlueTag, BlueText, Card, DefaultText, DefaultTitle, InfoText, Table, TableBody, TableCell, TableChip, TableRow, Tooltip, RichText, Linkify, Dialog, BigText, ProgressBar} from '../../../../components'
 import {ChallengeReward, ChallengeRewardDetail, ChallengeRewardCard} from '../'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/StringHelper'
@@ -252,6 +252,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                     <Table backgroundDisabled>
                                         <TableBody>
                                             { goals.map(goal => {
+                                                const progression = Math.round((goal.counter / goal.target) * 100)
                                                 return (
                                                     <TableRow>
                                                         <TableCell>
@@ -261,6 +262,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                 </Grid>
                                                                 <Grid item xs>
                                                                     <div>
+
                                                                         <Grid container spacing={1}>
                                                                             <Grid item xs={12}>
                                                                                 <div>
@@ -283,9 +285,29 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                     </Grid>
                                                                                 </div>
                                                                             </Grid>
-                                                                            <Grid item xs={12}>
+                                                                            {challenge.awardCode === 'C' && (
+                                                                              <Grid item xs={12} style={{marginTop: 10, marginBottom: 10}}>
+                                                                                <Grid container>
+                                                                                  <Grid item>
+                                                                                    <DefaultText>
+                                                                                      {Resources.GOAL_COUNTER_TEXT.format(goal.counter)} <InfoText component='span'>{Resources.GOAL_TARGET_TEXT.format(goal.target)}</InfoText>
+                                                                                    </DefaultText>
+                                                                                  </Grid>
+                                                                                  <Grid item xs>
+                                                                                    <AccentText align='right'>{Resources.GOAL_PROGRESSION_TEXT.format(progression)}</AccentText>
+                                                                                  </Grid>
+                                                                                </Grid>
+                                                                                <Grid container>
+                                                                                  <Grid item xs>
+                                                                                    <ProgressBar value={progression} />
+                                                                                  </Grid>
+                                                                                </Grid>
+                                                                              </Grid>
+                                                                            )}
+                                                                            {challenge.awardCode !== 'C' && (
+                                                                              <Grid item xs={12}>
                                                                                 <div>
-                                                                                  <table >
+                                                                                  <table>
                                                                                     <tbody>
                                                                                       <tr>
                                                                                         <td style={{padding: 0, width: '30%'}}>
@@ -298,7 +320,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                               <Grid item>
                                                                                                   <DefaultText>{goal.target}</DefaultText>
                                                                                               </Grid>
-                                                                                              { challenge.awardCode !== 'C' && (
+
                                                                                                 <React.Fragment>
                                                                                                   <Grid item>
                                                                                                     <DefaultText>
@@ -309,7 +331,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                                     <BlueTag>{Resources.CHALLENGE_CONDITION_POINT_TARGET.format(goal.targetPoints)}</BlueTag>
                                                                                                   </Grid>
                                                                                                 </React.Fragment>
-                                                                                              )}
+
                                                                                           </Grid>
                                                                                         </td>
                                                                                       </tr>
@@ -324,7 +346,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                               <Grid item>
                                                                                                   <AccentText>{goal.counter}</AccentText>
                                                                                               </Grid>
-                                                                                              { challenge.awardCode !== 'C' && (
+
                                                                                                 <React.Fragment>
                                                                                                   <Grid item>
                                                                                                     <AccentText>
@@ -335,7 +357,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                                     <AccentTag>{Resources.CHALLENGE_CONDITION_POINT_COUNTER.format(goal.points)}</AccentTag>
                                                                                                   </Grid>
                                                                                                 </React.Fragment>
-                                                                                              )}
+
                                                                                           </Grid>
                                                                                         </td>
                                                                                       </tr>
@@ -344,6 +366,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
 
                                                                                 </div>
                                                                             </Grid>
+                                                                            )}
 
                                                                         </Grid>
                                                                     </div>
