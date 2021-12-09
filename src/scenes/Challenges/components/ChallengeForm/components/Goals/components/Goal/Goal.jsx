@@ -34,6 +34,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
 
     const raceMode = _.get(awardType, 'code') === 'C'
 
+    const goalTooltip = raceMode ? Resources.CHALLENGE_RACE_CONDITION_GOAL_INFO : Resources.CHALLENGE_UPDATE_GOAL_TARGET_INFO_TEXT
     return (
         <Grid key={goal.key} item xs={12} sm={6}>
             <Card>
@@ -132,7 +133,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                           <Grid item >
                             <Grid container  direction="column">
                               <Grid item>
-                                <Tooltip title={Resources.CHALLENGE_UPDATE_GOAL_TARGET_INFO_TEXT}>
+                                <Tooltip title={goalTooltip}>
                                   <BlueText style={{ marginTop: 20 }}>
                                     <FontAwesomeIcon icon={faInfoCircle} />
                                   </BlueText>

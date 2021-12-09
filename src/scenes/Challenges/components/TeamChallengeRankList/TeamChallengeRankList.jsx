@@ -1,10 +1,11 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRandom, faSortAmountDown } from '@fortawesome/free-solid-svg-icons'
+import { faRandom, faSortAmountDown, faCheck, faFlagCheckered } from '@fortawesome/free-solid-svg-icons'
 import { FullTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, TableRowDisabled } from '../../../../components'
 import * as Resources from '../../../../Resources'
 
 const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
+    const hasRacePositions = ranks.reduce((acc, rank) => rank.race_position || acc  ,false)
     return (
         <div>
             <Table>
@@ -13,6 +14,11 @@ const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
                         <TableHeadCell colSpan={2}>
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
+                        { hasRacePositions && (
+                          <TableHeadCell>
+                            <FontAwesomeIcon icon={faFlagCheckered} />
+                          </TableHeadCell>
+                        ) }
                         <TableHeadCell>{Resources.TEAM_CHALLENGE_RANKING_TEAM_COLUMN}</TableHeadCell>
                         <TableHeadCell>{Resources.TEAM_CHALLENGE_RANKING_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell>
@@ -31,6 +37,14 @@ const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
                                 <TableCell>
                                     <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
                                 </TableCell>
+                                { hasRacePositions && rank.race_position && (
+                                  <TableCell>
+                                    <FontAwesomeIcon icon={faCheck} />
+                                  </TableCell>
+                                ) }
+                                { hasRacePositions && !rank.race_position && (
+                                  <TableCell />
+                                )}
                                 <TableCell color={color}>{rank.team.name}</TableCell>
                                 <TableCell color={color}>{rank.points}</TableCell>
                                 <TableCell>

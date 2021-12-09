@@ -237,6 +237,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
     }
 
 
+    const goalTooltip = challenge.awardCode === 'C' ? Resources.CHALLENGE_RACE_CONDITION_GOAL_INFO : Resources.CHALLENGE_CONDITION_GOAL_INFO
     return (
         <div>
             <Grid container spacing={4}>
@@ -267,7 +268,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                         <Grid item xs zeroMinWidth>
                                                                                             <DefaultText>
                                                                                                 {goal.name}&nbsp;
-                                                                                                <Tooltip title={Resources.CHALLENGE_CONDITION_GOAL_INFO} placement={'right'}>
+                                                                                                <Tooltip title={goalTooltip} placement={'right'}>
                                                                                                     <BlueText style={{ width: 'fit-content' }} component={'span'}>
                                                                                                         <FontAwesomeIcon icon={faInfoCircle} />
                                                                                                     </BlueText>

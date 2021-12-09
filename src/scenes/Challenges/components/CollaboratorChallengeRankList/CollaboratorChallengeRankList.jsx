@@ -2,7 +2,7 @@ import React from 'react'
 
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSortAmountDown, faRandom } from '@fortawesome/free-solid-svg-icons'
+import { faSortAmountDown, faRandom, faCheck, faFlagCheckered } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
 import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, TableRowDisabled, FullTableCell, Avatar } from '../../../../components'
 import * as Resources from '../../../../Resources'
@@ -17,7 +17,7 @@ const styles = {
 const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
     const { classes } = props
     const colspan = _.get(ranks, '[0].collaborator.team.color.hex') ? 2 : 1
-
+    const hasRacePositions = ranks.reduce((acc, rank) => rank.race_position || acc  ,false)
     return (
         <div>
             <Table>
@@ -26,6 +26,11 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
                         <TableHeadCell colspan={ colspan }>
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
+                        { hasRacePositions && (
+                          <TableHeadCell>
+                            <FontAwesomeIcon icon={faFlagCheckered} />
+                          </TableHeadCell>
+                        ) }
                         <TableHeadCell colSpan={2}>{Resources.COLLABORATOR_CHALLENGE_RANKING_COLLABORATOR_COLUMN}</TableHeadCell>
                         <TableHeadCell>{Resources.COLLABORATOR_CHALLENGE_RANKING_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell>
@@ -46,6 +51,14 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
                                 <TableCell>
                                     <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
                                 </TableCell>
+                                { hasRacePositions && rank.race_position && (
+                                  <TableCell>
+                                    <FontAwesomeIcon icon={faCheck} />
+                                  </TableCell>
+                                ) }
+                                { hasRacePositions && !rank.race_position && (
+                                  <TableCell />
+                                )}
                                 <FixedTableCell>
                                     <Avatar src={photo} className={classes.photo} entityId={rank.collaborator.id} fallbackName={rank.collaborator.fullname}/>
                                 </FixedTableCell>
