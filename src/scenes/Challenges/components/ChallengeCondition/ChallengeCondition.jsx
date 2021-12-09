@@ -298,14 +298,18 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                               <Grid item>
                                                                                                   <DefaultText>{goal.target}</DefaultText>
                                                                                               </Grid>
-                                                                                              <Grid item>
-                                                                                                  <DefaultText>
+                                                                                              { challenge.awardCode !== 'C' && (
+                                                                                                <React.Fragment>
+                                                                                                  <Grid item>
+                                                                                                    <DefaultText>
                                                                                                       <FontAwesomeIcon icon={faEquals} />
-                                                                                                  </DefaultText>
-                                                                                              </Grid>
-                                                                                              <Grid item>
-                                                                                                  <BlueTag>{Resources.CHALLENGE_CONDITION_POINT_TARGET.format(goal.targetPoints)}</BlueTag>
-                                                                                              </Grid>
+                                                                                                    </DefaultText>
+                                                                                                  </Grid>
+                                                                                                  <Grid item>
+                                                                                                    <BlueTag>{Resources.CHALLENGE_CONDITION_POINT_TARGET.format(goal.targetPoints)}</BlueTag>
+                                                                                                  </Grid>
+                                                                                                </React.Fragment>
+                                                                                              )}
                                                                                           </Grid>
                                                                                         </td>
                                                                                       </tr>
@@ -320,14 +324,18 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                               <Grid item>
                                                                                                   <AccentText>{goal.counter}</AccentText>
                                                                                               </Grid>
-                                                                                              <Grid item>
-                                                                                                  <AccentText>
+                                                                                              { challenge.awardCode !== 'C' && (
+                                                                                                <React.Fragment>
+                                                                                                  <Grid item>
+                                                                                                    <AccentText>
                                                                                                       <FontAwesomeIcon icon={faAngleRight} />
-                                                                                                  </AccentText>
-                                                                                              </Grid>
-                                                                                              <Grid item>
-                                                                                                  <AccentTag>{Resources.CHALLENGE_CONDITION_POINT_COUNTER.format(goal.points)}</AccentTag>
-                                                                                              </Grid>
+                                                                                                    </AccentText>
+                                                                                                  </Grid>
+                                                                                                  <Grid item>
+                                                                                                    <AccentTag>{Resources.CHALLENGE_CONDITION_POINT_COUNTER.format(goal.points)}</AccentTag>
+                                                                                                  </Grid>
+                                                                                                </React.Fragment>
+                                                                                              )}
                                                                                           </Grid>
                                                                                         </td>
                                                                                       </tr>
