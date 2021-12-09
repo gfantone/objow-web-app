@@ -120,7 +120,7 @@ const Goal = ({categories, deletionDisabled, goal, index, kpis, onChange, onRemo
                           <Grid item xs>
                               <TextField
                                 name={`target[${index}]`}
-                                label={Resources.CHALLENGE_CREATION_GOAL_TARGET_LABEL2}
+                                label={raceMode ? Resources.CHALLENGE_CREATION_GOAL_TARGET_LABEL2_RACE : Resources.CHALLENGE_CREATION_GOAL_TARGET_LABEL2}
                                 fullWidth
                                 required
                                 initial={goal ? goal.target : null}

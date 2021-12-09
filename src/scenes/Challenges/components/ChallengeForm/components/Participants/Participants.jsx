@@ -47,7 +47,6 @@ const Participants = ({participants, teams, setParticipantsEditOpen, classes, ..
           return acc
         }
       , {}) : {}
-      console.log(participantsByTeam);
     return (
         <div>
             <Grid container spacing={1}>

@@ -286,11 +286,11 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                 </div>
                                                                             </Grid>
                                                                             {challenge.awardCode === 'C' && (
-                                                                              <Grid item xs={12} style={{marginTop: 10, marginBottom: 10}}>
+                                                                              <Grid item xs={12} style={{marginTop: 10, marginBottom: 15, maxWidth: 400}}>
                                                                                 <Grid container>
                                                                                   <Grid item>
-                                                                                    <DefaultText>
-                                                                                      {Resources.GOAL_COUNTER_TEXT.format(goal.counter)} <InfoText component='span'>{Resources.GOAL_TARGET_TEXT.format(goal.target)}</InfoText>
+                                                                                    <DefaultText lowercase style={{fontSize: 13}}>
+                                                                                      {Resources.GOAL_COUNTER_TEXT.format(goal.counter)} <InfoText lowercase  style={{fontSize: 13}} component='span'>{Resources.GOAL_TARGET_TEXT.format(goal.target)}</InfoText>
                                                                                     </DefaultText>
                                                                                   </Grid>
                                                                                   <Grid item xs>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import {FixedTableCell, FlexibleTableCell, FullTableCell, RankEvolution, TableCell, TableChip, TableRow, TableRowDisabled, Avatar} from '../../../../../../components'
+import {FixedTableCell, FlexibleTableCell, FullTableCell, RankEvolution, TableCell, TableChip, TableRow, TableRowHighlight, Avatar} from '../../../../../../components'
 import _ from 'lodash'
 
 const styles = {
@@ -14,7 +14,7 @@ const PlayerRank = ({rank, selected, raceFinisher, ...props}) => {
     const { classes } = props;
     const photo = rank.photo ? rank.photo : '/assets/img/user/avatar.svg';
     const color = !selected ? 'default' : 'primary'
-    const TableRowComponent = raceFinisher ? TableRowDisabled : TableRow
+    const TableRowComponent = raceFinisher ? TableRowHighlight : TableRow
     const teamColor = rank.color ? rank.color : '#fff'
     return (
         <TableRowComponent>

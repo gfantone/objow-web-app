@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortAmountDown, faRandom, faCheck, faFlagCheckered } from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash'
-import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, TableRowDisabled, FullTableCell, Avatar } from '../../../../components'
+import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, TableRowHighlight, FullTableCell, Avatar } from '../../../../components'
 import * as Resources from '../../../../Resources'
 
 const styles = {
@@ -18,6 +18,7 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
     const { classes } = props
     const colspan = _.get(ranks, '[0].collaborator.team.color.hex') ? 2 : 1
     const hasRacePositions = ranks.reduce((acc, rank) => rank.race_position || acc  ,false)
+    let borderTop = false
     return (
         <div>
             <Table>
@@ -26,11 +27,6 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
                         <TableHeadCell colspan={ colspan }>
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
-                        { hasRacePositions && (
-                          <TableHeadCell>
-                            <FontAwesomeIcon icon={faFlagCheckered} />
-                          </TableHeadCell>
-                        ) }
                         <TableHeadCell colSpan={2}>{Resources.COLLABORATOR_CHALLENGE_RANKING_COLLABORATOR_COLUMN}</TableHeadCell>
                         <TableHeadCell>{Resources.COLLABORATOR_CHALLENGE_RANKING_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell>
@@ -39,32 +35,35 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    { ranks.map(rank => {
+                    { ranks.map((rank, index) => {
                         const photo = rank.collaborator.photo ? rank.collaborator.photo : '/assets/img/user/avatar.svg'
                         const selected = rank.collaborator ? rank.collaborator.id == collaboratorId : false
                         const color = !selected ? 'default' : 'primary'
                         const teamColor = _.get(rank, 'collaborator.team.color.hex')
-                        const TableRowComponent = rank.race_position ? TableRowDisabled : TableRow
+                        const hasAward = rank.awards.length > 0 && (
+                          (rank.award_type_code === 'C' && rank.race_position) ||
+                          rank.award_type_code === 'R'
+                        )
+                        const isRaceMode = rank.award_type_code === 'C'
+
+                        if(!hasAward  && index > 0 && borderTop === false) {
+                          borderTop = index
+                        }
+
+                        const TableRowComponent = hasAward ? TableRowHighlight : TableRow
                         return (
-                            <TableRowComponent key={rank.id}>
+                            <TableRowComponent key={rank.id} style={{borderTop: borderTop === index ? '2px solid #333' : ''}}>
                                 <FullTableCell style={{backgroundColor: teamColor, width: 4}} />
                                 <TableCell>
                                     <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
                                 </TableCell>
-                                { hasRacePositions && rank.race_position && (
-                                  <TableCell>
-                                    <FontAwesomeIcon icon={faCheck} />
-                                  </TableCell>
-                                ) }
-                                { hasRacePositions && !rank.race_position && (
-                                  <TableCell />
-                                )}
+
                                 <FixedTableCell>
                                     <Avatar src={photo} className={classes.photo} entityId={rank.collaborator.id} fallbackName={rank.collaborator.fullname}/>
                                 </FixedTableCell>
-                                <FlexibleTableCell color={color}>{rank.collaborator.firstname} {rank.collaborator.lastname}</FlexibleTableCell>
-                                <TableCell color={color}>{rank.points}</TableCell>
-                                <TableCell>
+                                <FlexibleTableCell style={{fontWeight: hasAward ? 'bold' : ''}} color={color}>{rank.collaborator.firstname} {rank.collaborator.lastname}</FlexibleTableCell>
+                                <TableCell color={color} style={{fontWeight: hasAward ? 'bold' : ''}}>{rank.points}{ isRaceMode ? `/${rank.goals_count}` : '' }</TableCell>
+                                <TableCell style={{fontWeight: hasAward ? 'bold' : ''}}>
                                     <RankEvolution evolution={rank.evolution} />
                                 </TableCell>
                             </TableRowComponent>

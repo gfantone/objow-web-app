@@ -1,11 +1,12 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRandom, faSortAmountDown, faCheck, faFlagCheckered } from '@fortawesome/free-solid-svg-icons'
-import { FullTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, TableRowDisabled } from '../../../../components'
+import { FullTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, TableRowHighlight } from '../../../../components'
 import * as Resources from '../../../../Resources'
 
 const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
     const hasRacePositions = ranks.reduce((acc, rank) => rank.race_position || acc  ,false)
+    let borderTop = false
     return (
         <div>
             <Table>
@@ -14,11 +15,6 @@ const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
                         <TableHeadCell colSpan={2}>
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
-                        { hasRacePositions && (
-                          <TableHeadCell>
-                            <FontAwesomeIcon icon={faFlagCheckered} />
-                          </TableHeadCell>
-                        ) }
                         <TableHeadCell>{Resources.TEAM_CHALLENGE_RANKING_TEAM_COLUMN}</TableHeadCell>
                         <TableHeadCell>{Resources.TEAM_CHALLENGE_RANKING_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell>
@@ -27,27 +23,29 @@ const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    { ranks.map(rank => {
+                    { ranks.map((rank, index) => {
                         const selected = rank.team ? rank.team.id == teamId : false
                         const color = !selected ? 'default' : 'primary'
-                        const TableRowComponent = rank.race_position ? TableRowDisabled : TableRow
+                        const hasAward = rank.awards.length > 0 && (
+                          (rank.award_type_code === 'C' && rank.race_position) ||
+                          rank.award_type_code === 'R'
+                        )
+                        const isRaceMode = rank.award_type_code === 'C'
+
+                        if(!hasAward && index > 0 && borderTop === false) {
+                          borderTop = index
+                        }
+
+                        const TableRowComponent = hasAward ? TableRowHighlight : TableRow
                         return (
-                            <TableRowComponent>
+                            <TableRowComponent key={rank.id} style={{borderTop: borderTop === index ? '2px solid #333' : ''}}>
                                 <FullTableCell style={{backgroundColor: rank.team.color.hex, width: 4}} />
                                 <TableCell>
                                     <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
                                 </TableCell>
-                                { hasRacePositions && rank.race_position && (
-                                  <TableCell>
-                                    <FontAwesomeIcon icon={faCheck} />
-                                  </TableCell>
-                                ) }
-                                { hasRacePositions && !rank.race_position && (
-                                  <TableCell />
-                                )}
-                                <TableCell color={color}>{rank.team.name}</TableCell>
-                                <TableCell color={color}>{rank.points}</TableCell>
-                                <TableCell>
+                                <TableCell style={{fontWeight: hasAward ? 'bold' : ''}} color={color}>{rank.team.name}</TableCell>
+                                <TableCell style={{fontWeight: hasAward ? 'bold' : ''}} color={color}>{rank.points}{ isRaceMode ? `/${rank.goals_count}` : '' }</TableCell>
+                                <TableCell style={{fontWeight: hasAward ? 'bold' : ''}}>
                                     <RankEvolution evolution={rank.evolution} />
                                 </TableCell>
                             </TableRowComponent>
