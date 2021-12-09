@@ -16,11 +16,10 @@ const PlayerRank = ({rank, selected, raceFinisher, ...props}) => {
     const color = !selected ? 'default' : 'primary'
     const TableRowComponent = raceFinisher ? TableRowDisabled : TableRow
     const teamColor = rank.color ? rank.color : '#fff'
-    console.log('raceFinisher');
     return (
         <TableRowComponent>
             {<FullTableCell style={{backgroundColor: teamColor || 'white', width: 4}} />}
-            <TableCell style={{backgroundColor: 'red'}}>
+            <TableCell>
                 <TableChip size='small' color={color} label={rank.rank ? rank.rank : '-'} />
             </TableCell>
             <FixedTableCell>
