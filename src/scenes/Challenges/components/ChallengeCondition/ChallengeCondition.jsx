@@ -290,7 +290,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                                                                 <Grid container>
                                                                                   <Grid item>
                                                                                     <DefaultText lowercase style={{fontSize: 13}}>
-                                                                                      {Resources.GOAL_COUNTER_TEXT.format(goal.counter)} <InfoText lowercase  style={{fontSize: 13}} component='span'>{Resources.GOAL_TARGET_TEXT.format(goal.target)}</InfoText>
+                                                                                      {Resources.GOAL_COUNTER_TEXT.format(goal.counter)} <InfoText lowercase  style={{fontSize: 13}} component='span'>{Resources.GOAL_TARGET_TEXT.format(goal.targetByTeam || goal.target)}</InfoText>
                                                                                     </DefaultText>
                                                                                   </Grid>
                                                                                   <Grid item xs>

@@ -20,12 +20,13 @@ Formsy.addValidationRule('isRankingIncreasing', function (values, value, conditi
     var lastPoints = 0;
     var index = 0;
 
+
     while (index >= 0) {
         const currentValue = values[`award[${index}]`];
 
         if (currentValue !== undefined) {
             if(index > 0) {
-              if (Number(currentValue) >= lastPoints) {
+              if (Number(currentValue) > lastPoints) {
                 return false
               }
             }

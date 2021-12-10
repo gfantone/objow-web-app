@@ -25,7 +25,8 @@ Formsy.addValidationRule('isRankingIncreasing', function (values, value, conditi
 
         if (currentValue !== undefined) {
             if(index > 0) {
-              if (Number(currentValue) >= lastPoints) {
+              console.log(Number(currentValue), lastPoints);
+              if (Number(currentValue) > lastPoints) {
                 return false
               }
             }
