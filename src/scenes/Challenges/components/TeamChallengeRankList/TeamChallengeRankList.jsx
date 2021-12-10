@@ -5,7 +5,7 @@ import { FullTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, T
 import * as Resources from '../../../../Resources'
 
 const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
-    const hasRacePositions = ranks.reduce((acc, rank) => rank.race_position || acc  ,false)
+    const hasRanking = ranks.reduce((acc, rank) => rank.rank || acc  ,false)
     let borderTop = false
     return (
         <div>
@@ -32,7 +32,7 @@ const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
                         )
                         const isRaceMode = rank.award_type_code === 'C'
 
-                        if(!hasAward && index > 0 && borderTop === false) {
+                        if(!hasAward && hasRanking && index > 0 && borderTop === false) {
                           borderTop = index
                         }
 
