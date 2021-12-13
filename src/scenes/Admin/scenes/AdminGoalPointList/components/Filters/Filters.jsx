@@ -98,6 +98,14 @@ class Filters extends Component {
         }, () => this.filterForm.current.submit())
     };
 
+    handleChangeList = changes => {
+
+        this.setState({
+            ...this.state,
+            ...changes,
+        }, () => this.filterForm.current.submit())
+    };
+
     resetTeam = (callback) => {
         this.setState({
             ...this.state,
@@ -115,11 +123,12 @@ class Filters extends Component {
 
 
     handleSubmit(model) {
-        const team = model.team != null && model.team != -1 && model.team != undefined ? Number(model.team) : null;
-        const collaborator = model.collaborator != null && model.collaborator != -1 && model.collaborator != undefined ? Number(model.collaborator) : null;
+        // const team = model.team != null && model.team != -1 && model.team != undefined ? Number(model.team) : null;
+        // const collaborator = model.collaborator != null && model.collaborator != -1 && model.collaborator != undefined ? Number(model.collaborator) : null;
 
         this.onExpand(null, false, () => {
-          this.props.onChange(team, collaborator);
+          // console.log(team, collaborator);
+          this.props.onChange(this.state.team, this.state.collaborator);
           this.panel.current.click()
           // this.props.onClose()
         })
@@ -223,7 +232,7 @@ class Filters extends Component {
                                 updateInitial
                                 initial={ selectedCollaborator && selectedCollaborator.team.id || this.state.team }
                                 onChange={(value) => {
-                                  this.resetTeam(() => this.handleChange('team')(value))
+                                  this.handleChangeList({collaborator: null, team: value})
                                 }}
                               />
                           </Grid>
