@@ -97,6 +97,7 @@ class ChallengeUpdate extends MainLayoutComponent {
         const { types } = this.props.challengeTypeList
         const {types: rewardTypes} = this.props.challengeRewardTypeList
         const {types: awardTypes} = this.props.challengeAwardTypeList
+        const {challenge: baseChallenge} = this.props.challengeDetail
 
         model.start.setHours(0, 0, 0, 0)
         model.end.setHours(23, 59, 59, 0)
@@ -180,14 +181,56 @@ class ChallengeUpdate extends MainLayoutComponent {
         const teamId = types.find(x => x.id == model.type && x.code == 'CM') != null && this.props.match.params.id ? this.props.match.params.id : null
 
         if(awards.length > 0) {
-
-          this.props.challengeUpdateActions.updateChallenge(challenge, challengeFormData, awards, goals)
+          const awardsEqual = this.checkAwardsEqual(baseChallenge.awards, awards)
+          const goalsEqual = this.checkGoalsEqual(baseChallenge.goals, goals)
+          this.props.challengeUpdateActions.updateChallenge(challenge, challengeFormData, awards, goals, awardsEqual, goalsEqual)
         } else {
           this.setState({
             ...this.state,
             awardError: true
           })
         }
+    }
+    // if no diff, return false
+    checkAwardsEqual = (previousAwards, nextAwards) => {
+      if(previousAwards.length !== nextAwards.length) {
+        return false
+      }
+      return previousAwards.reduce((acc, previousAward, index) => {
+        const nextAward = nextAwards[index]
+
+        if(!nextAward) {
+          return false
+        }
+        const isEqual =
+          previousAward.points === nextAward.points &&
+          previousAward.target === nextAward.target &&
+          _.isEqual(previousAward.reward, nextAward.reward)
+
+        return acc && isEqual
+      }, true)
+    }
+
+    // if no diff, return false
+    checkGoalsEqual = (previousGoals, nextGoals) => {
+      if(previousGoals.length !== nextGoals.length) {
+        return false
+      }
+
+      return previousGoals.reduce((acc, previousGoal, index) => {
+        const nextGoal = nextGoals[index]
+
+        if(!nextGoal) {
+          return false
+        }
+        const isEqual =
+          previousGoal.points === nextGoal.points &&
+          previousGoal.target === nextGoal.target &&
+          previousGoal.name === nextGoal.name &&
+          _.isEqual(_.get(previousGoal.kpi, 'id'), nextGoal.kpi)
+
+        return acc && isEqual
+      }, true)
     }
 
     handleSubmitReward = (model) => {

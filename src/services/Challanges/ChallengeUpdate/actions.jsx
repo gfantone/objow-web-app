@@ -1,12 +1,14 @@
 import * as types from './actionTypes'
 
-export const updateChallenge = (challenge, challengeFormData, awards, goals) => {
+export const updateChallenge = (challenge, challengeFormData, awards, goals, awardsEqual, goalsEqual) => {
     return {
         type: types.UPDATE_CHALLENGE,
         challenge,
         challengeFormData,
         awards,
-        goals
+        goals,
+        awardsEqual,
+        goalsEqual
     }
 };
 

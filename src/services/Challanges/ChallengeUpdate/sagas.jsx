@@ -24,8 +24,13 @@ function* updateChallenge(action) {
               )
             }
         });
-        yield call(api.challenges.changeAwards, action.challenge.id, action.awards);
-        yield call(api.challenges.changeGoals, action.challenge.id, action.goals);
+
+        if(action.awardsEqual === false) {
+          yield call(api.challenges.changeAwards, action.challenge.id, action.awards);
+        }
+        if(action.goalsEqual === false) {
+          yield call(api.challenges.changeGoals, action.challenge.id, action.goals);
+        }
         yield put(updateChallengeSuccess())
     } catch(e) {
         yield put(updateChallengeError())
