@@ -6,6 +6,7 @@ import * as Resources from '../../../../Resources'
 
 const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
     const hasRanking = ranks.reduce((acc, rank) => rank.rank || acc  ,false)
+    const hasAwards = ranks.reduce((acc, rank) => rank.awards.length > 0 || acc  ,false)
     let borderTop = false
     return (
         <div>
@@ -32,10 +33,9 @@ const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
                         )
                         const isRaceMode = rank.award_type_code === 'C'
 
-                        if(!hasAward && hasRanking && index > 0 && borderTop === false) {
+                        if(hasAwards && !hasAward && hasRanking && index > 0 && borderTop === false) {
                           borderTop = index
                         }
-
                         const TableRowComponent = hasAward ? TableRowHighlight : TableRow
                         return (
                             <TableRowComponent key={rank.id} style={{borderTop: borderTop === index ? '2px solid #333' : ''}}>

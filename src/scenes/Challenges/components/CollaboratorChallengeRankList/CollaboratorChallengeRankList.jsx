@@ -18,6 +18,7 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
     const { classes } = props
     const colspan = _.get(ranks, '[0].collaborator.team.color.hex') ? 2 : 1
     const hasRanking = ranks.reduce((acc, rank) => rank.rank || acc  ,false)
+    const hasAwards = ranks.reduce((acc, rank) => rank.awards.length > 0 || acc  ,false)
 
     let borderTop = false
     return (
@@ -47,7 +48,7 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
                         )
                         const isRaceMode = rank.award_type_code === 'C'
 
-                        if(!hasAward && hasRanking  && index > 0 && borderTop === false) {
+                        if(hasAwards && !hasAward && hasRanking  && index > 0 && borderTop === false) {
                           borderTop = index
                         }
 
