@@ -43,6 +43,7 @@ const Layout = ({component: Component, ...rest}) => {
 
     console.log(isLatestVersion);
     if (!isLatestVersion) {
+        localStorage.clear();
         emptyCacheStorage()
     }
 

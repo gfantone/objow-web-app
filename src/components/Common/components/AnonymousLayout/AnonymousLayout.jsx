@@ -43,8 +43,9 @@ const useStyles = makeStyles(theme => ({
 const Layout = ({component: Component, ...rest}) => {
     const classes = useStyles()
     const { isLatestVersion, emptyCacheStorage } = useClearCache()
-    console.log(isLatestVersion);
+
     if (!isLatestVersion) {
+        localStorage.clear();
         emptyCacheStorage()
     }
 
