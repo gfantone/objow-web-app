@@ -53,7 +53,8 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         super(props);
         this.id = null;
         this.new = 0;
-        this.initialized = false;
+        this.definitionInitialized = false;
+        this.levelsInitialized = false;
         this.removedLevels = [];
         this.state = {
             levels: [],
@@ -78,6 +79,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         this.team = team
         this.collaborator = collaborator
         this.props.goalDefinitionDetailActions.getGoalDefinition(this.id, this.team, this.collaborator, true);
+        // console.log(this.id);
         this.props.goalDefinitionLevelListActions.getGoalDefinitionLevelList(this.id, this.team, this.collaborator);
       } else {
         this.props.goalDefinitionDetailActions.getGoalDefinition(this.id);
@@ -131,19 +133,27 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         this.loadData()
     }
 
-    componentWillReceiveProps(props) {
-        const { levels } = props.goalDefinitionLevelList;
-        const { definition, loading: definitionLoading } = this.props.goalDefinitionDetail;
-
-        if(!this.initialized && definition) {
-          this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList(definition.id)
+    componentDidUpdate(props) {
+        const { levels: previousLevels, loading: previousLevelLoading } = this.props.goalDefinitionLevelList;
+        const { levels, loading: levelLoading } = props.goalDefinitionLevelList;
+        const { definition: previousDefinition, loading: previousDefinitionLoading } = this.props.goalDefinitionDetail;
+        const { definition, loading: definitionLoading } = props.goalDefinitionDetail;
+        // console.log(previousDefinitionLoading, previousDefinition, definitionLoading, definition);
+        if((!previousDefinitionLoading || !definitionLoading) && (_.get(previousDefinition, 'id') !== _.get(definition, 'id') || !this.definitionInitialized)) {
+          this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList(_.get(definition, 'id') || _.get(previousDefinition, 'id'))
+          this.definitionInitialized = true
         }
 
-        if (!this.initialized && levels) {
+        if(
+          _.differenceWith(levels, previousLevels, _.isEqual).length > 0 ||
+          _.get(levels, 'length') !== _.get(previousLevels, 'length') ||
+          !this.levelsInitialized
+        ) {
             this.setState({
                 ...this.state,
-                levels: levels
-            }, () =>{this.initialized = true})
+                levels: previousLevels || levels || []
+            })
+            this.levelsInitialized = true
         }
     }
 
@@ -215,11 +225,12 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         // const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0;
         // const usablePoints = (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints;
         const { pointRepartitions, loading: goalDefinitionPointRepartitionLoading  } = this.props.goalDefinitionPointRepartitionList
+        // console.log(pointRepartitions);
         const repartition = pointRepartitions.filter(pointRepartition => (
           this.team && !this.collaborator && pointRepartition.team === parseInt(this.team) ||
           this.collaborator && pointRepartition.collaborator === parseInt(this.collaborator)
         ))[0]
-
+        
         const globalMode = !this.team && !this.collaborator
         const repartitionMode = repartition && repartitionModes.find(mode => mode.id === repartition.mode)
         const currentTeam = this.team ? teams.find(team => team.id === parseInt(this.team)) : null
@@ -484,7 +495,7 @@ class AdminGoalPointConfig extends MainLayoutComponent {
         const { modes: repartitionModes, loading: goalDefinitionPointRepartitionModesLoading  } = this.props.goalDefinitionPointRepartitionModeList
         const { periods, loading: periodsLoading } = this.props.periodList;
 
-        const loading = configListLoading || goalDefinitionDetailLoading || goalDefinitionLevelListLoading || goalDefinitionPointRepartitionLoading || goalDefinitionPointRepartitionModesLoading || periodsLoading || !this.initialized;
+        const loading = configListLoading || goalDefinitionDetailLoading || goalDefinitionLevelListLoading || goalDefinitionPointRepartitionLoading || goalDefinitionPointRepartitionModesLoading || periodsLoading || !this.definitionInitialized || !this.levelsInitialized;
 
         const { success } = this.props.goalDefinitionLevelListUpdate;
 
