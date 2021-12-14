@@ -57,6 +57,7 @@ instance.interceptors.response.use(
         if (!refreshToken) {
             return forceLogout()
         }
+        localStorage.setItem('CHECK_NEW_VERSION', true)
 
         return tokens.refresh(refreshToken).then(response => {
             if (!isTempToken) {

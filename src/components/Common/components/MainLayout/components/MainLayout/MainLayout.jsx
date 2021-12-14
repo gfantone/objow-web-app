@@ -81,10 +81,14 @@ const MainLayout = ({component: Component, history, ...rest}) => {
     const [title, setTitle] = React.useState(DEFAULT_TITLE);
     const {isLatestVersion, emptyCacheStorage} = useClearCache();
 
-    if (!isLatestVersion) {
+    if(localStorage.getItem('CHECK_NEW_VERSION')) {
+      localStorage.removeItem('CHECK_NEW_VERSION')
+      if (!isLatestVersion) {
+
         localStorage.clear();
         emptyCacheStorage()
         window.location = '/'
+      }
     }
 
     function activateReturn() {
