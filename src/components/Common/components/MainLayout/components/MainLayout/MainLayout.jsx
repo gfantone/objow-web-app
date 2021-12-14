@@ -79,10 +79,12 @@ const MainLayout = ({component: Component, history, ...rest}) => {
     const [maxWidth, setMaxWidth] = React.useState(DEFAULT_MAX_WIDTH);
     const [subHeader, setSubHeader] = React.useState(DEFAULT_SUB_HEADER);
     const [title, setTitle] = React.useState(DEFAULT_TITLE);
-    const {isLatestVersion} = useClearCache();
+    const {isLatestVersion, emptyCacheStorage} = useClearCache();
 
+    console.log(isLatestVersion);
     if (!isLatestVersion) {
         localStorage.clear();
+        emptyCacheStorage()
         window.location = '/'
     }
 
