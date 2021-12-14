@@ -81,7 +81,6 @@ const MainLayout = ({component: Component, history, ...rest}) => {
     const [title, setTitle] = React.useState(DEFAULT_TITLE);
     const {isLatestVersion, emptyCacheStorage} = useClearCache();
 
-    console.log(isLatestVersion);
     if (!isLatestVersion) {
         localStorage.clear();
         emptyCacheStorage()
