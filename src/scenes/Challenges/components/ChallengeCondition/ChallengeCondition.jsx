@@ -252,7 +252,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                     <Table backgroundDisabled>
                                         <TableBody>
                                             { goals.map(goal => {
-                                                const progression = Math.round((goal.counter / goal.target) * 100)
+                                                const progression = Math.round((goal.counter / (goal.targetByTeam || goal.target)) * 100)
                                                 return (
                                                     <TableRow>
                                                         <TableCell>
