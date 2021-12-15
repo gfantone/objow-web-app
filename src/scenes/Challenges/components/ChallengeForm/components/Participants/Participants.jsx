@@ -13,8 +13,12 @@ const styles = {
         backgroundColor: 'initial',
         borderRadius: 'initial',
         boxShadow: 'none',
-        '& .MuiExpansionPanelSummary-content.Mui-expanded': {
-          margin: '12px 0'
+        '& .MuiExpansionPanelSummary-content': {
+          margin: 0,
+          '&.Mui-expanded': {
+
+            margin: '0 0 12px 0'
+          }
         }
     },
     panelSummary: {
@@ -30,7 +34,7 @@ const styles = {
     panelDetails: {
         padding: 'initial',
         paddingLeft: 20,
-        paddingBottom: 24,
+        // paddingBottom: 24,
 
     }
 }
