@@ -18,7 +18,11 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
     const { classes } = props
     const colspan = _.get(ranks, '[0].collaborator.team.color.hex') ? 2 : 1
     const hasRanking = ranks.reduce((acc, rank) => rank.rank || acc  ,false)
-    const hasAwards = ranks.reduce((acc, rank) => rank.awards.length > 0 || acc  ,false)
+    const hasRankAward = rank => rank.awards.length > 0  && (
+      (rank.award_type_code === 'C' && rank.race_position) ||
+      rank.award_type_code === 'R'
+    )
+    const hasAwards = ranks.reduce((acc, rank) => hasRankAward(rank) || acc  ,false)
 
     let borderTop = false
     return (
@@ -42,10 +46,7 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
                         const selected = rank.collaborator ? rank.collaborator.id == collaboratorId : false
                         const color = !selected ? 'default' : 'primary'
                         const teamColor = _.get(rank, 'collaborator.team.color.hex')
-                        const hasAward = rank.awards.length > 0 && (
-                          (rank.award_type_code === 'C' && rank.race_position) ||
-                          rank.award_type_code === 'R'
-                        )
+                        const hasAward = hasRankAward(rank)
                         const isRaceMode = rank.award_type_code === 'C'
 
                         if(hasAwards && !hasAward && hasRanking  && index > 0 && borderTop === false) {

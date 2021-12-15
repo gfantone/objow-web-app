@@ -16,7 +16,7 @@ const Team = ({ team, ...props }) => {
                 <Grid item>
                     <Avatar src={managerPhoto} entityId={ _.get(team, 'manager.id') } fallbackName={ _.get(team, 'manager.fullname') } />
                 </Grid>
-                <Grid item xs container>
+                <Grid item xs={10} container>
                     <Grid item xs zeroMinWidth>
                         <DefaultTitle noWrap>{team.name}</DefaultTitle>
                     </Grid>

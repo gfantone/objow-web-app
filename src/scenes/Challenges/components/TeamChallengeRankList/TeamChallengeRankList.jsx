@@ -6,7 +6,11 @@ import * as Resources from '../../../../Resources'
 
 const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
     const hasRanking = ranks.reduce((acc, rank) => rank.rank || acc  ,false)
-    const hasAwards = ranks.reduce((acc, rank) => rank.awards.length > 0 || acc  ,false)
+    const hasRankAward = rank => rank.awards.length > 0  && (
+      (rank.award_type_code === 'C' && rank.race_position) ||
+      rank.award_type_code === 'R'
+    )
+    const hasAwards = ranks.reduce((acc, rank) => hasRankAward(rank) || acc  ,false)
     let borderTop = false
     return (
         <div>
@@ -27,10 +31,7 @@ const TeamChallengeRankList = ({ranks, teamId, ...props}) => {
                     { ranks.map((rank, index) => {
                         const selected = rank.team ? rank.team.id == teamId : false
                         const color = !selected ? 'default' : 'primary'
-                        const hasAward = rank.awards.length > 0 && (
-                          (rank.award_type_code === 'C' && rank.race_position) ||
-                          rank.award_type_code === 'R'
-                        )
+                        const hasAward = hasRankAward(rank)
                         const isRaceMode = rank.award_type_code === 'C'
 
                         if(hasAwards && !hasAward && hasRanking && index > 0 && borderTop === false) {

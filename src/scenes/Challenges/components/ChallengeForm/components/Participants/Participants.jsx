@@ -13,6 +13,7 @@ const styles = {
         backgroundColor: 'initial',
         borderRadius: 'initial',
         boxShadow: 'none',
+        marginTop: 10,
         '& .MuiExpansionPanelSummary-content': {
           margin: 0,
           '&.Mui-expanded': {
