@@ -78,7 +78,7 @@ class TeamCollaboratorGoalDetail extends MainLayoutComponent {
 
         return (
             <div>
-                { account.hasGoalRankAccess && this.state.page == 0 && goal && goal.allow_ranking && ranks && <CollaboratorGoalRankList ranks={ranks} /> }
+                { account.hasGoalRankAccess && this.state.page == 0 && goal && goal.allow_ranking && ranks && <CollaboratorGoalRankList account={account} ranks={ranks} /> }
                 { this.state.page == 1 && goal && <GoalIndication goal={goal} type='TC' customRepartitions={customRepartitions.map(repartition => ({
                   collaborator: currentTeam.collaborators.find(c => c.id === repartition.collaborator)
                 }))} /> }

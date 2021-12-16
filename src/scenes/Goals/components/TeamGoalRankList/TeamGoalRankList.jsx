@@ -4,8 +4,10 @@ import { faBullseye, faRandom, faSortAmountDown } from '@fortawesome/free-solid-
 import { FullTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow } from '../../../../components'
 import * as Resources from '../../../../Resources'
 import '../../../../helpers/NumberHelper'
+import _ from 'lodash'
 
-const TeamGoalRankList = ({ranks, teamId, ...props}) => {
+const TeamGoalRankList = ({ranks, teamId, account, ...props}) => {
+
     return (
         <div>
             <Table>
@@ -15,7 +17,7 @@ const TeamGoalRankList = ({ranks, teamId, ...props}) => {
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
                         <TableHeadCell>{Resources.TEAM_GOAL_RANK_LIST_TEAM_COLUMN}</TableHeadCell>
-                        <TableHeadCell>
+                        <TableHeadCell style={{textAlign: 'center'}}>
                             <FontAwesomeIcon icon={faBullseye} />
                         </TableHeadCell>
                         <TableHeadCell>{Resources.TEAM_GOAL_RANK_LIST_POINTS_COLUMN}</TableHeadCell>
@@ -36,7 +38,18 @@ const TeamGoalRankList = ({ranks, teamId, ...props}) => {
                                     <TableChip color={color} label={rank.rank ? rank.rank : '-'} />
                                 </TableCell>
                                 <TableCell color={color}>{rank.team.name}</TableCell>
-                                <TableCell color={color}>{rank.progression.toPercentage()}</TableCell>
+                                <TableCell color={color} style={{textAlign: 'center'}}>
+                                  <div>
+                                    {rank.progression.toPercentage()}
+                                  </div>
+                                  {(_.get(account, 'role.code') === 'A' || _.get(account, 'role.code') === 'M') && (
+                                    <div style={{fontSize: 10, opacity: 0.8}}>
+                                      {rank.counter}&nbsp;/&nbsp;{rank.target}
+                                    </div>
+                                  ) }
+
+
+                                </TableCell>
                                 <TableCell color={color}>{rank.points}</TableCell>
                                 <TableCell>
                                     <RankEvolution evolution={rank.evolution} />

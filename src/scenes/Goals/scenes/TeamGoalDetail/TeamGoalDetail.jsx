@@ -63,7 +63,7 @@ class TeamGoalDetail extends MainLayoutComponent {
 
         return (
             <div>
-                { account.hasGoalRankAccess && account.hasTeamRankAccess && this.state.page == 0 && goal && ranks && goal.allow_ranking && <TeamGoalRankList ranks={ranks} teamId={goal.teamId} /> }
+                { account.hasGoalRankAccess && account.hasTeamRankAccess && this.state.page == 0 && goal && ranks && goal.allow_ranking && <TeamGoalRankList ranks={ranks} teamId={goal.teamId} account={account}/> }
                 { this.state.page == 1 && goal && <GoalIndication goal={goal} type='T' /> }
                 { this.state.page == 2 && goal && <TeamGoalList /> }
             </div>

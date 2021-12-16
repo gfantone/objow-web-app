@@ -14,9 +14,9 @@ const styles = {
     }
 }
 
-const CollaboratorGoalRankList = ({ranks, collaboratorId, ...props}) => {
+const CollaboratorGoalRankList = ({ranks, collaboratorId, account, ...props}) => {
     const { classes } = props
-
+    console.log(account);
     return (
         <div>
             <Table>
@@ -26,7 +26,7 @@ const CollaboratorGoalRankList = ({ranks, collaboratorId, ...props}) => {
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
                         <TableHeadCell colSpan={2}>{Resources.COLLABORATOR_GOAL_RANK_LIST_PLAYER_COLUMN}</TableHeadCell>
-                        <TableHeadCell>
+                        <TableHeadCell style={{textAlign: 'center'}}>
                             <FontAwesomeIcon icon={faBullseye} />
                         </TableHeadCell>
                         <TableHeadCell>{Resources.COLLABORATOR_GOAL_RANK_LIST_POINTS_COLUMN}</TableHeadCell>
@@ -50,7 +50,16 @@ const CollaboratorGoalRankList = ({ranks, collaboratorId, ...props}) => {
                                     <Avatar src={photo} className={classes.photo} entityId={ _.get(rank, 'collaborator.id') } fallbackName={ _.get(rank, 'collaborator.fullname') } />
                                 </FixedTableCell>
                                 <FlexibleTableCell color={color}>{rank.collaborator.firstname} {rank.collaborator.lastname}</FlexibleTableCell>
-                                <TableCell color={color}>{rank.progression.toPercentage()}</TableCell>
+                                <TableCell color={color} style={{textAlign: 'center'}}>
+                                  <div>
+                                    {rank.progression.toPercentage()}
+                                  </div>
+                                  {(_.get(account, 'role.code') === 'A' || _.get(account, 'role.code') === 'M') && (
+                                    <div style={{fontSize: 10, opacity: 0.6}}>
+                                      {rank.counter}&nbsp;/&nbsp;{rank.target}
+                                    </div>
+                                  ) }
+                                </TableCell>
                                 <TableCell color={color}>{rank.points}</TableCell>
                                 <TableCell>
                                     <RankEvolution evolution={rank.evolution} />
