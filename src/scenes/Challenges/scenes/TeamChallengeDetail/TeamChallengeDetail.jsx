@@ -2,10 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Redirect } from 'react-router-dom'
+import withWidth, {isWidthDown} from '@material-ui/core/withWidth'
 import { SubHeader } from './components'
 import '../../../../helpers/DateHelper'
 import { ChallengeCondition, TeamChallengeRankList } from '../../components'
 import {IconButton, MainLayoutComponent, Dialog, DialogActions, DialogContent, DialogTitle, Button, ProgressButton} from '../../../../components'
+import { Menu, MenuItem, ListItemText, ListItemIcon } from '@material-ui/core'
 import * as Resources from '../../../../Resources'
 import * as teamChallengeDetailActions from '../../../../services/TeamChallenges/TeamChallengeDetail/actions'
 import * as teamChallengeGoalListActions from '../../../../services/TeamChallengeGoals/TeamChallengeGoalList/actions'
@@ -14,7 +16,8 @@ import * as challengeDeleteActions from '../../../../services/Challanges/Challen
 import {Tooltip} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCopy, faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
+import { faCopy, faEdit, faSlidersH, faTrash, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+
 
 const styles = {
     iconMargin: {
@@ -28,7 +31,8 @@ class TeamChallengeDetail extends MainLayoutComponent {
         const { account } = this.props.accountDetail;
         this.initialized = false;
         this.state = {
-            page: account.hasChallengeRankAccess && account.hasTeamRankAccess ? 0 : 1
+            page: account.hasChallengeRankAccess && account.hasTeamRankAccess ? 0 : 1,
+            mobileMenuAnchor: null
         }
     }
 
@@ -62,6 +66,21 @@ class TeamChallengeDetail extends MainLayoutComponent {
         })
     }
 
+    setMobileMenuAnchor = (el) => {
+      this.initialized = false
+      this.setState({
+        ...this.state,
+        mobileMenuAnchor: el
+      })
+    }
+
+    handleResize = () => {
+      if(this.mobileScreen !== this.props.width) {
+        this.initialized = false
+        this.mobileScreen = this.props.width
+      }
+    }
+
     componentDidMount() {
         const { account } = this.props.accountDetail;
         const id = this.props.match.params.id;
@@ -73,10 +92,15 @@ class TeamChallengeDetail extends MainLayoutComponent {
         this.props.teamChallengeDetailActions.getTeamChallengeDetail(id);
         this.props.teamChallengeGoalListActions.getTeamChallengeGoalList(id);
         this.props.teamChallengeRankListAction.getTeamChallengeRankList(id)
+        window.addEventListener('resize', this.handleResize);
+        this.mobileScreen = this.props.width
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { challenge } = this.props.teamChallengeDetail;
+
+        const mobileScreen = isWidthDown('xs', this.props.width)
+
         if (!this.initialized && challenge) {
             const { account } = this.props.accountDetail;
             const { classes } = this.props;
@@ -84,20 +108,102 @@ class TeamChallengeDetail extends MainLayoutComponent {
 
             const includesManagerTeam = account.team && challenge.participantTeamIds.length === 1 && challenge.participantTeamIds.indexOf(account.team.id) >= 0
             const canEdit = account.hasManagerChallengeEditAccess && includesManagerTeam || account.role.code === 'A'
-            if (canEdit) {
-                this.props.handleButtons(<div>
-                    <Tooltip title={Resources.TEAM_CHALLENGE_DETAIL_DUPLICATE_BUTTON}>
+
+            const desktopMenu = (
+              <div>
+                {
+                  canEdit && (
+                    <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DUPLICATE_BUTTON}>
                       <IconButton size={'small'} onClick={this.handleDuplicate.bind(this)}><FontAwesomeIcon icon={faCopy}/></IconButton>
                     </Tooltip>
-                    {challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DELETE_BUTTON}>
-                      <IconButton size={'small'} onClick={() => this.setDeletePromptOpen(true)} className={classes.iconMargin}><FontAwesomeIcon icon={faTrash}/></IconButton>
-                    </Tooltip>}
-
-                    {challenge.end.toDate2().getTime() > new Date().getTime() && <Tooltip title={Resources.TEAM_CHALLENGE_DETAIL_UPDATE_BUTTON}>
+                  )
+                }
+                { canEdit && challenge.end.toDate2().getTime() > new Date().getTime() &&
+                  (
+                    <React.Fragment>
+                      <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DELETE_BUTTON}>
+                        <IconButton size={'small'} onClick={() => this.setDeletePromptOpen(true)} className={classes.iconMargin}><FontAwesomeIcon icon={faTrash}/></IconButton>
+                      </Tooltip>
+                      <Tooltip title={Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_UPDATE_BUTTON}>
                         <IconButton size={'small'} onClick={this.handleEdit.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faEdit}/></IconButton>
-                    </Tooltip>}
-                </div>);
-            }
+                      </Tooltip>
+                    </React.Fragment>
+                  )
+                }
+
+              </div>
+            )
+            const open = Boolean(this.state.mobileMenuAnchor)
+            const arrowIcon = open ? faChevronUp : faChevronDown
+            const mobileMenu = (
+              <div>
+                <IconButton
+                  aria-controls="basic-menu"
+                  aria-haspopup="true"
+                  size={'small'}
+                  onClick={(event) => this.setMobileMenuAnchor(open ? null : event.currentTarget)}
+                  className={classes.iconMargin}
+                >
+                  <FontAwesomeIcon icon={arrowIcon}/>
+                </IconButton>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={this.state.mobileMenuAnchor}
+                  open={open}
+                  onClose={() => this.setMobileMenuAnchor()}
+                  elevation={0}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  style={{marginTop: 30}}
+                >
+                  {
+                    canEdit && (
+                      <MenuItem onClick={this.handleDuplicate.bind(this)}>
+                        <ListItemIcon style={{color: '#333', minWidth: 0, marginRight: 10}}>
+                          <FontAwesomeIcon icon={faCopy}/>
+                        </ListItemIcon>
+                        <ListItemText>
+                          {Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DUPLICATE_BUTTON}
+                        </ListItemText>
+                      </MenuItem>
+                    )
+                  }
+                  { canEdit && challenge.end.toDate2().getTime() > new Date().getTime() &&
+                    (
+                      <React.Fragment>
+                        <MenuItem onClick={() => this.setDeletePromptOpen(true)}>
+                          <ListItemIcon style={{color: '#333', minWidth: 0, marginRight: 10}}>
+                            <FontAwesomeIcon icon={faTrash}/>
+                          </ListItemIcon>
+                          <ListItemText>
+                            {Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DELETE_BUTTON}
+                          </ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={this.handleEdit.bind(this)}>
+                          <ListItemIcon style={{color: '#333', minWidth: 0, marginRight: 10}}>
+                            <FontAwesomeIcon icon={faEdit}/>
+                          </ListItemIcon>
+                          <ListItemText>
+                            {Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_UPDATE_BUTTON}
+                          </ListItemText>
+                        </MenuItem>
+
+                      </React.Fragment>
+                    )
+                  }
+
+                </Menu>
+              </div>
+            )
+            this.props.handleButtons(
+              mobileScreen ? mobileMenu : desktopMenu
+            );
         }
     }
 
@@ -141,4 +247,4 @@ const mapDispatchToProps = (dispatch) => ({
     challengeDeleteActions: bindActionCreators(challengeDeleteActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TeamChallengeDetail))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withWidth()(TeamChallengeDetail)))

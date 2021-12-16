@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import withWidth, {isWidthDown} from '@material-ui/core/withWidth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopy, faEdit, faSlidersH, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faCopy, faEdit, faSlidersH, faTrash, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { Menu, MenuItem, ListItemText, ListItemIcon } from '@material-ui/core'
 import { Redirect } from 'react-router-dom'
 import { SubHeader } from './components'
 import '../../../../helpers/DateHelper'
@@ -29,7 +31,8 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
         this.initialized = false;
         this.state = {
             page: account.hasChallengeRankAccess ? 0 : 1,
-            deletePromptOpen: false
+            deletePromptOpen: false,
+            mobileMenuAnchor: null
         }
     }
 
@@ -89,7 +92,20 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
         this.refresh(team)
     }
 
+    setMobileMenuAnchor = (el) => {
+      this.initialized = false
+      this.setState({
+        ...this.state,
+        mobileMenuAnchor: el
+      })
+    }
 
+    handleResize = () => {
+      if(this.mobileScreen !== this.props.width) {
+        this.initialized = false
+        this.mobileScreen = this.props.width
+      }
+    }
     componentDidMount() {
         const { account } = this.props.accountDetail;
         const id = this.props.match.params.id;
@@ -100,19 +116,26 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
         this.props.collaboratorChallengeRankListActions.getCollaboratorChallengeRankListByTeamCollaboratorChallenge(id);
         this.props.teamCollaboratorChallengeDetailActions.getTeamCollaboratorChallengeDetail(id);
         this.props.teamCollaboratorChallengeGoalListActions.getTeamCollaboratorChallengeGoalList(id)
+        window.addEventListener('resize', this.handleResize);
+        this.mobileScreen = this.props.width
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { challenge } = this.props.teamCollaboratorChallengeDetail;
         const { account } = this.props.accountDetail;
-        if (!this.initialized && challenge) {
+
+        const mobileScreen = isWidthDown('xs', this.props.width)
+
+
+        if ((!this.initialized) && challenge) {
 
             const { classes } = this.props;
             this.initialized = true;
             const includesManagerTeam = account.team && challenge.participantTeamIds.length === 1 && challenge.participantTeamIds.indexOf(account.team.id) >= 0
             const canEdit = account.hasManagerChallengeEditAccess && includesManagerTeam || account.role.code === 'A'
 
-            this.props.handleButtons(
+
+            const desktopMenu = (
               <div>
                 {
                   canEdit && (
@@ -136,6 +159,84 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
 
                 <IconButton size='small' onClick={this.handleFilterOpen.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faSlidersH} /></IconButton>
               </div>
+            )
+            const open = Boolean(this.state.mobileMenuAnchor)
+            const arrowIcon = open ? faChevronUp : faChevronDown
+            const mobileMenu = (
+              <div>
+                <IconButton
+                  aria-controls="basic-menu"
+                  aria-haspopup="true"
+                  size={'small'}
+                  onClick={(event) => this.setMobileMenuAnchor(open ? null : event.currentTarget)}
+                  className={classes.iconMargin}
+                >
+                  <FontAwesomeIcon icon={arrowIcon}/>
+                </IconButton>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={this.state.mobileMenuAnchor}
+                  open={open}
+                  onClose={() => this.setMobileMenuAnchor()}
+                  elevation={0}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  style={{marginTop: 30}}
+                >
+                  {
+                    canEdit && (
+                      <MenuItem onClick={this.handleDuplicate.bind(this)}>
+                        <ListItemIcon style={{color: '#333', minWidth: 0, marginRight: 10}}>
+                          <FontAwesomeIcon icon={faCopy}/>
+                        </ListItemIcon>
+                        <ListItemText>
+                          {Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DUPLICATE_BUTTON}
+                        </ListItemText>
+                      </MenuItem>
+                    )
+                  }
+                  { canEdit && challenge.end.toDate2().getTime() > new Date().getTime() &&
+                    (
+                      <React.Fragment>
+                        <MenuItem onClick={() => this.setDeletePromptOpen(true)}>
+                          <ListItemIcon style={{color: '#333', minWidth: 0, marginRight: 10}}>
+                            <FontAwesomeIcon icon={faTrash}/>
+                          </ListItemIcon>
+                          <ListItemText>
+                            {Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_DELETE_BUTTON}
+                          </ListItemText>
+                        </MenuItem>
+                        <MenuItem onClick={this.handleEdit.bind(this)}>
+                          <ListItemIcon style={{color: '#333', minWidth: 0, marginRight: 10}}>
+                            <FontAwesomeIcon icon={faEdit}/>
+                          </ListItemIcon>
+                          <ListItemText>
+                            {Resources.TEAM_COLLABORATOR_CHALLENGE_DETAIL_UPDATE_BUTTON}
+                          </ListItemText>
+                        </MenuItem>
+
+                      </React.Fragment>
+                    )
+                  }
+                  <MenuItem onClick={this.handleFilterOpen.bind(this)}>
+                    <ListItemIcon style={{color: '#333', minWidth: 0, marginRight: 10}}>
+                      <FontAwesomeIcon icon={faSlidersH}/>
+                    </ListItemIcon>
+                    <ListItemText>
+                      Filtrer
+                    </ListItemText>
+                  </MenuItem>
+                </Menu>
+              </div>
+            )
+            this.props.handleButtons(
+              mobileScreen ? mobileMenu : desktopMenu
             );
 
         }
@@ -197,4 +298,4 @@ const mapDispatchToProps = (dispatch) => ({
     challengeDeleteActions: bindActionCreators(challengeDeleteActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(TeamCollaboratorChallengeDetail))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withWidth()(TeamCollaboratorChallengeDetail)))
