@@ -69,8 +69,8 @@ class GoalFilter extends Component {
 
     handleSubmit(model) {
         const category = model.category != null && model.category != -1 ? Number(model.category) : null;
-        const team = model.team != null && model.team != -1 && model.team != undefined ? Number(model.team) : null;
-        const collaborator = model.collaborator != null && model.collaborator != -1 && model.collaborator != undefined ? Number(model.collaborator) : null;
+        const team = this.props.team
+        const collaborator = this.props.collaborator
         var start = model.start;
         var end = model.end;
         if (start) {
