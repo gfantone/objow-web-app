@@ -47,6 +47,10 @@ instance.interceptors.response.use(
             return {error}
         }
 
+        if (error.response.status == 401 && error.config.url.endsWith('/token/refresh/')) {
+            return forceLogout()
+        }
+
         var refreshToken = local.getTemporaryRefreshToken()
         var isTempToken = true
 
@@ -58,6 +62,7 @@ instance.interceptors.response.use(
             return forceLogout()
         }
         localStorage.setItem('CHECK_NEW_VERSION', true)
+
 
         return tokens.refresh(refreshToken).then(response => {
             if (!isTempToken) {
@@ -77,6 +82,7 @@ instance.interceptors.response.use(
                 return resolve(axios(error.config))
             })
         }).catch(() => {
+            console.log('force');
             return forceLogout()
         })
     }
