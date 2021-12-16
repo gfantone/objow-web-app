@@ -694,7 +694,9 @@ class Spreadsheet extends Component {
       const { goals, loading: playerGoalBulkListLoading } = this.props.playerGoalBulkList;
       const { goals: teamGoals, loading: teamGoalBulkListLoading } = this.props.teamGoalBulkList;
       const { goals: teamPlayerGoals, loading: teamPlayerGoalListLoading } = this.props.teamPlayerGoalBulkList
+      const {filterLoading, setFilterLoading} = this.props
       let loading = true;
+
 
       if(definition) {
         const type = _.get(definition, 'type.code')
@@ -703,6 +705,11 @@ class Spreadsheet extends Component {
           goaldDefinitionLoading || playerGoalBulkListLoading || teamPlayerGoalListLoading :
           goaldDefinitionLoading || teamGoalBulkListLoading
       }
+
+      if(loading !== filterLoading) {
+        setFilterLoading(loading)
+      }
+
       return (
           <div className={this.props.classes.mainWrapper}>
               {loading && this.renderLoader()}

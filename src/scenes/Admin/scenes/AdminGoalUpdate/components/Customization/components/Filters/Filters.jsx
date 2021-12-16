@@ -4,7 +4,7 @@ import Formsy from 'formsy-react'
 import { Grid } from '@material-ui/core'
 import { Card, QuarterFilter, MonthFilter, Select, SemesterFilter, WeekFilter, YearFilter } from '../../../../../../../../components'
 
-const Filters = ({ onDateChange, onTeamChange, displayDateFilter, emptyDisabledTeam, defaultDate, ...props }) => {
+const Filters = ({ onDateChange, onTeamChange, displayDateFilter, emptyDisabledTeam, defaultDate, loading, ...props }) => {
     const { definition } = props.goalDefinitionDetail;
     const { teams } = props.teamList;
     const activateTeamFilter = definition.type.code == 'C';
@@ -38,7 +38,7 @@ const Filters = ({ onDateChange, onTeamChange, displayDateFilter, emptyDisabledT
                             { definition.periodicity.code == 'S' && <SemesterFilter pastPeriods defaultDate={defaultDate} onChange={handleDateChange} /> }
                         </Grid> }
                         { activateTeamFilter && <Grid item xs={6}>
-                            <Select name='team' label='Équipe' options={teams} optionValueName='id'  optionTextName='name' emptyDisabled={ emptyDisabledTeam } emptyValue='-1' emptyText='Toutes les équipes' onChange={handleTeamChange} fullWidth />
+                            <Select name='team' disabled={loading} label='Équipe' options={teams} optionValueName='id'  optionTextName='name' emptyDisabled={ emptyDisabledTeam } emptyValue='-1' emptyText='Toutes les équipes' onChange={handleTeamChange} fullWidth />
                         </Grid> }
                     </Grid>
                 </Card>

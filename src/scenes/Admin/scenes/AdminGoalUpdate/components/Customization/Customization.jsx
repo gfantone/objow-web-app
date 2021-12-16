@@ -35,7 +35,8 @@ class Customization extends Component {
         this.state = {
             date: null,
             team: null,
-            page: 1
+            page: 1,
+            filterLoading: false
         }
         this.switch = React.createRef();
     }
@@ -53,6 +54,13 @@ class Customization extends Component {
 
     renderLoader() {
         return <Loader centered />
+    }
+
+    setFilterLoading = (value) => {
+      this.setState({
+        ...this.state,
+        filterLoading: value
+      })
     }
 
     renderData() {
@@ -96,7 +104,7 @@ class Customization extends Component {
                         <DefaultTitle>Filtres</DefaultTitle>
                       </Grid>
                       <Grid item xs={12}>
-                        <Filters defaultDate={this.state.date} emptyDisabledTeam={this.state.page === 2} displayDateFilter={this.state.page !== 2} onDateChange={this.handleChange('date').bind(this)} onTeamChange={this.handleChange('team').bind(this)} />
+                        <Filters loading={this.state.filterLoading} defaultDate={this.state.date} emptyDisabledTeam={this.state.page === 2} displayDateFilter={this.state.page !== 2} onDateChange={this.handleChange('date').bind(this)} onTeamChange={this.handleChange('team').bind(this)} />
                       </Grid>
                     </Grid>
                   }
@@ -111,7 +119,7 @@ class Customization extends Component {
                   )}
                 </Grid>
                 { this.state.page === 2 && (
-                  <Spreadsheet team={this.state.team} />
+                  <Spreadsheet team={this.state.team} setFilterLoading={this.setFilterLoading} filterLoading={this.state.filterLoading} />
                 )}
             </div>
         )
