@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import withWidth, {isWidthDown} from '@material-ui/core/withWidth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopy, faEdit, faSlidersH, faTrash, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
+import { faCopy, faEdit, faSlidersH, faTrash, faChevronDown, faChevronUp, faCog } from '@fortawesome/free-solid-svg-icons'
 import { Menu, MenuItem, ListItemText, ListItemIcon } from '@material-ui/core'
 import { Redirect } from 'react-router-dom'
 import { SubHeader } from './components'
@@ -161,7 +161,7 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
               </div>
             )
             const open = Boolean(this.state.mobileMenuAnchor)
-            const arrowIcon = open ? faChevronUp : faChevronDown
+            const arrowIcon = faCog
             const mobileMenu = (
               <div>
                 <IconButton
@@ -224,15 +224,8 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
                       </React.Fragment>
                     )
                   }
-                  <MenuItem onClick={this.handleFilterOpen.bind(this)}>
-                    <ListItemIcon style={{color: '#333', minWidth: 0, marginRight: 10}}>
-                      <FontAwesomeIcon icon={faSlidersH}/>
-                    </ListItemIcon>
-                    <ListItemText>
-                      Filtrer
-                    </ListItemText>
-                  </MenuItem>
                 </Menu>
+                <IconButton size='small' onClick={this.handleFilterOpen.bind(this)} className={classes.iconMargin}><FontAwesomeIcon icon={faSlidersH} /></IconButton>
               </div>
             )
             this.props.handleButtons(

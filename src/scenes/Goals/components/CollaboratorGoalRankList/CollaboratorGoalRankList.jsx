@@ -1,5 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
+import withWidth, {isWidthDown} from '@material-ui/core/withWidth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBullseye, faSortAmountDown, faRandom } from '@fortawesome/free-solid-svg-icons'
 import { FixedTableCell, FlexibleTableCell, RankEvolution, Table, TableBody, TableCell, TableChip, TableHead, TableHeadCell, TableRow, Avatar } from '../../../../components'
@@ -16,7 +17,7 @@ const styles = {
 
 const CollaboratorGoalRankList = ({ranks, collaboratorId, account, ...props}) => {
     const { classes } = props
-    console.log(account);
+    const mobileScreen = isWidthDown('xs', props.width)
     return (
         <div>
             <Table>
@@ -49,7 +50,22 @@ const CollaboratorGoalRankList = ({ranks, collaboratorId, account, ...props}) =>
                                 <FixedTableCell>
                                     <Avatar src={photo} className={classes.photo} entityId={ _.get(rank, 'collaborator.id') } fallbackName={ _.get(rank, 'collaborator.fullname') } />
                                 </FixedTableCell>
-                                <FlexibleTableCell color={color}>{rank.collaborator.firstname} {rank.collaborator.lastname}</FlexibleTableCell>
+                                <FlexibleTableCell color={color}>
+                                  {mobileScreen ? (
+                                    <React.Fragment>
+                                      <div style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>
+                                        {rank.collaborator.firstname}
+                                      </div>
+                                      <div style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>
+                                        {rank.collaborator.lastname}
+                                      </div>
+                                    </React.Fragment>
+                                  ) : (
+                                    <React.Fragment>
+                                      {rank.collaborator.firstname} {rank.collaborator.lastname}
+                                    </React.Fragment>
+                                  )}
+                                </FlexibleTableCell>
                                 <TableCell color={color} style={{textAlign: 'center'}}>
                                   <div>
                                     {rank.progression.toPercentage()}
@@ -73,4 +89,4 @@ const CollaboratorGoalRankList = ({ranks, collaboratorId, account, ...props}) =>
     )
 }
 
-export default withStyles(styles)(CollaboratorGoalRankList)
+export default withStyles(styles)(withWidth()(CollaboratorGoalRankList))
