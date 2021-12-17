@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {Grid, IconButton, CardMedia, RadioGroup} from '@material-ui/core'
+import {Grid, IconButton, CardMedia, RadioGroup, FormControlLabel} from '@material-ui/core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faInfoCircle, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import {BlueText, Card, DefaultText, DefaultTitle, GreenRadio, HiddenInput, Select, Switch, TextField, Tooltip, IconButton as MenuIconButton} from '../../../../../../components'
@@ -42,6 +42,8 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
       'P': require(`../../../../../../assets/img/system/challenge/icons/Levels.png`),
       'C': require(`../../../../../../assets/img/system/challenge/icons/race.png`)
     }
+    const coinImage = require(`../../../../../../assets/img/system/challenge/icons/coin.png`)
+    const giftImage = require(`../../../../../../assets/img/system/challenge/icons/gift.png`)
 
     useEffect(() => {
         if ((isCreation || isDuplication) && challengeTypeId && end && start) {
@@ -71,8 +73,8 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
     function handleTypeChange(newType) {
         setType(Number(newType))
     }
-    function handleRewardTypeChange(newType) {
-        setRewardType(Number(newType))
+    function handleRewardTypeChange(event) {
+        setRewardType(Number(event.target.value))
     }
 
     return (
@@ -134,20 +136,26 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                 <Grid item xs={12}>
                       <Grid container spacing={4} direction="column">
                         <Grid item xs={6}>
-                          <Select
-                            name='rewardType'
-                            initial={finalInitialRewardType}
-                            options={rewardTypes}
-                            optionValueName='id'
-                            optionTextName='name'
-                            emptyDisabled
-                            disabled={rewardTypes.length <= 1}
-                            onChange={handleRewardTypeChange}
-                            fullWidth
-                          />
-                        {rewardTypes.length <= 1 && (
-                          <HiddenInput name='rewardType' value={finalInitialRewardType}/>
-                        )}
+                          <RadioGroup row name='rewardType' onChange={handleRewardTypeChange} value={rewardType}>
+                            {rewardTypes.map(rewardType => (
+                              <FormControlLabel value={rewardType.id} control={
+                                <GreenRadio
+                                />
+                            } label={
+                              <Grid container spacing={1}>
+                                <Grid item>
+                                  <CardMedia image={rewardType.code === 'G' ? giftImage : coinImage} style={{height: 20, width: 20}} />
+                                </Grid>
+                                <Grid item>
+                                  {rewardType.name}
+                                </Grid>
+                              </Grid>
+                            } />
+
+                            ))}
+                          </RadioGroup>
+
+                          <HiddenInput name='rewardType' value={rewardType}/>
 
                         </Grid>
                         <Grid item>
