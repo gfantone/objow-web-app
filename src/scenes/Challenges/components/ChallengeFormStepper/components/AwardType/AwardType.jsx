@@ -82,7 +82,9 @@ const AwardType = ({types, currentType, setType, participantsNumber, participant
                         </Grid>
                         <Grid item style={{textAlign: 'center'}}>
                           <DefaultText lowercase>
-                            {Resources[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${type.code}`]}
+                            {Resources[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${type.code}`].format(
+                              _.get(participantType, 'code') === 'CC' ? 'premiers' : 'premières équipes'
+                            )}
                           </DefaultText>
                         </Grid>
                         {isDisabled(type) && typesData[type.code].minimumParticipants && (

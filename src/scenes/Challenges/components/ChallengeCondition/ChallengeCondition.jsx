@@ -21,6 +21,7 @@ const styles = {
 }
 
 const ChallengeCondition = ({ challenge, goals, ...props }) => {
+
     const [rewardDetail, setRewardDetail] = useState()
     const start = challenge.start.toDate2().toLocaleDateString()
     const end = challenge.end.toDate2().toLocaleDateString()
@@ -449,7 +450,9 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                   </Grid>
                                   <Grid item style={{textAlign: 'center'}}>
                                     <DefaultText lowercase style={{fontSize: 14}}>
-                                      {Resources[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${challenge.awardCode}`]}
+                                      {Resources[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${challenge.awardCode}`].format(
+                                        challenge.typeCode === 'CC' ? 'premiers' : 'premières équipes'
+                                      )}
                                     </DefaultText>
                                   </Grid>
                                 </Grid>
