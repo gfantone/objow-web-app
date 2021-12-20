@@ -137,7 +137,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                 </Grid>
                 <Grid item xs={12}>
                       <Grid container spacing={4} direction="column">
-                        <Grid item xs={6}>
+                        <Grid item xs={12}>
                           <RadioGroup row name='rewardType' onChange={handleRewardTypeChange} value={rewardType}>
                             {rewardTypes.map(rewardType => (
                               <FormControlLabel value={rewardType.id} control={

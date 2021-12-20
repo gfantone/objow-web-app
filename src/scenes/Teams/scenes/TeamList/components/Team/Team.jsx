@@ -61,14 +61,14 @@ const Team = ({ team, ...props }) => {
             <Card>
                 <Grid container spacing={2}>
                     <GridLink item xs={12} container spacing={2} component={Link} to={`/teams/${team.id}`}>
-                        <Grid item>
+                        <Grid item xs={2}>
                             <Avatar src={managerPhoto} entityId={ _.get(team, 'manager.id') } fallbackName={ _.get(team, 'manager.fullname') }/>
                         </Grid>
-                        <Grid item xs container>
+                        <Grid item xs={10} container spacing={1}>
                             <Grid item xs zeroMinWidth>
                                 <DefaultTitle noWrap>{team.name}</DefaultTitle>
                             </Grid>
-                            <Grid item>
+                            <Grid item justifySelf='flex-end'>
                                 <Tag color={team.color.hex}>{Resources.TEAM_COLLABORATORS_TEXT.format(players)}</Tag>
                             </Grid>
                             <Grid item xs={12} zeroMinWidth>

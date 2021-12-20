@@ -15,7 +15,7 @@ const Team = ({ team, ...props }) => {
           <Card>
             <div style={{margin: 15}}>
               <Grid container spacing={2}>
-                <Grid item>
+                <Grid item xs={2}>
                   <Avatar
                     src={managerPhoto}
                     entityId={ _.get(team, 'manager.id') }
@@ -23,7 +23,7 @@ const Team = ({ team, ...props }) => {
                     tooltip={ _.get(team, 'manager.fullname') }
                     />
                 </Grid>
-                <Grid item xs container direction='column' alignItems="flex-start">
+                <Grid item xs={10} container direction='column' alignItems="flex-start">
                   <Grid item xs zeroMinWidth>
                     <DefaultTitle noWrap>{team.name}</DefaultTitle>
                   </Grid>

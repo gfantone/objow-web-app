@@ -13,10 +13,10 @@ const Team = ({ team, ...props }) => {
     return (
         <div>
             <Grid container spacing={2}>
-                <Grid item>
+                <Grid item xs={2}>
                     <Avatar src={managerPhoto} entityId={ _.get(team, 'manager.id') } fallbackName={ _.get(team, 'manager.fullname') } />
                 </Grid>
-                <Grid item xs={10} container>
+                <Grid item xs={10} container spacing={1}>
                     <Grid item xs zeroMinWidth>
                         <DefaultTitle noWrap>{team.name}</DefaultTitle>
                     </Grid>

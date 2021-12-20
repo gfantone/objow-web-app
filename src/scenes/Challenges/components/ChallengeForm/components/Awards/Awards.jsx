@@ -104,7 +104,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                 </Grid>
                 <Grid item xs={12}>
                         <Grid container spacing={4} direction="column">
-                          <Grid item xs={6}>
+                          <Grid item xs={12}>
                             <RadioGroup row name='rewardType' onChange={handleRewardTypeChange} value={rewardType}>
                               {rewardTypes.map(rewardType => (
                                 <FormControlLabel value={rewardType.id} control={
@@ -176,49 +176,49 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
 
                                                     </Grid>
                                                   </Grid>
-                                                {currentRewardType.code === 'G' && (
-                                                  <React.Fragment>
-                                                    {currentType.code === 'P' && (
-                                                      <Grid item xs={8}>
-                                                        <TextField name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
-                                                          validations={{
-                                                            isStepsIncreasing: true,
-                                                            isInt: true
-                                                          }}
-                                                          validationErrors={{
-                                                              isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
-                                                              isInt: Resources.COMMON_IS_INT_ERROR,
-                                                              isStepsIncreasing: 'Les scores à atteindre doivent être croissants'
-                                                          }}
+                                                  {currentRewardType.code === 'G' && (
+                                                    <React.Fragment>
+                                                      {currentType.code === 'P' && (
+                                                        <Grid item xs={8}>
+                                                          <TextField name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
+                                                            validations={{
+                                                              isStepsIncreasing: true,
+                                                              isInt: true
+                                                            }}
+                                                            validationErrors={{
+                                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                                isInt: Resources.COMMON_IS_INT_ERROR,
+                                                                isStepsIncreasing: 'Les scores à atteindre doivent être croissants'
+                                                            }}
+                                                          />
+                                                        </Grid>
+                                                      )}
+                                                      <Grid item xs={12} style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
+                                                        {award.reward && (
+                                                          <ChallengeReward reward={reward} />
+                                                        )}
+                                                        {!award.reward && (
+                                                          <Card>
+                                                            <DefaultText style={{textAlign: 'center', color: '#00E58D'}} lowercase>
+                                                              Ajouter une récompense
+                                                            </DefaultText>
+                                                          </Card>
+                                                        )}
+                                                      </Grid>
+                                                    </React.Fragment>
+                                                  )}
+                                                  {currentRewardType.code === 'P' && (
+                                                    <React.Fragment>
+                                                      <Grid item xs>
+                                                        <TextField name={`award[${index}]`} label="Points" fullWidth required initial={award.points}
+                                                          validations={ validations }
+                                                          validationErrors={validationErrors}
                                                         />
                                                       </Grid>
-                                                    )}
-                                                    <Grid item xs={12} style={{cursor: 'pointer'}} onClick={() => setConfigRewardOpen(true, awards, award, index, setAwards)}>
-                                                      {award.reward && (
-                                                        <ChallengeReward reward={reward} />
-                                                      )}
-                                                      {!award.reward && (
-                                                        <Card>
-                                                          <DefaultText style={{textAlign: 'center', color: '#00E58D'}} lowercase>
-                                                            Ajouter une récompense
-                                                          </DefaultText>
-                                                        </Card>
-                                                      )}
-                                                    </Grid>
-                                                  </React.Fragment>
-                                                )}
-                                                {currentRewardType.code === 'P' && (
-                                                  <React.Fragment>
-                                                    <Grid item xs>
-                                                      <TextField name={`award[${index}]`} label="Points" fullWidth required initial={award.points}
-                                                        validations={ validations }
-                                                        validationErrors={validationErrors}
-                                                      />
-                                                    </Grid>
-                                                  </React.Fragment>
-                                                )}
-                                            </Grid>
-                                          </Grid>
+                                                    </React.Fragment>
+                                                  )}
+                                                </Grid>
+                                              </Grid>
                                             </Grid>
                                           </ChallengeRewardCard>
                                         </Grid>
@@ -240,6 +240,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                     </Grid>
                                 </Grid>
                             </Grid>}
+
                         </Grid>
                           </Grid>
                         </Grid>
