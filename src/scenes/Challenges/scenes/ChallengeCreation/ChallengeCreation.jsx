@@ -115,7 +115,13 @@ class ChallengeCreation extends MainLayoutComponent {
       if(model.award) {
         for (var i = 0; i < model.award.length; i++) {
           const rank = i + 1
-          awards.push({ rank: rank, points: model.award[i] })
+          let award = { rank: rank, points: model.award[i] }
+          if(model.awardTarget) {
+            award = Object.assign({}, award, {
+              target: model.awardTarget[i]
+            })
+          }
+          awards.push(award)
         }
       }
 

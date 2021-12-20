@@ -43,7 +43,7 @@ const ChallengeForm = ({actionLoading, awardTypes, rewardTypes, categories, chal
       'P': {
         order: 3,
         icon: require(`../../../../assets/img/system/challenge/icons/Levels.png`),
-        availableReward: ['gift'],
+        availableReward: ['points', 'gift'],
         soon: true,
         disabled: true
       },

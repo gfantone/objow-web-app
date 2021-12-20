@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import {withStyles} from '@material-ui/core/styles'
 import {Grid, IconButton, CardMedia, RadioGroup, FormControlLabel} from '@material-ui/core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faInfoCircle, faPlus, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
@@ -12,7 +13,16 @@ import {uuidv4} from "../../../../../../helpers/UUIDHelper"
 import './helpers/FormsyHelper'
 import _ from 'lodash'
 
-const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialLive = false, initialType, initialRewardType, isCreation, isDuplication, isUpdate, start, team, types, rewardTypes, setConfigRewardOpen, rewardImages, rewardCategories, ...props}) => {
+const styles = {
+  pointsField: {
+    '& .MuiFormLabel-root': {
+      marginLeft: 25
+    }
+  }
+}
+
+
+const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChallengeManager, initialAwards = [], initialLive = false, initialType, initialRewardType, isCreation, isDuplication, isUpdate, start, team, types, rewardTypes, setConfigRewardOpen, rewardImages, rewardCategories, classes, ...props}) => {
     const getInitialAwards = () => {
         if (initialAwards && initialAwards.length > 0) {
             const awardType = types.find(t => t.id === parseInt(initialType))
@@ -44,6 +54,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
 
     const coinImage = require(`../../../../../../assets/img/system/challenge/icons/coin.png`)
     const giftImage = require(`../../../../../../assets/img/system/challenge/icons/gift.png`)
+    const pointRewardImage = require(`../../../../../../assets/img/system/challenge/icons/points.png`)
 
     useEffect(() => {
         if ((isCreation || isDuplication) && challengeTypeId && end && start) {
@@ -209,7 +220,28 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                                   )}
                                                   {currentRewardType.code === 'P' && (
                                                     <React.Fragment>
-                                                      <Grid item xs>
+                                                      {currentType.code === 'P' && (
+                                                        <Grid item xs={8}>
+                                                          <TextField name={`awardTarget[${index}]`} label={Resources.CHALLENGE_AWARD_TARGET_LABEL} fullWidth required initial={award.target}
+                                                            validations={{
+                                                              isStepsIncreasing: true,
+                                                              isInt: true
+                                                            }}
+                                                            validationErrors={{
+                                                                isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                                                isInt: Resources.COMMON_IS_INT_ERROR,
+                                                                isStepsIncreasing: 'Les scores à atteindre doivent être croissants'
+                                                            }}
+                                                          />
+                                                        </Grid>
+                                                      )}
+                                                      <Grid item xs={12}>
+                                                        <CardMedia image={pointRewardImage} style={{height: 100, width: 100, margin: 'auto'}}/>
+                                                      </Grid>
+                                                      <Grid item xs={12} className={classes.pointsField} style={{position: 'relative'}}>
+
+                                                        <CardMedia image={coinImage} style={{height: 20, width: 20, position: 'absolute', left: 5, top: 3}} />
+
                                                         <TextField name={`award[${index}]`} label="Points" fullWidth required initial={award.points}
                                                           validations={ validations }
                                                           validationErrors={validationErrors}
@@ -259,4 +291,4 @@ const mapDispatchToProps = (dispatch) => ({
     challengeTypeUsablePointsActions: bindActionCreators(challengeTypeUsablePointsActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Awards)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Awards))
