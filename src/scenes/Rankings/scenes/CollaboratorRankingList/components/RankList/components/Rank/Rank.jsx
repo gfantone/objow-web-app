@@ -21,7 +21,7 @@ const Rank = ({ image, name, rank, onClick, ...props }) => {
             <TableCell align='right'>
                 { rank.rank ? rank.rank : '-' }
             </TableCell>
-            
+
             <TableCell align='right'>
                 { rank.points }
             </TableCell>

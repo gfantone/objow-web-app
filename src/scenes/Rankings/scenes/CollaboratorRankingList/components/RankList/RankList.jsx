@@ -12,7 +12,8 @@ import * as Resources from '../../../../../../Resources'
 const styles = {
     icon: {
         height: 34,
-        width: 34
+        width: 34,
+        margin: 'auto'
     }
 }
 
