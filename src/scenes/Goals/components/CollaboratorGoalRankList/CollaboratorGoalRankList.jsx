@@ -62,7 +62,9 @@ const CollaboratorGoalRankList = ({ranks, collaboratorId, account, ...props}) =>
                                     </React.Fragment>
                                   ) : (
                                     <React.Fragment>
-                                      {rank.collaborator.firstname} {rank.collaborator.lastname}
+                                      <div style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>
+                                        {rank.collaborator.firstname} {rank.collaborator.lastname}
+                                      </div>
                                     </React.Fragment>
                                   )}
                                 </FlexibleTableCell>

@@ -10,7 +10,6 @@ const styles = {
 
 const Rank = ({ image, name, rank, onClick, ...props }) => {
     const { classes } = props
-
     return (
         <TableRow onClick={onClick} className={classes.root}>
             <FixedTableCell align='center'>

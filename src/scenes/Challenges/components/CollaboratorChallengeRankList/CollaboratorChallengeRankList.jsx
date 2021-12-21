@@ -1,5 +1,5 @@
 import React from 'react'
-
+import withWidth, {isWidthDown} from '@material-ui/core/withWidth'
 import { withStyles } from '@material-ui/core/styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortAmountDown, faRandom, faCheck, faFlagCheckered } from '@fortawesome/free-solid-svg-icons'
@@ -23,6 +23,7 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
       rank.award_type_code === 'R'
     )
     const hasAwards = ranks.reduce((acc, rank) => hasRankAward(rank) || acc  ,false)
+    const mobileScreen = isWidthDown('xs', props.width)
 
     let borderTop = false
     return (
@@ -64,7 +65,24 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
                                 <FixedTableCell>
                                     <Avatar src={photo} className={classes.photo} entityId={rank.collaborator.id} fallbackName={rank.collaborator.fullname}/>
                                 </FixedTableCell>
-                                <FlexibleTableCell style={{fontWeight: hasAward ? 'bold' : ''}} color={color}>{rank.collaborator.firstname} {rank.collaborator.lastname}</FlexibleTableCell>
+                                <FlexibleTableCell style={{fontWeight: hasAward ? 'bold' : ''}} color={color}>
+                                  {mobileScreen ? (
+                                    <React.Fragment>
+                                      <div style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>
+                                        {rank.collaborator.firstname}
+                                      </div>
+                                      <div style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>
+                                        {rank.collaborator.lastname}
+                                      </div>
+                                    </React.Fragment>
+                                  ) : (
+                                    <React.Fragment>
+                                      <div style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>
+                                        {rank.collaborator.firstname} {rank.collaborator.lastname}
+                                      </div>
+                                    </React.Fragment>
+                                  )}
+                                </FlexibleTableCell>
                                 <TableCell color={color} style={{fontWeight: hasAward ? 'bold' : ''}}>{rank.points}{ isRaceMode ? `/${rank.goals_count}` : '' }</TableCell>
                                 <TableCell style={{fontWeight: hasAward ? 'bold' : ''}}>
                                     <RankEvolution evolution={rank.evolution} />
@@ -78,4 +96,4 @@ const CollaboratorChallengeRankList = ({ranks, collaboratorId, ...props}) => {
     )
 }
 
-export default withStyles(styles)(CollaboratorChallengeRankList)
+export default withStyles(styles)(withWidth()(CollaboratorChallengeRankList))

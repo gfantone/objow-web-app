@@ -1,4 +1,5 @@
 import React from 'react'
+import withWidth, {isWidthDown} from '@material-ui/core/withWidth'
 import { withStyles } from '@material-ui/core/styles'
 import {FixedTableCell, FlexibleTableCell, FullTableCell, RankEvolution, TableCell, TableChip, TableRow, TableRowHighlight, Avatar} from '../../../../../../components'
 import _ from 'lodash'
@@ -16,6 +17,7 @@ const PlayerRank = ({rank, selected, raceFinisher, ...props}) => {
     const color = !selected ? 'default' : 'primary'
     const TableRowComponent = raceFinisher ? TableRowHighlight : TableRow
     const teamColor = rank.color ? rank.color : '#fff'
+    const mobileScreen = isWidthDown('xs', props.width)
     return (
         <TableRowComponent>
             {<FullTableCell style={{backgroundColor: teamColor || 'white', width: 4}} />}
@@ -26,7 +28,22 @@ const PlayerRank = ({rank, selected, raceFinisher, ...props}) => {
                 <Avatar src={photo} className={classes.photo} entityId={ _.get(rank, 'collaboratorId') }  fallbackName={ `${ _.get(rank, 'firstName') } ${ _.get(rank, 'lastName') }` }/>
             </FixedTableCell>
             <FlexibleTableCell color={color}>
-                { rank.firstName } { rank.lastName }
+              {mobileScreen ? (
+                <React.Fragment>
+                  <div style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>
+                    { rank.firstName }
+                  </div>
+                  <div style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>
+                    { rank.lastName }
+                  </div>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <div style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',}}>
+                    { rank.firstName } { rank.lastName }
+                  </div>
+                </React.Fragment>
+              )}
             </FlexibleTableCell>
             <TableCell align='right' color={color}>
                 { rank.level }
@@ -44,4 +61,4 @@ const PlayerRank = ({rank, selected, raceFinisher, ...props}) => {
     )
 };
 
-export default withStyles(styles)(PlayerRank)
+export default withStyles(styles)(withWidth()(PlayerRank))
