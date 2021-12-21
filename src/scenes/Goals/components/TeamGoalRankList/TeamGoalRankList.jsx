@@ -42,7 +42,7 @@ const TeamGoalRankList = ({ranks, teamId, account, ...props}) => {
                                   <div>
                                     {rank.progression.toPercentage()}
                                   </div>
-                                  {(_.get(account, 'role.code') === 'A' || _.get(account, 'role.code') === 'M') && (
+                                  {(_.get(account, 'role.code') === 'A' || (_.get(account, 'role.code') === 'M' && _.get(account, 'team.id') === _.get(rank, 'team.id'))) && (
                                     <div style={{fontSize: 10, opacity: 0.8}}>
                                       {rank.counter}&nbsp;/&nbsp;{rank.target}
                                     </div>

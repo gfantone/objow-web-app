@@ -75,7 +75,6 @@ class TeamCollaboratorGoalDetail extends MainLayoutComponent {
         if(!account.hasGoalAccess) {
           return <Redirect to={'/challenges'} />
         }
-
         return (
             <div>
                 { account.hasGoalRankAccess && this.state.page == 0 && goal && goal.allow_ranking && ranks && <CollaboratorGoalRankList account={account} ranks={ranks} /> }

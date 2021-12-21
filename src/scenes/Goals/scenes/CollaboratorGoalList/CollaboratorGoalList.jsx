@@ -206,7 +206,6 @@ class CollaboratorGoalList extends MainLayoutComponent {
         const goals = this.mergeGoals(collaboratorGoals, teamGoals);
         const teamId = collaborator && collaborator.team ? collaborator.team.id : null;
         const collaboratorId = collaborator ? collaborator.id : null;
-
         return (
             <div>
               <Grid container spacing={3}>

@@ -133,7 +133,7 @@ class TeamGoalList extends Component {
                     <Grid container spacing={2}>
                         { goals.map((goal) => {
                             return (
-                                <Grid key={goal.id} item xs={3}>
+                                <Grid key={goal.id} item xs={6} sm={4} md={3}>
                                     <TextField type='number' name={goal.id} label={goal.team.name} initial={goal.target} fullWidth required disabled={!editable || readonly}
                                         validations={{
                                             isInt: true,

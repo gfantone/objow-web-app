@@ -146,7 +146,7 @@ class CollaboratorGoalList extends Component {
                             const photo = goal.collaborator.photo ? goal.collaborator.photo : '/assets/img/user/avatar.svg';
 
                             return (
-                                <Grid key={goal.id} item xs={3} container spacing={1}>
+                                <Grid key={goal.id} item xs={6} sm={4} md={3} container spacing={1}>
                                     <Grid item>
                                         <Avatar src={photo} className={classes.avatar} entityId={ _.get(goal, 'collaborator.id') } fallbackName={ _.get(goal, 'collaborator.fullname') } />
                                     </Grid>
