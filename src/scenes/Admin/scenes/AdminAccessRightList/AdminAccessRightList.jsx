@@ -139,6 +139,9 @@ class AdminAccessRightList extends MainLayoutComponent {
         const RULW = configs.filter(c => c.code === 'RULW')[0];
         const BDGW = configs.filter(c => c.code === 'BDGW')[0];
 
+        // Notifications
+        const NTFE = configs.filter(c => c.code === 'NTFE')[0];
+
         const { account } = this.props.accountDetail;
         const homePagesOptions = homePages(account);
         const goalTimeFilters = [
@@ -235,6 +238,9 @@ class AdminAccessRightList extends MainLayoutComponent {
                                         <Grid container direction="column" spacing={1}>
                                           <Grid item>
                                             <Select name={ GDTF.id } initial={GDTF.value} label={'Filtre par défaut sur les objectifs'} options={goalTimeFilters} optionValueName='value' optionTextName='description' fullWidth emptyDisabled />
+                                          </Grid>
+                                          <Grid item xs={6}>
+                                            <Switch name={NTFE.id} initial={NTFE.value.toBoolean()} label='Activer les notifications' />
                                           </Grid>
                                           <Grid item>
                                             <Grid container spacing={1}>
