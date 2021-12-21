@@ -236,11 +236,11 @@ class AdminAccessRightList extends MainLayoutComponent {
                                 <Grid item xs={12}>
                                     <Card>
                                         <Grid container direction="column" spacing={1}>
-                                          <Grid item>
-                                            <Select name={ GDTF.id } initial={GDTF.value} label={'Filtre par défaut sur les objectifs'} options={goalTimeFilters} optionValueName='value' optionTextName='description' fullWidth emptyDisabled />
-                                          </Grid>
                                           <Grid item xs={6}>
                                             <Switch name={NTFE.id} initial={NTFE.value.toBoolean()} label='Activer les notifications' />
+                                          </Grid>
+                                          <Grid item>
+                                            <Select name={ GDTF.id } initial={GDTF.value} label={'Filtre par défaut sur les objectifs'} options={goalTimeFilters} optionValueName='value' optionTextName='description' fullWidth emptyDisabled />
                                           </Grid>
                                           <Grid item>
                                             <Grid container spacing={1}>

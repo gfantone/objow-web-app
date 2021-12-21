@@ -275,7 +275,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                                   </Grid>
                                                   <Grid item xs={12} className={classes.pointsField} style={{position: 'relative'}}>
 
-                                                    <CardMedia image={coinImage} style={{height: 20, width: 20, position: 'absolute', left: 5, top: 3}} />
+                                                    <CardMedia image={coinImage} style={{height: 20, width: 20, position: 'absolute', left: 5, top: -1}} />
 
                                                     <TextField name={`award[${index}]`} label="Points" fullWidth required initial={award.points}
                                                       validations={ validations }
