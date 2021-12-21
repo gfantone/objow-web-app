@@ -83,7 +83,8 @@ const AwardType = ({types, currentType, setType, participantsNumber, participant
                         <Grid item style={{textAlign: 'center'}}>
                           <DefaultText lowercase>
                             {Resources[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${type.code}`].format(
-                              _.get(participantType, 'code') === 'CC' ? 'premiers' : 'premières équipes'
+                              _.get(participantType, 'code') === 'CC' ? 'premiers' : 'premières équipes',
+                              _.get(participantType, 'code') === 'CC' ? 'participants' : 'équipes'
                             )}
                           </DefaultText>
                         </Grid>
