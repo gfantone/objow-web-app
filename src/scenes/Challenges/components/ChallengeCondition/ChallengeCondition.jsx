@@ -495,7 +495,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
                                     <DefaultText lowercase style={{fontSize: 14}}>
                                       {Resources[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${challenge.awardCode}`].format(
                                         challenge.typeCode === 'CC' ? 'premiers' : 'premières équipes',
-                                        challenge.typeCode === 'CC' ? 'participants' : 'équipes'
+                                        challenge.typeCode === 'CC' ? 'participant' : 'équipe'
                                       )}
                                     </DefaultText>
                                   </Grid>

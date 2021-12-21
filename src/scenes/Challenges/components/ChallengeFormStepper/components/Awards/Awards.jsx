@@ -116,7 +116,7 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                           <DefaultText lowercase>
                             {Resources[`CHALLENGE_CREATION_AWARD_TYPE_DESCRIPTION_${currentType.code}`].format(
                               challengeTypeCode === 'CC' ? 'premiers' : 'premières équipes',
-                              challengeTypeCode === 'CC' ? 'participants' : 'équipes'
+                              challengeTypeCode === 'CC' ? 'participant' : 'équipe'
                             )}
                           </DefaultText>
                         </Grid>
