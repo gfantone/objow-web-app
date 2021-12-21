@@ -20,9 +20,7 @@ const PlayerRanking = ({ranking, collaboratorId}) => {
                         </TableHeadCell>
                         <TableHeadCell colSpan={2}>{Resources.COLLABORATOR_RANKING_COLLABORATOR_COLUMN}</TableHeadCell>
                         <TableHeadCell align='right'>{Resources.COLLABORATOR_RANKING_LEVEL_COLUMN}</TableHeadCell>
-                        <TableHeadCell align='right'>
-                            <FontAwesomeIcon icon={faStar} />
-                        </TableHeadCell>
+                    
                         <TableHeadCell align='right'>{ Resources.COLLABORATOR_RANKING_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faRandom} />

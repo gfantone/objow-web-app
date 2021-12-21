@@ -48,9 +48,7 @@ const PlayerRank = ({rank, selected, raceFinisher, ...props}) => {
             <TableCell align='right' color={color}>
                 { rank.level }
             </TableCell>
-            <TableCell align='right' color={color}>
-                { rank.victories }
-            </TableCell>
+            
             <TableCell align='right' color={color}>
                 { rank.points }
             </TableCell>

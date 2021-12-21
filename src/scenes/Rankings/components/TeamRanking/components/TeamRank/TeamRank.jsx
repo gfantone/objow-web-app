@@ -10,12 +10,10 @@ const TeamRank = ({ rank, selected, ...props }) => {
             <TableCell>
                 <TableChip color={color} size='small' label={rank.rank ? rank.rank : '-'} />
             </TableCell>
-            <FlexibleTableCell color={color}>
+            <TableCell color={color}>
                 { rank.team.name }
-            </FlexibleTableCell>
-            <TableCell align='right' color={color}>
-                { rank.victories }
             </TableCell>
+            
             <TableCell align='right' color={color}>
                 { rank.points }
             </TableCell>

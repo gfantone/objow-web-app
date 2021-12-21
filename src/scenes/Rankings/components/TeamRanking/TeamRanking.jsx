@@ -17,9 +17,7 @@ const TeamRanking = ({ranking, teamId}) => {
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
                         <TableHeadCell>{Resources.TEAM_RANKING_TEAM_COLUMN}</TableHeadCell>
-                        <TableHeadCell align='right'>
-                            <FontAwesomeIcon icon={faStar} />
-                        </TableHeadCell>
+
                         <TableHeadCell align='right'>{ Resources.TEAM_RANKING_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faRandom} />

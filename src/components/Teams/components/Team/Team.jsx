@@ -16,11 +16,11 @@ const Team = ({ team, ...props }) => {
                 <Grid item xs={2}>
                     <Avatar src={managerPhoto} entityId={ _.get(team, 'manager.id') } fallbackName={ _.get(team, 'manager.fullname') } />
                 </Grid>
-                <Grid item xs={10} container spacing={1}>
+                <Grid item xs={10} container>
                     <Grid item xs zeroMinWidth>
                         <DefaultTitle noWrap>{team.name}</DefaultTitle>
                     </Grid>
-                    <Grid item>
+                    <Grid item style={{marginLeft: 5}}>
                         <Tag color={team.color.hex}>{Resources.TEAM_COLLABORATORS_TEXT.format(players)}</Tag>
                     </Grid>
                     <Grid item xs={12} zeroMinWidth>

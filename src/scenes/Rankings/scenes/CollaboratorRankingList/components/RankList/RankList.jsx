@@ -29,9 +29,6 @@ const RankList = ({ challengeRank, generalRank, generalRankIcon, categoryRanks, 
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faSortAmountDown} />
                         </TableHeadCell>
-                        <TableHeadCell align='right'>
-                            <FontAwesomeIcon icon={faStar} />
-                        </TableHeadCell>
                         <TableHeadCell align='right'>{Resources.RANK_LIST_POINTS_COLUMN}</TableHeadCell>
                         <TableHeadCell align='right'>
                             <FontAwesomeIcon icon={faRandom} />

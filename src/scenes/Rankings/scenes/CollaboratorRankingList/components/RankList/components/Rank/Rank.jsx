@@ -15,15 +15,13 @@ const Rank = ({ image, name, rank, onClick, ...props }) => {
             <FixedTableCell align='center'>
                 { image }
             </FixedTableCell>
-            <FlexibleTableCell>
+            <TableCell>
                 { name }
-            </FlexibleTableCell>
+            </TableCell>
             <TableCell align='right'>
                 { rank.rank ? rank.rank : '-' }
             </TableCell>
-            <TableCell align='right'>
-                { rank.victories }
-            </TableCell>
+            
             <TableCell align='right'>
                 { rank.points }
             </TableCell>
