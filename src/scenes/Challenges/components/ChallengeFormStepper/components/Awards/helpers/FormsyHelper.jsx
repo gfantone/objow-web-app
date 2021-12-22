@@ -40,6 +40,30 @@ Formsy.addValidationRule('isRankingIncreasing', function (values, value, conditi
 });
 
 
+Formsy.addValidationRule('isRankingDecreasing', function (values, value, condition) {
+    var lastPoints = 0;
+    var index = 0;
+
+
+    while (index >= 0) {
+        const currentValue = values[`award[${index}]`];
+
+        if (currentValue !== undefined) {
+            if(index > 0) {
+              if (Number(currentValue) < lastPoints) {
+                return false
+              }
+            }
+            lastPoints = Number(currentValue);
+            index++
+        } else {
+            index = -1
+        }
+    }
+    return true
+});
+
+
 Formsy.addValidationRule('isStepsIncreasing', function (values, value, condition) {
     var lastPoints = 0;
     var index = 0;

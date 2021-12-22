@@ -149,11 +149,13 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                   'P': Resources.CHALLENGE_AWARD_STEP_POINT_LABEL.format(number)
                                 }
                                 const label = labels[currentType.code]
-                                const validations = isMaxAward ? 'isInt' : {isRankingIncreasing: true, isInt: true}
+                                const validations = isMaxAward || currentType.code === 'P' ? {isRankingDecreasing: true, isInt: true} : {isRankingIncreasing: true, isInt: true}
 
-                                const validationErrors = isMaxAward ? {
+
+                                const validationErrors = isMaxAward || currentType.code === 'P' ? {
                                   isInt: Resources.COMMON_IS_INT_ERROR,
                                   isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                  isRankingDecreasing: 'Les récompenses doivent être croissantes'
                                 } : {
                                   isInt: Resources.COMMON_IS_INT_ERROR,
                                   isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,

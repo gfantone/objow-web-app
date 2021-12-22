@@ -183,11 +183,12 @@ const Awards = ({challengeId, challengeTypeCode, challengeTypeId, end, hasChalle
                                 }
                                 const label = labels[currentType.code]
                                 // const validations = isMaxAward ? 'isLessThanOrEquals:usablePoints' : 'isRankingValid'
-                                const validations = isMaxAward ? 'isInt' : {isRankingIncreasing: true, isInt: true}
-
-                                const validationErrors = isMaxAward ? {
+                                const validations = isMaxAward || currentType.code === 'P' ? {isRankingDecreasing: true, isInt: true} : {isRankingIncreasing: true, isInt: true}
+                                console.log();
+                                const validationErrors = isMaxAward || currentType.code === 'P' ? {
                                   isInt: Resources.COMMON_IS_INT_ERROR,
                                   isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
+                                  isRankingDecreasing: 'Les récompenses doivent être croissantes'
                                 } : {
                                   isInt: Resources.COMMON_IS_INT_ERROR,
                                   isDefaultRequiredValue: Resources.COMMON_REQUIRED_ERROR,
