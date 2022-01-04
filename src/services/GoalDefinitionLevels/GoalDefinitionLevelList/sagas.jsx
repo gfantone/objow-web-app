@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { getGoalDefinitionLevelListSuccess, getGoalDefinitionLevelListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getGoaLDefinitionLevelList(action) {
 }
 
 function* watchGoalDefinitionLevelList() {
-    yield takeEvery(types.GET_GOAL_DEFINITION_LEVEL_LIST, getGoaLDefinitionLevelList)
+    yield takeLatest(types.GET_GOAL_DEFINITION_LEVEL_LIST, getGoaLDefinitionLevelList)
 }
 
 export default watchGoalDefinitionLevelList

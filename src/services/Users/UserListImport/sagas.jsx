@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {importUserListSuccess, importUserListError} from './actions'
 import {getUserListSuccess} from '../UserList/actions'
 import * as types from './actionTypes'
@@ -22,7 +22,7 @@ function* importUserList(action) {
 }
 
 function* watchUserListImport() {
-    yield takeEvery(types.IMPORT_USER_LIST, importUserList)
+    yield takeLatest(types.IMPORT_USER_LIST, importUserList)
 }
 
 export default watchUserListImport

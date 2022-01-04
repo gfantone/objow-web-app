@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getCollaboratorCategoryRankListSuccess, getCollaboratorCategoryRankListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -22,9 +22,9 @@ function* getCollaboratorCategoryRankListByCollaborator(action) {
 }
 
 export function* watchCollaboratorCategoryRankListByCategory() {
-    yield takeEvery(types.GET_COLLABORATOR_CATEGORY_RANK_LIST_BY_CATEGORY, getCollaboratorCategoryRankListByCategory)
+    yield takeLatest(types.GET_COLLABORATOR_CATEGORY_RANK_LIST_BY_CATEGORY, getCollaboratorCategoryRankListByCategory)
 }
 
 export function* watchCollaboratorCategoryRankListByCollaborator() {
-    yield takeEvery(types.GET_COLLABORATOR_CATEGORY_RANK_LIST_BY_COLLABORATOR, getCollaboratorCategoryRankListByCollaborator)
+    yield takeLatest(types.GET_COLLABORATOR_CATEGORY_RANK_LIST_BY_COLLABORATOR, getCollaboratorCategoryRankListByCollaborator)
 }

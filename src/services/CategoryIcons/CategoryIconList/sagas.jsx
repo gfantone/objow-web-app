@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getCategoryIconListSuccess, getCategoryIconListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -22,9 +22,9 @@ function* getUsableListForCategory(action) {
 }
 
 export function* watchUsableCategoryIconList() {
-    yield takeEvery(types.GET_USABLE_LIST, getUsableList)
+    yield takeLatest(types.GET_USABLE_LIST, getUsableList)
 }
 
 export function* watchUsableCategoryIconListForCategory() {
-    yield takeEvery(types.GET_USABLE_LIST_FOR_CATEGORY, getUsableListForCategory)
+    yield takeLatest(types.GET_USABLE_LIST_FOR_CATEGORY, getUsableListForCategory)
 }

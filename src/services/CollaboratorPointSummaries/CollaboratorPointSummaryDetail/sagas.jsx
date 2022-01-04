@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {getCollaboratorPointSummarySuccess, getCollaboratorPointSummaryError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getCollaboratorPointSummary(action) {
 }
 
 function* watchCollaboratorPointSummaryDetail() {
-    yield takeEvery(types.GET_COLLABORATOR_POINT_SUMMARY, getCollaboratorPointSummary)
+    yield takeLatest(types.GET_COLLABORATOR_POINT_SUMMARY, getCollaboratorPointSummary)
 }
 
 export default watchCollaboratorPointSummaryDetail

@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { updateTeamSuccess, updateTeamError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -15,7 +15,7 @@ function* updateTeam(action) {
 }
 
 function* watchTeamUpdate() {
-    yield takeEvery(types.UPDATE_TEAM, updateTeam)
+    yield takeLatest(types.UPDATE_TEAM, updateTeam)
 }
 
 export default watchTeamUpdate

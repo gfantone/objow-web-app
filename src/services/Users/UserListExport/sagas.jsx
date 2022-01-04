@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {exportUserListSuccess, exportUserListError} from './actions'
 import {getUserListSuccess} from '../UserList/actions'
 import * as types from './actionTypes'
@@ -22,7 +22,7 @@ function* exportUserList(action) {
 }
 
 function* watchUserListExport() {
-    yield takeEvery(types.EXPORT_USER_LIST, exportUserList)
+    yield takeLatest(types.EXPORT_USER_LIST, exportUserList)
 }
 
 export default watchUserListExport

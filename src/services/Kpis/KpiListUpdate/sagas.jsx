@@ -1,4 +1,4 @@
-import {all, call, put, takeEvery} from 'redux-saga/effects'
+import {all, call, put, takeLatest} from 'redux-saga/effects'
 import {updateKpiListSuccess, updateKpiListError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* updateKpiList(action) {
 }
 
 function* watchKpiListUpdate() {
-    yield takeEvery(types.UPDATE_KPI_LIST, updateKpiList)
+    yield takeLatest(types.UPDATE_KPI_LIST, updateKpiList)
 }
 
 export default watchKpiListUpdate

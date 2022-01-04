@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { getTeamDetailSuccess, getTeamDetailError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -32,9 +32,9 @@ function* getTeamDetailByAccount(action) {
 }
 
 export function* watchTeamDetail() {
-    yield takeEvery(types.GET_TEAM_DETAIL, getTeamDetail)
+    yield takeLatest(types.GET_TEAM_DETAIL, getTeamDetail)
 }
 
 export function* watchTeamDetailByAccount() {
-    yield takeEvery(types.GET_TEAM_DETAIL_BY_ACCOOUNT, getTeamDetailByAccount)
+    yield takeLatest(types.GET_TEAM_DETAIL_BY_ACCOOUNT, getTeamDetailByAccount)
 }

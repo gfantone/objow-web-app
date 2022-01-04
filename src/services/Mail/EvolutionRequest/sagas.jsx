@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { requestEvolutionSuccess, requestEvolutionError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* requestEvolution(action) {
 }
 
 function* watchEvolutionRequest() {
-    yield takeEvery(types.REQUEST_EVOLUTION, requestEvolution)
+    yield takeLatest(types.REQUEST_EVOLUTION, requestEvolution)
 }
 
 export default watchEvolutionRequest

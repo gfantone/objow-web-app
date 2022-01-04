@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getConfigListSuccess, getConfigListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -22,9 +22,9 @@ function* getPermanentConfigList(action) {
 }
 
 export function* watchConfigList() {
-    yield takeEvery(types.GET_CONFIG_LIST, getConfigList)
+    yield takeLatest(types.GET_CONFIG_LIST, getConfigList)
 }
 
 export function* watchPermanentConfigList() {
-    yield takeEvery(types.GET_PERMANENT_CONFIG_LIST, getPermanentConfigList)
+    yield takeLatest(types.GET_PERMANENT_CONFIG_LIST, getPermanentConfigList)
 }

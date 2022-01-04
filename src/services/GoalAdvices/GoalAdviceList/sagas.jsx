@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getGoalAdviceListSuccess, getGoalAdviceListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -31,13 +31,13 @@ function* getGoalAdviceListByTeamCollaboratorGoal(action) {
 }
 
 export function* watchGoalAdviceListByCollaboratorGoal() {
-    yield takeEvery(types.GET_GOAL_ADVICE_LIST_BY_COLLABORATOR_GOAL, getGoalAdviceListByCollaboratorGoal)
+    yield takeLatest(types.GET_GOAL_ADVICE_LIST_BY_COLLABORATOR_GOAL, getGoalAdviceListByCollaboratorGoal)
 }
 
 export function* watchGoalAdviceListByTeamGoal() {
-    yield takeEvery(types.GET_GOAL_ADVICE_LIST_BY_TEAM_GOAL, getGoalAdviceListByTeamGoal)
+    yield takeLatest(types.GET_GOAL_ADVICE_LIST_BY_TEAM_GOAL, getGoalAdviceListByTeamGoal)
 }
 
 export function* watchGoalAdviceListByTeamCollaboratorGoal() {
-    yield takeEvery(types.GET_GOAL_ADVICE_LIST_BY_TEAM_COLLABORATOR_GOAL, getGoalAdviceListByTeamCollaboratorGoal)
+    yield takeLatest(types.GET_GOAL_ADVICE_LIST_BY_TEAM_COLLABORATOR_GOAL, getGoalAdviceListByTeamCollaboratorGoal)
 }

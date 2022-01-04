@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getCurrentPeriodDetailSuccess, getCurrentPeriodDetailError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getCurrentPeriodDetail(action) {
 }
 
 function* watchCurrentPeriodDetail() {
-    yield takeEvery(types.GET_CURRENT_PERIOD_DETAIL, getCurrentPeriodDetail)
+    yield takeLatest(types.GET_CURRENT_PERIOD_DETAIL, getCurrentPeriodDetail)
 }
 
 export default watchCurrentPeriodDetail

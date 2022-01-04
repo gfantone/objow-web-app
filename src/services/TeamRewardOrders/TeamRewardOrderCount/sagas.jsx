@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { countTeamRewardOrderSuccess, countTeamRewardOrderError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* countTeamRewardOrder(action) {
 }
 
 function* watchWaitingTeamRewardOrderCount() {
-    yield takeEvery(types.COUNT_WAITING_TEAM_REWARD_ORDER, countTeamRewardOrder)
+    yield takeLatest(types.COUNT_WAITING_TEAM_REWARD_ORDER, countTeamRewardOrder)
 }
 
 export default watchWaitingTeamRewardOrderCount

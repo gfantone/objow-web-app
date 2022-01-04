@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { updateCoachingItemListSuccess, updateCoachingItemListError } from './actions'
 import { getCoachingItemListSuccess } from '../CoachingItemList/actions'
 import * as types from './actionTypes'
@@ -19,7 +19,7 @@ function* updateCoachingItemList(action) {
 }
 
 function* watchCoachingItemListUpdate() {
-    yield takeEvery(types.UPDATE_COACHING_ITEM_LIST, updateCoachingItemList)
+    yield takeLatest(types.UPDATE_COACHING_ITEM_LIST, updateCoachingItemList)
 }
 
 export default watchCoachingItemListUpdate

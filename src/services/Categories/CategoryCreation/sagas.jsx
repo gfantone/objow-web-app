@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import {createCategorySuccess, createCategoryError} from './actions'
 import {getAdminReferenceData} from '../../AdminReferenceData/actions'
 import * as types from './actionTypes'
@@ -15,7 +15,7 @@ function* performCategoryCreation(action) {
 }
 
 function* watchCateogryCreation() {
-    yield takeEvery(types.CREATE_CATEGORY, performCategoryCreation)
+    yield takeLatest(types.CREATE_CATEGORY, performCategoryCreation)
 }
 
 export default watchCateogryCreation

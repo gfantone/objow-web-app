@@ -1,4 +1,4 @@
-import {all, call, put, takeEvery} from 'redux-saga/effects'
+import {all, call, put, takeLatest} from 'redux-saga/effects'
 import {getInAppNotificationListSuccess, getInAppNotificationListError} from './actions'
 import {countNewInAppNotificationSuccess} from '../InAppNotificationCount/actions'
 import * as types from './actionTypes'
@@ -16,7 +16,7 @@ function* getInAppNotificationList(action) {
 }
 
 function* watchInAppNotificationList() {
-    yield takeEvery(types.GET_IN_APP_NOTIFICATION_LIST, getInAppNotificationList)
+    yield takeLatest(types.GET_IN_APP_NOTIFICATION_LIST, getInAppNotificationList)
 }
 
 export default watchInAppNotificationList

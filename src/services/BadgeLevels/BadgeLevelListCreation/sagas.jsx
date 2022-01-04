@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { createBadgeLevelListSuccess, createBadgeLevelListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* createBadgeLevelList(action) {
 }
 
 function* watchBadgeLevelListCreation() {
-    yield takeEvery(types.CREATE_BADGE_LEVEL_LIST, createBadgeLevelList)
+    yield takeLatest(types.CREATE_BADGE_LEVEL_LIST, createBadgeLevelList)
 }
 
 export default watchBadgeLevelListCreation

@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {getTeamRewardOrderSummaryListSuccess, getTeamRewardOrderSummaryListError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -22,9 +22,9 @@ function* getWaitingTeamRewardOrderSummaryList(action) {
 }
 
 export function* watchValidatedTeamRewardOrderSummaryList() {
-    yield takeEvery(types.GET_VALIDATED_TEAM_REWARD_ORDER_SUMMARY_LIST, getValidatedTeamRewardOrderSummaryList)
+    yield takeLatest(types.GET_VALIDATED_TEAM_REWARD_ORDER_SUMMARY_LIST, getValidatedTeamRewardOrderSummaryList)
 }
 
 export function* watchWaitingTeamRewardOrderSummaryList() {
-    yield takeEvery(types.GET_WAITING_TEAM_REWARD_ORDER_SUMMARY_LIST, getWaitingTeamRewardOrderSummaryList)
+    yield takeLatest(types.GET_WAITING_TEAM_REWARD_ORDER_SUMMARY_LIST, getWaitingTeamRewardOrderSummaryList)
 }

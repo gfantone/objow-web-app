@@ -1,4 +1,4 @@
-import {all, call, put, takeEvery} from 'redux-saga/effects'
+import {all, call, put, takeLatest} from 'redux-saga/effects'
 import {getCollaboratorBadgeLevelListSuccess, getCollaboratorBadgeLevelListError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -32,9 +32,9 @@ function* getCollaboratorNextBadgeLevelList(action) {
 }
 
 export function* watchCollaboratorBadgeLevelList() {
-    yield takeEvery(types.GET_COLLABORATOR_BADGE_LEVEL_LIST, getCollaboratorBadgeLevelList)
+    yield takeLatest(types.GET_COLLABORATOR_BADGE_LEVEL_LIST, getCollaboratorBadgeLevelList)
 }
 
 export function* watchCollaboratorNextBadgeLevelList() {
-    yield takeEvery(types.GET_COLLABORATOR_NEXT_BADGE_LEVEL_LIST, getCollaboratorNextBadgeLevelList)
+    yield takeLatest(types.GET_COLLABORATOR_NEXT_BADGE_LEVEL_LIST, getCollaboratorNextBadgeLevelList)
 }

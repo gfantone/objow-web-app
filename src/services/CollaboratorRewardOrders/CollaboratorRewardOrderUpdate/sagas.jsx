@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {updateCollaboratorRewardOrderSuccess, updateCollaboratorRewardOrderError} from './actions'
 import {countCollaboratorRewardOrderSuccess} from '../CollaboratorRewardOrderCount/actions'
 import {clearCollaboratorRewardOrderDetail} from '../CollaboratorRewardOrderDetail/actions'
@@ -18,7 +18,7 @@ function* updateCollaboratorRewardOrderValidation(action) {
 }
 
 function* watchCollaboratorRewardOrderValidationUpdate() {
-    yield takeEvery(types.UPDATE_COLLABORATOR_REWARD_ORDER, updateCollaboratorRewardOrderValidation)
+    yield takeLatest(types.UPDATE_COLLABORATOR_REWARD_ORDER, updateCollaboratorRewardOrderValidation)
 }
 
 export default watchCollaboratorRewardOrderValidationUpdate

@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { updateSystemImageSuccess, updateSystemImageError } from './actions'
 import { getSystemImageListSuccess } from '../SystemImageList/actions'
 import * as types from './actionTypes'
@@ -16,7 +16,7 @@ function* updateSystemImage(action) {
 }
 
 function* watchSystemImageUpdate() {
-    yield takeEvery(types.UPDATE_SYSTEM_IMAGE, updateSystemImage)
+    yield takeLatest(types.UPDATE_SYSTEM_IMAGE, updateSystemImage)
 }
 
 export default watchSystemImageUpdate

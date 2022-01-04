@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { createChallengeSuccess, createChallengeError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -36,7 +36,7 @@ function* createChallenge(action) {
 }
 
 function* watchChallengeCreation() {
-    yield takeEvery(types.CREATE_CHALLENGE, createChallenge)
+    yield takeLatest(types.CREATE_CHALLENGE, createChallenge)
 }
 
 export default watchChallengeCreation

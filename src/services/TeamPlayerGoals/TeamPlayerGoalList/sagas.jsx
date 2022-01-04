@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import {getTeamPlayerGoalListSuccess, getTeamPlayerGoalListError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getTeamPlayerGoalList(action) {
 }
 
 function* watchTeamPlayerGoalList() {
-    yield takeEvery(types.GET_TEAM_PLAYER_GOAL_LIST, getTeamPlayerGoalList)
+    yield takeLatest(types.GET_TEAM_PLAYER_GOAL_LIST, getTeamPlayerGoalList)
 }
 
 export default watchTeamPlayerGoalList

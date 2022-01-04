@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import {getUserPlayerCategoryRankListSuccess, getUserPlayerCategoryRankListError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getUserPlayerCategoryRankList(action) {
 }
 
 function* watchUserPlayerCategoryRankList() {
-    yield takeEvery(types.GET_USER_PLAYER_CATEGORY_RANK_LIST, getUserPlayerCategoryRankList)
+    yield takeLatest(types.GET_USER_PLAYER_CATEGORY_RANK_LIST, getUserPlayerCategoryRankList)
 }
 
 export default watchUserPlayerCategoryRankList

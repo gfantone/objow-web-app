@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, compose, applyMiddleware } from 'redux'
 import createSagaMiddleWare from 'redux-saga'
 import rootReducer from './rootReducer'
 import Sagas from '../services/Sagas'
@@ -8,7 +8,8 @@ import local from '../data/local/local'
 
 const persistConfig = {
     key: 'root',
-    storage
+    storage,
+    whitelist: ['accountDetail']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -18,7 +19,12 @@ const sagaMiddleware = createSagaMiddleWare();
 const configureStore = () => {
     const currentVersion = '0.9.3';
     const lastVersion = local.getVersion();
-    const store = createStore(persistedReducer, applyMiddleware(sagaMiddleware));
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+    const store = createStore(
+      persistedReducer,
+      composeEnhancers(applyMiddleware(sagaMiddleware))
+    );
     const persistor = persistStore(store);
     if (currentVersion !== lastVersion) {
         persistor.purge().then(() => {

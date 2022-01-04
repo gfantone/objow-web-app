@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getTeamGeneralRankDetailSuccess, getTeamGeneralRankDetailError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getTeamGeneralRankDetail(action) {
 }
 
 function* watchTeamGeneralRankDetail() {
-    yield takeEvery(types.GET_TEAM_GENERAL_RANK_DETAIL, getTeamGeneralRankDetail)
+    yield takeLatest(types.GET_TEAM_GENERAL_RANK_DETAIL, getTeamGeneralRankDetail)
 }
 
 export default watchTeamGeneralRankDetail

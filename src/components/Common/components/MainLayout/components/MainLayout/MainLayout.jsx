@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { faAngleLeft, faBars} from '@fortawesome/free-solid-svg-icons'
 import { AppBar, AppBarSearch, Drawer, DrawerContent, MainContainer, HeaderContainer, HeaderContainerLeft, HeaderContainerRight, HeaderTitle, HeaderTitleContainer, Search, SubHeaderContainer, Toolbar, ErrorHandler } from './components'
+import configureStore from "../../../../../../store/configureStore";
 import { IconButton } from '../../../'
 import { useClearCache } from 'react-clear-cache'
 import { ErrorBoundary } from 'react-error-boundary';
@@ -84,10 +85,14 @@ const MainLayout = ({component: Component, history, ...rest}) => {
     if(localStorage.getItem('CHECK_NEW_VERSION')) {
       localStorage.removeItem('CHECK_NEW_VERSION')
       if (!isLatestVersion) {
-
-        localStorage.clear();
-        emptyCacheStorage()
-        window.location = '/'
+        const { store, persistor } = configureStore();
+        persistor.purge().then(() => {
+          localStorage.clear();
+          emptyCacheStorage()
+        })
+        // localStorage.clear();
+        // emptyCacheStorage()
+        // window.location = '/'
       }
     }
 

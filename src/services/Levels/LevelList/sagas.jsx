@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { getLevelListSuccess, getLevelListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -18,7 +18,7 @@ function* getLevelList(action) {
 }
 
 function* watchLevelList() {
-    yield takeEvery(types.GET_LEVEL_LIST, getLevelList)
+    yield takeLatest(types.GET_LEVEL_LIST, getLevelList)
 }
 
 export default watchLevelList

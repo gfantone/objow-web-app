@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getPeriodListSuccess, getPeriodListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getPeriodList(action) {
 }
 
 function* watchPeriodList() {
-    yield takeEvery(types.GET_PERIOD_LIST, getPeriodList)
+    yield takeLatest(types.GET_PERIOD_LIST, getPeriodList)
 }
 
 export default watchPeriodList

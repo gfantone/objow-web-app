@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {updateTeamRewardOrderSuccess, updateTeamRewardOrderError} from './actions'
 import {countTeamRewardOrderSuccess} from '../TeamRewardOrderCount/actions'
 import {clearTeamRewardOrderDetail} from '../TeamRewardOrderDetail/actions'
@@ -18,7 +18,7 @@ function* updateTeamRewardOrder(action) {
 }
 
 function* watchTeamRewardOrderUpdate() {
-    yield takeEvery(types.UPDATE_TEAM_REWARD_ORDER, updateTeamRewardOrder)
+    yield takeLatest(types.UPDATE_TEAM_REWARD_ORDER, updateTeamRewardOrder)
 }
 
 export default watchTeamRewardOrderUpdate

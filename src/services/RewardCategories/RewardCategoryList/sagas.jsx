@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {getRewardCategoryListSuccess, getRewardCategoryListError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -22,9 +22,9 @@ function* getInactiveRewardCategoryList(action) {
 }
 
 export function* watchActiveRewardCategoryList() {
-    yield takeEvery(types.GET_ACTIVE_REWARD_CATEGORY_LIST, getActiveRewardCategoryList)
+    yield takeLatest(types.GET_ACTIVE_REWARD_CATEGORY_LIST, getActiveRewardCategoryList)
 }
 
 export function* watchInactiveRewardCategoryList() {
-    yield takeEvery(types.GET_INACTIVE_REWARD_CATEGORY_LIST, getInactiveRewardCategoryList)
+    yield takeLatest(types.GET_INACTIVE_REWARD_CATEGORY_LIST, getInactiveRewardCategoryList)
 }

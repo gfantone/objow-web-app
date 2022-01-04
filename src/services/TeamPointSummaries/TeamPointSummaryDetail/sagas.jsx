@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {getTeamPointSummarySuccess, getTeamPointSummaryError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -22,9 +22,9 @@ function* getTeamPointSummaryByTeam(action) {
 }
 
 export function* watchTeamPointSummaryDetailByCollaborator() {
-    yield takeEvery(types.GET_TEAM_POINT_SUMMARY_DETAIL_BY_COLLABORATOR, getTeamPointSummaryByCollaborator)
+    yield takeLatest(types.GET_TEAM_POINT_SUMMARY_DETAIL_BY_COLLABORATOR, getTeamPointSummaryByCollaborator)
 }
 
 export function* watchTeamPointSummaryDetailByTeam() {
-    yield takeEvery(types.GET_TEAM_POINT_SUMMARY_DETAIL_BY_TEAM, getTeamPointSummaryByTeam)
+    yield takeLatest(types.GET_TEAM_POINT_SUMMARY_DETAIL_BY_TEAM, getTeamPointSummaryByTeam)
 }

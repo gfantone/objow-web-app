@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { updateChallengeTypeListSuccess, updateChallengeTypeListError } from './actions'
 import * as actionTypes from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* updateChallengeTypeList(action) {
 }
 
 function* watchChallengeTypeListUpdate() {
-    yield takeEvery(actionTypes.UPDATE_CHALLENGE_TYPE_LIST, updateChallengeTypeList)
+    yield takeLatest(actionTypes.UPDATE_CHALLENGE_TYPE_LIST, updateChallengeTypeList)
 }
 
 export default watchChallengeTypeListUpdate

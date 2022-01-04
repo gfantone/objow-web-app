@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { createCoachingItemListSuccess, createCoachingItemListError } from './actions'
 import { getCoachingItemListSuccess } from '../CoachingItemList/actions'
 import * as types from './actionTypes'
@@ -19,7 +19,7 @@ function* createCoachingItemList(action) {
 }
 
 function* watchCoachingItemListCreation() {
-    yield takeEvery(types.CREATE_COACHING_ITEM_LIST, createCoachingItemList)
+    yield takeLatest(types.CREATE_COACHING_ITEM_LIST, createCoachingItemList)
 }
 
 export default watchCoachingItemListCreation

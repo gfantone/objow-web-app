@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getImportLogListSuccess, getImportLogListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getImportLogList(action) {
 }
 
 function* watchImportLogList() {
-    yield takeEvery(types.GET_IMPORT_LOG_LIST, getImportLogList)
+    yield takeLatest(types.GET_IMPORT_LOG_LIST, getImportLogList)
 }
 
 export default watchImportLogList

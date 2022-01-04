@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { updateConfigListSuccess, updateConfigListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* updateConfigList(action) {
 }
 
 function* watchConfigListUpdate() {
-    yield takeEvery(types.UPDATE_CONFIG_LIST, updateConfigList)
+    yield takeLatest(types.UPDATE_CONFIG_LIST, updateConfigList)
 }
 
 export default watchConfigListUpdate

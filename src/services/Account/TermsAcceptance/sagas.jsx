@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { acceptTermsSuccess, acceptTermsError } from './actions'
 import * as types from './actionTypes'
 import { getAccountDetailSuccess } from '../AccountDetail/actions'
@@ -16,7 +16,7 @@ function* acceptTerms(action) {
 }
 
 function* watchTermsAcceptance() {
-    yield takeEvery(types.ACCEPT_TERMS, acceptTerms)
+    yield takeLatest(types.ACCEPT_TERMS, acceptTerms)
 }
 
 export default watchTermsAcceptance

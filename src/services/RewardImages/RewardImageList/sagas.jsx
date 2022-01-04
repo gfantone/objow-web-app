@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {getRewardImageListSuccess, getRewardImageListError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getRewardImageList(action) {
 }
 
 function* watchRewardImageList() {
-    yield takeEvery(types.GET_REWARD_IMAGE_LIST, getRewardImageList)
+    yield takeLatest(types.GET_REWARD_IMAGE_LIST, getRewardImageList)
 }
 
 export default watchRewardImageList

@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getGoalDefinitionRepartitionListSuccess, getGoalDefinitionRepartitionListError } from './actions'
 import * as actionTypes from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getGoalDefinitionRepartitionList(action) {
 }
 
 function* watchGoalDefinitionRepartitionList() {
-    yield takeEvery(actionTypes.GET_GOAL_DEFINITION_REPARTITION_LIST, getGoalDefinitionRepartitionList)
+    yield takeLatest(actionTypes.GET_GOAL_DEFINITION_REPARTITION_LIST, getGoalDefinitionRepartitionList)
 }
 
 export default watchGoalDefinitionRepartitionList

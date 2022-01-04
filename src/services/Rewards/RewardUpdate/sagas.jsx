@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {updateRewardSuccess, updateRewardError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -22,9 +22,9 @@ function* updateRewardActivation(action) {
 }
 
 export function* watchRewardUpdate() {
-    yield takeEvery(types.UPDATE_REWARD, updateReward)
+    yield takeLatest(types.UPDATE_REWARD, updateReward)
 }
 
 export function* watchRewardActivationUpdate() {
-    yield takeEvery(types.UPDATE_REWARD_ACTIVATION, updateRewardActivation)
+    yield takeLatest(types.UPDATE_REWARD_ACTIVATION, updateRewardActivation)
 }

@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getTeamChallengeRankListSuccess, getTeamChallengeRankListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getTeamChallengeRankList(action) {
 }
 
 function* watchTeamChallengeRankList() {
-    yield takeEvery(types.GET_TEAM_CHALLENGE_RANK_LIST, getTeamChallengeRankList)
+    yield takeLatest(types.GET_TEAM_CHALLENGE_RANK_LIST, getTeamChallengeRankList)
 }
 
 export default watchTeamChallengeRankList

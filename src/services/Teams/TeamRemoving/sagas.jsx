@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { removeTeamSuccess, removeTeamError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* removeTeam(action) {
 }
 
 function* watchTeamRemoving() {
-    yield takeEvery(types.REMOVE_TEAM, removeTeam)
+    yield takeLatest(types.REMOVE_TEAM, removeTeam)
 }
 
 export default watchTeamRemoving

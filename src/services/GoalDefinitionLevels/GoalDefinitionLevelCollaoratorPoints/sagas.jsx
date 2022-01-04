@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getGoalDefinitionLevelCollaboratorPointsSuccess, getGoalDefinitionLevelCollaboratorPointsError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -45,11 +45,11 @@ function* getGoalDefinitionLevelCollaboratorPointsByTeam(action) {
 }
 
 export function* watchGoalDefinitionLevelCollaboratorPoints() {
-    yield takeEvery(types.GET_GOAL_DEFINITION_LEVEL_COLLABORATOR_POINTS, getGoalDefinitionLevelCollaboratorPoints)
+    yield takeLatest(types.GET_GOAL_DEFINITION_LEVEL_COLLABORATOR_POINTS, getGoalDefinitionLevelCollaboratorPoints)
 }
 export function* watchGoalDefinitionLevelCollaboratorPointsByCollaborator() {
-    yield takeEvery(types.GET_GOAL_DEFINITION_LEVEL_COLLABORATOR_POINTS_BY_COLLABORATOR, getGoalDefinitionLevelCollaboratorPointsByCollaborator)
+    yield takeLatest(types.GET_GOAL_DEFINITION_LEVEL_COLLABORATOR_POINTS_BY_COLLABORATOR, getGoalDefinitionLevelCollaboratorPointsByCollaborator)
 }
 export function* watchGoalDefinitionLevelCollaboratorPointsByTeam() {
-    yield takeEvery(types.GET_GOAL_DEFINITION_LEVEL_COLLABORATOR_POINTS_BY_TEAM, getGoalDefinitionLevelCollaboratorPointsByTeam)
+    yield takeLatest(types.GET_GOAL_DEFINITION_LEVEL_COLLABORATOR_POINTS_BY_TEAM, getGoalDefinitionLevelCollaboratorPointsByTeam)
 }

@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { loginSuccess, loginError } from './actions'
 import { getAdminReferenceData } from '../AdminReferenceData/actions'
 import { getConfigList } from '../Configs/ConfigList/actions'
@@ -54,7 +54,7 @@ function* authenticate(action) {
 }
 
 function* watchAuth() {
-    yield takeEvery(types.LOGIN, authenticate)
+    yield takeLatest(types.LOGIN, authenticate)
 }
 
 export default watchAuth

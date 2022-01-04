@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getLevelIconListSuccess, getLevelIconListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -22,9 +22,9 @@ function* getUsableListForLevel(action) {
 }
 
 export function* watchUsableLevelIconList() {
-    yield takeEvery(types.GET_LEVELS_USABLE_LIST, getUsableList)
+    yield takeLatest(types.GET_LEVELS_USABLE_LIST, getUsableList)
 }
 
 export function* watchUsableLevelIconListForLevel() {
-    yield takeEvery(types.GET_USABLE_LIST_FOR_LEVEL, getUsableListForLevel)
+    yield takeLatest(types.GET_USABLE_LIST_FOR_LEVEL, getUsableListForLevel)
 }

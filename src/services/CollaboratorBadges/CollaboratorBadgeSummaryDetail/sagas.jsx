@@ -1,4 +1,4 @@
-import {all, call, put, takeEvery} from 'redux-saga/effects'
+import {all, call, put, takeLatest} from 'redux-saga/effects'
 import {getCollaboratorBadgeSummarySuccess, getCollaboratorBadgeSummaryError} from './actions'
 import {getCollaboratorDetailSuccess} from '../../Collaborators/CollaboratorDetail/actions'
 import * as types from './actionTypes'
@@ -20,7 +20,7 @@ function* getCollaboratorBadgeSummary(action) {
 }
 
 function* watchCollaboratorBadgeSummaryDetail() {
-    yield takeEvery(types.GET_COLLABORATOR_BADGE_SUMMARY, getCollaboratorBadgeSummary)
+    yield takeLatest(types.GET_COLLABORATOR_BADGE_SUMMARY, getCollaboratorBadgeSummary)
 }
 
 export default watchCollaboratorBadgeSummaryDetail

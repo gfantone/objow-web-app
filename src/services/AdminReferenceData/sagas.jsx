@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import {getAdminReferenceDataSuccess, getAdminReferenceDataError} from './actions'
 import * as types from './actionTypes'
 import api from '../../data/api/api'
@@ -19,7 +19,7 @@ function* getAdminReferenceData(action) {
 }
 
 function* watchAdminReferenceData() {
-    yield takeEvery(types.GET_ADMIN_REFERENCE_DATA, getAdminReferenceData)
+    yield takeLatest(types.GET_ADMIN_REFERENCE_DATA, getAdminReferenceData)
 }
 
 export default watchAdminReferenceData

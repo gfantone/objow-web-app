@@ -1,4 +1,4 @@
-import {all, call, put, takeEvery} from 'redux-saga/effects'
+import {all, call, put, takeLatest} from 'redux-saga/effects'
 import {getGoalDefinitionListSuccess, getGoalDefinitionListError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -73,13 +73,13 @@ function* getGoalDefinitionsByTeam(action) {
 }
 
 export function* watchGoalDefinitionList() {
-    yield takeEvery(types.GET_GOAL_DEFINITION_LIST, getGoalDefinitions)
+    yield takeLatest(types.GET_GOAL_DEFINITION_LIST, getGoalDefinitions)
 }
 
 export function* watchGoalDefinitionListByCollaborator() {
-    yield takeEvery(types.GET_GOAL_DEFINITION_LIST_BY_COLLABORATOR, getGoalDefinitionsByCollaborator)
+    yield takeLatest(types.GET_GOAL_DEFINITION_LIST_BY_COLLABORATOR, getGoalDefinitionsByCollaborator)
 }
 
 export function* watchGoalDefinitionListByTeam() {
-    yield takeEvery(types.GET_GOAL_DEFINITION_LIST_BY_TEAM, getGoalDefinitionsByTeam)
+    yield takeLatest(types.GET_GOAL_DEFINITION_LIST_BY_TEAM, getGoalDefinitionsByTeam)
 }

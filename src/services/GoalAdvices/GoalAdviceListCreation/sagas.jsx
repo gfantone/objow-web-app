@@ -1,4 +1,4 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 import { createGoalAdviceListSuccess, createGoalAdviceListError } from './actions'
 import {getCollaboratorGoalDetailSuccess} from '../../CollaboratorGoals/CollaboratorGoalDetail/actions'
 import {getTeamCollaboratorGoalDetailSuccess} from '../../TeamCollaboratorGoals/TeamCollaboratorGoalDetail/actions'
@@ -79,13 +79,13 @@ function* createGoalAdviceListByTeamGoal(action) {
 }
 
 export function* watchGoalAdviceListCreationByCollaboratorGoal() {
-    yield takeEvery(types.CREATE_GOAL_ADVICE_LIST_BY_COLLABORATOR_GOAL, createGoalAdviceListByCollaboratorGoal)
+    yield takeLatest(types.CREATE_GOAL_ADVICE_LIST_BY_COLLABORATOR_GOAL, createGoalAdviceListByCollaboratorGoal)
 }
 
 export function* watchGoalAdviceListCreationByTeamCollaboratorGoal() {
-    yield takeEvery(types.CREATE_GOAL_ADVICE_LIST_BY_TEAM_COLLABORATOR_GOAL, createGoalAdviceListByTeamCollaboratorGoal)
+    yield takeLatest(types.CREATE_GOAL_ADVICE_LIST_BY_TEAM_COLLABORATOR_GOAL, createGoalAdviceListByTeamCollaboratorGoal)
 }
 
 export function* watchGoalAdviceListCreationByTeamGoal() {
-    yield takeEvery(types.CREATE_GOAL_ADVICE_LIST_BY_TEAM_GOAL, createGoalAdviceListByTeamGoal)
+    yield takeLatest(types.CREATE_GOAL_ADVICE_LIST_BY_TEAM_GOAL, createGoalAdviceListByTeamGoal)
 }

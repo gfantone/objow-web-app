@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { updateCategorySuccess, updateCategoryError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* updateCategory(action) {
 }
 
 function* watchCategoryUpdate() {
-    yield takeEvery(types.UPDATE_CATEGORY, updateCategory)
+    yield takeLatest(types.UPDATE_CATEGORY, updateCategory)
 }
 
 export default watchCategoryUpdate

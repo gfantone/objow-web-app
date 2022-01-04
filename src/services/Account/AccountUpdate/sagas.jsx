@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { updateAccountSuccess, updateAccountError } from './actions'
 import * as types from './actionTypes'
 import { getAccountDetailSuccess } from '../AccountDetail/actions'
@@ -17,7 +17,7 @@ function* getAccountUpdate(action) {
 }
 
 function* watchAccountUpdate() {
-    yield takeEvery(types.UPDATE_ACCOUNT, getAccountUpdate)
+    yield takeLatest(types.UPDATE_ACCOUNT, getAccountUpdate)
 }
 
 export default watchAccountUpdate

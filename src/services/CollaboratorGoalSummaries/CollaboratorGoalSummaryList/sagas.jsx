@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {getCollaboratorGoalSummaryListSuccess, getCollaboratorGoalSummaryListError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -22,9 +22,9 @@ function* getCollaboratorGoalSummaryListByDefinitionAndCollaborator(action) {
 }
 
 export function* watchCollaboratorGoalSummaryList() {
-    yield takeEvery(types.GET_COLLABORATOR_GOAL_SUMMARY_LIST, getCollaboratorGoalSummaryList)
+    yield takeLatest(types.GET_COLLABORATOR_GOAL_SUMMARY_LIST, getCollaboratorGoalSummaryList)
 }
 
 export function* watchCollaboratorGoalSummaryListByDefinitionAndCollaborator() {
-    yield takeEvery(types.GET_COLLABORATOR_GOAL_SUMMARY_LIST_BY_DEFINITION_AND_COLLABORATOR, getCollaboratorGoalSummaryListByDefinitionAndCollaborator)
+    yield takeLatest(types.GET_COLLABORATOR_GOAL_SUMMARY_LIST_BY_DEFINITION_AND_COLLABORATOR, getCollaboratorGoalSummaryListByDefinitionAndCollaborator)
 }

@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import {updateGoalDefinitionSuccess, updateGoalDefinitionError} from './actions'
 import {getGoalDefinitionSuccess} from '../GoalDefinitionDetail/actions'
 import * as types from './actionTypes'
@@ -15,7 +15,7 @@ function* performGoalDefinitionUpdate(action) {
 }
 
 function* watchGoalDefinitionUpdate() {
-    yield takeEvery(types.UPDATE_GOAL_DEFINITION, performGoalDefinitionUpdate)
+    yield takeLatest(types.UPDATE_GOAL_DEFINITION, performGoalDefinitionUpdate)
 }
 
 export default watchGoalDefinitionUpdate

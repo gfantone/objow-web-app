@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects'
 import {connectAircallSuccess, connectAircallError} from './actions'
 import * as errors from './errors'
 import * as types from './actionTypes'
@@ -48,7 +48,7 @@ function* connectAircall(action) {
 }
 
 function* watchAircallAuthentication() {
-    yield takeEvery(types.CONNECT_AIRCALL, connectAircall)
+    yield takeLatest(types.CONNECT_AIRCALL, connectAircall)
 }
 
 export default watchAircallAuthentication

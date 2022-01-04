@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { getCollaboratorChallengeGoalListSuccess, getCollaboratorChallengeGoalListError } from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -13,7 +13,7 @@ function* getCollaboratorChallengeGoalList(action) {
 }
 
 function* watchCollaboratorChallengeGoalList() {
-    yield takeEvery(types.GET_COLLABORATOR_CHALLENGE_GOAL_LIST, getCollaboratorChallengeGoalList)
+    yield takeLatest(types.GET_COLLABORATOR_CHALLENGE_GOAL_LIST, getCollaboratorChallengeGoalList)
 }
 
 export default watchCollaboratorChallengeGoalList

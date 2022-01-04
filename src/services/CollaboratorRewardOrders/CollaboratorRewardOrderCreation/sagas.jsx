@@ -1,4 +1,4 @@
-import {all, call, put, takeEvery} from 'redux-saga/effects'
+import {all, call, put, takeLatest} from 'redux-saga/effects'
 import {createCollaboratorRewardOrderSuccess, createCollaboratorRewardOrderError} from './actions'
 import * as types from './actionTypes'
 import api from '../../../data/api/api'
@@ -15,7 +15,7 @@ function* createCollaboratorRewardOrder(action) {
 }
 
 function* watchCollaboratorRewardOrderCreation() {
-    yield takeEvery(types.CREATE_COLLABORATOR_REWARD_ORDER, createCollaboratorRewardOrder)
+    yield takeLatest(types.CREATE_COLLABORATOR_REWARD_ORDER, createCollaboratorRewardOrder)
 }
 
 export default watchCollaboratorRewardOrderCreation
