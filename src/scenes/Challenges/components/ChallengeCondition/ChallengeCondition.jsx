@@ -39,20 +39,55 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
     }
 
     const rewardTypeIcon = challenge.rewardTypeCode === 'G' ? giftImage : coinImage
+    const pointRewardImage = require(`../../../../assets/img/system/challenge/icons/points.png`)
 
     const renderMaximumAward = () => {
         const award = challenge.awards[0]
 
         return (
             <Grid container spacing={1}>
-              <Grid item>
-                <TableChip label={'>'} />
-              </Grid>
-              <Grid item>
-                <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_MAX_POINTS_LABEL : Resources.CHALLENGE_CONDITION_COLLABORATOR_MAX_POINTS_LABEL}</DefaultText>
-              </Grid>
-              <Grid item>
-                <AccentTag>{Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}</AccentTag>
+              <Grid key={award.key} item xs={12} sm={6} md={4} style={{borderRadius: 15}}>
+                <Grid container spacing={1} direction="column">
+                  <Grid item xs={12}>
+                    <ChallengeRewardCard>
+                      <Grid container spacing={1} alignItems='flex-end'>
+                        <Grid item xs={12} >
+                          <Grid container direction='column' spacing={2}>
+                            <Grid item>
+                              <Grid container justify='space-between'>
+                                <Grid item>
+
+                                  <DefaultTitle>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_MAX_POINTS_LABEL : Resources.CHALLENGE_CONDITION_COLLABORATOR_MAX_POINTS_LABEL}</DefaultTitle>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                              <CardMedia image={pointRewardImage} style={{height: 100, width: 100, margin: 'auto'}}/>
+                            </Grid>
+                            <Grid item>
+                              <Grid container>
+                                <Grid item>
+                                  <CardMedia image={coinImage} style={{height: 20, width: 20, marginRight: 5, marginTop: -2}} />
+                                </Grid>
+                                <Grid item>
+                                  <DefaultText>
+                                    {Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}
+
+                                  </DefaultText>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+
+
+
+                          </Grid>
+                        </Grid>
+
+                      </Grid>
+                    </ChallengeRewardCard>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
         )
@@ -64,48 +99,88 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
               <Table backgroundDisabled>
                 <TableBody>
                   <Grid container spacing={1}>
-                  {challenge.awards.map(award => {
-
+                  {challenge.awards.map((award, awardIndex) => {
+                    const highlightAward =
+                      // filtered on participant
+                      (challenge.collaboratorId || challenge.teamId) &&
+                      // step is reached
+                      challenge.goalPoints >= award.target &&
+                      // next step is not reached
+                      (awardIndex >= challenge.awards.length - 1 || challenge.goalPoints < challenge.awards[awardIndex + 1].target)
                     return (
-                        <Grid item xs={12} style={{ cursor: 'pointer' }} onClick={() => award.reward && setRewardDetail(Object.assign({}, award.reward))}>
-                            <div>
-                                {challenge.rewardTypeCode === 'P' && (
 
-                                  <Grid container spacing={1}>
-                                    <Grid item>
-                                      <TableChip label={'>'} />
-                                    </Grid>
-                                    <Grid item>
-                                      <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultText>
-                                    </Grid>
-                                    <Grid item>
-                                      <AccentTag>{Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}</AccentTag>
-                                    </Grid>
-                                  </Grid>
-                                )}
-                                {challenge.rewardTypeCode === 'G' && (
-                                  <TableRow>
-                                    <TableCell style={{width: 270}}>
-                                      <Grid container direction="column" spacing={1}>
-                                        <Grid item>
-                                          <Grid container spacing={1}>
-                                            <Grid item>
-                                              <TableChip label={'>'} />
-                                            </Grid>
-                                            <Grid item>
-                                              <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultText>
+                        <React.Fragment>
+                          {challenge.rewardTypeCode === 'P' && (
+                            <Grid key={award.key} item xs={12} sm={6} md={4} style={{background: highlightAward ? '#00E58D' : '', borderRadius: 15}}>
+                              <Grid container spacing={1} direction="column">
+                                <Grid item xs={12}>
+                                  <ChallengeRewardCard>
+                                    <Grid container spacing={1} alignItems='flex-end'>
+                                      <Grid item xs={12} >
+                                        <Grid container direction='column' spacing={2}>
+                                          <Grid item>
+                                            <Grid container justify='space-between'>
+                                              <Grid item>
+
+                                                <DefaultTitle>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultTitle>
+                                              </Grid>
                                             </Grid>
                                           </Grid>
-                                        </Grid>
-                                        <Grid item style={{maxWidth: 250}}>
-                                          <ChallengeReward reward={award.reward} />
+
+                                          <Grid item xs={12}>
+                                            <CardMedia image={pointRewardImage} style={{height: 100, width: 100, margin: 'auto'}}/>
+                                          </Grid>
+                                          <Grid item>
+                                            <Grid container>
+                                              <Grid item>
+                                                <CardMedia image={coinImage} style={{height: 20, width: 20, marginRight: 5, marginTop: -2}} />
+                                              </Grid>
+                                              <Grid item>
+                                                <DefaultText>
+                                                  {Resources.CHALLENGE_CONDITION_AWARD_POINTS.format(award.points)}
+
+                                                </DefaultText>
+                                              </Grid>
+                                            </Grid>
+                                          </Grid>
+
+
+
                                         </Grid>
                                       </Grid>
-                                    </TableCell>
-                                  </TableRow>
-                                )}
-                            </div>
-                        </Grid>
+
+                                    </Grid>
+                                  </ChallengeRewardCard>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          )}
+                          {challenge.rewardTypeCode === 'G' && (
+                            <Grid item xs={12} style={{ cursor: 'pointer' }} onClick={() => award.reward && setRewardDetail(Object.assign({}, award.reward))}>
+                              <div>
+                                <TableRow>
+                                  <TableCell style={{width: 270}}>
+                                    <Grid container direction="column" spacing={1}>
+                                      <Grid item>
+                                        <Grid container spacing={1}>
+                                          <Grid item>
+                                            <TableChip label={'>'} />
+                                          </Grid>
+                                          <Grid item>
+                                            <DefaultText>{challenge.typeCode === 'CT' ? Resources.CHALLENGE_CONDITION_TEAM_RANK.format(award.rank) : Resources.CHALLENGE_CONDITION_COLLABORATOR_RANK.format(award.rank)}</DefaultText>
+                                          </Grid>
+                                        </Grid>
+                                      </Grid>
+                                      <Grid item style={{maxWidth: 250}}>
+                                        <ChallengeReward reward={award.reward} />
+                                      </Grid>
+                                    </Grid>
+                                  </TableCell>
+                                </TableRow>
+                              </div>
+                            </Grid>
+                          )}
+                        </React.Fragment>
                     )
                 })}
                 </Grid>
@@ -114,8 +189,7 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
         )
     }
 
-    const pointRewardImage = require(`../../../../assets/img/system/challenge/icons/points.png`)
-    console.log(challenge);
+
     const renderStepAwards = () => {
         const awards = _.sortBy(challenge.awards, ['target'])
         return (
@@ -293,7 +367,8 @@ const ChallengeCondition = ({ challenge, goals, ...props }) => {
 
 
     const goalTooltip = challenge.awardCode === 'C' ? Resources.CHALLENGE_RACE_CONDITION_GOAL_INFO : Resources.CHALLENGE_CONDITION_GOAL_INFO
-    const AwardWrapperComponent = challenge.awardCode === 'P' ? React.Fragment : Card
+    // const AwardWrapperComponent = challenge.awardCode === 'P' || challenge.awardCode === 'R' ? React.Fragment : Card
+    const AwardWrapperComponent = React.Fragment
     return (
         <div>
             <Grid container spacing={4}>
