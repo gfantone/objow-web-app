@@ -100,7 +100,7 @@ class GoalCollaboratorFilter extends Component {
     updateGoalDefinitions = () => {
       const { period: currentPeriod } = this.props.currentPeriodDetail;
 
-      const periodId = this.props.year || currentPeriod.id
+      const periodId = this.props.year || _.get(currentPeriod, 'id')
 
       // console.log(this.state.collaborator);
       if(currentPeriod) {
