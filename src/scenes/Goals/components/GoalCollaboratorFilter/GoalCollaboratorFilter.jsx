@@ -100,18 +100,20 @@ class GoalCollaboratorFilter extends Component {
     updateGoalDefinitions = () => {
       const { period: currentPeriod } = this.props.currentPeriodDetail;
 
+      const periodId = this.props.year || currentPeriod.id
+
       // console.log(this.state.collaborator);
       if(currentPeriod) {
         if(this.state.collaborator) {
-          this.props.collaboratorGoalCategoryListActions.getCollaboratorGoalCategories(this.state.collaborator, currentPeriod.id)
-          this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(this.state.collaborator, currentPeriod.id, this.state.current)
+          this.props.collaboratorGoalCategoryListActions.getCollaboratorGoalCategories(this.state.collaborator, periodId)
+          this.props.goalDefinitionListActions.getGoalDefinitionListByCollaborator(this.state.collaborator, periodId, this.state.current)
           this.setState({
             ...this.state,
             initialized: true
           })
         } else if(this.state.team) {
-          this.props.teamGoalCategoryListActions.getTeamGoalCategoryList(this.state.team, currentPeriod.id)
-          this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(currentPeriod.id, this.state.team, this.state.current)
+          this.props.teamGoalCategoryListActions.getTeamGoalCategoryList(this.state.team, periodId)
+          this.props.goalDefinitionListActions.getGoalDefinitionListByTeam(periodId, this.state.team, this.state.current)
           this.setState({
             ...this.state,
             initialized: true
