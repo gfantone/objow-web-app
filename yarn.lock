@@ -9933,6 +9933,13 @@ react-motion@^0.5.2:
     prop-types "^15.5.8"
     raf "^3.1.0"
 
+react-page-visibility@^6.4.0:
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/react-page-visibility/-/react-page-visibility-6.4.0.tgz#0684fe80338e716c9ed2d34169fa3cbb3882096b"
+  integrity sha512-5vQ0zQU2DvKCQAxle9l5V6uxw2m180Lk7Jem+obmTeQ503fvMJLSUzFgWtTEgUVynhUx2pd+RzafnuMAG8uD6A==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-pdf@^4.1.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-pdf/-/react-pdf-4.2.0.tgz#b83a01eb070912522075b7a51aee7d63b2c912ed"

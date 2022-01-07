@@ -11,6 +11,7 @@ import configureStore from "../../../../../../store/configureStore";
 import { IconButton } from '../../../'
 import { useClearCache } from 'react-clear-cache'
 import { ErrorBoundary } from 'react-error-boundary';
+import PageVisibility from 'react-page-visibility';
 
 
 const drawerWidth = 304;
@@ -138,6 +139,12 @@ const MainLayout = ({component: Component, history, ...rest}) => {
         setSearchActivation(DEFAULT_SEARCH_ACTIVATION);
     }
 
+    const handleVisibilityChange = isVisible => {
+        if(isVisible) {
+          window.location.reload()
+        }
+    }
+
     return (
         <MuiThemeProvider theme={theme}>
             <Route {...rest} render={matchProps => (
@@ -206,12 +213,12 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                         </div>
                         <div className={classes.main}>
                             <MainContainer maxWidth={maxWidth}>
-
+                              <PageVisibility onChange={handleVisibilityChange}>
                                 <ErrorBoundary fallbackRender={ ({error, resetErrorBoundary}) => (
-                                  <ErrorHandler />
-                                ) }>
+                                    <ErrorHandler />
+                                  ) }>
 
-                                    <Component
+                                  <Component
                                     handleButtons={setButtons}
                                     handleMaxWidth={setMaxWidth}
                                     activateReturn={activateReturn}
@@ -223,6 +230,7 @@ const MainLayout = ({component: Component, history, ...rest}) => {
                                     {...matchProps}
                                     />
                                 </ErrorBoundary>
+                              </PageVisibility>
 
                             </MainContainer>
                         </div>
