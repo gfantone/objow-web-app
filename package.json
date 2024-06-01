@@ -48,7 +48,6 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
-    "react-clear-cache": "^1.4.14",
     "react-countdown-now": "^2.1.2",
     "react-datasheet": "^1.4.9",
     "react-device-detect": "^2.2.3",
@@ -97,7 +96,6 @@
     "prebuild:local": "npm run generate-build-meta",
     "prebuild:dev": "npm run generate-build-meta",
     "prebuild:external": "npm run generate-build-meta",
-    "generate-build-meta": "npx react-clear-cache",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
