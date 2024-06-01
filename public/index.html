@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <meta
+      name="viewport"
+      content="minimum-scale=1, maximum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    <meta name="title" content="Fire Tiger" />
+    <meta property="og:title" content="Fire Tiger" />
+    <meta
+      name="description"
+      content="La Solution Gamifiée de Pilotage et d'Animation des Performances"
+    />
+    <meta
+      property="og:description"
+      content="La Solution Gamifiée de Pilotage et d'Animation des Performances"
+    />
+    <meta
+      property="og:image"
+      content="https://firetiger.firetiger.fr/media/logo_fire_tiger.jpg"
+    />
+
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Nunito+Sans:600,800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <!-- <link rel="alternate" hreflang="fr" href="https://app-test.firetiger.fr">
+    <link rel="alternate" hreflang="en" href="https://en.app-test.firetiger.fr">
+    <script type="text/javascript" src="https://cdn.weglot.com/weglot.min.js"></script>
+    <script>
+        Weglot.initialize({
+            api_key: 'wg_910fc61b6baaa769d992653b778d58818'
+        });
+    </script> -->
+    <title>Fire Tiger</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script>
+      function driveUploaderCallback(status, result, instance) {
+        if (status == 'init') {
+          const email = document.getElementById('driveuploader_email').value;
+          instance.setCustomMetadata('email', email);
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,242 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
+import { Grid, isWidthUp, withWidth } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
+import { CategoryFilter } from '../../components';
+import {
+  AppBarSubTitle,
+  Category,
+  GridLink,
+  IconButton,
+  Loader,
+  MainLayoutComponent,
+} from '../../../../components';
+import * as Resources from '../../../../Resources';
+import { injectIntl } from 'react-intl';
+import * as collaboratorDetailActions from '../../../../services/Collaborators/CollaboratorDetail/actions';
+import * as collaboratorGoalCategoryListActions from '../../../../services/CollaboratorGoalCategories/CollaboratorGoalCategoryList/actions';
+import * as configListActions from '../../../../services/Configs/ConfigList/actions';
+import _ from 'lodash';
+
+class CollaboratorGoalCategoryList extends MainLayoutComponent {
+  constructor(props) {
+    super(props);
+    this.id = null;
+    this.year = null;
+    this.state = {
+      filterOpen: false,
+    };
+  }
+
+  refresh(id, year) {
+    var url = `/goals/collaborators/${id}/categories`;
+    if (year) url += `?year=${year}`;
+    this.props.history.replace(url);
+  }
+
+  handleFilterOpen() {
+    this.setState({
+      ...this.state,
+      filterOpen: true,
+    });
+  }
+
+  handleFilterClose() {
+    this.setState({
+      ...this.state,
+      filterOpen: false,
+    });
+  }
+
+  loadData(props) {
+    const id = props.match.params.id;
+    const params = new URLSearchParams(window.location.search);
+    const year = params.get('year');
+
+    if (id != this.id || year != this.year) {
+      this.id = id;
+      this.year = year;
+      this.props.collaboratorDetailActions.getCollaboratorDetail(id);
+      this.props.collaboratorGoalCategoryListActions.getCollaboratorGoalCategories(
+        id,
+        this.year
+      );
+    }
+  }
+
+  componentDidMount() {
+    const { intl } = this.props;
+    const { account } = this.props.accountDetail;
+
+    if (
+      this.props.accountDetail.account.role.code === 'A' ||
+      this.props.accountDetail.account.role.code === 'S'
+    )
+      this.props.activateReturn();
+    this.props.handleTitle(
+      _.get(this.props.accountDetail.account, 'goalWording') ||
+        intl.formatMessage({ id: 'admin.goal.title' })
+    );
+    this.props.handleSubHeader(
+      <AppBarSubTitle
+        title={intl.formatMessage({ id: 'challenge.category_list_title' })}
+      />
+    );
+    this.props.handleMaxWidth('sm');
+    if (!account.isJtiEnv) {
+      this.props.handleButtons(
+        <IconButton size='small' onClick={this.handleFilterOpen.bind(this)}>
+          <FontAwesomeIcon icon={faSlidersH} />
+        </IconButton>
+      );
+    }
+    this.loadData(this.props);
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    this.loadData(this.props);
+  }
+
+  handleFilterChange(team, collaborator, year) {
+    const collaboratorId =
+      this.props.accountDetail.account.role.code === 'C'
+        ? this.id
+        : collaborator;
+    if (collaboratorId) {
+      this.refresh(collaboratorId, year);
+    } else {
+      const teamId =
+        this.props.accountDetail.account.role.code === 'M'
+          ? this.props.collaboratorDetail.collaborator.team.id
+          : team;
+      var url = `/goals/teams/${teamId}/categories`;
+      if (year) url += `?year=${year}`;
+      this.props.history.push(url);
+    }
+  }
+
+  renderLoader() {
+    return <Loader centered />;
+  }
+
+  renderData() {
+    const { intl } = this.props;
+    const { categories } = this.props.collaboratorGoalCategoryList;
+    const { configs } = this.props.configList;
+    const { account } = this.props.accountDetail;
+    const all_icon = require(`../../../../assets/img/system/categories/all.svg`);
+    const all_icon_jti = require(`../../../../assets/img/system/categories/all_jti.png`);
+
+    const isJti = account.isJtiEnv;
+    const all_category = isJti
+      ? {
+          name: intl.formatMessage({ id: 'filter.category_all_option' }),
+          icon: all_icon_jti,
+        }
+      : {
+          name: intl.formatMessage({ id: 'filter.category_all_option' }),
+          icon: all_icon,
+        };
+    const currentTime = _.get(
+      configs.find((c) => c.code === 'GDTF'),
+      'value',
+      '0'
+    );
+
+    const allUrl = this.year
+      ? `/goals/collaborators/${this.props.match.params.id}/list?year=${this.year}&current=${currentTime}`
+      : `/goals/collaborators/${this.props.match.params.id}/list?current=${currentTime}`;
+    const spacing = isWidthUp('sm', this.props.width) ? 8 : 4;
+
+    return (
+      <div>
+        <Grid container spacing={spacing}>
+          <GridLink item xs={12} sm={4} component={Link} to={allUrl}>
+            <Category category={all_category} />
+          </GridLink>
+          {categories.map((category) => {
+            return (
+              <GridLink
+                key={category.id}
+                item
+                xs={12}
+                sm={4}
+                component={Link}
+                to={`/goals/collaborators/${this.props.match.params.id}/list?category=${category.categoryId}&year=${category.periodId}&current=${currentTime}`}
+              >
+                <Category category={category} />
+              </GridLink>
+            );
+          })}
+        </Grid>
+      </div>
+    );
+  }
+
+  render() {
+    const { collaborator } = this.props.collaboratorDetail;
+    const { categories, loading } = this.props.collaboratorGoalCategoryList;
+    const teamId =
+      collaborator && collaborator.team ? collaborator.team.id : null;
+    const collaboratorId = collaborator ? collaborator.id : null;
+    const marginTop = isWidthUp('sm', this.props.width) ? 48 : 16;
+    const { account } = this.props.accountDetail;
+    const { configs, loading: configListLoading } = this.props.configList;
+
+    if (!account.hasGoalAccess) {
+      return <Redirect to={'/challenges'} />;
+    }
+
+    return (
+      <div style={{ marginTop: marginTop }}>
+        {loading && configListLoading && this.renderLoader()}
+        {!loading &&
+          !configListLoading &&
+          configs &&
+          categories &&
+          this.renderData()}
+        <CategoryFilter
+          open={this.state.filterOpen}
+          onClose={this.handleFilterClose.bind(this)}
+          onChange={this.handleFilterChange.bind(this)}
+          year={this.year}
+          team={teamId}
+          collaborator={collaboratorId}
+        />
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = ({
+  accountDetail,
+  collaboratorDetail,
+  collaboratorGoalCategoryList,
+  configList,
+}) => ({
+  accountDetail,
+  collaboratorDetail,
+  collaboratorGoalCategoryList,
+  configList,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  collaboratorDetailActions: bindActionCreators(
+    collaboratorDetailActions,
+    dispatch
+  ),
+  collaboratorGoalCategoryListActions: bindActionCreators(
+    collaboratorGoalCategoryListActions,
+    dispatch
+  ),
+  configListActions: bindActionCreators(configListActions, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withWidth()(injectIntl(CollaboratorGoalCategoryList)));

@@ -1,0 +1,39 @@
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { getGoalDefinitionSuccess, getGoalDefinitionError } from './actions';
+import * as types from './actionTypes';
+import api from '../../../data/api/api';
+
+function* getGoalDefinition(action) {
+  try {
+    var { data: definition } = yield call(
+      api.goalDefinitions.detail,
+      action.id,
+      action.team,
+      action.collaborator,
+      action.detail,
+    );
+    // if (definition.type.code == 'C') {
+    //     const { data: points } = yield call(api.periods.collaboratorGoalUsedPoints, definition.period);
+    //     definition.points = points
+    // } else if (definition.type.code == 'T') {
+    //     const { data: points } = yield call(api.periods.teamGoalUsedPoints, definition.period);
+    //     definition.points = points
+    // } else {
+    //     definition.points = 0
+    // }
+
+    // const usedPoints = yield call(api.goalDefinitions.usedPoints, definition.id, action.team, action.collaborator);
+    // const currentPoints = yield call(api.goalDefinitions.currentPoints, definition.id, action.team, action.collaborator);
+    // definition.usedPoints = usedPoints.data
+    // definition.currentPoints = currentPoints.data
+    yield put(getGoalDefinitionSuccess(definition));
+  } catch (e) {
+    yield put(getGoalDefinitionError());
+  }
+}
+
+function* watchGoalDefinition() {
+  yield takeLatest(types.GET_GOAL_DEFINITION, getGoalDefinition);
+}
+
+export default watchGoalDefinition;

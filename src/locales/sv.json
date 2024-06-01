@@ -1,0 +1,1329 @@
+{
+  "account": {
+    "citation_label": "Citat",
+    "confirm_password_label": "Bekräfta lösenord",
+    "email_label": "E-postadress",
+    "first_name_label": "Namn",
+    "last_name_label": "Efternamn",
+    "password_label": "Nytt lösenord",
+    "success_message": "Ändringarna har gjorts framgångsrikt",
+    "title": "Min profil",
+    "title_label": "Profilens titel",
+    "title_label_pseudo": "Smeknamn"
+  },
+  "admin": {
+    "access_rights": {
+      "activate_daily_email": "Aktivera e-post för daglig aviseringsöversikt",
+      "activate_notifications": "Aktivera aviseringar",
+      "activate_users_count": "Visa antalet inaktiva användare på instrumentpanelen",
+      "activate_weekly_email": "Aktivera e-mail för veckovis sammanfattning",
+      "all_users": "Alla användare",
+      "badges": "Tillgång till märken",
+      "category_rankings": "Synlig ranking efter kategorier",
+      "category_rankings_limit": "Kategoriranking begränsad till de första X",
+      "challenge": "Tillgång till utmaningar",
+      "challenge_rankings": "Synlig ranking per utmaning",
+      "coaching_list": "Tillgång till coachningslistan",
+      "collaborator_title": "Spelare",
+      "edit_coaching_list": "Redigera coachningslistan",
+      "future_challenge": "Visa kommande utmaningar",
+      "future_goals": "Visualisera framtida mål",
+      "general_rankings": "Synlig övergripande ranking",
+      "general_rankings_limit": "Övergripande ranking begränsad till de första X",
+      "goal_filter": "Standard målfilter",
+      "goal_rankings": "Synlig ranking för målen",
+      "goals": "Tillgång till målen",
+      "help": "Tillgång till hjälp",
+      "home": "Tillgång till instrumentpanelen",
+      "home_page": "Konfigurering av startsidan",
+      "manager_title": "Chef",
+      "news_feed": "Åtkomst till nyhetsflödet",
+      "news_feed_comments_creation": "Création de commentaires sur le fil d'actualité",
+      "news_feed_post_creation": "Création de post sur le fil d'actualité",
+      "rankings": "Åtkomst till rankingar",
+      "reset_password": "Redigera en spelares profil",
+      "rules": "Tillgång till spelreglerna",
+      "stats": "Tillgång till statistik",
+      "team_rankings": "Mitt teams ranking",
+      "teams": "Tillgång till team",
+      "title": "Hantera behörigheter",
+      "wording_badge": "Byt namn på badge",
+      "wording_challenge": "Byt namn på Challenge",
+      "wording_dashboard": "Formulering i instrumentpanelen",
+      "wording_goal": "Byt namn på mål",
+      "wording_rules": "Byt namn på spelregler"
+    },
+    "aircall": {
+      "form_ac_get_calls_activation": "Aktivera KPI för återställning av lyckade samtal",
+      "form_ac_get_calls_duration": "Minsta längd för ett lyckat samtal (sekunder)",
+      "install": {
+        "authorization_error": "Du har inte nödvändiga behörigheter",
+        "code_label": "Företagskod",
+        "demo_button": "Demo",
+        "email_label": "E-postadress",
+        "login_error": "Autentiseringsuppgifterna är inte korrekta",
+        "no_customer_button_1": "Ännu inte",
+        "no_customer_button_2": "Fire Tiger kund?",
+        "password_label": "Lösenord",
+        "submit_button": "Anslut Aircall",
+        "unknown_error": "Ett okänt fel uppstod",
+        "website_button": "Se webbplats"
+      }
+    },
+    "badge_config": {
+      "remaining_points_to_award": "Återstående poäng att tilldelas",
+      "title": "Ställa in märken"
+    },
+    "categories": {
+      "active_tab": "Aktiva",
+      "archive_confirm": "Är du säker på att du vill arkivera kategorin '{}'?",
+      "archive_confirm2": "När denna kategori väl har arkiverats är det inte längre möjligt att återaktivera den.",
+      "archived_tab": "Arkiverade",
+      "columns": {
+        "icon": "Ikon",
+        "name": "Namn"
+      },
+      "creation": {
+        "error": "Ett fel uppstod när kategorin skapades",
+        "success": "Kategori framgångsrikt skapad",
+        "title": "Skapa en kategori"
+      },
+      "title": "Konfigurera kategorier",
+      "update": {
+        "error": "Ett fel uppstod vid uppdatering av kategorin",
+        "success": "Kategori framgångsrikt uppdaterad",
+        "title": "Redigera en kategori"
+      }
+    },
+    "collaborator_selector": {
+      "empty_state_message": "Team har inte skapats ännu",
+      "empty_state_title": "Inget team hittades"
+    },
+    "goal": {
+      "admin_editable_label": "Objektiv redigerbart av administratörerna",
+      "admin_goal_creation_repartition_individual_team": "💡 Med denna distributionsmetod tilldelas teamets    mål automatiskt till alla de team som valts från de       återstående {0} för innevarande år.\nNär det väl validerad, kommer du att kunna anpassa   de mål som tilldelats alla team.",
+      "admin_title": "Konfigurering av målen",
+      "allow_over_target_label": "Klara av det tilldelade målet",
+      "allow_ranking_label": "Visa rankningen",
+      "allow_ranking_latest_value": "Se de senaste resultaten av rankningen",
+      "allow_ranking_points": "Visa rankningspoängen",
+      "category_label": "Kategori",
+      "classic_title": "Klassisk",
+      "creation": {
+        "error": "Ett fel uppstod när målet skapades",
+        "goal_title": "Konfigurering av målet",
+        "goals_title": "Konfigurering av målen",
+        "kpi_title": "Val av mål-KPI",
+        "options_title": "Välj alternativ",
+        "participants_title": "Välj deltagare",
+        "success": "Målet skapades framgångsrikt"
+      },
+      "creation_repartition_global": "💡 Med denna distributionsmetod kommer det årliga globala målet automatiskt att fördelas över antalet {0} som återstår under innevarande år och divideras med antalet valda deltagare.\n När den väl validerats kan du anpassa de individuella målen som tilldelats alla dina team.",
+      "creation_repartition_global_team": "💡 Med denna distributionsmetod delas det övergripande årliga målet automatiskt med antalet {0} kvar under innevarande år och fördelas proportionellt beroende på antalet deltagare i de valda lagen.\nNär den väl validerats, du kommer att kunna anpassa de mål som tilldelats alla lag.",
+      "creation_repartition_individual": "💡 Med denna distributionsmetod tilldelas det individuella målet automatiskt till alla deltagare som valts från återstående {0} för innevarande år.\n När den väl validerats kan du anpassa de individuella målen som tilldelats alla dina team.",
+      "creation_repartition_individual_team": "💡 Med hjälp av denna distributionsmetod tilldelas lagmålet automatiskt till alla lag som valts från återstående {0} för innevarande år.\n När den väl validerats, du kommer att kunna anpassa de mål som tilldelats alla lag.",
+      "creation_target_label": "Mål {1} för {0}",
+      "creation_title": "Skapa ett mål",
+      "criticity_label": "Brådskande",
+      "default_label": "Skapad som standard",
+      "description_label": "Meddelande",
+      "detail": {
+        "indication_tab": "Indikationer",
+        "rank_tab": "Ranking"
+      },
+      "disable_info": "När detta mål väl har arkiverats är det inte längre möjligt att återaktivera det. Alla poäng som tilldelats de nuvarande och framtida målen kommer att finnas tillgängliga på nytt",
+      "disable_message": "Är du säker på att du vill arkivera målet '{0}'?",
+      "duplication": {
+        "dialog_confirmation_message": "Är du säker på att du automatiskt vill tillämpa målen {1} på {0}?",
+        "dialog_message": "Tillämpa automatiskt på {0} följande spelare mål:",
+        "dialog_title": "Konfigurering av målen"
+      },
+      "edit": {
+        "all_target_label": "Använt mål",
+        "disable_button": "Stäng kontot",
+        "error": "Ett fel uppstod vid uppdatering av objektivet",
+        "error_text": "Respektera det totala mål som tilldelats för den valda perioden",
+        "max_target_label": "Mål som tilldelats för den valda perioden",
+        "remaining_target_label": "Återstående mål",
+        "success": "Målet har framgångdrikt uppdaterats",
+        "title": "Indikatorer"
+      },
+      "editable_label": "Mål redigerbart av cheferna",
+      "import": {
+        "condition1": "Spelarens e-post",
+        "condition2": "Objektiv ref",
+        "condition3": "Periodens startdatum (format: ÅÅÅÅ-MM-DD 00:00:00)",
+        "condition4": "Periodens slutdatum (format: ÅÅÅÅ-MM-DD 23:59:59)",
+        "condition5": "Objektivt värde",
+        "condition6": "Kontakta en kundframgångschef för mer information om hur objektiv import fungerar",
+        "error1": "Importen är felaktig eftersom filen inte uppfyller ovanstående begränsningar. Vissa linser kanske inte har importerats.",
+        "error2": "Importen är felaktig av okänd anledning.",
+        "text1": "Importera en kommaavgränsad CSV-fil. Användning av kommatecken är inte tillåten i filvärden.",
+        "text2": "Varje kolumn i filen måste uppfylla villkoren nedan:",
+        "title": "Importera mål"
+      },
+      "indication": {
+        "coaching_area": "Tränarens råd",
+        "coaching_empty_state": "Inga råd hittades",
+        "coaching_item_label": "Råd {0}",
+        "description_area": "Beskrivning",
+        "level_area": "Stadier",
+        "live_info": "Om aktiverat tilldelas poäng automatiskt till deltagarna innan målet löper ut.",
+        "live_label": "Poäng intjänade live",
+        "period_text": "Från {0} till {1}",
+        "unit_with_symbol_text": "Enhet: {0} ({1})",
+        "unit_without_symbol_text": "Enhet: {0}"
+      },
+      "indication_label": "Indikationer",
+      "kpi_format_label": "Format",
+      "kpi_label": "KPI",
+      "kpi_name_label": "KPI:s titel",
+      "kpi_period_label": "Period",
+      "kpi_periods_label": "Perioder",
+      "list": {
+        "active_tab": "Aktiva",
+        "archived_tab": "Arkiverade",
+        "columns": {
+          "category": "Kategori",
+          "default": "Standard",
+          "id": "Ref",
+          "name": "Namn",
+          "periodicity": "Periodicitet",
+          "target": "Årligt globalt mål",
+          "type": "Mål",
+          "unit": "Enhet"
+        },
+        "empty_state_message": "För att kunna se andra mål måste du ändra eventuellt tillämpade filter",
+        "empty_state_title": "Inget mål hittat"
+      },
+      "live_infos": "Om aktiverat tilldelas poäng automatiskt till deltagarna innan målet löper ut.",
+      "live_label": "Poäng intjänade live",
+      "name_label": "Namn",
+      "past_editable_label": "Tidigare mål modifierbart av administratörerna",
+      "period_label_long": "Period {0}: från {1} till {2}",
+      "period_label_short": "Period {0}",
+      "period_label_short2": "Från {0} till {1}",
+      "periodicity_label": "Periodicitet",
+      "point_config": {
+        "allocated_points": "Totala tilldelade poäng: ",
+        "allocated_points_year": "Antal poäng som tilldelats för årets mål {0}",
+        "available_points_title": "{0} tillgängliga poäng",
+        "current_points_title": "{0} poäng för närvarande på spel",
+        "errors": {
+          "archived_goal": "Arkiverat mål",
+          "no_level_message": "Skapa ett första steg",
+          "no_level_title": "Inget steg hittades",
+          "percent_more_equal": "Procentandelen måste vara större än eller lika med 0",
+          "percent_more_than": "Procentandelen måste vara högre än den i föregående steg",
+          "points_more_equal": "Antalet poäng måste vara högre än eller lika med 0",
+          "points_more_than": "Antalet poäng måste vara högre än i det föregående steget"
+        },
+        "form": {
+          "percent": "% uppnående av målet",
+          "points": "Poäng"
+        },
+        "general_info_title": "Allmän information",
+        "importance_percent": "Procentandel av betydelse: ",
+        "level_title": "{0} bärande",
+        "max_points_title": "Max poäng per {0} per period: ",
+        "remaining_points": "Totalt antal poäng som tilldelats återstående: ",
+        "title": "Konfigurera nivåer med {0} och efter period",
+        "title_tooltip": "Antal poäng som kan användas på {0}, från {1} under året {2}",
+        "used_points": "Totalt antal poäng redan på spel: "
+      },
+      "point_config_title_c": "Antal återstående perioder",
+      "point_config_title_d": "Antal dagar kvar",
+      "point_config_title_m": "Antal månader kvar",
+      "point_config_title_q": "Antal kvartal kvar",
+      "point_config_title_s": "Antal halvår kvar",
+      "point_config_title_w": "Antal veckor kvar",
+      "point_config_title_y": "Innevarande år",
+      "point_config_tooltip_c": "innevarande period",
+      "point_config_tooltip_d": "De återstående dagarna",
+      "point_config_tooltip_m": "De återstående månaderna",
+      "point_config_tooltip_q": "de återstående kvartalen",
+      "point_config_tooltip_s": "de återstående halvåren",
+      "point_config_tooltip_w": "De återstående veckorna",
+      "point_config_tooltip_y": "Innevarande år",
+      "rank_list": {
+        "player_column": "Spelare"
+      },
+      "repartition_label": "Distributionsmetoder",
+      "spreadsheet_title": "Kalkylblad",
+      "target_label": "Årligt globalt mål",
+      "thumbnail": {
+        "collaborator_tag": "Individuell",
+        "counter_text": "Uppnått: {0}",
+        "first_rank_text": "{0}°",
+        "max_points_text": "/{0} Max",
+        "max_rank_text": "/{0}",
+        "other_period": "Från {0} till {1}",
+        "other_rank_text": "{0}°",
+        "player_text": "{0} spelare",
+        "points_text": "{0} Poäng",
+        "quarter_period": "Kvartal {0} ({1})",
+        "semester_period": "halvår {0}",
+        "target_text": "/Mål: {0}",
+        "team_tag": "Team",
+        "team_text": "{0} team",
+        "timer_tag": "G {0}",
+        "week_period": "Vecka {0} ({1})",
+        "year_period": "År {0}"
+      },
+      "title": "Mål",
+      "type_label": "Typ",
+      "unit_label": "Enhet",
+      "update_base_tab": "Bas",
+      "update_base_title": "Modifiering av målet '{0}'",
+      "update_confirmation_message": "Är du säker på att du vill ändra KPI för detta mål? Denna förändring kan få konsekvenser för resultatens historik. Om du har några frågor, tveka inte att kontakta oss.",
+      "update_custom_tab": "personanpassning",
+      "update_readonly_title": "Visa mål '{0}'"
+    },
+    "home": {
+      "badge_link": "Märke",
+      "category_link": "Kategorier",
+      "data_area": "Integrering och hantering av data",
+      "goal_level_link": "Poäng",
+      "import_link": "Importlogg",
+      "indicator_area": "Konfigurering av indikatorerna",
+      "level_link": "Nivå",
+      "logo_link": "Ändra logotyp",
+      "notification_link": "Hantera aviseringar",
+      "organization_link": "Team/Organisation",
+      "partner_link": "Kan integreras med programvara från tredje part",
+      "permission_link": "Hantering av behörigheter",
+      "point_link": "Allmän fördelning av poängen",
+      "report_link": "Rapport",
+      "reward_link": "Priser",
+      "user_area": "Användare och rättigheter",
+      "user_link": "Användarprenumerationer",
+      "year_label": "År att ställa in"
+    },
+    "import_log": {
+      "columns": {
+        "date": "Datum för verkställighet",
+        "download": "Ladda ner",
+        "error_lines": "Radfel",
+        "file": "fil",
+        "id": "Ref",
+        "state": "Tillstånd",
+        "success_lines": "Giltiga rader"
+      },
+      "data": "Resultat",
+      "goals": "Mål",
+      "title": "Importlogg",
+      "users": "Användare"
+    },
+    "logo": {
+      "background_color": "Bakgrundsfärg",
+      "colors": "Färger",
+      "font_family": {
+        "fonts_select": "Val av teckensnitt",
+        "title": "Teckensnitt"
+      },
+      "primary_color": "Huvudfärg",
+      "reset_colors": "Återställ färger",
+      "secondary_color": "Sekundär färg",
+      "success_message": "Logotypen har uppdaterats",
+      "title": "Ändring av logotyp"
+    },
+    "logo_and_colors": {
+      "success_message": "Färgerna har uppdaterats framgångsrikt",
+      "title": "Logobyte och färger"
+    },
+    "notifications_rights": {
+      "explication_badge": "konfigurera aviseringar som skickas när märkenivån ändras",
+      "explication_challenge": "konfigurera aviseringar vid uppgradering av utmaningar",
+      "explication_email": "E-postmeddelanden skickas till din inkorg.",
+      "explication_global": "global aviseringskonfiguration",
+      "explication_in_app": " Meddelanden i appen skickas till din app.",
+      "explication_newsfeed": "configuration des notifications qui sont envoyées lorsque le niveau du badge change",
+      "explication_push": "Push-meddelanden skickas till din mobila enhet (iOS eller Android).",
+      "explication_ranking": "konfigurera aviseringar för den samarbetspartner som rankas först i utmaningsrankningen",
+      "explication_type": "Det finns tre sätt att ta emot aviseringar: push, in-app, e-post.",
+      "generals": "Generaler",
+      "global": "Global",
+      "notification_CHBU": "Meddelande när dina utmaningar uppdateras.",
+      "notification_EWM": "Meddelande skickas varje vecka för att öka motivationen för alla.",
+      "notification_MNL": "Meddelande för samarbetspartnern som klarar en nivå.",
+      "notification_NECH": "Meddelande skickas när en ny utmaning startar",
+      "notification_NLB": "Meddelande när du når en ny märkesnivå",
+      "notification_NPE": "Meddelande som informerar om meddelanden inte har lästs.",
+      "notification_NPIN": "Notification envoyée quand le nouveau post a été créé dans le fil d'actualité",
+      "notification_NROE": "Meddelande skickas om belöningsordern har validerats.",
+      "notification_RFCR": "Meddelande till samarbetspartnern som kommer först i utmaningsrankningen.",
+      "notification_RFGR": "Meddelande för den anställd som kommer först i den övergripande rankningen.",
+      "notification_RFR": "Meddelande till samarbetspartnern som kommer först i den objektiva rankningen.",
+      "notification_SWE": "Veckovis sammanfattande meddelande.",
+      "notification_TRCR": "Meddelande för laget som kommer först i utmaningsrankningen.",
+      "notification_TRFR": "Meddelande för laget som kommer först i den objektiva rankningen.",
+      "notification_TRGR": "Anmälan till laget som kommer först i den totala ställningen.",
+      "notification_update_success": "Notifieringsändringar godkändes framgångsrikt!",
+      "remark_explication": "Anmärkning:",
+      "remark_explication_checkbox": "Om kryssrutan inte är aktiv kan du inte ändra inställningarna för det här meddelandet",
+      "sub_title": "Hantera aviseringar",
+      "title": "Mina aviseringar",
+      "title_email": "Email",
+      "title_explication": "Så här anmäls du:",
+      "title_in_app": "I app",
+      "title_push": "Tryck"
+    },
+    "organization": {
+      "create_team_title": "Skapande av teamet ({0})",
+      "title": "Förvaltning av organisationen",
+      "update_company": "Ändra företagsnamn",
+      "update_team": "Ändra teamet",
+      "update_team_group": "Ändra avdelningen"
+    },
+    "partner_detail_empty_connection": "För att använda dessa funktioner måste du installera Fire Tiger i ditt Aircall-kundområde.",
+    "partner_detail_subtitle": "Kan integreras med programvara från tredje part",
+    "partner_list_subtitle": "Kan integreras med programvara från tredje part",
+    "point_config": {
+      "budget": "Budget",
+      "point_rule": "Beräkningsregel",
+      "total_title": "Totala poäng som kan uppnås per spelare",
+      "total_title_team": "Totala poäng som kan uppnåd per team"
+    },
+    "points": {
+      "columns": {
+        "category": "Kategori",
+        "current_points": "Poäng för närvarande på spel",
+        "custom_individual": "Individuell anpassning",
+        "custom_team": "Teamanpassning",
+        "id": "Ref",
+        "name": "Titel",
+        "used_points": "Poäng redan på spel"
+      },
+      "menu_global": "Global",
+      "menu_individual": "Individuell",
+      "menu_team": "Team",
+      "title": "Inställning av målpoäng"
+    },
+    "report": {
+      "columns": {
+        "category": "Kategori",
+        "format": "Format",
+        "format_manual": "manual",
+        "format_standard": "Standard",
+        "kpi_code": "KPI-kod",
+        "kpi_name": "KPI:s titel",
+        "kpi_ref": "KPI ref",
+        "periodicity": "Uppdatering",
+        "result_unit": "Resultatenhet"
+      },
+      "dashboard_tab": "Dashboard",
+      "list_tab": "Lista över rapporter",
+      "title": "Lista över rapporter"
+    },
+    "report_details": {
+      "columns": {
+        "id": "ID"
+      },
+      "quarter_period": "Kvartal {0}",
+      "semester_period": "halvår {0}",
+      "title": "Rapport ”{0}”",
+      "week_period": "Vecka {0}"
+    },
+    "reward_category": {
+      "creation": {
+        "subtitle": "Skapa en priskategori"
+      },
+      "list": {
+        "active_tab": "Aktiv",
+        "icon_column": "Ikon",
+        "inactive_tab": "Arkiverade",
+        "name_column": "Namn",
+        "subtitle": "Konfigurering av priskategorier"
+      },
+      "update": {
+        "subtitle": "Redigera en priskategori"
+      }
+    },
+    "title": "Administration",
+    "user": {
+      "archived_tab": "Återkallade",
+      "creation": {
+        "password_title": "Skapa lösenord",
+        "send_email": "Skicka ett inloggningsmejl till användaren",
+        "success": "Användare har framgångsrikt skapats",
+        "title": "Skapa användare"
+      },
+      "current_tab": "Pågår",
+      "email": "E-postadress",
+      "firstname": "Namn",
+      "force_reset_password": "Forcera ändring av lösenordet",
+      "force_reset_password_info": "Användaren måste nödvändigtvis ändra sitt lösenord inför nästa åtkomst",
+      "fullname": "Efternamn",
+      "id": "Ref",
+      "identifier": "Användarnamn {0}",
+      "identifiers": "Användarnamn",
+      "import": {
+        "condition1": "Namn: högst 30 tecken",
+        "condition2": "Efternamn: högst 150 tecken",
+        "condition3": "E-postadress: Unik, högst 254 tecken",
+        "condition4": "Typ: C (Spelare), M (Manager), S (Super Manager) eller A (Administratör)",
+        "condition5": "Team: Teamets användarnamn (anges på teamets publiceringsformulär)",
+        "condition6": "Lösenord",
+        "condition7": "Status: 1 (Aktiv) eller 0 (Inaktiv)",
+        "condition8": "De sista 5 spalterna är valfria användarnamn",
+        "condition9": "Super Manager för avdelning: P om huvudsaklig annars tom",
+        "error1": "Importen misslyckades eftersom filen inte uppfyller ovanstående krav. Vissa användare kanske inte har importerats.",
+        "error2": "Importen misslyckades av okänd anledning.",
+        "text1": "Importera en fil i .cvs-format med kommatecken som avgränsningssymbol. Användning av kommatecken är inte tillåten i filens värden.",
+        "text2": "Varje spalt i filen måste uppfylla följande krav:",
+        "title": "Import av användare"
+      },
+      "information_title": "information",
+      "last_login": "Senaste åtkomst",
+      "last_login_empty": "Ingen",
+      "lastname": "Efternamn",
+      "locale": "Språk",
+      "password": "Nytt lösenord",
+      "password_confirm": "Bekräfta lösenord",
+      "password_field": "Lösenord",
+      "password_info": "Lösenordet måste innehålla minst 8 tecken, minst en liten bokstav och en stor bokstav, minst ett specialtecken (?! &*) och ett nummer",
+      "profile": {
+        "no_team": "Inget team"
+      },
+      "role": "Funktion",
+      "search_placeholder": "Sök efter en användare...",
+      "team": "Team",
+      "title": "Hantering av användare",
+      "type": "Typ",
+      "update": {
+        "actions_title": "Åtgärder",
+        "allow_pending_notifications": "Tillåt påminnelser om e-postmeddelanden",
+        "create_new_password": "Skicka ett inloggningsmeddelande",
+        "create_new_password_success": "Inloggnings-e-postmeddelandet har skickats",
+        "disable_button": "Stäng kontot",
+        "enable_button": "Återaktivera kontot",
+        "error": "Ett fel uppstod vid ändring av användaren",
+        "notifications_title": "Meddelanden",
+        "password_title": "Ändra lösenord",
+        "success": "Användaren har framgångsrikt ändrats",
+        "title": "Redigera en användare"
+      }
+    }
+  },
+  "aircall": {
+    "install_authorization_error": "Du har inte nödvändiga behörigheter",
+    "install_code_label": "Företagskod",
+    "install_demo_button": "Demo",
+    "install_email_label": "E-postadress",
+    "install_login_error": "Autentiseringsuppgifterna är inte korrekta",
+    "install_no_customer_button_1": "Ännu inte",
+    "install_no_customer_button_2": "Fire Tiger kund?",
+    "install_password_label": "Lösenord",
+    "install_submit_button": "Anslut Aircall",
+    "install_title": "Anslutning med Aircall",
+    "install_unknown_error": "Ett okänt fel uppstod",
+    "install_website_button": "Se webbplats"
+  },
+  "apptour": {
+    "title": "App-rundtur"
+  },
+  "badge": {
+    "creation": {
+      "badge_creation": "Skapa märke",
+      "error": "Ett fel uppstod när märket skapades",
+      "info_title": "information",
+      "kpi_title": "Val av märkets KPI",
+      "levels_title": "Konfigurering av steg",
+      "participants_title": "Välj deltagare",
+      "success": "Märket har framgångsrikt skapats"
+    },
+    "level": {
+      "condition_text": "Skick: lvl {0}",
+      "counter_text": "Uppnått: {0}",
+      "point_text": "{0} Poäng",
+      "rank_text": "Klass {0}",
+      "target_text": "Mål: {0}"
+    },
+    "list": {
+      "completed_tab": "Uppnådda",
+      "current_tab": "Pågår",
+      "empty_state_title": "Inget märke hittades"
+    },
+    "title": "Märke"
+  },
+  "challenge": {
+    "award_list": {
+      "add_reward": "Skapande av belöning",
+      "collaborator_max_point_label": "Maximalt per spelare",
+      "collaborator_point_label": "Vinst spelare # {0}",
+      "list_live_infos": "Om aktiverad, delas poängen automatiskt ut till deltagarna innan utmaningen löper ut.",
+      "list_live_label": "Poäng intjänade live",
+      "points_calculation_message": "Beräkning av användbara punkter...",
+      "step_point_label": "Steg # {0}",
+      "target_label": "Poäng som ska uppnås",
+      "team_max_point_label": "Maximalt per team",
+      "team_point_label": "Teamets vinst # {0}",
+      "title": "Priser",
+      "type_label": "Sätt",
+      "usable_points": "{0} användbara poäng"
+    },
+    "awards_title": "Resultat",
+    "category_list_title": "Val av kategori",
+    "click_to_view_challenge": "Klicka här för att se utmaningen",
+    "collaborators": "{0} spelare",
+    "condition": {
+      "award_area": "Utmaningens priser",
+      "award_points": "{0} POÄNG",
+      "collaborator_max_points_label": "Maximalt per spelare",
+      "collaborator_rank": "Spelare nr. {0} #",
+      "condition_area": "Indikatorer",
+      "description_area": "Beskrivning",
+      "description_label": "Beskrivning",
+      "goal_info": "Villkoret som ställs in här kan nås flera gånger. Varje gång det nås ger det dig rätt till antalet associerade poäng",
+      "label": "Skick",
+      "label_completed": "Realiseras",
+      "last_update": "Senaste uppdatering: ",
+      "last_update_time": "{0} till {1}",
+      "period": "Från {0} till {1}",
+      "point_counter": "{0} POÄNG",
+      "point_target": "{0} POÄNG",
+      "race_condition_goal_info": "Om målet uppnås ger det dig rätt till 1 poäng",
+      "team_group_max_points_label": "Maximalt per avdelning",
+      "team_group_rank": "Avdelning # {0}",
+      "team_max_points_label": "Maximalt per team",
+      "team_rank": "Team # {0}\n",
+      "type": "Sätt: {0}"
+    },
+    "creation": {
+      "error": "Ett fel uppstod när utmaningen skapades",
+      "success": "Utmaningen skapades framgångsrikt",
+      "title": "Skapa utmaning"
+    },
+    "delete_prompt": "Är du säker på att du vill ta bort den här utmaningen?",
+    "delete_success": "Utmaningen har framgångsrikt annullerats",
+    "detail": {
+      "condition_tab": "Villkor",
+      "rank_tab": "Rankning"
+    },
+    "duplication": {
+      "title": "Duplicera utmaning"
+    },
+    "first_rank": "{0}°",
+    "form": {
+      "add_reward": "Lägg till en belöning",
+      "award_error": "Lägg till minst ett pris",
+      "award_type_description_c": "Pris för {2} {0} som kommer att uppnå utmaningens mål",
+      "award_type_description_m": "Varje {1} tjänar antalet poäng som motsvarar dess poäng, upp till den definierade maximigränsen",
+      "award_type_description_p": "Priset som erhållits av deltagarna beror på den uppnådda prestationsnivån",
+      "award_type_description_r": "Pris för {2} {0} i slutet av utmaningen",
+      "award_type_description_single_c": "Pris för {0} för att ha uppnått utmaningens mål",
+      "award_type_description_single_m": "Varje {1} tjänar antalet poäng som motsvarar dess poäng, upp till den definierade maximigränsen",
+      "award_type_description_single_p": "Priset som erhållits av deltagarna beror på den uppnådda prestationsnivån",
+      "award_type_description_single_r": "Pris för {0} i slutet av utmaningen",
+      "award_type_minimum_participants": "Detta sätt kräver minst {0} {1}",
+      "congratulations": "Grattis 🎉!",
+      "congratulations_message": "Din utmaning är redo att sändas!",
+      "enable_manager_score_label": "Visa konsoliderat resultat",
+      "first": "Premiers",
+      "first_departments": "första avdelningar",
+      "first_teams": "första lag",
+      "goal_area": "Indikatorer",
+      "goal_category_label": "Kategori",
+      "goal_collaborator_editable_label": "Spelarens ingång",
+      "goal_description_label": "Beskrivning",
+      "goal_format_label": "Format",
+      "goal_kpi_label": "KPI",
+      "goal_manager_editable_label": "Foga in manager",
+      "goal_name_label": "Namn",
+      "goal_periodicity_label": "Periodicitet",
+      "goal_target_info_text": "Villkoret som ställs in här kan nås flera gånger. Varje gång det nås tjänar du antalet associerade poäng.",
+      "goal_target_label": "Mål",
+      "goal_target_label2": "Villkor",
+      "goal_target_label2_race": "Mål",
+      "goal_title": "{0} indikator",
+      "goal_unit_label": "Enhet",
+      "goals": {
+        "add_button": "Lägg till en indikator",
+        "automatic": "Automatisk",
+        "manual": "Manuell inmatning"
+      },
+      "indicators_title": "Konfiguration av indikatorerna och mekanismerna för utmaningen",
+      "info_area": "information",
+      "info_award_type_label": "Sätt",
+      "info_description_label": "Beskrivning",
+      "info_end_label": "Slut",
+      "info_image_label": "Välj en bild...",
+      "info_name_label": "Namn",
+      "info_no_image_text": "Ingen bild vald",
+      "info_start_label": "Start",
+      "info_type_label": "Typ av utmaning",
+      "infos_title": "Inställning av information",
+      "mode": "Mode",
+      "mode_title": "Val av utmaningssätt",
+      "notify_updated_label": "Meddela deltagarna om uppdateringar",
+      "participants_title": "Välj deltagare",
+      "rewards_title": "Välj priser",
+      "soon_available": "Tillgängligt snart",
+      "step_mode_information": "Maximalt 1 pris per deltagare (det vunna priset motsvarar det högsta steget)",
+      "steps": {
+        "indicators": "Indikatorer och mekanismer",
+        "infos": "information",
+        "mode": "Sätt",
+        "participant": "Deltagare",
+        "participants": "Deltagare",
+        "rewards": "Priser",
+        "validation": "Bekräfta"
+      },
+      "the_first": "Den första",
+      "the_first_department": "Den första avdelningen",
+      "the_first_team": "Det första laget"
+    },
+    "kpi_results": {
+      "add_data": "Lägg till data",
+      "add_data_button": "Lägg till data",
+      "add_kpi_title": "Lägg till ett resultat för KPI",
+      "back_button": "Tillbaka till listan",
+      "collaborator_new_title": "Spara ett nytt resultat för KPI",
+      "collaborator_title": "Lista över registrerade resultat för KPI",
+      "columns": {
+        "actions": "Åtgärder",
+        "images": "Bilder",
+        "indications": "Indikationer",
+        "result": "Utfall",
+        "results": "Resultat"
+      },
+      "edit_kpi_title": "Ändra ett resultat för KPI",
+      "edit_results": "Ange resultat",
+      "form": {
+        "data_description": "Indikationer",
+        "data_description_placeholder": "Skriv in din text",
+        "data_image": "Välj fil...",
+        "data_value": "Värde",
+        "data_value_placeholder": "Ange värdet som ska deklareras",
+        "file_size_error": "Filstorleken får inte överstiga 20 MB"
+      },
+      "see_more": "Se mer",
+      "subtitle": "Det kan ta några minuter innan resultaten uppdateras",
+      "title": "Lista över resultat för KPI"
+    },
+    "list": {
+      "create_button": "Skapa utmaning",
+      "empty_state_message": "Om du vill visa andra utmaningar måste du ändra de filter som används",
+      "empty_state_title": "Ingen utmaning hittades"
+    },
+    "max_points": "{0} MAX",
+    "modes": {
+      "C": "Ras",
+      "M": "Max poäng",
+      "P": "Kullager",
+      "R": "Podium"
+    },
+    "modes_full": {
+      "C": "Race-läge",
+      "M": "Max Score-läge",
+      "P": "Nivå läge",
+      "R": "Podium-läge"
+    },
+    "no_awards_title": "Inga vinster",
+    "other_rank": "{0}°",
+    "points": "Poäng: {0}",
+    "ranking": {
+      "collaborator_column": "Spelare",
+      "collaborator_team_column": "Team",
+      "collaborator_team_group_column": "Avdelning",
+      "level_column": "Nivå",
+      "points_column": "Poäng",
+      "team_column": "Team"
+    },
+    "reward_types": {
+      "G": "Gåvor",
+      "P": "Poäng"
+    },
+    "search_placeholder": "Sök efter en deltagare...",
+    "share": {
+      "copy_link": "Kopiera länk",
+      "copy_success": "Länken har kopierats",
+      "teams_share": "Dela på lag",
+      "title": "Dela den här utmaningen"
+    },
+    "team_groups": "{0} avdelning",
+    "teams": "{0} team",
+    "title": "Utmaning",
+    "title_plural": "Utmaning",
+    "types": {
+      "CC": "Individuell",
+      "CT": "Team",
+      "TG": "Avdelning"
+    },
+    "update": {
+      "create_reward": "Skapa priser",
+      "edit_participants": "Offentliggörande av deltagare",
+      "title": "Ändra utmaning"
+    }
+  },
+  "chart": {
+    "collaborator_type_text": "Bara",
+    "counter_text": "Uppnått: {0}",
+    "max_points_text": "/{0} max",
+    "points_text": "{0} Poäng",
+    "target_text": "Mål: {0}",
+    "team_type_text": "Team",
+    "x_legend": "Period"
+  },
+  "coaching_list": {
+    "created_success": "Kortet har framgångsrikt skapats",
+    "delete_prompt": "Är du säker på att du vill ta bort det här elementet?",
+    "delete_prompt2": "Efter raderingen kommer det inte längre att vara möjligt att återställa det",
+    "empty_state_collaborator_message": "Försök igen senare när din chef ger dig support",
+    "empty_state_manager_message": "Skapa en första instruktion för din spelare",
+    "empty_state_title": "Ingen instruktion hittades",
+    "end_label": "Sista giltighetsdag",
+    "state": {
+      "archived": "Arkiverad",
+      "done": "Gjort",
+      "in_progress": "pågående",
+      "pending": "Väntar"
+    },
+    "title": "Coaching-lista",
+    "title_placeholder": "Ange en titel för detta kort",
+    "updated_success": "Kortet har framgångsrikt uppdaterats"
+  },
+  "collaborator": {
+    "badge_empty_title": "Inga märken gjorda",
+    "dashboard": "Min instrumentpanel",
+    "detail": {
+      "badge_area": "Märke",
+      "badge_rank": "Klass {0}",
+      "empty_state_title": "Inga data tillgängliga",
+      "info_area": "Allmän information",
+      "info_current_level": "{0} ",
+      "info_current_level_max": "/{0} POÄNG",
+      "info_first_rank_text": "{0}°",
+      "info_max_level": "Maximal nivå uppnådd",
+      "info_next_level": "Nivå {0}",
+      "info_other_rank_text": "{0}°",
+      "info_total_points": "{0} POÄNG",
+      "info_victories": "{0} seger",
+      "password_button": "Redigera profil"
+    },
+    "reward_order": {
+      "erase_cart_warning": "Är du säker på att du vill lägga till denna nya belöning?",
+      "erase_cart_warning2": "Denna åtgärd kommer att återställa din korg, som för närvarande är associerad med en annan spelare.",
+      "summary_points_area": "Order totalt",
+      "summary_points_area_year": "År {0}",
+      "summary_rewards_area": "Order nr. {0} av {1}",
+      "summary_title": "Sammanfattning av en order",
+      "tracking": {
+        "email_column": "E-postadress",
+        "id_column": "Ref",
+        "name_column": "Namn",
+        "order_date_column": "Orderdatum",
+        "sub_header_pending_tab": "Pågår",
+        "sub_header_validated_tab": "Ska utföras",
+        "sub_header_validated_title": "Orderstatus",
+        "sub_header_waiting_tab": "Bekräftade",
+        "team_column": "Team",
+        "validated_points_column": "Använda poäng",
+        "validation_date_column": "Datum för bekräftelse",
+        "value_column": "Totalt belopp",
+        "waiting_points_column": "Poäng att validera"
+      },
+      "validation": {
+        "error": "Ett fel uppstod när beställningen bekräftades",
+        "points_area": "Total order",
+        "points_area_year": "År {0}",
+        "rewards_area": "Order nr. {0} av {1}",
+        "success": "Ordern har framgångsrikt bekräftats",
+        "title": "Bekräfta en order"
+      }
+    },
+    "title": "Spelare",
+    "update": {
+      "title": "Redigera profil"
+    }
+  },
+  "common": {
+    "add": "Lägg till",
+    "archive": "Arkivera",
+    "cache_warning": "Det kan ta upp till 5 minuter att uppdatera data",
+    "cancel": "Annullera",
+    "close": "Stäng",
+    "collaborator": "Spelare",
+    "collaborators": "Spelare",
+    "create": "Skapa",
+    "create_error_message": "Ett fel uppstod under skapande",
+    "create_success_message": "Skapandet har framgångsrikt utförts",
+    "csv_export": "Exportera till CSV",
+    "date": "Datum",
+    "delete": "Radera",
+    "delete_error_message": "Ett fel uppstod när du raderade",
+    "delete_success_message": "Framgångsrikt raderat",
+    "duplicate": "Duplicera",
+    "edit": "Redigera",
+    "edit_participants": "Redigera deltagare",
+    "erase": "Radera",
+    "error_page_message": "Du kan uppdatera appen för att åtgärda problemet",
+    "error_page_title": "Ett fel uppstod",
+    "excel_export": "Exportera som XLS",
+    "export": "Exportera",
+    "form": {
+      "collaborator_points_valid": "Summan av poängen överstiger det maximala antalet poäng",
+      "decreasing_rewards": "Priserna måste vara i minskande ordning",
+      "email_error": "Ogiltig e-post.",
+      "has_digit_character": "Minst ett nummer krävs",
+      "has_less_characters_than": "Mindre än {0} tecken krävs",
+      "has_lowercase_character": "Minst en liten bokstav krävs",
+      "has_more_characters_than": "Minst {0} tecken krävs",
+      "has_special_character": "Minst ett specialtecken krävs",
+      "has_uppercase_character": "Minst en stor bokstav krävs",
+      "increasing_rewards": "Priserna måste vara i ökande ordning",
+      "increasing_scores": "Poängen som ska uppnås måste vara i ökande ordning",
+      "is_int_error": "Värdet måste vara ett heltal.",
+      "is_more_than_or_equals_0_error": "Värdet måste vara större än eller lika med 0.",
+      "max_length_128_error": "Värdet måste vara mindre än 128 tecken.",
+      "numeric_error": "Värdet måste vara ett tal",
+      "password_not_match_error": "Lösenorden stämmer inte överens.",
+      "required_error": "Detta fält är obligatoriskt."
+    },
+    "gift": "Gåva",
+    "home": "Instrumentpanel",
+    "import": "Importera",
+    "level": "Nivå",
+    "next": "Nästa",
+    "no": "Nej",
+    "ok": "Ok",
+    "player": "Spelare",
+    "players": "spelare",
+    "points": "Poäng",
+    "previous": "Föregående",
+    "publish": "Publicera",
+    "refresh_button": "Uppdatera appen",
+    "report": "Rapport",
+    "rich_text_placeholder": "Skriv in din text...",
+    "search_placeholder": "Sök...",
+    "see_more": "Se mer",
+    "select": "Välj",
+    "selection": "Val",
+    "share": "Dela",
+    "submit": "Bekräfta",
+    "team": "Team",
+    "team_group": "Avdelning",
+    "team_groups": "Avdelningar",
+    "teams": "Team",
+    "update_app_prompt_message": "Uppdatera appen för att fortsätta använda den",
+    "update_app_prompt_title": "En ny version är tillgänglig",
+    "update_error_message": "Ett fel uppstod under ändringen",
+    "update_success_message": "Ändringarna har framgångsrikt utförts",
+    "yes": "Ja"
+  },
+  "contact": {
+    "evolution_form_message_label": "Meddelande",
+    "evolution_form_submit_button": "Skicka",
+    "evolution_form_title": "Fyll i det här formuläret för att begära en uppgradering",
+    "form_type_evolution_option": "Begär en uppgradering",
+    "form_type_incident_option": "Rapportera ett problem",
+    "form_type_label": "Orsak",
+    "incident_form_title": "Fyll i det här formuläret för att rapportera ditt problem",
+    "question": "Hur kan vi hjälpa dig?",
+    "title": "Hjälp"
+  },
+  "data_tables": {
+    "body": {
+      "noMatch": "Inga matchande element hittades",
+      "toolTip": "Beställ"
+    },
+    "filter": {
+      "all": "Allt",
+      "reset": "Återställ",
+      "title": "Filter"
+    },
+    "pagination": {
+      "pageOf": "på",
+      "rowsPerPage": "Rader per sida"
+    },
+    "toolbar": {
+      "downloadCsv": "Ladda ner",
+      "filterTable": "Filtrera",
+      "print": "Skriv ut",
+      "search": "Sök",
+      "viewColumns": "Spalter"
+    },
+    "viewColumns": {
+      "title": "Visa spalter"
+    }
+  },
+  "filter": {
+    "all_category_label": "Alla kategorier",
+    "all_option_f": "Allt",
+    "all_periods_label": "Alla perioder",
+    "all_team_group_label": "Alla avdelningar",
+    "all_team_label": "Alla team",
+    "category_all_option": "Alla",
+    "category_label": "Kategori",
+    "collaborator_all_option": "Alla",
+    "collaborator_label": "Spelare",
+    "end_label": "Slutdatum",
+    "global_chip": "Global",
+    "goal_label": "Mål",
+    "my_team_label": "Mitt team",
+    "period_all_option": "Alla",
+    "period_label": "år",
+    "start_label": "Startdatum",
+    "submit_button": "Filtrera",
+    "team_all_option": "Alla",
+    "team_group_label": "Avdelning",
+    "team_label": "Team",
+    "time": {
+      "current": "Pågår",
+      "next": "Framtida",
+      "previous": "Föregående"
+    },
+    "title": "Filter",
+    "type_label": "Sätt"
+  },
+  "game": {
+    "title": "Spel"
+  },
+  "game_rules": {
+    "code_embed": "Ange EMBED-koden från videon (se Objow-hjälp vid svårigheter):",
+    "link_url": "Ange länkens URL:",
+    "site_url": "Ange en webbadress:",
+    "title": "Spelregler",
+    "typeform_url": "Ange en URL-adress för typformulär:"
+  },
+  "kpi": {
+    "criticity": {
+      "high": "Hög",
+      "low": "Låg",
+      "medium": "Mellanstor"
+    },
+    "periodicity": {
+      "C": "Anpassad",
+      "D": "Dagligen",
+      "M": "Månadsvis",
+      "Q": "Kvartalsvis",
+      "S": "Halvårsvis",
+      "W": "Varje vecka",
+      "Y": "Årlig",
+      "goal_custom": "Definieras i målet"
+    }
+  },
+  "levels": {
+    "columns": {
+      "citation": "Citat",
+      "icon": "Ikoner",
+      "level": "Nivå",
+      "name": "Namn",
+      "percent": "% av spelarna",
+      "points": "Poäng som ska uppnås"
+    },
+    "list_title": "Lista över nivåer"
+  },
+  "login": {
+    "code_label": "Företagskod",
+    "code_placeholder": "Ange din företagskod",
+    "create_password_company_code_invalid": "Den angivna företagskoden är inte giltig. Ange den företagskod som skickats i välkomstmeddelandet",
+    "create_password_error": "Den här länken är inte längre giltig. Skicka in en ny begäran om återställning av lösenord",
+    "create_password_invalid": "Denna länk är inte giltig",
+    "create_password_missing_user": "Denna länk motsvarar inte någon användare eller har redan använts",
+    "create_password_outdated": "Denna länk är inte längre giltig. Skicka in en ny begäran om återställning av lösenord",
+    "create_password_password_invalid": "Ogiltigt lösenord",
+    "create_password_submit": "Skapa lösenord",
+    "create_password_success": "Ditt lösenord har framgångsrikt skapats",
+    "create_password_title": "Skapa ditt lösenord",
+    "description_line1": "Den spelifierade lösningen",
+    "description_line2": "för övervakning och animering",
+    "description_line3": "av föreställningarna",
+    "email_label": "E-postadress",
+    "email_placeholder": "Ange din e-postadress",
+    "error": "Autentiseringsuppgifterna är inte korrekta",
+    "error_company_code": "Den angivna företagskoden är inte giltig",
+    "force_reset_password_message": "Ditt lösenord har löpt ut, du måste välja ett nytt för att skydda ditt konto",
+    "force_reset_password_title": "Ändra ditt lösenord",
+    "password_label": "Lösenord",
+    "reset_password": "Jag har glömt mitt lösenord",
+    "reset_password_cancel": "Gå tillbaka till inloggningssidan",
+    "reset_password_confirm_error": "Denna länk är inte längre giltig. Skicka in en ny begäran om återställning av lösenord",
+    "reset_password_confirm_success": "Ditt lösenord har framgångsrikt återställts",
+    "reset_password_error": "Inget konto hittades med den här e-postadressen",
+    "reset_password_submit": "Återställ lösenord",
+    "reset_password_success": "Ett e-postmeddelande har skickats till dig med en länk för att återställa ditt lösenord",
+    "reset_password_title": "Glömt lösenord",
+    "sso_dialog_title": "SSO anslutning",
+    "sso_error_message": "SSO är inte konfigurerad. Kontakta en Firetiger-administratör",
+    "sso_submit_button": "Logga in med SSO",
+    "store_message_1": "Fire Tiger-appen är tillgänglig för iPhone och Android.",
+    "store_message_2": "Ladda ner den omedelbart:",
+    "submit_button": "Logga in",
+    "title": "Inloggning"
+  },
+  "menu": {
+    "admin_button": "Administration",
+    "administrator_label": "Administratör",
+    "help_button": "Hjälp",
+    "infos_button": "Mina uppgifter",
+    "level_label": "Nivå {0}",
+    "logout_button": "Utloggning",
+    "manager_label": "Chef",
+    "notifications_button": "Meddelanden",
+    "points_label": "{0} POÄNG",
+    "rules_button": "Spelregler"
+  },
+  "newsfeed": {
+    "all_roles": "Alla roller",
+    "comment_action": "Kommentera",
+    "comment_creation_success": "Din recension har skapats",
+    "comment_delete_success": "Din kommentar har tagits bort",
+    "comment_placeholder": "Skriv din kommentar här",
+    "comment_update_success": "Din recension har uppdaterats",
+    "comments": "Kommentarer",
+    "edit_post_title": "Redigera inlägget",
+    "embed_prompt": "Klistra in videons inbäddade URL här",
+    "empty_state_message": "Skapa ditt första inlägg",
+    "empty_state_title": "Inga inlägg hittades",
+    "for_everybody": "Allihopa",
+    "like": "Jag gillar det",
+    "likes_list_title": "Reaktioner",
+    "new_post_title": "Nytt inlägg",
+    "no_more_posts": "Slut på nyhetsflödet",
+    "post_content_placeholder": "Skriv din text här",
+    "post_creation_success": "Ditt inlägg har framgångsrikt skapats",
+    "post_delete_success": "Ditt inlägg raderades framgångsrikt",
+    "post_placeholder": "Skapa ett nytt inlägg",
+    "post_report_success": "Ditt meddelande har beaktats",
+    "post_settings": "Publiceringsinställningar",
+    "post_update_success": "Ditt inlägg har framgångsrikt uppdaterats",
+    "post_visibility_role_tooltip": "Synlig av: {0}",
+    "reply": "Svara",
+    "reported_comment": "Rapporterad kommentar",
+    "reported_post": "Rapporterad publikation",
+    "see_less": "... se mindre",
+    "see_more": "... se mer",
+    "share_button": "Dela med",
+    "title": "Nyhetsflöde",
+    "video_size_error": "Videostorleken ({0}) får inte överstiga 50 MB",
+    "who_can_see_your_post": "Vem kan se ditt inlägg?"
+  },
+  "notification": {
+    "date": {
+      "days": "{0} g",
+      "hours": "{0} tim",
+      "minutes": "{0} min"
+    },
+    "empty_message": "Inget meddelande mottaget"
+  },
+  "organization_menu": {
+    "hide": "Dölj",
+    "show": "Visa"
+  },
+  "point_summary": {
+    "orders_button": "Order som ska bekräftas",
+    "panopli_button": "Åtkomst till butiken",
+    "panopli_error": "Inget konto hittades i butiken",
+    "points_label": "Totala samlade poäng",
+    "points_value": "{0}Pts",
+    "title": "Allmän information",
+    "usable_points_label": "Poängbalans",
+    "usable_points_value": "{0}Pts",
+    "used_points_label": "Totalt antal använda poäng",
+    "used_points_value": "{0}Pts",
+    "validated_values_label": "Totalt använt värde",
+    "validated_values_value": "{0} €",
+    "waiting_points_label": "Poäng som väntar på validering",
+    "waiting_points_value": "{0}Pts"
+  },
+  "ranking": {
+    "challenges_title": "Utmaning",
+    "collaborator_category_title": "Individuell ranking",
+    "collaborator_challenge_title": "Ranking av individuella utmaningar",
+    "collaborator_general_title": "Övergripande individuell ranking",
+    "collaborator_tab": "Individuell",
+    "columns": {
+      "collaborator": "spelare",
+      "name": "Namn",
+      "team": "Team"
+    },
+    "empty_state_title": "Ingen ranking tillgänglig",
+    "general_title": "Övergripande ranking",
+    "owner_title": "Mina rankningar",
+    "team_category_title": "Team ranking",
+    "team_challenge_title": "Ranking av teamets utmaningar",
+    "team_general_title": "Övergripande klassificering av teamet",
+    "team_tab": "Team",
+    "title": "Rankningar"
+  },
+  "reward": {
+    "creation": {
+      "error": "Ett fel uppstod när priset skapades",
+      "subtitle": "Skapa ett pris",
+      "success": "Priset skapades framgångsrikt"
+    },
+    "detail": {
+      "delivery_mode_text": "Försändningsmetod: {0}",
+      "delivery_place_text": "Plats: {0}",
+      "delivery_time_text": "Beräknad leveranstid: {0}",
+      "description_area": "Beskrivning",
+      "image_close_button": "Stäng",
+      "operation_step_1_description": "Kontrollera och bekräfta din beställning. Ett meddelande skickas sedan till din företagsadministratör som informerar honom/henne om din begäran.",
+      "operation_step_1_title": "När du klickar på lägg till",
+      "operation_step_2_description": "Din order väntar på behandling/bekräftelse. De poäng som användes vid beställningstillfället dras av från ditt poängsaldo.",
+      "operation_step_2_title": "Väntande order",
+      "operation_step_3_description": "Din företagsadministratör tar hand om din beställning. När dina poäng har validerats och fakturerats av leverantören dras dina poäng permanent från ditt poängsaldo.",
+      "operation_step_3_title": "Order på gång",
+      "operation_step_4_description": "Ditt pris kommer! Du kommer att informeras av din företagsadministratör. Ditt pris kommer att deklareras och omfattas av avgifter som betalas av arbetsgivaren och/eller arbetstagaren.",
+      "operation_step_4_number": "Leverans",
+      "operation_step_4_title": "Order skickad",
+      "operation_title": "Hur fungerar det?",
+      "value_text": "Värde: {0} €"
+    },
+    "duplication": {
+      "title": "Duplicera pris"
+    },
+    "edit": {
+      "title": "Ändra pris"
+    },
+    "form": {
+      "category_label": "Kategori",
+      "delivery_area": "Leverans",
+      "delivery_mode_label": "Leveransmetod",
+      "delivery_place_label": "Plats",
+      "delivery_time_label": "Leveranstider",
+      "description_label": "Beskrivning",
+      "empty_image_text": "Ingen bild vald",
+      "image_label": "Välj en bild...",
+      "infos_area": "information",
+      "name_label": "Namn",
+      "points_label": "Antal poäng som behövs",
+      "type_label": "Typ",
+      "value_label": "Värde",
+      "value_suffix_label": "€"
+    },
+    "image_input_infos": "Bilden anpassar sig och ändras beroende på storleken på den skärm som används. Det rekommenderade bildformatet för optimal visning är 1024x700.",
+    "management": {
+      "collaborator_selector_area": "Välj en spelare",
+      "collaborator_tab": "spelare",
+      "team_selector_area": "Välj ett team",
+      "team_tab": "Team",
+      "title": "Hantering av priser"
+    },
+    "order_item_list": {
+      "close_button": "Fortsätt med dina inköp",
+      "empty_text": "Tom",
+      "points_value": "{0}Pts",
+      "quantity_label": "Mängd",
+      "value_label": "Värde"
+    },
+    "order_list_export": {
+      "title": "Exportera bekräftade order"
+    },
+    "order_summary": {
+      "cart_points_label": "Kundvagn totalt",
+      "confirm_order_message": "När det har bekräftats kommer det inte längre att vara möjligt att avbryta beställningen, poängen kommer att tas bort från ditt poängsaldo och värdet på beställningen kommer att deklareras och omfattas av avgifter som betalas av arbetsgivaren och/eller arbetstagaren.",
+      "confirm_order_title": "Bekräftar du din order av {0} Poäng värda {1} €?",
+      "confirm_refuse_message": "När den väl avvisats kommer det inte längre att vara möjligt att återaktivera den, poängen återställs i det tillgängliga poängsaldot. Det är ditt ansvar att informera användaren om orsaken till vägran.",
+      "confirm_refuse_title": "Bekräftar du att du vill avvisa ordernummer {0} för totalt {1} poäng värda {2} €?",
+      "confirm_validate_message": "När den väl har bekräftats kan beställningen inte längre annulleras, poängen dras av från det tillgängliga poängsaldot och värdet på denna order måste deklareras och är föremål för avgifter som betalas av arbetsgivaren och/eller arbetstagaren.",
+      "confirm_validate_title": "Är du säker på att du vill bekräfta ordernummer {0} för totalt {1} poäng värda {2} €?",
+      "order_button": "Beställ",
+      "order_points_label": "Order totalt",
+      "order_points_value": "{0} Poäng",
+      "order_value_label": "Värde totalt",
+      "recipient_points_label": "Aktuellt poängsaldo",
+      "recipient_points_value": "{0} Poäng",
+      "refuse_button": "Avvisa",
+      "remaining_points_label": "Återstående poängsaldo",
+      "remaining_points_value": "{0} Poäng"
+    },
+    "point_tag": "{0} POÄNG",
+    "settings": {
+      "collaborator_reward_activation_option": "Aktivera priser ”spelare”",
+      "manager_reward_creation": "Gör det möjligt för chefer att beställa belöningar",
+      "manager_reward_notification": "Meddela chefer via e-post om beställningar som gjorts av spelare i deras lag",
+      "team_reward_activation_option": "Aktivera priser ”team”"
+    },
+    "shopping_cart": {
+      "adding_confirmation_close_button": "Fortsätt med dina inköp",
+      "adding_confirmation_message": "Du har precis lagt till denna produkt i din kundvagn:",
+      "adding_confirmation_shopping_cart_button": "Gå till kundvagnen",
+      "points_area": "Kundvagn totalt",
+      "points_area_year": "År {0}",
+      "rewards_area": "Din kundvagn",
+      "success": "Din order har mottagits"
+    },
+    "sort_by": "Sortera efter",
+    "sort_options": {
+      "asc": "Ökande antal poäng",
+      "desc": "Minskande antal poäng"
+    },
+    "store": {
+      "empty_state_message": "Om du vill se fler priser måste du ändra de filter som eventuellt anbringats",
+      "empty_state_title": "Inget pris hittades"
+    },
+    "title": "Priser"
+  },
+  "roles": {
+    "A": "Administratör",
+    "C": "Spelare",
+    "M": "Chef",
+    "S": "Super chef"
+  },
+  "statistics": {
+    "category_title": "Välj kategori",
+    "empty_state_message": "Om du vill visa annan statistik måste du ändra eventuella filter.",
+    "empty_state_title": "Ingen statistik hittades",
+    "title": "Statistik"
+  },
+  "team": {
+    "collaborators_text": "{0} spelare",
+    "detail": {
+      "collaborators_text": "{0} spelare",
+      "manager_text": "Från {0} {1}",
+      "no_manager_text": "Ingen manager",
+      "points_text": "{0} POÄNG",
+      "victories_text": "{0} segrar"
+    },
+    "empty_state_message": "Teamen har inte skapats ännu",
+    "empty_state_title": "Inget team hittades",
+    "form": {
+      "collaborator": "Spelare {0}",
+      "collaborators": "Spelare",
+      "color": "färg",
+      "id": "Användarnamn",
+      "manager": "Manager",
+      "name": "Namn",
+      "parent": "Gruppledare avdelning"
+    },
+    "group_collaborators_text": "{0} Manager",
+    "group_team_groups_text": "{0} avdelningar",
+    "group_teams_text": "{0} team",
+    "manager_text": "Från {0} {1}",
+    "no_manager_text": "Ingen manager",
+    "title": "Team",
+    "title_singular": "Team"
+  },
+  "team_group": {
+    "form": {
+      "super_manager": "Supermanager",
+      "user": "Användare {0}",
+      "users": "Användare"
+    },
+    "thumbnail": {
+      "hide_children": "Dölj {0} teamen",
+      "hide_children_team_group": "Dölj {0} avdelningar",
+      "show_children": "Visa {0} team",
+      "show_children_team_group": "Visa {0} avdelningar"
+    },
+    "title_singular": "Avdelning"
+  },
+  "transfer_list": {
+    "participants": "Deltagare",
+    "selection": "Tillgängliga",
+    "submit_selection": "Validera val"
+  },
+  "widget": {
+    "activity": {
+      "inactive_profiles": "Inaktiva profiler",
+      "info_text": "Här hittar du listan över personer som har varit inaktiva i dina team i mer än 3 månader."
+    },
+    "badge": {
+      "count1": "Du har",
+      "count2": "Pågående",
+      "without_count": "Visa badges för anställda"
+    }
+  }
+}

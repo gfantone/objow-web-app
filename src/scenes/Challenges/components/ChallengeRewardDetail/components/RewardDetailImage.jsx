@@ -1,0 +1,53 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { CardMedia } from '@material-ui/core';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+} from '../../../../../components';
+import * as Resources from '../../../../../Resources';
+import { useIntl } from 'react-intl';
+
+const useStyles = makeStyles((theme) => ({
+  image: {
+    borderRadius: 16,
+    height: 200,
+    maxWidth: 300,
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: 300,
+    },
+  },
+  detailImage: {
+    backgroundSize: 'contain',
+    height: 400,
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      height: 200,
+    },
+  },
+}));
+
+const RewardDetailImage = ({ image, ...props }) => {
+  const intl = useIntl();
+  const classes = useStyles();
+  const [detailOpen, setDetailOpen] = React.useState(false);
+
+  const handleCloseClick = (open) => () => {
+    setDetailOpen(open);
+  };
+
+  return (
+    <div>
+      <CardMedia
+        image={image}
+        className={classes.image}
+        onClick={handleCloseClick(true)}
+      />
+    </div>
+  );
+};
+
+export default RewardDetailImage;

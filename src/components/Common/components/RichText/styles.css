@@ -1,0 +1,75 @@
+.rich-text html,
+.rich-text input,
+.rich-text textarea {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.4;
+  background: #eee;
+}
+
+.rich-text body {
+  margin: 0;
+}
+
+.rich-text p {
+  margin: 0;
+}
+
+.rich-text pre {
+  padding: 10px;
+  background-color: #eee;
+  white-space: pre-wrap;
+}
+
+.rich-text :not(pre) > code {
+  font-family: monospace;
+  background-color: #eee;
+  padding: 3px;
+}
+
+.rich-text img {
+  max-width: 100%;
+  max-height: 20em;
+}
+
+.rich-text blockquote {
+  border-left: 2px solid #ddd;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 10px;
+  color: #aaa;
+  font-style: italic;
+}
+
+.rich-text blockquote[dir='rtl'] {
+  border-left: none;
+  padding-left: 0;
+  padding-right: 10px;
+  border-right: 2px solid #ddd;
+}
+
+.rich-text table {
+  border-collapse: collapse;
+}
+
+.rich-text td {
+  padding: 10px;
+  border: 2px solid #ddd;
+}
+
+.rich-text input {
+  box-sizing: border-box;
+  font-size: 0.85em;
+  width: 100%;
+  padding: 0.5em;
+  border: 2px solid #ddd;
+  background: #fafafa;
+}
+
+.rich-text input:focus {
+  outline: 0;
+  border-color: blue;
+}
+
+.rich-text [data-slate-editor] > * + * {
+  margin-top: 1em;
+}

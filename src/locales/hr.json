@@ -1,0 +1,1329 @@
+{
+  "account": {
+    "citation_label": "Citat",
+    "confirm_password_label": "Potvrdi lozinku",
+    "email_label": "E-mail",
+    "first_name_label": "Ime",
+    "last_name_label": "Prezime",
+    "password_label": "Nova lozinka",
+    "success_message": "Promjene su uspješno izvršene",
+    "title": "Moj profil",
+    "title_label": "Naziv profila",
+    "title_label_pseudo": "Nadimak"
+  },
+  "admin": {
+    "access_rights": {
+      "activate_daily_email": "Aktivirajte dnevnu e-poštu sažetka obavijesti",
+      "activate_notifications": "Aktivirajte obavijesti",
+      "activate_users_count": "Prikaz broja neaktivnih korisnika na nadzornoj ploči",
+      "activate_weekly_email": "Aktivirajte tjedni sažetak e-pošte",
+      "all_users": "Svi korisnici",
+      "badges": "Pristup značkama",
+      "category_rankings": "Rangiranje vidljivo po kategorijama",
+      "category_rankings_limit": "Rangiranje kategorija ograničeno je na prvih X",
+      "challenge": "Pristup izazovima",
+      "challenge_rankings": "Rangiranje vidljivo za izazov",
+      "coaching_list": "Pristup popisu za treniranje",
+      "collaborator_title": "Igrač",
+      "edit_coaching_list": "Uređivanje popisa treniranja",
+      "future_challenge": "Pogledajte nadolazeće izazove",
+      "future_goals": "Pogledajte buduće ciljeve",
+      "general_rankings": "Ukupan poredak vidljiv",
+      "general_rankings_limit": "Ukupni poredak ograničen na prvih X",
+      "goal_filter": "Zadani filtar na ciljevima",
+      "goal_rankings": "Poredak vidljiv za postignuća",
+      "goals": "Pristup ciljevima",
+      "help": "Pristup pomoći",
+      "home": "Pristup nadzornoj ploči",
+      "home_page": "Postavljanje početne stranice",
+      "manager_title": "Menadžer",
+      "news_feed": "Pristup feedu vijesti",
+      "news_feed_comments_creation": "Création de commentaires sur le fil d'actualité",
+      "news_feed_post_creation": "Création de post sur le fil d'actualité",
+      "rankings": "Pristup poretku",
+      "reset_password": "Uređivanje profila igrača",
+      "rules": "Pristup pravilima igre",
+      "stats": "Pristup statistikama",
+      "team_rankings": "Poredak mog tima",
+      "teams": "Pristup timovima",
+      "title": "Upravljanje pravima pristupa",
+      "wording_badge": "Preimenuj značku",
+      "wording_challenge": "Preimenuj izazov",
+      "wording_dashboard": "Tekst nadzorne ploče",
+      "wording_goal": "Preimenuj ciljeve",
+      "wording_rules": "Preimenuj pravila igre"
+    },
+    "aircall": {
+      "form_ac_get_calls_activation": "Omogućite KPI za uspješan oporavak poziva",
+      "form_ac_get_calls_duration": "Minimalna duljina uspješnog poziva (sekunde)",
+      "install": {
+        "authorization_error": "Nemate potrebne dozvole",
+        "code_label": "Šifra tvrtke",
+        "demo_button": "Demo",
+        "email_label": "E-pošta",
+        "login_error": "Vjerodajnice nisu točne",
+        "no_customer_button_1": "Ne još",
+        "no_customer_button_2": "Kupac Fire Tigera?",
+        "password_label": "Lozinka",
+        "submit_button": "Povezivanje Aircalla",
+        "unknown_error": "Došlo je do nepoznate pogreške",
+        "website_button": "Pogledajte web stranicu"
+      }
+    },
+    "badge_config": {
+      "remaining_points_to_award": "Preostali bodovi koji će se dodijeliti",
+      "title": "Postavljanje znački"
+    },
+    "categories": {
+      "active_tab": "Aktivan",
+      "archive_confirm": "Jeste li sigurni da želite arhivirati kategoriju '{}'?",
+      "archive_confirm2": "Nakon što se ova kategorija arhivira, više je neće biti moguće ponovno aktivirati.",
+      "archived_tab": "Arhivirano",
+      "columns": {
+        "icon": "Ikona",
+        "name": "Ime"
+      },
+      "creation": {
+        "error": "Došlo je do pogreške prilikom izrade kategorije",
+        "success": "Kategorija uspješno kreirana",
+        "title": "Stvori kategoriju"
+      },
+      "title": "Konfigurirajte kategorije",
+      "update": {
+        "error": "Došlo je do pogreške prilikom ažuriranja kategorije",
+        "success": "Kategorija uspješno ažurirana",
+        "title": "Uređivanje kategorije"
+      }
+    },
+    "collaborator_selector": {
+      "empty_state_message": "Timovi još nisu stvoreni",
+      "empty_state_title": "Nijedan tim nije pronađen"
+    },
+    "goal": {
+      "admin_editable_label": "Administratori mogu uređivati ​​cilj",
+      "admin_goal_creation_repartition_individual_team": "💡 Koristeći ovu metodu distribucije, cilj tima automatski će biti dodijeljen svim timovima odabranim od preostalih {0} tekuće godine.\n Nakon provjere valjanosti moći ćete prilagoditi ciljeve dodijeljene svim timovima.",
+      "admin_title": "Konfiguracija ciljeva",
+      "allow_over_target_label": "Prekoračenje zadanog cilja",
+      "allow_ranking_label": "Pogledajte poredak",
+      "allow_ranking_latest_value": "Pogledajte najnovije rezultate na ljestvici s poretkom",
+      "allow_ranking_points": "Pogledajte rezultat na ploči s poretkom",
+      "category_label": "Kategorija",
+      "classic_title": "Klasični",
+      "creation": {
+        "error": "Došlo je do pogreške prilikom izrade cilja",
+        "goal_title": "Konfiguriranje cilja",
+        "goals_title": "Konfiguracija ciljeva",
+        "kpi_title": "Odabir ciljanog KPI-ja",
+        "options_title": "Odaberite opcije",
+        "participants_title": "Odaberite sudionike",
+        "success": "Cilj je uspješno stvoren"
+      },
+      "creation_repartition_global": "💡 Koristeći ovu metodu distribucije, godišnji globalni cilj automatski će se raspodijeliti na broj {0} preostalih u tekućoj godini i podijeljen s brojem odabranih sudionika.\n Nakon provjere valjanosti moći ćete prilagoditi pojedinačne ciljeve dodijeljene svim svojim timovima.",
+      "creation_repartition_global_team": "💡 Koristeći ovu metodu distribucije, ukupni godišnji cilj automatski će se podijeliti s brojem {0} preostalih u tekućoj godini i rasporediti proporcionalno prema broju sudionika u odabranim timovima.\n Nakon provjere valjanosti moći ćete prilagoditi ciljeve dodijeljene svim timovima.",
+      "creation_repartition_individual": "💡 Koristeći ovu metodu distribucije, pojedinačni cilj automatski će se dodijeliti svim sudionicima odabranim od preostalih {0} tekuće godine.\n Nakon provjere valjanosti moći ćete prilagoditi pojedinačne ciljeve dodijeljene svim svojim timovima.",
+      "creation_repartition_individual_team": "💡 Koristeći ovu metodu raspodjele, cilj tima bit će automatski dodijeljen svim momčadima odabranim od preostalih {0} tekuće godine.\n Nakon provjere valjanosti moći ćete prilagoditi ciljeve dodijeljene svim timovima.",
+      "creation_target_label": "Cilj {1} za {0}",
+      "creation_title": "Stvorite cilj",
+      "criticity_label": "Hitnost",
+      "default_label": "Stvoreno prema zadanim postavkama",
+      "description_label": "poruka",
+      "detail": {
+        "indication_tab": "Indikacije",
+        "rank_tab": "Poredak"
+      },
+      "disable_info": "Nakon što se taj cilj arhivira, više ga neće biti moguće ponovno aktivirati. Svi bodovi dodijeljeni trenutnim i budućim ciljevima bit će ponovno dostupni.",
+      "disable_message": "Jeste li sigurni da želite spremiti cilj '{0}'?",
+      "duplication": {
+        "dialog_confirmation_message": "Jeste li sigurni da želite automatski primijeniti ciljeve {1} na {0}?",
+        "dialog_message": "Automatski primijenite golove sljedećeg igrača na {0}:",
+        "dialog_title": "Konfiguracija ciljeva"
+      },
+      "edit": {
+        "all_target_label": "Korišteni cilj",
+        "disable_button": "Zatvorite račun",
+        "error": "Došlo je do pogreške prilikom ažuriranja ciljeva",
+        "error_text": "Poštujte ukupni cilj dodijeljen za odabrano razdoblje",
+        "max_target_label": "Cilj dodijeljen za odabrano razdoblje",
+        "remaining_target_label": "Preostali cilj",
+        "success": "Cilj je uspješno ažuriran",
+        "title": "Pokazatelji"
+      },
+      "editable_label": "Cilj koji menadžeri mogu mijenjati",
+      "import": {
+        "condition1": "E-mail igrača",
+        "condition2": "Objektivni ref",
+        "condition3": "Datum početka razdoblja (format: GGGG-MM-DD 00:00:00)",
+        "condition4": "Datum završetka razdoblja (format: GGGG-MM-DD 23:59:59)",
+        "condition5": "Objektivna vrijednost",
+        "condition6": "Molimo kontaktirajte menadžera uspjeha korisnika za više informacija o tome kako funkcionira objektivni uvoz",
+        "error1": "Uvoz je pogrešan jer datoteka ne zadovoljava gore navedena ograničenja. Neke leće možda nisu uvezene.",
+        "error2": "Uvoz je u zabludi iz nepoznatog razloga.",
+        "text1": "Uvezite CSV datoteku ograničenu zarezom. Upotreba zareza nije dopuštena u vrijednostima datoteka.",
+        "text2": "Svaki stupac u datoteci mora ispunjavati sljedeće uvjete:",
+        "title": "Ciljevi uvoza"
+      },
+      "indication": {
+        "coaching_area": "Savjet trenera",
+        "coaching_empty_state": "Nije pronađen savjet",
+        "coaching_item_label": "Savjet {0}",
+        "description_area": "Opis",
+        "level_area": "Faze",
+        "live_info": "Ako je omogućeno, bodovi će se automatski dodjeljivati sudionicima prije isteka cilja.",
+        "live_label": "Bodovi zarađeni uživo",
+        "period_text": "Od {0} do {1}",
+        "unit_with_symbol_text": "Jedinica: {0} ({1})",
+        "unit_without_symbol_text": "Jedinica: {0}"
+      },
+      "indication_label": "Indikacije",
+      "kpi_format_label": "Format",
+      "kpi_label": "KPI",
+      "kpi_name_label": "Naziv KPI-ja",
+      "kpi_period_label": "Razdoblje",
+      "kpi_periods_label": "Razdoblja",
+      "list": {
+        "active_tab": "Aktivni",
+        "archived_tab": "Arhivirano",
+        "columns": {
+          "category": "Kategorija",
+          "default": "Zadano",
+          "id": "Rif",
+          "name": "Ime",
+          "periodicity": "Periodičnost",
+          "target": "Godišnji globalni cilj",
+          "type": "Cilj",
+          "unit": "Jedinica"
+        },
+        "empty_state_message": "Da biste vidjeli druge ciljeve, morate izmijeniti sve filtre koji se mogu primijeniti",
+        "empty_state_title": "Nije pronađen nijedan cilj"
+      },
+      "live_infos": "Ako je omogućeno, bodovi će se automatski dodijeliti sudionicima prije ciljanog roka.",
+      "live_label": "Bodovi zarađeni uživo",
+      "name_label": "Ime",
+      "past_editable_label": "Prošli cilj koji administratori mogu izmijeniti",
+      "period_label_long": "Razdoblje{0}: od {1} do {2}",
+      "period_label_short": "Razdoblje {0}",
+      "period_label_short2": "Od {0} do {1}",
+      "periodicity_label": "Periodičnost",
+      "point_config": {
+        "allocated_points": "Ukupno dodijeljenih bodova: ",
+        "allocated_points_year": "Broj bodova dodijeljenih za cilj godine {0}",
+        "available_points_title": "{0} bodova dostupno",
+        "current_points_title": "{0} bodova trenutno za raspodjelu",
+        "errors": {
+          "archived_goal": "Arhivirani cilj",
+          "no_level_message": "Stvorite prvu fazu",
+          "no_level_title": "Nije pronađena nijedna faza",
+          "percent_more_equal": "Postotak mora biti veći ili jednak 0",
+          "percent_more_than": "Postotak mora biti veći od onog u prethodnoj fazi",
+          "points_more_equal": "Broj bodova mora biti veći ili jednak 0",
+          "points_more_than": "Broj bodova mora biti veći od broja prethodnih faza"
+        },
+        "form": {
+          "percent": "% postizanja cilja",
+          "points": "Bodovi"
+        },
+        "general_info_title": "Opće informacije",
+        "importance_percent": "Postotak važnosti: ",
+        "level_title": "Faza {0}",
+        "max_points_title": "Maksimalan broj bodova po {0} i po razdoblju: ",
+        "remaining_points": "Preostali ukupni broj dodijeljenih bodova: ",
+        "title": "Konfiguriranje faza za {0} i po razdoblju",
+        "title_tooltip": "Broj bodova koji se mogu koristiti na {0}, od {1} tijekom godine {2}",
+        "used_points": "Ukupni broj bodova koji se već mogu osvojiti:"
+      },
+      "point_config_title_c": "Broj preostalih razdoblja",
+      "point_config_title_d": "Broj preostalih dana",
+      "point_config_title_m": "Broj preostalih mjeseci",
+      "point_config_title_q": "Broj preostalih tromjesečja",
+      "point_config_title_s": "Broj preostalih semestara",
+      "point_config_title_w": "Broj preostalih tjedana",
+      "point_config_title_y": "Tekuća godina",
+      "point_config_tooltip_c": "Tekuće razdoblje",
+      "point_config_tooltip_d": "Preostali dani",
+      "point_config_tooltip_m": "Preostali mjeseci",
+      "point_config_tooltip_q": "Preostala tromjesečja",
+      "point_config_tooltip_s": "preostali semestri",
+      "point_config_tooltip_w": "Preostali tjedni",
+      "point_config_tooltip_y": "Tekuća godina",
+      "rank_list": {
+        "player_column": "Igrači"
+      },
+      "repartition_label": "Metoda distribucije",
+      "spreadsheet_title": "Proračunske tablice",
+      "target_label": "Godišnji globalni cilj",
+      "thumbnail": {
+        "collaborator_tag": "Individualni",
+        "counter_text": "Dostignuto: {0}",
+        "first_rank_text": "{0}°",
+        "max_points_text": "/{0} maks",
+        "max_rank_text": "/{0}",
+        "other_period": "Od {0} do {1}",
+        "other_rank_text": "{0}°",
+        "player_text": "{0} igrača",
+        "points_text": "{0} bodova",
+        "quarter_period": "Tromjesečje {0} ({1})",
+        "semester_period": "Semestar {0}",
+        "target_text": "/Cilj: {0}",
+        "team_tag": "Tim",
+        "team_text": "{0} tim",
+        "timer_tag": "G {0}",
+        "week_period": "Tjedan {0} ({1})",
+        "year_period": "Godina {0}"
+      },
+      "title": "Ciljevi",
+      "type_label": "Tip",
+      "unit_label": "Jedinica",
+      "update_base_tab": "Baza",
+      "update_base_title": "Promijeni cilj '{0}'",
+      "update_confirmation_message": "Jeste li sigurni da želite promijeniti KPI za ovaj cilj? Ova promjena može imati posljedice na povijesne rezultate. Ako imate bilo kakvih pitanja, ne ustručavajte se kontaktirati nas.",
+      "update_custom_tab": "Personalizacija",
+      "update_readonly_title": "Vizualizirajte cilj '{0}'"
+    },
+    "home": {
+      "badge_link": "Značka",
+      "category_link": "Kategorije",
+      "data_area": "Integracija i upravljanje podacima",
+      "goal_level_link": "Bodovi",
+      "import_link": "Dnevnik izvoda",
+      "indicator_area": "Konfiguriranje indikatora",
+      "level_link": "Razina",
+      "logo_link": "Promjena logotipa",
+      "notification_link": "Upravljanje obavijestima",
+      "organization_link": "Tim/Organizacija",
+      "partner_link": "Može se integrirati sa softverom treće strane",
+      "permission_link": "Upravljanje pravima pristupa",
+      "point_link": "Opća raspodjela bodova",
+      "report_link": "Izvješće",
+      "reward_link": "Nagrade",
+      "user_area": "Korisnici i prava",
+      "user_link": "Korisničke pretplate",
+      "year_label": "Godina za postavljanje"
+    },
+    "import_log": {
+      "columns": {
+        "date": "Datum izvršenja",
+        "download": "Preuzmi",
+        "error_lines": "Pogreška linije",
+        "file": "Datoteka",
+        "id": "Rif",
+        "state": "Status",
+        "success_lines": "Važeće linije"
+      },
+      "data": "Rezultati",
+      "goals": "Ciljevi",
+      "title": "Dnevnik uvoza",
+      "users": "Korisnici"
+    },
+    "logo": {
+      "background_color": "Boja pozadine",
+      "colors": "Boje",
+      "font_family": {
+        "fonts_select": "Izbor fontova",
+        "title": "Tipovi"
+      },
+      "primary_color": "Glavna boja",
+      "reset_colors": "Resetirajte boje",
+      "secondary_color": "Sekundarna boja",
+      "success_message": "Logo je ažuriran",
+      "title": "Promjena logotipa"
+    },
+    "logo_and_colors": {
+      "success_message": "Boje su uspješno ažurirane",
+      "title": "Promjena logotipa i boje"
+    },
+    "notifications_rights": {
+      "explication_badge": "konfiguriranje obavijesti koje se šalju kada se razina značke promijeni",
+      "explication_challenge": "konfiguriranje obavijesti prilikom nadogradnje izazova",
+      "explication_email": "Obavijesti putem e-pošte bit će poslane u vašu pristiglu poštu.",
+      "explication_global": "globalna konfiguracija obavijesti",
+      "explication_in_app": " Obavijesti unutar aplikacije bit će poslane vašoj aplikaciji.",
+      "explication_newsfeed": "configuration des notifications qui sont envoyées lorsque le niveau du badge change",
+      "explication_push": "Push obavijesti bit će poslane na vaš mobilni uređaj (iOS ili Android).",
+      "explication_ranking": "konfiguriranje obavijesti za suradnika koji je zauzeo prvo mjesto na ljestvici izazova",
+      "explication_type": "Postoje tri načina za primanje obavijesti: push, in-app, e-mail.",
+      "generals": "Generali",
+      "global": "Global",
+      "notification_CHBU": "Obavijest kada se vaši izazovi ažuriraju.",
+      "notification_EWM": "Obavijest se šalje svaki tjedan kako bi se povećala motivacija za sve.",
+      "notification_MNL": "Obavijest za suradnika koji prođe razinu.",
+      "notification_NECH": "Obavijest poslana kada započne novi izazov",
+      "notification_NLB": "Obavijest kada dosegnete novu razinu značke",
+      "notification_NPE": "Obavijest o obavijesti ako obavijesti nisu pročitane.",
+      "notification_NPIN": "Notification envoyée quand le nouveau post a été créé dans le fil d'actualité",
+      "notification_NROE": "Obavijest poslana ako je nalog za nagradu uspješno potvrđen.",
+      "notification_RFCR": "Obavijest za suradnika koji je na prvom mjestu na ljestvici izazova.",
+      "notification_RFGR": "Obavijest za zaposlenika koji je na prvom mjestu u ukupnoj ljestvici.",
+      "notification_RFR": "Obavijest za suradnika koji je na prvom mjestu na objektivnoj ljestvici.",
+      "notification_SWE": "Tjedna sažetak obavijesti.",
+      "notification_TRCR": "Obavijest za tim koji je prvi na ljestvici izazova.",
+      "notification_TRFR": "Obavijest za tim koji je na prvom mjestu na objektivnoj ljestvici.",
+      "notification_TRGR": "Obavijest za momčad koja je prva u ukupnom poretku.",
+      "notification_update_success": "Promjene obavijesti uspješno prihvaćene!",
+      "remark_explication": "Napomena:",
+      "remark_explication_checkbox": "Ako potvrdni okvir nije aktivan, ne možete promijeniti postavke za ovu obavijest",
+      "sub_title": "Upravljanje obavijestima",
+      "title": "Moje obavijesti",
+      "title_email": "Email",
+      "title_explication": "Kako biti obaviješten:",
+      "title_in_app": "U aplikaciji",
+      "title_push": "Guranje"
+    },
+    "organization": {
+      "create_team_title": "Kreiranje tima ({0})",
+      "title": "Upravljanje organizacijom",
+      "update_company": "Uredi naziv tvrtke",
+      "update_team": "Uredite tim",
+      "update_team_group": "Uredite odjel"
+    },
+    "partner_detail_empty_connection": "Da biste koristili ove značajke, morate instalirati Fire Tiger u vašem Aircall korisničkom području.",
+    "partner_detail_subtitle": "Može se integrirati sa softverom treće strane",
+    "partner_list_subtitle": "Može se integrirati sa softverom treće strane",
+    "point_config": {
+      "budget": "Proračun",
+      "point_rule": "Pravilo izračuna",
+      "total_title": "Ukupni dostižni rezultat po igraču",
+      "total_title_team": "Ukupan dostižni rezultat po momčadi"
+    },
+    "points": {
+      "columns": {
+        "category": "Kategorija",
+        "current_points": "Bodovi trenutno raspoloživi za dodjelu",
+        "custom_individual": "Individualno prilagođavanje",
+        "custom_team": "Prilagođavanje tima",
+        "id": "Rif",
+        "name": "Naslov",
+        "used_points": "Bodovi raspoloživi za dodjelu"
+      },
+      "menu_global": "Globalni",
+      "menu_individual": "Individualni",
+      "menu_team": "Tim",
+      "title": "Zadavanje ciljnih bodova"
+    },
+    "report": {
+      "columns": {
+        "category": "Kategorija",
+        "format": "Format",
+        "format_manual": "Priručnik",
+        "format_standard": "Standardni",
+        "kpi_code": "KPI kod",
+        "kpi_name": "Naziv KPI-ja",
+        "kpi_ref": "Rif KPI",
+        "periodicity": "Ažuriraj",
+        "result_unit": "Jedinica rezultata"
+      },
+      "dashboard_tab": "Nadzorna ploča",
+      "list_tab": "Popis izvješća",
+      "title": "Popis izvješća"
+    },
+    "report_details": {
+      "columns": {
+        "id": "ID"
+      },
+      "quarter_period": "Tromjesečje {0}",
+      "semester_period": "Semestar {0}",
+      "title": "Izvješće '{0}'",
+      "week_period": "Tjedan {0}"
+    },
+    "reward_category": {
+      "creation": {
+        "subtitle": "Stvorite nagradnu kategoriju"
+      },
+      "list": {
+        "active_tab": "Aktivan",
+        "icon_column": "Ikona",
+        "inactive_tab": "Arhivirano",
+        "name_column": "Ime",
+        "subtitle": "Konfiguriranje nagradnih kategorija"
+      },
+      "update": {
+        "subtitle": "Uređivanje nagradne kategorije"
+      }
+    },
+    "title": "Administracija",
+    "user": {
+      "archived_tab": "Opozvani",
+      "creation": {
+        "password_title": "Kreiraj lozinku",
+        "send_email": "Pošaljite e-mail za prijavu korisniku",
+        "success": "Korisnik je uspješno kreiran",
+        "title": "Kreiraj korisnika"
+      },
+      "current_tab": "U tijeku",
+      "email": "E-pošta",
+      "firstname": "Ime",
+      "force_reset_password": "Prisilna promjena lozinke",
+      "force_reset_password_info": "Korisnik mora promijeniti lozinku sljedeći put kada se prijavi",
+      "fullname": "Prezime",
+      "id": "Rif",
+      "identifier": "Korisničko ime {0}",
+      "identifiers": "Korisnička imena",
+      "import": {
+        "condition1": "Ime: maksimalno 30 znakova",
+        "condition2": "Prezime: maksimalno 150 znakova",
+        "condition3": "E-pošta: Jedinstvena, maksimalno 254 znaka",
+        "condition4": "Tip: C (igrač), M (menadžer), S (Super menadžer) ili A (Administrator)",
+        "condition5": "Tim: Korisničko ime tima (naznačeno na obrascu za objavljivanje tima)",
+        "condition6": "Lozinka",
+        "condition7": "Status: 1 (Aktivno) ili 0 (Neaktivno)",
+        "condition8": "Posljednjih 5 stupaca su opcionalna korisnička imena",
+        "condition9": "Super medadžer odjela: P ako je glavni inače prazan",
+        "error1": "Uvoz nije uspio jer datoteka ne zadovoljava gore navedene uvjete. Neki korisnici možda nisu uvezeni.",
+        "error2": "Uvoz nije uspio iz nepoznatog razloga.",
+        "text1": "Uvezite datoteku u .csv formatu pomoću zareza kao simbola separatora. Upotreba zareza nije dopuštena u vrijednostima datoteke.",
+        "text2": "Svaki stupac u datoteci mora ispunjavati sljedeće uvjete:",
+        "title": "Uvoz korisnika"
+      },
+      "information_title": "informacije",
+      "last_login": "Zadnja prijava",
+      "last_login_empty": "Nema",
+      "lastname": "Prezime",
+      "locale": "Jezik",
+      "password": "Nova lozinka",
+      "password_confirm": "Potvrdi lozinku",
+      "password_field": "Lozinka",
+      "password_info": "Lozinka mora sadržavati najmanje 8 znakova, barem jedno malo slovo i jedno veliko slovo, barem jedan poseban znak (?! &*) i broj",
+      "profile": {
+        "no_team": "Nema tima"
+      },
+      "role": "Funkcija",
+      "search_placeholder": "Potražite korisnika...",
+      "team": "Tim",
+      "title": "Upravljanje korisnicima",
+      "type": "Tip",
+      "update": {
+        "actions_title": "Radnje",
+        "allow_pending_notifications": "Dopusti podsjetnike obavijesti putem e-pošte",
+        "create_new_password": "Pošaljite e-mail za prijavu",
+        "create_new_password_success": "E-mail za prijavu uspješno je poslan",
+        "disable_button": "Zatvorite račun",
+        "enable_button": "Ponovno aktivirajte račun",
+        "error": "Došlo je do pogreške prilikom izmjene korisnika",
+        "notifications_title": "Obavijesti",
+        "password_title": "Promjena lozinke",
+        "success": "Korisnik je uspješno izmijenjen",
+        "title": "Uređivanje korisnika"
+      }
+    }
+  },
+  "aircall": {
+    "install_authorization_error": "Nemate potrebne dozvole",
+    "install_code_label": "Šifra tvrtke",
+    "install_demo_button": "Demo",
+    "install_email_label": "E-pošta",
+    "install_login_error": "Vjerodajnice nisu točne",
+    "install_no_customer_button_1": "Ne još",
+    "install_no_customer_button_2": "Kupac Fire Tigera?",
+    "install_password_label": "Lozinka",
+    "install_submit_button": "Povezivanje Aircalla",
+    "install_title": "Povezivanje s Aircall-om",
+    "install_unknown_error": "Došlo je do nepoznate pogreške",
+    "install_website_button": "Pogledajte web stranicu"
+  },
+  "apptour": {
+    "title": "Obilazak aplikacije"
+  },
+  "badge": {
+    "creation": {
+      "badge_creation": "Stvaranje značke",
+      "error": "Došlo je do pogreške prilikom izrade značke",
+      "info_title": "Informacije",
+      "kpi_title": "Odabir KPI-ja značke",
+      "levels_title": "Konfiguriranje faza",
+      "participants_title": "Odaberite sudionike",
+      "success": "Značka je uspješno stvorena"
+    },
+    "level": {
+      "condition_text": "Stanje: lvl {0}",
+      "counter_text": "Dostignuto: {0}",
+      "point_text": "{0} bodova",
+      "rank_text": "Klasa {0}",
+      "target_text": "Cilj: {0}"
+    },
+    "list": {
+      "completed_tab": "Dobiveni",
+      "current_tab": "U tijeku",
+      "empty_state_title": "Nema pronađenih znački"
+    },
+    "title": "Značka"
+  },
+  "challenge": {
+    "award_list": {
+      "add_reward": "Stvorite nagrade",
+      "collaborator_max_point_label": "Maksimalno po igraču",
+      "collaborator_point_label": "Pobjeda igrača br. {0}",
+      "list_live_infos": "Ako je aktiviran, bodovi će se automatski dodijeliti sudionicima prije isteka izazova.",
+      "list_live_label": "Bodovi zarađeni uživo",
+      "points_calculation_message": "Izračunavanje korisnih bodova...",
+      "step_point_label": "Faza br. {0}",
+      "target_label": "Rezultat koji treba postići",
+      "team_max_point_label": "Maksimalno po timu",
+      "team_point_label": "Pobjeda momčadi br. {0}",
+      "title": "Nagrade",
+      "type_label": "Način rada",
+      "usable_points": "{0} korisnih točaka"
+    },
+    "awards_title": "Dobici",
+    "category_list_title": "Odabir kategorije",
+    "click_to_view_challenge": "Kliknite ovdje da biste vidjeli izazov",
+    "collaborators": "{0} igrača",
+    "condition": {
+      "award_area": "Nagrade izazova",
+      "award_points": "{0} BODOVA",
+      "collaborator_max_points_label": "Maksimalno po igraču",
+      "collaborator_rank": "Igrač br. {0} #",
+      "condition_area": "Pokazatelji",
+      "description_area": "Opis",
+      "description_label": "Opis",
+      "goal_info": "Uvjet postavljen ovdje može se postići više puta. Svaki put kada se postigne, daje vam pravo na broj s njime povezanih bodova",
+      "label": "Stanje",
+      "label_completed": "Realiziran",
+      "last_update": "Posljednje ažuriranje: ",
+      "last_update_time": "{0} u {1}",
+      "period": "Od {0} do {1}",
+      "point_counter": "{0} BODOVA",
+      "point_target": "{0} BODOVA",
+      "race_condition_goal_info": "Ako je cilj postignut, to vam daje pravo na 1 bod",
+      "team_group_max_points_label": "Maksimalno po odjelu",
+      "team_group_rank": "Odjel br. {0}",
+      "team_max_points_label": "Maksimalno po timu",
+      "team_rank": "Tim br. {0}\n",
+      "type": "Način rada: {0}"
+    },
+    "creation": {
+      "error": "Došlo je do pogreške prilikom stvaranja izazova",
+      "success": "Izazov je uspješno stvoren",
+      "title": "Stvorite izazov"
+    },
+    "delete_prompt": "Jeste li sigurni da želite izbrisati ovaj izazov?",
+    "delete_success": "Izazov je uspješno otkazan",
+    "detail": {
+      "condition_tab": "Uvjeti",
+      "rank_tab": "Poredak"
+    },
+    "duplication": {
+      "title": "Duplikat izazova"
+    },
+    "first_rank": "{0}°",
+    "form": {
+      "add_reward": "Dodajte nagradu",
+      "award_error": "Dodajte barem jednu nagradu",
+      "award_type_description_c": "Nagrada za {2} {0} koji će ostvariti ciljeve izazova",
+      "award_type_description_m": "Svaki {1} zarađuje broj bodova koji odgovaraju njegovom rezultatu, do definiranog maksimalnog ograničenja",
+      "award_type_description_p": "Nagrada koju dobivaju sudionici ovisi o postignutoj razini izvedbe",
+      "award_type_description_r": "Nagrada za {2} {0} na kraju izazova",
+      "award_type_description_single_c": "Nagrada za {0} za postizanje ciljeva izazova",
+      "award_type_description_single_m": "Svaki {1} zarađuje broj bodova koji odgovaraju njegovom rezultatu, do definiranog maksimalnog ograničenja",
+      "award_type_description_single_p": "Nagrada koju dobivaju sudionici ovisi o postignutoj razini izvedbe",
+      "award_type_description_single_r": "Nagrada za {0} na kraju izazova",
+      "award_type_minimum_participants": "Ovaj način zahtijeva najmanje {0} {1}",
+      "congratulations": "Čestitamo 🎉!",
+      "congratulations_message": "Vaš izazov je spreman za emitiranje!",
+      "enable_manager_score_label": "Pogledaj konsolidirani rezultat",
+      "first": "Premijeri",
+      "first_departments": "prvi odjeli",
+      "first_teams": "prve momčadi",
+      "goal_area": "Pokazatelji",
+      "goal_category_label": "Kategorija",
+      "goal_collaborator_editable_label": "Ulaz igrača",
+      "goal_description_label": "Opis",
+      "goal_format_label": "Format",
+      "goal_kpi_label": "KPI",
+      "goal_manager_editable_label": "Umetanje menadžera",
+      "goal_name_label": "Ime",
+      "goal_periodicity_label": "Periodičnost",
+      "goal_target_info_text": "Uvjet postavljen ovdje može se postići više puta. Svaki put kada se postigne, zarađuje se broj bodova koji su s njim povezani.",
+      "goal_target_label": "Cilj",
+      "goal_target_label2": "Uvjet",
+      "goal_target_label2_race": "Cilj",
+      "goal_title": "Pokazatelj {0}",
+      "goal_unit_label": "Jedinica",
+      "goals": {
+        "add_button": "Dodavanje indikatora",
+        "automatic": "Automatsko",
+        "manual": "Ručni unos"
+      },
+      "indicators_title": "Konfiguracija pokazatelja i mehanizama izazova",
+      "info_area": "Informacije",
+      "info_award_type_label": "Način rada",
+      "info_description_label": "Opis",
+      "info_end_label": "Kraj",
+      "info_image_label": "Odaberite sliku...",
+      "info_name_label": "Ime",
+      "info_no_image_text": "Nije odabrana slika",
+      "info_start_label": "Početak",
+      "info_type_label": "Vrsta izazova",
+      "infos_title": "Postavljanje informacija",
+      "mode": "Način",
+      "mode_title": "Odabir načina izazova",
+      "notify_updated_label": "Obavijesti sudionike o novostima",
+      "participants_title": "Odaberite sudionike",
+      "rewards_title": "Odaberite nagrade",
+      "soon_available": "Dostupno uskoro",
+      "step_mode_information": "Maksimalno 1 nagrada po sudioniku (osvojena nagrada odgovara onoj u najvišoj fazi)",
+      "steps": {
+        "indicators": "Pokazatelji i mehanizmi",
+        "infos": "Informacije",
+        "mode": "Način rada",
+        "participant": "Sudionik",
+        "participants": "Sudionici",
+        "rewards": "Nagrade",
+        "validation": "Potvrdi"
+      },
+      "the_first": "Prvi",
+      "the_first_department": "Prvi odjel",
+      "the_first_team": "Prva momčad"
+    },
+    "kpi_results": {
+      "add_data": "dodati podatke",
+      "add_data_button": "Dodavanje podataka",
+      "add_kpi_title": "Dodajte rezultat za KPI",
+      "back_button": "Povratak na popis",
+      "collaborator_new_title": "Spremite novi rezultat za KPI",
+      "collaborator_title": "Popis zabilježenih rezultata za KPI",
+      "columns": {
+        "actions": "Radnje",
+        "images": "Slike",
+        "indications": "Indikacije",
+        "result": "Ishod",
+        "results": "Rezultati"
+      },
+      "edit_kpi_title": "Izmjena rezultata za KPI",
+      "edit_results": "Unesite rezultate",
+      "form": {
+        "data_description": "Pokazatelji",
+        "data_description_placeholder": "Unesite svoj tekst",
+        "data_image": "Odaberite datoteku...",
+        "data_value": "Vrijednost",
+        "data_value_placeholder": "Unesite vrijednost koju želite deklarirati",
+        "file_size_error": "Veličina datoteke ne smije prelaziti 20 MB"
+      },
+      "see_more": "Pogledajte više",
+      "subtitle": "Može potrajati nekoliko minuta da se rezultati ažuriraju",
+      "title": "Popis rezultata za KPI"
+    },
+    "list": {
+      "create_button": "Stvorite izazov",
+      "empty_state_message": "Da biste vidjeli druge izazove, morate izmijeniti primijenjene filtre",
+      "empty_state_title": "Nisu pronađeni izazovi"
+    },
+    "max_points": "{0} MAKS",
+    "modes": {
+      "C": "utrka",
+      "M": "Maksimalni rezultat",
+      "P": "Ležajevi",
+      "R": "Postolje"
+    },
+    "modes_full": {
+      "C": "Način utrke",
+      "M": "Način maksimalnog rezultata",
+      "P": "način rada razine",
+      "R": "način podija"
+    },
+    "no_awards_title": "Nema osvojenih pobjeda",
+    "other_rank": "{0}°",
+    "points": "Rezultat: {0}",
+    "ranking": {
+      "collaborator_column": "Igrači",
+      "collaborator_team_column": "Tim",
+      "collaborator_team_group_column": "Odjel",
+      "level_column": "Razina",
+      "points_column": "Rezultat",
+      "team_column": "Tim"
+    },
+    "reward_types": {
+      "G": "Pokloni",
+      "P": "Bodovi"
+    },
+    "search_placeholder": "Potražite korisnika...",
+    "share": {
+      "copy_link": "Kopiraj vezu",
+      "copy_success": "Veza je uspješno kopirana",
+      "teams_share": "Podijeli na timove",
+      "title": "Podijelite ovaj izazov"
+    },
+    "team_groups": "{0} odjel",
+    "teams": "{0} tim",
+    "title": "Izazov",
+    "title_plural": "Izazov",
+    "types": {
+      "CC": "Individualni",
+      "CT": "Tim",
+      "TG": "Odjel"
+    },
+    "update": {
+      "create_reward": "Stvorite nagrade",
+      "edit_participants": "Objava sudionika",
+      "title": "Uredi izazov"
+    }
+  },
+  "chart": {
+    "collaborator_type_text": "Samostalno",
+    "counter_text": "Postignuto: {0}",
+    "max_points_text": "/{0} maks",
+    "points_text": "{0} bodova",
+    "target_text": "Cilj: {0}",
+    "team_type_text": "Tim",
+    "x_legend": "Razdoblje"
+  },
+  "coaching_list": {
+    "created_success": "Kartica je uspješno stvorena",
+    "delete_prompt": "Jeste li sigurni da želite ukloniti ovaj element?",
+    "delete_prompt2": "Nakon otkazivanja više ga neće biti moguće oporaviti",
+    "empty_state_collaborator_message": "Pokušajte ponovo kasnije kada vaš menadžer pruži podršku",
+    "empty_state_manager_message": "Stvorite početnu uputu za svog igrača",
+    "empty_state_title": "Nisu pronađene upute",
+    "end_label": "Datum roka",
+    "state": {
+      "archived": "Arhivirano",
+      "done": "Gotovo",
+      "in_progress": "U tijeku",
+      "pending": "Čekanje"
+    },
+    "title": "Popis treniranja",
+    "title_placeholder": "Unesite naslov za ovu karticu",
+    "updated_success": "Kartica je uspješno ažurirana"
+  },
+  "collaborator": {
+    "badge_empty_title": "Nema napravljenih znački",
+    "dashboard": "Moja nadzorna ploča",
+    "detail": {
+      "badge_area": "Značka",
+      "badge_rank": "Klasa {0}",
+      "empty_state_title": "Nema dostupnih podataka",
+      "info_area": "Opće informacije",
+      "info_current_level": "{0} ",
+      "info_current_level_max": "/{0} BODOVA",
+      "info_first_rank_text": "{0}°",
+      "info_max_level": "Maksimalna postignuta razina",
+      "info_next_level": "Razina {0}",
+      "info_other_rank_text": "{0}°",
+      "info_total_points": "{0} BODOVA",
+      "info_victories": "{0} pobjeda",
+      "password_button": "Uredi profil"
+    },
+    "reward_order": {
+      "erase_cart_warning": "Jeste li sigurni da želite dodati ovu novu nagradu?",
+      "erase_cart_warning2": "Ova akcija će resetirati vašu košaricu, koja je trenutno povezana s drugim igračem",
+      "summary_points_area": "Ukupna narudžba",
+      "summary_points_area_year": "Godina {0}",
+      "summary_rewards_area": "Narudžba br. {0} od {1}",
+      "summary_title": "Sažetak narudžbe",
+      "tracking": {
+        "email_column": "E-pošta",
+        "id_column": "Rif",
+        "name_column": "Ime",
+        "order_date_column": "Datum narudžbe",
+        "sub_header_pending_tab": "U tijeku",
+        "sub_header_validated_tab": "Za otpremu",
+        "sub_header_validated_title": "Status narudžbe",
+        "sub_header_waiting_tab": "Potvrđeno",
+        "team_column": "Tim",
+        "validated_points_column": "Korišteni bodovi",
+        "validation_date_column": "Datum potvrde",
+        "value_column": "Ukupni iznos",
+        "waiting_points_column": "Bodovi za provjeru valjanosti"
+      },
+      "validation": {
+        "error": "Došlo je do pogreške prilikom potvrde narudžbe",
+        "points_area": "Ukupna narudžba",
+        "points_area_year": "Godina {0}",
+        "rewards_area": "Narudžba br. {0} od {1}",
+        "success": "Narudžba je uspješno potvrđena",
+        "title": "Potvrdite narudžbu"
+      }
+    },
+    "title": "Igrači",
+    "update": {
+      "title": "Uredi profil"
+    }
+  },
+  "common": {
+    "add": "Dodaj",
+    "archive": "Arhiva",
+    "cache_warning": "Za ažuriranje podataka može potrajati i do 5 min",
+    "cancel": "Poništiti",
+    "close": "Zatvoriti",
+    "collaborator": "Igrač",
+    "collaborators": "Igrači",
+    "create": "Stvorite",
+    "create_error_message": "Došlo je do pogreške tijekom stvaranja",
+    "create_success_message": "Stvaranje je bilo uspješno",
+    "csv_export": "Izvoz u CSV",
+    "date": "Datum",
+    "delete": "Izbrisati",
+    "delete_error_message": "Došlo je do pogreške prilikom brisanja",
+    "delete_success_message": "Uspješno izbrisano",
+    "duplicate": "Duplicirati",
+    "edit": "Uredi",
+    "edit_participants": "Uređivanje sudionika",
+    "erase": "Brisanje",
+    "error_page_message": "Da biste riješili problem, možete ažurirati aplikaciju",
+    "error_page_title": "Došlo je do pogreške",
+    "excel_export": "Izvoz u XLS",
+    "export": "Izvoz",
+    "form": {
+      "collaborator_points_valid": "Zbroj bodova prelazi maksimalni broj bodova",
+      "decreasing_rewards": "Nagrade se moraju smanjivati",
+      "email_error": "Nevažeća e-pošta.",
+      "has_digit_character": "Potreban je najmanje jedan broj",
+      "has_less_characters_than": "Potrebno je manje {0} znakova",
+      "has_lowercase_character": "Potrebno je najmanje jedno malo slovo",
+      "has_more_characters_than": "Potrebno je minimalno {0} znakova",
+      "has_special_character": "Potreban je barem jedan poseban znak",
+      "has_uppercase_character": "Potrebno je najmanje jedno veliko slovo",
+      "increasing_rewards": "Nagrade moraju biti u porastu",
+      "increasing_scores": "Rezultati koje treba postići moraju se povećavati",
+      "is_int_error": "Vrijednost mora biti cijeli broj.",
+      "is_more_than_or_equals_0_error": "Vrijednost mora biti veća ili jednaka 0.",
+      "max_length_128_error": "Vrijednost mora biti manja od 128 znakova.",
+      "numeric_error": "Vrijednost mora biti broj",
+      "password_not_match_error": "Lozinke se ne podudaraju.",
+      "required_error": "Ovo polje je obavezno."
+    },
+    "gift": "Poklon",
+    "home": "Nadzorna ploča",
+    "import": "Važno je",
+    "level": "Razina",
+    "next": "Sljedeći",
+    "no": "Ne",
+    "ok": "U redu",
+    "player": "Igrač",
+    "players": "Igrači",
+    "points": "Bodovi",
+    "previous": "Prethodni",
+    "publish": "Objava",
+    "refresh_button": "Ažuriranje aplikacije",
+    "report": "Izvješće",
+    "rich_text_placeholder": "Unesite svoj tekst...",
+    "search_placeholder": "Traži...",
+    "see_more": "Pogledajte više",
+    "select": "Odaberi",
+    "selection": "Odabir",
+    "share": "Podijeli",
+    "submit": "Potvrdi",
+    "team": "Tim",
+    "team_group": "Odjel",
+    "team_groups": "Odjeli",
+    "teams": "Tim",
+    "update_app_prompt_message": "Ažurirajte aplikaciju kako biste je nastavili koristiti",
+    "update_app_prompt_title": "Dostupna je nova verzija",
+    "update_error_message": "Došlo je do pogreške tijekom uređivanja",
+    "update_success_message": "Promjene su uspješno izvršene",
+    "yes": "Da"
+  },
+  "contact": {
+    "evolution_form_message_label": "poruka",
+    "evolution_form_submit_button": "Pošalji",
+    "evolution_form_title": "Ispunite ovaj obrazac da biste zatražili nadogradnju",
+    "form_type_evolution_option": "Zatražite nadogradnju",
+    "form_type_incident_option": "Prijavite problem",
+    "form_type_label": "Razlog",
+    "incident_form_title": "Ispunite ovaj obrazac da biste prijavili svoj problem",
+    "question": "Kako vam možemo pomoći?",
+    "title": "Pomoć"
+  },
+  "data_tables": {
+    "body": {
+      "noMatch": "Nisu pronađene odgovarajuće stavke",
+      "toolTip": "Narudžba"
+    },
+    "filter": {
+      "all": "Sve",
+      "reset": "Resetiraj",
+      "title": "Filtar"
+    },
+    "pagination": {
+      "pageOf": "pri",
+      "rowsPerPage": "Redova po stranici"
+    },
+    "toolbar": {
+      "downloadCsv": "Preuzmi",
+      "filterTable": "Filtriraj",
+      "print": "Ispis",
+      "search": "Traži",
+      "viewColumns": "Stupci"
+    },
+    "viewColumns": {
+      "title": "Prikaz stupaca"
+    }
+  },
+  "filter": {
+    "all_category_label": "Sve kategorije",
+    "all_option_f": "Sve",
+    "all_periods_label": "Sva razdoblja",
+    "all_team_group_label": "Svi odjeli",
+    "all_team_label": "Svi timovi",
+    "category_all_option": "Sve",
+    "category_label": "Kategorija",
+    "collaborator_all_option": "Sve",
+    "collaborator_label": "Igrač",
+    "end_label": "Datum završetka",
+    "global_chip": "Globalni",
+    "goal_label": "Cilj",
+    "my_team_label": "Moj tim",
+    "period_all_option": "Sve",
+    "period_label": "godina",
+    "start_label": "Datum početka",
+    "submit_button": "Filtriraj",
+    "team_all_option": "Sve",
+    "team_group_label": "Odjel",
+    "team_label": "Tim",
+    "time": {
+      "current": "U tijeku",
+      "next": "Budući",
+      "previous": "Bivši"
+    },
+    "title": "Filtar",
+    "type_label": "Način rada"
+  },
+  "game": {
+    "title": "Igra"
+  },
+  "game_rules": {
+    "code_embed": "Unesite EMBED kod iz videozapisa (u slučaju poteškoća potražite pomoć Objow):",
+    "link_url": "Unesite URL veze:",
+    "site_url": "Unesite URL stranice:",
+    "title": "Pravila igre",
+    "typeform_url": "Unesite URL Typeform:"
+  },
+  "kpi": {
+    "criticity": {
+      "high": "Visoko",
+      "low": "Nisko",
+      "medium": "Srednje"
+    },
+    "periodicity": {
+      "C": "Prilagođeno",
+      "D": "Dnevno",
+      "M": "Mjesečno",
+      "Q": "Kvartalno",
+      "S": "Semestrial",
+      "W": "Tjedni",
+      "Y": "Godišnje",
+      "goal_custom": "Definirano u cilju"
+    }
+  },
+  "levels": {
+    "columns": {
+      "citation": "Citat",
+      "icon": "Ikona",
+      "level": "Razina",
+      "name": "Ime",
+      "percent": "% igrača",
+      "points": "Bodovi koje treba postići"
+    },
+    "list_title": "Popis razina"
+  },
+  "login": {
+    "code_label": "Kôd tvrtke",
+    "code_placeholder": "Unesite svoj kôd tvrtke",
+    "create_password_company_code_invalid": "Uneseni kôd tvrtke nije valjan. Unesite kôd tvrtke poslan u e-poruci dobrodošlice",
+    "create_password_error": "Ova veza više ne vrijedi. Pošaljite novi zahtjev za poništavanje lozinke",
+    "create_password_invalid": "Ova veza nije važeća",
+    "create_password_missing_user": "Ova veza ne odgovara nijednom korisniku ili je već korištena",
+    "create_password_outdated": "Ova veza više ne vrijedi. Pošaljite novi zahtjev za poništavanje lozinke",
+    "create_password_password_invalid": "Nevažeća lozinka",
+    "create_password_submit": "Zadajte lozinku",
+    "create_password_success": "Vaša lozinka je uspješno zadana",
+    "create_password_title": "Kreiraj svoju lozinku",
+    "description_line1": "Gamificirano rješenje",
+    "description_line2": "praćenja i animacije",
+    "description_line3": "performansi",
+    "email_label": "E-pošta",
+    "email_placeholder": "Unesite svoju e-adresu",
+    "error": "Vjerodajnice nisu točne",
+    "error_company_code": "Uneseni kôd tvrtke nije valjan",
+    "force_reset_password_message": "Vaša lozinka je istekla, morate odabrati novu da biste zaštitili svoj račun",
+    "force_reset_password_title": "Promijenite lozinku",
+    "password_label": "Lozinka",
+    "reset_password": "Zaboravio/la sam lozinku",
+    "reset_password_cancel": "Vratite se na stranicu za prijavu",
+    "reset_password_confirm_error": "Ova veza više ne vrijedi. Pošaljite novi zahtjev za poništavanje lozinke",
+    "reset_password_confirm_success": "Vaša lozinka je uspješno resetirana",
+    "reset_password_error": "Niti jedan račun nije pronađen s ovom adresom e-pošte",
+    "reset_password_submit": "Resetiraj lozinku",
+    "reset_password_success": "Poslana vam je e-pošta s vezom za resetiranje lozinke",
+    "reset_password_title": "Zaboravljena lozinka",
+    "sso_dialog_title": "SSO veza",
+    "sso_error_message": "SSO nije konfiguriran. Obratite se administratoru Firetigera",
+    "sso_submit_button": "Prijavite se sa SSO",
+    "store_message_1": "Aplikacija Fire Tiger dostupna je za iPhone i Android.",
+    "store_message_2": "Preuzmite je odmah:",
+    "submit_button": "Prijava",
+    "title": "Prijava"
+  },
+  "menu": {
+    "admin_button": "Administracija",
+    "administrator_label": "Administrator",
+    "help_button": "Pomoć",
+    "infos_button": "Moji podaci",
+    "level_label": "Razina {0}",
+    "logout_button": "Odjava",
+    "manager_label": "Menadžer",
+    "notifications_button": "Obavijesti",
+    "points_label": "{0} BODOVA",
+    "rules_button": "Pravila igre"
+  },
+  "newsfeed": {
+    "all_roles": "Sve uloge",
+    "comment_action": "Komentiranje",
+    "comment_creation_success": "Vaša recenzija je kreirana",
+    "comment_delete_success": "Vaš komentar je uspješno uklonjen",
+    "comment_placeholder": "Napišite svoj komentar ovdje",
+    "comment_update_success": "Vaša recenzija je uspješno ažurirana",
+    "comments": "Komentari",
+    "edit_post_title": "Uredi post",
+    "embed_prompt": "Zalijepi URL ugrađenog videozapisa na ovo mjesto",
+    "empty_state_message": "Izradite svoj prvi post",
+    "empty_state_title": "Nema pronađenih postova",
+    "for_everybody": "Svatko",
+    "like": "Sviđa mi se",
+    "likes_list_title": "Reakcije",
+    "new_post_title": "Novi post",
+    "no_more_posts": "Kraj feeda vijesti",
+    "post_content_placeholder": "Ovdje napišite svoj tekst",
+    "post_creation_success": "Vaš post je uspješno izrađen",
+    "post_delete_success": "Vaš post je uspješno izbrisan",
+    "post_placeholder": "Stvori novi post",
+    "post_report_success": "Vaš izvještaj je uzet u obzir",
+    "post_settings": "Postavke objavljivanja",
+    "post_update_success": "Vaš post je uspješno ažuriran",
+    "post_visibility_role_tooltip": "Vidljivo od strane: {0}",
+    "reply": "Odgovor",
+    "reported_comment": "Prijavljeni komentar",
+    "reported_post": "Prijavljena publikacija",
+    "see_less": "... prikaži manje",
+    "see_more": "... prikaži više",
+    "share_button": "Podijeli s",
+    "title": "Feed vijesti",
+    "video_size_error": "Veličina videozapisa ({0}) ne smije prelaziti 50 MB",
+    "who_can_see_your_post": "Tko može vidjeti vaš post?"
+  },
+  "notification": {
+    "date": {
+      "days": "{0} d",
+      "hours": "{0} h",
+      "minutes": "{0} min"
+    },
+    "empty_message": "Nije primljena nikakva obavijest"
+  },
+  "organization_menu": {
+    "hide": "Sakrij",
+    "show": "Prikaži"
+  },
+  "point_summary": {
+    "orders_button": "Narudžbe koje treba potvrditi",
+    "panopli_button": "Pristupite trgovini",
+    "panopli_error": "U trgovini nije pronađen račun",
+    "points_label": "Akumulirani ukupni bodovi",
+    "points_value": "{0}bodova",
+    "title": "Opće informacije",
+    "usable_points_label": "Zbroj bodova",
+    "usable_points_value": "{0}bodova",
+    "used_points_label": "Ukupno korištenih bodova",
+    "used_points_value": "{0}bodova",
+    "validated_values_label": "Ukupna vrijednost koja se koristi",
+    "validated_values_value": "{0} EUR",
+    "waiting_points_label": "Bodovi čekaju provjeru valjanosti",
+    "waiting_points_value": "{0}bodova"
+  },
+  "ranking": {
+    "challenges_title": "Izazov",
+    "collaborator_category_title": "Pojedinačni poredak",
+    "collaborator_challenge_title": "Poredak pojedinačnih izazova",
+    "collaborator_general_title": "Ukupni pojedinačni poredak",
+    "collaborator_tab": "Individualni",
+    "columns": {
+      "collaborator": "Igrači",
+      "name": "Ime",
+      "team": "Tim"
+    },
+    "empty_state_title": "Nije dostupan nijedan poredak",
+    "general_title": "Ukupni poredak",
+    "owner_title": "Moji poretci",
+    "team_category_title": "Poredak tima",
+    "team_challenge_title": "Poredak izazova momčadi",
+    "team_general_title": "Ukupni poredak tima",
+    "team_tab": "Tim",
+    "title": "Poredak"
+  },
+  "reward": {
+    "creation": {
+      "error": "Došlo je do pogreške prilikom izrade nagrade",
+      "subtitle": "Stvorite nagradu",
+      "success": "Nagrada je uspješno stvorena"
+    },
+    "detail": {
+      "delivery_mode_text": "Način otpreme: {0}",
+      "delivery_place_text": "Mjesto: {0}",
+      "delivery_time_text": "Predviđeno vrijeme isporuke: {0}",
+      "description_area": "Opis",
+      "image_close_button": "Zatvoriti",
+      "operation_step_1_description": "Provjerite i potvrdite svoju narudžbu. Tada će se poslati obavijest administratoru vaše tvrtke i obavijestiti ga o vašem zahtjevu.",
+      "operation_step_1_title": "Kada kliknete dodati",
+      "operation_step_2_description": "Vaša narudžba čeka obradu/potvrdu. Bodovi korišteni u trenutku narudžbe bit će oduzeti od vašeg stanja bodova.",
+      "operation_step_2_title": "Narudžba na čekanju",
+      "operation_step_3_description": "Administrator vaše tvrtke preuzima odgovornost za vašu narudžbu. Nakon što dobavljač potvrdi i fakturira, vaši bodovi će se trajno oduzeti od stanja vaših bodova.",
+      "operation_step_3_title": "Narudžba u tijeku",
+      "operation_step_4_description": "Važa nagrada vam stiže! Obavijestit će vas administrator vaše tvrtke. Vaša nagrada će biti zaključena i podlijegat će doprinosima koje plaća poslodavac i/ili zaposlenik.",
+      "operation_step_4_number": "Isporuka",
+      "operation_step_4_title": "Narudžba isporučena",
+      "operation_title": "Kako to funkcionira?",
+      "value_text": "Vrijednost: {0} EUR"
+    },
+    "duplication": {
+      "title": "Dvostruka nagrada"
+    },
+    "edit": {
+      "title": "Uredi nagradu"
+    },
+    "form": {
+      "category_label": "Kategorija",
+      "delivery_area": "Isporuka",
+      "delivery_mode_label": "Način isporuke",
+      "delivery_place_label": "Mjesto",
+      "delivery_time_label": "Vrijeme isporuke",
+      "description_label": "Opis",
+      "empty_image_text": "Nije odabrana slika",
+      "image_label": "Odaberite sliku...",
+      "infos_area": "Informacije",
+      "name_label": "Ime",
+      "points_label": "Broj potrebnih bodova",
+      "type_label": "Tip",
+      "value_label": "Vrijednost",
+      "value_suffix_label": "EUR"
+    },
+    "image_input_infos": "Slika se prilagođava i mijenja ovisno o veličini zaslona koji se koristi. Preporučeni format slike za optimalno gledanje je 1024x700.",
+    "management": {
+      "collaborator_selector_area": "Odaberite igrača",
+      "collaborator_tab": "Igrači",
+      "team_selector_area": "Odaberite tim",
+      "team_tab": "Tim",
+      "title": "Upravljanje nagradama"
+    },
+    "order_item_list": {
+      "close_button": "Nastavite svoju kupnju",
+      "empty_text": "Prazno",
+      "points_value": "{0}bodova",
+      "quantity_label": "Količina",
+      "value_label": "Vrijednost"
+    },
+    "order_list_export": {
+      "title": "Izvesti potvrđene narudžbe"
+    },
+    "order_summary": {
+      "cart_points_label": "Ukupno u košarici",
+      "confirm_order_message": "Nakon potvrde, više neće biti moguće otkazati narudžbu, bodovi će biti uklonjeni iz vašeg stanja bodova, a vrijednost narudžbe bit će zaključena i na nju će se primijeniti doprinosi koje plaća poslodavac i/ili zaposlenik.",
+      "confirm_order_title": "Potvrđujete li narudžbu od {0} bodova u vrijednosti {1} EUR?",
+      "confirm_refuse_message": "Nakon što je nagrada odbijena, više se neće moći ponovno aktivirati, a bodovi će se vratiti u raspoloživi zbroj bodova. Vaša je odgovornost obavijestiti korisnika o razlogu odbijanja.",
+      "confirm_refuse_title": "Jeste li sigurni da želite odbiti narudžbu br. {0} za ukupno {1} bodova u vrijednosti {2} EUR?",
+      "confirm_validate_message": "Nakon potvrde, narudžba se više ne može otkazati, bodovi će se oduzeti od raspoloživog stanja bodova, a vrijednost narudžbe bit će zaključena i na nju će se primijeniti doprinosi koje plaća poslodavac i/ili zaposlenik.",
+      "confirm_validate_title": "Jeste li sigurni da želite potvrditi narudžbu br. {0} za ukupno {1} bodova u vrijednosti {2} EUR?",
+      "order_button": "Narudžba",
+      "order_points_label": "Ukupna narudžba",
+      "order_points_value": "{0} bodova",
+      "order_value_label": "Ukupna vrijednost",
+      "recipient_points_label": "Sadašnji zbroj bodova",
+      "recipient_points_value": "{0} bodova",
+      "refuse_button": "Odbitak",
+      "remaining_points_label": "Zbroj preostalih bodova",
+      "remaining_points_value": "{0} bodova"
+    },
+    "point_tag": "{0} BODOVA",
+    "settings": {
+      "collaborator_reward_activation_option": "Aktivirajte nagradu \"igrač\"",
+      "manager_reward_creation": "Omogućite naručivanje nagrada od strane menadžera",
+      "manager_reward_notification": "Obavijestite menadžere e-poštom o narudžbama koje su postavili igrači u njihovom timu",
+      "team_reward_activation_option": "Aktivirajte nagradu \"tim\""
+    },
+    "shopping_cart": {
+      "adding_confirmation_close_button": "Nastavite svoju kupnju",
+      "adding_confirmation_message": "Upravo ste u košaricu dodali ovaj proizvod:",
+      "adding_confirmation_shopping_cart_button": "Idi u košaricu",
+      "points_area": "Ukupno u košarici",
+      "points_area_year": "Godina {0}",
+      "rewards_area": "Vaša košarica",
+      "success": "Vaša narudžba je primljena"
+    },
+    "sort_by": "Sortiraj po",
+    "sort_options": {
+      "asc": "Sve veći broj bodova",
+      "desc": "Smanjenje broja bodova"
+    },
+    "store": {
+      "empty_state_message": "Da biste vidjeli više nagrada, morate izmijeniti sve filtre koji su moguće aktivni ",
+      "empty_state_title": "Nije pronađena nijedna nagrada"
+    },
+    "title": "Nagrade"
+  },
+  "roles": {
+    "A": "Administrator",
+    "C": "Igrač",
+    "M": "Menadžer",
+    "S": "Super menadžer"
+  },
+  "statistics": {
+    "category_title": "Odaberite neku kategoriju",
+    "empty_state_message": "Da biste pregledali ostale statistike, morate izmijeniti sve filtre",
+    "empty_state_title": "Nije pronađena nijedna statistika",
+    "title": "Statistika"
+  },
+  "team": {
+    "collaborators_text": "{0} igrača",
+    "detail": {
+      "collaborators_text": "{0} igrača",
+      "manager_text": "Od {0} {1}",
+      "no_manager_text": "Nema nijednog menadžera",
+      "points_text": "{0} BODOVA",
+      "victories_text": "broj pobjeda: {0}"
+    },
+    "empty_state_message": "Timovi još nisu stvoreni",
+    "empty_state_title": "Nijedan tim nije pronađen",
+    "form": {
+      "collaborator": "Igrač {0}",
+      "collaborators": "Igrači",
+      "color": "Boja",
+      "id": "Korisničko ime",
+      "manager": "Menadžer",
+      "name": "Ime",
+      "parent": "Odjel za grupe voditelja"
+    },
+    "group_collaborators_text": "{0} Upravitelja",
+    "group_team_groups_text": "odjela: {0}",
+    "group_teams_text": "{0} tim",
+    "manager_text": "Od {0} {1}",
+    "no_manager_text": "Nema nijednog menadžera",
+    "title": "Tim",
+    "title_singular": "Tim"
+  },
+  "team_group": {
+    "form": {
+      "super_manager": "Super menadžer",
+      "user": "Korisnik {0}",
+      "users": "Korisnici"
+    },
+    "thumbnail": {
+      "hide_children": "Sakrij {0} timova",
+      "hide_children_team_group": "Sakrij {0} odjela",
+      "show_children": "Prikaži {0} timova",
+      "show_children_team_group": "Prikaži {0} odjela"
+    },
+    "title_singular": "Odjel"
+  },
+  "transfer_list": {
+    "participants": "Sudionici",
+    "selection": "Dostupnih",
+    "submit_selection": "Potvrdi odabir"
+  },
+  "widget": {
+    "activity": {
+      "inactive_profiles": "Neaktivni profili",
+      "info_text": "Ovdje pronađite popis ljudi koji su bili neaktivni u vašim timovima više od 3 mjeseca"
+    },
+    "badge": {
+      "count1": "Imate",
+      "count2": "U tijeku",
+      "without_count": "Pogledajte značke zaposlenika"
+    }
+  }
+}

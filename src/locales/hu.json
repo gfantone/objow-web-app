@@ -1,0 +1,1329 @@
+{
+  "account": {
+    "citation_label": "Idézet",
+    "confirm_password_label": "Jelszó megerősítése",
+    "email_label": "E-mail",
+    "first_name_label": "Név",
+    "last_name_label": "Vezetéknév",
+    "password_label": "Új jelszó",
+    "success_message": "A módosítások sikeresen végrehajtva",
+    "title": "A profilom",
+    "title_label": "Profil címe",
+    "title_label_pseudo": "Becenév"
+  },
+  "admin": {
+    "access_rights": {
+      "activate_daily_email": "Napi összefoglaló e-mail értesítés aktiválása",
+      "activate_notifications": "Értesítések aktiválása",
+      "activate_users_count": "Az inaktív felhasználók számának megjelenítése a műszerfalon",
+      "activate_weekly_email": "Aktiválja a heti összefoglaló e-mailt",
+      "all_users": "Minden felhasználó",
+      "badges": "Hozzáférés a jelvényekhez",
+      "category_rankings": "Látható rangsorolás kategóriák szerint",
+      "category_rankings_limit": "Az első X-re korlátozódó kategóriák rangsorolása",
+      "challenge": "Hozzáférés a kihívásokhoz",
+      "challenge_rankings": "Látható rangsor kihívásonként",
+      "coaching_list": "Hozzáférés a coaching listához",
+      "collaborator_title": "Játékos",
+      "edit_coaching_list": "Coaching list szerkesztése",
+      "future_challenge": "Tekintse meg a közelgő kihívásokat",
+      "future_goals": "Képzelje el a jövőbeli célokat",
+      "general_rankings": "Látható általános rangsor",
+      "general_rankings_limit": "Az összesített rangsor az első X-re korlátozódik",
+      "goal_filter": "Alapértelmezett célszűrő",
+      "goal_rankings": "Látható rangsor a célokhoz",
+      "goals": "Hozzáférés a célkitűzésekhez",
+      "help": "Hozzáférés a segítséghez",
+      "home": "Hozzáférés a műszerfalhoz",
+      "home_page": "A kezdőlap beállítása",
+      "manager_title": "Menedzser",
+      "news_feed": "Hozzáférés a hírcsatornához",
+      "news_feed_comments_creation": "Création de commentaires sur le fil d'actualité",
+      "news_feed_post_creation": "Création de post sur le fil d'actualité",
+      "rankings": "Hozzáférés a rangsoroláshoz",
+      "reset_password": "Játékos profiljának szerkesztése",
+      "rules": "Hozzáférés a játékszabályokhoz",
+      "stats": "Statisztikákhoz való hozzáférés",
+      "team_rankings": "A csapatom rangsorolása",
+      "teams": "Hozzáférés a csapatokhoz",
+      "title": "Hozzáférési jogok kezelése",
+      "wording_badge": "Jelvény átnevezése",
+      "wording_challenge": "Challenge átnevezése",
+      "wording_dashboard": "Műszerfal szövege",
+      "wording_goal": "Célok átnevezése",
+      "wording_rules": "Játékszabályok átnevezése"
+    },
+    "aircall": {
+      "form_ac_get_calls_activation": "Engedélyezze a sikeres híváshelyreállítási KPI-t",
+      "form_ac_get_calls_duration": "A sikeres hívás minimális hossza (másodperc)",
+      "install": {
+        "authorization_error": "Nem rendelkezik a szükséges engedélyekkel",
+        "code_label": "Vállalati kód",
+        "demo_button": "Demó",
+        "email_label": "E-mail",
+        "login_error": "A hitelesítő adatok nem helyesek",
+        "no_customer_button_1": "Még nem",
+        "no_customer_button_2": "Tűz Tigris ügyfél?",
+        "password_label": "Jelszó",
+        "submit_button": "Csatlakoztassa a léghívást",
+        "unknown_error": "Ismeretlen hiba történt",
+        "website_button": "Lásd a weboldalt"
+      }
+    },
+    "badge_config": {
+      "remaining_points_to_award": "Az odaítélendő pontok fennmaradó",
+      "title": "Jelvények beállítása"
+    },
+    "categories": {
+      "active_tab": "Aktív",
+      "archive_confirm": "Biztosan archiválni szeretné a (z) '{}' kategóriát?",
+      "archive_confirm2": "Miután ezt a kategóriát archiválták, már nem lesz lehetséges újraaktiválni.",
+      "archived_tab": "Archiválva",
+      "columns": {
+        "icon": "Ikon",
+        "name": "Név"
+      },
+      "creation": {
+        "error": "Hiba történt a kategória létrehozásakor",
+        "success": "A kategória sikeresen létrehozva",
+        "title": "Kategória létrehozása"
+      },
+      "title": "Kategóriák konfigurálása",
+      "update": {
+        "error": "Hiba történt a kategória frissítése közben",
+        "success": "A kategória sikeresen frissítve",
+        "title": "Kategória szerkesztése"
+      }
+    },
+    "collaborator_selector": {
+      "empty_state_message": "A csapatok még nem jöttek létre",
+      "empty_state_title": "Nem található csapat"
+    },
+    "goal": {
+      "admin_editable_label": "A cél az adminisztrátorok által szerkeszthető",
+      "admin_goal_creation_repartition_individual_team": "💡 Ezzel a terjesztési módszerrel a csapat célja automatikusan hozzárendelésre kerül az adott év fennmaradó {0} közül kiválasztott összes csapathoz.\n Az érvényesítés után testreszabhatja az összes csapathoz rendelt célokat.",
+      "admin_title": "Célok beállítása",
+      "allow_over_target_label": "A hozzárendelt cél túllépése",
+      "allow_ranking_label": "Tekintse meg a rangsort",
+      "allow_ranking_latest_value": "Tekintse meg a rangsor legfrissebb eredményeit",
+      "allow_ranking_points": "A rangsor pontszámának megtekintése",
+      "category_label": "Kategória",
+      "classic_title": "Klasszikus",
+      "creation": {
+        "error": "Hiba történt a cél létrehozása közben",
+        "goal_title": "Az objektív konfigurálása",
+        "goals_title": "Célok beállítása",
+        "kpi_title": "A cél KPI kiválasztása",
+        "options_title": "Válassza ki az opciókat",
+        "participants_title": "Válassza ki a résztvevőket",
+        "success": "A cél sikeresen létrejött"
+      },
+      "creation_repartition_global": "💡 Ezzel a terjesztési módszerrel az éves globális cél automatikusan elosztásra kerül a folyó évben fennmaradó {0} számra, és elosztjuk a kiválasztott résztvevők számával.\n Miután érvényesítette, testreszabhatja az összes csapatához rendelt egyéni célokat.",
+      "creation_repartition_global_team": "💡 Ezzel az elosztási módszerrel a teljes éves célt automatikusan elosztjuk a folyó évben megmaradt {0} számmal, és arányosan elosztjuk a kiválasztott csapatok résztvevőinek száma szerint.\n Az érvényesítés után testreszabhatja az összes csapathoz rendelt célokat.",
+      "creation_repartition_individual": "💡 Ezzel a terjesztési módszerrel az egyéni cél automatikusan hozzárendelésre kerül az adott év fennmaradó {0} közül kiválasztott összes résztvevőhöz.\n Miután érvényesítette, testreszabhatja az összes csapatához rendelt egyéni célokat.",
+      "creation_repartition_individual_team": "💡 Ezzel a terjesztési módszerrel a csapat célja automatikusan hozzárendelésre kerül az adott év fennmaradó {0} közül kiválasztott összes csapathoz.\n Az érvényesítés után testreszabhatja az összes csapathoz rendelt célokat.",
+      "creation_target_label": "Ob. {1} mert {0}",
+      "creation_title": "Hozzon létre egy célt",
+      "criticity_label": "Sürgősség",
+      "default_label": "Alapértelmezés szerint létrehozva",
+      "description_label": "üzenet",
+      "detail": {
+        "indication_tab": "Jelzések",
+        "rank_tab": "Rangsor"
+      },
+      "disable_info": "Miután ezt a célt archiválták, már nem lesz lehetséges újraaktiválni. A jelenlegi és a jövőbeli célok alapján odaítélt összes pont ismét elérhető lesz.",
+      "disable_message": "Biztos benne, hogy a (z) '{0}' célt szeretné tárolni?",
+      "duplication": {
+        "dialog_confirmation_message": "Biztos benne, hogy automatikusan alkalmazza az {1} céljait a {0} értékre?",
+        "dialog_message": "A következő játékos céljainak automatikus alkalmazása a következőre: {0}:",
+        "dialog_title": "Célok beállítása"
+      },
+      "edit": {
+        "all_target_label": "Használt célkitűzés",
+        "disable_button": "Zárja be a fiókot",
+        "error": "Hiba történt az objektív frissítése közben",
+        "error_text": "A kiválasztott időszakra kijelölt teljes célkitűzés tiszteletben tartása",
+        "max_target_label": "A kiválasztott időszakra kijelölt célkitűzés",
+        "remaining_target_label": "A fennmaradó célkitűzés",
+        "success": "A cél sikeresen frissítve lett",
+        "title": "Mutatók"
+      },
+      "editable_label": "A menedzserek által szerkeszthető cél",
+      "import": {
+        "condition1": "Játékos e-mail címe",
+        "condition2": "Célkitűzés ref",
+        "condition3": "Időszak kezdő dátuma (formátum: ÉÉÉÉ-HH-NN 00:00:00)",
+        "condition4": "Időszak befejezésének dátuma (formátum: ÉÉÉÉ-HH-NN 23:59:59)",
+        "condition5": "Objektív érték",
+        "condition6": "Kérjük, vegye fel a kapcsolatot az ügyfél-siker menedzserével, ha további információra van szüksége az objektív import működéséről",
+        "error1": "Az importálás hibás, mert a fájl nem felel meg a fenti megszorításoknak. Előfordulhat, hogy egyes lencséket nem importáltak.",
+        "error2": "Az importálás ismeretlen okból hibás.",
+        "text1": "Vesszővel tagolt CSV-fájl importálása. A vesszők használata nem engedélyezett a fájlértékekben.",
+        "text2": "A fájl minden oszlopának meg kell felelnie az alábbi feltételeknek:",
+        "title": "Importálási célok"
+      },
+      "indication": {
+        "coaching_area": "Az edző tanácsai",
+        "coaching_empty_state": "Nem található tanács",
+        "coaching_item_label": "Tanácsadás {0}",
+        "description_area": "Leírás",
+        "level_area": "Szakaszok",
+        "live_info": "Ha engedélyezve van, a pontok automatikusan odaítélésre kerülnek a résztvevőknek a cél lejárta előtt.",
+        "live_label": "Élőben megszerzett pontok",
+        "period_text": "{0} -tól {1} -ig",
+        "unit_with_symbol_text": "Egység: {0} ({1})",
+        "unit_without_symbol_text": "Egység: {0}"
+      },
+      "indication_label": "Utasítások",
+      "kpi_format_label": "Formátum",
+      "kpi_label": "KPI",
+      "kpi_name_label": "A KPI címe",
+      "kpi_period_label": "Időszak",
+      "kpi_periods_label": "Időszakok",
+      "list": {
+        "active_tab": "Eszközök",
+        "archived_tab": "Archiválva",
+        "columns": {
+          "category": "Kategória",
+          "default": "Alapértelmezett",
+          "id": "Ref",
+          "name": "Név",
+          "periodicity": "Periodicitás",
+          "target": "Éves globális cél",
+          "type": "Célkitűzés",
+          "unit": "Egység"
+        },
+        "empty_state_message": "Más célok megtekintéséhez módosítania kell az alkalmazható szűrőket",
+        "empty_state_title": "Nem található célpont"
+      },
+      "live_infos": "Ha engedélyezve van, a pontok automatikusan odaítélésre kerülnek a résztvevőknek a cél lejárta előtt.",
+      "live_label": "Élőben megszerzett pontok",
+      "name_label": "Név",
+      "past_editable_label": "Az adminisztrátorok által módosítható múltbeli cél",
+      "period_label_long": "Időszak {0}: a {1} és {2}",
+      "period_label_short": "Időszak {0}",
+      "period_label_short2": "A {0} -tól a {1}",
+      "periodicity_label": "Periodicitás",
+      "point_config": {
+        "allocated_points": "Összes odaítélt pont: ",
+        "allocated_points_year": "Az év góljáért odaítélt pontok száma {0}",
+        "available_points_title": "{0} pont elérhető",
+        "current_points_title": "{0} pont jelenleg vár gazdára",
+        "errors": {
+          "archived_goal": "Archivált cél",
+          "no_level_message": "Hozzon létre egy első állomást",
+          "no_level_title": "Nem található megállás",
+          "percent_more_equal": "A százaléknak 0-nál nagyobbnak vagy egyenlőnek kell lennie",
+          "percent_more_than": "A százaléknak magasabbnak kell lennie, mint az előző szakaszban",
+          "points_more_equal": "A pontok számának 0-nál nagyobbnak vagy egyenlőnek kell lennie",
+          "points_more_than": "A pontok számának nagyobbnak kell lennie, mint az előző szakaszban"
+        },
+        "form": {
+          "percent": "A cél elérésének %-a",
+          "points": "Pontok"
+        },
+        "general_info_title": "Általános információk",
+        "importance_percent": "A fontosság százalékos aránya: ",
+        "level_title": "Szakasz {0}",
+        "max_points_title": "Pontok maximális száma {0} és időszakonként: ",
+        "remaining_points": "A fennmaradó összes odaítélt pont: ",
+        "title": "Szakaszok konfigurálása {0} és időszak szerint",
+        "title_tooltip": "A {0} -on használható pontok száma {1} -tól az év során {2}",
+        "used_points": "Összes pont már fel gazdára: "
+      },
+      "point_config_title_c": "A hátralévő időszakok száma",
+      "point_config_title_d": "A hátralépett napok száma",
+      "point_config_title_m": "A hátralépett hónapok száma",
+      "point_config_title_q": "A hátralévő negyedek száma",
+      "point_config_title_s": "A hátralévő félévek száma",
+      "point_config_title_w": "A hátralépett hetek száma",
+      "point_config_title_y": "Folyó év",
+      "point_config_tooltip_c": "a folyó időszak",
+      "point_config_tooltip_d": "A hátralévő napok",
+      "point_config_tooltip_m": "A fennmaradó hónapok",
+      "point_config_tooltip_q": "a fennmaradó negyedek",
+      "point_config_tooltip_s": "a hátralévő féléveket",
+      "point_config_tooltip_w": "A hátralévő hetek",
+      "point_config_tooltip_y": "A folyó év",
+      "rank_list": {
+        "player_column": "játékosok"
+      },
+      "repartition_label": "Elosztási módszerek",
+      "spreadsheet_title": "Táblázatkezelő",
+      "target_label": "Éves globális cél",
+      "thumbnail": {
+        "collaborator_tag": "Egyéni",
+        "counter_text": "Elérte: {0}",
+        "first_rank_text": "{0}°",
+        "max_points_text": "/ {0} Max",
+        "max_rank_text": "/{0}",
+        "other_period": "{0} -tól {1} -ig",
+        "other_rank_text": "{0}°",
+        "player_text": "{0} játékosok",
+        "points_text": "{0} Pontok",
+        "quarter_period": "Negyed {0} ({1})",
+        "semester_period": "Szemeszter {0}",
+        "target_text": "/Célkitűzés: {0}",
+        "team_tag": "Csapat",
+        "team_text": "{0} csapat",
+        "timer_tag": "G {0}",
+        "week_period": "Hét {0} ({1})",
+        "year_period": "Év {0}"
+      },
+      "title": "Célkitűzések",
+      "type_label": "Típus",
+      "unit_label": "Egység",
+      "update_base_tab": "Bázis",
+      "update_base_title": "Célkitűzés módosítása «{0}»",
+      "update_confirmation_message": "Biztos, hogy meg akarja változtatni ennek a célnak a KPI-jét? Ez a változás következményekkel járhat az eddigi eredményekre vonatkozóan. Ha bármilyen kérdése van, ne habozzon kapcsolatba lépni velünk.",
+      "update_custom_tab": "Testreszabás",
+      "update_readonly_title": "Célkitűzés megtekintése «{0}»"
+    },
+    "home": {
+      "badge_link": "Jelvény",
+      "category_link": "Kategóriák",
+      "data_area": "Adatintegráció és -kezelés",
+      "goal_level_link": "Pontok",
+      "import_link": "Naplók importálása",
+      "indicator_area": "Mutatók konfigurálása",
+      "level_link": "Szint",
+      "logo_link": "Logó módosítása",
+      "notification_link": "Értesítések kezelése",
+      "organization_link": "Csapat/Szervezet",
+      "partner_link": "Integrálható harmadik féltől származó szoftverekkel",
+      "permission_link": "Hozzáférési jogok kezelése",
+      "point_link": "A pontok általános elosztása",
+      "report_link": "Jelentés",
+      "reward_link": "Jutalmak",
+      "user_area": "Felhasználók és jogok",
+      "user_link": "Felhasználói előfizetések",
+      "year_label": "Beállítandó év"
+    },
+    "import_log": {
+      "columns": {
+        "date": "A végrehajtás időpontja",
+        "download": "Letöltés",
+        "error_lines": "Vonal hiba",
+        "file": "Fájl",
+        "id": "Hivatkozás",
+        "state": "Állapot",
+        "success_lines": "Érvényes sorok"
+      },
+      "data": "Eredmények",
+      "goals": "Célkitűzések",
+      "title": "Naplók importálása",
+      "users": "Felhasználók"
+    },
+    "logo": {
+      "background_color": "Háttér színe",
+      "colors": "Színek",
+      "font_family": {
+        "fonts_select": "Betűtípusok kiválasztása",
+        "title": "Betűtípus"
+      },
+      "primary_color": "Fő szín",
+      "reset_colors": "Színek visszaállítása",
+      "secondary_color": "Másodlagos szín",
+      "success_message": "A logó frissítve lett",
+      "title": "Logó megváltoztatása"
+    },
+    "logo_and_colors": {
+      "success_message": "A színek sikeresen frissültek",
+      "title": "Logó és színváltás"
+    },
+    "notifications_rights": {
+      "explication_badge": "a jelvény szintjének megváltoztatásakor küldött értesítések konfigurálása",
+      "explication_challenge": "értesítések konfigurálása a kihívások frissítésekor",
+      "explication_email": "E-mail értesítéseket küldünk a postaládájába.",
+      "explication_global": "globális értesítési konfiguráció",
+      "explication_in_app": " Az alkalmazáson belüli értesítéseket küldünk az alkalmazásba.",
+      "explication_newsfeed": "configuration des notifications qui sont envoyées lorsque le niveau du badge change",
+      "explication_push": "A push értesítéseket elküldjük a mobileszközére (iOS vagy Android).",
+      "explication_ranking": "értesítések konfigurálása a kihívás rangsorában az első helyen álló munkatárs számára",
+      "explication_type": "Az értesítések fogadásának háromféle módja van: push, alkalmazáson belüli, e-mail.",
+      "generals": "Tábornokok",
+      "global": "Global",
+      "notification_CHBU": "Értesítés a kihívások frissítésekor.",
+      "notification_EWM": "Minden héten értesítést küldenek mindenki motivációjának növelése érdekében.",
+      "notification_MNL": "Értesítés a szintet teljesítő munkatárs számára.",
+      "notification_NECH": "Értesítés elküldése egy új kihívás elindításakor",
+      "notification_NLB": "Értesítés az új jelvényszint elérésekor",
+      "notification_NPE": "Értesítés arról, hogy az értesítéseket nem olvassák el.",
+      "notification_NPIN": "Notification envoyée quand le nouveau post a été créé dans le fil d'actualité",
+      "notification_NROE": "Értesítést küldünk, ha a jutalommegbízás sikeresen érvényesül.",
+      "notification_RFCR": "Értesítés az együttműködő számára, aki az első helyen áll a kihívás rangsorában.",
+      "notification_RFGR": "Értesítés az általános rangsorban az első helyen álló munkavállaló számára.",
+      "notification_RFR": "Értesítés annak az együttműködőnek, aki az objektív rangsorban az első helyen áll.",
+      "notification_SWE": "Heti összefoglaló értesítés.",
+      "notification_TRCR": "Értesítés annak a csapatnak, amely az első helyen áll a kihívás rangsorában.",
+      "notification_TRFR": "Értesítés az objektív rangsorban az első helyen álló csapat számára.",
+      "notification_TRGR": "Értesítés annak a csapatnak, amely az első helyen áll az összesített rangsorban.",
+      "notification_update_success": "Az értesítési változtatásokat sikeresen elfogadták!",
+      "remark_explication": "Megjegyzés:",
+      "remark_explication_checkbox": "Ha a jelölőnégyzet nem aktív, az értesítés beállításait nem módosíthatja",
+      "sub_title": "Értesítések kezelése",
+      "title": "Értesítéseim",
+      "title_email": "Email",
+      "title_explication": "Hogyan kell értesíteni:",
+      "title_in_app": "Alkalmazásban",
+      "title_push": "Nyomás"
+    },
+    "organization": {
+      "create_team_title": "Csapat létrehozása ({0})",
+      "title": "A szervezet irányítása",
+      "update_company": "Változtassa meg a cég nevét",
+      "update_team": "Szerkessze a csapatot",
+      "update_team_group": "A részleg szerkesztése"
+    },
+    "partner_detail_empty_connection": "Ezeknek a funkcióknak a használatához, telepítenie kell a Fire Tiger-t az Aircall ügyfélkörébe.",
+    "partner_detail_subtitle": "Integrálható harmadik féltől származó szoftverekkel",
+    "partner_list_subtitle": "Integrálható harmadik féltől származó szoftverekkel",
+    "point_config": {
+      "budget": "Költségvetés",
+      "point_rule": "Számítási szabály",
+      "total_title": "Összes elérhető pontszám játékosonként",
+      "total_title_team": "Összes elérhető pontszám csapatonként"
+    },
+    "points": {
+      "columns": {
+        "category": "Kategória",
+        "current_points": "A tétet alkotó jelenlegi pontok",
+        "custom_individual": "Egyéni testreszabás",
+        "custom_team": "A csapat testreszabása",
+        "id": "Hivatkozás",
+        "name": "Cím",
+        "used_points": "A már tétet alkotó pontok"
+      },
+      "menu_global": "Globális",
+      "menu_individual": "Egyéni",
+      "menu_team": "Csapat",
+      "title": "A célkitűzések pontjainak beállítása"
+    },
+    "report": {
+      "columns": {
+        "category": "Kategória",
+        "format": "Formátum",
+        "format_manual": "Kézikönyv",
+        "format_standard": "Standard",
+        "kpi_code": "KPI-kód",
+        "kpi_name": "A KPI címe",
+        "kpi_ref": "KPI hivatkozás",
+        "periodicity": "Frissítés",
+        "result_unit": "Eredmény egység"
+      },
+      "dashboard_tab": "Irányítópult",
+      "list_tab": "Jelentések listája",
+      "title": "Jelentések listája"
+    },
+    "report_details": {
+      "columns": {
+        "id": "AZONOSÍTÓ"
+      },
+      "quarter_period": "Negyedév {0}",
+      "semester_period": "Szemeszter {0}",
+      "title": "Jelentés «{0}»",
+      "week_period": "Hét {0}"
+    },
+    "reward_category": {
+      "creation": {
+        "subtitle": "Nyereménykategória létrehozása"
+      },
+      "list": {
+        "active_tab": "Aktív",
+        "icon_column": "Ikon",
+        "inactive_tab": "Archiválva",
+        "name_column": "Név",
+        "subtitle": "Nyereménykategóriák konfigurálása"
+      },
+      "update": {
+        "subtitle": "Nyereménykategória szerkesztése"
+      }
+    },
+    "title": "Igazgatás",
+    "user": {
+      "archived_tab": "Visszavonva",
+      "creation": {
+        "password_title": "Jelszó létrehozása",
+        "send_email": "Bejelentkezési e-mail küldése a felhasználónak",
+        "success": "A felhasználó sikeresen létrehozva",
+        "title": "Felhasználó létrehozása"
+      },
+      "current_tab": "Folyamatban",
+      "email": "E-mail",
+      "firstname": "Név",
+      "force_reset_password": "Kényszerítse a jelszó megváltoztatását",
+      "force_reset_password_info": "A felhasználónak mindenképpen meg kell változtatnia a jelszavát a következő bejelentkezéskor",
+      "fullname": "Vezetéknév",
+      "id": "Hivatkozás",
+      "identifier": "Felhasználónév {0}",
+      "identifiers": "Felhasználói nevek",
+      "import": {
+        "condition1": "Név: maximum 30 karakter",
+        "condition2": "Vezetéknév: maximum 150 karakter",
+        "condition3": "E-mail: egyedi, maximum 254 karakter",
+        "condition4": "Típus: C (Player), M (Menedzser), S (Szuper menedzser) vagy A (Adminisztrátor)",
+        "condition5": "Csapat: csapat felhasználónév (a csapat közzétételi űrlapján feltüntetve)",
+        "condition6": "Jelszó",
+        "condition7": "Állapot: 1 (aktív) vagy 0 (inaktív)",
+        "condition8": "Az utolsó 5 oszlop választható felhasználónév",
+        "condition9": "Részleg szuper menedzsere: P, ha a fő egyébként üres",
+        "error1": "Az importálás sikertelen volt, mert a fájl nem felel meg a fenti követelményeknek. Előfordulhat, hogy egyes felhasználókat nem importáltak.",
+        "error2": "Az importálás ismeretlen okból nem sikerült.",
+        "text1": "Importáljon egy fájlt .csv formátumban vesszőt alkalmazva elválasztó szimbólumként. A vessző használata nem megengedett a fájlértékekben.",
+        "text2": "A fájl minden oszlopának meg kell felelnie a következő követelményeknek:",
+        "title": "Felhasználók importálása"
+      },
+      "information_title": "Információk",
+      "last_login": "Utolsó bejelentkezés",
+      "last_login_empty": "Senki",
+      "lastname": "Vezetéknév",
+      "locale": "Nyelv",
+      "password": "Új jelszó",
+      "password_confirm": "Jelszó megerősítése",
+      "password_field": "Jelszó",
+      "password_info": "A jelszónak legalább 8 karakterből kell állnia és tartalmaznia kell legalább egy kisbetűt és egy nagybetűt, illetve egy speciális karaktert (?! &*) és egy számot",
+      "profile": {
+        "no_team": "Nincs csapat"
+      },
+      "role": "Funkció",
+      "search_placeholder": "Felhasználó keresése...",
+      "team": "Csapat",
+      "title": "Felhasználók kezelése",
+      "type": "Típus",
+      "update": {
+        "actions_title": "Cselekedetek",
+        "allow_pending_notifications": "E-mail értesítési emlékeztetők engedélyezése",
+        "create_new_password": "Bejelentkezési e-mail küldése",
+        "create_new_password_success": "Sikeresen elküldtük a bejelentkezési e-mailt",
+        "disable_button": "Fiók bezárása",
+        "enable_button": "Fiók újraaktiválása",
+        "error": "Hiba történt a felhasználó módosítása közben",
+        "notifications_title": "Értesítések",
+        "password_title": "Jelszó módosítása",
+        "success": "A felhasználó sikeresen módosult",
+        "title": "Felhasználó szerkesztése"
+      }
+    }
+  },
+  "aircall": {
+    "install_authorization_error": "Nem rendelkezik a szükséges engedélyekkel",
+    "install_code_label": "Vállalati kód",
+    "install_demo_button": "Demó",
+    "install_email_label": "E-mail",
+    "install_login_error": "A hitelesítő adatok nem helyesek",
+    "install_no_customer_button_1": "Még nem",
+    "install_no_customer_button_2": "Fire Tiger ügyfél?",
+    "install_password_label": "Jelszó",
+    "install_submit_button": "Csatlakoztassa az Aircallt",
+    "install_title": "Csatlakozás az Aircall segítségével",
+    "install_unknown_error": "Ismeretlen hiba történt",
+    "install_website_button": "Lásd a weboldalt"
+  },
+  "apptour": {
+    "title": "Alkalmazási túra"
+  },
+  "badge": {
+    "creation": {
+      "badge_creation": "Jelvény létrehozása",
+      "error": "Hiba történt a jelvény létrehozása közben",
+      "info_title": "Információk",
+      "kpi_title": "A jelvény KPI-jének a kiválasztása",
+      "levels_title": "Szakaszok konfigurálása",
+      "participants_title": "Válassza ki a résztvevőket",
+      "success": "A jelvény sikeresen létrejött"
+    },
+    "level": {
+      "condition_text": "Állapot: lvl {0}",
+      "counter_text": "Elérte: {0}",
+      "point_text": "{0} Pontok",
+      "rank_text": "Osztály {0}",
+      "target_text": "Cél: {0}"
+    },
+    "list": {
+      "completed_tab": "Elért",
+      "current_tab": "Folyamatban",
+      "empty_state_title": "Nem található jelvény"
+    },
+    "title": "Jelvény"
+  },
+  "challenge": {
+    "award_list": {
+      "add_reward": "Jutalom létrehozása",
+      "collaborator_max_point_label": "Maximum játékosonként",
+      "collaborator_point_label": "Játékos győzelem # {0}",
+      "list_live_infos": "Ha aktiválva van, a pontok automatikusan odaítélésre kerülnek a résztvevőknek a kihívás lejárta előtt.",
+      "list_live_label": "Élőben megszerzett pontok",
+      "points_calculation_message": "A felhasználható pontok kiszámítása...",
+      "step_point_label": "Szakasz # {0}",
+      "target_label": "Elérendő pontszám",
+      "team_max_point_label": "Maximum csapatonként",
+      "team_point_label": "Csapat győzelem # {0}",
+      "title": "Jutalmak",
+      "type_label": "Mód",
+      "usable_points": "{0} használható pontok"
+    },
+    "awards_title": "Eredmény",
+    "category_list_title": "A kategória kiválasztása",
+    "click_to_view_challenge": "Kattintson ide a kihívás megtekintéséhez",
+    "collaborators": "{0} játékosok",
+    "condition": {
+      "award_area": "Kihívási nyeremények",
+      "award_points": "{0} PONTOK",
+      "collaborator_max_points_label": "Maximum játékosonként",
+      "collaborator_rank": "{0} #. számú játékos",
+      "condition_area": "Mutatók",
+      "description_area": "Leírás",
+      "description_label": "Leírás",
+      "goal_info": "Az itt beállított feltétel többször is elérhető. Minden alkalommal, amikor eléri, feljogosítja Önt a társított pontok számára",
+      "label": "Állapot",
+      "label_completed": "Rájött",
+      "last_update": "Utolsó frissítés: ",
+      "last_update_time": "{1}-ból/ből {0}",
+      "period": "{0} -tól {1} -ig",
+      "point_counter": "{0} PONTOK",
+      "point_target": "{0} PONTOK",
+      "race_condition_goal_info": "Ha eléri a célt, akkor 1 pontra jogosult",
+      "team_group_max_points_label": "Maximum részlegenként",
+      "team_group_rank": "Részleg # {0}",
+      "team_max_points_label": "Maximum csapatonként",
+      "team_rank": "# {0}. számú csapat\n",
+      "type": "Mód: {0}"
+    },
+    "creation": {
+      "error": "Hiba történt a kihívás létrehozása közben",
+      "success": "A kihívás sikeresen létrejött",
+      "title": "Kihívás létrehozása"
+    },
+    "delete_prompt": "Biztosan törli ezt a kihívást?",
+    "delete_success": "A kihívás sikeresen törölve lett",
+    "detail": {
+      "condition_tab": "Feltételek",
+      "rank_tab": "Ranglista"
+    },
+    "duplication": {
+      "title": "Kihívás megkettőzése"
+    },
+    "first_rank": "{0}°",
+    "form": {
+      "add_reward": "Adjon hozzá egy jutalmat",
+      "award_error": "Adjon hozzá legalább egy díjat",
+      "award_type_description_c": "Díj annak a {2} {0} -nek, aki eléri a kihívás céljait",
+      "award_type_description_m": "Minden {1} a pontszámának megfelelő pontok számát szerzi meg, a megadott maximális határig",
+      "award_type_description_p": "A résztvevők által megszerzett díj az elért teljesítmény szintjétől függ",
+      "award_type_description_r": "Díj {2} {0} -nak/nek a kihívás végén",
+      "award_type_description_single_c": "Díj {0} -nak/nek a kihívás céljainak eléréséért",
+      "award_type_description_single_m": "Minden {1} a pontszámának megfelelő pontok számát szerzi meg, a megadott maximális határig",
+      "award_type_description_single_p": "A résztvevők által megszerzett díj az elért teljesítmény szintjétől függ",
+      "award_type_description_single_r": "Díj {0} -nak/nek a kihívás végén",
+      "award_type_minimum_participants": "Ehhez a módhoz legalább {0} {1} szükséges",
+      "congratulations": "Gratulálunk 🎉!",
+      "congratulations_message": "A kihívás készen áll a közvetítésre!",
+      "enable_manager_score_label": "Összesített pontszám megjelenítése",
+      "first": "Premierek",
+      "first_departments": "első osztályok",
+      "first_teams": "első csapatok",
+      "goal_area": "Mutatók",
+      "goal_category_label": "Kategória",
+      "goal_collaborator_editable_label": "Játékos bemenet",
+      "goal_description_label": "Leírás",
+      "goal_format_label": "Formátum",
+      "goal_kpi_label": "KPI",
+      "goal_manager_editable_label": "Menedzser beszúrása",
+      "goal_name_label": "Név",
+      "goal_periodicity_label": "Periodicitás",
+      "goal_target_info_text": "Az itt beállított feltétel többször is elérhető. Minden alkalommal, amikor eléri, megszerzi a kapcsolódó pontok számát.",
+      "goal_target_label": "Célkitűzés",
+      "goal_target_label2": "Állapot",
+      "goal_target_label2_race": "Célkitűzés",
+      "goal_title": "Mutató {0}",
+      "goal_unit_label": "Egység",
+      "goals": {
+        "add_button": "Adjon hozzá egy mutatót",
+        "automatic": "Automatikus",
+        "manual": "Kézi bevitel"
+      },
+      "indicators_title": "A kihívás mutatóinak és mechanizmusainak konfigurálása",
+      "info_area": "Információk",
+      "info_award_type_label": "Mód",
+      "info_description_label": "Leírás",
+      "info_end_label": "Vége",
+      "info_image_label": "Válasszon ki egy képet...",
+      "info_name_label": "Név",
+      "info_no_image_text": "Nincs kiválasztva kép",
+      "info_start_label": "Indítás",
+      "info_type_label": "A kihívás típusa",
+      "infos_title": "Információk beállítása",
+      "mode": "Mód",
+      "mode_title": "A kihívás módjának kiválasztása",
+      "notify_updated_label": "Értesítse a résztvevőket a frissí",
+      "participants_title": "Válassza ki a résztvevőket",
+      "rewards_title": "Jutalmak kiválasztása",
+      "soon_available": "Hamarosan elérhető",
+      "step_mode_information": "Legfeljebb 1 nyeremény résztvevőnként (a megnyert nyeremény megegyezik a legmagasabb szakasz nyereményével)",
+      "steps": {
+        "indicators": "Mutatók és mechanizmusok",
+        "infos": "Információk",
+        "mode": "Mód",
+        "participant": "Résztvevő",
+        "participants": "Résztvevők",
+        "rewards": "Jutalmak",
+        "validation": "Megerősítés"
+      },
+      "the_first": "Az első",
+      "the_first_department": "Az első osztály",
+      "the_first_team": "Az első csapat"
+    },
+    "kpi_results": {
+      "add_data": "Adatok hozzáadása",
+      "add_data_button": "Adatok hozzáadása",
+      "add_kpi_title": "Adjon hozzá eredményt a KPI-hez",
+      "back_button": "Vissza a listához",
+      "collaborator_new_title": "Új eredmény mentése a KPI számára",
+      "collaborator_title": "A KPI rögzített eredményeinek listája",
+      "columns": {
+        "actions": "Műveletek",
+        "images": "Képek",
+        "indications": "Javallatok",
+        "result": "Eredmény",
+        "results": "Eredmények"
+      },
+      "edit_kpi_title": "A KPI eredményének módosítása",
+      "edit_results": "Eredmények megadása",
+      "form": {
+        "data_description": "Utasítások",
+        "data_description_placeholder": "Írja be a szöveget",
+        "data_image": "Fájl kiválasztása...",
+        "data_value": "Érték",
+        "data_value_placeholder": "Adja meg a megállapítandó értéket",
+        "file_size_error": "A fájl mérete nem haladhatja meg a 20 MB-ot"
+      },
+      "see_more": "Többet látni",
+      "subtitle": "Néhány percbe telhet, amíg az eredmények frissülnek",
+      "title": "A KPI eredményeinek listája"
+    },
+    "list": {
+      "create_button": "Kihívás létrehozása",
+      "empty_state_message": "További kihívások megtekintéséhez módosítania kell az alkalmazott szűrőket",
+      "empty_state_title": "Nincsenek kihívások"
+    },
+    "max_points": "{0} MAX",
+    "modes": {
+      "C": "Verseny",
+      "M": "Max pontszám",
+      "P": "Csapágyak",
+      "R": "dobogó"
+    },
+    "modes_full": {
+      "C": "Verseny mód",
+      "M": "Max pontszám mód",
+      "P": "Szintű mód",
+      "R": "Pódium mód"
+    },
+    "no_awards_title": "Nincs nyeremény",
+    "other_rank": "{0}°",
+    "points": "Pontszám: {0}",
+    "ranking": {
+      "collaborator_column": "Játékosok",
+      "collaborator_team_column": "Csapat",
+      "collaborator_team_group_column": "Részleg",
+      "level_column": "Szint",
+      "points_column": "Pontszám",
+      "team_column": "Csapat"
+    },
+    "reward_types": {
+      "G": "Ajándékok",
+      "P": "Pontok"
+    },
+    "search_placeholder": "Résztvevő keresése...",
+    "share": {
+      "copy_link": "Link másolása",
+      "copy_success": "A hivatkozás sikeresen másolva lett",
+      "teams_share": "Ossza meg a csapatokat",
+      "title": "Ossza meg ezt a kihívást"
+    },
+    "team_groups": "{0} részleg",
+    "teams": "{0} csapat",
+    "title": "Kihívás",
+    "title_plural": "Kihívás",
+    "types": {
+      "CC": "Egyéni",
+      "CT": "Csapat",
+      "TG": "Részleg"
+    },
+    "update": {
+      "create_reward": "Nyeremények létrehozása",
+      "edit_participants": "A résztvevők közzététele",
+      "title": "Kihívás módosítása"
+    }
+  },
+  "chart": {
+    "collaborator_type_text": "Csak",
+    "counter_text": "Elért: {0}",
+    "max_points_text": "/{0} max",
+    "points_text": "{0} pontok",
+    "target_text": "Cél: {0}",
+    "team_type_text": "Csapat",
+    "x_legend": "Időszak"
+  },
+  "coaching_list": {
+    "created_success": "A kártya sikeresen létrejött",
+    "delete_prompt": "Biztosan el akarja távolítani ezt az elemet?",
+    "delete_prompt2": "A törlés után már nem lesz lehetséges visszaállítani",
+    "empty_state_collaborator_message": "Próbálja újra később, amikor a menedzsere támogatást nyújt",
+    "empty_state_manager_message": "Hozzon létre egy kezdeti utasítást a játékos számára",
+    "empty_state_title": "Nem található utasítás",
+    "end_label": "Lejárati idő",
+    "state": {
+      "archived": "Archiválva",
+      "done": "Kész",
+      "in_progress": "Folyamatban",
+      "pending": "Várakozás"
+    },
+    "title": "Coaching lista",
+    "title_placeholder": "Adjon meg egy címet ehhez a kártyához",
+    "updated_success": "A kártya sikeresen frissült"
+  },
+  "collaborator": {
+    "badge_empty_title": "Nem készült jelvény",
+    "dashboard": "Saját műszerfal",
+    "detail": {
+      "badge_area": "Jelvény",
+      "badge_rank": "Osztály {0}",
+      "empty_state_title": "Nem áll rendelkezésre adat",
+      "info_area": "Általános információk",
+      "info_current_level": "{0} ",
+      "info_current_level_max": "/{0} PONT",
+      "info_first_rank_text": "{0}°",
+      "info_max_level": "Elért maximális szint",
+      "info_next_level": "Szint {0}",
+      "info_other_rank_text": "{0}°",
+      "info_total_points": "{0} PONTOK",
+      "info_victories": "{0} győzelem(elmek)",
+      "password_button": "Profil szerkesztése"
+    },
+    "reward_order": {
+      "erase_cart_warning": "Biztos, hogy hozzá akarja adni ezt az új jutalmat?",
+      "erase_cart_warning2": "Ez a művelet visszaállítja a kosarat, amely jelenleg egy másik játékoshoz van társítva.",
+      "summary_points_area": "Rendelés összesen",
+      "summary_points_area_year": "Év {0}",
+      "summary_rewards_area": "Megrendelés száma {1}-ból/ből {0}",
+      "summary_title": "A megrendelés összefoglalása",
+      "tracking": {
+        "email_column": "E-mail",
+        "id_column": "Hivatkozás",
+        "name_column": "Név",
+        "order_date_column": "Megrendelés dátuma",
+        "sub_header_pending_tab": "Folyamatban",
+        "sub_header_validated_tab": "Elküldendő",
+        "sub_header_validated_title": "A megrendelések állapota",
+        "sub_header_waiting_tab": "Megerősítve",
+        "team_column": "Csapat",
+        "validated_points_column": "Felhasznált pontok",
+        "validation_date_column": "Megerősítés dátuma",
+        "value_column": "Teljes összeg",
+        "waiting_points_column": "Érvényesítésre váró pontok"
+      },
+      "validation": {
+        "error": "Hiba történt a megrendelés megerősítése közben",
+        "points_area": "Teljes megrendelés",
+        "points_area_year": "Év {0}",
+        "rewards_area": "Megrendelés száma {1}-ból/ből {0}",
+        "success": "A megrendelés sikeresen megerősítésre került",
+        "title": "Megrendelés megerősítése"
+      }
+    },
+    "title": "Játékosok",
+    "update": {
+      "title": "Profil szerkesztése"
+    }
+  },
+  "common": {
+    "add": "Hozzáadás",
+    "archive": "Megőrzés",
+    "cache_warning": "Az adatok frissítése akár 5 percig is eltarthat",
+    "cancel": "Visszavonás",
+    "close": "Bezárás",
+    "collaborator": "Játékos",
+    "collaborators": "Játékosok",
+    "create": "Létrehozás",
+    "create_error_message": "Hiba történt a létrehozás során",
+    "create_success_message": "A létrehozás sikeres volt",
+    "csv_export": "Exportálás CSV-be",
+    "date": "Dátum",
+    "delete": "Törlés",
+    "delete_error_message": "Hiba történt a törlés közben",
+    "delete_success_message": "Sikeresen törölve",
+    "duplicate": "Megkettőzés",
+    "edit": "Szerkesztés",
+    "edit_participants": "A résztvevők szerkesztése",
+    "erase": "Törlés",
+    "error_page_message": "A probléma megoldásához frissítheti az alkalmazást",
+    "error_page_title": "Hiba történt",
+    "excel_export": "Exportálás XLS-ként",
+    "export": "Exportálás",
+    "form": {
+      "collaborator_points_valid": "A pontok összege meghaladja a pontok maximális számát",
+      "decreasing_rewards": "A díjaknak csökkenniük kell",
+      "email_error": "Érvénytelen e-mail.",
+      "has_digit_character": "Legalább egy szám szükséges",
+      "has_less_characters_than": "Kevesebb, mint {0} karakterek szükségesek",
+      "has_lowercase_character": "Legalább egy kisbetű szükséges",
+      "has_more_characters_than": "Legalább {0} karakter szükséges",
+      "has_special_character": "Legalább egy különleges karakter szükséges",
+      "has_uppercase_character": "Legalább egy nagybetű szükséges",
+      "increasing_rewards": "A díjaknak növekedniük kell",
+      "increasing_scores": "Az elérendő pontszámoknak növekedniük kell",
+      "is_int_error": "Az értéknek egész számnak kell lennie.",
+      "is_more_than_or_equals_0_error": "Az értéknek 0-nál nagyobbnak vagy azzal egyenlőnek kell lennie.",
+      "max_length_128_error": "Az értéknek 128 karakternél kisebbnek kell lennie.",
+      "numeric_error": "Az értéknek számnak kell lennie",
+      "password_not_match_error": "A jelszavak nem egyeznek meg.",
+      "required_error": "Ennek a mezőnek a kitöltése kötelező."
+    },
+    "gift": "Ajándék",
+    "home": "Műszerfal",
+    "import": "Importálás",
+    "level": "Szint",
+    "next": "Következő",
+    "no": "Nem",
+    "ok": "Ok",
+    "player": "Játékos",
+    "players": "Játékosok",
+    "points": "Pontok",
+    "previous": "Előző",
+    "publish": "Közzététel",
+    "refresh_button": "Frissítse az alkalmazást",
+    "report": "Jelentés",
+    "rich_text_placeholder": "Írja be a szöveget...",
+    "search_placeholder": "Keresés...",
+    "see_more": "Lásd még",
+    "select": "Kiválasztás",
+    "selection": "Kiválasztás",
+    "share": "Megosztás",
+    "submit": "Megerősítés",
+    "team": "Csapat",
+    "team_group": "Részleg",
+    "team_groups": "Részlegek",
+    "teams": "Csapat",
+    "update_app_prompt_message": "Frissítse az alkalmazást a használat folytatásához",
+    "update_app_prompt_title": "Új verzió érhető el",
+    "update_error_message": "Hiba történt a módosítás során",
+    "update_success_message": "A módosítások sikeresen végrehajtva",
+    "yes": "Igen"
+  },
+  "contact": {
+    "evolution_form_message_label": "Üzenet",
+    "evolution_form_submit_button": "Küldés",
+    "evolution_form_title": "Töltse ki ezt az űrlapot a frissítés igényléséhez",
+    "form_type_evolution_option": "Frissítés kérése",
+    "form_type_incident_option": "Probléma bejelentése",
+    "form_type_label": "Ok",
+    "incident_form_title": "Töltse ki ezt az űrlapot a probléma bejelentéséhez",
+    "question": "Miben segíthetünk?",
+    "title": "Segítség"
+  },
+  "data_tables": {
+    "body": {
+      "noMatch": "Nem található egyező elem",
+      "toolTip": "Rendelés"
+    },
+    "filter": {
+      "all": "Minden",
+      "reset": "Visszaállítás",
+      "title": "Szűrők"
+    },
+    "pagination": {
+      "pageOf": "a  oldalon",
+      "rowsPerPage": "Sorok oldalanként"
+    },
+    "toolbar": {
+      "downloadCsv": "Letöltés",
+      "filterTable": "Szűrés",
+      "print": "Nyomtatás",
+      "search": "Keresés",
+      "viewColumns": "Oszlopok"
+    },
+    "viewColumns": {
+      "title": "Oszlopok megjelenítése"
+    }
+  },
+  "filter": {
+    "all_category_label": "Összes kategória",
+    "all_option_f": "Minden",
+    "all_periods_label": "Minden időszak",
+    "all_team_group_label": "Minden osztály",
+    "all_team_label": "Minden csapat",
+    "category_all_option": "Minden",
+    "category_label": "Kategória",
+    "collaborator_all_option": "Minden",
+    "collaborator_label": "Játékos",
+    "end_label": "Befejezés dátuma",
+    "global_chip": "Globális",
+    "goal_label": "Célkitűzés",
+    "my_team_label": "Az én csapatom",
+    "period_all_option": "Minden",
+    "period_label": "év",
+    "start_label": "Kezdés dátuma",
+    "submit_button": "Szűrés",
+    "team_all_option": "Minden",
+    "team_group_label": "Részleg",
+    "team_label": "Csapat",
+    "time": {
+      "current": "Folyamatban",
+      "next": "Jövőbeli",
+      "previous": "Előzőek"
+    },
+    "title": "Szűrők",
+    "type_label": "Mód"
+  },
+  "game": {
+    "title": "Játék"
+  },
+  "game_rules": {
+    "code_embed": "Írja be az EMBED kódot a videóból (nehézség esetén forduljon az Objow súgóhoz):",
+    "link_url": "Adja meg a link URL-jét:",
+    "site_url": "Adjon meg egy webhely URL-jét:",
+    "title": "A játék szabályai",
+    "typeform_url": "Adjon meg egy Typeform URL-t:"
+  },
+  "kpi": {
+    "criticity": {
+      "high": "Magas",
+      "low": "Alacsony",
+      "medium": "Közepes"
+    },
+    "periodicity": {
+      "C": "Custom",
+      "D": "Napi",
+      "M": "Havi",
+      "Q": "Negyedévente",
+      "S": "Félévente",
+      "W": "Heti",
+      "Y": "Éves",
+      "goal_custom": "A célkitűzésben meghatározott"
+    }
+  },
+  "levels": {
+    "columns": {
+      "citation": "Idézet",
+      "icon": "Icone",
+      "level": "Szint",
+      "name": "Név",
+      "percent": "A játékosok %",
+      "points": "Elérendő pontok"
+    },
+    "list_title": "Szintek listája"
+  },
+  "login": {
+    "code_label": "Vállalati kód",
+    "code_placeholder": "Írja be a vállalat kódját",
+    "create_password_company_code_invalid": "A megadott vállalati kód érvénytelen. Írja be az üdvözlő e-mailben elküldött vállalati kódot",
+    "create_password_error": "Ez a link már nem érvényes. Új jelszó-visszaállítási kérelem benyújtása",
+    "create_password_invalid": "Ez a link nem érvényes",
+    "create_password_missing_user": "Ez a link nem felel meg egyetlen felhasználónak sem, vagy már használták",
+    "create_password_outdated": "Ez a link már nem érvényes. Új jelszó-visszaállítási kérelem benyújtása",
+    "create_password_password_invalid": "Érvénytelen jelszó",
+    "create_password_submit": "Hozza létre a jelszót",
+    "create_password_success": "A jelszava sikeresen létre lett hozva",
+    "create_password_title": "Hozza létre a jelszavát",
+    "description_line1": "A gamifikált megoldás",
+    "description_line2": "Monitoring és animáció",
+    "description_line3": "előadások",
+    "email_label": "E-mail",
+    "email_placeholder": "Adja meg az e-mail címét",
+    "error": "A hitelesítő adatok nem helyesek",
+    "error_company_code": "A megadott cégkód nem érvényes",
+    "force_reset_password_message": "A jelszava lejárt, ki kell választania egy újat, hogy megvédje fiókját",
+    "force_reset_password_title": "Jelszó módosítása",
+    "password_label": "Jelszó",
+    "reset_password": "Elfelejtettem a jelszavamat",
+    "reset_password_cancel": "Menjen vissza a bejelentkezési oldalra",
+    "reset_password_confirm_error": "Ez a link már nem érvényes. Új jelszó-visszaállítási kérelem benyújtása",
+    "reset_password_confirm_success": "A jelszó visszaállítása sikeresen megtörtént",
+    "reset_password_error": "Nem található fiók ezzel az e-mail címmel",
+    "reset_password_submit": "Jelszó visszaállítása",
+    "reset_password_success": "E-mailt küldtünk Önnek egy linkkel a jelszó visszaállításához",
+    "reset_password_title": "Elfelejtett jelszó",
+    "sso_dialog_title": "SSO kapcsolat",
+    "sso_error_message": "Az SSO nincs konfigurálva. Lépjen kapcsolatba egy Firetiger rendszergazdával",
+    "sso_submit_button": "Jelentkezzen be SSO-val",
+    "store_message_1": "A Fire Tiger alkalmazás elérhető iPhone és Android rendszerekhez.",
+    "store_message_2": "Töltse le most:",
+    "submit_button": "Bejelentkezés",
+    "title": "Belépés"
+  },
+  "menu": {
+    "admin_button": "Igazgatás",
+    "administrator_label": "Rendszergazda",
+    "help_button": "Segítség",
+    "infos_button": "Saját adatok",
+    "level_label": "Szint {0}",
+    "logout_button": "Kijelentkezés",
+    "manager_label": "Menedzser",
+    "notifications_button": "Értesítések",
+    "points_label": "{0} PONTOK",
+    "rules_button": "A játék szabályai"
+  },
+  "newsfeed": {
+    "all_roles": "Minden szerep",
+    "comment_action": "Kommentálás",
+    "comment_creation_success": "Az Ön véleménye elkészült",
+    "comment_delete_success": "A hozzászólásod sikeresen eltávolításra került",
+    "comment_placeholder": "Írja ide a megjegyzését",
+    "comment_update_success": "Véleményét sikeresen frissítettük",
+    "comments": "Megjegyzések",
+    "edit_post_title": "Bejegyzés szerkesztése",
+    "embed_prompt": "Illessze ide a videó beágyazási URL-jét",
+    "empty_state_message": "Hozza létre az első hozzászólását",
+    "empty_state_title": "Nem található hozzászólás",
+    "for_everybody": "Mindenki",
+    "like": "tetszik",
+    "likes_list_title": "Reakciók",
+    "new_post_title": "Új bejegyzés",
+    "no_more_posts": "A hírcsatorna vége",
+    "post_content_placeholder": "Írja ide a szöveget",
+    "post_creation_success": "Bejegyzése sikeresen létrehozva",
+    "post_delete_success": "Bejegyzése sikeresen törölve lett",
+    "post_placeholder": "Hozzon létre egy új bejegyzést",
+    "post_report_success": "Üzenetét figyelembe vettük",
+    "post_settings": "Közzétételi beállítások",
+    "post_update_success": "Bejegyzése sikeresen frissítve lett",
+    "post_visibility_role_tooltip": "Látható: {0}",
+    "reply": "Válasz",
+    "reported_comment": "Bejelentett megjegyzés",
+    "reported_post": "Jelentett közzététel",
+    "see_less": "... mutasson kevesebbet",
+    "see_more": "... mutasson többet",
+    "share_button": "Ossza meg vele",
+    "title": "Hírcsatorna",
+    "video_size_error": "A ({0}) videó mérete nem haladhatja meg az 50 MB-ot",
+    "who_can_see_your_post": "Ki láthatja a bejegyzésedet?"
+  },
+  "notification": {
+    "date": {
+      "days": "{0} g",
+      "hours": "{0} h",
+      "minutes": "{0} min"
+    },
+    "empty_message": "Nem érkezett értesítés"
+  },
+  "organization_menu": {
+    "hide": "Elrejteni a",
+    "show": "Mutasd a"
+  },
+  "point_summary": {
+    "orders_button": "Megerősítésre váró megrendelések",
+    "panopli_button": "Hozzáférés az üzletbe",
+    "panopli_error": "Nem találtak fiókot a boltban",
+    "points_label": "Összgyűjtött összes pont",
+    "points_value": "{0}Pontok",
+    "title": "Általános információk",
+    "usable_points_label": "Pont-egyenleg",
+    "usable_points_value": "{0}Pontok",
+    "used_points_label": "Összes felhasznált pont",
+    "used_points_value": "{0}Pontok",
+    "validated_values_label": "A felhasznált összérték",
+    "validated_values_value": "{0} €",
+    "waiting_points_label": "Érvényesítésre váró pontok",
+    "waiting_points_value": "{0}Pontok"
+  },
+  "ranking": {
+    "challenges_title": "Kihívás",
+    "collaborator_category_title": "Egyéni rangsor",
+    "collaborator_challenge_title": "Az egyéni kihívások rangsorolása",
+    "collaborator_general_title": "Összesített egyéni rangsor",
+    "collaborator_tab": "Egyéni",
+    "columns": {
+      "collaborator": "Játékosok",
+      "name": "Név",
+      "team": "Csapat"
+    },
+    "empty_state_title": "Nincs elérhető rangsor",
+    "general_title": "Összesített rangsor",
+    "owner_title": "Saját rangsorok",
+    "team_category_title": "Csapat rangsor",
+    "team_challenge_title": "A csapat kihívásainak rangsorolása",
+    "team_general_title": "A csapat általános rangsorolása",
+    "team_tab": "Csapat",
+    "title": "Ranglista"
+  },
+  "reward": {
+    "creation": {
+      "error": "Hiba történt a nyeremény létrehozásakor",
+      "subtitle": "Hozzon létre egy díjat",
+      "success": "A díj sikeresen létrehoztásra került"
+    },
+    "detail": {
+      "delivery_mode_text": "Szállítási mód: {0}",
+      "delivery_place_text": "Hely: {0}",
+      "delivery_time_text": "Becsült szállítási idő: {0}",
+      "description_area": "Leírás",
+      "image_close_button": "Bezárás",
+      "operation_step_1_description": "Ellenőrizze és erősítse meg megrendelését. Ezután értesítést küldünk a vállalat igazgatójának, amelyben tájékoztatjuk őt kéréséről.",
+      "operation_step_1_title": "Amikor a Hozzáadás gombra kattint",
+      "operation_step_2_description": "Megrendelése feldolgozásra/visszaigazolásra vár. A megrendelés időpontjában használt pontok levonásra kerülnek a pontegyenlegből.",
+      "operation_step_2_title": "Függőben lévő megrendelés",
+      "operation_step_3_description": "A vállalat igazgatója vállalja a megrendelés irányítását. Miután a szállító hitelesítette és kiszámlázta, pontjait véglegesen levonják a pontegyenlegéből.",
+      "operation_step_3_title": "Folyamatban lévő megrendelés",
+      "operation_step_4_description": "Jön a nyeremény! A vállalat igazgatója fogja tájékoztatni Önt. Nyereményét a munkáltató és/vagy a munkavállaló által fizetett hozzájárulások függvényében nyilvánítják ki.",
+      "operation_step_4_number": "Szállítás",
+      "operation_step_4_title": "Megrendelés elküldve",
+      "operation_title": "Hogyan működik?",
+      "value_text": "Érték: {0} €"
+    },
+    "duplication": {
+      "title": "Jutalom megkettőzése"
+    },
+    "edit": {
+      "title": "Díj módosítása"
+    },
+    "form": {
+      "category_label": "Kategória",
+      "delivery_area": "Szállítás",
+      "delivery_mode_label": "Szállítási mód",
+      "delivery_place_label": "Hely",
+      "delivery_time_label": "Szállítási határidők",
+      "description_label": "Leírás",
+      "empty_image_text": "Nincs kiválasztva kép",
+      "image_label": "Válasszon ki egy képet...",
+      "infos_area": "Információk",
+      "name_label": "Név",
+      "points_label": "A szükséges pontok száma",
+      "type_label": "Típus",
+      "value_label": "Érték",
+      "value_suffix_label": "€"
+    },
+    "image_input_infos": "A kép a használt képernyő méretének megfelelően alkalmazkodik és változik. Az optimális megtekintéshez ajánlott képformátum 1024x700.",
+    "management": {
+      "collaborator_selector_area": "Válasszon egy játékost",
+      "collaborator_tab": "Játékosok",
+      "team_selector_area": "Válasszon egy csapatot",
+      "team_tab": "Csapat",
+      "title": "Nyeremények kezelése"
+    },
+    "order_item_list": {
+      "close_button": "Folytassa a vásárlást",
+      "empty_text": "Üres",
+      "points_value": "{0}Pontok",
+      "quantity_label": "Mennyiség",
+      "value_label": "Érték"
+    },
+    "order_list_export": {
+      "title": "Megerősített megrendelések exportálása"
+    },
+    "order_summary": {
+      "cart_points_label": "Kosár összesen",
+      "confirm_order_message": "A megerősítést követően már nem lehet törölni a megrendelést, a pontok eltávolításra kerülnek az Ön pontegyenlegéből, és a megrendelés értéke bejelentésre kerül, illetve járulékköteles lesz a munkáltató és/vagy a munkavállaló számára.",
+      "confirm_order_title": "Megerősíti a {0} pont {1} € értékű megrendelését?",
+      "confirm_refuse_message": "Miután visszautasította, már nem lesz lehetséges újraaktiválni, a pontok visszakerülnek a rendelkezésre álló pontok egyenlegébe. Az Ön felelőssége, hogy tájékoztassa a felhasználót a visszautasítás okáról.",
+      "confirm_refuse_title": "Biztosan el akarja utasítani a/az {0}. számú megrendelést összesen {1} pontért {2} € értékben?",
+      "confirm_validate_message": "A megerősítést követően már nem lehet törölni a megrendelést, a pontok eltávolításra kerülnek a rendelkezésre álló pontegyenlegből, és a megrendelés értéke bejelentésre kerül, illetve járulékköteles lesz a munkáltató és/vagy a munkavállaló számára.",
+      "confirm_validate_title": "Biztosan meg akarja erősíteni a/az {0}. számú megrendelést összesen {1} pontért {2} € értékben?",
+      "order_button": "Rendelés",
+      "order_points_label": "Teljes megrendelés",
+      "order_points_value": "{0} Pontok",
+      "order_value_label": "Teljes érték",
+      "recipient_points_label": "Aktuális pont egyenleg",
+      "recipient_points_value": "{0} Pontok",
+      "refuse_button": "Visszautasítás",
+      "remaining_points_label": "Fennmaradó pont egyenleg",
+      "remaining_points_value": "{0} Pontok"
+    },
+    "point_tag": "{0} PONTOK",
+    "settings": {
+      "collaborator_reward_activation_option": "«játékos» jutalmának aktiválása",
+      "manager_reward_creation": "Lehetővé teszi a vezetők számára a jutalmak megrendelését",
+      "manager_reward_notification": "Értesíti a menedzsereket e-mailben a csapatuk játékosai által leadott rendelésekről.",
+      "team_reward_activation_option": "«csapat» jutalmának aktiválása"
+    },
+    "shopping_cart": {
+      "adding_confirmation_close_button": "Folytassa a vásárlást",
+      "adding_confirmation_message": "Most tette ezt a terméket a kosárba:",
+      "adding_confirmation_shopping_cart_button": "Ugrás a bevásárlókosárba",
+      "points_area": "Kosár összesen",
+      "points_area_year": "Év {0}",
+      "rewards_area": "Az Ön bevásárlókosara",
+      "success": "Megrendelése beérkezett"
+    },
+    "sort_by": "Rendezés",
+    "sort_options": {
+      "asc": "Egyre több pont",
+      "desc": "Csökkenő pontok száma"
+    },
+    "store": {
+      "empty_state_message": "További díjak megtekintéséhez módosítania kell az alkalmazható szűrőket ",
+      "empty_state_title": "Nem található nyeremény"
+    },
+    "title": "Jutalmak"
+  },
+  "roles": {
+    "A": "Rendszergazda",
+    "C": "Játékos",
+    "M": "igazgató",
+    "S": "Szuper menedzser"
+  },
+  "statistics": {
+    "category_title": "Válasszon kategóriát",
+    "empty_state_message": "További statisztikák megtekintéséhez módosítania kell az esetleges szűrőket",
+    "empty_state_title": "Nem található statisztika",
+    "title": "Statisztikák"
+  },
+  "team": {
+    "collaborators_text": "{0} Játékosok",
+    "detail": {
+      "collaborators_text": "{0} játékosok",
+      "manager_text": "{0} {1}-tól/től",
+      "no_manager_text": "Nincs menedzser",
+      "points_text": "{0} PONTOK",
+      "victories_text": "{0} nyerések"
+    },
+    "empty_state_message": "A csapatok még nem lettek létrehozva",
+    "empty_state_title": "Nem található csapat",
+    "form": {
+      "collaborator": "Játékos {0}",
+      "collaborators": "Játékosok",
+      "color": "Szín",
+      "id": "Felhasználónév",
+      "manager": "Menedzser",
+      "name": "Név",
+      "parent": "Csoportvezető részleg"
+    },
+    "group_collaborators_text": "{0} Menedzserek",
+    "group_team_groups_text": "{0} részlegek",
+    "group_teams_text": "{0} csapat",
+    "manager_text": "{0} {1}-tól/től",
+    "no_manager_text": "Nincs menedzser",
+    "title": "Csapat",
+    "title_singular": "Csapat"
+  },
+  "team_group": {
+    "form": {
+      "super_manager": "Szuper menedzser",
+      "user": "Felhasználó {0}",
+      "users": "Felhasználók"
+    },
+    "thumbnail": {
+      "hide_children": "{0} csapatok elrejtése",
+      "hide_children_team_group": "{0} részlegek elrejtése",
+      "show_children": "{0} csapatok megtekintése",
+      "show_children_team_group": "{0} részlegek megtekintése"
+    },
+    "title_singular": "Részleg"
+  },
+  "transfer_list": {
+    "participants": "Résztvevők",
+    "selection": "Rendelkezésre áll",
+    "submit_selection": "A kiválasztás érvényesítése"
+  },
+  "widget": {
+    "activity": {
+      "inactive_profiles": "Inaktív profilok",
+      "info_text": "Itt találja azoknak a személyeknek a listáját, akik több mint 3 hónapja inaktívak a csapataiban."
+    },
+    "badge": {
+      "count1": "Van egy...",
+      "count2": "folyamatban",
+      "without_count": "Munkavállalói jelvények megtekintése"
+    }
+  }
+}

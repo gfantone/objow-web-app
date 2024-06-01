@@ -1,0 +1,1329 @@
+{
+  "account": {
+    "citation_label": "Citace",
+    "confirm_password_label": "Potvrdit heslo",
+    "email_label": "E-mail",
+    "first_name_label": "Jméno",
+    "last_name_label": "Příjmení",
+    "password_label": "Nové heslo",
+    "success_message": "Změny byly úspěšně provedeny",
+    "title": "Můj profil",
+    "title_label": "Název profilu",
+    "title_label_pseudo": "Přezdívka"
+  },
+  "admin": {
+    "access_rights": {
+      "activate_daily_email": "Aktivujte denní souhrnný e-mail s oznámením",
+      "activate_notifications": "Aktivovat oznámení",
+      "activate_users_count": "Zobrazení počtu neaktivních uživatelů na řídicím panelu",
+      "activate_weekly_email": "Aktivovat týdenní souhrnný e-mail",
+      "all_users": "Všichni uživatelé",
+      "badges": "Přístup k odznakům",
+      "category_rankings": "Viditelné pořadí podle kategorií",
+      "category_rankings_limit": "Hodnocení kategorií omezeno na první X",
+      "challenge": "Přístup k výzvám",
+      "challenge_rankings": "Viditelné pořadí na výzvu",
+      "coaching_list": "Přístup do seznamu koučování",
+      "collaborator_title": "Hráč",
+      "edit_coaching_list": "Úprava seznamu koučování",
+      "future_challenge": "Zobrazit nadcházející výzvy",
+      "future_goals": "Zobrazit budoucí cíle",
+      "general_rankings": "Viditelné celkové hodnocení",
+      "general_rankings_limit": "Celkové pořadí omezeno na první X",
+      "goal_filter": "Výchozí filtr cílů",
+      "goal_rankings": "Viditelné pořadí pro cíle",
+      "goals": "Přístup k cílům",
+      "help": "Přístup k pomoci",
+      "home": "Přístup k přístrojovému panelu",
+      "home_page": "Nastavení domovské stránky",
+      "manager_title": "Manažer",
+      "news_feed": "Přístup ke zpravodajskému kanálu",
+      "news_feed_comments_creation": "Création de commentaires sur le fil d'actualité",
+      "news_feed_post_creation": "Création de post sur le fil d'actualité",
+      "rankings": "Přístup k žebříčkům",
+      "reset_password": "Úprava profilu hráče",
+      "rules": "Přístup k pravidlům hry",
+      "stats": "Přístup ke statistikám",
+      "team_rankings": "Pořadí mého týmu",
+      "teams": "Přístup k týmům",
+      "title": "Správa přístupových práv",
+      "wording_badge": "Přejmenovat odznak",
+      "wording_challenge": "Přejmenovat výzvu",
+      "wording_dashboard": "Formulace řídicího panelu",
+      "wording_goal": "Přejmenovat cíle",
+      "wording_rules": "Přejmenovat pravidla hry"
+    },
+    "aircall": {
+      "form_ac_get_calls_activation": "Povolení úspěšného obnovení volání KPI",
+      "form_ac_get_calls_duration": "Minimální délka úspěšného hovoru (sekundy)",
+      "install": {
+        "authorization_error": "Nemáte potřebná oprávnění",
+        "code_label": "Kód společnosti",
+        "demo_button": "Demo",
+        "email_label": "E-mail",
+        "login_error": "Přihlašovací údaje nejsou správné",
+        "no_customer_button_1": "Zatím ne",
+        "no_customer_button_2": "Zákazník Fire Tiger?",
+        "password_label": "Heslo",
+        "submit_button": "Připojit Aircall",
+        "unknown_error": "Došlo k neznámé chybě",
+        "website_button": "Viz webové stránky"
+      }
+    },
+    "badge_config": {
+      "remaining_points_to_award": "Zbývající body, které mají být uděleny",
+      "title": "Nastavení odznaků"
+    },
+    "categories": {
+      "active_tab": "Aktivní",
+      "archive_confirm": "Opravdu chcete archivovat kategorii {}?",
+      "archive_confirm2": "Jakmile je tato kategorie archivována, již nebude možné ji znovu aktivovat.",
+      "archived_tab": "Archivováno",
+      "columns": {
+        "icon": "Ikonka",
+        "name": "Jméno"
+      },
+      "creation": {
+        "error": "Při vytváření kategorie došlo k chybě",
+        "success": "Kategorie byla úspěšně vytvořena",
+        "title": "Vytvoření kategorie"
+      },
+      "title": "Konfigurovat kategorie",
+      "update": {
+        "error": "Při aktualizaci kategorie došlo k chybě",
+        "success": "Kategorie byla úspěšně aktualizována",
+        "title": "Upravit kategorii"
+      }
+    },
+    "collaborator_selector": {
+      "empty_state_message": "Týmy ještě nebyly vytvořeny",
+      "empty_state_title": "Nebyl nalezen žádný tým"
+    },
+    "goal": {
+      "admin_editable_label": "Cíl upravitelný správci",
+      "admin_goal_creation_repartition_individual_team": "💡 Pomocí této distribuční metody bude týmový cíl automaticky přiřazen všem týmům vybraným ze zbývajících {0} aktuálního roku.\n Po ověření budete moci přizpůsobit cíle přiřazené všem týmům.",
+      "admin_title": "Nastavení cílů",
+      "allow_over_target_label": "Překročení přiřazeného cíle",
+      "allow_ranking_label": "Zobrazit pořadí",
+      "allow_ranking_latest_value": "Podívejte se na nejnovější výsledky pořadí",
+      "allow_ranking_points": "Zobrazit bodování pořadí",
+      "category_label": "Kategorie",
+      "classic_title": "Klasický",
+      "creation": {
+        "error": "Při vytváření cíle došlo k chybě",
+        "goal_title": "Nastavení cíle",
+        "goals_title": "Nastavení cílů",
+        "kpi_title": "Výběr cílového ukazatele KPI",
+        "options_title": "Vybrat možnosti",
+        "participants_title": "Vybrat účastníky",
+        "success": "Cíl byl úspěšně vytvořen"
+      },
+      "creation_repartition_global": "💡 Pomocí této distribuční metody bude roční globální cíl automaticky rozdělen na počet zbývajících {0} v aktuálním roce a vydělen počtem vybraných účastníků.\n Po ověření budete moci přizpůsobit jednotlivé cíle přiřazené všem vašim týmům.",
+      "creation_repartition_global_team": "💡 Pomocí této distribuční metody bude celkový roční cíl automaticky vydělen počtem {0} zbývajících v běžném roce a rozdělen proporcionálně podle počtu účastníků ve vybraných týmech.\n Po ověření budete moci přizpůsobit cíle přiřazené všem týmům.",
+      "creation_repartition_individual": "💡 Pomocí této distribuční metody bude individuální cíl automaticky přiřazen všem účastníkům vybraným ze zbývajících {0} aktuálního roku.\n Po ověření budete moci přizpůsobit jednotlivé cíle přiřazené všem vašim týmům.",
+      "creation_repartition_individual_team": "💡 Pomocí této distribuční metody bude týmový cíl automaticky přiřazen všem týmům vybraným ze zbývajících {0} aktuálního roku.\n Po ověření budete moci přizpůsobit cíle přiřazené všem týmům.",
+      "creation_target_label": "Cil {1} pro {0}",
+      "creation_title": "Vytvořit cíl",
+      "criticity_label": "Naléhavost",
+      "default_label": "Vytvořeno ve výchozím nastavení",
+      "description_label": "Zpráva",
+      "detail": {
+        "indication_tab": "Označení",
+        "rank_tab": "Pořadí"
+      },
+      "disable_info": "Jakmile je tento cíl archivován, již nebude možné jej znovu aktivovat. Všechny body přiřazené současným a budoucím cílům budou opět k dispozici.",
+      "disable_message": "Opravdu chcete uložit cíl {0}?",
+      "duplication": {
+        "dialog_confirmation_message": "Opravdu chcete automaticky aplikovat cíle {1} na {0}?",
+        "dialog_message": "Automaticky aplikovat cíle dalšího hráče na {0}:",
+        "dialog_title": "Nastavení cílů"
+      },
+      "edit": {
+        "all_target_label": "Použitý cíl",
+        "disable_button": "Zavřít účet",
+        "error": "Při aktualizaci cíle došlo k chybě",
+        "error_text": "Respektovat celkový cíl stanovený pro vybrané období",
+        "max_target_label": "Cíl přiřazený pro vybrané období",
+        "remaining_target_label": "Zbývající cíl",
+        "success": "Cíl byl úspěšně aktualizován",
+        "title": "Indikátory"
+      },
+      "editable_label": "Cíl upravitelný manažery",
+      "import": {
+        "condition1": "E-mail hráče",
+        "condition2": "Cíl ref",
+        "condition3": "Datum zahájení období (formát: RRRR-MM-DD 00:00:00)",
+        "condition4": "Datum ukončení období (formát: RRRR-MM-DD 23:59:59)",
+        "condition5": "Objektivní hodnota",
+        "condition6": "Pro více informací o tom, jak funguje objektivní import, kontaktujte manažera úspěchu zákazníků",
+        "error1": "Import je chybný, protože soubor nesplňuje výše uvedené omezení. Některé čočky nemusí být importovány.",
+        "error2": "Import je chybný z neznámého důvodu.",
+        "text1": "Importujte soubor CSV oddělený čárkami. Použití čárek není povoleno v hodnotách souborů.",
+        "text2": "Každý sloupec v souboru musí splňovat níže uvedené podmínky:",
+        "title": "Cíle dovozu"
+      },
+      "indication": {
+        "coaching_area": "Rady trenéra",
+        "coaching_empty_state": "Nebyla nalezena žádná rada",
+        "coaching_item_label": "Rada {0}",
+        "description_area": "Popis",
+        "level_area": "Etapy",
+        "live_info": "Pokud je povoleno, body budou účastníkům automaticky uděleny před vypršením platnosti cíle.",
+        "live_label": "Body získané přímo",
+        "period_text": "Od {0} do {1}",
+        "unit_with_symbol_text": "Jednotka: {0} ({1})",
+        "unit_without_symbol_text": "Jednotka: {0}"
+      },
+      "indication_label": "Indikace",
+      "kpi_format_label": "Formát",
+      "kpi_label": "KPI",
+      "kpi_name_label": "Název klíčového ukazatele KPI",
+      "kpi_period_label": "Období",
+      "kpi_periods_label": "Období",
+      "list": {
+        "active_tab": "Aktivní",
+        "archived_tab": "Archivováno",
+        "columns": {
+          "category": "Kategorie",
+          "default": "Výchozí",
+          "id": "Ref",
+          "name": "Jméno",
+          "periodicity": "Periodicita",
+          "target": "Roční globální cíl",
+          "type": "Cíl",
+          "unit": "Jednotka"
+        },
+        "empty_state_message": "Chcete-li zobrazit další cíle, musíte upravit všechny filtry, které mohou být použity",
+        "empty_state_title": "Nebyly nalezeny žádné cíle"
+      },
+      "live_infos": "Pokud je povoleno, body budou účastníkům automaticky uděleny před vypršením platnosti cíle.",
+      "live_label": "Body získané přímo",
+      "name_label": "Jméno",
+      "past_editable_label": "Minulý cíl upravitelný správci",
+      "period_label_long": "Období {0}: od {1} do {2}",
+      "period_label_short": "Období {0}",
+      "period_label_short2": "Z {0} na {1}",
+      "periodicity_label": "Periodicita",
+      "point_config": {
+        "allocated_points": "Celkový počet udělených bodů: ",
+        "allocated_points_year": "Počet bodů udělených za cíl roku {0}",
+        "available_points_title": "Počet bodů k dispozici: {0}",
+        "current_points_title": "Počet bodů aktuálně ve hře: {0}",
+        "errors": {
+          "archived_goal": "Archivovaný cíl",
+          "no_level_message": "Vytvořit první etapu",
+          "no_level_title": "Nebyla nalezena žádná etapa",
+          "percent_more_equal": "Procento musí být větší nebo rovno 0",
+          "percent_more_than": "Procento musí být vyšší než v předchozím stupni",
+          "points_more_equal": "Počet bodů musí být větší nebo roven 0",
+          "points_more_than": "Počet bodů musí být větší než počet předchozích etap"
+        },
+        "form": {
+          "percent": "% dosažení cíle",
+          "points": "Body"
+        },
+        "general_info_title": "Obecné informace",
+        "importance_percent": "Procento důležitosti: ",
+        "level_title": "Etapa {0}",
+        "max_points_title": "Maximální počet bodů za {0} a za období: ",
+        "remaining_points": "Zbývající celkový počet udělených bodů: ",
+        "title": "Konfigurace etap pro {0} a podle období",
+        "title_tooltip": "Počet bodů, které lze použít na {0}, od {1} během roku {2}",
+        "used_points": "Celkový počet bodů, které jsou již ve hře: "
+      },
+      "point_config_title_c": "Počet zbývajících období",
+      "point_config_title_d": "Počet zbývajících dní",
+      "point_config_title_m": "Počet zbývajících měsíců",
+      "point_config_title_q": "Počet zbývajících čtvrtletí",
+      "point_config_title_s": "Počet zbývajících pololetí",
+      "point_config_title_w": "Počet zbývajících týdnů",
+      "point_config_title_y": "Aktuální rok",
+      "point_config_tooltip_c": "aktuální období",
+      "point_config_tooltip_d": "Zbývající dny",
+      "point_config_tooltip_m": "Zbývající měsíce",
+      "point_config_tooltip_q": "zbývající čtvrtletí",
+      "point_config_tooltip_s": "zbývající pololetí",
+      "point_config_tooltip_w": "zbývající týdny",
+      "point_config_tooltip_y": "aktuální rok",
+      "rank_list": {
+        "player_column": "Hráči"
+      },
+      "repartition_label": "Distribuční metody",
+      "spreadsheet_title": "Tabulkový procesor",
+      "target_label": "Roční globální cíl",
+      "thumbnail": {
+        "collaborator_tag": "Jednotlivec",
+        "counter_text": "Dosaženo: {0}",
+        "first_rank_text": "{0}°",
+        "max_points_text": "/{0} Max",
+        "max_rank_text": "/{0}",
+        "other_period": "Od {0} do {1}",
+        "other_rank_text": "{0}°",
+        "player_text": "Počet hráčů: {0}",
+        "points_text": "Počet bodů: {0} ",
+        "quarter_period": "Čtvrtletí {0} ({1})",
+        "semester_period": "Pololetí {0}",
+        "target_text": "/Cíl: {0}",
+        "team_tag": "Tým",
+        "team_text": "tým {0}",
+        "timer_tag": "G {0}",
+        "week_period": "Týden {0} ({1})",
+        "year_period": "Rok {0}"
+      },
+      "title": "Cíle",
+      "type_label": "Typ",
+      "unit_label": "Jednotka",
+      "update_base_tab": "Základna",
+      "update_base_title": "Změnit cíl \"{0}\"",
+      "update_confirmation_message": "Opravdu chcete změnit KPI pro tento cíl? Tato změna může mít důsledky pro historické výsledky. V případě jakýchkoli dotazů nás neváhejte kontaktovat.",
+      "update_custom_tab": "Personalizace",
+      "update_readonly_title": "Zobrazit cíl „{0}“"
+    },
+    "home": {
+      "badge_link": "Odznak",
+      "category_link": "Kategorie",
+      "data_area": "Integrace a správa dat",
+      "goal_level_link": "Body",
+      "import_link": "Protokoly importu",
+      "indicator_area": "Konfigurace indikátorů",
+      "level_link": "Úroveň",
+      "logo_link": "Změnit logo",
+      "notification_link": "Správa oznámení",
+      "organization_link": "Tým/Organizace",
+      "partner_link": "Lze integrovat se softwarem třetích stran",
+      "permission_link": "Správa přístupových práv",
+      "point_link": "Obecné rozdělení bodů",
+      "report_link": "Zpráva",
+      "reward_link": "Ceny",
+      "user_area": "Uživatelé a práva",
+      "user_link": "Uživatelské předplatné",
+      "year_label": "Rok, který se má nastavit"
+    },
+    "import_log": {
+      "columns": {
+        "date": "Datum provedení",
+        "download": "Ke stažení",
+        "error_lines": "Chyba řádku",
+        "file": "Soubor",
+        "id": "Ref",
+        "state": "Stav",
+        "success_lines": "Platné řádky"
+      },
+      "data": "Výsledky",
+      "goals": "Cíle",
+      "title": "Protokoly importu",
+      "users": "Uživatelé"
+    },
+    "logo": {
+      "background_color": "Barva pozadí",
+      "colors": "Barvy",
+      "font_family": {
+        "fonts_select": "Výběr písem",
+        "title": "Písmo"
+      },
+      "primary_color": "Hlavní barva",
+      "reset_colors": "Obnovit barvy",
+      "secondary_color": "Sekundární barva",
+      "success_message": "Logo bylo aktualizováno",
+      "title": "Změna loga"
+    },
+    "logo_and_colors": {
+      "success_message": "Barvy byly úspěšně aktualizovány",
+      "title": "Změna loga a barvy"
+    },
+    "notifications_rights": {
+      "explication_badge": "konfigurace oznámení, která se odesílají při změně úrovně odznaku",
+      "explication_challenge": "konfigurace oznámení při upgradu výzev",
+      "explication_email": "E-mailová oznámení budou odeslána do vaší doručené pošty.",
+      "explication_global": "globální konfigurace oznámení",
+      "explication_in_app": " Oznámení v aplikaci budou odeslána do vaší aplikace.",
+      "explication_newsfeed": "configuration des notifications qui sont envoyées lorsque le niveau du badge change",
+      "explication_push": "Push oznámení budou odeslána do vašeho mobilního zařízení (iOS nebo Android).",
+      "explication_ranking": "konfigurace oznámení pro spolupracovníka, který se umístil na prvním místě v žebříčku výzev",
+      "explication_type": "Existují tři způsoby, jak přijímat oznámení: push, in-app, e-mail.",
+      "generals": "Generálové",
+      "global": "Global",
+      "notification_CHBU": "Upozornění, když jsou vaše výzvy aktualizovány.",
+      "notification_EWM": "Oznámení zasílané každý týden, aby se zvýšila motivace pro všechny.",
+      "notification_MNL": "Oznámení pro spolupracovníka, který projde úrovní.",
+      "notification_NECH": "Oznámení odesláno při spuštění nové výzvy",
+      "notification_NLB": "Upozornění, když dosáhnete nové úrovně odznaku",
+      "notification_NPE": "Oznámení informující, pokud oznámení nebyla přečtena.",
+      "notification_NPIN": "Notification envoyée quand le nouveau post a été créé dans le fil d'actualité",
+      "notification_NROE": "Oznámení odesláno, pokud je objednávka odměny úspěšně ověřena.",
+      "notification_RFCR": "Oznámení pro spolupracovníka, který je na prvním místě v žebříčku výzev.",
+      "notification_RFGR": "Oznámení pro zaměstnance, který je na prvním místě v celkovém žebříčku.",
+      "notification_RFR": "Oznámení pro spolupracovníka, který je na prvním místě v objektivním žebříčku.",
+      "notification_SWE": "Týdenní souhrnné oznámení.",
+      "notification_TRCR": "Oznámení pro tým, který je na prvním místě v žebříčku výzev.",
+      "notification_TRFR": "Oznámení pro tým, který je na prvním místě v žebříčku cílů.",
+      "notification_TRGR": "Oznámení pro tým, který je na prvním místě v celkovém pořadí.",
+      "notification_update_success": "Změny oznámení byly úspěšně přijaty!",
+      "remark_explication": "Poznámka:",
+      "remark_explication_checkbox": "Není-li zaškrtávací políčko aktivní, nemůžete změnit nastavení tohoto oznámení",
+      "sub_title": "Správa oznámení",
+      "title": "Moje oznámení",
+      "title_email": "Email",
+      "title_explication": "Jak být informováni:",
+      "title_in_app": "V aplikaci",
+      "title_push": "Rána"
+    },
+    "organization": {
+      "create_team_title": "Vytvoření týmu ({0})",
+      "title": "Správa organizace",
+      "update_company": "Změnit název společnosti",
+      "update_team": "Upravit tým",
+      "update_team_group": "Upravit oddělení"
+    },
+    "partner_detail_empty_connection": "Chcete-li tyto funkce používat, musíte nainstalovat Fire Tiger do zákaznické oblasti Aircall.",
+    "partner_detail_subtitle": "Lze integrovat se softwarem třetích stran",
+    "partner_list_subtitle": "Lze integrovat se softwarem třetích stran",
+    "point_config": {
+      "budget": "Rozpočet",
+      "point_rule": "Pravidlo výpočtu",
+      "total_title": "Celkové dosažitelné skóre na hráče",
+      "total_title_team": "Celkové skóre dosažitelné na tým"
+    },
+    "points": {
+      "columns": {
+        "category": "Kategorie",
+        "current_points": "Body aktuálně ve hře",
+        "custom_individual": "Individuální přizpůsobení",
+        "custom_team": "Přizpůsobení týmu",
+        "id": "Ref",
+        "name": "Název",
+        "used_points": "Body již ve hře"
+      },
+      "menu_global": "Globální",
+      "menu_individual": "Jednotlivec",
+      "menu_team": "Tým",
+      "title": "Stanovení cílových bodů"
+    },
+    "report": {
+      "columns": {
+        "category": "Kategorie",
+        "format": "Formát",
+        "format_manual": "Manuální",
+        "format_standard": "Standardní",
+        "kpi_code": "Kód KPI",
+        "kpi_name": "Název klíčového ukazatele KPI",
+        "kpi_ref": "Ref KPI",
+        "periodicity": "Aktualizace",
+        "result_unit": "Jednotka výsledku"
+      },
+      "dashboard_tab": "Řídicí panel",
+      "list_tab": "Seznam zpráv",
+      "title": "Seznam zpráv"
+    },
+    "report_details": {
+      "columns": {
+        "id": "ID"
+      },
+      "quarter_period": "Čtvrtletí {0}",
+      "semester_period": "Pololetí {0}",
+      "title": "Zpráva „{0}“",
+      "week_period": "Týden {0}"
+    },
+    "reward_category": {
+      "creation": {
+        "subtitle": "Vytvoření kategorie cen"
+      },
+      "list": {
+        "active_tab": "Aktivní",
+        "icon_column": "Ikonka",
+        "inactive_tab": "Archivováno",
+        "name_column": "Jméno",
+        "subtitle": "Konfigurace kategorií cen"
+      },
+      "update": {
+        "subtitle": "Upravit kategorii cen"
+      }
+    },
+    "title": "Správa",
+    "user": {
+      "archived_tab": "Zrušeno",
+      "creation": {
+        "password_title": "Vytvořit heslo",
+        "send_email": "Odeslání přihlašovacího e-mailu uživateli",
+        "success": "Uživatel byl úspěšně vytvořen",
+        "title": "Vytvořit uživatele"
+      },
+      "current_tab": "Probíhá",
+      "email": "E-mail",
+      "firstname": "Jméno",
+      "force_reset_password": "Vynutit změnu hesla",
+      "force_reset_password_info": "Uživatel musí při příštím přihlášení změnit své heslo",
+      "fullname": "Příjmení",
+      "id": "Ref",
+      "identifier": "Uživatelské jméno {0}",
+      "identifiers": "Uživatelská jména",
+      "import": {
+        "condition1": "Jméno: maximálně 30 znaků",
+        "condition2": "Příjmení: maximálně 150 znaků",
+        "condition3": "E-mail: Unikátní, maximálně 254 znaků",
+        "condition4": "Typ: C (hráč), M (manažer), S (Super manažer) nebo A (správce)",
+        "condition5": "Tým: Uživatelské jméno týmu (uvedeno ve formuláři pro publikování týmu)",
+        "condition6": "Heslo",
+        "condition7": "Stav: 1 (Aktivní) nebo 0 (Neaktivní)",
+        "condition8": "Posledních 5 sloupců jsou volitelná uživatelská jména",
+        "condition9": "Oddělení Super Manager: P, pokud je hlavní, jinak prázdné",
+        "error1": "Import se nezdařil, protože soubor nesplňuje výše uvedené požadavky. Někteří uživatelé možná nebyli importováni.",
+        "error2": "Import se nezdařil z neznámého důvodu.",
+        "text1": "Importujte soubor ve formátu.csv pomocí čárky jako symbolu oddělovače. Použití čárky není povoleno v hodnotách souboru.",
+        "text2": "Každý sloupec v souboru musí splňovat následující požadavky:",
+        "title": "Import uživatelů"
+      },
+      "information_title": "Informace",
+      "last_login": "Poslední přihlášení",
+      "last_login_empty": "Nikdo",
+      "lastname": "Příjmení",
+      "locale": "Jazyk",
+      "password": "Nové heslo",
+      "password_confirm": "Potvrdit heslo",
+      "password_field": "Heslo",
+      "password_info": "Heslo musí obsahovat alespoň 8 znaků, alespoň jedno malé písmeno a jedno velké písmeno, alespoň jeden speciální znak (?! &*) a číslo",
+      "profile": {
+        "no_team": "Žádný tým"
+      },
+      "role": "Funkce",
+      "search_placeholder": "Vyhledejte uživatele...",
+      "team": "Tým",
+      "title": "Správa uživatelů",
+      "type": "Typ",
+      "update": {
+        "actions_title": "Akce",
+        "allow_pending_notifications": "Povolit připomenutí e-mailovými oznámeními",
+        "create_new_password": "Poslat přihlašovací e-mail",
+        "create_new_password_success": "Přihlašovací e-mail byl úspěšně odeslán",
+        "disable_button": "Zavřít účet",
+        "enable_button": "Znovu aktivovat účet",
+        "error": "Při úpravách uživatele došlo k chybě",
+        "notifications_title": "Oznámení",
+        "password_title": "Změnit heslo",
+        "success": "Uživatel byl úspěšně upraven",
+        "title": "Úprava uživatele"
+      }
+    }
+  },
+  "aircall": {
+    "install_authorization_error": "Nemáte potřebná oprávnění",
+    "install_code_label": "Kód společnosti",
+    "install_demo_button": "Demo",
+    "install_email_label": "E-mail",
+    "install_login_error": "Přihlašovací údaje nejsou správné",
+    "install_no_customer_button_1": "Zatím ne",
+    "install_no_customer_button_2": "Zákazník Fire Tiger?",
+    "install_password_label": "Heslo",
+    "install_submit_button": "Připojit Aircall",
+    "install_title": "Připojení k Aircall",
+    "install_unknown_error": "Došlo k neznámé chybě",
+    "install_website_button": "Viz webové stránky"
+  },
+  "apptour": {
+    "title": "Prohlídka aplikace"
+  },
+  "badge": {
+    "creation": {
+      "badge_creation": "Vytvoření odznaku",
+      "error": "Při vytváření odznaku došlo k chybě",
+      "info_title": "Informace",
+      "kpi_title": "Výběr KPI odznaku",
+      "levels_title": "Konfigurace etap",
+      "participants_title": "Vybrat účastníky",
+      "success": "Odznak byl úspěšně vytvořen"
+    },
+    "level": {
+      "condition_text": "Stav: lvl {0}",
+      "counter_text": "Dosaženo: {0}",
+      "point_text": "Počet bodů: {0} ",
+      "rank_text": "Třída {0}",
+      "target_text": "Cíl: {0}"
+    },
+    "list": {
+      "completed_tab": "Získáno",
+      "current_tab": "Probíhá",
+      "empty_state_title": "Nebyly nalezeny žádné odznaky"
+    },
+    "title": "Odznak"
+  },
+  "challenge": {
+    "award_list": {
+      "add_reward": "Vytvoření odměn",
+      "collaborator_max_point_label": "Maximum na hráče",
+      "collaborator_point_label": "Výhra hráče # {0}",
+      "list_live_infos": "Pokud je aktivována, body budou účastníkům automaticky uděleny před vypršením platnosti výzvy.",
+      "list_live_label": "Body získané přímo",
+      "points_calculation_message": "Výpočet použitelných bodů...",
+      "step_point_label": "Etapa # {0}",
+      "target_label": "Skóre k dosažení",
+      "team_max_point_label": "Maximum na tým",
+      "team_point_label": "Výhra týmu # {0}",
+      "title": "Ceny",
+      "type_label": "Režim",
+      "usable_points": "Počet použitelných bodů: {0}"
+    },
+    "awards_title": "Výdělky",
+    "category_list_title": "Výběr kategorie",
+    "click_to_view_challenge": "Kliknutím sem zobrazíte výzvu",
+    "collaborators": "Počet hráčů: {0}",
+    "condition": {
+      "award_area": "Ceny za výzvu",
+      "award_points": "POČET BODŮ {0}",
+      "collaborator_max_points_label": "Maximum na hráče",
+      "collaborator_rank": "Hráč č. # {0} #",
+      "condition_area": "Indikátory",
+      "description_area": "Popis",
+      "description_label": "Popis",
+      "goal_info": "Zde nastavenou podmínku lze dosáhnout vícekrát. Pokaždé při jejím dosažení máte právo na daný počet přidružených bodů",
+      "label": "Podmínka",
+      "label_completed": "Realizováno",
+      "last_update": "Poslední aktualizace: ",
+      "last_update_time": "{0} až {1}",
+      "period": "Od {0} do {1}",
+      "point_counter": "POČET BODŮ {0}",
+      "point_target": "POČET BODŮ {0}",
+      "race_condition_goal_info": "Pokud je cíl dosažen, máte právo na 1 bod",
+      "team_group_max_points_label": "Maximum na oddělení",
+      "team_group_rank": "Oddělení # {0}",
+      "team_max_points_label": "Maximum na tým",
+      "team_rank": "Tým # {0}\n",
+      "type": "Režim: {0}"
+    },
+    "creation": {
+      "error": "Při vytváření výzvy došlo k chybě",
+      "success": "Výzva byla úspěšně vytvořena",
+      "title": "Vytvořit výzvu"
+    },
+    "delete_prompt": "Opravdu chcete tuto výzvu smazat?",
+    "delete_success": "Výzva byla úspěšně zrušena",
+    "detail": {
+      "condition_tab": "Podmínky",
+      "rank_tab": "Pořadí"
+    },
+    "duplication": {
+      "title": "Duplikovat výzvu"
+    },
+    "first_rank": "{0}°",
+    "form": {
+      "add_reward": "Přidejte odměnu",
+      "award_error": "Přidat alespoň jednu cenu",
+      "award_type_description_c": "Cena pro {2} {0}, kteří dosáhnou cílů výzvy",
+      "award_type_description_m": "Každý {1} získá počet bodů odpovídající jeho skóre, až do definovaného maximálního limitu",
+      "award_type_description_p": "Cena získaná účastníky závisí na úrovni dosaženého výkonu",
+      "award_type_description_r": "Cena za {2} {0} na konci výzvy",
+      "award_type_description_single_c": "Cena za {0} za dosažení cílů výzvy",
+      "award_type_description_single_m": "Každý {1} získá počet bodů odpovídající jeho skóre, až do definovaného maximálního limitu",
+      "award_type_description_single_p": "Cena získaná účastníky závisí na úrovni dosaženého výkonu",
+      "award_type_description_single_r": "Cena za {0} na konci výzvy",
+      "award_type_minimum_participants": "Tento režim vyžaduje minimálně {0} {1}",
+      "congratulations": "Gratulujeme 🎉!",
+      "congratulations_message": "Vaše výzva je připravena k vysílání!",
+      "enable_manager_score_label": "Zobrazit konsolidované skóre",
+      "first": "Premiéry",
+      "first_departments": "první oddělení",
+      "first_teams": "první týmy",
+      "goal_area": "Indikátory",
+      "goal_category_label": "Kategorie",
+      "goal_collaborator_editable_label": "Vstup přehrávače",
+      "goal_description_label": "Popis",
+      "goal_format_label": "Formát",
+      "goal_kpi_label": "KPI",
+      "goal_manager_editable_label": "Zadání manažera",
+      "goal_name_label": "Jméno",
+      "goal_periodicity_label": "Periodicita",
+      "goal_target_info_text": "Zde nastavenou podmínku lze dosáhnout vícekrát. Pokaždé, když je jí dosaženo, přidá se přidružený počet bodů.",
+      "goal_target_label": "Cíl",
+      "goal_target_label2": "Podmínka",
+      "goal_target_label2_race": "Cíl",
+      "goal_title": "Indikátor {0}",
+      "goal_unit_label": "Jednotka",
+      "goals": {
+        "add_button": "Přidání indikátoru",
+        "automatic": "Automatické",
+        "manual": "Ruční zadávání"
+      },
+      "indicators_title": "Konfigurace indikátorů a mechanismů výzvy",
+      "info_area": "Informace",
+      "info_award_type_label": "Režim",
+      "info_description_label": "Popis",
+      "info_end_label": "Konec",
+      "info_image_label": "Vybrat obrázek...",
+      "info_name_label": "Jméno",
+      "info_no_image_text": "Nebyl vybrán žádný obrázek",
+      "info_start_label": "Začátek",
+      "info_type_label": "Typ výzvy",
+      "infos_title": "Nastavení informací",
+      "mode": "Režim",
+      "mode_title": "Volba režimu výzvy",
+      "notify_updated_label": "Informujte účastníky o aktualizacích",
+      "participants_title": "Vybrat účastníky",
+      "rewards_title": "Vybrat odměny",
+      "soon_available": "Brzy k dispozici",
+      "step_mode_information": "Maximálně 1 cena na účastníka (vyhraná cena odpovídá ceně nejvyšší etapy)",
+      "steps": {
+        "indicators": "Indikátory a mechanismy",
+        "infos": "Informace",
+        "mode": "Režim",
+        "participant": "Účastník",
+        "participants": "Účastníci",
+        "rewards": "Ceny",
+        "validation": "Potvrdit"
+      },
+      "the_first": "První",
+      "the_first_department": "První oddělení",
+      "the_first_team": "První tým"
+    },
+    "kpi_results": {
+      "add_data": "Přidat data",
+      "add_data_button": "Přidat data",
+      "add_kpi_title": "Přidejte výsledek pro KPI",
+      "back_button": "Zpět na seznam",
+      "collaborator_new_title": "Uložení nového výsledku pro KPI",
+      "collaborator_title": "Seznam zaznamenaných výsledků pro KPI",
+      "columns": {
+        "actions": "Akce",
+        "images": "Obrázky",
+        "indications": "Indikace",
+        "result": "Výsledek",
+        "results": "Výsledky"
+      },
+      "edit_kpi_title": "Úprava výsledku pro KPI",
+      "edit_results": "Zadejte výsledky",
+      "form": {
+        "data_description": "Označení",
+        "data_description_placeholder": "Zadejte svůj text",
+        "data_image": "Vybrat soubor...",
+        "data_value": "Hodnota",
+        "data_value_placeholder": "Zadat hodnotu, kterou chcete deklarovat",
+        "file_size_error": "Velikost souboru by neměla přesáhnout 20 MB"
+      },
+      "see_more": "Vidět více",
+      "subtitle": "Aktualizace výsledků může trvat několik minut",
+      "title": "Seznam výsledků pro KPI"
+    },
+    "list": {
+      "create_button": "Vytvořit výzvu",
+      "empty_state_message": "Chcete-li zobrazit další výzvy, musíte upravit použité filtry",
+      "empty_state_title": "Nebyly nalezeny žádné výzvy"
+    },
+    "max_points": "{0} MAX",
+    "modes": {
+      "C": "Závod",
+      "M": "Maximální skóre",
+      "P": "Ložiska",
+      "R": "Pódium"
+    },
+    "modes_full": {
+      "C": "Režim závodu",
+      "M": "Režim Max skóre",
+      "P": "režim vrstev",
+      "R": "Režim pódia"
+    },
+    "no_awards_title": "Žádné výhry",
+    "other_rank": "{0}°",
+    "points": "Skóre: {0}",
+    "ranking": {
+      "collaborator_column": "Hráči",
+      "collaborator_team_column": "Tým",
+      "collaborator_team_group_column": "Oddělení",
+      "level_column": "Úroveň",
+      "points_column": "Skóre",
+      "team_column": "Tým"
+    },
+    "reward_types": {
+      "G": "Dárky",
+      "P": "Body"
+    },
+    "search_placeholder": "Vyhledejte účastníka...",
+    "share": {
+      "copy_link": "Kopírovat odkaz",
+      "copy_success": "Odkaz byl úspěšně zkopírován",
+      "teams_share": "Sdílet v týmech",
+      "title": "Sdílejte tuto výzvu"
+    },
+    "team_groups": "oddělení {0}",
+    "teams": "tým {0}",
+    "title": "Výzva",
+    "title_plural": "Výzva",
+    "types": {
+      "CC": "Individuální",
+      "CT": "Tým",
+      "TG": "Oddělení"
+    },
+    "update": {
+      "create_reward": "Vytvořit odměny",
+      "edit_participants": "Zveřejnění účastníků",
+      "title": "Upravit výzvu"
+    }
+  },
+  "chart": {
+    "collaborator_type_text": "Samostatně",
+    "counter_text": "Dosaženo: {0}",
+    "max_points_text": "/{0} max",
+    "points_text": "Počet bodů {0}",
+    "target_text": "Cíl: {0}",
+    "team_type_text": "Tým",
+    "x_legend": "Období"
+  },
+  "coaching_list": {
+    "created_success": "Karta byla úspěšně vytvořena",
+    "delete_prompt": "Opravdu chcete tuto položku odstranit?",
+    "delete_prompt2": "Po zrušení již nebude možné ji obnovit",
+    "empty_state_collaborator_message": "Zkuste to znovu později, až vám manažer poskytne podporu",
+    "empty_state_manager_message": "Vytvořte počáteční instrukce pro svého hráče",
+    "empty_state_title": "Nebyly nalezeny žádné pokyny",
+    "end_label": "Datum skončení platnosti",
+    "state": {
+      "archived": "Archivováno",
+      "done": "Hotovo",
+      "in_progress": "Probíhající",
+      "pending": "Čekání"
+    },
+    "title": "Seznam koučování",
+    "title_placeholder": "Zadat název této karty",
+    "updated_success": "Karta byla úspěšně aktualizována"
+  },
+  "collaborator": {
+    "badge_empty_title": "Žádné dosažené odznaky",
+    "dashboard": "Můj řídicí panel",
+    "detail": {
+      "badge_area": "Odznak",
+      "badge_rank": "Třída {0}",
+      "empty_state_title": "Nejsou k dispozici žádné údaje",
+      "info_area": "Obecné informace",
+      "info_current_level": "{0} ",
+      "info_current_level_max": "/{0} BODŮ",
+      "info_first_rank_text": "{0}°",
+      "info_max_level": "Maximální dosažená úroveň",
+      "info_next_level": "Úroveň {0}",
+      "info_other_rank_text": "{0}°",
+      "info_total_points": "POČET BODŮ {0}",
+      "info_victories": "{0} výhra/y",
+      "password_button": "Upravit profil"
+    },
+    "reward_order": {
+      "erase_cart_warning": "Jste si jisti, že chcete přidat tuto novou odměnu?",
+      "erase_cart_warning2": "Tato akce vynuluje váš košík, který je aktuálně přiřazen jinému hráči.",
+      "summary_points_area": "Objednávka celkem",
+      "summary_points_area_year": "Rok {0}",
+      "summary_rewards_area": "Objednávka č. {0} z {1}",
+      "summary_title": "Shrnutí objednávky",
+      "tracking": {
+        "email_column": "E-mail",
+        "id_column": "Ref",
+        "name_column": "Jméno",
+        "order_date_column": "Datum objednávky",
+        "sub_header_pending_tab": "Probíhá",
+        "sub_header_validated_tab": "K vyřízení",
+        "sub_header_validated_title": "Stav objednávky",
+        "sub_header_waiting_tab": "Potvrzeno",
+        "team_column": "Tým",
+        "validated_points_column": "Použité body",
+        "validation_date_column": "Datum potvrzení",
+        "value_column": "Celková částka",
+        "waiting_points_column": "Body k ověření"
+      },
+      "validation": {
+        "error": "Při potvrzení objednávky došlo k chybě",
+        "points_area": "Celková objednávka",
+        "points_area_year": "Rok {0}",
+        "rewards_area": "Objednávka č. {0} z {1}",
+        "success": "Objednávka byla úspěšně potvrzena",
+        "title": "Potvrdit objednávku"
+      }
+    },
+    "title": "Hráči",
+    "update": {
+      "title": "Upravit profil"
+    }
+  },
+  "common": {
+    "add": "Přidat",
+    "archive": "Archivovat",
+    "cache_warning": "Aktualizace dat může trvat až 5 minut",
+    "cancel": "Vrátit zpět",
+    "close": "Zavřít",
+    "collaborator": "Hráč",
+    "collaborators": "Hráči",
+    "create": "Vytvořit",
+    "create_error_message": "Během vytváření došlo k chybě",
+    "create_success_message": "Vytvoření bylo úspěšné",
+    "csv_export": "Export do formátu CSV",
+    "date": "Datum",
+    "delete": "Smazat",
+    "delete_error_message": "Při mazání došlo k chybě",
+    "delete_success_message": "Úspěšně smazáno",
+    "duplicate": "Duplikovat",
+    "edit": "Upravit",
+    "edit_participants": "Upravit účastníky",
+    "erase": "Vymazat",
+    "error_page_message": "Chcete-li problém vyřešit, můžete aktualizovat aplikaci",
+    "error_page_title": "Došlo k chybě",
+    "excel_export": "Exportovat jako XLS",
+    "export": "Exportovat",
+    "form": {
+      "collaborator_points_valid": "Součet bodů přesahuje maximální počet bodů",
+      "decreasing_rewards": "Ceny se musí snižovat",
+      "email_error": "Neplatný e-mail.",
+      "has_digit_character": "Vyžaduje se alespoň jedno číslo",
+      "has_less_characters_than": "Požadováno méně než {0} znaků",
+      "has_lowercase_character": "Vyžaduje se alespoň jedno malé písmeno",
+      "has_more_characters_than": "Vyžaduje se minimálně {0} znaků",
+      "has_special_character": "Vyžaduje se alespoň jeden speciální znak",
+      "has_uppercase_character": "Vyžaduje se alespoň jedno velké písmeno",
+      "increasing_rewards": "Ceny se musí zvyšovat",
+      "increasing_scores": "Skóre, kterých má být dosaženo, se musí zvyšovat",
+      "is_int_error": "Hodnota musí být celé číslo.",
+      "is_more_than_or_equals_0_error": "Hodnota musí být větší nebo rovna 0.",
+      "max_length_128_error": "Hodnota musí být menší než 128 znaků.",
+      "numeric_error": "Hodnota musí být číslo",
+      "password_not_match_error": "Hesla se neshodují.",
+      "required_error": "Toto pole je povinné."
+    },
+    "gift": "Dárek",
+    "home": "Dashboard",
+    "import": "Importovat",
+    "level": "Úroveň",
+    "next": "Další",
+    "no": "Ne",
+    "ok": "OK",
+    "player": "Hráč",
+    "players": "Hráči",
+    "points": "Body",
+    "previous": "Předchozí",
+    "publish": "Zveřejnit",
+    "refresh_button": "Aktualizovat aplikaci",
+    "report": "Nahlásit",
+    "rich_text_placeholder": "Zadejte svůj text...",
+    "search_placeholder": "Hledat...",
+    "see_more": "Viz více",
+    "select": "Vybrat",
+    "selection": "Výběr",
+    "share": "Sdílet",
+    "submit": "Potvrdit",
+    "team": "Tým",
+    "team_group": "Oddělení",
+    "team_groups": "Oddělení",
+    "teams": "Tým",
+    "update_app_prompt_message": "Aktualizujte aplikaci a pokračujte v používání",
+    "update_app_prompt_title": "K dispozici je nová verze",
+    "update_error_message": "Během úpravy došlo k chybě",
+    "update_success_message": "Změny byly úspěšně provedeny",
+    "yes": "Ano"
+  },
+  "contact": {
+    "evolution_form_message_label": "Zpráva",
+    "evolution_form_submit_button": "Odeslat",
+    "evolution_form_title": "Vyplňte tento formulář a požádejte o upgrade",
+    "form_type_evolution_option": "Požádat o upgrade",
+    "form_type_incident_option": "Nahlásit problém",
+    "form_type_label": "Důvod",
+    "incident_form_title": "Vyplňte tento formulář a nahlaste svůj problém",
+    "question": "Jak vám můžeme pomoci?",
+    "title": "Pomoc"
+  },
+  "data_tables": {
+    "body": {
+      "noMatch": "Nebyly nalezeny žádné odpovídající položky",
+      "toolTip": "Objednávka"
+    },
+    "filter": {
+      "all": "Všechno",
+      "reset": "Resetovat",
+      "title": "Filtry"
+    },
+    "pagination": {
+      "pageOf": "ve",
+      "rowsPerPage": "Řádky na stránku"
+    },
+    "toolbar": {
+      "downloadCsv": "Ke stažení",
+      "filterTable": "Filtrovat",
+      "print": "Vytisknout",
+      "search": "Hledat",
+      "viewColumns": "Sloupce"
+    },
+    "viewColumns": {
+      "title": "Zobrazit sloupce"
+    }
+  },
+  "filter": {
+    "all_category_label": "Všechny kategorie",
+    "all_option_f": "Vše",
+    "all_periods_label": "Všechna období",
+    "all_team_group_label": "Všechna oddělení",
+    "all_team_label": "Všechny týmy",
+    "category_all_option": "Tutte",
+    "category_label": "Kategorie",
+    "collaborator_all_option": "Všichni",
+    "collaborator_label": "Hráč",
+    "end_label": "Datum ukončení",
+    "global_chip": "Globální",
+    "goal_label": "Cíl",
+    "my_team_label": "Můj tým",
+    "period_all_option": "Všichni",
+    "period_label": "rok",
+    "start_label": "Datum zahájení",
+    "submit_button": "Filtrovat",
+    "team_all_option": "Všichni",
+    "team_group_label": "Oddělení",
+    "team_label": "Tým",
+    "time": {
+      "current": "Probíhá",
+      "next": "Budoucí",
+      "previous": "Předchozí"
+    },
+    "title": "Filtry",
+    "type_label": "Režim"
+  },
+  "game": {
+    "title": "Hra"
+  },
+  "game_rules": {
+    "code_embed": "Zadejte kód EMBED z videa (v případě potíží konzultujte nápovědu Objow):",
+    "link_url": "Zadejte adresu URL odkazu:",
+    "site_url": "Zadejte adresu URL webu:",
+    "title": "Pravidla hry",
+    "typeform_url": "Zadejte adresu URL Typeform:"
+  },
+  "kpi": {
+    "criticity": {
+      "high": "Vysoká",
+      "low": "Nízká",
+      "medium": "Střední"
+    },
+    "periodicity": {
+      "C": "Vlastní",
+      "D": "Denně",
+      "M": "Měsíční",
+      "Q": "Čtvrtletně",
+      "S": "Pololetně",
+      "W": "Týdenní",
+      "Y": "ROČNÍK",
+      "goal_custom": "Definováno v cíli"
+    }
+  },
+  "levels": {
+    "columns": {
+      "citation": "Citace",
+      "icon": "Icona",
+      "level": "Úroveň",
+      "name": "Jméno",
+      "percent": "% hráčů",
+      "points": "Body, které mají být dosaženy"
+    },
+    "list_title": "Seznam úrovní"
+  },
+  "login": {
+    "code_label": "Kód společnosti",
+    "code_placeholder": "Zadat kód vaší společnosti",
+    "create_password_company_code_invalid": "Zadaný kód společnosti není platný. Zadejte firemní kód zaslaný v uvítacím e-mailu",
+    "create_password_error": "Tento odkaz již není platný. Odeslat nový požadavek na obnovení hesla",
+    "create_password_invalid": "Tento odkaz není platný",
+    "create_password_missing_user": "Tento odkaz neodpovídá žádnému uživateli nebo již byl použit",
+    "create_password_outdated": "Tento odkaz již není platný. Odeslat nový požadavek na obnovení hesla",
+    "create_password_password_invalid": "Neplatné heslo",
+    "create_password_submit": "Vytvořit heslo",
+    "create_password_success": "Vaše heslo bylo úspěšně vytvořeno",
+    "create_password_title": "Vytvořte si heslo",
+    "description_line1": "Gamifikované řešení",
+    "description_line2": "monitorování a animace",
+    "description_line3": "výkonnosti",
+    "email_label": "E-mail",
+    "email_placeholder": "Zadejte svou e-mailovou adresu",
+    "error": "Přihlašovací údaje nejsou správné",
+    "error_company_code": "Zadaný kód společnosti není platný",
+    "force_reset_password_message": "Platnost vašeho hesla vypršela, musíte si vybrat nové, abyste chránili svůj účet",
+    "force_reset_password_title": "Změňte své heslo",
+    "password_label": "Heslo",
+    "reset_password": "Zapomněl/a jsem heslo",
+    "reset_password_cancel": "Vraťte se na přihlašovací stránku",
+    "reset_password_confirm_error": "Tento odkaz již není platný. Odeslat nový požadavek na obnovení hesla",
+    "reset_password_confirm_success": "Vaše heslo bylo úspěšně resetováno",
+    "reset_password_error": "S touto e-mailovou adresou nebyl nalezen žádný účet",
+    "reset_password_submit": "Resetovat heslo",
+    "reset_password_success": "Byl vám zaslán e-mail s odkazem na obnovení hesla",
+    "reset_password_title": "Zapomenuté heslo",
+    "sso_dialog_title": "Připojení SSO",
+    "sso_error_message": "SSO není nakonfigurován. Kontaktujte správce Firetiger",
+    "sso_submit_button": "nebo se spojte s SSO",
+    "store_message_1": "Aplikace Fire Tiger je k dispozici pro iPhone a Android.",
+    "store_message_2": "Stáhněte si ji nyní:",
+    "submit_button": "Přihlásit",
+    "title": "Přihlášení"
+  },
+  "menu": {
+    "admin_button": "Správa",
+    "administrator_label": "Správce",
+    "help_button": "Pomoc",
+    "infos_button": "Mé údaje",
+    "level_label": "Úroveň {0}",
+    "logout_button": "Odhlášení",
+    "manager_label": "Manažer",
+    "notifications_button": "Oznámení",
+    "points_label": "POČET BODŮ {0}",
+    "rules_button": "Pravidla hry"
+  },
+  "newsfeed": {
+    "all_roles": "Všechny role",
+    "comment_action": "Komentování",
+    "comment_creation_success": "Vaše recenze byla vytvořena",
+    "comment_delete_success": "Váš komentář byl úspěšně odstraněn",
+    "comment_placeholder": "Napište svůj komentář zde",
+    "comment_update_success": "Vaše recenze byla úspěšně aktualizována",
+    "comments": "Komentáře",
+    "edit_post_title": "Upravit příspěvek",
+    "embed_prompt": "Zde vložte adresu URL pro vložení videa",
+    "empty_state_message": "Vytvořte svůj první příspěvek",
+    "empty_state_title": "Nebyly nalezeny žádné příspěvky",
+    "for_everybody": "Všichni",
+    "like": "líbí se mi to",
+    "likes_list_title": "Reakce",
+    "new_post_title": "Nový příspěvek",
+    "no_more_posts": "Konec zpravodajského kanálu",
+    "post_content_placeholder": "Sem napište svůj text",
+    "post_creation_success": "Váš příspěvek byl úspěšně vytvořen",
+    "post_delete_success": "Váš příspěvek byl úspěšně smazán",
+    "post_placeholder": "Vytvořit nový příspěvek",
+    "post_report_success": "Vaše zpráva byla vzata v úvahu",
+    "post_settings": "Nastavení publikování",
+    "post_update_success": "Váš příspěvek byl úspěšně aktualizován",
+    "post_visibility_role_tooltip": "Viditelné podle: {0}",
+    "reply": "Odpovědět",
+    "reported_comment": "Nahlášená připomínka",
+    "reported_post": "Ohlášené zveřejnění",
+    "see_less": "... zobrazit méně",
+    "see_more": "... zobrazit více",
+    "share_button": "Sdílet s",
+    "title": "Zpravodajský kanál",
+    "video_size_error": "Velikost videa ({0}) nesmí překročit 50 MB",
+    "who_can_see_your_post": "Kdo může vidět váš příspěvek?"
+  },
+  "notification": {
+    "date": {
+      "days": "{0} g",
+      "hours": "{0} h",
+      "minutes": "{0} min"
+    },
+    "empty_message": "Žádné obdržené oznámení"
+  },
+  "organization_menu": {
+    "hide": "Skrýt",
+    "show": "Zobrazit"
+  },
+  "point_summary": {
+    "orders_button": "Objednávky, které mají být potvrzeny",
+    "panopli_button": "Přístup do obchodu",
+    "panopli_error": "V obchodě nebyl nalezen žádný účet",
+    "points_label": "Celkový počet bodů",
+    "points_value": "{0}Pts",
+    "title": "Obecné informace",
+    "usable_points_label": "Bodový zůstatek",
+    "usable_points_value": "{0}Pts",
+    "used_points_label": "Celkový počet použitých bodů",
+    "used_points_value": "{0}Pts",
+    "validated_values_label": "Celková použitá hodnota",
+    "validated_values_value": "{0} €",
+    "waiting_points_label": "Body čekající na ověření",
+    "waiting_points_value": "{0}Pts"
+  },
+  "ranking": {
+    "challenges_title": "Výzva",
+    "collaborator_category_title": "Individuální pořadí",
+    "collaborator_challenge_title": "Pořadí individuálních výzev",
+    "collaborator_general_title": "Celkové pořadí jednotlivců",
+    "collaborator_tab": "Individuální",
+    "columns": {
+      "collaborator": "Hráči",
+      "name": "Jméno",
+      "team": "Tým"
+    },
+    "empty_state_title": "Žádné pořadí není k dispozici",
+    "general_title": "Celkové pořadí",
+    "owner_title": "Moje pořadí",
+    "team_category_title": "Pořadí týmů",
+    "team_challenge_title": "Pořadí týmových výzev",
+    "team_general_title": "Celkové pořadí týmu",
+    "team_tab": "Tým",
+    "title": "Pořadí"
+  },
+  "reward": {
+    "creation": {
+      "error": "Při vytváření ceny došlo k chybě",
+      "subtitle": "Vytvořit cenu",
+      "success": "Cena byla úspěšně vytvořena"
+    },
+    "detail": {
+      "delivery_mode_text": "Způsob dopravy: {0}",
+      "delivery_place_text": "Místo: {0}",
+      "delivery_time_text": "Předpokládaná doba dodání: {0}",
+      "description_area": "Popis",
+      "image_close_button": "Zavřít",
+      "operation_step_1_description": "Zkontrolujte a potvrďte objednávku. Správci vaší společnosti bude poté zasláno oznámení, které je informuje o vaší žádosti.",
+      "operation_step_1_title": "Když kliknete na tlačítko Přidat",
+      "operation_step_2_description": "Vaše objednávka čeká na zpracování/potvrzení. Body použité v době objednávky budou odečteny z vašeho zůstatku bodů.",
+      "operation_step_2_title": "Čekající objednávka",
+      "operation_step_3_description": "Správce vaší společnosti přebírá vaši objednávku. Po ověření a faktuře dodavatelem budou vaše body trvale odečteny z vašeho zůstatku bodů.",
+      "operation_step_3_title": "Probíhá objednávka",
+      "operation_step_4_description": "Vaše cena se blíží! Budete informováni správcem vaší společnosti. Vaše cena bude stanovena a bude podléhat příspěvkům zaplaceným zaměstnavatelem a/nebo zaměstnancem.",
+      "operation_step_4_number": "Dodání",
+      "operation_step_4_title": "Objednávka byla odeslána",
+      "operation_title": "Jak to funguje?",
+      "value_text": "Hodnota: {0} €"
+    },
+    "duplication": {
+      "title": "Duplikovat cenu"
+    },
+    "edit": {
+      "title": "Upravit cenu"
+    },
+    "form": {
+      "category_label": "Kategorie",
+      "delivery_area": "Dodání",
+      "delivery_mode_label": "Způsob doručení",
+      "delivery_place_label": "Místo",
+      "delivery_time_label": "Dodací lhůty",
+      "description_label": "Popis",
+      "empty_image_text": "Nebyl vybrán žádný obrázek",
+      "image_label": "Vybrat obrázek...",
+      "infos_area": "Informace",
+      "name_label": "Jméno",
+      "points_label": "Počet potřebných bodů",
+      "type_label": "Typ",
+      "value_label": "Hodnota",
+      "value_suffix_label": "€"
+    },
+    "image_input_infos": "Obraz se přizpůsobí a změní podle velikosti použité obrazovky. Doporučený formát obrazu pro optimální prohlížení je 1024x700.",
+    "management": {
+      "collaborator_selector_area": "Vybrat hráče",
+      "collaborator_tab": "Hráči",
+      "team_selector_area": "Vybrat tým",
+      "team_tab": "Tým",
+      "title": "Správa cen"
+    },
+    "order_item_list": {
+      "close_button": "Pokračovat v nakupování",
+      "empty_text": "Prázdné",
+      "points_value": "{0}Pts",
+      "quantity_label": "Množství",
+      "value_label": "Hodnota"
+    },
+    "order_list_export": {
+      "title": "Exportovat potvrzené objednávky"
+    },
+    "order_summary": {
+      "cart_points_label": "Celkem v košíku",
+      "confirm_order_message": "Po potvrzení již nebude možné objednávku zrušit, body budou odstraněny z vašeho zůstatku bodů a hodnota objednávky bude deklarována a podléhá příspěvkům zaplaceným zaměstnavatelem a/nebo zaměstnancem.",
+      "confirm_order_title": "Potvrzujete objednávku počtu bodů: {0} v hodnotě {1} €?",
+      "confirm_refuse_message": "Po odmítnutí již nebude možné jej znovu aktivovat, body budou obnoveny v zůstatku dostupných bodů. Bude vaší odpovědností informovat uživatele o důvodu odmítnutí.",
+      "confirm_refuse_title": "Opravdu chcete odmítnout objednávku číslo {0} s celkovým počtem bodů {1} v hodnotě {2} €?",
+      "confirm_validate_message": "Po potvrzení již nelze objednávku zrušit, body budou odečteny z dostupného bodového zůstatku a hodnota této objednávky bude stanovena a bude podléhat příspěvkům zaplaceným zaměstnavatelem a/nebo zaměstnancem.",
+      "confirm_validate_title": "Opravdu chcete potvrdit objednávky č. {0} pro celková počet bodů: {1} v hodnotě: {2} €?",
+      "order_button": "Objednávka",
+      "order_points_label": "Celková objednávka",
+      "order_points_value": "Počet bodů: {0} ",
+      "order_value_label": "Celková hodnota",
+      "recipient_points_label": "Aktuální zůstatek bodů",
+      "recipient_points_value": "Počet bodů: {0} ",
+      "refuse_button": "Odmítnout",
+      "remaining_points_label": "Zbývající zůstatek bodu",
+      "remaining_points_value": "Počet bodů: {0} "
+    },
+    "point_tag": "POČET BODŮ {0}",
+    "settings": {
+      "collaborator_reward_activation_option": "Aktivovat „týmové ceny“",
+      "manager_reward_creation": "Umožnit manažerům objednávat odměny",
+      "manager_reward_notification": "Upozorňovat manažery e-mailem na objednávky hráčů jejich týmu.",
+      "team_reward_activation_option": "Aktivovat „týmové“ ceny"
+    },
+    "shopping_cart": {
+      "adding_confirmation_close_button": "Pokračovat v nakupování",
+      "adding_confirmation_message": "Právě jste přidali tento produkt do košíku:",
+      "adding_confirmation_shopping_cart_button": "Do košíku",
+      "points_area": "Celkem v košíku",
+      "points_area_year": "Rok {0}",
+      "rewards_area": "Můj košík",
+      "success": "Vaše objednávka byla přijata"
+    },
+    "sort_by": "Seřadit podle",
+    "sort_options": {
+      "asc": "Zvýšení počtu bodů",
+      "desc": "Klesající počet bodů"
+    },
+    "store": {
+      "empty_state_message": "Chcete-li zobrazit více cen, musíte upravit všechny filtry, které mohou být použity ",
+      "empty_state_title": "Nebyla nalezena žádná cena"
+    },
+    "title": "Ceny"
+  },
+  "roles": {
+    "A": "Správce",
+    "C": "Hráč",
+    "M": "Manažer",
+    "S": "Super manažer"
+  },
+  "statistics": {
+    "category_title": "Vybrat kategorii",
+    "empty_state_message": "Chcete-li zobrazit další statistiky, musíte upravit všechny filtry.",
+    "empty_state_title": "Nebyly nalezeny žádné statistiky",
+    "title": "Statistiky"
+  },
+  "team": {
+    "collaborators_text": "Počet hráčů: {0}",
+    "detail": {
+      "collaborators_text": "Počet hráčů: {0}",
+      "manager_text": "Od {0} {1}",
+      "no_manager_text": "Žádný manažer",
+      "points_text": "POČET BODŮ {0}",
+      "victories_text": "Počet výher: {0}"
+    },
+    "empty_state_message": "Týmy ještě nebyly vytvořeny",
+    "empty_state_title": "Nebyl nalezen žádný tým",
+    "form": {
+      "collaborator": "Hráč {0}",
+      "collaborators": "Hráči",
+      "color": "Barva",
+      "id": "Uživatelské jméno",
+      "manager": "Manažer",
+      "name": "Jméno",
+      "parent": "Oddělení nadřazené skupiny"
+    },
+    "group_collaborators_text": "Manažeři {0}",
+    "group_team_groups_text": "Počet oddělení: {0}",
+    "group_teams_text": "tým {0}",
+    "manager_text": "Od {0} {1}",
+    "no_manager_text": "Žádný manažer",
+    "title": "Tým",
+    "title_singular": "Tým"
+  },
+  "team_group": {
+    "form": {
+      "super_manager": "Super manažer",
+      "user": "Uživatel {0}",
+      "users": "Uživatelé"
+    },
+    "thumbnail": {
+      "hide_children": "Skrýt {0} týmy/ů",
+      "hide_children_team_group": "Skrýt {0} oddělení",
+      "show_children": "Zobrazit {0} týmy/ů",
+      "show_children_team_group": "Zobrazit {0} oddělení"
+    },
+    "title_singular": "Oddělení"
+  },
+  "transfer_list": {
+    "participants": "Účastníci",
+    "selection": "K dispozici",
+    "submit_selection": "Ověření výběru"
+  },
+  "widget": {
+    "activity": {
+      "inactive_profiles": "Neaktivní profily",
+      "info_text": "Zde najdete seznam lidí, kteří jsou ve vašich týmech neaktivní déle než 3 měsíce."
+    },
+    "badge": {
+      "count1": "Máte",
+      "count2": "Probíhající",
+      "without_count": "Zobrazit odznaky zaměstnanců"
+    }
+  }
+}
