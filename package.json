@@ -95,7 +95,7 @@
     "prebuild:local": "npm run generate-build-meta",
     "prebuild:dev": "npm run generate-build-meta",
     "prebuild:external": "npm run generate-build-meta",
-    "generate-build-meta": "react-clear-cache/bin/cli.js",
+    "generate-build-meta": "npx react-clear-cache",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
