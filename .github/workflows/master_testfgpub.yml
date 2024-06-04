@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - testfgpub
+name: Build and deploy Create React App to Azure Web App - testfgpub
 
 on:
   push:
@@ -24,20 +24,23 @@ jobs:
       - name: Install Yarn
         run: npm install -g yarn
 
-      - name: Install dependencies, build, and test
-        run: |
-          yarn install
-          yarn build
-          yarn test
+      - name: Install dependencies
+        run: yarn install
 
-      - name: Zip artifact for deployment
-        run: zip -r release.zip build
+      - name: Build the application
+        run: yarn build
 
-      - name: Upload artifact for deployment job
+      - name: Run tests
+        run: yarn test
+
+      - name: Zip build artifact
+        run: zip -r build.zip build
+
+      - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
-          name: node-app
-          path: release.zip
+          name: build-artifact
+          path: build.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,15 +50,15 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Download artifact from build job
+      - name: Download build artifact
         uses: actions/download-artifact@v3
         with:
-          name: node-app
+          name: build-artifact
 
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
+      - name: Unzip build artifact
+        run: unzip build.zip
 
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
