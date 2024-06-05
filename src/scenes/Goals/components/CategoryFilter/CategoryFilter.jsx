@@ -74,12 +74,13 @@ class GoalFilter extends Component {
     const { account } = this.props.accountDetail;
     const { period: currentPeriod } = this.props.currentPeriodDetail;
     const { periods: previousPeriods } = this.props.previousPeriodList;
-    const { teams } = this.props.teamList;
+    const teams = this.props.teamList.teams.filter((team) => !team.custom);
     const selectedTeam = this.state.team
       ? teams.filter((team) => team.id == this.state.team)[0]
       : null;
     const collaborators = selectedTeam ? selectedTeam.collaborators : null;
     const periods = [currentPeriod].concat(previousPeriods);
+    const teamsList = teams.filter((team) => !team.custom);
 
     return (
       <Grid container spacing={2}>
@@ -88,7 +89,7 @@ class GoalFilter extends Component {
             <Select
               name="team"
               label={intl.formatMessage({ id: 'filter.team_label' })}
-              options={teams}
+              options={teamsList}
               optionValueName="id"
               optionTextName="name"
               fullWidth

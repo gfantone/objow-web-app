@@ -111,7 +111,6 @@ class ChallengeHome extends MainLayoutComponent {
         />
       );
     }
-
     return (
       <Redirect
         to={`/challenges/team/${_.get(account, 'team.id') || this.state.team}${

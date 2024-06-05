@@ -5,6 +5,7 @@ export * from "./ThemeWrapper";
 export * from "./Common";
 export * from "./I18n";
 export * from "./Kpis";
+export * from "./Layouts";
 export * from "./Goals";
 export * from "./Ranks";
 export * from "./Teams";

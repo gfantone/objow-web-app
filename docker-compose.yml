@@ -1,9 +1,15 @@
-version: '3'
 services:
-  react-app:
+  objow-web-app:
+    container_name: objow-web-app
     build: .
     ports:
-      - "3000:3000"
+      - "${OBJOW_WEB_APP_PORT}:${OBJOW_WEB_APP_PORT}"
     volumes:
       - .:/app
       - /app/node_modules
+    networks:
+      - objow-network
+
+networks:
+  objow-network:
+    external: true

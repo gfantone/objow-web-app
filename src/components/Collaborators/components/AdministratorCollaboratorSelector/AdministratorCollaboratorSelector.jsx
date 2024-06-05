@@ -130,7 +130,12 @@ const AdministratorCollaboratorSelector = ({
                   sm={6}
                   md={4}
                   lg={3}
-                  onClick={() => props.onClickCollaborator(collaborator)}
+                  onClick={() => {
+                    if (collaborator?.team?.id) {
+                      setTeam(collaborator.team.id)
+                    }
+                    props.onClickCollaborator(collaborator)
+                  }}
                 >
                   <Collaborator
                     key={collaborator.id}

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { connect } from 'react-redux';
-import { Grid } from '@material-ui/core';
+import {Dialog, Grid, IconButton} from '@material-ui/core';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import { Awards, Goals, Infos, AwardType } from './components';
 import {
@@ -14,13 +14,40 @@ import {
   Tooltip,
   BigText,
   ErrorText,
-  Loader,
+  Loader, AccentText, DefaultTitle, Button, DialogTitle, DialogActions, TextField, Collaborator,
 } from '../../../../components';
 import * as Resources from '../../../../Resources';
-import { faInfoCircle, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {faArrowDown, faArrowUp, faExchangeAlt, faInfoCircle, faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useIntl } from 'react-intl';
 import _ from 'lodash';
+import {TeamPersonalizedList} from "../TeamPersonalizedList";
+import {ChallengeSearchBar} from "../ChallengeSearchBar";
+import Formsy from "formsy-react";
+import { withStyles } from '@material-ui/core/styles';
+const styles = (theme) => {
+  return {
+    teamDialog: {
+      width: "90%",
+      "& .MuiFormControlLabel-root": {
+        marginLeft: 0,
+      },
+    },
+    itemIcon: {
+      position: 'relative',
+      left: '50%',
+      top: '-25px',
+      marginTop: '-10px',
+      zIndex: 40,
+    },
+    addIcon: {
+      color: theme.palette.primary.main,
+    },
+    deleteIcon: {
+      color: '#E50000',
+    },
+  }
+};
 
 const ChallengeFormStepper = ({
   actionLoading,
@@ -57,9 +84,12 @@ const ChallengeFormStepper = ({
   awardError,
   dupplication,
   participantsChoiceExpanded,
+  onPersonalizedTeamOpen,
+  onUpdateTeam,
   ...props
 }) => {
   const intl = useIntl();
+  const { classes } = props;
   const id = challenge.id || null;
   const name = challenge.name || null;
   const description = challenge.description || null;
@@ -84,7 +114,7 @@ const ChallengeFormStepper = ({
   var finalTypes = types;
   const { account } = props.accountDetail;
 
-  const isTeamGroupType = typeObject && typeObject.code === 'TG';
+  const isTeamGroupType = typeObject && (typeObject.code === 'TG' || typeObject.code === 'TP');
   const isMobile = isWidthDown('xs', props.width);
 
   const typesData = {
@@ -132,6 +162,10 @@ const ChallengeFormStepper = ({
     setStart(newStart);
   }
 
+  function handleUpdateTeam(teamId) {
+    onUpdateTeam(teamId);
+  }
+
   function handleTypeChange(newType) {
     setParticipants([], () => {
       setType(Number(newType));
@@ -155,7 +189,7 @@ const ChallengeFormStepper = ({
             {!!(participants || !dupplication) && (
               <React.Fragment>
                 <Grid item xs={12}>
-                  <Grid container justify='center'>
+                  <Grid container justifyContent='center' spacing={4} alignItems='center'>
                     <Grid item xs={4}>
                       {(typeId || !dupplication) && (
                         <Select
@@ -186,6 +220,13 @@ const ChallengeFormStepper = ({
                         />
                       )}
                     </Grid>
+                    {_.get(typeObject, 'code') === 'TP' && (
+                      <Grid item style={{ paddingTop: '30px' }}>
+                        <IconButton size="small" onClick={onPersonalizedTeamOpen}>
+                          <FontAwesomeIcon icon={faPlus} className={classes.addIcon} />
+                        </IconButton>
+                      </Grid>
+                    )}
                   </Grid>
                 </Grid>
                 {type && (
@@ -194,39 +235,42 @@ const ChallengeFormStepper = ({
                       <TransferList
                         listIn={teamGroup}
                         teamGroupMode={_.get(typeObject, 'code') === 'TG'}
+                        teamPersonalizedMode={_.get(typeObject, 'code') === 'TP'}
+                        noSelection={_.get(typeObject, 'code') === 'TP'}
                         enableCollaboratorSelect={
-                          _.get(typeObject, 'code') === 'CC'
+                          _.get(typeObject, 'code') === 'CC' || _.get(typeObject, 'code') === 'TP'
                         }
                         enableTeamSelect={_.includes(
-                          ['CC', 'CT'],
+                          ['CC', 'CT', 'TP'],
                           _.get(typeObject, 'code')
                         )}
                         onChange={setParticipants}
                         selected={participants}
                         defaultChoicesExpanded={participantsChoiceExpanded}
+                        onUpdateTeam={handleUpdateTeam}
                       />
                     </Card>
+                    {/*)}*/}
                   </Grid>
                 )}
               </React.Fragment>
             )}
 
             {!(participants && participants.length > 0) && dupplication && (
-              <Loader centered />
+              <Loader centered/>
             )}
           </Grid>
         </Grid>
       );
       break;
     case 2:
-      title = intl.formatMessage({ id: 'challenge.form.mode_title' });
+      title = intl.formatMessage({id: 'challenge.form.mode_title'});
       const participantsNumber = _.includes(
-        ['CC', 'TG'],
+        ['CC', 'TG', 'TP'],
         _.get(typeObject, 'code')
       )
         ? participants.length
         : _.uniq(participants.map((p) => p.team)).length;
-
       fields = (
         <Grid item xs={12}>
           <AwardType
@@ -274,6 +318,7 @@ const ChallengeFormStepper = ({
         <Grid item xs={12}>
           <Goals
             categories={categories}
+            challengeTypeCode={typeCode}
             goals={goals}
             kpis={kpis}
             units={units}
@@ -430,4 +475,6 @@ const mapStateToProps = ({ accountDetail }) => ({
   accountDetail,
 });
 
-export default connect(mapStateToProps)(withWidth()(ChallengeFormStepper));
+export default connect(
+  mapStateToProps
+)(withStyles(styles)(withWidth()(ChallengeFormStepper)));

@@ -10,7 +10,12 @@ function* updateNotificationList(action) {
   try {
     yield all(
       action.notifications.map((notification) =>
-        call(api.notifications.update, notification.id, notification.value)
+        call(
+          api.notifications.update,
+          notification.id,
+          notification.value,
+          notification.inactivity_days
+        )
       )
     );
     yield put(updateNotificationListSuccess());

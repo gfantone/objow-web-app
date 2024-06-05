@@ -26,4 +26,5 @@ export * from './CollaboratorChallengeCurrentRank';
 export * from './ImageInput';
 export * from './TeamChallengeRankList';
 export * from './TeamGroupChallengeRankList';
+export * from './TeamPersonalizedList';
 export * from './TimeFilter';

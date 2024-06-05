@@ -21,8 +21,8 @@ const UpdateMobileAppModal = () => {
       />
       <div
         style={{
-          position: 'absolute',
-          bottom: 20,
+          position: 'fixed',
+          bottom: '50%',
           left: '50%',
           transform: 'translateX(-50%)',
           width: '80vw',

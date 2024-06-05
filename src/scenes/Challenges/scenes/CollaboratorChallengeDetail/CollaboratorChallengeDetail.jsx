@@ -329,7 +329,7 @@ class CollaboratorChallengeDetail extends MainLayoutComponent {
         );
         window.location.reload();
       } else if (team) {
-        if (summary.typeCode == 'CT') {
+        if (summary.typeCode == 'CT' || summary.typeCode == 'TP') {
           this.props.history.replace(`/challenges/detail/team/${summary.id}`);
         } else {
           this.props.history.replace(

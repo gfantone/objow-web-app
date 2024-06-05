@@ -161,6 +161,14 @@ const Challenge = ({
         </span>
       ),
     },
+    TP: {
+      rank: (
+        <span>
+          <span style={{ fontWeight: "bold" }}>{challenge.participants}</span>{" "}
+          {intl.formatMessage({ id: "challenge.teams" }).format("")}
+        </span>
+      ),
+    },
     CC: {
       rank: (
         <span>

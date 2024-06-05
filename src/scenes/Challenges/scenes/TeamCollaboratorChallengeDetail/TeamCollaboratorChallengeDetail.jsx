@@ -395,7 +395,7 @@ class TeamCollaboratorChallengeDetail extends MainLayoutComponent {
           `/challenges/detail/collaborator/${summary.id}`
         );
       } else if (team) {
-        if (summary.typeCode == 'CT') {
+        if (summary.typeCode == 'CT' || summary.typeCode == 'TP') {
           this.props.history.replace(`/challenges/detail/team/${summary.id}`);
         } else {
           this.props.history.replace(

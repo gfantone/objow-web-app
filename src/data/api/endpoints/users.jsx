@@ -60,6 +60,7 @@ const users = {
         force_reset_password: user.force_reset_password,
         citation: user.citation,
         title: user.title,
+        is_fictive: user.is_fictive,
       }
     );
   },

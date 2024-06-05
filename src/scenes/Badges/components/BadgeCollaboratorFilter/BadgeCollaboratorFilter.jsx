@@ -241,7 +241,7 @@ class BadgeCollaboratorFilter extends Component {
   renderData() {
     const { intl } = this.props;
     const { account } = this.props.accountDetail;
-    const { teams, loading } = this.props.teamList;
+    const teams = this.props.teamList.teams.filter((team) => !team.custom);
     const { categories } = this.props.categoryList;
     const { period: currentPeriod } = this.props.currentPeriodDetail;
     const { periods: previousPeriods } = this.props.previousPeriodList;

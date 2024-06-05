@@ -400,6 +400,15 @@ class AdminUserUpdate extends MainLayoutComponent {
                                 />
                               </div>
                             )}
+                            <Grid>
+                              <Checkbox
+                                name='is_fictive'
+                                label={intl.formatMessage({
+                                  id: 'account.fictional_user',
+                                })}
+                                value={user.is_fictive || false}
+                              />
+                            </Grid>
                           </Grid>
                         </Grid>
                       </Card>

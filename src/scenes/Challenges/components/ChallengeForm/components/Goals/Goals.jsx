@@ -25,6 +25,7 @@ const Goals = ({
   goals,
   kpis,
   units,
+  challengeTypeCode,
   goalAdding,
   onGoalAdded,
   addGoal,
@@ -115,6 +116,7 @@ const Goals = ({
                 <Goal
                   key={goal.key}
                   categories={categories}
+                  challengeTypeCode={challengeTypeCode}
                   deletionDisabled={deletionDisabled}
                   goal={goal}
                   index={index}

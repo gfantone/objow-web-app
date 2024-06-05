@@ -69,6 +69,14 @@ const teamGroups = {
     if (type != null) url = `${url}&type=${type}`;
     return instance.get(url);
   },
+  teamPersonalizedChallenges(id, time, year, start, end, type) {
+    var url = `${baseUrl}${id}/team-personalized-challenges/?time=${time}`;
+    if (year != null) url = `${url}&year=${year}`;
+    if (start != null) url = `${url}&start=${start.toUTCJSON()}`;
+    if (end != null) url = `${url}&end=${end.toUTCJSON()}`;
+    if (type != null) url = `${url}&type=${type}`;
+    return instance.get(url);
+  },
 
   create(teamGroup) {
     return instance.post(baseUrl, teamGroup);

@@ -175,40 +175,41 @@ const Participants = ({
       return (
         <Grid item xs={12} sm={root ? 6 : 12}>
           <ExpansionPanel className={classes.panel}>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              className={classes.panelSummary}
+            { challengeTypeCode !== 'TP' && (<ExpansionPanelSummary
+                expandIcon={challengeTypeCode === 'TP' ? null : <ExpandMoreIcon />}
+                className={classes.panelSummary}
             >
               <Grid container>
                 <Grid item xs={12}>
                   <Card className={classes.thumbnail}>
                     {participantsByParent[parentKey].type === 'team' ? (
-                      <TeamNode
-                        team={Object.assign(
-                          {},
-                          participantsByParent[parentKey].team,
-                          {
-                            collaborators:
-                              participantsByParent[parentKey].children,
-                          }
-                        )}
-                        hideAvatars
-                      />
+                        <TeamNode
+                            team={Object.assign(
+                                {},
+                                participantsByParent[parentKey].team,
+                                {
+                                  collaborators:
+                                  participantsByParent[parentKey].children,
+                                }
+                            )}
+                            hideAvatars
+                        />
                     ) : (
-                      <TeamGroup
-                        team={Object.assign(
-                          {},
-                          participantsByParent[parentKey].teamGroup,
-                          { teams: nestedTeams }
-                        )}
-                        hideTeamGroupUsers
-                        teamNumber
-                      />
+                        <TeamGroup
+                            team={Object.assign(
+                                {},
+                                participantsByParent[parentKey].teamGroup,
+                                { teams: nestedTeams }
+                            )}
+                            hideTeamGroupUsers
+                            teamNumber
+                        />
                     )}
                   </Card>
                 </Grid>
               </Grid>
-            </ExpansionPanelSummary>
+            </ExpansionPanelSummary>)}
+
             <ExpansionPanelDetails className={classes.panelDetails}>
               {_.isArray(participantsByParent[parentKey].children) ? (
                 <Grid container spacing={2}>

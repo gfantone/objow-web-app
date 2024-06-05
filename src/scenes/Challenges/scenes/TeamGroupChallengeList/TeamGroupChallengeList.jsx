@@ -29,10 +29,10 @@ import * as configListActions from '../../../../services/Configs/ConfigList/acti
 import * as teamGroupBasedChallengeListActions from '../../../../services/TeamGroupBasedChallenges/TeamGroupBasedChallengeList/actions';
 import * as teamChallengeListActions from '../../../../services/TeamChallenges/TeamChallengeList/actions';
 import * as teamCollaboratorChallengeListActions from '../../../../services/TeamCollaboratorChallenges/TeamCollaboratorChallengeList/actions';
-import * as challengeParticipantListActions from '../../../../services/ChallengeParticipants/ChallengeParticipantList/actions';
 import api from '../../../../data/api/api';
 import '../../../../helpers/StringHelper';
 import _ from 'lodash';
+import * as teamPersonalizedChallengeListActions from '../../../../services/TeamPersonalizedChallenges/TeamPersonalizedChallengeList/actions';
 
 const styles = {
   iconMargin: {
@@ -147,6 +147,14 @@ class TeamGroupChallengeList extends MainLayoutComponent {
         end,
         type
       );
+      this.props.teamPersonalizedChallengeListActions.getTeamPersonalizedChallengeListByTeamGroup(
+        id,
+        time,
+        year,
+        start,
+        end,
+        type
+      );
     }
   }
 
@@ -204,6 +212,7 @@ class TeamGroupChallengeList extends MainLayoutComponent {
     this.props.teamChallengeListActions.getTeamChallengeListClear();
     this.props.teamGroupBasedChallengeListActions.getTeamGroupBasedChallengeListClear();
     this.props.teamCollaboratorChallengeListActions.getTeamCollaboratorChallengeListClear();
+    this.props.teamPersonalizedChallengeListActions.getTeamPersonalizedChallengeListClear();
   }
 
   handleFilterChange(team, collaborator, year, start, end, type, teamGroup) {
@@ -268,15 +277,16 @@ class TeamGroupChallengeList extends MainLayoutComponent {
     const teamIds = _.get(account, 'team.id')
       ? [_.get(account, 'team.id')]
       : _.get(account, 'team_group.allTeamIds');
-    return challenges;
+
     return challenges.filter((challenge) => {
       const includesManagerTeam =
         account.team &&
         challenge.participantTeamIds.indexOf(account.team.id) >= 0;
       return (
         includesManagerTeam ||
+        challenge.typeCode === 'TP' ||
         ((account.role.code === 'A' || account.role.code === 'S') &&
-          challenge.participantTeamIds.indexOf(parseInt(teamId)) >= 0)
+          _.intersection(challenge.participantTeamIds, teamIds).length >= 0)
       );
     });
   };
@@ -285,13 +295,18 @@ class TeamGroupChallengeList extends MainLayoutComponent {
     const { challenges: teamGroupChallenges } =
       this.props.teamGroupBasedChallengeList;
     const { challenges: teamChallenges } = this.props.teamChallengeList;
+    const { challenges: teamPersonalizedChallenges } =
+      this.props.teamPersonalizedChallengeList;
     const { challenges: collaboratorChallenges } =
       this.props.teamCollaboratorChallengeList;
 
     const challenges = _.sortBy(
       this.mergeChallenges(
-        this.mergeChallenges(collaboratorChallenges, teamChallenges),
-        teamGroupChallenges
+        this.mergeChallenges(
+          this.mergeChallenges(collaboratorChallenges, teamChallenges),
+          teamGroupChallenges
+        ),
+        teamPersonalizedChallenges
       ),
       (c) => c.sort_order,
       (c) => (this.page === 1 ? -c.end : c.end),
@@ -327,6 +342,8 @@ class TeamGroupChallengeList extends MainLayoutComponent {
               let detailurl = '';
               if (challenge.typeCode === 'CT') {
                 detailurl = `/challenges/detail/team-group/${challenge.id}`;
+              } else if (challenge.typeCode === 'TP') {
+                detailurl = `/challenges/detail/team/${challenge.id}`;
               } else if (challenge.typeCode === 'TG') {
                 detailurl = `/challenges/detail/team-group-based/${challenge.id}`;
               } else {
@@ -378,11 +395,16 @@ class TeamGroupChallengeList extends MainLayoutComponent {
       challenges: collaboratorChallenges,
       loading: teamCollaboratorChallengeListLoading,
     } = this.props.teamCollaboratorChallengeList;
+    const {
+      challenges: teamPersonalizedChallenges,
+      loading: teamPersonalizedChallengeListLoading,
+    } = this.props.teamPersonalizedChallengeList;
     const { configs, loading: configLoading } = this.props.configList;
     const loading =
       teamChallengeListLoading ||
       teamGroupChallengeListLoading ||
       teamCollaboratorChallengeListLoading ||
+      teamPersonalizedChallengeListLoading ||
       configLoading;
 
     const { account } = this.props.accountDetail;
@@ -393,14 +415,19 @@ class TeamGroupChallengeList extends MainLayoutComponent {
 
     let hasChallenges = false;
 
-    if (teamChallenges && collaboratorChallenges && teamGroupChallenges) {
+    if (
+      teamChallenges &&
+      collaboratorChallenges &&
+      teamGroupChallenges &&
+      teamPersonalizedChallenges
+    ) {
       hasChallenges =
         this.getChallengeList(
           this.mergeChallenges(
             this.mergeChallenges(teamChallenges, collaboratorChallenges),
             teamGroupChallenges
           )
-        ).length > 0;
+        ).length > 0 || teamPersonalizedChallenges.length > 0;
     }
 
     return (
@@ -410,6 +437,7 @@ class TeamGroupChallengeList extends MainLayoutComponent {
           collaboratorChallenges &&
           teamChallenges &&
           teamGroupChallenges &&
+          teamPersonalizedChallenges &&
           configs &&
           this.renderData(hasChallenges)}
         {this.state.filterOpen && (
@@ -435,12 +463,14 @@ const mapStateToProps = ({
   teamChallengeList,
   teamCollaboratorChallengeList,
   teamGroupBasedChallengeList,
+  teamPersonalizedChallengeList,
 }) => ({
   accountDetail,
   configList,
   teamGroupBasedChallengeList,
   teamChallengeList,
   teamCollaboratorChallengeList,
+  teamPersonalizedChallengeList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -455,6 +485,10 @@ const mapDispatchToProps = (dispatch) => ({
   ),
   teamCollaboratorChallengeListActions: bindActionCreators(
     teamCollaboratorChallengeListActions,
+    dispatch
+  ),
+  teamPersonalizedChallengeListActions: bindActionCreators(
+    teamPersonalizedChallengeListActions,
     dispatch
   ),
 });

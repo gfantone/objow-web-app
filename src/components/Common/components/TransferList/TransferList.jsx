@@ -1,4 +1,4 @@
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {faEdit, faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   ExpansionPanel,
@@ -18,17 +18,24 @@ import {
   DefaultTitle,
   TeamGroup,
   TeamThumb,
-  DefaultText,
+  DefaultText, Avatar,
 } from '../../..';
 import { ChallengeSearchBar } from '../../../../scenes/Challenges/components';
 
 import _ from 'lodash';
+import {Tag} from "../../../Teams/components/TeamThumb/components";
 
 const styles = (theme) => {
   return {
     thumbnail: {
       borderRadius: 20,
       zIndex: 10,
+    },
+    teamWrapper: {
+      // width: '100%',
+      flexWrap: 'nowrap',
+      minWidth: '100%',
+      // overflow: 'hidden',
     },
     title: {
       fontSize: 17,
@@ -68,6 +75,9 @@ const styles = (theme) => {
       // zIndex: 10
     },
     addIcon: {
+      color: theme.palette.primary.main,
+    },
+    editIcon: {
       color: theme.palette.primary.main,
     },
     deleteIcon: {
@@ -247,11 +257,16 @@ const ExpandableTeamCollaborators = ({
   whiteList,
   selectItem,
   removeItem,
+  selectedPersonalizedIds,
+  teamPersonalizedMode,
+  noSelection,
   selectedListIds,
   choiceKey,
   collaborators,
 }) => {
   const [expanded, setExpanded] = useState(whiteList);
+  collaborators = collaborators || [];
+  displayedCollaborators = displayedCollaborators || [];
   const offsetClass = `offsetIcon${collaborators.length.toString().length}`;
   return (
     <ExpansionPanel
@@ -268,7 +283,8 @@ const ExpandableTeamCollaborators = ({
           <Grid container key={choiceKey}>
             {displayedCollaborators.map((collaborator, collaboratorKey) => {
               const isCollaboratorSelected =
-                selectedListIds.indexOf(collaborator.id) >= 0;
+                selectedListIds.indexOf(collaborator.id) >= 0
+                || (selectedPersonalizedIds && selectedPersonalizedIds.indexOf(collaborator.id) >= 0);
 
               return (
                 <Grid
@@ -285,7 +301,7 @@ const ExpandableTeamCollaborators = ({
                     collaborator={collaborator}
                     noAnimation
                   />
-                  {whiteList ? (
+                  {whiteList && !noSelection && (
                     <IconButton
                       size='small'
                       onClick={() => removeItem(collaborator)}
@@ -296,7 +312,8 @@ const ExpandableTeamCollaborators = ({
                         className={classes.deleteIcon}
                       />
                     </IconButton>
-                  ) : (
+                  )}
+                  {!whiteList && !noSelection && (
                     <IconButton
                       size='small'
                       onClick={() => selectItem(collaborator)}
@@ -325,10 +342,14 @@ const TransferList = ({
   enableCollaboratorSelect,
   enableTeamSelect,
   teamGroupMode,
+  selectedPersonalizedIds,
+  teamPersonalizedMode,
+  noSelection,
   defaultChoicesExpanded,
   onSearch,
   maxHeight,
   enableSearch,
+  onUpdateTeam,
   ...props
 }) => {
   const intl = useIntl();
@@ -352,8 +373,19 @@ const TransferList = ({
             0) ||
         _.get(account, 'role.code') === 'A'
     );
+  const filterCollaboratorsTeamPersonalizedByScope = (teams) => {
+    let collabs = []
+    teams.forEach(
+      (t) => {
+        collabs = collabs.concat(t.collaborators)
+      }
+    );
+    return collabs
+  }
   const [selectedByScope, setSelectedByScope] = useState(
-    filterCollaboratorsByScope(selectedList)
+    (teamPersonalizedMode && noSelection)
+    ? filterCollaboratorsTeamPersonalizedByScope(selectedList)
+    : filterCollaboratorsByScope(selectedList)
   );
 
   const allCollaborators = _.flatten(teams.map((t) => t.collaborators));
@@ -410,7 +442,18 @@ const TransferList = ({
 
   document.addEventListener('click', handleClickOutside, true);
 
-  const selectedListIds = selectedList.map((c) => c.id);
+  let selectedListIds = []
+  if (!teamPersonalizedMode || !noSelection) {
+    selectedListIds = selectedList.map((c) => c.id)
+  } else {
+    selectedList.forEach((t) => {
+      if (t.collaborators && t.collaborators.length > 0) {
+        t.collaborators.forEach((c) => {
+          selectedListIds.push(c.id)
+        })
+      }
+    })
+  }
 
   const selectedWholeTeams = teams
     .filter(
@@ -435,7 +478,7 @@ const TransferList = ({
     );
 
   const selectItem = (item) => {
-    if (_.indexOf(selectedList, item) < 0) {
+    if (_.indexOf(selectedList, item) < 0 && selectedPersonalizedIds.indexOf(item.id) < 0) {
       setSelectedList([item, ...selectedList]);
     }
   };
@@ -456,6 +499,17 @@ const TransferList = ({
 
   const addList = (items) => {
     setSelectedList(_.uniqBy([...items, ...selectedList], 'id'));
+  };
+
+  const removeItemPersonalized = (item) => {
+    let teams = []
+    selectedList.forEach((team) => {
+      if (team.collaborators && (team.collaborators.length - 1) > 0) {
+        team.collaborators = team.collaborators.filter((selectedItem) => selectedItem.id !== item.id);
+      }
+      teams.push(team);
+    })
+    setSelectedList(teams);
   };
 
   const removeItem = (item) => {
@@ -547,7 +601,7 @@ const TransferList = ({
                 }`}
               >
                 <TeamThumb team={team} />
-                {whiteList ? (
+                {whiteList && !noSelection && (
                   <IconButton
                     size='small'
                     onClick={() => removeList(choice.collaborators)}
@@ -558,7 +612,8 @@ const TransferList = ({
                       className={classes.deleteIcon}
                     />
                   </IconButton>
-                ) : (
+                )}
+                {!whiteList && !noSelection && (
                   <IconButton
                     size='small'
                     onClick={() => addList(choice.collaborators)}
@@ -576,13 +631,90 @@ const TransferList = ({
                   displayedCollaborators={displayedCollaborators}
                   defaultTeamExpanded={defaultTeamExpanded}
                   whiteList={whiteList}
+                  selectedPersonalizedIds={selectedPersonalizedIds}
                   selectItem={selectItem}
                   removeItem={removeItem}
+                  teamPersonalizedMode={teamPersonalizedMode}
+                  noSelection={noSelection}
                   selectedListIds={selectedListIds}
                   choiceKey={choiceKey}
                   collaborators={choice.collaborators}
                 />
               )}
+            </div>
+          </div>
+        );
+      })}
+    </React.Fragment>
+  );
+
+  const displayTeamPersonalizedChoices = (teamPersonalizedList) => (
+    <React.Fragment>
+      {teamPersonalizedList.map((team, teamKey) => {
+        const displayedCollaborators = team.collaborators
+
+        return (
+          <div className={classes.panelWrapper}>
+            <div style={{position: 'static'}}>
+              <div
+                className={`${classes.item}`}
+              >
+                <Card className={classes.thumbnail}>
+                  <Grid container spacing={2} className={classes.teamWrapper}>
+                    <Grid item xs={9} container alignItems='flex-start' justify='left'>
+                      <Grid item xs={12} zeroMinWidth>
+                        <Grid container justifyContent='space-between'>
+                          <Grid item>
+                            <DefaultTitle
+                              style={{
+                                textAlign: 'left',
+                                fontWeight: 'bold',
+                                textTransform: 'none',
+                                fontSize: 16,
+                              }}
+                            >
+                              {team.name}
+                            </DefaultTitle>
+                          </Grid>
+                          <Grid item>
+                            <IconButton
+                              size='small'
+                              onClick={() => onUpdateTeam(teamKey)}
+                              className={classes.itemIcon}
+                            >
+                              <FontAwesomeIcon
+                                icon={faEdit}
+                                className={classes.editIcon}
+                              />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid
+                        item
+                        style={{ borderRadius: 5, overflow: 'hidden', height: 18 }}
+                      >
+                        <Tag className={classes.tag} color='#f2f5fc'>
+                          <span style={{ color: '#43586c' }}>{intl
+                            .formatMessage({ id: 'team.collaborators_text' })
+                            .format((team.collaborators) ? team.collaborators.length : 0)}</span>
+                        </Tag>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Card>
+              </div>
+              <ExpandableTeamCollaboratorsWithStyle
+                displayedCollaborators={displayedCollaborators}
+                defaultTeamExpanded={defaultTeamExpanded}
+                whiteList={true}
+                selectItem={() => {}}
+                removeItem={removeItemPersonalized}
+                teamPersonalizedMode={true}
+                selectedListIds={[]}
+                choiceKey={teamKey}
+                collaborators={team.collaborators}
+              />
             </div>
           </div>
         );
@@ -684,7 +816,7 @@ const TransferList = ({
                         teamNumber
                         image={teamGroup.parent ? null : logo}
                       />
-                      {whiteList ? (
+                      {(whiteList && !noSelection) && (
                         <IconButton
                           size='small'
                           onClick={() =>
@@ -710,7 +842,8 @@ const TransferList = ({
                             className={classes.deleteIcon}
                           />
                         </IconButton>
-                      ) : (
+                      )}
+                      {!whiteList && !noSelection && (
                         <IconButton
                           size='small'
                           onClick={() =>
@@ -938,7 +1071,7 @@ const TransferList = ({
                       ? intl.formatMessage({ id: 'common.collaborators' })
                       : intl.formatMessage({ id: 'common.teams' })}{' '}
                     {intl.formatMessage({ id: 'transfer_list.selection' })}
-                    {enableCollaboratorSelect && (
+                    {enableCollaboratorSelect && !noSelection && (
                       <span>
                         {' '}
                         (
@@ -973,32 +1106,41 @@ const TransferList = ({
               </Grid>
               <Grid item xs={12} sm={6} container direction='column'>
                 <Grid item>
-                  <DefaultTitle className={classes.title}>
-                    {intl.formatMessage({ id: 'transfer_list.participants' })} (
-                    {selectedByScope.length})
-                    {parseInt(counterDiff) !== 0 && (
-                      <span
-                        style={{
-                          display: 'inline-block',
-                          marginLeft: 5,
-                        }}
-                        className={`${
-                          animation ? classes.animatedCounter : null
-                        } ${
-                          counterDiff < 0
-                            ? classes.negativeColor
-                            : classes.activeColorPrimary
-                        }`}
-                      >
+                  { !teamPersonalizedMode && (
+                    <DefaultTitle className={classes.title}>
+                      {intl.formatMessage({ id: 'transfer_list.participants' })} (
+                      {selectedByScope.length})
+                      {parseInt(counterDiff) !== 0 && (
+                        <span
+                          style={{
+                            display: 'inline-block',
+                            marginLeft: 5,
+                          }}
+                          className={`${
+                            animation ? classes.animatedCounter : null
+                          } ${
+                            counterDiff < 0
+                              ? classes.negativeColor
+                              : classes.activeColorPrimary
+                          }`}
+                        >
                         {counterDiff > 0 && '+'}
-                        {counterDiff}
+                          {counterDiff}
                       </span>
-                    )}
-                  </DefaultTitle>
+                      )}
+                    </DefaultTitle>
+                  )}
+                  { teamPersonalizedMode && (
+                    <DefaultTitle className={classes.title}>
+                      {intl.formatMessage({ id: 'transfer_list.participants' })}
+                    </DefaultTitle>
+                  )}
                 </Grid>
                 <Grid xs item className={classes.boxWrapper}>
                   {teamGroupMode
                     ? displaySelectedTeamGroups()
+                    : teamPersonalizedMode && noSelection
+                    ? displayTeamPersonalizedChoices(selectedList)
                     : displayTeamGroupChoices(choices, true)}
                 </Grid>
               </Grid>

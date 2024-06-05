@@ -2,10 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 import { Awards, Goals, Infos, Participants, Options } from './components';
-import { ProgressButton, ErrorText } from '../../../../components';
+import {
+  ProgressButton,
+  ErrorText,
+  DefaultTitle,
+  IconButton as MenuIconButton,
+  Loader,
+  Card, TeamGroup, TransferList
+} from '../../../../components';
 import * as Resources from '../../../../Resources';
 import { useIntl } from 'react-intl';
 import _ from 'lodash';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {withStyles} from "@material-ui/core/styles";
+
+const styles = (theme) => {
+  return {
+    activeColorPrimary: {
+      color: theme.palette.primary.main,
+    },
+  };
+};
 
 const ChallengeForm = ({
   actionLoading,
@@ -26,12 +44,18 @@ const ChallengeForm = ({
   onGoalAdded,
   addGoal,
   teams,
+  teamGroup,
+  setParticipantsPerso,
+  onUpdateTeamPerso,
+  onPersonalizedTeamOpen,
+  classes,
   setConfigRewardOpen,
   rewardImages,
   rewardCategories,
   handleChangeParticipants,
   setParticipantsEditOpen,
   newParticipants,
+  participantsPersonalized,
   awardError,
   setNewKpiOpen,
   ...props
@@ -57,11 +81,41 @@ const ChallengeForm = ({
   const awards = challenge ? challenge.awards : [];
   const goals = challenge ? challenge.goals : null;
   const live = challenge ? challenge.live : null;
-  const participants = challenge ? challenge.participants : null;
+
+  const getTeamPersonalizedByCollaboratorList = (allTeamsChallenge) => {
+    let teamsPerso = []
+    if (allTeamsChallenge) {
+      allTeamsChallenge.forEach((teamPerso) => {
+        let collaborators = [];
+        teams.forEach((team) => {
+          if (team.collaborators) {
+            team.collaborators.forEach((c) => {
+              if (teamPerso.collaborator_ids.indexOf(c.id) >= 0) {
+                collaborators.push(c);
+              }
+            })
+          }
+        })
+        teamPerso.collaborators = collaborators;
+        teamsPerso.push(teamPerso);
+      })
+    }
+    setParticipantsPerso(teamsPerso, () => {
+      return participantsPersonalized;
+    })
+  };
+
+  let participants = null;
+  if (typeCode === 'TP') {
+    participants = participantsPersonalized ? participantsPersonalized
+      : challenge && challenge.participants ? getTeamPersonalizedByCollaboratorList(challenge.participants) : null;
+  } else {
+    participants = challenge ? challenge.participants : null;
+  }
   var finalTypes = types;
   const { account } = props.accountDetail;
 
-  const isTeamGroupType = typeObject && typeObject.code === 'TG';
+  const isTeamGroupType = typeObject && (typeObject.code === 'TG'  || typeObject.code === 'TP');
 
   const typesData = {
     R: {
@@ -115,6 +169,10 @@ const ChallengeForm = ({
     setEnd(newEnd);
   }
 
+  function handleUpdateTeamPerso(teamId) {
+    onUpdateTeamPerso(teamId);
+  }
+
   function handleStartChange(newStart) {
     setStart(newStart);
   }
@@ -150,6 +208,7 @@ const ChallengeForm = ({
           <Goals
             categories={categories}
             goals={goals}
+            challengeTypeCode={typeCode}
             kpis={kpis}
             units={units}
             goalAdding={goalAdding}
@@ -199,20 +258,89 @@ const ChallengeForm = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <Participants
-            participants={newParticipants || participants}
-            teams={teams}
-            handleChangeParticipants={handleChangeParticipants}
-            setParticipantsEditOpen={setParticipantsEditOpen}
-            challengeTypeCode={_.get(typeObject, 'code')}
-          />
+          { typeCode !== 'TP' && (
+            <Participants
+              participants={newParticipants || participants}
+              teams={teams}
+              handleChangeParticipants={handleChangeParticipants}
+              setParticipantsEditOpen={setParticipantsEditOpen}
+              challengeTypeCode={_.get(typeObject, 'code')}
+            />
+          )}
+          { typeCode === 'TP' && (
+            <div>
+              <Grid container spacing={1}>
+                <Grid item xs={12}>
+                  <Grid container spacing={2}>
+                    <Grid item>
+                      <DefaultTitle isContrast>
+                        {intl.formatMessage({
+                          id: 'challenge.form.steps.participants',
+                        })}
+                      </DefaultTitle>
+                    </Grid>
+                    <Grid item>
+                      <DefaultTitle>
+                        <MenuIconButton
+                          size={'small'}
+                          onClick={onPersonalizedTeamOpen}
+                          style={{
+                            marginTop: '-4px',
+                            fontSize: '18px',
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faPlus}
+                            className={classes.activeColorPrimary}
+                          />
+                        </MenuIconButton>
+                      </DefaultTitle>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                  <Grid container spacing={2}>
+                    {(!participants || participants.length === 0) && (
+                      <Grid item xs={12}>
+                        <Loader centered/>
+                      </Grid>
+                    )}
+                    {participants && participants.length > 0 && (
+                        <Grid item xs={12}>
+                          <Card>
+                            <TransferList
+                              listIn={teamGroup}
+                              teamGroupMode={_.get(typeObject, 'code') === 'TG'}
+                              teamPersonalizedMode={_.get(typeObject, 'code') === 'TP'}
+                              noSelection={_.get(typeObject, 'code') === 'TP'}
+                              enableCollaboratorSelect={
+                                _.get(typeObject, 'code') === 'CC' || _.get(typeObject, 'code') === 'TP'
+                              }
+                              enableTeamSelect={_.includes(
+                                ['CC', 'CT', 'TP'],
+                                _.get(typeObject, 'code')
+                              )}
+                              onChange={setParticipantsPerso}
+                              selected={participants}
+                              defaultChoicesExpanded={false}
+                              onUpdateTeam={handleUpdateTeamPerso}
+                            />
+                          </Card>
+                          {/*)}*/}
+                        </Grid>
+                    )}
+                  </Grid>
+                </Grid>
+              </Grid>
+            </div>
+          )}
         </Grid>
 
         <Grid item xs={12}>
           <ProgressButton
             centered
             loading={actionLoading}
-            text={intl.formatMessage({ id: 'common.submit' })}
+            text={intl.formatMessage({id: 'common.submit'})}
             type='submit'
           />
         </Grid>
@@ -221,8 +349,8 @@ const ChallengeForm = ({
   );
 };
 
-const mapStateToProps = ({ accountDetail }) => ({
+const mapStateToProps = ({accountDetail}) => ({
   accountDetail,
 });
 
-export default connect(mapStateToProps)(ChallengeForm);
+export default connect(mapStateToProps)(withStyles(styles)(ChallengeForm));

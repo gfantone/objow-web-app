@@ -322,6 +322,7 @@ const initialState = {
   teamChallengeGoalList: { goals: null, loading: false, hasError: false },
   teamChallengeList: { challenges: null, loading: false, hasError: false },
   teamChallengeRankList: { ranks: null, loading: false, hasError: false },
+  teamPersonalizedChallengeList: { challenges: null, loading: false, hasError: false },
   teamGroupBasedChallengeGoalList: {
     goals: null,
     loading: false,

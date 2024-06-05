@@ -8,7 +8,8 @@
     "title_label": "Titre du profil",
     "title_label_pseudo": "Pseudo",
     "password_label": "Nouveau mot de passe",
-    "confirm_password_label": "Confirmation du mot de passe"
+    "confirm_password_label": "Confirmation du mot de passe",
+    "fictional_user": "utilisateur fictif"
   },
   "aircall": {
     "install_title": "Connexion avec Aircall",
@@ -91,10 +92,11 @@
       "remark_explication": "Remarque:",
       "remark_explication_checkbox": "Si la case à cocher n'est pas active, vous ne pouvez pas modifier les paramètres de cette notification",
       "explication_challenge": "configuration des notifications lors de la mise à niveau des challenges",
-      "explication_badge": "сonfiguration des notifications qui sont envoyées en cas de changement dans le fil d'actualité.",
-      "explication_newsfeed": "configuration des notifications qui sont envoyées lorsque le niveau du badge change",
+      "explication_newsfeed": "сonfiguration des notifications qui sont envoyées en cas de changement dans le fil d'actualité.",
+      "explication_badge": "configuration des notifications qui sont envoyées lorsque le niveau du badge change",
       "explication_ranking": "configuration des notifications pour le collaborateur classé premier au classement du challenge",
       "explication_global": "configuration globale des notifications",
+      "no_notifications": "pas des notifications",
       "notification_CHBU": "Notification lorsque vos challenges sont mis à jour.",
       "notification_NLB": "Notification lorsque vous atteignez un nouveau niveau de badge.",
       "notification_RFR": "Notification pour le collaborateur qui passe premier au classement de l'objectif.",
@@ -110,6 +112,8 @@
       "notification_NROE": "Notification envoyée si la commande de récompense est validée avec succès.",
       "notification_NECH": "Notification envoyée quand un nouveau challenge commence",
       "notification_NPIN": "Notification envoyée quand le nouveau post a été créé dans le fil d'actualité",
+      "notification_UINC": "Notification envoyée si l'user ne s'est pas connecté depuis X jours. (X-personnalisable)",
+      "notification_NLP": "Notification envoyée quand un user/equipe franchit un palier d'un challenge de mode palier.",
       "notification_update_success": "Modifications des notifications acceptées avec succès !"
     },
     "aircall": {
@@ -602,7 +606,8 @@
     "types": {
       "CT": "Équipe",
       "CC": "Individuel",
-      "TG": "Département"
+      "TG": "Département",
+      "TP": "Équipe personnalisée"
     },
     "reward_types": {
       "P": "Points",
@@ -1166,6 +1171,11 @@
     "no_manager_text": "Aucun manager",
     "empty_state_title": "Aucune équipe trouvée",
     "empty_state_message": "Les équipes n'ont pas encore été créées",
+    "perso": {
+      "list_title": "Liste des équipes personnalisées",
+      "creation_title": "Création d'une équipe personnalisée",
+      "edition_title": "Édition d'une équipe personnalisée"
+    },
     "form": {
       "id": "Identifiant",
       "name": "Nom",

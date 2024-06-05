@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 const ChallengeType = ({ type }) => {
-  const icon = type != 'CT' ? faUser : faUsers;
+  const icon = type != 'CT' && type != 'TP' ? faUser : faUsers;
 
   return (
     <div>

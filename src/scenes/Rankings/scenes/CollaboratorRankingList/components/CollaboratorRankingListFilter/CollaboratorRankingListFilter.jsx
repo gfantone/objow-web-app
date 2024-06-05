@@ -91,7 +91,7 @@ class CollaboratorRankingListFilter extends Component {
   renderData() {
     const { intl } = this.props;
     const { account } = this.props.accountDetail;
-    const { teams } = this.props.teamList;
+    const teams = this.props.teamList.teams.filter((team) => !team.custom);
     const { period: currentPeriod } = this.props.currentPeriodDetail;
     const { periods: previousPeriods } = this.props.previousPeriodList;
     const selectedTeam = this.state.team

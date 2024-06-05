@@ -8,6 +8,13 @@ Formsy.addValidationRule(
   },
 );
 
+Formsy.addValidationRule(
+  'isAlreadyUsedIn',
+  function (values, value, array) {
+    return array.find(item => item === value) === undefined;
+  },
+);
+
 Formsy.addValidationRule('isLessThan', function (values, value, otherField) {
   const number = Number(otherField);
   if (!Number.isNaN(number)) {

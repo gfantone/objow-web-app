@@ -54,6 +54,7 @@ const styles = {
 const Goal = ({
   categories,
   deletionDisabled,
+  challengeTypeCode,
   goal,
   index,
   kpis,
@@ -143,39 +144,41 @@ const Goal = ({
               </Grid>
             )}
           </Grid>
-          <Grid item xs={12}>
-            <Grid
-              container
-              alignItems="center"
-              spacing={1}
-              className={classes.linkWrapper}
-            >
+          {(!challengeTypeCode || (challengeTypeCode && challengeTypeCode !== 'TP')) && (
+            <Grid item xs={12}>
               <Grid
-                item
-                onClick={() => setGoalCustom(false)}
-                className={`${classes.link} ${!goalCustom ? 'active' : ''}`}
+                container
+                alignItems="center"
+                spacing={1}
+                className={classes.linkWrapper}
               >
-                {intl.formatMessage({ id: 'challenge.form.goals.automatic' })}
-              </Grid>
-              <Grid item>
-                <NavigationSwitch
-                  onChange={(event) => setGoalCustom(event.target.checked)}
-                  defaultChecked={goalCustom}
-                  color="default"
-                  checked={goalCustom}
-                  inputProps={{ 'aria-label': 'checkbox with default color' }}
-                />
-                <HiddenInput name={`custom[${index}]`} value={goalCustom} />
-              </Grid>
-              <Grid
-                item
-                onClick={() => setGoalCustom(true)}
-                className={`${classes.link} ${goalCustom ? 'active' : ''}`}
-              >
-                {intl.formatMessage({ id: 'challenge.form.goals.manual' })}
+                <Grid
+                  item
+                  onClick={() => setGoalCustom(false)}
+                  className={`${classes.link} ${!goalCustom ? 'active' : ''}`}
+                >
+                  {intl.formatMessage({ id: 'challenge.form.goals.automatic' })}
+                </Grid>
+                <Grid item>
+                  <NavigationSwitch
+                    onChange={(event) => setGoalCustom(event.target.checked)}
+                    defaultChecked={goalCustom}
+                    color="default"
+                    checked={goalCustom}
+                    inputProps={{ 'aria-label': 'checkbox with default color' }}
+                  />
+                  <HiddenInput name={`custom[${index}]`} value={goalCustom} />
+                </Grid>
+                <Grid
+                  item
+                  onClick={() => setGoalCustom(true)}
+                  className={`${classes.link} ${goalCustom ? 'active' : ''}`}
+                >
+                  {intl.formatMessage({ id: 'challenge.form.goals.manual' })}
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
+          )}
           {goalCustom && (
             <Grid item xs={12}>
               <Grid

@@ -439,6 +439,7 @@ class TeamChallengeDetail extends MainLayoutComponent {
     if (!this.initialized && challenge) {
       const { account } = this.props.accountDetail;
       const { classes } = this.props;
+      const currentType = _.get(challenge, 'typeCode');
       this.initialized = true;
 
       const teamIds = _.get(account, 'team.id')
@@ -459,9 +460,10 @@ class TeamChallengeDetail extends MainLayoutComponent {
           hasPartialManagerTeams) ||
         account.role.code === 'A';
 
+      // && currentType !== 'TP'
       const desktopMenu = (
         <div>
-          {canEdit && (
+          {canEdit && currentType !== 'TP' && (
             <Tooltip title={intl.formatMessage({ id: 'common.duplicate' })}>
               <IconButton
                 size={'small'}
@@ -494,7 +496,7 @@ class TeamChallengeDetail extends MainLayoutComponent {
                 </Tooltip>
               </React.Fragment>
             )}
-          {canEditParticipants &&
+          {canEditParticipants && currentType !== 'TP' &&
             challenge.end.toDate2().getTime() > new Date().getTime() && (
               <Tooltip
                 title={intl.formatMessage({ id: 'common.edit_participants' })}
@@ -560,7 +562,7 @@ class TeamChallengeDetail extends MainLayoutComponent {
                 {intl.formatMessage({ id: 'common.share' })}
               </ListItemText>
             </MenuItem>
-            {canEdit && (
+            {canEdit && currentType !== 'TP' && (
               <MenuItem onClick={this.handleDuplicate.bind(this)}>
                 <ListItemIcon
                   style={{ color: '#333', minWidth: 0, marginRight: 10 }}
@@ -597,7 +599,7 @@ class TeamChallengeDetail extends MainLayoutComponent {
                   </MenuItem>
                 </React.Fragment>
               )}
-            {canEditParticipants &&
+            {canEditParticipants && currentType !== 'TP' &&
               challenge.end.toDate2().getTime() > new Date().getTime() && (
                 <MenuItem onClick={this.handleEditParticipants}>
                   <ListItemIcon
@@ -761,6 +763,7 @@ class TeamChallengeDetail extends MainLayoutComponent {
     const { classes } = this.props;
     const { challenge } = this.props.teamChallengeDetail;
     const { goals } = this.props.teamChallengeGoalList;
+    const currentType = _.get(challenge, 'typeCode');
     const { loading, ranks: fetchedRanks } = this.props.teamChallengeRankList;
     const { ranks } = this.state;
     const { configs, loading: configLoading } = this.props.configList;
@@ -859,26 +862,30 @@ class TeamChallengeDetail extends MainLayoutComponent {
               justify='flex-start'
               style={{ marginBottom: 5, position: 'relative' }}
             >
-              <Grid item>
-                <ChallengeDetailFilter
-                  open={this.state.filterOpen}
-                  onClose={this.handleFilterClose.bind(this)}
-                  onChange={this.handleFilterDetailChange.bind(this)}
-                  teamGroup={teamGroup}
-                  myTeam={account.team}
-                  scopeTeams={_.get(challenge, 'participantTeamIds')}
-                  hideTeams
-                />
-              </Grid>
-              <Grid
-                item
-                style={{ position: 'absolute', left: 90, top: 0, zIndex: 100 }}
-              >
-                <ChallengeSearchBar
-                  search={this.state.name}
-                  onChange={(value) => this.applySearch(value)}
-                />
-              </Grid>
+              { currentType !== 'TP' && (
+                <Grid item>
+                  <ChallengeDetailFilter
+                    open={this.state.filterOpen}
+                    onClose={this.handleFilterClose.bind(this)}
+                    onChange={this.handleFilterDetailChange.bind(this)}
+                    teamGroup={teamGroup}
+                    myTeam={account.team}
+                    scopeTeams={_.get(challenge, 'participantTeamIds')}
+                    hideTeams
+                  />
+                </Grid>
+              )}
+              { currentType !== 'TP' && (
+                <Grid
+                  item
+                  style={{ position: 'absolute', left: 90, top: 0, zIndex: 100 }}
+                >
+                  <ChallengeSearchBar
+                    search={this.state.name}
+                    onChange={(value) => this.applySearch(value)}
+                  />
+                </Grid>
+              )}
               <Grid item style={{ position: 'absolute', right: 5, top: 5 }}>
                 <DefaultText
                   lowercase

@@ -126,21 +126,21 @@ const ChallengeWidget = ({
     const role_code = _.get(account, 'role.code');
     if (['A', 'S'].indexOf(role_code) >= 0) {
       detailUrl =
-        challenge.typeCode === 'CT'
+        challenge.typeCode === 'CT' || challenge.typeCode === 'TP'
           ? `/challenges/detail/team-group/${challenge.id}`
           : challenge.typeCode === 'TG'
           ? `/challenges/detail/team-group-based/${challenge.id}`
           : `/challenges/detail/team-group-collaborator/${challenge.id}`;
     } else if (role_code === 'M') {
       detailUrl =
-        challenge.typeCode === 'CT'
+        challenge.typeCode === 'CT' || challenge.typeCode === 'TP'
           ? `/challenges/detail/team/${challenge.id}`
           : challenge.typeCode === 'TG'
           ? `/challenges/detail/team-group-based/${challenge.id}`
           : `/challenges/detail/team-collaborator/${challenge.id}`;
     } else {
       detailUrl =
-        challenge.typeCode === 'CT'
+        challenge.typeCode === 'CT' || challenge.typeCode === 'TP'
           ? `/challenges/detail/team/${challenge.id}`
           : challenge.typeCode === 'TG'
           ? `/challenges/detail/team-group-based/${challenge.id}`
@@ -168,7 +168,7 @@ const ChallengeWidget = ({
       let query;
       if (challenge.typeCode === 'CC') {
         query = api.collaboratorChallenges.currentRank(id);
-      } else if (challenge.typeCode === 'CT') {
+      } else if (challenge.typeCode === 'CT' || challenge.typeCode === 'TP') {
         query = api.teamChallenges.currentRank(id);
       } else if (challenge.typeCode === 'TG') {
         query = api.teamGroupBasedChallenges.currentRank(id);
@@ -180,7 +180,7 @@ const ChallengeWidget = ({
       let query;
       if (challenge.typeCode === 'CC') {
         query = api.collaboratorChallenges.wonAwards(id);
-      } else if (challenge.typeCode === 'CT') {
+      } else if (challenge.typeCode === 'CT' || challenge.typeCode === 'TP') {
         query = api.teamChallenges.wonAwards(id);
       } else if (challenge.typeCode === 'TG') {
         query = api.teamGroupBasedChallenges.wonAwards(id);

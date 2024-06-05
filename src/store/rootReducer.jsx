@@ -152,6 +152,7 @@ import roleList from '../services/Roles/RoleList/reducer';
 import shoppingCart from '../services/ShoppingCart/reducer';
 import systemImageList from '../services/SystemImages/SystemImageList/reducer';
 import systemImageUpdate from '../services/SystemImages/SystemImageUpdate/reducer';
+import teamPersonalizedChallengeList from '../services/TeamPersonalizedChallenges/TeamPersonalizedChallengeList/reducer';
 import teamCategoryRankList from '../services/TeamCategoryRanks/TeamCategoryRankList/reducer';
 import teamChallengeDetail from '../services/TeamChallenges/TeamChallengeDetail/reducer';
 import teamChallengeGeneralRankDetail from '../services/TeamChallengeGeneralRanks/TeamChallengeGeneralRankDetail/reducer';
@@ -376,6 +377,7 @@ const rootReducer = combineReducers({
   shoppingCart,
   systemImageList,
   systemImageUpdate,
+  teamPersonalizedChallengeList,
   teamCategoryRankList,
   teamChallengeDetail,
   teamChallengeGeneralRankDetail,

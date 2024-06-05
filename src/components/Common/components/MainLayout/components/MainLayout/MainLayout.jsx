@@ -24,7 +24,6 @@ import {
   Toolbar,
   ErrorHandler,
   UpdateAppModal,
-  UpdateMobileAppModal,
   JtiEvents,
   OneSignalInit,
   ScrollToTop,
@@ -136,7 +135,6 @@ const MainLayout = ({ component: Component, history, ...rest }) => {
   const [backgroundColor, setBackgroundColor] = React.useState();
   const [theme, setTheme] = React.useState();
   const { configs, hasError } = rest.configList;
-  const updateRequired = local.getUpdateRequired() === 'true';
 
   useEffect(() => {
     if (window.setAppVersion) {
@@ -273,7 +271,7 @@ const MainLayout = ({ component: Component, history, ...rest }) => {
 
   return (
     <>
-      {!initialized && !updateRequired && (
+      {!initialized && (
         <div
           style={{
             position: 'absolute',
@@ -286,7 +284,7 @@ const MainLayout = ({ component: Component, history, ...rest }) => {
           <CircularProgress style={{ color: '#333' }} />
         </div>
       )}
-      {/* {updateRequired && <UpdateMobileAppModal />} */}
+
       <ThemeWrapper.ThemeWrapper
         primaryColor={primaryColor}
         secondaryColor={secondaryColor}

@@ -193,7 +193,6 @@ class ChallengeCollaboratorFilter extends Component {
       ? teams.filter((team) => team.id == parseInt(props.team))[0]
       : null;
     const ready = this.isReady();
-    // console.log("selectedTeam", selectedTeam);
     const { loading: teamsLoading } = this.props.teamList;
     const { teamGroup, loading: teamGroupLoading } = this.props.teamGroupTree;
     const { loading: collaboratorsLoading } = this.props.teamCollaboratorList;
@@ -564,7 +563,6 @@ class ChallengeCollaboratorFilter extends Component {
       collaborator: null,
     });
     // this.props.onChangeTeamGroup(teamGroup);
-    // console.log("filter", teamGroup);
   };
 
   handleChangeTeam = (team) => {

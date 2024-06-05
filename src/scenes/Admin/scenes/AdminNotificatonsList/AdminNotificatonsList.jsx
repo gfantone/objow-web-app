@@ -7,6 +7,7 @@ import {
   DefaultTitle,
   RoleFilter,
   DefaultText,
+  TextField,
   ProgressButton,
   Loader,
 } from '../../../../components';
@@ -35,7 +36,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { toast } from 'react-toastify';
 
 const Checkbox = withFormsy(MuiCheckbox);
-
 const styles = {};
 class AdminNotificatonsList extends MainLayoutComponent {
   constructor(props) {
@@ -51,8 +51,10 @@ class AdminNotificatonsList extends MainLayoutComponent {
         openNotifsGenerals: false,
       },
       notificationCheckboxes: {},
+      inactivityDays: {},
     };
   }
+  // Toggles the chevron state for the specified section
   toggleChevron = (chevronKey) => {
     this.setState((prevState) => {
       const newChevrons = {
@@ -64,7 +66,7 @@ class AdminNotificatonsList extends MainLayoutComponent {
       return { chevrons: newChevrons };
     });
   };
-
+  // Loads the list of notifications
   loadNotifications = () => {
     const { notificationListActions } = this.props;
     notificationListActions.getNotificationList();
@@ -84,7 +86,7 @@ class AdminNotificatonsList extends MainLayoutComponent {
     }
     this.loadNotifications();
   }
-
+  // Handles the change of the checkbox
   handleCheckboxChange = (notificationId, channel, isChecked) => {
     const { notifications } = this.props.notificationList;
 
@@ -115,69 +117,121 @@ class AdminNotificatonsList extends MainLayoutComponent {
 
       return { notificationCheckboxes: newState };
     });
-  };
 
+    // Ensure inactivityDays is kept in sync
+    const notification = notifications.find((n) => n.id === notificationId);
+    if (notification) {
+      this.setState((prevState) => ({
+        inactivityDays: {
+          ...prevState.inactivityDays,
+          [notificationId]: notification.inactivity_days,
+        },
+      }));
+    }
+  };
+  // Handles the change of inactivity days
+  handleInactivityDaysChange = (notificationId, value) => {
+    const { notifications } = this.props.notificationList;
+    const notificationToUpdate = notifications.find(
+      (n) => n.id === notificationId
+    );
+
+    if (
+      !notificationToUpdate ||
+      notificationToUpdate.notification.code !== 'UINC'
+    ) {
+      return;
+    }
+
+    const relatedNotifications = notifications
+      .filter(
+        (notification) =>
+          notification.notification.code === 'UINC' &&
+          notification.notification.id === notificationToUpdate.notification.id
+      )
+      .map((notification) => notification.id);
+
+    this.setState((prevState) => {
+      const updatedInactivityDays = { ...prevState.inactivityDays };
+      relatedNotifications.forEach((id) => {
+        updatedInactivityDays[id] = value;
+      });
+
+      return {
+        inactivityDays: updatedInactivityDays,
+      };
+    });
+  };
+  // Creates form control labels for the channels
+  createFormControlLabels = (channels, notificationCode) => {
+    const { intl } = this.props;
+    const orderedKeys = ['IA', 'P', 'E'];
+    const checkBoxNameMap = {
+      IA: intl.formatMessage({
+        id: 'admin.notifications_rights.title_in_app',
+      }),
+      P: intl.formatMessage({ id: 'admin.notifications_rights.title_push' }),
+      E: intl.formatMessage({ id: 'admin.notifications_rights.title_email' }),
+    };
+
+    return (
+      <>
+        {orderedKeys
+          .map((key) => {
+            const channel = channels[key];
+            if (!channel) return null;
+
+            const isDisabled = !channel.enabled;
+            const currentCheck = this.state.notificationCheckboxes[channel.id];
+            const defaultChecked = currentCheck
+              ? currentCheck[key]
+              : channel.value;
+            return (
+              <FormControlLabel
+                label={checkBoxNameMap[key]}
+                labelPlacement='top'
+                control={
+                  <Checkbox
+                    key={`notification_value_${channel.id}`}
+                    name={channel.id}
+                    defaultChecked={defaultChecked}
+                    onChange={(e) =>
+                      this.handleCheckboxChange(
+                        channel.id,
+                        key,
+                        e.target.checked
+                      )
+                    }
+                    disabled={isDisabled}
+                  />
+                }
+              />
+            );
+          })
+          .filter(Boolean)}
+      </>
+    );
+  };
+  // Renders notifications for a specific chevron section
   renderNotificationsForChevron = (chevronKey) => {
     const { intl } = this.props;
     const { notifications } = this.props.notificationList;
     const currentRole = new URLSearchParams(this.props.location.search).get(
       'current'
     );
-
     const filteredNotificationsByRole = (notification) => {
       const roleMap = ['C', 'M', 'A'];
 
       return notification.role.code === roleMap[currentRole];
     };
 
-    const createFormControlLabels = (channels) => {
-      const orderedKeys = ['IA', 'P', 'E'];
-      const checkBoxNameMap = {
-        IA: intl.formatMessage({
-          id: 'admin.notifications_rights.title_in_app',
-        }),
-        P: intl.formatMessage({ id: 'admin.notifications_rights.title_push' }),
-        E: intl.formatMessage({ id: 'admin.notifications_rights.title_email' }),
-      };
-
-      return orderedKeys
-        .map((key) => {
-          const channel = channels[key];
-          if (!channel) return null;
-
-          const isDisabled = !channel.enabled;
-          const currentCheck = this.state.notificationCheckboxes[channel.id];
-          const defaultChecked = currentCheck
-            ? currentCheck[key]
-            : channel.value;
-          return (
-            <FormControlLabel
-              label={checkBoxNameMap[key]}
-              labelPlacement='top'
-              control={
-                <Checkbox
-                  key={`notification_value_${channel.id}`}
-                  name={channel.id}
-                  defaultChecked={defaultChecked}
-                  onChange={(e) =>
-                    this.handleCheckboxChange(channel.id, key, e.target.checked)
-                  }
-                  disabled={isDisabled}
-                />
-              }
-            />
-          );
-        })
-        .filter(Boolean);
-    };
-
     const notificationCodeMappings = {
       // openNotifsGoals: [],
-      openNotifsChallenges: ['NECH'],
+      openNotifsChallenges: ['NECH', 'NLP'],
       openNotifsBadges: ['NLB'],
       openNotifsNewsFeed: ['NPIN'],
       openNotifsRankings: ['RFR', 'RFCR', 'RFGR', 'TRFR', 'TRCR', 'TRGR'],
-      openNotifsGenerals: ['MNL', 'EWM', 'NPE', 'SWE', 'NROE'],
+      openNotifsGenerals: ['MNL', 'EWM', 'NPE', 'SWE', 'NROE', 'UINC'],
     };
 
     const notificationsByChevron = notifications
@@ -195,12 +249,16 @@ class AdminNotificatonsList extends MainLayoutComponent {
           acc[notification.notification.code] = Object.assign(
             {},
             { description: notification.notification.description },
-            { channels: {} }
+            { channels: {}, inactivity_days: notification.inactivity_days }
           );
 
           notificationCodes.push(notification.notification.code);
         }
 
+        if (acc[notification.notification.code].inactivity_days === null) {
+          acc[notification.notification.code].inactivity_days =
+            notification.inactivity_days;
+        }
         const new_channels = Object.assign(
           {},
           acc[notification.notification.code].channels,
@@ -209,6 +267,7 @@ class AdminNotificatonsList extends MainLayoutComponent {
               id: notification.id,
               value: notification.value,
               enabled: notification.enabled,
+              inactivity_days: notification.inactivity_days,
             },
           }
         );
@@ -231,24 +290,29 @@ class AdminNotificatonsList extends MainLayoutComponent {
       return <Loader centered />;
     }
     if (notificationsByChevron.length === 0) {
-      return <DefaultText lowercase>pas de notifications</DefaultText>;
+      return (
+        <DefaultText lowercase>
+          {intl.formatMessage({
+            id: `admin.notifications_rights.no_notifications`,
+          })}
+        </DefaultText>
+      );
     }
-
     return (
       <>
         {loading && <Loader centered />}
         <Grid container>
           {notificationCodes.map((notificationCode) => {
             const notification = notificationValues[notificationCode];
-
             return (
               <Grid
                 container
                 item
                 alignItems='center'
                 justifyContent='space-between'
+                key={notificationCode}
               >
-                <Grid item>
+                <Grid item lg={8} md={6} sm={12}>
                   <DefaultText lowercase style={{ fontSize: 16 }}>
                     {intl.formatMessage({
                       id: `admin.notifications_rights.notification_${notificationCode}`,
@@ -256,8 +320,29 @@ class AdminNotificatonsList extends MainLayoutComponent {
                   </DefaultText>
                 </Grid>
                 <Grid item>
-                  {createFormControlLabels(notification.channels)}
+                  {this.createFormControlLabels(
+                    notification.channels,
+                    notificationCode
+                  )}
                 </Grid>
+                {notificationCode === 'UINC' && (
+                  <Grid item lg={2} md={3} sm={12}>
+                    <TextField
+                      name={'inactivity_days'}
+                      // name={`inactivity_days_${notification.channels.P.id}`}
+                      type='number'
+                      initial={notification.inactivity_days}
+                      onChange={(value) =>
+                        this.handleInactivityDaysChange(
+                          notification.channels.P.id,
+                          value
+                        )
+                      }
+                      label='jours'
+                      style={{ marginLeft: '10px' }}
+                    />
+                  </Grid>
+                )}
               </Grid>
             );
           })}
@@ -265,15 +350,43 @@ class AdminNotificatonsList extends MainLayoutComponent {
       </>
     );
   };
-
+  // Handles the form submit action
   handleSubmit = () => {
     const { intl } = this.props;
-    const notificationToUpdate = Object.entries(
-      this.state.notificationCheckboxes
-    ).map(([id, channels]) => {
-      const isActive = Object.values(channels).some((value) => value);
-      return { id, value: isActive };
+
+    const combinedUpdates = {};
+
+    Object.entries(this.state.notificationCheckboxes).forEach(
+      ([id, channels]) => {
+        combinedUpdates[id] = combinedUpdates[id] || {};
+        combinedUpdates[id].value = Object.values(channels).some(
+          (value) => value
+        );
+      }
+    );
+
+    Object.entries(this.state.inactivityDays).forEach(([id, days]) => {
+      combinedUpdates[id] = combinedUpdates[id] || {};
+      combinedUpdates[id].inactivity_days = days;
     });
+
+    // Ensure value is set for all updates
+    Object.keys(combinedUpdates).forEach((id) => {
+      if (combinedUpdates[id].value === undefined) {
+        const notification = this.props.notificationList.notifications.find(
+          (n) => n.id.toString() === id
+        );
+        if (notification) {
+          combinedUpdates[id].value = notification.value;
+        }
+      }
+    });
+    const notificationToUpdate = Object.entries(combinedUpdates).map(
+      ([id, updates]) => ({
+        id,
+        ...updates,
+      })
+    );
 
     this.props.notificationListUpdateActions.updateNotificationList(
       notificationToUpdate
@@ -375,6 +488,7 @@ class AdminNotificatonsList extends MainLayoutComponent {
                     <Accordion
                       expanded={chevrons[key]}
                       onChange={() => this.toggleChevron(key)}
+                      key={key}
                     >
                       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         <Grid container item alignItems='center'>

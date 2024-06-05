@@ -49,9 +49,6 @@ const local = {
   setClientEnvironment(environment) {
     return localStorage.setItem(types.CLIENT_ENVIRONMENT, environment);
   },
-  removeTemporaryApiUrl() {
-    return localStorage.removeItem(types.TEMPORARY_API_URL);
-  },
   getTemporaryRefreshToken() {
     return localStorage.getItem(types.TEMPORARY_REFRESH_TOKEN);
   },

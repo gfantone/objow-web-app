@@ -244,6 +244,10 @@ import {
   watchTeamChallengeListByTeamGroup,
 } from './TeamChallenges/TeamChallengeList/sagas';
 import {
+  watchTeamPersonalizedChallengeListByCollaborator,
+  watchTeamPersonalizedChallengeListByTeam, watchTeamPersonalizedChallengeListByTeamGroup,
+} from './TeamPersonalizedChallenges/TeamPersonalizedChallengeList/sagas';
+import {
   watchTeamChallengeGoalList,
   watchTeamChallengeGoalListByTeamGroup,
 } from './TeamChallengeGoals/TeamChallengeGoalList/sagas';
@@ -530,6 +534,9 @@ function* rootSaga() {
     watchTeamChallengeGoalListByTeamGroup(),
     watchTeamGroupBasedChallengeGoalList(),
     watchTeamGroupBasedChallengeGoalListByTeamGroup(),
+    watchTeamPersonalizedChallengeListByCollaborator(),
+    watchTeamPersonalizedChallengeListByTeam(),
+    watchTeamPersonalizedChallengeListByTeamGroup(),
     watchTeamChallengeListByCollaborator(),
     watchTeamChallengeListByTeam(),
     watchTeamChallengeListByTeamGroup(),

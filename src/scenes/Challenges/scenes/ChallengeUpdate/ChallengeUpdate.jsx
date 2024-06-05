@@ -2,15 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Formsy from 'formsy-react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Redirect } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { ChallengeForm, ChallengeRewardForm } from '../../components';
 import {
   AppBarSubTitle,
-  IconButton as MenuIconButton,
   Loader,
   MainLayoutComponent,
   Dialog,
@@ -20,10 +17,9 @@ import {
   Button,
   TransferList,
   Select,
-  TextField,
+  TextField, Card,
 } from '../../../../components';
-import { useIntl, injectIntl } from 'react-intl';
-import * as Resources from '../../../../Resources';
+import { injectIntl } from 'react-intl';
 import * as categoryListActions from '../../../../services/Categories/CategoryList/actions';
 import * as rewardImageListActions from '../../../../services/RewardImages/RewardImageList/actions';
 import * as rewardCategoryListActions from '../../../../services/RewardCategories/RewardCategoryList/actions';
@@ -108,6 +104,14 @@ class ChallengeUpdate extends MainLayoutComponent {
         initialized: true,
         challengeId: challenge.id,
         currentAwards: challenge.awards,
+        participantsPersonalized: null,
+        personalizedTeamOpen: false,
+        teamPersonalizedSelect: -1,
+        teamPersonalized: {
+          name: '',
+          lookup_id: '',
+          collaborators: []
+        },
       });
     }
   }
@@ -122,20 +126,51 @@ class ChallengeUpdate extends MainLayoutComponent {
     });
   }
 
+  onPersonalizedTeamOpen = () => {
+    this.setState({
+      ...this.state,
+      teamPersonalized: {
+        name: '',
+        lookup_id: '',
+        collaborators: []
+      },
+      personalizedTeamOpen: true
+    })
+  }
+
+  onPersonalizedTeamClose = () => {
+    this.setState({
+      ...this.state,
+      teamPersonalizedSelect: -1,
+      teamPersonalized: {
+        name: '',
+        lookup_id: '',
+        collaborators: []
+      },
+      personalizedTeamOpen: false
+    })
+  }
+
   handleValidSubmit(model) {
     const { types } = this.props.challengeTypeList;
     const { types: rewardTypes } = this.props.challengeRewardTypeList;
     const { types: awardTypes } = this.props.challengeAwardTypeList;
     const { challenge: baseChallenge } = this.props.challengeDetail;
+    const currentType = _.get(baseChallenge, 'type');
 
     model.start.setHours(0, 0, 0, 0);
     model.end.setHours(23, 59, 59, 0);
     const start = model.start.toUTCJSON();
     const end = model.end.toUTCJSON();
 
-    const participants = this.state.newParticipants
-      ? JSON.stringify(this.state.newParticipants.map((p) => ({ id: p.id })))
-      : null;
+    let participants = [];
+    if (currentType.code === 'TP') {
+      participants = JSON.stringify(this.state.participantsPersonalized)
+    } else {
+      participants = this.state.newParticipants
+        ? JSON.stringify(this.state.newParticipants.map((p) => ({ id: p.id })))
+        : null;
+    }
 
     const challengeFormData = new FormData();
     challengeFormData.append('id', this.props.match.params.id);
@@ -379,6 +414,16 @@ class ChallengeUpdate extends MainLayoutComponent {
     });
   };
 
+  setParticipantsPerso = (participants, callback) => {
+    this.setState(
+      {
+        ...this.state,
+        participantsPersonalized: participants,
+      },
+      callback
+    );
+  };
+
   setConfigRewardOpen = (
     value,
     awards,
@@ -448,6 +493,124 @@ class ChallengeUpdate extends MainLayoutComponent {
   handleSubmitKpi = (model) => {
     this.props.kpiCreationActions.createKpi(model);
     this.setNewKpiOpen(false);
+  };
+
+  getTeamPersonalizedByCollaboratorList = (allTeamsChallenge) => {
+    const { teams } = this.props.teamList;
+    let teamsPerso = [];
+    allTeamsChallenge.forEach((teamPerso) => {
+      let collaborators = [];
+      teams.forEach((team) => {
+        team.collaborators.forEach((c) => {
+          if (teamPerso.collaborator_ids.indexOf(c.id) >= 0) {
+            collaborators.push(c);
+          }
+        })
+      })
+      teamPerso.collaborators = collaborators;
+      teamsPerso.push(teamPerso);
+    })
+
+    return teamsPerso;
+  };
+
+  onUpdateTeam = (teamId) => {
+    if (!this.state.participantsPersonalized) return
+    const { challenge } = this.props.challengeDetail;
+    const teams = this.state.participantsPersonalized
+      || this.getTeamPersonalizedByCollaboratorList(challenge.participants);
+    if (!teams || !teams[teamId]) return
+    this.setState({
+      ...this.state,
+      teamPersonalizedSelect: teamId,
+      teamPersonalized: {
+        name: teams[teamId].name || '',
+        lookup_id: teams[teamId].lookup_id || '',
+        collaborators: teams[teamId].collaborators || []
+      },
+      personalizedTeamOpen: true
+    })
+  };
+
+  setTeamPersonalized = (teamPersonalized, callback) => {
+    this.setState({
+      ...this.state,
+      teamPersonalized: (teamPersonalized) ? teamPersonalized : {
+        name: '',
+        lookup_id: '',
+        collaborators: []
+      }
+    }, callback)
+  }
+
+  selectedPersonalizedIds = (currentType) => {
+    if (!currentType || currentType.code !== 'TP') return []
+    let collaborator_ids = []
+    if (!this.state.participantsPersonalized) return []
+    this.state.participantsPersonalized.forEach((team) => {
+      team.collaborators.forEach((c) => {
+        collaborator_ids.push(c.id)
+      })
+    })
+    return collaborator_ids
+  }
+
+  updateTeamPersonalized = (collabs) => {
+    let collaborators = [];
+    collabs.forEach((c) => {
+      if (c.id) collaborators.push(c);
+    })
+    const team = this.state.teamPersonalized
+    team.collaborators = collaborators;
+
+    this.setTeamPersonalized(team, () => {});
+  }
+
+  onTeamPersonalizedUpdated = (team) => {
+    if (this.state.teamPersonalizedSelect !== -1 && this.state.participantsPersonalized[this.state.teamPersonalizedSelect]) {
+      let newTeams = [...this.state.participantsPersonalized]
+      let id = newTeams[this.state.teamPersonalizedSelect].id || null
+      newTeams[this.state.teamPersonalizedSelect] = team
+      if (id) {
+        newTeams[this.state.teamPersonalizedSelect].id = id
+      }
+      this.setParticipantsPerso(newTeams, () => {
+        this.onPersonalizedTeamClose();
+      });
+    }
+  }
+
+  onTeamPersonalizedAdded = (team) => {
+    let newTeams = [...this.state.participantsPersonalized]
+    newTeams.push(team);
+    this.setParticipantsPerso(newTeams, () => {
+      this.onPersonalizedTeamClose();
+    });
+  }
+
+  onSubmitTeamPersonalized = (model) => {
+    const team = this.state.teamPersonalized
+    if (!team.collaborators || team.collaborators.length === 0) {
+      return
+    }
+    team.name = model.name
+    team.lookup_id = model.lookup_id
+
+    if (this.state.teamPersonalizedSelect !== -1) {
+      this.onTeamPersonalizedUpdated(team)
+    } else {
+      this.onTeamPersonalizedAdded(team)
+    }
+  }
+
+  onDeleteTeam = (teamId) => {
+    if (this.state.participantsPersonalized && this.state.participantsPersonalized[teamId]) {
+      let newTeams = [...this.state.participantsPersonalized]
+      newTeams.splice(teamId, 1);
+      this.setParticipantsPerso(newTeams, () => {
+        this.onPersonalizedTeamClose()
+      });
+    }
   };
 
   renderData() {
@@ -535,16 +698,131 @@ class ChallengeUpdate extends MainLayoutComponent {
             onGoalAdded={this.handleGoalAdded.bind(this)}
             addGoal={this.handleAddGoal.bind(this)}
             teams={teams}
+            teamGroup={teamGroup}
+            onUpdateTeamPerso={this.onUpdateTeam}
+            onPersonalizedTeamOpen={this.onPersonalizedTeamOpen}
+            setParticipantsPerso={this.setParticipantsPerso}
             setConfigRewardOpen={this.setConfigRewardOpen}
             setParticipantsEditOpen={this.setParticipantsEditOpen}
             handleChangeParticipants={this.handleChangeParticipants}
             rewardImages={rewardImages}
             rewardCategories={rewardCategories}
             newParticipants={newParticipants}
+            participantsPersonalized={this.state.participantsPersonalized}
             awardError={this.state.awardError}
             setNewKpiOpen={this.setNewKpiOpen}
           />
         </Formsy>
+
+        {currentType && currentType.code === 'TP' && (
+          <Dialog
+            open={this.state.personalizedTeamOpen}
+            onClose={this.onPersonalizedTeamClose}
+            classes={{paper: this.props.classes.teamDialog}}
+            disableBackdropClick={true}
+            disableEscapeKeyDown={true}
+            maxWidth="md"
+          >
+            <DialogTitle>
+              {intl.formatMessage({id: "team.perso.creation_title"})}
+            </DialogTitle>
+            <Formsy onValidSubmit={this.onSubmitTeamPersonalized}>
+              <Grid container spacing={4}>
+                <Grid item xs={12} container spacing={2}>
+                  <Grid item xs={12}>
+                    <Card>
+                      <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                          <TextField
+                            name='name'
+                            initial={_.get(this.state.teamPersonalized, 'name')}
+                            label={intl.formatMessage({ id: 'team.form.name' })}
+                            fullWidth
+                            required
+                            lowercase
+                            validations={{
+                              isAlreadyUsedIn: this.state.participantsPersonalized || getTeamByCollaboratorList(challenge.participants)
+                                .filter((teamItem, index) => this.state.teamPersonalizedSelect !== -1 ? index !== this.state.teamPersonalizedSelect : true)
+                                .map((teamItem) => teamItem.name)
+                            }}
+                            validationErrors={{
+                              isDefaultRequiredValue: intl.formatMessage({
+                                id: 'common.form.required_error',
+                              }),
+                              isAlreadyUsedIn: `Ce nom d'équipe est déjà utilisé`,
+                            }}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField
+                            name='lookup_id'
+                            initial={_.get(this.state.teamPersonalized, 'lookup_id')}
+                            label={intl.formatMessage({ id: 'team.form.id' })}
+                            fullWidth
+                            lowercase
+                            validations={{
+                              isAlreadyUsedIn: this.state.participantsPersonalized || getTeamByCollaboratorList(challenge.participants)
+                                .filter((teamItem, index) => this.state.teamPersonalizedSelect !== -1 ? index !== this.state.teamPersonalizedSelect : true)
+                                .map((teamItem) => teamItem.lookup_id)
+                            }}
+                            validationErrors={{
+                              isAlreadyUsedIn: `Cet identifiant d'équipe est déjà utilisé`,
+                            }}
+                          />
+                        </Grid>
+                      </Grid>
+                    </Card>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} container spacing={2}>
+                  {(!this.state.teamPersonalized || !this.state.teamPersonalized.collaborators) && (
+                    <Grid item xs={12}>
+                      <Loader centered/>
+                    </Grid>
+                  )}
+                  {this.state.teamPersonalized && this.state.teamPersonalized.collaborators && (
+                    <Grid item xs={12}>
+                      <TransferList
+                        listIn={teamGroup}
+                        teamGroupMode={currentType && currentType.code === 'TG'}
+                        teamPersonalizedMode={currentType && currentType.code === 'TP'}
+                        enableCollaboratorSelect={
+                          currentType && (currentType.code === 'CC' || currentType.code === 'TP')
+                        }
+                        enableTeamSelect={(currentType) ? _.includes(
+                          ['CC', 'CT', 'TP'],
+                          currentType.code
+                        ) : false}
+                        noSelection={false}
+                        onChange={this.updateTeamPersonalized}
+                        selectedPersonalizedIds={this.selectedPersonalizedIds(currentType) || []}
+                        selected={this.state.teamPersonalized.collaborators}
+                        defaultChoicesExpanded={false}
+                        onUpdateTeam={this.onUpdateTeam}
+                        enableSearch
+                      />
+                    </Grid>
+                  )}
+                </Grid>
+              </Grid>
+              <DialogActions>
+                <ProgressButton
+                  type="submit"
+                  text={intl.formatMessage({id: "common.submit"})}
+                  centered
+                />
+                <Button onClick={this.onPersonalizedTeamClose} color="secondary">
+                  {intl.formatMessage({id: "common.cancel"})}
+                </Button>
+                { this.state.teamPersonalizedSelect !== -1 && (
+                  <Button onClick={() => this.onDeleteTeam(this.state.teamPersonalizedSelect)} color="secondary">
+                    <span style={{ color: '#E50000', marginLeft: '5px' }}>{intl.formatMessage({id: "common.delete"})}</span>
+                  </Button>
+                )}
+              </DialogActions>
+            </Formsy>
+          </Dialog>
+        )}
 
         <Dialog
           open={this.state.newKpiOpen}
@@ -679,11 +957,12 @@ class ChallengeUpdate extends MainLayoutComponent {
                   <TransferList
                     listIn={teamGroup}
                     teamGroupMode={_.get(currentType, 'code') === 'TG'}
+                    teamPersonalizedMode={_.get(currentType, 'code') === 'TP'}
                     enableCollaboratorSelect={
-                      _.get(currentType, 'code') === 'CC'
+                      _.get(currentType, 'code') === 'CC' || _.get(currentType, 'code') === 'TP'
                     }
                     enableTeamSelect={_.includes(
-                      ['CC', 'CT'],
+                      ['CC', 'CT', 'TP'],
                       _.get(currentType, 'code')
                     )}
                     onChange={this.handleChangeParticipants}

@@ -74,7 +74,7 @@ class CategoryFilter extends Component {
     const { account } = this.props.accountDetail;
     const { period: currentPeriod } = this.props.currentPeriodDetail;
     const { periods: previousPeriods } = this.props.previousPeriodList;
-    const { teams } = this.props.teamList;
+    const teams = this.props.teamList.teams.filter((team) => !team.custom);
     const selectedTeam = this.state.team
       ? teams.filter((team) => team.id == this.state.team)[0]
       : null;
