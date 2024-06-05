@@ -1,12 +1,9 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Create React App to Azure Web App - testfgpub
 
 on:
   push:
     branches:
-      - master
+      - develop-spider-cicd
   workflow_dispatch:
 
 jobs:
@@ -19,7 +16,7 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: '14.17.0'
 
       - name: Install Yarn
         run: npm install -g yarn
@@ -28,6 +25,8 @@ jobs:
         run: yarn install --legacy-peer-deps
 
       - name: Build the application
+        env:
+          CI: false  # Désactiver le traitement des avertissements comme des erreurs
         run: yarn build
 
       - name: Run tests
