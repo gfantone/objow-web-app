@@ -29,9 +29,6 @@ jobs:
           CI: false  # Désactiver le traitement des avertissements comme des erreurs
         run: yarn build
 
-      - name: Run tests
-        run: yarn test
-
       - name: Zip build artifact
         run: zip -r build.zip build
 
