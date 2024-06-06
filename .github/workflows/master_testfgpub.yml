@@ -58,7 +58,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'testfgpub'
-          slot-name: 'Production'
+          app-name: 'objow-front-edenred-dev'
+          slot-name: 'Developpement'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_011F37D6514F44778BD232C544B25655 }}
           package: build
