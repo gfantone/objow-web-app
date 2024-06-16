@@ -80,7 +80,7 @@ jobs:
         with:
           app-name: 'objow-front-edenred-preprod'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_OBJOW }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_OBJOW_PREPROD }}
           package: build
 
   deploy_objow_front_edenred_dev:
