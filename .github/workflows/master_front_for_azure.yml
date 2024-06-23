@@ -1,24 +1,4 @@
-# This workflow will build and push a node.js application to an Azure Web App when a commit is pushed to your default branch.
-#
-# This workflow assumes you have already created the target Azure App Service web app.
-# For instructions see https://docs.microsoft.com/en-us/azure/app-service/quickstart-nodejs?tabs=linux&pivots=development-environment-cli
-#
-# To configure this workflow:
-#
-# 1. Download the Publish Profile for your Azure Web App. You can download this file from the Overview page of your Web App in the Azure Portal.
-#    For more information: https://docs.microsoft.com/en-us/azure/app-service/deploy-github-actions?tabs=applevel#generate-deployment-credentials
-#
-# 2. Create a secret in your repository named AZURE_WEBAPP_PUBLISH_PROFILE, paste the publish profile contents as the value of the secret.
-#    For instructions on obtaining the publish profile see: https://docs.microsoft.com/azure/app-service/deploy-github-actions#configure-the-github-secret
-#
-# 3. Change the value for the AZURE_WEBAPP_NAME. Optionally, change the AZURE_WEBAPP_PACKAGE_PATH and NODE_VERSION environment variables below.
-#
-# For more information on GitHub Actions for Azure: https://github.com/Azure/Actions
-# For more information on the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# For more samples to get started with GitHub Action workflows to deploy to Azure: https://github.com/Azure/actions-workflow-samples
-
-
-name: Build deploy FRONT DEV PREPROD Azure
+name: Build and deploy Front (DEV/PREPROD)
 
 on:
   push:
@@ -46,7 +26,7 @@ jobs:
 
       - name: Build the application
         env:
-          CI: false  # Désactiver le traitement des avertissements comme des erreurs
+          CI: false
         run: yarn build
 
       - name: Zip build artifact
@@ -58,12 +38,18 @@ jobs:
           name: build-artifact
           path: build.zip
 
-  deploy_objow_front_edenred_preprod:
+      - name: Create new tag
+        run: |
+          chmod +x ./create-tag.sh
+          ./create-tag.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy_preprod:
     runs-on: ubuntu-latest
     needs: build
     environment:
       name: 'preprod'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
       - name: Download build artifact
@@ -75,7 +61,6 @@ jobs:
         run: unzip build.zip
 
       - name: Deploy to Azure Web App - objow-front-edenred-preprod
-        id: deploy-to-webapp-front-preprod
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'objow-front-edenred-preprod'
@@ -83,12 +68,11 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_OBJOW_PREPROD }}
           package: build
 
-  deploy_objow_front_edenred_dev:
+  deploy_dev:
     runs-on: ubuntu-latest
     needs: build
     environment:
       name: 'Dev'
-      url: ${{ steps.deploy-to-webapp-edenred.outputs.webapp-url }}
 
     steps:
       - name: Download build artifact
@@ -100,7 +84,6 @@ jobs:
         run: unzip build.zip
 
       - name: Deploy to Azure Web App - objow-front-edenred-dev
-        id: deploy-to-webapp-edenred
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'objow-front-edenred-dev'
