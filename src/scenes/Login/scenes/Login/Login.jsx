@@ -9,6 +9,7 @@ import api from '../../../../data/api/api';
 import router from '../../../../data/router/router';
 import local from '../../../../data/local/local';
 import _ from 'lodash';
+import { isMobileApp } from '../../../../helpers/MobileApp';
 
 class Login extends Component {
   constructor(props) {
@@ -35,11 +36,6 @@ class Login extends Component {
   }
 
   async handleSubmitSSO(model) {
-    const { detect } = require('detect-browser');
-    const browser = detect();
-    const isMobileApp =
-      browser.name === 'ios-webview' || browser.name === 'chromium-webview';
-
     const { intl } = this.props;
     const clientEnvironment = _.replace(_.lowerCase(model.code), ' ', '');
     local.setClientEnvironment(clientEnvironment);
@@ -52,7 +48,7 @@ class Login extends Component {
     var baseUrl = process.env.REACT_APP_API_URL;
 
     try {
-      if (isMobileApp) {
+      if (isMobileApp()) {
         window.location.href = `${baseUrlProtocol}${subdomain}${baseUrl}workos/authorize/?base_url=${window.location.origin}`;
       } else {
         this.setState({
@@ -83,14 +79,9 @@ class Login extends Component {
   };
 
   render() {
-    const { detect } = require('detect-browser');
-    const browser = detect();
-    const isMobileApp =
-      browser.name === 'ios-webview' || browser.name === 'chromium-webview';
-    console.log(this.state.SsoUrl, this.state.SsoOpen);
     return (
       <div>
-        {!isMobileApp && (
+        {!isMobileApp() && (
           <LoginForm
             onSubmit={this.handleSubmit.bind(this)}
             onSubmitSSO={this.handleSubmitSSO.bind(this)}
@@ -98,7 +89,7 @@ class Login extends Component {
             resetCustomError={this.resetCustomError}
           />
         )}
-        {isMobileApp && (
+        {isMobileApp() && (
           <LoginFormMobile
             onSubmit={this.handleSubmit.bind(this)}
             onSubmitSSO={this.handleSubmitSSO.bind(this)}

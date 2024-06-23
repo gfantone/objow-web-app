@@ -246,7 +246,6 @@
           "archived_goal": "Objectif archivé"
         }
       },
-
       "update_base_title": "Modification de l'objectif « {0} »",
       "update_base_tab": "Base",
       "update_custom_tab": "Personnalisation",
@@ -770,7 +769,6 @@
         "file_size_error": "La taille du fichier ne doit pas dépasser 20 Mo"
       }
     },
-
     "ranking": {
       "collaborator_column": "Joueurs",
       "collaborator_team_column": "Équipe",
@@ -1233,7 +1231,49 @@
       "info_text": "Retrouvez ici la liste des personnes inactives dans vos équipes depuis plus de 3 mois"
     }
   },
-
+  "spider": {
+    "app_name": "Espace Kadéos Incentive",
+    "auth": {
+      "account_activation": {
+        "title": "Bienvenue",
+        "message": "Heureux de vous compter parmi nous !\nCommencez la création de votre compte Edenred Kadéos Incentive",
+        "submit": "Je commence"
+      },
+      "account_activation_finalization": {
+        "success": {
+          "title": "Compte activé",
+          "message": "Félicitations ! Votre compte Kadéos Incentive a bien été créé. Profitez dès maintenant de la plateforme et de vos avantages.",
+          "submit": "J'accède à ma plateforme"
+        }
+      },
+      "account_activation_key_expired": {
+        "title": "Lien expiré",
+        "message": "Ce lien d’activation de compte a été généré il y a plus de 72 heures ou a déjà été utilisé.\nPour en recevoir un nouveau, cliquez sur le bouton ci-dessous.",
+        "retry": "Renvoyez moi un lien",
+        "login": "Je me connecte",
+        "info": "Si vous possédez déjà un compte Edenred Kadéos Incentive ou que vous avez déjà fait ce parcours d’activation, cliquez sur “Je me connecte”.",
+        "resend_success": "Un nouveau lien d’activation vous a été envoyé. Vérifiez votre boîte mail.",
+        "resend_error": "Une erreur est survenue lors de l'envoi du nouveau lien d'activation."
+      },
+      "account_activation_steps": {
+        "activation": "Activation",
+        "information": "Information",
+        "validation": "Validation"
+      }
+    },
+    "errors": {
+      "contract_inaccessible": {
+        "title": "Plateforme inaccessible",
+        "message": "Vous avez été désinscrit de la plateforme ou elle a été désactivée."
+      },
+      "need_help": {
+        "submit": "Besoin d'aide",
+        "title": "Besoin d'aide ?",
+        "message": "Veuillez contacter votre gestionnaire de compte.",
+        "close": "Terminer"
+      }
+    }
+  },
   "common": {
     "submit": "Valider",
     "cancel": "Annuler",

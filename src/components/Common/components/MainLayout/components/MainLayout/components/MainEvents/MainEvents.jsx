@@ -49,7 +49,7 @@ const MainEvents = ({ goBack, children, ...props }) => {
     window.addEventListener('message', eventListener);
 
     return () => window.removeEventListener('message', eventListener);
-  }, []);
+  }, [account]);
 
   return (
     <>

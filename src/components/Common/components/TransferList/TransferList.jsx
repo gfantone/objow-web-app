@@ -1,4 +1,4 @@
-import {faEdit, faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   ExpansionPanel,
@@ -18,12 +18,13 @@ import {
   DefaultTitle,
   TeamGroup,
   TeamThumb,
-  DefaultText, Avatar,
+  DefaultText,
+  Avatar,
 } from '../../..';
 import { ChallengeSearchBar } from '../../../../scenes/Challenges/components';
 
 import _ from 'lodash';
-import {Tag} from "../../../Teams/components/TeamThumb/components";
+import { Tag } from '../../../Teams/components/TeamThumb/components';
 
 const styles = (theme) => {
   return {
@@ -283,8 +284,9 @@ const ExpandableTeamCollaborators = ({
           <Grid container key={choiceKey}>
             {displayedCollaborators.map((collaborator, collaboratorKey) => {
               const isCollaboratorSelected =
-                selectedListIds.indexOf(collaborator.id) >= 0
-                || (selectedPersonalizedIds && selectedPersonalizedIds.indexOf(collaborator.id) >= 0);
+                selectedListIds.indexOf(collaborator.id) >= 0 ||
+                (selectedPersonalizedIds &&
+                  selectedPersonalizedIds.indexOf(collaborator.id) >= 0);
 
               return (
                 <Grid
@@ -374,18 +376,16 @@ const TransferList = ({
         _.get(account, 'role.code') === 'A'
     );
   const filterCollaboratorsTeamPersonalizedByScope = (teams) => {
-    let collabs = []
-    teams.forEach(
-      (t) => {
-        collabs = collabs.concat(t.collaborators)
-      }
-    );
-    return collabs
-  }
+    let collabs = [];
+    teams.forEach((t) => {
+      collabs = collabs.concat(t.collaborators);
+    });
+    return collabs;
+  };
   const [selectedByScope, setSelectedByScope] = useState(
-    (teamPersonalizedMode && noSelection)
-    ? filterCollaboratorsTeamPersonalizedByScope(selectedList)
-    : filterCollaboratorsByScope(selectedList)
+    teamPersonalizedMode && noSelection
+      ? filterCollaboratorsTeamPersonalizedByScope(selectedList)
+      : filterCollaboratorsByScope(selectedList)
   );
 
   const allCollaborators = _.flatten(teams.map((t) => t.collaborators));
@@ -442,17 +442,17 @@ const TransferList = ({
 
   document.addEventListener('click', handleClickOutside, true);
 
-  let selectedListIds = []
+  let selectedListIds = [];
   if (!teamPersonalizedMode || !noSelection) {
-    selectedListIds = selectedList.map((c) => c.id)
+    selectedListIds = selectedList.map((c) => c.id);
   } else {
     selectedList.forEach((t) => {
       if (t.collaborators && t.collaborators.length > 0) {
         t.collaborators.forEach((c) => {
-          selectedListIds.push(c.id)
-        })
+          selectedListIds.push(c.id);
+        });
       }
-    })
+    });
   }
 
   const selectedWholeTeams = teams
@@ -478,7 +478,10 @@ const TransferList = ({
     );
 
   const selectItem = (item) => {
-    if (_.indexOf(selectedList, item) < 0 && selectedPersonalizedIds.indexOf(item.id) < 0) {
+    if (
+      _.indexOf(selectedList, item) < 0 &&
+      _.indexOf(selectedPersonalizedIds, item.id) < 0
+    ) {
       setSelectedList([item, ...selectedList]);
     }
   };
@@ -502,13 +505,15 @@ const TransferList = ({
   };
 
   const removeItemPersonalized = (item) => {
-    let teams = []
+    let teams = [];
     selectedList.forEach((team) => {
-      if (team.collaborators && (team.collaborators.length - 1) > 0) {
-        team.collaborators = team.collaborators.filter((selectedItem) => selectedItem.id !== item.id);
+      if (team.collaborators && team.collaborators.length - 1 > 0) {
+        team.collaborators = team.collaborators.filter(
+          (selectedItem) => selectedItem.id !== item.id
+        );
       }
       teams.push(team);
-    })
+    });
     setSelectedList(teams);
   };
 
@@ -651,17 +656,21 @@ const TransferList = ({
   const displayTeamPersonalizedChoices = (teamPersonalizedList) => (
     <React.Fragment>
       {teamPersonalizedList.map((team, teamKey) => {
-        const displayedCollaborators = team.collaborators
+        const displayedCollaborators = team.collaborators;
 
         return (
           <div className={classes.panelWrapper}>
-            <div style={{position: 'static'}}>
-              <div
-                className={`${classes.item}`}
-              >
+            <div style={{ position: 'static' }}>
+              <div className={`${classes.item}`}>
                 <Card className={classes.thumbnail}>
                   <Grid container spacing={2} className={classes.teamWrapper}>
-                    <Grid item xs={9} container alignItems='flex-start' justify='left'>
+                    <Grid
+                      item
+                      xs={9}
+                      container
+                      alignItems='flex-start'
+                      justify='left'
+                    >
                       <Grid item xs={12} zeroMinWidth>
                         <Grid container justifyContent='space-between'>
                           <Grid item>
@@ -692,12 +701,22 @@ const TransferList = ({
                       </Grid>
                       <Grid
                         item
-                        style={{ borderRadius: 5, overflow: 'hidden', height: 18 }}
+                        style={{
+                          borderRadius: 5,
+                          overflow: 'hidden',
+                          height: 18,
+                        }}
                       >
                         <Tag className={classes.tag} color='#f2f5fc'>
-                          <span style={{ color: '#43586c' }}>{intl
-                            .formatMessage({ id: 'team.collaborators_text' })
-                            .format((team.collaborators) ? team.collaborators.length : 0)}</span>
+                          <span style={{ color: '#43586c' }}>
+                            {intl
+                              .formatMessage({ id: 'team.collaborators_text' })
+                              .format(
+                                team.collaborators
+                                  ? team.collaborators.length
+                                  : 0
+                              )}
+                          </span>
                         </Tag>
                       </Grid>
                     </Grid>
@@ -816,7 +835,7 @@ const TransferList = ({
                         teamNumber
                         image={teamGroup.parent ? null : logo}
                       />
-                      {(whiteList && !noSelection) && (
+                      {whiteList && !noSelection && (
                         <IconButton
                           size='small'
                           onClick={() =>
@@ -1106,10 +1125,10 @@ const TransferList = ({
               </Grid>
               <Grid item xs={12} sm={6} container direction='column'>
                 <Grid item>
-                  { !teamPersonalizedMode && (
+                  {!teamPersonalizedMode && (
                     <DefaultTitle className={classes.title}>
-                      {intl.formatMessage({ id: 'transfer_list.participants' })} (
-                      {selectedByScope.length})
+                      {intl.formatMessage({ id: 'transfer_list.participants' })}{' '}
+                      ({selectedByScope.length})
                       {parseInt(counterDiff) !== 0 && (
                         <span
                           style={{
@@ -1124,13 +1143,13 @@ const TransferList = ({
                               : classes.activeColorPrimary
                           }`}
                         >
-                        {counterDiff > 0 && '+'}
+                          {counterDiff > 0 && '+'}
                           {counterDiff}
-                      </span>
+                        </span>
                       )}
                     </DefaultTitle>
                   )}
-                  { teamPersonalizedMode && (
+                  {teamPersonalizedMode && (
                     <DefaultTitle className={classes.title}>
                       {intl.formatMessage({ id: 'transfer_list.participants' })}
                     </DefaultTitle>

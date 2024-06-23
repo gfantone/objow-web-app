@@ -5,20 +5,17 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import * as authActions from '../../../../services/Auth/actions';
 import api from '../../../../data/api/api';
-import local from '../../../../data/local/local';
 import { Loader } from '../../../../components';
-import { isMobile, isAndroid } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import { toast } from 'react-toastify';
+import {isMobileApp} from "../../../../helpers/MobileApp";
 
 const WorkosCallback = (props) => {
   const [redirect, setRedirect] = useState();
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
 
-  const { detect } = require('detect-browser');
-  const browser = detect();
-  const isWebview =
-    browser.name === 'ios-webview' || browser.name === 'chromium-webview';
+  const isWebview = isMobileApp();
 
   // Redirect to custom scheme if mobile browser
   if (isMobile && !isWebview) {
@@ -39,7 +36,7 @@ const WorkosCallback = (props) => {
         }
       });
     }
-  }, []);
+  }, [code, isWebview, props.authActions]);
 
   if (redirect) {
     return <Redirect to='/' />;

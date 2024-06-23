@@ -31,8 +31,7 @@ import * as teamCollaboratorChallengeListActions from '../../../../services/Team
 import '../../../../helpers/StringHelper';
 import api from '../../../../data/api/api';
 import _ from 'lodash';
-import * as teamPersonalizedChallengeListActions
-  from "../../../../services/TeamPersonalizedChallenges/TeamPersonalizedChallengeList/actions";
+import * as teamPersonalizedChallengeListActions from '../../../../services/TeamPersonalizedChallenges/TeamPersonalizedChallengeList/actions';
 const styles = {
   iconMargin: {
     marginRight: 16,
@@ -270,13 +269,14 @@ class TeamChallengeList extends MainLayoutComponent {
     const teamIds = _.get(account, 'team.id')
       ? [_.get(account, 'team.id')]
       : _.get(account, 'team_group.allTeamIds');
-
+    return challenges;
     return challenges.filter((challenge) => {
       const includesManagerTeam =
         account.team &&
         challenge.participantTeamIds.indexOf(account.team.id) >= 0;
       return (
-        includesManagerTeam || challenge.typeCode === 'TP' ||
+        includesManagerTeam ||
+        challenge.typeCode === 'TP' ||
         ((account.role.code === 'A' || account.role.code === 'S') &&
           challenge.participantTeamIds.indexOf(parseInt(teamId)) >= 0)
       );
@@ -285,7 +285,8 @@ class TeamChallengeList extends MainLayoutComponent {
 
   renderData(hasChallenges = false) {
     const { challenges: teamChallenges } = this.props.teamChallengeList;
-    const { challenges: teamPersonalizedChallenges } = this.props.teamPersonalizedChallengeList;
+    const { challenges: teamPersonalizedChallenges } =
+      this.props.teamPersonalizedChallengeList;
     const { challenges: collaboratorChallenges } =
       this.props.teamCollaboratorChallengeList;
     const {
@@ -404,8 +405,10 @@ class TeamChallengeList extends MainLayoutComponent {
       challenges: collaboratorChallenges,
       loading: teamCollaboratorChallengeListLoading,
     } = this.props.teamCollaboratorChallengeList;
-    const { challenges: teamPersonalizedChallenges, loading: teamPersonalizedChallengeListLoading } =
-      this.props.teamPersonalizedChallengeList;
+    const {
+      challenges: teamPersonalizedChallenges,
+      loading: teamPersonalizedChallengeListLoading,
+    } = this.props.teamPersonalizedChallengeList;
     const { configs, loading: configLoading } = this.props.configList;
     const loading =
       teamChallengeListLoading ||
@@ -422,7 +425,12 @@ class TeamChallengeList extends MainLayoutComponent {
 
     let hasChallenges = false;
 
-    if (teamChallenges && teamGroupChallenges && collaboratorChallenges && teamPersonalizedChallenges) {
+    if (
+      teamChallenges &&
+      teamGroupChallenges &&
+      collaboratorChallenges &&
+      teamPersonalizedChallenges
+    ) {
       hasChallenges =
         this.getChallengeList(
           this.mergeChallenges(
@@ -492,7 +500,7 @@ const mapDispatchToProps = (dispatch) => ({
   teamPersonalizedChallengeListActions: bindActionCreators(
     teamPersonalizedChallengeListActions,
     dispatch
-  )
+  ),
 });
 
 export default connect(

@@ -18,6 +18,5 @@ export * from './NewsFeed';
 export * from './Partners';
 export * from './Rankings';
 export * from './Rewards';
-export * from './Spider';
 export * from './Stats';
 export * from './Teams';

@@ -277,7 +277,7 @@ class TeamGroupChallengeList extends MainLayoutComponent {
     const teamIds = _.get(account, 'team.id')
       ? [_.get(account, 'team.id')]
       : _.get(account, 'team_group.allTeamIds');
-
+    return challenges;
     return challenges.filter((challenge) => {
       const includesManagerTeam =
         account.team &&

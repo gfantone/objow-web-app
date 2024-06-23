@@ -8,9 +8,7 @@ import {
     MaintenanceRoutes,
     MainRoutes,
     ManagerRoutes,
-    SuperManagerRoutes,
-    GuestRoutes,
-    UserRoutes,
+    SuperManagerRoutes
 } from './components';
 import * as scenes from './scenes';
 import IntermediateRoutes from './components/Common/components/IntermadiateRoutes/IntermadiateRoutes';
@@ -535,22 +533,6 @@ export default () => {
                     component={scenes.PrivacyPolicy}
                 />
                 <FileRoutes exact path={'/use-terms'} component={scenes.UseTerms}/>
-                {/* Spider routes */}
-                <GuestRoutes
-                    exact
-                    path='/activate'
-                    component={scenes.AccountActivation}
-                />
-                <GuestRoutes
-                    exact
-                    path='/finalize-activation'
-                    component={scenes.AccountActivationFinalization}
-                />
-                <UserRoutes
-                    exact
-                    path='/edenred'
-                    component={scenes.SpiderHome}
-                />
             </Switch>
         </BrowserRouter>
     );
