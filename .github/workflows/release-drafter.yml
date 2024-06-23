@@ -5,4 +5,6 @@ categories:
     label: 'feature'
   - title: '🐛 Bug Fixes'
     label: 'bug'
+  - title: '📝 Documentation Updates'
+    label: 'documentation'
 change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
