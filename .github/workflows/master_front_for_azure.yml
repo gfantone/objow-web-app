@@ -92,5 +92,5 @@ jobs:
         with:
           app-name: 'objow-front-dev'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_OBJOW }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_OBJOW_DEV }}
           package: build
