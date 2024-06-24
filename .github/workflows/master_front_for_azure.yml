@@ -87,7 +87,7 @@ jobs:
         run: unzip build.zip
 
       - name: Deploy to Azure Web App - objow-front-edenred-dev
-        id: deploy-to-webapp-edenred
+        id: deploy-to-webapp-objow
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'objow-front-dev'
