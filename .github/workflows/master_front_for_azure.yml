@@ -65,7 +65,7 @@ jobs:
         id: deploy-to-webapp-front-preprod
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'objow-front-edenred-preprod'
+          app-name: 'objow-front-preprod'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_OBJOW_PREPROD }}
           package: build
@@ -90,7 +90,7 @@ jobs:
         id: deploy-to-webapp-edenred
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'objow-front-edenred-dev'
+          app-name: 'objow-front-dev'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_OBJOW }}
           package: build
