@@ -1,0 +1,1 @@
+export { default as FixedTableCell } from './FixedTableCell';

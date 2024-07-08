@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'VOXMediumItalic';
+  src: local('Vox-MediumItalic'),
+    url('../src/assets/fonts/Vox-MediumItalic.ttf') format('opentype');
+}
+@font-face {
+  font-family: 'VOXBoldItalic';
+  src: local('Vox-BoldItalic'),
+    url('../src/assets/fonts/Vox-BoldItalic.otf') format('opentype');
+}

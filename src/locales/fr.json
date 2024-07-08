@@ -1,0 +1,1420 @@
+{
+  "account": {
+    "title": "Mon profil",
+    "first_name_label": "Prénom",
+    "last_name_label": "Nom",
+    "email_label": "Email",
+    "citation_label": "Citation",
+    "title_label": "Titre du profil",
+    "title_label_pseudo": "Pseudo",
+    "password_label": "Nouveau mot de passe",
+    "confirm_password_label": "Confirmation du mot de passe",
+    "fictional_user": "utilisateur fictif"
+  },
+  "aircall": {
+    "install_title": "Connexion avec Aircall",
+    "install_code_label": "Code entreprise",
+    "install_email_label": "Email",
+    "install_password_label": "Mot de passe",
+    "install_authorization_error": "Vous n’avez pas les autorisations",
+    "install_login_error": "Les identifiants sont incorrects",
+    "install_unknown_error": "Une erreur inconnue est survenue",
+    "install_submit_button": "Connecter Aircall",
+    "install_no_customer_button_1": "Pas encore",
+    "install_no_customer_button_2": "client Fire Tiger ?",
+    "install_website_button": "Voir site web",
+    "install_demo_button": "Démonstration"
+  },
+  "apptour": {
+    "title": "App tour"
+  },
+  "game": {
+    "title": "Jeu"
+  },
+  "admin": {
+    "title": "Administration",
+    "partner_list_subtitle": "Intégrations partenaires",
+    "partner_detail_subtitle": "Intégrations partenaires",
+    "partner_detail_empty_connection": "Pour utiliser ces fonctionnalités, veuillez installer Fire Tiger sur votre espace client Aircall.",
+    "access_rights": {
+      "title": "Gestion des droits d'accès",
+      "manager_title": "Manager",
+      "collaborator_title": "Joueur",
+      "home_page": "Configuration de la page d'accueil",
+      "future_challenge": "Afficher les challenges futurs",
+      "future_goals": "Afficher les objectifs futurs",
+      "coaching_list": "Accès à la coaching list",
+      "edit_coaching_list": "Modifier la coaching list",
+      "home": "Accès au tableau de bord",
+      "goals": "Accès aux objectifs",
+      "challenge": "Accès aux challenges",
+      "teams": "Accès aux équipes",
+      "badges": "Accès aux Badges",
+      "stats": "Accès aux statistiques",
+      "rankings": "Accès aux classements",
+      "rules": "Accès aux règles du jeu",
+      "help": "Accès à l'aide",
+      "news_feed": "Accès au fil d'actualités",
+      "news_feed_comments_creation": "Création de commentaires sur le fil d'actualité",
+      "news_feed_post_creation": "Création de post sur le fil d'actualité",
+      "goal_rankings": "Classement visible pour les objectifs",
+      "challenge_rankings": "Classement visible pour les challenges",
+      "general_rankings": "Classement général visible",
+      "category_rankings": "Classement visible pour les catégories",
+      "reset_password": "Editer le profil d'un joueur",
+      "team_rankings": "Classement de mon équipe",
+      "general_rankings_limit": "Classement général limité aux X premiers",
+      "category_rankings_limit": "Classements des catégories limités aux X premiers",
+      "activate_notifications": "Activer les notifications",
+      "activate_weekly_email": "Activer l'email de récap hebdomadaire",
+      "activate_daily_email": "Activer l'email de rappel de notifications quotidien",
+      "goal_filter": "Filtre par défaut sur les objectifs",
+      "wording_challenge": "Wording des challenges",
+      "wording_goal": "Wording des Objectifs",
+      "wording_badge": "Wording des Badges",
+      "wording_rules": "Wording des Règles du jeu",
+      "wording_dashboard": "Wording du tableau de bord",
+      "all_users": "Tous les utilisateurs",
+      "activate_users_count": "Afficher le nombre d'utilisateurs inactifs sur le tableau de bord"
+    },
+    "notifications_rights": {
+      "sub_title": "Gestion des notifications",
+      "title": "Mes notifications",
+      "global": "Global",
+      "title_explication": "Comment être informé:",
+      "explication_type": "Il existe trois façons de recevoir des notifications : push, in-app, email.",
+      "explication_push": "Les notifications push seront envoyées sur votre appareil mobile (iOS ou Android).",
+      "explication_in_app": " Les notifications in-app seront envoyées sur votre application.",
+      "explication_email": "Les notifications par e-mail seront envoyées dans votre boîte de réception.",
+      "title_in_app": "In app",
+      "title_push": "Push",
+      "title_email": "Email",
+      "remark_explication": "Remarque:",
+      "remark_explication_checkbox": "Si la case à cocher n'est pas active, vous ne pouvez pas modifier les paramètres de cette notification",
+      "explication_challenge": "configuration des notifications lors de la mise à niveau des challenges",
+      "explication_newsfeed": "сonfiguration des notifications qui sont envoyées en cas de changement dans le fil d'actualité.",
+      "explication_badge": "configuration des notifications qui sont envoyées lorsque le niveau du badge change",
+      "explication_ranking": "configuration des notifications pour le collaborateur classé premier au classement du challenge",
+      "explication_global": "configuration globale des notifications",
+      "no_notifications": "pas des notifications",
+      "notification_CHBU": "Notification lorsque vos challenges sont mis à jour.",
+      "notification_NLB": "Notification lorsque vous atteignez un nouveau niveau de badge.",
+      "notification_RFR": "Notification pour le collaborateur qui passe premier au classement de l'objectif.",
+      "notification_RFCR": "Notification pour le collaborateur qui passe premier au classement du challenge.",
+      "notification_RFGR": "Notification pour le collaborateur qui passe premier au classement général.",
+      "notification_TRFR": "Notification pour l'équipe qui passe première au classement de l'objectif.",
+      "notification_TRCR": "Notification pour l'équipe qui passe première au classement du challenge.",
+      "notification_TRGR": "Notification pour l'équipe qui passe première au classement général.",
+      "notification_MNL": "Notification pour le collaborateur qui passe un niveau.",
+      "notification_EWM": "Notification envoyée chaque semaine pour booster la motivation pour tout le monde.",
+      "notification_NPE": "Notification informant si des notifications n'ont pas été lues.",
+      "notification_SWE": "Notification récapitulative de la semaine.",
+      "notification_NROE": "Notification envoyée si la commande de récompense est validée avec succès.",
+      "notification_NECH": "Notification envoyée quand un nouveau challenge commence",
+      "notification_NPIN": "Notification envoyée quand le nouveau post a été créé dans le fil d'actualité",
+      "notification_UINC": "Notification envoyée si l'user ne s'est pas connecté depuis X jours. (X-personnalisable)",
+      "notification_NLP": "Notification envoyée quand un user/equipe franchit un palier d'un challenge de mode palier.",
+      "notification_update_success": "Modifications des notifications acceptées avec succès !"
+    },
+    "aircall": {
+      "form_ac_get_calls_activation": "Activer le KPI de récupération des appels aboutis",
+      "form_ac_get_calls_duration": "Durée minimale d’un appel abouti (secondes)",
+      "install": {
+        "code_label": "Code entreprise",
+        "email_label": "Email",
+        "password_label": "Mot de passe",
+        "authorization_error": "Vous n’avez pas les autorisations",
+        "login_error": "Les identifiants sont incorrects",
+        "unknown_error": "Une erreur inconnue est survenue",
+        "submit_button": "Connecter Aircall",
+        "no_customer_button_1": "Pas encore",
+        "no_customer_button_2": "client Fire Tiger ?",
+        "website_button": "Voir site web",
+        "demo_button": "Démonstration"
+      }
+    },
+    "home": {
+      "user_area": "Utilisateurs et droits",
+      "user_link": "Abonnements utilisateurs",
+      "organization_link": "Équipes / Organisation",
+      "permission_link": "Gestion droits d'accès",
+      "notification_link": "Gestion notifications",
+      "data_area": "Intégration et gestion de données",
+      "partner_link": "Intégrations partenaires",
+      "report_link": "Rapports",
+      "import_link": "Journal d'imports",
+      "logo_link": "Changement du logo",
+      "indicator_area": "Configuration des indicateurs",
+      "year_label": "Année à configurer",
+      "point_link": "Répartition générale des points",
+      "category_link": "Catégories",
+      "goal_level_link": "Points",
+      "badge_link": "Badges",
+      "level_link": "Level",
+      "reward_link": "Récompenses"
+    },
+    "goal": {
+      "title": "Objectifs",
+      "classic_title": "Classique",
+      "spreadsheet_title": "Tableur",
+      "admin_title": "Configuration des objectifs",
+      "creation_title": "Création d'un objectif",
+      "kpi_label": "KPI",
+      "unit_label": "Unité",
+      "name_label": "Intitulé",
+      "kpi_name_label": "Intitulé du KPI",
+      "description_label": "Message",
+      "type_label": "Type",
+      "category_label": "Catégorie",
+      "criticity_label": "Urgence",
+      "periodicity_label": "Périodicité",
+      "kpi_format_label": "Format",
+      "kpi_periods_label": "Périodes",
+      "kpi_period_label": "Période",
+      "repartition_label": "Mode de répartition",
+      "target_label": "Obj. global annuel",
+      "creation_target_label": "Obj. {1} par {0}",
+      "creation_repartition_global": "💡En utilisant ce mode de répartition, l’objectif global annuel sera automatiquement réparti sur le nombre de {0} restant(es) sur l’année en cours et divisé par le nombre participants sélectionnés.​\n Une fois validé vous aurez la possibilité de personnaliser les objectifs individuels attribués à l’ensemble de vos équipes.​",
+      "creation_repartition_global_team": "💡En utilisant ce mode de répartition, l’objectif global annuel sera automatiquement divisé par le nombre de {0} restant(es) sur l’année en cours et réparti proportionnellement selon le nombre de participants présents dans les équipes sélectionnées.​\n Une fois validé vous aurez la possibilité de personnaliser les objectifs attribués à l’ensemble des équipes.​",
+      "creation_repartition_individual": "💡En utilisant ce mode de répartition, l’objectif individuel sera automatiquement attribué à l’ensemble des participants sélectionnés sur les {0} restant(es) de l’année en cours.​\n Une fois validé vous aurez la possibilité de personnaliser les objectifs individuels attribués à l’ensemble de vos équipes.​",
+      "creation_repartition_individual_team": "💡En utilisant ce mode de répartition, l’objectif d’équipe sera automatiquement attribué à l’ensemble des équipes sélectionnées sur les {0} restant(es) de l’année en cours.​\n Une fois validé vous aurez la possibilité de personnaliser les objectifs attribués à l’ensemble des équipes.​",
+      "default_label": "Réalisé par défaut",
+      "indication_label": "Indications",
+      "live_label": "Points gagnés en live",
+      "live_infos": "Si activé, les points seront automatiquement gagnés par les participants avant la date de fin de l’objectif.",
+      "editable_label": "Objectif modifiable par les managers",
+      "past_editable_label": "Objectif passé modifiable par les administrateurs",
+      "allow_over_target_label": "Dépassement de l'objectif alloué",
+      "allow_ranking_label": "Affichage du classement",
+      "allow_ranking_latest_value": "Affichage des derniers résultats dans le classement",
+      "allow_ranking_points": "Affichage des points dans le classement",
+      "admin_editable_label": "Objectif modifiable par les administrateurs",
+      "point_config_title_d": "Nombre de jours restants",
+      "point_config_title_w": "Nombre de semaines restantes",
+      "point_config_title_m": "Nombre de mois restants",
+      "point_config_title_q": "Nombre de trimestres restants",
+      "point_config_title_s": "Nombre de semestres restants",
+      "point_config_title_y": "Année en cours",
+      "point_config_title_c": "Nombre de périodes restantes",
+      "point_config_tooltip_d": "les jours restants",
+      "point_config_tooltip_w": "les semaines restantes",
+      "point_config_tooltip_m": "les mois restants",
+      "point_config_tooltip_q": "les trimestres restants",
+      "point_config_tooltip_s": "les semestres restants",
+      "point_config_tooltip_y": "l'année en cours",
+      "point_config_tooltip_c": "la période en cours",
+      "period_label_long": "Période {0} : du {1} au {2}",
+      "period_label_short": "Période {0}",
+      "period_label_short2": "Du {0} au {1}",
+      "import": {
+        "title": "Import d'objectifs",
+        "error1": "L'import est en erreur, car le fichier ne respecte pas les contraintes ci-dessus. Certains objectifs peuvent ne pas avoir été importé.",
+        "error2": "L'import est en erreur pour une raison inconnue.",
+        "text1": "Importez un fichier au format .csv avec pour caractère séparateur la virgule. L'utilisation de la virgule n'est pas autorisée dans les valeurs du fichier.",
+        "text2": "Chaque colonne du fichier doit respecter les conditions ci-dessous :",
+        "condition1": "Email du joueur",
+        "condition2": "Ref de l'objectif",
+        "condition3": "Date de début de la période (format : AAAA-MM-JJ 00:00:00)",
+        "condition4": "Date de fin de la période (format : AAAA-MM-JJ 23:59:59)",
+        "condition5": "valeur de l'objectif",
+        "condition6": "Veuillez vous rapprocher d'un customer success manager pour plus d'informations sur le fonctionnement de l'import d'objectifs"
+      },
+      "point_config": {
+        "title": "Configuration des paliers par {0} et par période",
+        "title_tooltip": "Nombre de points utilisables sur {0}, par {1} sur l'année {2}",
+        "available_points_title": "Points {0} disponible",
+        "current_points_title": "Points {0} en cours de jeu",
+        "max_points_title": "Points max par {0} et par période : ",
+        "level_title": "Palier {0}",
+        "general_info_title": "Informations générales",
+        "allocated_points_year": "Nombre de points alloués pour l'objectif pour l'année {0}",
+        "allocated_points": "Total points alloués : ",
+        "importance_percent": "Pourcentage d'importance : ",
+        "used_points": "Total points déjà mis en jeu : ",
+        "remaining_points": "Total points alloués restants : ",
+        "form": {
+          "percent": "% d'atteinte de l'objectif",
+          "points": "Points"
+        },
+        "errors": {
+          "percent_more_equal": "Le pourcentage doit être supérieur ou égal 0",
+          "percent_more_than": "Le pourcentage doit être supérieur à celui du palier précédent",
+          "points_more_equal": "Le nombre de points doit être supérieur ou égal à 0",
+          "points_more_than": "Le nombre de points doit être supérieur à celui du palier précédent",
+          "no_level_title": "Aucun palier trouvé",
+          "no_level_message": "Créez un premier palier",
+          "archived_goal": "Objectif archivé"
+        }
+      },
+      "update_base_title": "Modification de l'objectif « {0} »",
+      "update_base_tab": "Base",
+      "update_custom_tab": "Personnalisation",
+      "update_readonly_title": "Visualisation de l'objectif « {0} »",
+      "disable_message": "Êtes-vous sûr de vouloir archiver l'objectif « {0} » ?",
+      "disable_info": "Après l’archivage de cet objectif, il ne sera plus possible de le réactiver. Tous les points attribués sur les objectifs en cours et ultérieurs seront remis à disposition.",
+      "update_confirmation_message": "Êtes-vous sûr de vouloir Modifier le KPI de cet objectif ? Cette modification peut avoir des conséquences sur l'historique des résultats. En cas de doute, n'hésitez pas à contacter nos services.",
+      "thumbnail": {
+        "year_period": "Année {0}",
+        "semester_period": "Semestre {0}",
+        "quarter_period": "Trimestre {0} ({1})",
+        "week_period": "Semaine {0} ({1})",
+        "other_period": "Du {0} au {1}",
+        "counter_text": "Réalisé : {0}",
+        "target_text": "/ Objectif : {0}",
+        "timer_tag": "J{0}",
+        "first_rank_text": "{0} er",
+        "other_rank_text": "{0} ème",
+        "max_rank_text": "/ {0}",
+        "player_text": "{0} joueurs",
+        "team_text": "{0} équipes",
+        "points_text": "{0} Pts",
+        "max_points_text": "/ {0} Max",
+        "collaborator_tag": "Individuel",
+        "team_tag": "Équipe"
+      },
+      "detail": {
+        "rank_tab": "Classement",
+        "indication_tab": "Indications"
+      },
+      "list": {
+        "columns": {
+          "id": "Ref",
+          "name": "Nom",
+          "unit": "Unité",
+          "type": "Objectif",
+          "periodicity": "Périodicité",
+          "target": "Obj. global annuel",
+          "default": "Par défaut",
+          "category": "Catégorie"
+        },
+        "active_tab": "Actifs",
+        "archived_tab": "Archivés",
+        "empty_state_title": "Aucun objectif trouvé",
+        "empty_state_message": "Si vous avez appliqué des filtres, changez-les pour afficher d'autres objectifs"
+      },
+      "edit": {
+        "title": "Indicateurs",
+        "disable_button": "Résilier le compte",
+        "max_target_label": "Objectif alloué pour la période sélectionnée",
+        "all_target_label": "Objectif utilisé",
+        "remaining_target_label": "Objectif restant",
+        "error_text": "Veuillez respecter l'objectif total alloué pour la période sélectionnée",
+        "success": "L'objectif a bien été mis à jour",
+        "error": "Une erreur est survenue lors de la mise à jour de l'objectif"
+      },
+      "duplication": {
+        "dialog_title": "Configuration des objectifs",
+        "dialog_message": "Appliquer automatiquement à {0} les objectifs du joueur suivant :",
+        "dialog_confirmation_message": "Êtes-vous sûr de vouloir appliquer automatiquement à {0} les objectifs de {1} ?"
+      },
+      "creation": {
+        "kpi_title": "Selection du KPI de l'objectif",
+        "goal_title": "Configuration de l'objectif",
+        "participants_title": "Selection des participants",
+        "goals_title": "Configuration des objectifs",
+        "options_title": "Selection des options",
+        "success": "L'objectif a bien été créé",
+        "error": "Une erreur est survenue lors de la création de l'objectif"
+      },
+      "indication": {
+        "level_area": "Paliers",
+        "description_area": "Description",
+        "unit_with_symbol_text": "Unité : {0} ({1})",
+        "unit_without_symbol_text": "Unité : {0}",
+        "period_text": "Du {0} au {1}",
+        "live_label": "Points gagnés en live",
+        "live_info": "Si activé, les points seront automatiquement gagnés par les participants avant la date de fin de l’objectif.",
+        "coaching_area": "Les conseils du coach",
+        "coaching_empty_state": "Aucun conseil trouvé",
+        "coaching_item_label": "Conseil {0}"
+      },
+      "rank_list": {
+        "player_column": "Joueurs"
+      }
+    },
+    "badge_config": {
+      "title": "Configuration des badges",
+      "remaining_points_to_award": "Points restants à attribuer"
+    },
+    "report": {
+      "title": "Liste des rapports",
+      "list_tab": "Liste des rapports",
+      "dashboard_tab": "Dashboard",
+      "columns": {
+        "kpi_ref": "Ref KPI",
+        "kpi_code": "Code KPI",
+        "kpi_name": "Intitulé du KPI",
+        "result_unit": "Unité du résultat",
+        "format": "Format",
+        "format_manual": "Manuel",
+        "format_standard": "Standard",
+        "periodicity": "Actualisation",
+        "category": "Category"
+      }
+    },
+    "report_details": {
+      "title": "Rapport « {0} »",
+      "semester_period": "Semestre {0}",
+      "quarter_period": "Trimestre {0}",
+      "week_period": "Semaine {0}",
+      "columns": {
+        "id": "ID"
+      }
+    },
+    "import_log": {
+      "title": "Journal d'import",
+      "data": "Résultats",
+      "users": "Utilisateurs",
+      "goals": "Objectifs",
+      "columns": {
+        "id": "Ref",
+        "file": "Fichier",
+        "date": "Date d'exécution",
+        "state": "État",
+        "download": "Télécharger",
+        "success_lines": "Lignes valides",
+        "error_lines": "Lignes en erreur"
+      }
+    },
+    "logo": {
+      "title": "Changement du logo",
+      "colors": "Couleurs",
+      "primary_color": "Couleur principale",
+      "secondary_color": "Couleur secondaire",
+      "background_color": "Couleur de fond",
+      "reset_colors": "Réinitialiser les couleurs",
+      "success_message": "Le logo a bien été mis à jour",
+      "font_family": {
+        "title": "Police d'écriture",
+        "fonts_select": "Choix des polices"
+      }
+    },
+    "logo_and_colors": {
+      "title": "Changement du logo et couleurs",
+      "success_message": "Les couleurs ont bien été mises à jour"
+    },
+    "point_config": {
+      "total_title": "Nombre total de PTS pouvant être gagnés / joueur",
+      "total_title_team": "Nombre total de PTS pouvant être gagnés / équipe",
+      "point_rule": "Règle de calcul",
+      "budget": "Budget"
+    },
+    "points": {
+      "title": "Configuration des points des objectifs",
+      "menu_global": "Global",
+      "menu_team": "Equipe",
+      "menu_individual": "Individuel",
+      "columns": {
+        "id": "Ref",
+        "name": "Intitulé",
+        "used_points": "Pts déjà mis en jeu",
+        "current_points": "Pts en cours de jeu",
+        "category": "Catégorie",
+        "custom_team": "Personnalisation équipe",
+        "custom_individual": "Personnalisation individuelle"
+      }
+    },
+    "categories": {
+      "title": "Configuration des catégories",
+      "active_tab": "Actives",
+      "archived_tab": "Archivées",
+      "columns": {
+        "icon": "Icône",
+        "name": "Nom"
+      },
+      "creation": {
+        "title": "Création d'une catégorie",
+        "success": "La catégorie a bien été créée",
+        "error": "Une erreur est survenue lors de la création de la catégorie"
+      },
+      "update": {
+        "title": "Modification d'une catégorie",
+        "success": "La catégorie a bien été mise à jour",
+        "error": "Une erreur est survenue lors de la mise à jour de la catégorie"
+      },
+      "archive_confirm": "Êtes-vous sûr de vouloir archiver la catégorie « {} » ?",
+      "archive_confirm2": "Après l’archivage de cette catégorie, il ne sera plus possible de la réactiver."
+    },
+    "reward_category": {
+      "list": {
+        "subtitle": "Configuration des catégories de récompenses",
+        "active_tab": "Actives",
+        "inactive_tab": "Archivées",
+        "name_column": "Nom",
+        "icon_column": "Icône"
+      },
+      "creation": {
+        "subtitle": "Création d'une catégorie de récompenses"
+      },
+      "update": {
+        "subtitle": "Modification d'une catégorie de récompenses"
+      }
+    },
+    "user": {
+      "title": "Gestion des utilisateurs",
+      "id": "Ref",
+      "firstname": "Prénom",
+      "lastname": "Nom",
+      "fullname": "Nom",
+      "email": "Email",
+      "type": "Type",
+      "role": "Fonction",
+      "locale": "Langue",
+      "team": "Équipe",
+      "identifiers": "Identifiants",
+      "identifier": "Identifiant {0}",
+      "last_login": "Dernière connexion",
+      "last_login_empty": "Aucune",
+      "password_field": "Mot de passe",
+      "password": "Nouveau mot de passe",
+      "password_confirm": "Confirmation du mot de passe",
+      "current_tab": "En cours",
+      "archived_tab": "Résiliés",
+      "password_info": "Le mot de passe doit contenir au moins 8 caractères, au moins une minuscule et une majuscule, au minimum un caractère spécial (?!&*) et un chiffre",
+      "information_title": "Informations",
+      "force_reset_password": "Forcer le changement de mot de passe",
+      "force_reset_password_info": "L'utilisateur sera forcé de changer son mot de passe à la prochaine connexion",
+      "search_placeholder": "Rechercher un utilisateur...",
+      "creation": {
+        "title": "Création d'un utilisateur",
+        "password_title": "Création du mot de passe",
+        "success": "L'utilisateur a bien été créé",
+        "send_email": "Envoyer un email de connexion à l'utilisateur"
+      },
+      "update": {
+        "title": "Modification d'un utilisateur",
+        "enable_button": "Réactiver le compte",
+        "disable_button": "Résilier le compte",
+        "password_title": "Modification du mot de passe",
+        "actions_title": "Actions",
+        "success": "L'utilisateur a bien été modifié",
+        "error": "Une erreur est survenue lors de la modification de l'utilisateur",
+        "notifications_title": "Notifications",
+        "allow_pending_notifications": "Autoriser les rappels de notifications par email",
+        "create_new_password": "Envoyer un e-mail de connexion",
+        "create_new_password_success": "L'e-mail de connexion a bien été envoyé"
+      },
+      "profile": {
+        "no_team": "Aucune équipe"
+      },
+      "import": {
+        "title": "Import d'utilisateurs",
+        "error1": "L'import est en erreur, car le fichier ne respecte pas les contraintes ci-dessus. Certains utilisateurs peuvent ne pas avoir été importé.",
+        "error2": "L'import est en erreur pour une raison inconnue.",
+        "text1": "Importez un fichier au format .csv avec pour caractère séparateur la virgule. L'utilisation de la virgule n'est pas autorisée dans les valeurs du fichier.",
+        "text2": "Chaque colonne du fichier doit respecter les conditions ci-dessous :",
+        "condition1": "Prénom : 30 caractères maximum",
+        "condition2": "Nom : 150 caractères maximum",
+        "condition3": "Email : Unique, 254 caractères maximum",
+        "condition4": "Type : C (Joueur), M (Manager), S (Super Manager) ou A (Administrateur)",
+        "condition5": "Équipe : Identifiant de l'équipe (indiqué dans le formulaire d'édition d'une équipe)",
+        "condition9": "Super Manager de département : P si principal sinon vide",
+        "condition6": "Mot de passe",
+        "condition7": "Statut : 1 (Actif) ou 0 (Inactif)",
+        "condition8": "Les 5 dernières colonnes sont des identifiants optionnels"
+      }
+    },
+    "organization": {
+      "title": "Gestion de l'organisation",
+      "create_team_title": "Création d'équipe ({0})",
+      "update_team": "Modification d'équipe",
+      "update_team_group": "Modification de département",
+      "update_company": "Modification du nom de l'entreprise"
+    },
+    "collaborator_selector": {
+      "empty_state_title": "Aucune équipe trouvée",
+      "empty_state_message": "Les équipes n'ont pas encore été créées"
+    }
+  },
+  "badge": {
+    "title": "Badges",
+    "level": {
+      "counter_text": "Réalisé : {0}",
+      "target_text": "Objectif : {0}",
+      "rank_text": "Rang {0}",
+      "condition_text": "Condition : lvl {0}",
+      "point_text": "{0} Pts"
+    },
+    "list": {
+      "empty_state_title": "Aucun défi trouvé",
+      "current_tab": "En cours",
+      "completed_tab": "Réussis"
+    },
+    "creation": {
+      "kpi_title": "Sélection du KPI du badge",
+      "info_title": "Informations",
+      "levels_title": "Configuration des paliers",
+      "participants_title": "Sélection des participants",
+      "success": "Le badge a bien été créé",
+      "error": "Une erreur est survenue lors de la création du badge",
+      "badge_creation": "Création de badge"
+    }
+  },
+  "kpi": {
+    "periodicity": {
+      "D": "Journalier",
+      "W": "Hebdomadaire",
+      "M": "Mensuel",
+      "Q": "Trimestriel",
+      "Y": "Annuel",
+      "S": "Semestriel",
+      "C": "Custom",
+      "goal_custom": "Définie dans l'objectif"
+    },
+    "criticity": {
+      "low": "Basse",
+      "medium": "Moyenne",
+      "high": "Haute"
+    }
+  },
+  "challenge": {
+    "title": "Challenges",
+    "title_plural": "Challenges",
+    "first_rank": "{0}er",
+    "other_rank": "{0}ème",
+    "collaborators": "{0} joueurs",
+    "teams": "{0} équipes",
+    "team_groups": "{0} département",
+    "points": "Score : {0}",
+    "max_points": "{0} MAX",
+    "category_list_title": "Sélection de la catégorie",
+    "delete_success": "Le challenge a bien été supprimé",
+    "delete_prompt": "Êtes-vous sûr de vouloir supprimer ce challenge ?",
+    "search_placeholder": "Rechercher un participant...",
+    "awards_title": "Gains",
+    "click_to_view_challenge": "Cliquez ici pour consulter le challenge",
+    "no_awards_title": "Aucun gain remporté",
+    "share": {
+      "title": "Partager ce challenge",
+      "teams_share": "Partager sur teams",
+      "copy_link": "Copier le lien",
+      "copy_success": "Le lien a bien été copié"
+    },
+    "modes_full": {
+      "C": "Mode Course",
+      "M": "Mode Score max",
+      "P": "Mode Paliers",
+      "R": "Mode Podium"
+    },
+    "modes": {
+      "C": "Course",
+      "M": "Score max",
+      "P": "Paliers",
+      "R": "Podium"
+    },
+    "types": {
+      "CT": "Équipe",
+      "CC": "Individuel",
+      "TG": "Département",
+      "TP": "Équipe personnalisée"
+    },
+    "reward_types": {
+      "P": "Points",
+      "G": "Cadeaux"
+    },
+    "award_list": {
+      "title": "Récompenses",
+      "target_label": "Score à atteindre",
+      "points_calculation_message": "Calcul des pts utilisables...",
+      "usable_points": "{0} pts utilisables",
+      "type_label": "Mode",
+      "collaborator_max_point_label": "Maximum / joueur",
+      "team_max_point_label": "Maximum / équipe",
+      "collaborator_point_label": "Gain joueur #{0}",
+      "team_point_label": "Gain équipe #{0}",
+      "step_point_label": "Palier #{0}",
+      "list_live_label": "Points gagnés en live",
+      "list_live_infos": "Si activé, les points seront automatiquement gagnés par les participants avant la date de fin du challenge.",
+      "add_reward": "Création de récompense"
+    },
+    "form": {
+      "info_area": "Informations",
+      "info_name_label": "Nom",
+      "info_description_label": "Description",
+      "info_no_image_text": "Aucune image sélectionée",
+      "info_start_label": "Début",
+      "info_end_label": "Fin",
+      "info_type_label": "Type de challenge",
+      "info_award_type_label": "Mode",
+      "info_image_label": "Sélectionner une image...",
+      "enable_manager_score_label": "Afficher le score consolidé",
+      "notify_updated_label": "Notifier les participants des mises à jour",
+      "goal_area": "Indicateurs",
+      "goal_title": "Indicateur {0}",
+      "goal_category_label": "Catégorie",
+      "goal_kpi_label": "Kpi",
+      "goal_name_label": "Intitulé",
+      "goal_description_label": "Description",
+      "goal_collaborator_editable_label": "Saisie joueur",
+      "goal_manager_editable_label": "Saisie manager",
+      "goal_unit_label": "Unité",
+      "goal_periodicity_label": "Periodicité",
+      "goal_format_label": "Format",
+      "goal_target_label": "Objectif",
+      "goal_target_info_text": "La condition fixée ici peut être atteinte plusieurs fois. Chaque fois que celle-ci est atteinte elle rapporte le nombre de points associés.",
+      "award_type_description_m": "Chaque {1} gagne le nombre de points correspondants à son score, dans la limite du maximum défini",
+      "award_type_description_r": "Récompense pour les {2} {0} à la fin du challenge",
+      "award_type_description_p": "La récompense obtenue par les participants dépend du niveau de performance atteint",
+      "award_type_description_c": "Récompense pour les {2} {0} à atteindre les objectifs du challenge",
+      "award_type_description_single_m": "Chaque {1} gagne le nombre de points correspondants à son score, dans la limite du maximum défini",
+      "award_type_description_single_r": "Récompense pour {0} à la fin du challenge",
+      "award_type_description_single_p": "La récompense obtenue par les participants dépend du niveau de performance atteint",
+      "award_type_description_single_c": "Récompense pour {0} à atteindre les objectifs du challenge",
+      "award_type_minimum_participants": "Ce mode nécessite au moins {0} {1}",
+      "goal_target_label2": "Condition",
+      "goal_target_label2_race": "Objectif",
+      "step_mode_information": "Maximum 1 récompense par participant (la récompense gagnée est celle du plus haut palier)",
+      "award_error": "Ajoutez au moins une récompense",
+      "soon_available": "Bientôt disponible",
+      "first": "Premiers",
+      "the_first": "le premier",
+      "the_first_department": "le premier département",
+      "the_first_team": "la première équipe",
+      "first_teams": "premières équipes",
+      "first_departments": "premiers départements",
+      "mode": "Mode",
+      "add_reward": "Ajouter une récompense",
+      "congratulations": "Félicitations 🎉 !",
+      "congratulations_message": "Votre challenge est prêt à être diffusé !",
+      "steps": {
+        "infos": "Informations",
+        "participants": "Participants",
+        "participant": "Participant",
+        "mode": "Mode",
+        "indicators": "Indicateurs et mécanismes",
+        "rewards": "Récompenses",
+        "validation": "Validation"
+      },
+      "goals": {
+        "automatic": "Automatique",
+        "manual": "Saisie manuelle",
+        "add_button": "Ajouter un indicateur"
+      },
+      "participants_title": "Sélection des participants",
+      "mode_title": "Sélection du mode de challenge",
+      "infos_title": "Configuration des informations",
+      "indicators_title": "Configuration des indicateurs et des mécanismes du challenge",
+      "rewards_title": "Sélection des récompenses"
+    },
+    "creation": {
+      "title": "Création d'un challenge",
+      "success": "Le challenge a bien été créé",
+      "error": "Une erreur est survenue lors de la création du challenge"
+    },
+    "update": {
+      "title": "Modification d'un challenge",
+      "edit_participants": "Edition des participants",
+      "create_reward": "Création de récompense"
+    },
+    "duplication": {
+      "title": "Duplication d'un challenge"
+    },
+    "detail": {
+      "rank_tab": "Classements",
+      "condition_tab": "Conditions"
+    },
+    "list": {
+      "create_button": "Créer un challenge",
+      "empty_state_title": "Aucun challenge trouvé",
+      "empty_state_message": "Si vous avez appliqué des filtres, changez-les pour afficher d'autres challenges"
+    },
+    "condition": {
+      "label": "Condition",
+      "label_completed": "Réalisé",
+      "condition_area": "Indicateurs",
+      "goal_info": "La condition fixée ici peut être atteinte plusieurs fois. Chaque fois que celle-ci est atteinte elle rapporte le nombre de points associés",
+      "race_condition_goal_info": "Si l'objectif est atteint, il rapporte 1 point de score",
+      "point_target": "{0} PTS",
+      "point_counter": "{0} PTS",
+      "description_area": "Description",
+      "period": "Du {0} au {1}",
+      "last_update": "Dernière mise à jour le : ",
+      "last_update_time": "{0} à {1}",
+      "type": "Mode : {0}",
+      "description_label": "Description",
+      "award_area": "Récompenses du challenge",
+      "collaborator_max_points_label": "Maximum / joueur",
+      "team_max_points_label": "Maximum / équipe",
+      "team_group_max_points_label": "Maximum / département",
+      "collaborator_rank": "Joueur #{0}",
+      "team_rank": "Équipe #{0}",
+      "team_group_rank": "Département #{0}",
+      "award_points": "{0} PTS"
+    },
+    "kpi_results": {
+      "title": "Liste des résultats pour le kpi",
+      "collaborator_title": "Liste des résultats enregistrés pour le kpi",
+      "collaborator_new_title": "Enregistrer un nouveau résultat pour le kpi",
+      "add_kpi_title": "Ajout d'un résultat pour le kpi",
+      "edit_kpi_title": "Modification d'un résultat pour le kpi",
+      "subtitle": "Les résultats peuvent prendre quelques minutes avant d'être mis à jour",
+      "add_data_button": "Ajouter des données",
+      "back_button": "Retour à la liste",
+      "add_data": "Ajouter une donnée",
+      "see_more": "Voir plus",
+      "edit_results": "Saisir les résultats",
+      "columns": {
+        "indications": "Indications",
+        "images": "Images",
+        "result": "Résultat",
+        "results": "Résultats",
+        "actions": "Actions"
+      },
+      "form": {
+        "data_value": "Valeur",
+        "data_value_placeholder": "Saisissez la valeur à déclarer",
+        "data_description": "Indications",
+        "data_description_placeholder": "Saisissez votre texte",
+        "data_image": "Sélectionner un fichier...",
+        "file_size_error": "La taille du fichier ne doit pas dépasser 20 Mo"
+      }
+    },
+    "ranking": {
+      "collaborator_column": "Joueurs",
+      "collaborator_team_column": "Équipe",
+      "collaborator_team_group_column": "Département",
+      "team_column": "Équipes",
+      "points_column": "Score",
+      "level_column": "Level"
+    }
+  },
+  "chart": {
+    "x_legend": "Période",
+    "target_text": "Objectif : {0}",
+    "counter_text": "Réalisé : {0}",
+    "points_text": "{0} pts",
+    "max_points_text": "/ {0} max",
+    "collaborator_type_text": "Solo",
+    "team_type_text": "Équipe"
+  },
+  "coaching_list": {
+    "title": "Coaching list",
+    "title_placeholder": "Saisissez un titre pour cette carte",
+    "empty_state_title": "Aucune instruction trouvée",
+    "empty_state_collaborator_message": "Revenez plus tard lorsque votre manager vous coachera",
+    "empty_state_manager_message": "Créer une première instruction pour votre joueur",
+    "delete_prompt": "Êtes-vous sûr de vouloir supprimer cet élément ?",
+    "delete_prompt2": "Après suppression, il ne sera plus possible de le récupérer",
+    "end_label": "Date d'échéance",
+    "created_success": "La carte a bien été créée",
+    "updated_success": "La carte a bien été mise à jour",
+    "state": {
+      "pending": "En attente",
+      "in_progress": "En cours",
+      "done": "Terminé",
+      "archived": "Archivé"
+    }
+  },
+  "collaborator": {
+    "title": "Joueurs",
+    "dashboard": "Mon tableau de bord",
+    "badge_empty_title": "Aucun défi réalisé",
+    "detail": {
+      "password_button": "Editer le profil",
+      "empty_state_title": "Aucune donnée disponible",
+      "info_area": "Informations générales",
+      "info_total_points": "{0} PTS",
+      "info_current_level": "{0} ",
+      "info_current_level_max": "/ {0} PTS",
+      "info_next_level": "Level {0}",
+      "info_max_level": "Level max atteint",
+      "info_first_rank_text": "{0}er",
+      "info_other_rank_text": "{0}ème",
+      "info_victories": "{0} victoire(s)",
+      "badge_area": "Badges",
+      "badge_rank": "Rang {0}"
+    },
+    "update": {
+      "title": "Modification du profil"
+    },
+    "reward_order": {
+      "summary_title": "Récapitulatif d'une commande",
+      "summary_rewards_area": "Commande n°{0} de {1}",
+      "summary_points_area": "Total commande",
+      "summary_points_area_year": "Année {0}",
+      "erase_cart_warning": "Êtes-vous sûr de vouloir ajouter cette nouvelle récompense ?",
+      "erase_cart_warning2": "Cette action réinitialisera votre panier, actuellement associé à un autre joueur",
+      "tracking": {
+        "id_column": "Ref",
+        "name_column": "Nom",
+        "email_column": "Email",
+        "team_column": "Équipe",
+        "waiting_points_column": "Pts à valider",
+        "validated_points_column": "Pts validés",
+        "value_column": "Montant total",
+        "order_date_column": "Date de commande",
+        "validation_date_column": "Date de validation",
+        "sub_header_validated_title": "Suivi des commandes",
+        "sub_header_validated_tab": "À traiter",
+        "sub_header_pending_tab": "En cours",
+        "sub_header_waiting_tab": "Validées"
+      },
+      "validation": {
+        "title": "Validation d'une commande",
+        "rewards_area": "Commande n°{0} de {1}",
+        "points_area": "Total commande",
+        "points_area_year": "Année {0}",
+        "success": "La commande a bien été validée",
+        "error": "Une erreur est survenue lors de la validation de la commande"
+      }
+    }
+  },
+  "point_summary": {
+    "title": "Informations générales",
+    "points_label": "Total points gagnés",
+    "points_value": "{0} Pts",
+    "used_points_label": "Total points consommés",
+    "used_points_value": "{0} Pts",
+    "validated_values_label": "Total valeur dépensée",
+    "validated_values_value": "{0} €",
+    "waiting_points_label": "Points en attente de validation",
+    "waiting_points_value": "{0} Pts",
+    "usable_points_label": "Solde de points",
+    "usable_points_value": "{0} Pts",
+    "orders_button": "Commandes à valider",
+    "panopli_button": "Accéder à la boutique",
+    "panopli_error": "Aucun compte n'a été trouvé sur la boutique"
+  },
+  "ranking": {
+    "title": "Classements",
+    "owner_title": "Mes classements",
+    "collaborator_tab": "Individuel",
+    "team_tab": "Équipe",
+    "columns": {
+      "collaborator": "Joueurs",
+      "name": "Nom",
+      "team": "Équipes"
+    },
+    "general_title": "Classement général",
+    "challenges_title": "Challenges",
+    "empty_state_title": "Aucun classement disponible",
+    "collaborator_category_title": "Classement individuel",
+    "collaborator_challenge_title": "Classement des challenges individuels",
+    "collaborator_general_title": "Classement général individuel",
+    "team_category_title": "Classement d'équipe",
+    "team_challenge_title": "Classement des challenges d'équipe",
+    "team_general_title": "Classement général d'équipe"
+  },
+  "reward": {
+    "title": "Récompenses",
+    "image_input_infos": "L’affichage de l’image s’adapte et varie en fonction de la taille de l’écran utilisé par l’utilisateur. Le format d’image recommandé pour un affichage optimal est le suivant : 1024x700.",
+    "point_tag": "{0} PTS",
+    "sort_by": "Trier par",
+    "sort_options": {
+      "asc": "Nombre de points croissant",
+      "desc": "Nombre de points décroissant"
+    },
+    "form": {
+      "infos_area": "Informations",
+      "name_label": "Nom",
+      "description_label": "Description",
+      "empty_image_text": "Aucune image sélectionnée",
+      "category_label": "Catégorie",
+      "type_label": "Type",
+      "value_label": "Valeur",
+      "value_suffix_label": "€",
+      "points_label": "Nombre de points nécessaires",
+      "image_label": "Sélectionner une image...",
+      "delivery_area": "Livraison",
+      "delivery_place_label": "Lieu",
+      "delivery_mode_label": "Mode de livraison",
+      "delivery_time_label": "Temps de livraison"
+    },
+    "creation": {
+      "subtitle": "Création d'une récompense",
+      "success": "La récompense a bien été créée",
+      "error": "Une erreur est survenue lors de la création de la récompense"
+    },
+    "duplication": {
+      "title": "Duplication d'une récompense"
+    },
+    "edit": {
+      "title": "Modification d'une récompense"
+    },
+    "management": {
+      "title": "Gestion des récompenses",
+      "collaborator_tab": "Joueurs",
+      "team_tab": "Équipes",
+      "collaborator_selector_area": "Sélection d'un joueur",
+      "team_selector_area": "Sélection d'une équipe"
+    },
+    "detail": {
+      "description_area": "Description",
+      "image_close_button": "Fermer",
+      "value_text": "Valeur : {0} €",
+      "delivery_place_text": "Lieu : {0}",
+      "delivery_mode_text": "Mode de livraison : {0}",
+      "delivery_time_text": "Temps de livraison estimé : {0}",
+      "operation_title": "Comment ça marche ?",
+      "operation_step_1_title": "Au clic sur ajouter",
+      "operation_step_1_description": "Vous devez vérifier votre commande et valider votre panier. Une notification sera ensuite adressée à l’administrateur de votre société pour l’informer de votre demande.",
+      "operation_step_2_title": "Commande en attente",
+      "operation_step_2_description": "Votre commande est en attente de traitement/validation. Les points utilisés au moment de votre commande sont retirés de votre de solde de points.",
+      "operation_step_3_title": "Commande en cours",
+      "operation_step_3_description": "L’administrateur de votre société prend en charge votre commande. Une fois validée et facturée par le fournisseur, vos points sont définitivement décomptés de votre solde de points.",
+      "operation_step_4_number": "Réception",
+      "operation_step_4_title": "Commande expédiée",
+      "operation_step_4_description": "Votre récompense est en route ! Vous êtes informé par l’administrateur de votre société. Votre récompense sera déclarée et soumise à cotisations patronales et/ou salariales."
+    },
+    "order_item_list": {
+      "quantity_label": "Quantité",
+      "value_label": "Valeur",
+      "points_value": "{0} Pts",
+      "empty_text": "Vide",
+      "close_button": "Continuer vos achats"
+    },
+    "order_list_export": {
+      "title": "Export des commandes validées"
+    },
+    "order_summary": {
+      "recipient_points_label": "Solde de points actuel",
+      "recipient_points_value": "{0} Pts",
+      "order_points_label": "Total commande",
+      "cart_points_label": "Total panier",
+      "order_points_value": "{0} Pts",
+      "order_value_label": "Total valeur",
+      "remaining_points_label": "Prochain solde de points",
+      "remaining_points_value": "{0} Pts",
+      "order_button": "Commander",
+      "refuse_button": "Refuser",
+      "confirm_order_title": "Êtes-vous sûr de vouloir valider votre commande de {0} Pts pour une valeur de {1} € ?",
+      "confirm_order_message": "Une fois validée, vous ne pourrez plus annuler votre commande, les points seront retirés de votre solde de point et la valeur de votre commande sera déclarée et soumise à cotisation patronales et/ou salariales.",
+      "confirm_validate_title": "Êtes-vous sûr de vouloir valider la commande N°{0} d'un total de {1} Pts pour une valeur de {2} € ?",
+      "confirm_validate_message": "Une fois validée, vous ne pourrez plus annuler la commande, les points seront retirés du solde de points disponible et la valeur de cette commande devra être déclarée et soumise à cotisations patronales et/ou salariales.",
+      "confirm_refuse_title": "Êtes-vous sûr de vouloir refuser la commande N°{0} d'un total de {1} Pts pour une valeur de {2} € ?",
+      "confirm_refuse_message": "Une fois refusée, il ne sera plus possible de la réactiver, les points seront réattribués au solde de point disponible. Il sera de votre responsabilité d'informer l'utilisateur de la raison du refus."
+    },
+    "settings": {
+      "collaborator_reward_activation_option": "Activer les récompenses « joueur »",
+      "team_reward_activation_option": "Activer les récompenses « équipe »",
+      "manager_reward_creation": "Activer la commande de récompenses par les managers",
+      "manager_reward_notification": "Notifier par email aux managers les commandes passées par des joueurs de leur équipe"
+    },
+    "shopping_cart": {
+      "rewards_area": "Votre panier",
+      "points_area": "Total panier",
+      "points_area_year": "Année {0}",
+      "adding_confirmation_message": "Vous venez d’ajouter ce produit à votre panier :",
+      "adding_confirmation_shopping_cart_button": "Aller au panier",
+      "adding_confirmation_close_button": "Continuer vos achats",
+      "success": "Votre commande a bien été prise en compte"
+    },
+    "store": {
+      "empty_state_title": "Aucune récompense trouvée",
+      "empty_state_message": "Si vous avez appliqué des filtres, changez-les pour afficher d’autres récompenses"
+    }
+  },
+  "contact": {
+    "title": "Aide",
+    "question": "Comment pouvons-nous vous aider ?",
+    "form_type_label": "Motif",
+    "form_type_evolution_option": "Demander une évolution",
+    "form_type_incident_option": "Déclarer un incident",
+    "evolution_form_title": "Remplissez ce formulaire pour votre demande d'évolution",
+    "evolution_form_message_label": "Message",
+    "evolution_form_submit_button": "Envoyer",
+    "incident_form_title": "Remplissez ce formulaire pour votre déclaration d'indicent"
+  },
+  "menu": {
+    "level_label": "Level {0}",
+    "points_label": "{0} PTS",
+    "manager_label": "Manager",
+    "administrator_label": "Administrateur",
+    "infos_button": "Mes infos",
+    "notifications_button": "Notifications",
+    "rules_button": "Règles du jeu",
+    "admin_button": "Administration",
+    "help_button": "Aide",
+    "logout_button": "Déconnexion"
+  },
+  "game_rules": {
+    "title": "Règles du jeu",
+    "link_url": "Entrez l'URL du lien :",
+    "site_url": "Entrez l'URL d'un site :",
+    "typeform_url": "Entrez l'URL d'un Typeform :",
+    "code_embed": "Entrez le code EMBED de la video (consultez l’aide Objow en cas de difficulté) :"
+  },
+  "levels": {
+    "list_title": "Liste des levels",
+    "columns": {
+      "level": "Level",
+      "icon": "Icone",
+      "name": "Nom",
+      "points": "Points à atteindre",
+      "citation": "Citation",
+      "percent": "% de joueurs"
+    }
+  },
+  "filter": {
+    "title": "Filtres",
+    "submit_button": "Filtrer",
+    "team_group_label": "Département",
+    "my_team_label": "Mon équipe",
+    "type_label": "Mode",
+    "category_label": "Catégorie",
+    "goal_label": "Objectif",
+    "all_periods_label": "Toutes les périodes",
+    "all_category_label": "Toutes les catégories",
+    "category_all_option": "Toutes",
+    "team_label": "Équipe",
+    "all_team_label": "Toutes les équipes",
+    "all_team_group_label": "Tous les départements",
+    "team_all_option": "Toutes",
+    "global_chip": "Global",
+    "collaborator_label": "Joueur",
+    "collaborator_all_option": "Tous",
+    "all_option_f": "Toutes",
+    "period_label": "Année",
+    "period_all_option": "Toutes",
+    "start_label": "Date de début",
+    "end_label": "Date de fin",
+    "time": {
+      "current": "En cours",
+      "previous": "Passés",
+      "next": "Futurs"
+    }
+  },
+  "login": {
+    "title": "Connexion",
+    "description_line1": "La Solution Gamifiée",
+    "description_line2": "de Pilotage et d'Animation",
+    "description_line3": "des Performances",
+    "code_label": "Code entreprise",
+    "email_label": "Email",
+    "password_label": "Mot de passe",
+    "code_placeholder": "Entrez votre code entreprise",
+    "email_placeholder": "Entrez votre adresse e-mail",
+    "error": "Les identifiants sont incorrects",
+    "submit_button": "Se connecter",
+    "sso_submit_button": "Se connecter en SSO",
+    "sso_error_message": "Le SSO n'est pas configuré. Veuillez contacter un administrateur de Firetiger",
+    "store_message_1": "Votre application Fire Tiger est disponible pour Iphone et Android.",
+    "store_message_2": "Téléchargez-la dès maintenant :",
+    "reset_password": "J'ai oublié mon mot de passe",
+    "reset_password_success": "Un email vous a été envoyé avec un lien pour réinitialiser votre mot de passe",
+    "reset_password_error": "Aucun compte n'a été trouvé avec cette adresse e-mail",
+    "reset_password_confirm_success": "Votre mot de passe a bien été réinitialisé",
+    "reset_password_confirm_error": "Ce lien n'est plus valide. Veuillez faire une nouvelle demande de réinitialisation de mot de passe",
+    "reset_password_title": "Mot de passe oublié",
+    "reset_password_submit": "Réinitialiser le mot de passe",
+    "reset_password_cancel": "Retour à la page de connexion",
+    "force_reset_password_title": "Changez votre mot de passe",
+    "force_reset_password_message": "Votre mot de passe à expiré, vous devez en choisir un nouveau afin de sécuriser votre compte",
+    "create_password_title": "Créez votre mot de passe",
+    "create_password_submit": "Créer le mot de passe",
+    "create_password_success": "Votre mot de passe a bien été créé",
+    "create_password_invalid": "Ce lien n'est pas valide",
+    "create_password_outdated": "Ce lien n'est plus valide. Veuillez faire une nouvelle demande de réinitialisation de mot de passe",
+    "create_password_missing_user": "Ce lien ne correspond à aucun utilisateur ou a déjà été utilisé",
+    "create_password_password_invalid": "Le mot de passe n'est pas valide",
+    "create_password_company_code_invalid": "Le code entreprise saisi n'est pas valide. Veuillez renseigner le code entreprise transmis dans l'email de bienvenue"
+  },
+  "notification": {
+    "empty_message": "Aucune notification reçue",
+    "date": {
+      "days": "{0} j",
+      "hours": "{0} h",
+      "minutes": "{0} min"
+    }
+  },
+  "newsfeed": {
+    "title": "Fil d'actualités",
+    "reply": "Répondre",
+    "like": "J'aime",
+    "comments": "Commentaires",
+    "comment_action": "Commenter",
+    "share_button": "Partager avec",
+    "see_more": "…voir plus",
+    "see_less": "…voir moins",
+    "post_placeholder": "Créez une nouvelle publication",
+    "post_content_placeholder": "Ecrivez votre texte ici",
+    "comment_placeholder": "Écrivez votre commentaire ici",
+    "empty_state_title": "Aucune publication trouvée",
+    "empty_state_message": "Créez votre première publication",
+    "no_more_posts": "Fin du fil d'actualités",
+    "post_creation_success": "Votre publication a bien été créée",
+    "post_delete_success": "Votre publication a bien été supprimée",
+    "post_update_success": "Votre publication a bien été mise à jour",
+    "post_report_success": "Votre signalement a bien été pris en compte",
+    "comment_creation_success": "Votre commentaire a bien été créé",
+    "comment_delete_success": "Votre commentaire a bien été supprimé",
+    "comment_update_success": "Votre commentaire a bien été mis à jour",
+    "video_size_error": "La taille de la vidéo ({0}) ne doit pas dépasser 50Mo",
+    "all_roles": "Tous les roles",
+    "post_visibility_role_tooltip": "Visible par : {0}",
+    "embed_prompt": "Coller l'URL embed de la vidéo ici",
+    "likes_list_title": "Réactions",
+    "new_post_title": "Nouvelle publication",
+    "edit_post_title": "Modifier la publication",
+    "reported_post": "Publication signalée",
+    "reported_comment": "Commentaire signalé",
+    "post_settings": "Paramètres de publication",
+    "for_everybody": "Tout le monde",
+    "who_can_see_your_post": "Qui peut voir votre publication ?"
+  },
+  "statistics": {
+    "title": "Statistiques",
+    "empty_state_title": "Aucune statistique trouvée",
+    "empty_state_message": "Modifiez les filtres pour afficher d’autres statistiques",
+    "category_title": "Sélection de la catégorie"
+  },
+  "team": {
+    "title": "Équipes",
+    "title_singular": "Équipe",
+    "collaborators_text": "{0} Joueurs",
+    "group_teams_text": "{0} équipes",
+    "group_team_groups_text": "{0} départements",
+    "group_collaborators_text": "{0} Gestionnaires",
+    "manager_text": "De {0} {1}",
+    "no_manager_text": "Aucun manager",
+    "empty_state_title": "Aucune équipe trouvée",
+    "empty_state_message": "Les équipes n'ont pas encore été créées",
+    "perso": {
+      "list_title": "Liste des équipes personnalisées",
+      "creation_title": "Création d'une équipe personnalisée",
+      "edition_title": "Édition d'une équipe personnalisée"
+    },
+    "form": {
+      "id": "Identifiant",
+      "name": "Nom",
+      "manager": "Manager",
+      "parent": "Département parent",
+      "color": "Couleur",
+      "collaborators": "Joueurs",
+      "collaborator": "Joueur {0}"
+    },
+    "detail": {
+      "collaborators_text": "{0} joueurs",
+      "manager_text": "De {0} {1}",
+      "no_manager_text": "Aucun manager",
+      "points_text": "{0} PTS",
+      "victories_text": "{0} victoires"
+    }
+  },
+  "team_group": {
+    "title_singular": "Département",
+    "form": {
+      "super_manager": "Super Manager",
+      "users": "Utilisateurs",
+      "user": "Utilisateur {0}"
+    },
+    "thumbnail": {
+      "show_children": "Afficher les {0} équipes",
+      "hide_children": "Masquer les {0} équipes",
+      "show_children_team_group": "Afficher les {0} départements",
+      "hide_children_team_group": "Masquer les {0} départements"
+    }
+  },
+  "transfer_list": {
+    "selection": "disponibles",
+    "participants": "Participants",
+    "submit_selection": "Valider la sélection"
+  },
+  "organization_menu": {
+    "show": "Afficher les",
+    "hide": "Masquer les"
+  },
+  "roles": {
+    "C": "Joueur",
+    "M": "Manager",
+    "A": "Administrateur",
+    "S": "Super Manager"
+  },
+  "widget": {
+    "badge": {
+      "count1": "Vous avez",
+      "count2": "en cours",
+      "without_count": "Consultez les badges des collaborateurs"
+    },
+    "activity": {
+      "inactive_profiles": "Profils Inactifs",
+      "info_text": "Retrouvez ici la liste des personnes inactives dans vos équipes depuis plus de 3 mois"
+    }
+  },
+  "spider": {
+    "app_name": "Espace Kadéos Incentive",
+    "auth": {
+      "account_activation": {
+        "title": "Bienvenue",
+        "message": "Heureux de vous compter parmi nous !\nCommencez la création de votre compte Edenred Kadéos Incentive",
+        "submit": "Je commence"
+      },
+      "account_activation_finalization": {
+        "success": {
+          "title": "Compte activé",
+          "message": "Félicitations ! Votre compte Kadéos Incentive a bien été créé. Profitez dès maintenant de la plateforme et de vos avantages.",
+          "submit": "J'accède à ma plateforme"
+        }
+      },
+      "account_activation_key_expired": {
+        "title": "Lien expiré",
+        "message": "Ce lien d’activation de compte a été généré il y a plus de 72 heures ou a déjà été utilisé.\nPour en recevoir un nouveau, cliquez sur le bouton ci-dessous.",
+        "retry": "Renvoyez moi un lien",
+        "login": "Je me connecte",
+        "info": "Si vous possédez déjà un compte Edenred Kadéos Incentive ou que vous avez déjà fait ce parcours d’activation, cliquez sur “Je me connecte”.",
+        "resend_success": "Un nouveau lien d’activation vous a été envoyé. Vérifiez votre boîte mail.",
+        "resend_error": "Une erreur est survenue lors de l'envoi du nouveau lien d'activation."
+      },
+      "account_activation_steps": {
+        "activation": "Activation",
+        "information": "Information",
+        "validation": "Validation"
+      }
+    },
+    "hierarchy_node": {
+      "platform_customization": {
+        "personalization": {
+          "title": "Votre personnalisation",
+          "subtitle": "Ce bloc de personnalisation sur la page d'accueil de vos participants.",
+          "form": {
+            "title": "Titre",
+            "description": "Description"
+          },
+          "update": {
+            "success": "Les modifications ont bien été enregistrées",
+            "error": "Une erreur s'est produite lors de l'enregistrement des modifications"
+          },
+          "save_method": {
+            "label": "Enregistrer"
+          }
+        },
+        "mainColor": {
+          "title": "Votre couleur principale",
+          "subtitle": "Cette couleur apparaîtra dans le menu, en accentuationsur les différentes pages et sur l'accueil de vos participants.",
+          "form": {
+            "color": "Entrez votre code hexadécimal"
+          },
+          "update": {
+            "success": "La couleur principale a bien été enregistrée",
+            "error": "Une erreur s'est produite lors de l'enregistrement de la couleur"
+          },
+          "save_method": {
+            "label": "Enregistrer"
+          }
+        }
+      }
+    },
+    "data_table": {
+      "number_of_lines_displayed": "Nombre de lignes affichées",
+      "no_data_available": "Pas de données disponibles"
+    },
+    "errors": {
+      "contract_inaccessible": {
+        "title": "Plateforme inaccessible",
+        "message": "Vous avez été désinscrit de la plateforme ou elle a été désactivée."
+      },
+      "need_help": {
+        "submit": "Besoin d'aide",
+        "title": "Besoin d'aide ?",
+        "message": "Veuillez contacter votre gestionnaire de compte.",
+        "close": "Terminer"
+      }
+    },
+    "sidebar": {
+      "home": "Accueil",
+      "participants": "Participants",
+      "points": "Points",
+      "administration": "Administration"
+    }
+  },
+  "common": {
+    "submit": "Valider",
+    "cancel": "Annuler",
+    "archive": "Archiver",
+    "add": "Ajouter",
+    "delete": "Supprimer",
+    "duplicate": "Dupliquer",
+    "edit": "Éditer",
+    "edit_participants": "Editer les participants",
+    "close": "Fermer",
+    "export": "Exporter",
+    "import": "Importer",
+    "share": "Partager",
+    "create": "Créer",
+    "publish": "Publier",
+    "report": "Signaler",
+    "select": "Sélectionner",
+    "selection": "Sélection",
+    "erase": "Effacer",
+    "yes": "Oui",
+    "no": "Non",
+    "ok": "Ok",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "team": "Équipe",
+    "teams": "Équipes",
+    "team_group": "Département",
+    "team_groups": "Départements",
+    "collaborator": "Joueur",
+    "collaborators": "Joueurs",
+    "player": "Joueur",
+    "players": "Joueurs",
+    "date": "Date",
+    "points": "Points",
+    "gift": "Cadeau",
+    "level": "Niveau",
+    "home": "Tableau de bord",
+    "see_more": "Voir plus",
+    "csv_export": "Exporter en CSV",
+    "excel_export": "Exporter en XLS",
+    "search_placeholder": "Rechercher...",
+    "rich_text_placeholder": "Entrez votre texte...",
+    "error_page_title": "Une erreur est survenue",
+    "cache_warning": "Les données peuvent mettre jusqu'à 5min à se mettre à jour",
+    "error_page_message": "Vous pouvez mettre à jour l'application pour résoudre le problème",
+    "refresh_button": "Mettre à jour l'application",
+    "update_app_prompt_title": "Une nouvelle version est disponible",
+    "update_app_prompt_message": "Veuillez mettre à jour l'application pour continuer de l'utiliser",
+    "create_success_message": "La création a bien été effectuée",
+    "create_error_message": "Une erreur s'est produite lors de la création",
+    "update_success_message": "Les modifications ont bien été effectuées",
+    "update_error_message": "Une erreur s'est produite lors de la modification",
+    "delete_success_message": "La suppression a bien été effectuée",
+    "delete_error_message": "Une erreur s'est produite lors de la suppression",
+    "form": {
+      "email_error": "L'email n'est pas valide.",
+      "is_int_error": "La valeur doit être un nombre entier.",
+      "is_more_than_or_equals_0_error": "La valeur doit être supérieure ou égal à 0.",
+      "max_length_128_error": "La valeur doit faire moins de 128 caractères.",
+      "max_length_custom_error": "La valeur doit faire moins de {0} caractères.",
+      "password_not_match_error": "Les mots de passe ne correspondent pas.",
+      "required_error": "Ce champ est requis.",
+      "increasing_rewards": "Les récompenses doivent être croissantes",
+      "increasing_scores": "Les scores à atteindre doivent être croissants",
+      "decreasing_rewards": "Les récompenses doivent être décroissantes",
+      "collaborator_points_valid": "La somme des points est supérieur au maximum de points",
+      "has_uppercase_character": "Au moins une majuscule requise",
+      "has_lowercase_character": "Au moins une minuscule requise",
+      "has_special_character": "Au moins un caractère spécial requis",
+      "has_more_characters_than": "Au moins {0} caractères requis",
+      "has_less_characters_than": "Moins de {0} caractères requis",
+      "has_digit_character": "Au moins un chiffre requis",
+      "numeric_error": "La valeur doit être un nombre"
+    }
+  },
+  "data_tables": {
+    "body": {
+      "noMatch": "Aucun élément correspondant trouvé",
+      "toolTip": "Trier"
+    },
+    "filter": {
+      "all": "Tout",
+      "title": "Filtres",
+      "reset": "Réinitialiser"
+    },
+    "pagination": {
+      "rowsPerPage": "Lignes par page",
+      "pageOf": "sur"
+    },
+    "toolbar": {
+      "search": "Rechercher",
+      "downloadCsv": "Télécharger",
+      "print": "Imprimer",
+      "viewColumns": "Colonnes",
+      "filterTable": "Filtrer"
+    },
+    "viewColumns": {
+      "title": "Afficher colonnes"
+    }
+  }
+}

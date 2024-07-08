@@ -1,0 +1,1329 @@
+{
+  "account": {
+    "citation_label": "Citație",
+    "confirm_password_label": "Confirmați parola",
+    "email_label": "E-mail",
+    "first_name_label": "Nume",
+    "last_name_label": "Prenume",
+    "password_label": "Parolă nouă",
+    "success_message": "Modificările au fost efectuate cu succes",
+    "title": "Profilul meu",
+    "title_label": "Titlul profilului",
+    "title_label_pseudo": "Poreclă"
+  },
+  "admin": {
+    "access_rights": {
+      "activate_daily_email": "Activați e-mailul rezumativ al notificărilor zilnice",
+      "activate_notifications": "Activați notificările",
+      "activate_users_count": "Afișarea numărului de utilizatori inactivi pe tabloul de bord",
+      "activate_weekly_email": "Activați e-mailul rezumatului săptămânal",
+      "all_users": "Toți utilizatorii",
+      "badges": "Acces la insigne",
+      "category_rankings": "Clasament vizibil pe categorii",
+      "category_rankings_limit": "Clasamente pe categorii limitate la primele X",
+      "challenge": "Acces la provocare",
+      "challenge_rankings": "Clasament vizibil per provocare",
+      "coaching_list": "Acces la lista de coaching",
+      "collaborator_title": "Jucător",
+      "edit_coaching_list": "Modificați lista de coaching",
+      "future_challenge": "Vizualizați provocările viitoare",
+      "future_goals": "Vizualizați obiectivele viitoare",
+      "general_rankings": "Clasament general vizibil",
+      "general_rankings_limit": "Clasamente generale limitate la primele X",
+      "goal_filter": "Filtru predefinit pentru obiective",
+      "goal_rankings": "Clasament vizibil per obiective",
+      "goals": "Acces la obiective",
+      "help": "Accesul la ajutor",
+      "home": "Accesul la tabloul de bord",
+      "home_page": "Configurarea paginii de pornire",
+      "manager_title": "Manager",
+      "news_feed": "Acces la fluxul de știri",
+      "news_feed_comments_creation": "Création de commentaires sur le fil d'actualité",
+      "news_feed_post_creation": "Création de post sur le fil d'actualité",
+      "rankings": "Acces la clasamente",
+      "reset_password": "Editarea unui profil de jucător",
+      "rules": "Acces la regulile jocului",
+      "stats": "Acces la statistici",
+      "team_rankings": "Clasamentul echipei mele",
+      "teams": "Acces la echipe",
+      "title": "Gestionați drepturile de acces",
+      "wording_badge": "Redenumiți insigna",
+      "wording_challenge": "Redenumiți provocarea",
+      "wording_dashboard": "Formularea tabloului de bord",
+      "wording_goal": "Redenumiți obiectivele",
+      "wording_rules": "Redenumiți regulile jocului"
+    },
+    "aircall": {
+      "form_ac_get_calls_activation": "Activați KPI-ul de recuperare a apelurilor efectuate cu succes",
+      "form_ac_get_calls_duration": "Durata minimă a unui apel efectuat cu succes (secunde)",
+      "install": {
+        "authorization_error": "Nu dispuneți de autorizațiile necesare",
+        "code_label": "Codul societății",
+        "demo_button": "Demonstrație",
+        "email_label": "E-mail",
+        "login_error": "Acreditările nu sunt corecte",
+        "no_customer_button_1": "Încă nu sunteți",
+        "no_customer_button_2": "client Fire Tiger?",
+        "password_label": "Parolă",
+        "submit_button": "Conectați Aircall",
+        "unknown_error": "A apărut o eroare necunoscută",
+        "website_button": "Consultați site-ul web"
+      }
+    },
+    "badge_config": {
+      "remaining_points_to_award": "Puncte rămase de acordat",
+      "title": "Configurarea ecusoanelor"
+    },
+    "categories": {
+      "active_tab": "Activ",
+      "archive_confirm": "Sigur doriți să arhivați categoria „{}”?",
+      "archive_confirm2": "După arhivarea acestei categorii, nu va mai fi posibil\nă reactivarea acesteia.",
+      "archived_tab": "Arhivate",
+      "columns": {
+        "icon": "Pictogramă",
+        "name": "Nume"
+      },
+      "creation": {
+        "error": "A apărut o eroare la crearea categoriei",
+        "success": "Categoria a fost creată cu succes",
+        "title": "Creați o categorie"
+      },
+      "title": "Configurați categoriile",
+      "update": {
+        "error": "A apărut o eroare la actualizarea categoriei",
+        "success": "Categorie actualizată cu succes",
+        "title": "Modificați o categorie"
+      }
+    },
+    "collaborator_selector": {
+      "empty_state_message": "Echipe încă nu au fost create",
+      "empty_state_title": "Nu a fost găsită nicio echipă"
+    },
+    "goal": {
+      "admin_editable_label": "Obiectivul poate fi modificat de către administratori",
+      "admin_goal_creation_repartition_individual_team": "💡 Folosind această metodă de distribuție, obiectivul echipei va fi atribuit automat tuturor echipelor selectate din restul de {0} din anul în curs.\nDupă validare, veți putea personaliza obiectivele atribuite tuturor echipelor.",
+      "admin_title": "Configurarea obiectivelor",
+      "allow_over_target_label": "Depășirea obiectivului atribuit",
+      "allow_ranking_label": "Vizualizați clasamentul",
+      "allow_ranking_latest_value": "Vizualizați cele mai recente rezultate ale clasamentului",
+      "allow_ranking_points": "Vizualizați punctajul clasamentului",
+      "category_label": "Categorie",
+      "classic_title": "Clasic",
+      "creation": {
+        "error": "A apărut o eroare la crearea obiectivului",
+        "goal_title": "Configurarea obiectivului",
+        "goals_title": "Configurarea obiectivelor",
+        "kpi_title": "Selectarea KPI-ului obiectivului",
+        "options_title": "Selectați opțiunile",
+        "participants_title": "Selectaţi participanţii",
+        "success": "Obiectivul a fost creat cu succes"
+      },
+      "creation_repartition_global": "💡 Folosind această metodă de distribuție, obiectivul global anual va fi distribuit automat pe numărul de {0} rămas în anul în curs și împărțit la numărul de participanți selectați. După validare, veți putea personaliza obiectivele individuale atribuite tuturor echipelor dvs.",
+      "creation_repartition_global_team": "💡 Folosind această metodă de distribuție, obiectivul anual general va fi împărțit automat la numărul de {0} rămas în anul în curs și distribuit proporțional în funcție de numărul de participanți din echipele selectate.\n După validare, veți putea personaliza obiectivele atribuite tuturor echipelor.",
+      "creation_repartition_individual": "💡 Folosind această metodă de distribuție, obiectivul individual va fi atribuit automat tuturor participanților selectați din restul de {0} din anul în curs.\n După validare, veți putea personaliza obiectivele individuale atribuite tuturor echipelor dvs.",
+      "creation_repartition_individual_team": "💡 Folosind această metodă de distribuție, obiectivul echipei va fi atribuit automat tuturor echipelor selectate din restul de {0} din anul în curs.\n După validare, veți putea personaliza obiectivele atribuite tuturor echipelor.",
+      "creation_target_label": "Ob. {1} per {0}",
+      "creation_title": "Creați un obiectiv",
+      "criticity_label": "Urgenţă",
+      "default_label": "Creat în mod implicit",
+      "description_label": "Mesaj",
+      "detail": {
+        "indication_tab": "Indicații",
+        "rank_tab": "Clasament"
+      },
+      "disable_info": "După arhivarea acestui obiectiv, nu va mai fi posibilă reactivarea lui. Toate punctele acordate pentru obiectivele actuale și viitoare vor fi disponibile din nou.",
+      "disable_message": "Sigur doriți să arhivați obiectivul „{0}”?",
+      "duplication": {
+        "dialog_confirmation_message": "Sigur doriți să aplicați automat obiectivele de la {1} la {0}?",
+        "dialog_message": "Aplicați automat obiectivele următorului jucător la {0}:",
+        "dialog_title": "Configurarea obiectivelor"
+      },
+      "edit": {
+        "all_target_label": "Obiectiv utilizat",
+        "disable_button": "Închideți contul",
+        "error": "A apărut o eroare la actualizarea obiectivului",
+        "error_text": "Respectați obiectivul total atribuit pentru perioada selectată",
+        "max_target_label": "Obiectiv atribuit pentru perioada selectată",
+        "remaining_target_label": "Obiectiv rămas",
+        "success": "Obiectivul a fost actualizat cu succes",
+        "title": "Indicatori"
+      },
+      "editable_label": "Obiectivul poate fi modificat de către manageri",
+      "import": {
+        "condition1": "E-mailul jucătorului",
+        "condition2": "Obiectiv ref",
+        "condition3": "Data începerii perioadei (format: AAAA-LL-ZZ 00:00:00)",
+        "condition4": "Data de încheiere a perioadei (format: AAAA-LL-ZZ 23:59:59)",
+        "condition5": "Valoare obiectivă",
+        "condition6": "Vă rugăm să contactați un manager de succes al clienților pentru mai multe informații despre modul în care funcționează importul obiectiv",
+        "error1": "Importul este în eroare, deoarece fișierul nu îndeplinește constrângerile de mai sus. Este posibil ca unele lentile să nu fi fost importate.",
+        "error2": "Importul este în eroare dintr-un motiv necunoscut.",
+        "text1": "Importați un fișier CSV delimitat prin virgulă. Utilizarea virgule nu este permisă în valorile fișierelor.",
+        "text2": "Fiecare coloană din fișier trebuie să îndeplinească condițiile de mai jos:",
+        "title": "Importarea obiectivelor"
+      },
+      "indication": {
+        "coaching_area": "Sfaturile antrenorului",
+        "coaching_empty_state": "Nu a fost găsit niciun sfat",
+        "coaching_item_label": "Sfaturi {0}",
+        "description_area": "Descriere",
+        "level_area": "Etape",
+        "live_info": "Dacă este activată, punctele vor fi acordate automat participanților înainte de termenul limită al obiectivului.",
+        "live_label": "Puncte câștigate în direct",
+        "period_text": "De la {0} la {1}",
+        "unit_with_symbol_text": "Unitate: {0} ({1})",
+        "unit_without_symbol_text": "Unitate: {0}"
+      },
+      "indication_label": "Indicații",
+      "kpi_format_label": "Format",
+      "kpi_label": "KPI",
+      "kpi_name_label": "Titlul KPI-ului",
+      "kpi_period_label": "Perioada",
+      "kpi_periods_label": "Perioade",
+      "list": {
+        "active_tab": "Active",
+        "archived_tab": "Arhivate",
+        "columns": {
+          "category": "Categorie",
+          "default": "Implicit",
+          "id": "Ref.",
+          "name": "Nume",
+          "periodicity": "Periodicitate",
+          "target": "Obiectiv global anual",
+          "type": "Obiectiv",
+          "unit": "Unitate"
+        },
+        "empty_state_message": "Pentru a vizualiza alte obiective, trebuie să modificați orice filtre care pot fi aplicate",
+        "empty_state_title": "Niciun obiectiv găsit"
+      },
+      "live_infos": "Dacă este activată, punctele vor fi acordate automat participanților înainte de termenul limită al obiectivului.",
+      "live_label": "Puncte câștigate în direct",
+      "name_label": "Nume",
+      "past_editable_label": "Obiectiv trecut ca modificabil de către administratori",
+      "period_label_long": "Perioada {0}: de la {1} la {2}",
+      "period_label_short": "Perioada {0}",
+      "period_label_short2": "De la {0} la {1}",
+      "periodicity_label": "Periodicitate",
+      "point_config": {
+        "allocated_points": "Puncte totale atribuite: ",
+        "allocated_points_year": "Numărul de puncte atribuite pentru obiectivul anului {0}",
+        "available_points_title": "{0} puncte disponibile",
+        "current_points_title": "{0} puncte în prezent puse la bătaie",
+        "errors": {
+          "archived_goal": "Obiectiv arhivat",
+          "no_level_message": "Creați o primă etapă",
+          "no_level_title": "Nicio etapă găsită",
+          "percent_more_equal": "Procentul trebuie să fie mai mare decât sau egal cu 0",
+          "percent_more_than": "Procentul trebuie să fie mai mare decât cel al etapei anterioare",
+          "points_more_equal": "Numărul de puncte trebuie să fie mai mare decât sau egal cu 0",
+          "points_more_than": "Numărul de puncte trebuie să fie mai mare decât cel al etapei anterioare"
+        },
+        "form": {
+          "percent": "% din atingerea obiectivului",
+          "points": "Puncte"
+        },
+        "general_info_title": "Informații generale",
+        "importance_percent": "Procent de importanță: ",
+        "level_title": "Etapa {0}",
+        "max_points_title": "Numărul maxim de puncte per {0} și per perioadă: ",
+        "remaining_points": "Total puncte rămase atribuite: ",
+        "title": "Configurarea etapelor per {0} și per perioadă",
+        "title_tooltip": "Numărul de puncte care pot fi utilizate pe {0}, de la {1} pe parcursul anului {2}",
+        "used_points": "Total puncte deja puse la bătaie: "
+      },
+      "point_config_title_c": "Numărul de perioade rămase",
+      "point_config_title_d": "Numărul de zile rămase",
+      "point_config_title_m": "Numărul de luni rămase",
+      "point_config_title_q": "Numărul de trimestre rămase",
+      "point_config_title_s": "Numărul de semestre rămase",
+      "point_config_title_w": "Numărul de săptămâni rămase",
+      "point_config_title_y": "Anul în curs",
+      "point_config_tooltip_c": "perioada curentă",
+      "point_config_tooltip_d": "Zilele rămase",
+      "point_config_tooltip_m": "Lunile rămase",
+      "point_config_tooltip_q": "trimestrele rămase",
+      "point_config_tooltip_s": "semestrele rămase",
+      "point_config_tooltip_w": "săptămânile rămase",
+      "point_config_tooltip_y": "Anul în curs",
+      "rank_list": {
+        "player_column": "Jucători"
+      },
+      "repartition_label": "Metodă de distribuție",
+      "spreadsheet_title": "Foaie de calcul",
+      "target_label": "Obiectiv global anual",
+      "thumbnail": {
+        "collaborator_tag": "Individual",
+        "counter_text": "Ajuns la: {0}",
+        "first_rank_text": "{0}°",
+        "max_points_text": "/{0} max.",
+        "max_rank_text": "/{0}",
+        "other_period": "De la {0} la {1}",
+        "other_rank_text": "{0}°",
+        "player_text": "{0} jucători",
+        "points_text": "{0} puncte",
+        "quarter_period": "Trimestrul {0} ({1})",
+        "semester_period": "Semestrul {0}",
+        "target_text": "/Obiectiv: {0}",
+        "team_tag": "Echipă",
+        "team_text": "{0} echipă",
+        "timer_tag": "G {0}",
+        "week_period": "Săptămâna {0} ({1})",
+        "year_period": "Anul {0}"
+      },
+      "title": "Obiective",
+      "type_label": "Tip",
+      "unit_label": "Unitate",
+      "update_base_tab": "Bază",
+      "update_base_title": "Modificați obiectivul „{0}”",
+      "update_confirmation_message": "Sigur doriți să modificați KPI-ul pentru acest obiectiv? Această modificare poate avea consecințe asupra istoricului de rezultate. Dacă aveți întrebări, nu ezitați să ne contactați.",
+      "update_custom_tab": "Personalizare",
+      "update_readonly_title": "Vizualizați obiectivul „{0}”"
+    },
+    "home": {
+      "badge_link": "Insignă",
+      "category_link": "Categorii",
+      "data_area": "Integrarea și gestionarea datelor",
+      "goal_level_link": "Puncte",
+      "import_link": "Jurnal de import",
+      "indicator_area": "Configurație indicatori",
+      "level_link": "Nivel",
+      "logo_link": "Schimbați sigla",
+      "notification_link": "Gestionarea notificărilor",
+      "organization_link": "Echipă/organizație",
+      "partner_link": "Poate fi integrat cu software terță parte",
+      "permission_link": "Gestionarea drepturilor de acces",
+      "point_link": "Distribuția generală a punctelor",
+      "report_link": "Raport",
+      "reward_link": "Premii",
+      "user_area": "Utilizatori și drepturi",
+      "user_link": "Abonamente utilizator",
+      "year_label": "An de setat"
+    },
+    "import_log": {
+      "columns": {
+        "date": "Data executării",
+        "download": "Descărcare",
+        "error_lines": "Eroare de linie",
+        "file": "Fișiere",
+        "id": "Ref.",
+        "state": "Stare",
+        "success_lines": "Linii valide"
+      },
+      "data": "Rezultate",
+      "goals": "Obiectivele",
+      "title": "Jurnal de import",
+      "users": "Utilizatori"
+    },
+    "logo": {
+      "background_color": "Culoarea fundalului",
+      "colors": "Culori",
+      "font_family": {
+        "fonts_select": "Alegerea fonturilor",
+        "title": "Tipă de caractere"
+      },
+      "primary_color": "Culoarea principală",
+      "reset_colors": "Resetați culorile",
+      "secondary_color": "Culoare secundară",
+      "success_message": "Logo-ul a fost actualizat",
+      "title": "Schimbarea siglei"
+    },
+    "logo_and_colors": {
+      "success_message": "Culorile au fost actualizate cu succes",
+      "title": "Schimbarea logo-ului și culorile"
+    },
+    "notifications_rights": {
+      "explication_badge": "configurarea notificărilor care sunt trimise atunci când nivelul insignei se modifică",
+      "explication_challenge": "configurarea notificărilor la actualizarea provocărilor",
+      "explication_email": "Notificările prin e-mail vor fi trimise în căsuța dvs. de e-mail.",
+      "explication_global": "configurarea notificărilor globale",
+      "explication_in_app": " Notificările din aplicație vor fi trimise aplicației dvs.",
+      "explication_newsfeed": "configuration des notifications qui sont envoyées lorsque le niveau du badge change",
+      "explication_push": "Notificările push vor fi trimise pe dispozitivul dvs. mobil (iOS sau Android).",
+      "explication_ranking": "configurarea notificărilor pentru colaboratorul clasat pe primul loc în clasamentul provocărilor",
+      "explication_type": "Există trei moduri de a primi notificări: push, in-app, e-mail.",
+      "generals": "Generali",
+      "global": "Global",
+      "notification_CHBU": "Notificare când provocările dvs. sunt actualizate.",
+      "notification_EWM": "Notificare trimisă în fiecare săptămână pentru a stimula motivația pentru toată lumea.",
+      "notification_MNL": "Notificare pentru colaboratorul care trece un nivel.",
+      "notification_NECH": "Notificare trimisă atunci când începe o nouă provocare",
+      "notification_NLB": "Notificare când atingi un nou nivel de insignă",
+      "notification_NPE": "Notificare care informează dacă notificările nu au fost citite.",
+      "notification_NPIN": "Notification envoyée quand le nouveau post a été créé dans le fil d'actualité",
+      "notification_NROE": "Notificare trimisă dacă comanda de recompensă este validată cu succes.",
+      "notification_RFCR": "Notificare pentru colaboratorul care se află pe primul loc în clasamentul provocărilor.",
+      "notification_RFGR": "Notificare pentru angajatul care se află pe primul loc în clasamentul general.",
+      "notification_RFR": "Notificare pentru colaboratorul care se află pe primul loc în clasamentul obiectiv.",
+      "notification_SWE": "Notificare sumară săptămânală.",
+      "notification_TRCR": "Notificare pentru echipa care se află pe primul loc în clasamentul provocărilor.",
+      "notification_TRFR": "Notificare pentru echipa care se află pe primul loc în clasamentul obiectiv.",
+      "notification_TRGR": "Notificare pentru echipa care se află pe primul loc în clasamentul general.",
+      "notification_update_success": "Modificările notificării au fost acceptate cu succes!",
+      "remark_explication": "Notă:",
+      "remark_explication_checkbox": "Dacă caseta de selectare nu este activă, nu puteți modifica setările pentru această notificare",
+      "sub_title": "Gestionarea notificărilor",
+      "title": "Notificările mele",
+      "title_email": "Email",
+      "title_explication": "Cum să fii notificat:",
+      "title_in_app": "În aplicație",
+      "title_push": "Împinge"
+    },
+    "organization": {
+      "create_team_title": "Crearea echipei ({0})",
+      "title": "Gestionarea organizației",
+      "update_company": "Modificați denumirea societății",
+      "update_team": "Modificați echipa",
+      "update_team_group": "Modificați departamentul"
+    },
+    "partner_detail_empty_connection": "Pentru a utiliza aceste caracteristici, trebuie să instalați Fire Tiger în zona dvs. de clienți Aircall.",
+    "partner_detail_subtitle": "Poate fi integrat cu software terță parte",
+    "partner_list_subtitle": "Poate fi integrat cu software terță parte",
+    "point_config": {
+      "budget": "Buget",
+      "point_rule": "Regulă de calcul",
+      "total_title": "Punctajul total realizabil per jucător",
+      "total_title_team": "Punctajul total realizabil per echipă"
+    },
+    "points": {
+      "columns": {
+        "category": "Categorie",
+        "current_points": "Puncte în prezent puse la bătaie",
+        "custom_individual": "Personalizare individuală",
+        "custom_team": "Personalizarea echipei",
+        "id": "Ref.",
+        "name": "Titlu",
+        "used_points": "Puncte deja puse la bătaie"
+      },
+      "menu_global": "Global",
+      "menu_individual": "Individual",
+      "menu_team": "Echipă",
+      "title": "Stabilirea punctelor obiectivelor"
+    },
+    "report": {
+      "columns": {
+        "category": "Categorie",
+        "format": "Format",
+        "format_manual": "Manual",
+        "format_standard": "Standard",
+        "kpi_code": "Cod KPI",
+        "kpi_name": "Titlul KPI-ului",
+        "kpi_ref": "Ref. KPI",
+        "periodicity": "Actualizare",
+        "result_unit": "Unitate rezultat"
+      },
+      "dashboard_tab": "Tablou de bord",
+      "list_tab": "Lista rapoartelor",
+      "title": "Lista rapoartelor"
+    },
+    "report_details": {
+      "columns": {
+        "id": "ID"
+      },
+      "quarter_period": "Trimestrul {0}",
+      "semester_period": "Semestrul {0}",
+      "title": "Raportul „{0}”",
+      "week_period": "Săptămâna {0}"
+    },
+    "reward_category": {
+      "creation": {
+        "subtitle": "Crearea unei categorii de premii"
+      },
+      "list": {
+        "active_tab": "Activ",
+        "icon_column": "Pictogramă",
+        "inactive_tab": "Arhivate",
+        "name_column": "Nume",
+        "subtitle": "Configurarea categoriilor de premii"
+      },
+      "update": {
+        "subtitle": "Modificarea unei categorii de premii"
+      }
+    },
+    "title": "Administrare",
+    "user": {
+      "archived_tab": "Revocate",
+      "creation": {
+        "password_title": "Creați o parolă",
+        "send_email": "Trimiteți un e-mail de autentificare către utilizator",
+        "success": "Utilizatorul a fost creat cu succes",
+        "title": "Creați un utilizator"
+      },
+      "current_tab": "În curs",
+      "email": "E-mail",
+      "firstname": "Nume",
+      "force_reset_password": "Forțați modificarea parolei",
+      "force_reset_password_info": "Utilizatorul trebuie să își schimbe parola data viitoare când se conectează",
+      "fullname": "Prenume",
+      "id": "Ref.",
+      "identifier": "Nume utilizator {0}",
+      "identifiers": "Nume de utilizatori",
+      "import": {
+        "condition1": "Nume: maximum 30 caractere",
+        "condition2": "Nume: maximum 150 de caractere",
+        "condition3": "E-mail: unic, maximum 254 caractere",
+        "condition4": "Tip: C (jucător), M (manager), S (super manager) sau A (administrator)",
+        "condition5": "Echipă: numele de utilizator al echipei (indicat pe formularul de publicare al echipei)",
+        "condition6": "Parolă",
+        "condition7": "Statre: 1 (activ) sau 0 (inactiv)",
+        "condition8": "Ultimele 5 coloane sunt nume de utilizatori opționale",
+        "condition9": "Super managerul departamentului: P dacă principalul este altfel gol",
+        "error1": "Importul a eșuat deoarece fișierul nu îndeplinește cerințele de mai sus. Este posibil ca unii utilizatori să nu fi fost importați.",
+        "error2": "Importul a eșuat dintr-un motiv necunoscut.",
+        "text1": "Importați un fișier în format .csv utilizând o virgulă ca simbol separator. Utilizarea unei virgule nu este permisă în valorile fișierelor.",
+        "text2": "Fiecare coloană din fișier trebuie să îndeplinească următoarele cerințe:",
+        "title": "Import utilizatori"
+      },
+      "information_title": "Informații",
+      "last_login": "Ultimul acces",
+      "last_login_empty": "Niciunul",
+      "lastname": "Prenume",
+      "locale": "Limbă",
+      "password": "Parolă nouă",
+      "password_confirm": "Confirmați parola",
+      "password_field": "Parolă",
+      "password_info": "Parola trebuie să conțină cel puțin 8 caractere, cel puțin o literă minusculă și o literă majusculă, cel puțin un caracter special (?! &*) și un număr",
+      "profile": {
+        "no_team": "Nicio echipă"
+      },
+      "role": "Funcție",
+      "search_placeholder": "Caută un utilizator...",
+      "team": "Echipă",
+      "title": "Gestionare utilizatori",
+      "type": "Tip",
+      "update": {
+        "actions_title": "Acțiuni",
+        "allow_pending_notifications": "Permiteți mementourile de notificare prin e-mail",
+        "create_new_password": "Trimite un e-mail de autentificare",
+        "create_new_password_success": "E-mailul de conectare a fost trimis cu succes",
+        "disable_button": "Închideți contul",
+        "enable_button": "Reactivați contul",
+        "error": "A apărut o eroare la modificarea utilizatorului",
+        "notifications_title": "Notificări",
+        "password_title": "Schimbați parola",
+        "success": "Utilizatorul a fost modificat cu succes",
+        "title": "Modificați un utilizator"
+      }
+    }
+  },
+  "aircall": {
+    "install_authorization_error": "Nu dispuneți de autorizațiile necesare",
+    "install_code_label": "Codul societății",
+    "install_demo_button": "Demonstrație",
+    "install_email_label": "E-mail",
+    "install_login_error": "Acreditările nu sunt corecte",
+    "install_no_customer_button_1": "Încă nu sunteți",
+    "install_no_customer_button_2": "client Fire Tiger?",
+    "install_password_label": "Parolă",
+    "install_submit_button": "Conectați Aircall",
+    "install_title": "Conectare cu Aircall",
+    "install_unknown_error": "A apărut o eroare necunoscută",
+    "install_website_button": "Consultați site-ul web"
+  },
+  "apptour": {
+    "title": "Turul aplicației"
+  },
+  "badge": {
+    "creation": {
+      "badge_creation": "Crearea insignei",
+      "error": "A apărut o eroare la crearea insignei",
+      "info_title": "Informații",
+      "kpi_title": "Selectarea KPI-ului insignei",
+      "levels_title": "Configurarea etapelor",
+      "participants_title": "Selectaţi participanţii",
+      "success": "Insigna a fost creată cu succes"
+    },
+    "level": {
+      "condition_text": "Stare: nivelul {0}",
+      "counter_text": "Ajuns la: {0}",
+      "point_text": "{0} puncte",
+      "rank_text": "Clasa {0}",
+      "target_text": "Obiectiv: {0}"
+    },
+    "list": {
+      "completed_tab": "Obținute",
+      "current_tab": "În curs",
+      "empty_state_title": "Nicio insignă găsită"
+    },
+    "title": "Insignă"
+  },
+  "challenge": {
+    "award_list": {
+      "add_reward": "Crearea de recompense",
+      "collaborator_max_point_label": "Maxim per jucător",
+      "collaborator_point_label": "Victoria jucătorului # {0}",
+      "list_live_infos": "Dacă este activată, punctele vor fi acordate automat participanților înainte de termenul scadent al provocării.",
+      "list_live_label": "Puncte câștigate în direct",
+      "points_calculation_message": "Calculul punctelor utilizabile...",
+      "step_point_label": "Etapa # {0}",
+      "target_label": "Punctaj de realizat",
+      "team_max_point_label": "Maxim per echipă",
+      "team_point_label": "Victoria echipei # {0}",
+      "title": "Premii",
+      "type_label": "Modalitate",
+      "usable_points": "{0} puncte utilizabile"
+    },
+    "awards_title": "Câștiguri",
+    "category_list_title": "Selectarea categoriei",
+    "click_to_view_challenge": "Click aici pentru a vedea provocarea",
+    "collaborators": "{0} jucători",
+    "condition": {
+      "award_area": "Premii pentru provocare",
+      "award_points": "{0} PUNCTE",
+      "collaborator_max_points_label": "Maxim per jucător",
+      "collaborator_rank": "Jucătorul nr. {0} #",
+      "condition_area": "Indicatori",
+      "description_area": "Descriere",
+      "description_label": "Descriere",
+      "goal_info": "Condiția setată aici poate fi atinsă de mai multe ori. De fiecare dată când este atinsă, vă dă dreptul la numărul de puncte asociate",
+      "label": "Condiție",
+      "label_completed": "Realizat",
+      "last_update": "Ultima actualizare: ",
+      "last_update_time": "{0} până la {1}",
+      "period": "De la {0} la {1}",
+      "point_counter": "{0} PUNCTE",
+      "point_target": "{0} PUNCTE",
+      "race_condition_goal_info": "Dacă obiectivul este atins, vă dă dreptul la 1 punct",
+      "team_group_max_points_label": "Maxim per departament",
+      "team_group_rank": "Distribuție # {0}",
+      "team_max_points_label": "Maximum per echipă",
+      "team_rank": "Echipa nr. # {0}\n",
+      "type": "Modalitate: {0}"
+    },
+    "creation": {
+      "error": "A apărut o eroare la crearea provocării",
+      "success": "Provocarea a fost creată cu succes",
+      "title": "Creați o provocare"
+    },
+    "delete_prompt": "Sigur doriți să ștergeți această provocare?",
+    "delete_success": "Provocarea a fost anulată cu succes",
+    "detail": {
+      "condition_tab": "Condiții",
+      "rank_tab": "Clasamente"
+    },
+    "duplication": {
+      "title": "Duplicați provocarea"
+    },
+    "first_rank": "{0}°",
+    "form": {
+      "add_reward": "Adăugați o recompensă",
+      "award_error": "Adăugați cel puțin un premiu",
+      "award_type_description_c": "Premiul pentru {2} {0} care va atinge obiectivele provocării",
+      "award_type_description_m": "Fiecare {1} câștigă numărul de puncte corespunzător punctajului său, până la limita maximă definită",
+      "award_type_description_p": "Premiul obținut de participanți depinde de nivelul de performanță obținut",
+      "award_type_description_r": "Premiu pentru {2} {0} la sfârșitul provocării",
+      "award_type_description_single_c": "Premiul pentru {0} pentru atingerea obiectivelor provocării",
+      "award_type_description_single_m": "Fiecare {1} câștigă numărul de puncte corespunzător punctajului său, până la limita maximă definită",
+      "award_type_description_single_p": "Premiul obținut de participanți depinde de nivelul de performanță obținut",
+      "award_type_description_single_r": "Premiu pentru {0} la sfârșitul provocării",
+      "award_type_minimum_participants": "Această modalitate necesită cel puțin {0} {1}",
+      "congratulations": "Felicitări 🎉!",
+      "congratulations_message": "Provocarea ta este gata să fie difuzată!",
+      "enable_manager_score_label": "Afișează scorul consolidat",
+      "first": "Premieri",
+      "first_departments": "primele departamente",
+      "first_teams": "primele echipe",
+      "goal_area": "Indicatori",
+      "goal_category_label": "Categorie",
+      "goal_collaborator_editable_label": "Introducere jucător",
+      "goal_description_label": "Descriere",
+      "goal_format_label": "Format",
+      "goal_kpi_label": "KPI",
+      "goal_manager_editable_label": "Introducere manager",
+      "goal_name_label": "Nume",
+      "goal_periodicity_label": "Periodicitate",
+      "goal_target_info_text": "Condiția setată aici poate fi atinsă de mai multe ori. De fiecare dată când este atinsă, câștigă numărul de puncte asociate.",
+      "goal_target_label": "Obiectiv",
+      "goal_target_label2": "Condiție",
+      "goal_target_label2_race": "Obiectiv",
+      "goal_title": "Indicatorul {0}",
+      "goal_unit_label": "Unitate",
+      "goals": {
+        "add_button": "Adăugarea unui indicator",
+        "automatic": "Automat",
+        "manual": "Introducere manuală"
+      },
+      "indicators_title": "Configurarea indicatorilor și a mecanismelor provocării",
+      "info_area": "Informații",
+      "info_award_type_label": "Modalitate",
+      "info_description_label": "Descriere",
+      "info_end_label": "Sfârșit",
+      "info_image_label": "Selectați o imagine...",
+      "info_name_label": "Nume",
+      "info_no_image_text": "Nicio imagine selectată",
+      "info_start_label": "Început",
+      "info_type_label": "Tip de provocare",
+      "infos_title": "Setarea informațiilor",
+      "mode": "Modă",
+      "mode_title": "Selectarea modalității de provocare",
+      "notify_updated_label": "Notificați participanții la actualizări",
+      "participants_title": "Selectaţi participanţii",
+      "rewards_title": "Selectați premiile",
+      "soon_available": "Disponibil în curând",
+      "step_mode_information": "Maximum 1 premiu per participant (premiul câștigat corespunde celui din etapa cea mai înaltă)",
+      "steps": {
+        "indicators": "Indicatori și mecanisme",
+        "infos": "Informații",
+        "mode": "Modalitate",
+        "participant": "Participant",
+        "participants": "Participanți",
+        "rewards": "Premii",
+        "validation": "Confirmați"
+      },
+      "the_first": "Primul",
+      "the_first_department": "Primul departament",
+      "the_first_team": "Prima echipă"
+    },
+    "kpi_results": {
+      "add_data": "Adăugați date",
+      "add_data_button": "Adăugați date",
+      "add_kpi_title": "Adăugați un rezultat pentru KPI",
+      "back_button": "Înapoi la listă",
+      "collaborator_new_title": "Salvarea unui rezultat nou pentru KPI",
+      "collaborator_title": "Lista rezultatelor înregistrate pentru KPI",
+      "columns": {
+        "actions": "Acțiuni",
+        "images": "Poze",
+        "indications": "Indicații",
+        "result": "Rezultatul",
+        "results": "Rezultate"
+      },
+      "edit_kpi_title": "Modificarea unui rezultat pentru KPI",
+      "edit_results": "Introduceți rezultatele",
+      "form": {
+        "data_description": "Indicații",
+        "data_description_placeholder": "Introduceți textul",
+        "data_image": "Selectați fișierul...",
+        "data_value": "Valoare",
+        "data_value_placeholder": "Introduceți valoarea de declarat",
+        "file_size_error": "Dimensiunea fișierului nu trebuie să depășească 20MB"
+      },
+      "see_more": "Vezi mai multe",
+      "subtitle": "Este posibil să dureze câteva minute pentru ca rezultatele să fie actualizate",
+      "title": "Lista rezultatelor pentru KPI"
+    },
+    "list": {
+      "create_button": "Creați o provocare",
+      "empty_state_message": "Pentru a vizualiza alte provocări, trebuie să modificați filtrele aplicate",
+      "empty_state_title": "Nicio provocare găsită"
+    },
+    "max_points": "{0} MAX.",
+    "modes": {
+      "C": "Rasă",
+      "M": "Scor maxim",
+      "P": "Rulmenti",
+      "R": "Podium"
+    },
+    "modes_full": {
+      "C": "Modul de cursă",
+      "M": "Modul Scor maxim",
+      "P": "Mod nivel",
+      "R": "Modul Podium"
+    },
+    "no_awards_title": "Fără câștiguri",
+    "other_rank": "{0}°",
+    "points": "Punctaj: {0}",
+    "ranking": {
+      "collaborator_column": "Jucători",
+      "collaborator_team_column": "Echipă",
+      "collaborator_team_group_column": "Distribuție",
+      "level_column": "Nivel",
+      "points_column": "Punctaj",
+      "team_column": "Echipă"
+    },
+    "reward_types": {
+      "G": "Cadouri",
+      "P": "Puncte"
+    },
+    "search_placeholder": "Căutați un participant...",
+    "share": {
+      "copy_link": "Copiați linkul",
+      "copy_success": "Linkul a fost copiat cu succes",
+      "teams_share": "Distribuiți pe echipe",
+      "title": "Împărtășește această provocare"
+    },
+    "team_groups": "{0} distribuție",
+    "teams": "{0} echipă",
+    "title": "Provocare",
+    "title_plural": "Provocare",
+    "types": {
+      "CC": "Individual",
+      "CT": "Echipa",
+      "TG": "Divizie"
+    },
+    "update": {
+      "create_reward": "Creați premii",
+      "edit_participants": "Publicare participanți",
+      "title": "Modificați provocarea"
+    }
+  },
+  "chart": {
+    "collaborator_type_text": "Singur",
+    "counter_text": "Realizat: {0}",
+    "max_points_text": "/{0} max.",
+    "points_text": "{0} puncte",
+    "target_text": "Obiectiv: {0}",
+    "team_type_text": "Echipă",
+    "x_legend": "Perioadă"
+  },
+  "coaching_list": {
+    "created_success": "Cardul a fost creat cu succes",
+    "delete_prompt": "Sigur doriți să eliminați acest element?",
+    "delete_prompt2": "După anulare, nu va mai fi posibilă recuperarea",
+    "empty_state_collaborator_message": "Încercați din nou mai târziu când managerul vă va oferi asistență",
+    "empty_state_manager_message": "Creați prima instrucțiune pentru jucătorul dvs.",
+    "empty_state_title": "Nicio instrucțiune găsită",
+    "end_label": "Data termenului limită",
+    "state": {
+      "archived": "Arhivat",
+      "done": "Terminat",
+      "in_progress": "În curs",
+      "pending": "Așteptare"
+    },
+    "title": "Listă de coaching",
+    "title_placeholder": "Introduceți un titlu pentru acest card",
+    "updated_success": "Cardul a fost actualizat cu succes"
+  },
+  "collaborator": {
+    "badge_empty_title": "Nicio insignă realizată",
+    "dashboard": "Tabloul meu de bord",
+    "detail": {
+      "badge_area": "Insignă",
+      "badge_rank": "Clasa {0}",
+      "empty_state_title": "Fără date disponibile",
+      "info_area": "Informații generale",
+      "info_current_level": "{0} ",
+      "info_current_level_max": "/{0} PUNCTE",
+      "info_first_rank_text": "{0}°",
+      "info_max_level": "Nivel maxim atins",
+      "info_next_level": "Nivelul {0}",
+      "info_other_rank_text": "{0}°",
+      "info_total_points": "{0} PUNCTE",
+      "info_victories": "{0} victorie(i)",
+      "password_button": "Editează profilul"
+    },
+    "reward_order": {
+      "erase_cart_warning": "Sunteți sigur că doriți să adăugați această nouă recompensă?",
+      "erase_cart_warning2": "Această acțiune vă va reseta coșul, care în prezent este asociat cu un alt jucător.",
+      "summary_points_area": "Total comandă",
+      "summary_points_area_year": "Anul {0}",
+      "summary_rewards_area": "Comanda nr. {0} din {1}",
+      "summary_title": "Rezumatul unei comenzi",
+      "tracking": {
+        "email_column": "E-mail",
+        "id_column": "Ref.",
+        "name_column": "Nume",
+        "order_date_column": "Data comenzii",
+        "sub_header_pending_tab": "În curs",
+        "sub_header_validated_tab": "De procesat",
+        "sub_header_validated_title": "Starea comenzii",
+        "sub_header_waiting_tab": "Confirmate",
+        "team_column": "Echipă",
+        "validated_points_column": "Puncte utilizate",
+        "validation_date_column": "Data de confirmare",
+        "value_column": "Suma totală",
+        "waiting_points_column": "Puncte de validat"
+      },
+      "validation": {
+        "error": "A apărut o eroare la confirmarea comenzii",
+        "points_area": "Total comandă",
+        "points_area_year": "Anul {0}",
+        "rewards_area": "Comanda nr. {0} din {1}",
+        "success": "Comanda a fost confirmată cu succes",
+        "title": "Confirmați o comandă"
+      }
+    },
+    "title": "Jucători",
+    "update": {
+      "title": "Editează profilul"
+    }
+  },
+  "common": {
+    "add": "Adăugați",
+    "archive": "Arhivați",
+    "cache_warning": "Actualizarea datelor poate dura până la 5 minute",
+    "cancel": "Anulați",
+    "close": "Închideți",
+    "collaborator": "Jucător",
+    "collaborators": "Jucători",
+    "create": "Creați",
+    "create_error_message": "A apărut o eroare la creare",
+    "create_success_message": "Crearea a fost efectuată cu succes",
+    "csv_export": "Export în CSV",
+    "date": "Dată",
+    "delete": "Eliminați",
+    "delete_error_message": "A apărut o eroare la ștergere",
+    "delete_success_message": "Eliminat cu succes",
+    "duplicate": "Duplicați",
+    "edit": "Modificați",
+    "edit_participants": "Editează participanții",
+    "erase": "Şterge",
+    "error_page_message": "Puteți actualiza aplicația pentru a remedia problema",
+    "error_page_title": "A apărut o eroare",
+    "excel_export": "Exportați ca XLS",
+    "export": "Export",
+    "form": {
+      "collaborator_points_valid": "Suma punctelor depășește numărul maxim de puncte",
+      "decreasing_rewards": "Premiile trebuie să fie descrescătoare",
+      "email_error": "E-mail nevalid.",
+      "has_digit_character": "Este necesar cel puțin un număr",
+      "has_less_characters_than": "Mai puțin de {0} caractere necesare",
+      "has_lowercase_character": "Este necesară cel puțin o literă minusculă",
+      "has_more_characters_than": "Sunt necesare cel puțin {0} caractere",
+      "has_special_character": "Este necesar cel puțin un caracter special",
+      "has_uppercase_character": "Este necesară cel puțin o literă majusculă",
+      "increasing_rewards": "Premiile trebuie să fie crescătoare",
+      "increasing_scores": "Punctajele care trebuie realizate trebuie să fie crescătoare",
+      "is_int_error": "Valoarea trebuie să fie un număr întreg.",
+      "is_more_than_or_equals_0_error": "Valoarea trebuie să fie mai mare decât sau egală cu 0.",
+      "max_length_128_error": "Valoarea trebuie să fie mai mică de 128 de caractere.",
+      "numeric_error": "Valoarea trebuie să fie un număr",
+      "password_not_match_error": "Parolele nu coincid.",
+      "required_error": "Acest câmp este obligatoriu."
+    },
+    "gift": "Cadou",
+    "home": "Tabloul de bord",
+    "import": "Importați",
+    "level": "Nivel",
+    "next": "Următor",
+    "no": "Nu",
+    "ok": "ACCEPTABIL",
+    "player": "Jucător",
+    "players": "Jucători",
+    "points": "Puncte",
+    "previous": "Anterior",
+    "publish": "Publicași",
+    "refresh_button": "Actualizați aplicația",
+    "report": "Raport",
+    "rich_text_placeholder": "Introduceți textul...",
+    "search_placeholder": "Căutați...",
+    "see_more": "Vezi mai mult",
+    "select": "Selectați",
+    "selection": "Selectare",
+    "share": "Distribuiți",
+    "submit": "Confirmați",
+    "team": "Echipă",
+    "team_group": "Distribuție",
+    "team_groups": "Departamente",
+    "teams": "Echipă",
+    "update_app_prompt_message": "Actualizați aplicația pentru a o utiliza în continuare",
+    "update_app_prompt_title": "Este disponibilă o nouă versiune",
+    "update_error_message": "A apărut o eroare la modificare",
+    "update_success_message": "Modificările au fost efectuate cu succes",
+    "yes": "Da"
+  },
+  "contact": {
+    "evolution_form_message_label": "Mesaj",
+    "evolution_form_submit_button": "Trimiteți",
+    "evolution_form_title": "Completați acest formular pentru a solicita un upgrade",
+    "form_type_evolution_option": "Solicitați un upgrade",
+    "form_type_incident_option": "Semnalați o problemă",
+    "form_type_label": "Motiv",
+    "incident_form_title": "Completați acest formular pentru a semnala problema",
+    "question": "Cum vă putem ajuta?",
+    "title": "Ajutor"
+  },
+  "data_tables": {
+    "body": {
+      "noMatch": "Nu au fost găsite elemente corespondente",
+      "toolTip": "Comandați"
+    },
+    "filter": {
+      "all": "Tot",
+      "reset": "Resetați",
+      "title": "Filtre"
+    },
+    "pagination": {
+      "pageOf": "pe",
+      "rowsPerPage": "Linii pe pagină"
+    },
+    "toolbar": {
+      "downloadCsv": "Descărcare",
+      "filterTable": "Filtrați",
+      "print": "Imprimați",
+      "search": "Căutați",
+      "viewColumns": "Coloane"
+    },
+    "viewColumns": {
+      "title": "Vizualizați coloanele"
+    }
+  },
+  "filter": {
+    "all_category_label": "Toate categoriile",
+    "all_option_f": "Toate",
+    "all_periods_label": "Toate perioadele",
+    "all_team_group_label": "Toate departamentele",
+    "all_team_label": "Toate echipele",
+    "category_all_option": "Toate",
+    "category_label": "Categorie",
+    "collaborator_all_option": "Toți",
+    "collaborator_label": "Jucător",
+    "end_label": "Data de sfârșit",
+    "global_chip": "Global",
+    "goal_label": "Obiectiv",
+    "my_team_label": "Echipa mea",
+    "period_all_option": "Toți",
+    "period_label": "an",
+    "start_label": "Data de început",
+    "submit_button": "Filtrați",
+    "team_all_option": "Toți",
+    "team_group_label": "Distribuție",
+    "team_label": "Echipă",
+    "time": {
+      "current": "În curs",
+      "next": "Următori",
+      "previous": "Anterioare"
+    },
+    "title": "Filtre",
+    "type_label": "Modalitate"
+  },
+  "game": {
+    "title": "Joc"
+  },
+  "game_rules": {
+    "code_embed": "Introduceți codul EMBED din videoclip (consultați ajutorul Objow în caz de dificultate):",
+    "link_url": "Introduceți adresa URL a linkului:",
+    "site_url": "Introduceți o adresă URL a site-ului:",
+    "title": "Regulile jocului",
+    "typeform_url": "Introduceți o adresă URL Typeform:"
+  },
+  "kpi": {
+    "criticity": {
+      "high": "Ridicată",
+      "low": "Scăzută",
+      "medium": "Medie"
+    },
+    "periodicity": {
+      "C": "Personalizat",
+      "D": "Daily",
+      "M": "LUNAR",
+      "Q": "Trimestrial",
+      "S": "Semestrial",
+      "W": "SĂPTĂMÂNAL",
+      "Y": "ANUAL",
+      "goal_custom": "Definite în cadrul obiectivului"
+    }
+  },
+  "levels": {
+    "columns": {
+      "citation": "Citat",
+      "icon": "Icone",
+      "level": "Nivel",
+      "name": "Nume",
+      "percent": "% de jucători",
+      "points": "Puncte care trebuie atinse"
+    },
+    "list_title": "Lista nivelurilor"
+  },
+  "login": {
+    "code_label": "Codul societății",
+    "code_placeholder": "Introduceți codul societății",
+    "create_password_company_code_invalid": "Codul societății introdus nu este valid. Introduceți codul societății trimis în e-mailul de întâmpinare",
+    "create_password_error": "Acest link nu mai este valid. Trimiteți o nouă solicitare de resetare a parolei",
+    "create_password_invalid": "Acest link nu este valid",
+    "create_password_missing_user": "Acest link nu corespunde niciunui utilizator sau a fost deja utilizat",
+    "create_password_outdated": "Acest link nu mai este valid. Trimiteți o nouă solicitare de resetare a parolei",
+    "create_password_password_invalid": "Parolă nevalidă",
+    "create_password_submit": "Creați parola",
+    "create_password_success": "Parola dvs. a fost creată cu succes",
+    "create_password_title": "Creeați-vă parola",
+    "description_line1": "Soluția gamificată",
+    "description_line2": "de monitorizare și animație",
+    "description_line3": "de performanță",
+    "email_label": "E-mail",
+    "email_placeholder": "Introduceți adresa de e-mail",
+    "error": "Acreditările nu sunt corecte",
+    "error_company_code": "Codul companiei introdus nu este valid",
+    "force_reset_password_message": "Parola dvs. a expirat, trebuie să alegeți una nouă pentru a vă proteja contul",
+    "force_reset_password_title": "Schimbați-vă parola",
+    "password_label": "Parolă",
+    "reset_password": "Mi-am uitat parola",
+    "reset_password_cancel": "Reveniți la pagina de conectare",
+    "reset_password_confirm_error": "Acest link nu mai este valid. Trimiteți o nouă solicitare de resetare a parolei",
+    "reset_password_confirm_success": "Parola dvs. a fost resetată cu succes",
+    "reset_password_error": "Nu a fost găsit niciun cont cu această adresă de e-mail",
+    "reset_password_submit": "Resetați parola",
+    "reset_password_success": "V-a fost trimis un e-mail cu un link pentru resetarea parolei",
+    "reset_password_title": "Parolă uitată",
+    "sso_dialog_title": "Conexiune SSO",
+    "sso_error_message": "SSO nu este configurat. Contactați un administrator Firetiger",
+    "sso_submit_button": "Conectați-vă cu SSO",
+    "store_message_1": "Aplicația Fire Tiger este disponibilă pentru iPhone și Android.",
+    "store_message_2": "Descărcați acum:",
+    "submit_button": "Autentificați-vă",
+    "title": "Conectare"
+  },
+  "menu": {
+    "admin_button": "Administrare",
+    "administrator_label": "Administrator",
+    "help_button": "Ajutor",
+    "infos_button": "Datele mele",
+    "level_label": "Nivelul {0}",
+    "logout_button": "Deconectare",
+    "manager_label": "Manager",
+    "notifications_button": "Notificări",
+    "points_label": "{0} PUNCTE",
+    "rules_button": "Regulile jocului"
+  },
+  "newsfeed": {
+    "all_roles": "Toate rolurile",
+    "comment_action": "Comentând",
+    "comment_creation_success": "Recenzia dvs. a fost creată",
+    "comment_delete_success": "Comentariul dvs. a fost eliminat cu succes",
+    "comment_placeholder": "Scrieți aici comentariul dvs.",
+    "comment_update_success": "Recenzia dvs. a fost actualizată cu succes",
+    "comments": "Comentarii",
+    "edit_post_title": "Modificați postarea",
+    "embed_prompt": "Lipiți aici URL-ul încorporat al videoclipului",
+    "empty_state_message": "Creați prima dvs. postare",
+    "empty_state_title": "Nicio postare găsită",
+    "for_everybody": "Toată lumea",
+    "like": "îmi place",
+    "likes_list_title": "Reacții",
+    "new_post_title": "Postare nouă",
+    "no_more_posts": "Sfârșitul fluxului de știri",
+    "post_content_placeholder": "Scrieți textul aici",
+    "post_creation_success": "Postarea dvs. a fost creată cu succes",
+    "post_delete_success": "Postarea dvs. a fost anulată cu succes",
+    "post_placeholder": "Creați o postare nouă",
+    "post_report_success": "Mesajul dumneavoastră a fost luat în considerare",
+    "post_settings": "Setări de publicare",
+    "post_update_success": "Postarea dvs. a fost actualizată cu succes",
+    "post_visibility_role_tooltip": "Vizibil de: {0}",
+    "reply": "Răspundeți",
+    "reported_comment": "Observație raportată",
+    "reported_post": "Publicație raportată",
+    "see_less": "... vezi mai puțin",
+    "see_more": "... vezi mai mult",
+    "share_button": "Distribuiți cu",
+    "title": "Flux de știri",
+    "video_size_error": "Dimensiunea videoclipului ({0}) nu trebuie să depășească 50 MB",
+    "who_can_see_your_post": "Cine poate vedea postarea ta?"
+  },
+  "notification": {
+    "date": {
+      "days": "{0} g",
+      "hours": "{0} h",
+      "minutes": "{0} min."
+    },
+    "empty_message": "Nicio notificare primită"
+  },
+  "organization_menu": {
+    "hide": "Ascundeți",
+    "show": "Afișați"
+  },
+  "point_summary": {
+    "orders_button": "Comenzi de confirmat",
+    "panopli_button": "Accesați magazinul",
+    "panopli_error": "Nu a fost găsit niciun cont în magazin",
+    "points_label": "Puncte totale acumulate",
+    "points_value": "{0}Pts",
+    "title": "Informații generale",
+    "usable_points_label": "Sold de puncte",
+    "usable_points_value": "{0}Pts",
+    "used_points_label": "Total puncte utilizate",
+    "used_points_value": "{0}Pts",
+    "validated_values_label": "Valoarea totală utilizată",
+    "validated_values_value": "{0} €",
+    "waiting_points_label": "Puncte în așteptarea validării",
+    "waiting_points_value": "{0}Pts"
+  },
+  "ranking": {
+    "challenges_title": "Provocare",
+    "collaborator_category_title": "Clasament individual",
+    "collaborator_challenge_title": "Clasamentul provocărilor individuale",
+    "collaborator_general_title": "Clasament individual general",
+    "collaborator_tab": "Individual",
+    "columns": {
+      "collaborator": "Jucători",
+      "name": "Nume",
+      "team": "Echipă"
+    },
+    "empty_state_title": "Niciun clasament disponibil",
+    "general_title": "Clasament general",
+    "owner_title": "Clasamentul meu",
+    "team_category_title": "Clasamentul echipei",
+    "team_challenge_title": "Clasamentul provocărilor echipei",
+    "team_general_title": "Clasamentul general al echipei",
+    "team_tab": "Echipă",
+    "title": "Clasamente"
+  },
+  "reward": {
+    "creation": {
+      "error": "A apărut o eroare la crearea premiului",
+      "subtitle": "Creați un premiu",
+      "success": "Premiul a fost creat cu succes"
+    },
+    "detail": {
+      "delivery_mode_text": "Metoda de expediere: {0}",
+      "delivery_place_text": "Locul: {0}",
+      "delivery_time_text": "Timp de livrare estimat: {0}",
+      "description_area": "Descriere",
+      "image_close_button": "Închideți",
+      "operation_step_1_description": "Verificați și confirmați comanda. O notificare va fi apoi trimisă administratorului companiei dvs. pentru a-l informa despre solicitarea dvs.",
+      "operation_step_1_title": "Când faceți clic pe Adăugare",
+      "operation_step_2_description": "Comanda dvs. așteaptă procesarea/confirmarea. Punctele utilizate la momentul comenzii vor fi deduse din soldul punctelor.",
+      "operation_step_2_title": "Comandă în așteptare",
+      "operation_step_3_description": "Administratorul companiei dvs. se ocupă de comanda dvs. Odată validate și facturate de furnizor, punctele dvs. vor fi deduse permanent din soldul punctelor tale.",
+      "operation_step_3_title": "Comandă în curs",
+      "operation_step_4_description": "Premiul dvs. este pe drum! Veți fi informat de administratorul companiei dvs. Premiul dvs. va fi declarat și va fi supus contribuțiilor plătite de angajator și/sau de angajat.",
+      "operation_step_4_number": "Livrare",
+      "operation_step_4_title": "Comandă expediată",
+      "operation_title": "Cum funcționează?",
+      "value_text": "Valoare: {0} €"
+    },
+    "duplication": {
+      "title": "Duplicați premiul"
+    },
+    "edit": {
+      "title": "Modificați premiul"
+    },
+    "form": {
+      "category_label": "Categorie",
+      "delivery_area": "Livrare",
+      "delivery_mode_label": "Metoda de livrare",
+      "delivery_place_label": "Loc",
+      "delivery_time_label": "Termene de livrare",
+      "description_label": "Descriere",
+      "empty_image_text": "Nicio imagine selectată",
+      "image_label": "Selectați o imagine...",
+      "infos_area": "Informații",
+      "name_label": "Nume",
+      "points_label": "Numărul de puncte necesare",
+      "type_label": "Tip",
+      "value_label": "Valoare",
+      "value_suffix_label": "€"
+    },
+    "image_input_infos": "Imaginea se adaptează și se modifică în funcție de dimensiunea ecranului utilizat. Formatul de imagine recomandat pentru o vizualizare optimă este de 1024x700.",
+    "management": {
+      "collaborator_selector_area": "Selectați un jucător",
+      "collaborator_tab": "Jucători",
+      "team_selector_area": "Selectați o echipă",
+      "team_tab": "Echipă",
+      "title": "Gestionarea premiilor"
+    },
+    "order_item_list": {
+      "close_button": "Continuați cumpărăturile",
+      "empty_text": "Gol",
+      "points_value": "{0}Pts",
+      "quantity_label": "Cantitate",
+      "value_label": "Valoare"
+    },
+    "order_list_export": {
+      "title": "Exportați comenzile confirmate"
+    },
+    "order_summary": {
+      "cart_points_label": "Total coș de cumpărături",
+      "confirm_order_message": "După confirmarea comenzii, nu va mai fi posibilă anularea acesteia, punctele vor fi eliminate din soldul punctelor dvs., iar valoarea comenzii va fi declarată și sub rezerva contribuțiilor plătite de angajator și/sau de angajat.",
+      "confirm_order_title": "Confirmați comanda de {0} puncte în valoare de {1} €?",
+      "confirm_refuse_message": "După refuzarea comenzii, nu va mai fi posibilă reactivarea acesteia, punctele vor fi reintegrate în soldul punctelor disponibile. Dvs. vă va reveni responsabilitatea de a informa utilizatorul despre motivul refuzului.",
+      "confirm_refuse_title": "Sigur doriți să refuzați numărul comenzii {0} pentru un total de {1} puncte în valoare de {2} €?",
+      "confirm_validate_message": "După confirmare, comanda nu mai poate fi anulată, punctele vor fi deduse din soldul punctelor disponibile, iar valoarea acestei comenzi trebuie declarată și supusă contribuțiilor plătite de angajator și/sau de angajat.",
+      "confirm_validate_title": "Sigur doriți să confirmați numărul comenzii {0} pentru un total de {1} puncte în valoare de {2} €?",
+      "order_button": "Comandați",
+      "order_points_label": "Total comandă",
+      "order_points_value": "{0} puncte",
+      "order_value_label": "Valoare totală",
+      "recipient_points_label": "Soldul actual al punctelor",
+      "recipient_points_value": "{0} puncte",
+      "refuse_button": "Respingeți",
+      "remaining_points_label": "Soldul punctelor rămase",
+      "remaining_points_value": "{0} puncte"
+    },
+    "point_tag": "{0} PUNCTE",
+    "settings": {
+      "collaborator_reward_activation_option": "Activați premiile pentru „jucător”",
+      "manager_reward_creation": "Permiteți managerilor să comande recompense",
+      "manager_reward_notification": "Notificarea managerilor prin e-mail a comenzilor plasate de jucătorii din echipa lor.",
+      "team_reward_activation_option": "Activați premiile pentru „echipă”"
+    },
+    "shopping_cart": {
+      "adding_confirmation_close_button": "Continuați cumpărăturile",
+      "adding_confirmation_message": "Tocmai ați adaugat acest produs în coș:",
+      "adding_confirmation_shopping_cart_button": "Mergeți la coșul de cumpărături",
+      "points_area": "Total coș de cumpărături",
+      "points_area_year": "Anul {0}",
+      "rewards_area": "Coșul dvs. de cumpărături",
+      "success": "Comanda dvs. a fost primită"
+    },
+    "sort_by": "Sortează după",
+    "sort_options": {
+      "asc": "Creșterea numărului de puncte",
+      "desc": "Scăderea numărului de puncte"
+    },
+    "store": {
+      "empty_state_message": "Pentru a vizualiza mai multe premii, trebuie să modificați orice filtre care pot fi aplicate ",
+      "empty_state_title": "Niciun premiu găsit"
+    },
+    "title": "Premii"
+  },
+  "roles": {
+    "A": "Administrator",
+    "C": "Jucător",
+    "M": "Manager",
+    "S": "Super manager"
+  },
+  "statistics": {
+    "category_title": "Selectați categoria",
+    "empty_state_message": "Pentru a vizualiza alte statistici, trebuie să modificați orice filtre.",
+    "empty_state_title": "Nicio statistică găsită",
+    "title": "Statistici"
+  },
+  "team": {
+    "collaborators_text": "{0} jucători",
+    "detail": {
+      "collaborators_text": "{0} jucători",
+      "manager_text": "De la {0} {1}",
+      "no_manager_text": "Niciun manager",
+      "points_text": "{0} PUNCTE",
+      "victories_text": "{0} victorii"
+    },
+    "empty_state_message": "Echipe încă nu au fost create",
+    "empty_state_title": "Nu a fost găsită nicio echipă",
+    "form": {
+      "collaborator": "Jucător {0}",
+      "collaborators": "Jucători",
+      "color": "Culoare",
+      "id": "Nume de utilizator",
+      "manager": "Manager",
+      "name": "Nume",
+      "parent": "Departamentul grupului părinte"
+    },
+    "group_collaborators_text": "{0} manageri",
+    "group_team_groups_text": "{0} departamente",
+    "group_teams_text": "{0} echipă",
+    "manager_text": "De la {0} {1}",
+    "no_manager_text": "Niciun manager",
+    "title": "Echipă",
+    "title_singular": "Echipă"
+  },
+  "team_group": {
+    "form": {
+      "super_manager": "Super manager",
+      "user": "Utilizatorul {0}",
+      "users": "Utilizatori"
+    },
+    "thumbnail": {
+      "hide_children": "Ascundeți {0} echipe",
+      "hide_children_team_group": "Ascundeți {0} departamente",
+      "show_children": "Vizualizați {0} echipe",
+      "show_children_team_group": "Vizualizați {0} departamente"
+    },
+    "title_singular": "Distribuție"
+  },
+  "transfer_list": {
+    "participants": "Participanți",
+    "selection": "Disponibili",
+    "submit_selection": "Validarea selecției"
+  },
+  "widget": {
+    "activity": {
+      "inactive_profiles": "Profiluri inactive",
+      "info_text": "Găsiți aici lista persoanelor care au fost inactive în echipele dvs. timp de mai mult de 3 luni."
+    },
+    "badge": {
+      "count1": "Ai",
+      "count2": "în curs de desfășurare",
+      "without_count": "Vizualizați insignele angajaților"
+    }
+  }
+}

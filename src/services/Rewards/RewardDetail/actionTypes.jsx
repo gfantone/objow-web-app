@@ -1,0 +1,3 @@
+export const GET_REWARD = 'GET_REWARD';
+export const GET_REWARD_SUCCESS = 'GET_REWARD_SUCCESS';
+export const GET_REWARD_ERROR = 'GET_REWARD_ERROR';

@@ -1,0 +1,68 @@
+name: Build and deploy Front (DEV/PREPROD)
+
+on:
+  push:
+    branches:
+      - develop-spider-cicd
+  workflow_dispatch:
+
+jobs:
+  deploy_preprod:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn install --legacy-peer-deps
+
+      - name: Build the application
+        env:
+          CI: false
+        run: yarn build:azure-preprod
+
+      - name: Deploy to Azure Web App - objow-front-preprod
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'objow-front-preprod'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_OBJOW_PREPROD }}
+          package: build
+
+  deploy_dev:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn install --legacy-peer-deps
+
+      - name: Build the application
+        env:
+          CI: false
+        run: yarn build:azure-dev
+
+      - name: Deploy to Azure Web App - objow-front-dev
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'objow-front-dev'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_OBJOW_DEV }}
+          package: build

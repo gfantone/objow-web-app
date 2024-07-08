@@ -1,0 +1,1329 @@
+{
+  "account": {
+    "citation_label": "Lainaus",
+    "confirm_password_label": "Vahvista salasana",
+    "email_label": "Sähköposti",
+    "first_name_label": "Etunimi",
+    "last_name_label": "Sukunimi",
+    "password_label": "Uusi salasana",
+    "success_message": "Muutokset on tehty onnistuneesti",
+    "title": "Oma profiili",
+    "title_label": "Profiilin otsikko",
+    "title_label_pseudo": "Nimimerkki"
+  },
+  "admin": {
+    "access_rights": {
+      "activate_daily_email": "Aktivoi päivittäinen sähköposti ilmoitusten yhteenvedosta",
+      "activate_notifications": "Aktivoi ilmoitukset",
+      "activate_users_count": "Näyttää inaktiivisten käyttäjien määrän kojelaudalla.",
+      "activate_weekly_email": "Aktivoi viikoittainen yhteenvetosähköposti",
+      "all_users": "Kaikki käyttäjät",
+      "badges": "Pääsy badgeihin",
+      "category_rankings": "Sijoitus näytetään luokittain",
+      "category_rankings_limit": "Luokkien sijoitukset rajoitettu ensimmäisiin X:een",
+      "challenge": "Pääsy haasteisiin",
+      "challenge_rankings": "Sijoitus näytetään haasteittain",
+      "coaching_list": "Pääsy valmennuslistalle",
+      "collaborator_title": "Pelaaja",
+      "edit_coaching_list": "Muokkaa valmennuslistaa",
+      "future_challenge": "Tarkastele tulevia haasteita",
+      "future_goals": "Tarkastele tulevia tavoitteita",
+      "general_rankings": "Näytetään yleinen sijoitus",
+      "general_rankings_limit": "Kokonaissijoitus rajoitettu ensimmäiseen X:ään",
+      "goal_filter": "Oletussuodatin tavoitteille",
+      "goal_rankings": "Näytetään sijoitus tavoitteittain",
+      "goals": "Pääsy tavoitteisiin",
+      "help": "Avun saanti",
+      "home": "Pääsy kojelautaan",
+      "home_page": "Kotisivun konfigurointi",
+      "manager_title": "Johtaja",
+      "news_feed": "Pääsy uutissyötteeseen",
+      "news_feed_comments_creation": "Création de commentaires sur le fil d'actualité",
+      "news_feed_post_creation": "Création de post sur le fil d'actualité",
+      "rankings": "Pääsy sijoituksiin",
+      "reset_password": "Pelaajan profiilin muokkaaminen",
+      "rules": "Pääsy pelisääntöihin",
+      "stats": "Pääsy tilastoihin",
+      "team_rankings": "Tiimini sijoitus",
+      "teams": "Pääsy tiimeihin",
+      "title": "Hallinnoi käyttöoikeuksia",
+      "wording_badge": "Nimeä badge uudelleen",
+      "wording_challenge": "Nimeä haaste uudelleen",
+      "wording_dashboard": "Kojelaudan sanamuoto",
+      "wording_goal": "Nimeä tavoitteet uudelleen",
+      "wording_rules": "Nimeä pelisäännöt uudelleen"
+    },
+    "aircall": {
+      "form_ac_get_calls_activation": "Ota käyttöön KPI-palautus onnistuneille puheluille",
+      "form_ac_get_calls_duration": "Onnistuneen puhelun vähimmäispituus (sekuntia)",
+      "install": {
+        "authorization_error": "Sinulla ei ole tarvittavia käyttöoikeuksia",
+        "code_label": "Yrityksen koodi",
+        "demo_button": "Demo",
+        "email_label": "Sähköposti",
+        "login_error": "Tunnistautumistiedot ovat virheelliset",
+        "no_customer_button_1": "Ei vielä",
+        "no_customer_button_2": "Fire Tiger -asiakas?",
+        "password_label": "Salasana",
+        "submit_button": "Yhdistä Aircall",
+        "unknown_error": "Tapahtui tuntematon virhe",
+        "website_button": "Katso verkkosivusto"
+      }
+    },
+    "badge_config": {
+      "remaining_points_to_award": "Jäljellä olevat pisteet",
+      "title": "Merkkien asettaminen"
+    },
+    "categories": {
+      "active_tab": "Aktiiviset",
+      "archive_confirm": "Haluatko varmasti arkistoida luokan \"{}\"?",
+      "archive_confirm2": "Kun tämä luokka on arkistoitu, sitä ei enää voida aktivoida uudelleen.",
+      "archived_tab": "Arkistoidut",
+      "columns": {
+        "icon": "Kuvake",
+        "name": "Nimi"
+      },
+      "creation": {
+        "error": "Luokkaa luotaessa tapahtui virhe",
+        "success": "Luokka luotu onnistuneesti",
+        "title": "Luo luokka"
+      },
+      "title": "Konfiguroi luokat",
+      "update": {
+        "error": "Luokkaa päivitettäessä tapahtui virhe",
+        "success": "Luokka päivitetty onnistuneesti",
+        "title": "Muokkaa luokkaa"
+      }
+    },
+    "collaborator_selector": {
+      "empty_state_message": "Tiimejä ei ole vielä luotu",
+      "empty_state_title": "Tiimiä ei löytynyt"
+    },
+    "goal": {
+      "admin_editable_label": "Järjestelmänvalvojat voivat muokata tavoitetta",
+      "admin_goal_creation_repartition_individual_team": "💡 Tämän jakelumenetelmän avulla joukkueen tavoite määritetään automaattisesti kaikille joukkueille, jotka valitaan kuluvan vuoden jäljellä olevasta {0} joukosta.\n Kun se on vahvistettu, voit mukauttaa kaikille joukkueille asetettuja tavoitteita.",
+      "admin_title": "Tavoitteiden konfigurointi",
+      "allow_over_target_label": "Määritetyn tavoitteen ylittäminen",
+      "allow_ranking_label": "Tarkastele sijoitusta",
+      "allow_ranking_latest_value": "Tarkastele sijoituksen uusimpia tuloksia",
+      "allow_ranking_points": "Näytä sijoituspisteet",
+      "category_label": "Luokka",
+      "classic_title": "Klassinen",
+      "creation": {
+        "error": "Tavoitetta luotaessa tapahtui virhe",
+        "goal_title": "Tavoitteen konfigurointi",
+        "goals_title": "Tavoitteiden konfigurointi",
+        "kpi_title": "Tavoitteen KPI:n valitseminen",
+        "options_title": "Valitse vaihtoehdot",
+        "participants_title": "Valitse osallistujat",
+        "success": "Tavoitteen luonti onnistui"
+      },
+      "creation_repartition_global": "💡 Tämän jakelumenetelmän avulla vuotuinen globaali tavoite jaetaan automaattisesti kuluvana vuonna jäljellä olevalle {0} määrälle ja jaetaan valittujen osallistujien määrällä.\n Kun se on vahvistettu, voit mukauttaa kaikille tiimeillesi asetettuja yksittäisiä tavoitteita.",
+      "creation_repartition_global_team": "💡 Tätä jakelumenetelmää käyttäen vuotuinen kokonaistavoite jaetaan automaattisesti kuluvana vuonna jäljellä olevien {0} lukumäärällä ja jaetaan suhteessa valittujen tiimien osallistujamäärän mukaan.\n Kun se on vahvistettu, voit mukauttaa kaikille joukkueille asetettuja tavoitteita.",
+      "creation_repartition_individual": "💡 Tämän jakelumenetelmän avulla yksittäinen tavoite määritetään automaattisesti kaikille osallistujille, jotka valitaan kuluvan vuoden jäljellä olevasta {0} lukumäärästä.\n Kun se on vahvistettu, voit mukauttaa kaikille tiimeillesi asetettuja yksittäisiä tavoitteita.",
+      "creation_repartition_individual_team": "💡 Tämän jakelumenetelmän avulla tiimin tavoite määritetään automaattisesti kaikille tiimeille, jotka valitaan kuluvan vuoden jäljellä olevasta {0} joukosta.\n Kun se on vahvistettu, voit mukauttaa kaikille tiimeille asetettuja tavoitteita.",
+      "creation_target_label": "Tav. {1} {0}:lle",
+      "creation_title": "Luo tavoite",
+      "criticity_label": "Kiireellisyys",
+      "default_label": "Luotu oletusarvoisesti",
+      "description_label": "Viesti",
+      "detail": {
+        "indication_tab": "Merkinnät",
+        "rank_tab": "Sijoitukset"
+      },
+      "disable_info": "Kun tämä tavoite on arkistoitu, sitä ei enää voida aktivoida uudelleen. Kaikki nykyisistä ja tulevista tavoitteista myönnetyt pisteet ovat jälleen käytettävissä.",
+      "disable_message": "Haluatko varmasti arkistoida tavoitteen \"{0}\"?",
+      "duplication": {
+        "dialog_confirmation_message": "Oletko varma, että haluat automaattisesti soveltaa {1} tavoitetta kohteeseen {0}?",
+        "dialog_message": "Ota automaattisesti käyttöön kohteelle {0} seuraavan pelaajan tavoitteet:",
+        "dialog_title": "Tavoitteiden konfigurointi"
+      },
+      "edit": {
+        "all_target_label": "Käytetty tavoite",
+        "disable_button": "Sulje tili",
+        "error": "Virhe päivitettäessä tavoitetta",
+        "error_text": "Noudata valitulle ajanjaksolle määritettyä kokonaistavoitetta",
+        "max_target_label": "Valitulle ajanjaksolle määritetty tavoite",
+        "remaining_target_label": "Jäljellä oleva tavoite",
+        "success": "Tavoite on päivitetty onnistuneesti",
+        "title": "Indikaattorit"
+      },
+      "editable_label": "Johtajien muokattavissa oleva tavoite",
+      "import": {
+        "condition1": "Pelaajan sähköposti",
+        "condition2": "Tavoite viite",
+        "condition3": "Kauden alkamispäivä (muoto: VVVV-KK-PP 00:00:00)",
+        "condition4": "Kauden päättymispäivä (muoto: VVVV-KK-PP 23:59:59)",
+        "condition5": "Objektiivinen arvo",
+        "condition6": "Ota yhteyttä asiakasmenestyspäällikköön saadaksesi lisätietoja objektiivisen tuonnin toiminnasta",
+        "error1": "Tuonti on virheellinen, koska tiedosto ei täytä edellä mainittuja rajoituksia. Joitakin linssejä ei ehkä ole tuotu.",
+        "error2": "Tuonti on virheellinen tuntemattomasta syystä.",
+        "text1": "Tuo pilkulla erotettu CSV-tiedosto. Pilkkujen käyttö ei ole sallittua tiedostoarvoissa.",
+        "text2": "Jokaisen tiedoston sarakkeen on täytettävä seuraavat ehdot:",
+        "title": "Tavoitteiden tuonti"
+      },
+      "indication": {
+        "coaching_area": "Valmentajan neuvot",
+        "coaching_empty_state": "Neuvoja ei löytynyt",
+        "coaching_item_label": "Neuvo {0}",
+        "description_area": "Kuvaus",
+        "level_area": "Vaiheet",
+        "live_info": "Jos tämä on käytössä, pisteitä jaetaan osallistujille automaattisesti ennen tavoitteen päättymistä.",
+        "live_label": "Ansaitut pisteet ajantasaisesti",
+        "period_text": "{0} alkaen {1} asti",
+        "unit_with_symbol_text": "Yksikkö: {0} ({1})",
+        "unit_without_symbol_text": "Yksikkö: {0}"
+      },
+      "indication_label": "Merkinnät",
+      "kpi_format_label": "Formaatti",
+      "kpi_label": "KPI",
+      "kpi_name_label": "KPI:n nimi",
+      "kpi_period_label": "Jakso",
+      "kpi_periods_label": "Jaksot",
+      "list": {
+        "active_tab": "Aktiiviset",
+        "archived_tab": "Arkistoidut",
+        "columns": {
+          "category": "Luokka",
+          "default": "Oletus",
+          "id": "viite",
+          "name": "Nimi",
+          "periodicity": "Jaksotus",
+          "target": "Vuotuinen globaali tavoite",
+          "type": "Tavoite",
+          "unit": "Yksikkö"
+        },
+        "empty_state_message": "Jos haluat tarkastella muita tavoitteita, sinun on muokattava käytettyjä suodattimia",
+        "empty_state_title": "Tavoitteita ei löytynyt"
+      },
+      "live_infos": "Jos tämä on käytössä, pisteitä jaetaan osallistujille automaattisesti ennen tavoitteen päättymistä.",
+      "live_label": "Ansaitut pisteet ajantasaisesti",
+      "name_label": "Nimi",
+      "past_editable_label": "Järjestelmänvalvojat voivat muokata aiempaa tavoitetta",
+      "period_label_long": "Ajanjakso {0}: {1} - {2}",
+      "period_label_short": "Jakso {0}",
+      "period_label_short2": "Osoitteesta {0} osoitteeseen {1}",
+      "periodicity_label": "Jaksotus",
+      "point_config": {
+        "allocated_points": "Myönnetyt pisteet yhteensä: ",
+        "allocated_points_year": "Vuoden tavoitteesta myönnettyjen pisteiden määrä {0}",
+        "available_points_title": "{0} pistettä käytettävissä",
+        "current_points_title": "{0} pistettä tällä hetkellä jaossa",
+        "errors": {
+          "archived_goal": "Arkistoitu tavoite",
+          "no_level_message": "Luo ensimmäinen vaihe",
+          "no_level_title": "Vaiheita ei löytynyt",
+          "percent_more_equal": "Prosenttiosuuden on oltava suurempi tai yhtä suuri kuin 0",
+          "percent_more_than": "Prosenttiosuuden on oltava suurempi kuin edellisessä vaiheessa",
+          "points_more_equal": "Pisteiden lukumäärän on oltava suurempi tai yhtä suuri kuin 0",
+          "points_more_than": "Pisteiden määrän on oltava suurempi kuin edellisessä vaiheessa"
+        },
+        "form": {
+          "percent": "% tavoitteen saavuttamisesta",
+          "points": "Pisteet"
+        },
+        "general_info_title": "Yleistä tietoa",
+        "importance_percent": "Merkityksen prosenttiosuus: ",
+        "level_title": "Vaihe {0}",
+        "max_points_title": "Pisteiden enimmäismäärä per {0} ja jaksoa kohden: ",
+        "remaining_points": "Jäljellä olevat pisteiden kokonaispisteet: ",
+        "title": "Vaiheiden määrittäminen per {0} ja jaksolle",
+        "title_tooltip": "Pisteiden lukumäärä, joita voidaan käyttää {0}, alkaen {1} vuoden aikana {2}",
+        "used_points": "Jo jaossa olevien pisteiden kokonaismäärä:"
+      },
+      "point_config_title_c": "Jäljellä olevien kausien lukumäärä",
+      "point_config_title_d": "Jäljellä olevien päivien määrä",
+      "point_config_title_m": "Jäljellä olevien kuukausien määrä",
+      "point_config_title_q": "Jäljellä olevien vuosineljännesten lukumäärä",
+      "point_config_title_s": "Jäljellä olevien lukukausien lukumäärä",
+      "point_config_title_w": "Jäljellä olevien viikkojen määrä",
+      "point_config_title_y": "Kuluva vuosi",
+      "point_config_tooltip_c": "kuluva kausi",
+      "point_config_tooltip_d": "Jäljellä olevat päivät",
+      "point_config_tooltip_m": "Jäljellä olevat kuukaudet",
+      "point_config_tooltip_q": "jäljellä olevat vuosineljännekset",
+      "point_config_tooltip_s": "jäljellä olevat lukukaudet",
+      "point_config_tooltip_w": "Jäljellä olevat viikot",
+      "point_config_tooltip_y": "kuluva vuosi",
+      "rank_list": {
+        "player_column": "pelaajat"
+      },
+      "repartition_label": "Jakomenetelmät",
+      "spreadsheet_title": "Laskentataulukko",
+      "target_label": "Vuotuinen globaali tavoite",
+      "thumbnail": {
+        "collaborator_tag": "Yksilöllinen",
+        "counter_text": "Saavutettu: {0}",
+        "first_rank_text": "{0}°",
+        "max_points_text": "/{0} Maks",
+        "max_rank_text": "/{0}",
+        "other_period": "{0} alkaen {1} asti",
+        "other_rank_text": "{0}°",
+        "player_text": "{0} pelaajaa",
+        "points_text": "{0} Pistettä",
+        "quarter_period": "Vuosineljännes {0} ({1})",
+        "semester_period": "Lukukausi {0}",
+        "target_text": "/Tavoite: {0}",
+        "team_tag": "Tiimi",
+        "team_text": "{0} tiimi",
+        "timer_tag": "G {0}",
+        "week_period": "Viikko {0} ({1})",
+        "year_period": "Vuosi {0}"
+      },
+      "title": "Tavoitteet",
+      "type_label": "Tyyppi",
+      "unit_label": "Yksikkö",
+      "update_base_tab": "Pohja",
+      "update_base_title": "Kohteen '{0}' muokkaus",
+      "update_confirmation_message": "Oletko varma, että haluat muuttaa KPI:n tähän tavoitteeseen? Tällä muutoksella voi olla vaikutuksia tuloshistoriaan. Jos sinulla on kysyttävää, älä epäröi ottaa yhteyttä meihin.",
+      "update_custom_tab": "Mukautus",
+      "update_readonly_title": "Näytä tavoite '{0}'"
+    },
+    "home": {
+      "badge_link": "Badge",
+      "category_link": "Luokat",
+      "data_area": "Tietojen integrointi ja hallinta",
+      "goal_level_link": "Pisteet",
+      "import_link": "Tuontilokit",
+      "indicator_area": "Indikaattorien määrittäminen",
+      "level_link": "Taso",
+      "logo_link": "Vaihda logo",
+      "notification_link": "Ilmoitusten hallinta",
+      "organization_link": "Tiimi/organisaatio",
+      "partner_link": "Voidaan integroida kolmannen osapuolen ohjelmistoon",
+      "permission_link": "Käyttöoikeuksien hallinta",
+      "point_link": "Pisteiden yleinen erittely",
+      "report_link": "Raportti",
+      "reward_link": "Palkinnot",
+      "user_area": "Käyttäjät ja oikeudet",
+      "user_link": "Käyttäjän tilaukset",
+      "year_label": "Asetettava vuosi"
+    },
+    "import_log": {
+      "columns": {
+        "date": "Toteutuksen päivämäärä",
+        "download": "Lataa",
+        "error_lines": "Virhe rivit",
+        "file": "Tiedosto",
+        "id": "viite",
+        "state": "Tila",
+        "success_lines": "Kelvollisia rivejä"
+      },
+      "data": "Tulokset",
+      "goals": "Tavoitteet",
+      "title": "Tuontiloki",
+      "users": "Käyttäjät"
+    },
+    "logo": {
+      "background_color": "Taustaväri",
+      "colors": "Värit",
+      "font_family": {
+        "fonts_select": "Fonttien valinta",
+        "title": "Kirjasintyyppi"
+      },
+      "primary_color": "Pääväri",
+      "reset_colors": "Värien nollaaminen",
+      "secondary_color": "Toissijainen väri",
+      "success_message": "Logo on päivitetty",
+      "title": "Logon muutos"
+    },
+    "logo_and_colors": {
+      "success_message": "Värit on päivitetty onnistuneesti",
+      "title": "Logon ja värien vaihto"
+    },
+    "notifications_rights": {
+      "explication_badge": "merkkitason muuttuessa lähetettävien ilmoitusten määrittäminen",
+      "explication_challenge": "ilmoitusten määrittäminen haasteiden päivittämisen yhteydessä",
+      "explication_email": "Sähköposti-ilmoitukset lähetetään postilaatikkoosi.",
+      "explication_global": "yleinen ilmoitusmääritys",
+      "explication_in_app": " Sovelluksen sisäiset ilmoitukset lähetetään sovellukseesi.",
+      "explication_newsfeed": "configuration des notifications qui sont envoyées lorsque le niveau du badge change",
+      "explication_push": "Push-ilmoitukset lähetetään mobiililaitteellesi (iOS tai Android).",
+      "explication_ranking": "ilmoitusten määrittäminen haastesijoituksessa ensimmäiseksi sijoittuneelle yhteistyökumppanille",
+      "explication_type": "Ilmoitusten vastaanottamiseen on kolme tapaa: push, sovelluksen sisäinen, sähköposti.",
+      "generals": "Kenraali",
+      "global": "Global",
+      "notification_CHBU": "Ilmoita, kun haasteet päivitetään.",
+      "notification_EWM": "Ilmoitus lähetetään joka viikko kaikkien motivaation lisäämiseksi.",
+      "notification_MNL": "Ilmoitus tason läpäisevälle yhteistyökumppanille.",
+      "notification_NECH": "Ilmoitus lähetetään, kun uusi haaste alkaa",
+      "notification_NLB": "Ilmoitus, kun saavutat uuden merkkitason",
+      "notification_NPE": "Ilmoitus, jossa ilmoitetaan, jos ilmoituksia ei ole luettu.",
+      "notification_NPIN": "Notification envoyée quand le nouveau post a été créé dans le fil d'actualité",
+      "notification_NROE": "Ilmoitus lähetetään, jos palkintotilaus on vahvistettu onnistuneesti.",
+      "notification_RFCR": "Ilmoitus yhteistyökumppanille, joka tulee ensimmäiseksi haastesijoituksessa.",
+      "notification_RFGR": "Ilmoitus työntekijälle, joka tulee ensimmäiseksi yleisessä sijoituksessa.",
+      "notification_RFR": "Ilmoitus yhteistyökumppanille, joka tulee ensimmäiseksi objektiivisessa sijoituksessa.",
+      "notification_SWE": "Viikoittainen yhteenvetoilmoitus.",
+      "notification_TRCR": "Ilmoitus joukkueelle, joka tulee ensimmäiseksi haastesijoituksessa.",
+      "notification_TRFR": "Ilmoitus joukkueelle, joka tulee ensimmäiseksi tavoitteen sijoituksessa.",
+      "notification_TRGR": "Ilmoitus joukkueelle, joka tulee ensimmäiseksi kokonaissijoituksessa.",
+      "notification_update_success": "Ilmoitusmuutokset hyväksyttiin onnistuneesti!",
+      "remark_explication": "Huomautus:",
+      "remark_explication_checkbox": "Jos valintaruutu ei ole aktiivinen, et voi muuttaa tämän ilmoituksen asetuksia",
+      "sub_title": "Ilmoitusten hallinta",
+      "title": "Ilmoitukseni",
+      "title_email": "Email",
+      "title_explication": "Kuinka saada ilmoitus:",
+      "title_in_app": "Sovelluksessa",
+      "title_push": "Työntö"
+    },
+    "organization": {
+      "create_team_title": "Tiimin luominen ({0})",
+      "title": "Organisaation hallinta",
+      "update_company": "Vaihda yrityksen nimi",
+      "update_team": "Muokkaa tiimiä",
+      "update_team_group": "Muokkaa osastoa"
+    },
+    "partner_detail_empty_connection": "Näiden ominaisuuksien käyttämiseksi sinun on asennettava Fire Tiger Aircall-asiakasalueellesi.",
+    "partner_detail_subtitle": "Voidaan integroida kolmannen osapuolen ohjelmistoon",
+    "partner_list_subtitle": "Voidaan integroida kolmannen osapuolen ohjelmistoon",
+    "point_config": {
+      "budget": "Budjetti",
+      "point_rule": "Laskentasääntö",
+      "total_title": "Saavutettavissa oleva kokonaispistemäärä pelaajaa kohden",
+      "total_title_team": "Saavutettavissa oleva kokonaispistemäärä tiimiä kohti"
+    },
+    "points": {
+      "columns": {
+        "category": "Luokka",
+        "current_points": "Pisteitä tällä hetkellä jaossa",
+        "custom_individual": "Yksilöllinen mukautus",
+        "custom_team": "Tiimin mukauttaminen",
+        "id": "viite",
+        "name": "Otsikko",
+        "used_points": "Pisteitä jo jaossa"
+      },
+      "menu_global": "Globaali",
+      "menu_individual": "Yksilöllinen",
+      "menu_team": "Tiimi",
+      "title": "Tavoitepisteiden asettaminen"
+    },
+    "report": {
+      "columns": {
+        "category": "Luokka",
+        "format": "Formaatti",
+        "format_manual": "Manuaalinen",
+        "format_standard": "Vakio",
+        "kpi_code": "KPI-koodi",
+        "kpi_name": "KPI:n nimi",
+        "kpi_ref": "KPI-viite",
+        "periodicity": "Päivitys",
+        "result_unit": "Tuloksen yksikkö"
+      },
+      "dashboard_tab": "Kojelauta",
+      "list_tab": "Luettelo raporteista",
+      "title": "Luettelo raporteista"
+    },
+    "report_details": {
+      "columns": {
+        "id": "ID"
+      },
+      "quarter_period": "Vuosineljännes {0}",
+      "semester_period": "Lukukausi {0}",
+      "title": "Raportti \"{0}\"",
+      "week_period": "Viikko {0}"
+    },
+    "reward_category": {
+      "creation": {
+        "subtitle": "Luo palkintoluokka"
+      },
+      "list": {
+        "active_tab": "Aktiiviset",
+        "icon_column": "Kuvake",
+        "inactive_tab": "Arkistoidut",
+        "name_column": "Nimi",
+        "subtitle": "Palkintoluokkien määrittäminen"
+      },
+      "update": {
+        "subtitle": "Palkintoluokan muokkaaminen"
+      }
+    },
+    "title": "Hallinto",
+    "user": {
+      "archived_tab": "Peruutetut",
+      "creation": {
+        "password_title": "Luo salasana",
+        "send_email": "Lähetä kirjautumissähköposti käyttäjälle",
+        "success": "Käyttäjä luotu onnistuneesti",
+        "title": "Luo käyttäjä"
+      },
+      "current_tab": "Käynnissä",
+      "email": "Sähköposti",
+      "firstname": "Etunimi",
+      "force_reset_password": "Pakota vaihtamaan salasana",
+      "force_reset_password_info": "Käyttäjän on vaihdettava salasanansa seuraavan kerran, kun hän kirjautuu sisään",
+      "fullname": "Sukunimi",
+      "id": "viite",
+      "identifier": "Käyttäjänimi {0}",
+      "identifiers": "Käyttäjätunnukset",
+      "import": {
+        "condition1": "Etunimi: enintään 30 merkkiä",
+        "condition2": "Sukunimi: enintään 150 merkkiä",
+        "condition3": "Sähköposti: Uniikki, enintään 254 merkkiä",
+        "condition4": "Tyyppi: C (pelaaja), M (Manager), S (Super Manager) tai A (Administrator)",
+        "condition5": "Tiimi: Tiimin käyttäjätunnus (ilmoitettu tiimin julkaisulomakkeessa)",
+        "condition6": "Salasana",
+        "condition7": "Tila: 1 (aktiivinen) tai 0 (ei aktiivinen)",
+        "condition8": "Viimeiset 5 saraketta ovat valinnaisia käyttäjätunnuksia",
+        "condition9": "Osaston Super Manager: P jos ensisijainen, muuten tyhjä",
+        "error1": "Tuonti epäonnistui, koska tiedosto ei täytä edellä mainittuja vaatimuksia. Joitakin käyttäjiä ei ehkä ole tuotu.",
+        "error2": "Tuonti epäonnistui tuntemattomasta syystä.",
+        "text1": "Tuo tiedosto .csv-muodossa käyttäen pilkkua erottimen symbolina. Pilkun käyttö ei ole sallittua tiedostoarvoissa.",
+        "text2": "Jokaisen tiedoston sarakkeen on täytettävä seuraavat vaatimukset:",
+        "title": "Käyttäjien tuominen"
+      },
+      "information_title": "Tiedot",
+      "last_login": "Viimeinen kirjautuminen",
+      "last_login_empty": "Ei ole",
+      "lastname": "Sukunimi",
+      "locale": "Kieli",
+      "password": "Uusi salasana",
+      "password_confirm": "Vahvista salasana",
+      "password_field": "Salasana",
+      "password_info": "Salasanassa on oltava vähintään 8 merkkiä, vähintään yksi pieni kirjain ja yksi iso kirjain, vähintään yksi erikoismerkki (?! &*) ja numero",
+      "profile": {
+        "no_team": "Ei tiimiä"
+      },
+      "role": "Toiminto",
+      "search_placeholder": "Etsi käyttäjä...",
+      "team": "Tiimi",
+      "title": "Käyttäjien hallinta",
+      "type": "Tyyppi",
+      "update": {
+        "actions_title": "Toimet",
+        "allow_pending_notifications": "Salli sähköposti-ilmoitusmuistutukset",
+        "create_new_password": "Lähetä kirjautumissähköposti",
+        "create_new_password_success": "Kirjautumissähköposti on lähetetty onnistuneesti",
+        "disable_button": "Sulje tili",
+        "enable_button": "Aktivoi tili uudelleen",
+        "error": "Käyttäjää muokatessa tapahtui virhe",
+        "notifications_title": "Ilmoitukset",
+        "password_title": "Vaihda salasana",
+        "success": "Käyttäjää muokattiin onnistuneesti",
+        "title": "Muokkaa käyttäjää"
+      }
+    }
+  },
+  "aircall": {
+    "install_authorization_error": "Sinulla ei ole tarvittavia käyttöoikeuksia",
+    "install_code_label": "Yrityksen koodi",
+    "install_demo_button": "Demo",
+    "install_email_label": "Sähköposti",
+    "install_login_error": "Tunnistautumistiedot ovat virheelliset",
+    "install_no_customer_button_1": "Ei vielä",
+    "install_no_customer_button_2": "Fire Tiger -asiakas?",
+    "install_password_label": "Salasana",
+    "install_submit_button": "Yhdistä Aircall",
+    "install_title": "Yhteyden muodostaminen Aircalliin",
+    "install_unknown_error": "Tapahtui tuntematon virhe",
+    "install_website_button": "Katso verkkosivusto"
+  },
+  "apptour": {
+    "title": "Sovelluskierros"
+  },
+  "badge": {
+    "creation": {
+      "badge_creation": "Merkin luominen",
+      "error": "Badgen luomisessa tapahtui virhe",
+      "info_title": "Tiedot",
+      "kpi_title": "Badgen KPI:n valitseminen",
+      "levels_title": "Vaiheiden määrittäminen",
+      "participants_title": "Valitse osallistujat",
+      "success": "Badge luotiin onnistuneesti"
+    },
+    "level": {
+      "condition_text": "Ehto: taso {0}",
+      "counter_text": "Saavutettu: {0}",
+      "point_text": "{0} Pistettä",
+      "rank_text": "Luokka {0}",
+      "target_text": "Tavoite: {0}"
+    },
+    "list": {
+      "completed_tab": "Saavutetut",
+      "current_tab": "Käynnissä",
+      "empty_state_title": "Badgejä ei löytynyt"
+    },
+    "title": "Badge"
+  },
+  "challenge": {
+    "award_list": {
+      "add_reward": "Palkinnon luominen",
+      "collaborator_max_point_label": "Maksimi pelaajaa kohti",
+      "collaborator_point_label": "Pelaajan voitto # {0}",
+      "list_live_infos": "Jos se on aktivoitu, pisteitä jaetaan automaattisesti osallistujille ennen haasteen päättymistä.",
+      "list_live_label": "Ansaitut pisteet ajantasaisesti",
+      "points_calculation_message": "Käytettävissä olevien pisteiden laskeminen...",
+      "step_point_label": "Vaihe # {0}",
+      "target_label": "Saavutettavat pisteet",
+      "team_max_point_label": "Enimmäismäärä per tiimi",
+      "team_point_label": "Tiimin voitto # {0}",
+      "title": "Palkinnot",
+      "type_label": "Tapa",
+      "usable_points": "{0} käyttökelpoiset pisteet"
+    },
+    "awards_title": "Tulot",
+    "category_list_title": "Luokan valitseminen",
+    "click_to_view_challenge": "Klikkaa tästä nähdäksesi haasteen",
+    "collaborators": "{0} pelaajaa",
+    "condition": {
+      "award_area": "Haasteen palkinnot",
+      "award_points": "{0} PISTETTÄ",
+      "collaborator_max_points_label": "Maksimi pelaajaa kohti",
+      "collaborator_rank": "Pelaaja nro {0} #",
+      "condition_area": "Indikaattorit",
+      "description_area": "Kuvaus",
+      "description_label": "Kuvaus",
+      "goal_info": "Tässä asetettu ehto voidaan saavuttaa useita kertoja. Joka kerta, kun se saavutetaan, se oikeuttaa sinut siihen liittyvien pisteiden määrään",
+      "label": "Kunto",
+      "label_completed": "Toteutunut",
+      "last_update": "Viimeisin päivitys: ",
+      "last_update_time": "{0}:sta {1}:aan",
+      "period": "{0} alkaen {1} asti",
+      "point_counter": "{0} PISTETTÄ",
+      "point_target": "{0} PISTETTÄ",
+      "race_condition_goal_info": "Jos tavoite saavutetaan, se oikeuttaa 1 pisteeseen",
+      "team_group_max_points_label": "Enimmäismäärä per osasto",
+      "team_group_rank": "Osasto # {0}",
+      "team_max_points_label": "Enimmäismäärä per tiimi",
+      "team_rank": "Tiimi nro # {0}\n",
+      "type": "Tila: {0}"
+    },
+    "creation": {
+      "error": "Haastetta luotaessa tapahtui virhe",
+      "success": "Haaste luotiin onnistuneesti",
+      "title": "Luo haaste"
+    },
+    "delete_prompt": "Haluatko varmasti poistaa tämän haasteen?",
+    "delete_success": "Haaste on peruttu onnistuneesti",
+    "detail": {
+      "condition_tab": "Ehdot",
+      "rank_tab": "Sijoitukset"
+    },
+    "duplication": {
+      "title": "Kopioi haaste"
+    },
+    "first_rank": "{0}°",
+    "form": {
+      "add_reward": "Lisää palkkio",
+      "award_error": "Lisää vähintään yksi palkinto",
+      "award_type_description_c": "Palkinto {2} {0}, jotka saavuttavat haasteen tavoitteet",
+      "award_type_description_m": "Jokainen {1} ansaitsee pistemäärän, joka vastaa sen pistemäärää määritettyyn enimmäisrajaan asti",
+      "award_type_description_p": "Osallistujien saama palkinto riippuu saavutetusta suoritustasosta",
+      "award_type_description_r": "Palkinto {2} {0} haasteen lopussa",
+      "award_type_description_single_c": "Palkinto {0} haasteen tavoitteiden saavuttamisesta",
+      "award_type_description_single_m": "Jokainen {1} ansaitsee pistemäärän, joka vastaa sen pistemäärää määritettyyn enimmäisrajaan asti",
+      "award_type_description_single_p": "Osallistujien saama palkinto riippuu saavutetusta suoritustasosta",
+      "award_type_description_single_r": "Palkinto {0} haasteen lopussa",
+      "award_type_minimum_participants": "Tämä tila vaatii vähintään {0} {1}",
+      "congratulations": "Onnittelut 🎉!",
+      "congratulations_message": "Haasteesi on valmis lähetettäväksi!",
+      "enable_manager_score_label": "Näytä konsolidoidut pisteet",
+      "first": "Ensi-ilta",
+      "first_departments": "ensimmäiset osastot",
+      "first_teams": "ensimmäiset joukkueet",
+      "goal_area": "Indikaattorit",
+      "goal_category_label": "Luokka",
+      "goal_collaborator_editable_label": "Pelaajan lisääminen",
+      "goal_description_label": "Kuvaus",
+      "goal_format_label": "Formaatti",
+      "goal_kpi_label": "KPI",
+      "goal_manager_editable_label": "Johtajan lisäys",
+      "goal_name_label": "Nimi",
+      "goal_periodicity_label": "Jaksotus",
+      "goal_target_info_text": "Tässä asetettu ehto voidaan saavuttaa useita kertoja. Joka kerta, kun se saavutetaan, ansaitaan siihen liittyvien pisteiden määrä.",
+      "goal_target_label": "Tavoite",
+      "goal_target_label2": "Ehto",
+      "goal_target_label2_race": "Tavoite",
+      "goal_title": "Indikaattori {0}",
+      "goal_unit_label": "Yksikkö",
+      "goals": {
+        "add_button": "Lisää indikaattori",
+        "automatic": "Automaattinen",
+        "manual": "Manuaalinen syöttö"
+      },
+      "indicators_title": "Haasteen indikaattoreiden ja mekanismien määrittäminen",
+      "info_area": "Tiedot",
+      "info_award_type_label": "Tapa",
+      "info_description_label": "Kuvaus",
+      "info_end_label": "Loppu",
+      "info_image_label": "Valitse kuva...",
+      "info_name_label": "Nimi",
+      "info_no_image_text": "Kuvaa ei ole valittu",
+      "info_start_label": "Alku",
+      "info_type_label": "Haasteen tyyppi",
+      "infos_title": "Tietojen asettaminen",
+      "mode": "Tapa",
+      "mode_title": "Haastetilan valitseminen",
+      "notify_updated_label": "Ilmoita osallistujille päivityksistä",
+      "participants_title": "Valitse osallistujat",
+      "rewards_title": "Valitse palkinnot",
+      "soon_available": "Saatavilla pian",
+      "step_mode_information": "Enintään 1 palkinto osallistujaa kohden (voitettu palkinto vastaa korkeimman vaiheen palkintoa)",
+      "steps": {
+        "indicators": "Indikaattorit ja mekanismit",
+        "infos": "Tiedot",
+        "mode": "Tapa",
+        "participant": "Osallistuja",
+        "participants": "Osallistujat",
+        "rewards": "Palkinnot",
+        "validation": "Vahvista"
+      },
+      "the_first": "Ensimmäinen",
+      "the_first_department": "Ensimmäinen osasto",
+      "the_first_team": "Ensimmäinen joukkue"
+    },
+    "kpi_results": {
+      "add_data": "Lisää tietoja",
+      "add_data_button": "Lisää tietoja",
+      "add_kpi_title": "Lisää tulos KPI: lle",
+      "back_button": "Takaisin listalle",
+      "collaborator_new_title": "Tallenna uusi tulos KPI: lle",
+      "collaborator_title": "Luettelo KPI: n tallennetuista tuloksista",
+      "columns": {
+        "actions": "Toimet",
+        "images": "Kuvia",
+        "indications": "Indikaatiot",
+        "result": "Lopputulos",
+        "results": "Tulokset"
+      },
+      "edit_kpi_title": "KPI: n tuloksen muokkaaminen",
+      "edit_results": "Syötä tulokset",
+      "form": {
+        "data_description": "Merkinnät",
+        "data_description_placeholder": "Syötä tekstisi",
+        "data_image": "Valitse tiedosto...",
+        "data_value": "Arvo",
+        "data_value_placeholder": "Syötä arvo, jonka haluat ilmoittaa",
+        "file_size_error": "Tiedoston koko ei saa ylittää 20 Mt"
+      },
+      "see_more": "Katso lisää",
+      "subtitle": "Tulosten päivittäminen voi kestää muutaman minuutin",
+      "title": "Luettelo KPI: n tuloksista"
+    },
+    "list": {
+      "create_button": "Luo haaste",
+      "empty_state_message": "Jos haluat tarkastella muita haasteita, sinun on muokattava käytettyjä suodattimia",
+      "empty_state_title": "Haasteita ei löytynyt"
+    },
+    "max_points": "{0} MAX",
+    "modes": {
+      "C": "Rotu",
+      "M": "Enimmäispistemäärä",
+      "P": "Vaiheet",
+      "R": "Palkintokoroke"
+    },
+    "modes_full": {
+      "C": "Race-tila",
+      "M": "Max Score -tila",
+      "P": "Tason tila",
+      "R": "Podium-tila"
+    },
+    "no_awards_title": "Ei voittoja",
+    "other_rank": "{0}°",
+    "points": "Pisteet: {0}",
+    "ranking": {
+      "collaborator_column": "Pelaajat",
+      "collaborator_team_column": "Tiimi",
+      "collaborator_team_group_column": "Osasto",
+      "level_column": "Taso",
+      "points_column": "Pisteet",
+      "team_column": "Tiimi"
+    },
+    "reward_types": {
+      "G": "Lahjat",
+      "P": "Pisteet"
+    },
+    "search_placeholder": "Etsi osallistujaa...",
+    "share": {
+      "copy_link": "Kopioi linkki",
+      "copy_success": "Linkki on kopioitu onnistuneesti",
+      "teams_share": "Jaa tiimeissä",
+      "title": "Jaa tämä haaste"
+    },
+    "team_groups": "{0} osasto",
+    "teams": "{0} tiimi",
+    "title": "Haaste",
+    "title_plural": "Haaste",
+    "types": {
+      "CC": "Yksilöllinen",
+      "CT": "Tiimi",
+      "TG": "Osasto"
+    },
+    "update": {
+      "create_reward": "Luo palkintoja",
+      "edit_participants": "Osallistujien julkaiseminen",
+      "title": "Muokkaa haastetta"
+    }
+  },
+  "chart": {
+    "collaborator_type_text": "Soolo",
+    "counter_text": "Saavutettu: {0}",
+    "max_points_text": "/{0} max",
+    "points_text": "{0} pistettä",
+    "target_text": "Tavoite: {0}",
+    "team_type_text": "Tiimi",
+    "x_legend": "Ajanjakso"
+  },
+  "coaching_list": {
+    "created_success": "Kortti luotiin onnistuneesti",
+    "delete_prompt": "Oletko varma, että haluat poistaa tämän kohteen?",
+    "delete_prompt2": "Peruutuksen jälkeen sitä ei enää voida palauttaa",
+    "empty_state_collaborator_message": "Yritä myöhemmin uudelleen, kun esimiehesi tarjoaa tukea",
+    "empty_state_manager_message": "Luo ensimmäinen koulutus pelaajan",
+    "empty_state_title": "Koulutuksia ei löytynyt",
+    "end_label": "Viimeinen voimassaolopäivä",
+    "state": {
+      "archived": "Arkistoitu",
+      "done": "Tehty",
+      "in_progress": "Käynnissä",
+      "pending": "Odottaa"
+    },
+    "title": "Valmennuslista",
+    "title_placeholder": "Anna tämän kortin otsikko",
+    "updated_success": "Kortti on päivitetty onnistuneesti"
+  },
+  "collaborator": {
+    "badge_empty_title": "Ei tehtyjä badgejä",
+    "dashboard": "Oma hallintapaneeli",
+    "detail": {
+      "badge_area": "Badge",
+      "badge_rank": "Luokka {0}",
+      "empty_state_title": "Tietoja ei ole saatavilla",
+      "info_area": "Yleistä tietoa",
+      "info_current_level": "{0} ",
+      "info_current_level_max": "/{0} PISTETTÄ",
+      "info_first_rank_text": "{0}°",
+      "info_max_level": "Enimmäistaso saavutettu",
+      "info_next_level": "Taso {0}",
+      "info_other_rank_text": "{0}°",
+      "info_total_points": "{0} PISTETTÄ",
+      "info_victories": "{0} voitto(a)",
+      "password_button": "Muokkaa profiilia"
+    },
+    "reward_order": {
+      "erase_cart_warning": "Haluatko varmasti lisätä tämän uuden palkkion?",
+      "erase_cart_warning2": "Tämä toiminto nollaa korisi, joka on tällä hetkellä yhdistetty toiseen pelaajaan.",
+      "summary_points_area": "Tilaus yhteensä",
+      "summary_points_area_year": "Vuosi {0}",
+      "summary_rewards_area": "Tilausnro {0} / {1}",
+      "summary_title": "Tilauksen yhteenveto",
+      "tracking": {
+        "email_column": "Sähköposti",
+        "id_column": "viite",
+        "name_column": "Nimi",
+        "order_date_column": "Tilauksen päivämäärä",
+        "sub_header_pending_tab": "Käynnissä",
+        "sub_header_validated_tab": "Valmis lähetettäväksi",
+        "sub_header_validated_title": "Tilausten tila",
+        "sub_header_waiting_tab": "Vahvistetut",
+        "team_column": "Tiimi",
+        "validated_points_column": "Käytetyt pisteet",
+        "validation_date_column": "Vahvistuksen päivämäärä",
+        "value_column": "Kokonaissumma",
+        "waiting_points_column": "Vahvistettavat pisteet"
+      },
+      "validation": {
+        "error": "Tilauksen vahvistamisen yhteydessä tapahtui virhe",
+        "points_area": "Tilaus yhteensä",
+        "points_area_year": "Vuosi {0}",
+        "rewards_area": "Tilausnro {0} / {1}",
+        "success": "Tilaus on vahvistettu onnistuneesti",
+        "title": "Vahvista tilaus"
+      }
+    },
+    "title": "Pelaajat",
+    "update": {
+      "title": "Muokkaa profiilia"
+    }
+  },
+  "common": {
+    "add": "Lisää",
+    "archive": "Arkistoi",
+    "cache_warning": "Tietojen päivittäminen voi kestää jopa 5 minuuttia",
+    "cancel": "Peruuta",
+    "close": "Sulje",
+    "collaborator": "Pelaaja",
+    "collaborators": "Pelaajat",
+    "create": "Luo",
+    "create_error_message": "Luomisen aikana tapahtui virhe",
+    "create_success_message": "Luominen onnistui",
+    "csv_export": "Vie CSV-tiedostoon",
+    "date": "Päivämäärä",
+    "delete": "Poista",
+    "delete_error_message": "Poistamisen aikana tapahtui virhe",
+    "delete_success_message": "Poistettu onnistuneesti",
+    "duplicate": "Kopioi",
+    "edit": "Muokkaa",
+    "edit_participants": "Muokkaa osallistujia",
+    "erase": "Tyhjennä",
+    "error_page_message": "Voit päivittää sovelluksen korjataksesi ongelman",
+    "error_page_title": "Tapahtui virhe",
+    "excel_export": "Vie XLS-muodossa",
+    "export": "Vie",
+    "form": {
+      "collaborator_points_valid": "Pisteiden summa ylittää pisteiden enimmäismäärän",
+      "decreasing_rewards": "Palkintoja on vähennettävä",
+      "email_error": "Virheellinen sähköposti.",
+      "has_digit_character": "Vähintään yksi numero vaaditaan",
+      "has_less_characters_than": "Vaaditaan alle {0} merkkiä",
+      "has_lowercase_character": "Vähintään yksi pieni kirjain vaaditaan",
+      "has_more_characters_than": "Vähintään {0} merkkiä vaaditaan",
+      "has_special_character": "Vähintään yksi erikoismerkki vaaditaan",
+      "has_uppercase_character": "Vähintään yksi iso kirjain vaaditaan",
+      "increasing_rewards": "Palkintojen on oltava kasvavassa järjestyksessä",
+      "increasing_scores": "Saavutettavien pisteiden on oltava kasvavassa järjestyksessä",
+      "is_int_error": "Arvon on oltava kokonaisluku.",
+      "is_more_than_or_equals_0_error": "Arvon on oltava suurempi tai yhtä suuri kuin 0.",
+      "max_length_128_error": "Arvon on oltava alle 128 merkkiä.",
+      "numeric_error": "Arvon on oltava numero",
+      "password_not_match_error": "Salasanat eivät täsmää.",
+      "required_error": "Tämä kenttä on pakollinen."
+    },
+    "gift": "Lahja",
+    "home": "Kojelauta",
+    "import": "Tuo",
+    "level": "Taso",
+    "next": "Seuraava",
+    "no": "Ei",
+    "ok": "Ok",
+    "player": "Pelaaja",
+    "players": "Pelaajat",
+    "points": "Pisteet",
+    "previous": "Edellinen",
+    "publish": "Julkaise",
+    "refresh_button": "Päivitä sovellus",
+    "report": "Raportti",
+    "rich_text_placeholder": "Kirjoita teksti...",
+    "search_placeholder": "Etsi...",
+    "see_more": "Katso lisää",
+    "select": "Valitse",
+    "selection": "Valinta",
+    "share": "Jaa",
+    "submit": "Vahvista",
+    "team": "Tiimi",
+    "team_group": "Osasto",
+    "team_groups": "Osastot",
+    "teams": "Tiimi",
+    "update_app_prompt_message": "Päivitä sovellus jatkaaksesi sen käyttöä",
+    "update_app_prompt_title": "Uusi versio on saatavilla",
+    "update_error_message": "Muutoksen aikana tapahtui virhe",
+    "update_success_message": "Muutokset on tehty onnistuneesti",
+    "yes": "Kyllä"
+  },
+  "contact": {
+    "evolution_form_message_label": "Viesti",
+    "evolution_form_submit_button": "Lähetä",
+    "evolution_form_title": "Täytä tämä lomake pyytääksesi päivitystä",
+    "form_type_evolution_option": "Pyydä päivitystä",
+    "form_type_incident_option": "Ilmoita ongelmasta",
+    "form_type_label": "Syy",
+    "incident_form_title": "Täytä tämä lomake ilmoittaaksesi ongelmastasi",
+    "question": "Kuinka voimme auttaa sinua?",
+    "title": "Apu"
+  },
+  "data_tables": {
+    "body": {
+      "noMatch": "Vastaavia kohteita ei löytynyt",
+      "toolTip": "Tilaa"
+    },
+    "filter": {
+      "all": "Kaikki",
+      "reset": "Nollaa",
+      "title": "Suodattimet"
+    },
+    "pagination": {
+      "pageOf": "osoitteessa",
+      "rowsPerPage": "Rivit per sivu"
+    },
+    "toolbar": {
+      "downloadCsv": "Lataa",
+      "filterTable": "Suodata",
+      "print": "Tulosta",
+      "search": "Haku",
+      "viewColumns": "Sarakkeet"
+    },
+    "viewColumns": {
+      "title": "Näytä sarakkeet"
+    }
+  },
+  "filter": {
+    "all_category_label": "Kaikki luokat",
+    "all_option_f": "Kaikki",
+    "all_periods_label": "Kaikki kaudet",
+    "all_team_group_label": "Kaikki osastot",
+    "all_team_label": "Kaikki tiimit",
+    "category_all_option": "Kaikki",
+    "category_label": "Luokka",
+    "collaborator_all_option": "Kaikki",
+    "collaborator_label": "Pelaaja",
+    "end_label": "Päättymispäivä",
+    "global_chip": "Globaali",
+    "goal_label": "Tavoite",
+    "my_team_label": "Oma tiimi",
+    "period_all_option": "Kaikki",
+    "period_label": "vuosi",
+    "start_label": "Aloituspäivä",
+    "submit_button": "Suodata",
+    "team_all_option": "Kaikki",
+    "team_group_label": "Osasto",
+    "team_label": "Tiimi",
+    "time": {
+      "current": "Käynnissä",
+      "next": "Tulevat",
+      "previous": "Edelliset"
+    },
+    "title": "Suodattimet",
+    "type_label": "Tapa"
+  },
+  "game": {
+    "title": "Peli"
+  },
+  "game_rules": {
+    "code_embed": "Syötä EMBED-koodi videosta (ota yhteyttä Objow-ohjeeseen vaikeuksissa):",
+    "link_url": "Kirjoita linkin URL:",
+    "site_url": "Anna sivuston URL-osoite:",
+    "title": "Pelin säännöt",
+    "typeform_url": "Anna Tyyppilomakkeen URL-osoite:"
+  },
+  "kpi": {
+    "criticity": {
+      "high": "Korkea",
+      "low": "Matala",
+      "medium": "Keskikokoinen"
+    },
+    "periodicity": {
+      "C": "Custom",
+      "D": "Päivittäin",
+      "M": "Kuukausittain",
+      "Q": "Neljännesvuosittain",
+      "S": "Puolivuosittain",
+      "W": "Viikoittain",
+      "Y": "Vuosittainen",
+      "goal_custom": "Määritelty tavoitteessa"
+    }
+  },
+  "levels": {
+    "columns": {
+      "citation": "Lainaus",
+      "icon": "Iconen",
+      "level": "Taso",
+      "name": "Nimi",
+      "percent": "% pelaajista",
+      "points": "Pisteitä, jotka on saavutettava"
+    },
+    "list_title": "Luettelo tasoista"
+  },
+  "login": {
+    "code_label": "Yrityksen koodi",
+    "code_placeholder": "Syötä yrityksesi koodi",
+    "create_password_company_code_invalid": "Annettu yrityskoodi ei ole kelvollinen. Syötä tervetulosähköpostissa lähetetty yrityskoodi",
+    "create_password_error": "Tämä linkki ei ole enää voimassa. Lähetä uusi salasanan palautuspyyntö",
+    "create_password_invalid": "Tämä linkki ei kelpaa",
+    "create_password_missing_user": "Tämä linkki ei vastaa ketään käyttäjää tai se on jo käytetty",
+    "create_password_outdated": "Tämä linkki ei ole enää voimassa. Lähetä uusi salasanan palautuspyyntö",
+    "create_password_password_invalid": "Virheellinen salasana",
+    "create_password_submit": "Luo salasana",
+    "create_password_success": "Salasanasi on luotu onnistuneesti",
+    "create_password_title": "Luo salasanasi",
+    "description_line1": "Pelillistetty ratkaisu",
+    "description_line2": "Seuranta ja animaatio",
+    "description_line3": "Suorituskyky",
+    "email_label": "Sähköposti",
+    "email_placeholder": "Anna sähköpostiosoitteesi",
+    "error": "Tunnistautumistiedot ovat virheelliset",
+    "error_company_code": "Antettu yrityskoodi ei ole kelvollinen",
+    "force_reset_password_message": "Salasanasi on vanhentunut, sinun on valittava uusi tilisi suojaamiseksi",
+    "force_reset_password_title": "Vaihda salasanasi",
+    "password_label": "Salasana",
+    "reset_password": "Unohdin salasanani",
+    "reset_password_cancel": "Palaa kirjautumissivulle",
+    "reset_password_confirm_error": "Tämä linkki ei ole enää voimassa. Lähetä uusi salasanan palautuspyyntö",
+    "reset_password_confirm_success": "Salasanasi on palautettu onnistuneesti",
+    "reset_password_error": "Tällä sähköpostiosoitteella ei löytynyt tiliä",
+    "reset_password_submit": "Nollaa salasana",
+    "reset_password_success": "Sinulle on lähetetty sähköposti, jossa on linkki salasanan vaihtamiseen",
+    "reset_password_title": "Unohtunut salasana",
+    "sso_dialog_title": "SSO yhteys",
+    "sso_error_message": "SSO ei ole määritetty. Ota yhteyttä Firetiger-järjestelmänvalvojaan",
+    "sso_submit_button": "Kirjaudu sisään SSO:lla",
+    "store_message_1": "Fire Tiger -sovellus on saatavana iPhonelle ja Androidille.",
+    "store_message_2": "Lataa se nyt:",
+    "submit_button": "Kirjaudu sisään",
+    "title": "Kirjaudu sisään"
+  },
+  "menu": {
+    "admin_button": "Hallinto",
+    "administrator_label": "Järjestelmänvalvoja",
+    "help_button": "Apu",
+    "infos_button": "Omat tiedot",
+    "level_label": "Taso {0}",
+    "logout_button": "Kirjaudu ulos",
+    "manager_label": "Johtaja",
+    "notifications_button": "Ilmoitukset",
+    "points_label": "{0} PISTETTÄ",
+    "rules_button": "Pelin säännöt"
+  },
+  "newsfeed": {
+    "all_roles": "Kaikki roolit",
+    "comment_action": "Kommentointi",
+    "comment_creation_success": "Arvostelusi on luotu",
+    "comment_delete_success": "",
+    "comment_placeholder": "Kirjoita kommenttisi tähän",
+    "comment_update_success": "Arvostelusi on päivitetty onnistuneesti",
+    "comments": "Kommentit",
+    "edit_post_title": "Muokkaa viestiä",
+    "embed_prompt": "Liitä videon upotettu URL-osoite tähän",
+    "empty_state_message": "Luo ensimmäinen viesti",
+    "empty_state_title": "Viestejä ei löytynyt",
+    "for_everybody": "Kaikki",
+    "like": "Tykkää",
+    "likes_list_title": "Reaktiot",
+    "new_post_title": "Uusi viesti",
+    "no_more_posts": "Uutissyötteen loppu",
+    "post_content_placeholder": "Kirjoita tekstisi tähän",
+    "post_creation_success": "Viestisi luotiin onnistuneesti",
+    "post_delete_success": "Viestisi poistettiin onnistuneesti",
+    "post_placeholder": "Luo uusi viesti",
+    "post_report_success": "Viestisi on otettu huomioon",
+    "post_settings": "Julkaisun asetukset",
+    "post_update_success": "Viestisi on päivitetty onnistuneesti",
+    "post_visibility_role_tooltip": "Näkyy: {0}",
+    "reply": "Vastaa",
+    "reported_comment": "Ilmoitettu kommentti",
+    "reported_post": "Ilmoitettu julkaisu",
+    "see_less": "... näytä vähemmän",
+    "see_more": "... näytä lisää",
+    "share_button": "Jaa",
+    "title": "Uutissyöte",
+    "video_size_error": "Videon koko ({0}) saa olla enintään 50 Mt",
+    "who_can_see_your_post": "Kuka näkee viestisi?"
+  },
+  "notification": {
+    "date": {
+      "days": "{0} p",
+      "hours": "{0} t",
+      "minutes": "{0} min"
+    },
+    "empty_message": "Ilmoitusta ei saatu"
+  },
+  "organization_menu": {
+    "hide": "Piilota",
+    "show": "Näytä"
+  },
+  "point_summary": {
+    "orders_button": "Vahvistettavat tilaukset",
+    "panopli_button": "Siirry kauppaan",
+    "panopli_error": "Kaupasta ei löytynyt tiliä",
+    "points_label": "Kertyneet kokonaispisteet",
+    "points_value": "{0}Pts",
+    "title": "Yleistä tietoa",
+    "usable_points_label": "Pistesaldo",
+    "usable_points_value": "{0}Pts",
+    "used_points_label": "Käytetyt pisteet yhteensä",
+    "used_points_value": "{0}Pts",
+    "validated_values_label": "Käytetty kokonaisarvo",
+    "validated_values_value": "{0} €",
+    "waiting_points_label": "Pisteet odottavat validointia",
+    "waiting_points_value": "{0}Pts"
+  },
+  "ranking": {
+    "challenges_title": "Haaste",
+    "collaborator_category_title": "Yksilöllinen sijoitus",
+    "collaborator_challenge_title": "Yksilöllisten haasteiden sijoitus",
+    "collaborator_general_title": "Yksilöllinen kokonaissijoitus",
+    "collaborator_tab": "Yksilöllinen",
+    "columns": {
+      "collaborator": "Pelaajat",
+      "name": "Nimi",
+      "team": "Tiimi"
+    },
+    "empty_state_title": "Sijoitusta ei ole saatavilla",
+    "general_title": "Yleinen sijoitus",
+    "owner_title": "Omat sijoitukset",
+    "team_category_title": "Tiimien sijoitukset",
+    "team_challenge_title": "Joukkueen haasteiden sijoitus",
+    "team_general_title": "Tiimin yleinen sijoitus",
+    "team_tab": "Tiimi",
+    "title": "Sijoitukset"
+  },
+  "reward": {
+    "creation": {
+      "error": "Palkintoa luotaessa tapahtui virhe",
+      "subtitle": "Luo palkinto",
+      "success": "Palkinto luotiin onnistuneesti"
+    },
+    "detail": {
+      "delivery_mode_text": "Toimitustapa: {0}",
+      "delivery_place_text": "Paikka: {0}",
+      "delivery_time_text": "Arvioitu toimitusaika: {0}",
+      "description_area": "Kuvaus",
+      "image_close_button": "Sulje",
+      "operation_step_1_description": "Tarkista ja vahvista tilauksesi. Tämän jälkeen yrityksesi ylläpitäjälle lähetetään ilmoitus, joka ilmoittaa heille pyynnöstäsi.",
+      "operation_step_1_title": "Kun napsautetaan lisää",
+      "operation_step_2_description": "Tilauksesi odottaa käsittelyä/vahvistusta. Tilauksen yhteydessä käytetyt pisteet vähennetään pistesaldostasi.",
+      "operation_step_2_title": "Tilaus odottaa",
+      "operation_step_3_description": "Yrityksesi ylläpitäjä vastaa tilauksestasi. Kun toimittaja on vahvistanut ja laskuttanut, pisteesi vähennetään pysyvästi pistesaldostasi.",
+      "operation_step_3_title": "Tilaus meneillään",
+      "operation_step_4_description": "Palkintosi on tulossa! Yrityksesi ylläpitäjä ilmoittaa sinulle. Palkintosi ilmoitetaan ja siihen sovelletaan työnantajan ja/tai työntekijän maksamia maksuja.",
+      "operation_step_4_number": "Toimitus",
+      "operation_step_4_title": "Tilaus lähetetty",
+      "operation_title": "Miten se toimii?",
+      "value_text": "Arvo: {0} €"
+    },
+    "duplication": {
+      "title": "Kopioi palkinto"
+    },
+    "edit": {
+      "title": "Muokkaa palkintoa"
+    },
+    "form": {
+      "category_label": "Luokka",
+      "delivery_area": "Toimitus",
+      "delivery_mode_label": "Toimitustapa",
+      "delivery_place_label": "Paikka",
+      "delivery_time_label": "Toimitusajat",
+      "description_label": "Kuvaus",
+      "empty_image_text": "Kuvaa ei ole valittu",
+      "image_label": "Valitse kuva...",
+      "infos_area": "Tiedot",
+      "name_label": "Sukunimi",
+      "points_label": "Tarvittavien pisteiden määrä",
+      "type_label": "Haasteen tyyppi",
+      "value_label": "Arvo",
+      "value_suffix_label": "€"
+    },
+    "image_input_infos": "Kuvanäyttö mukautuu ja vaihtelee käyttäjän käyttämän näytön koon mukaan. Suositeltu kuvasuhde optimaaliseen katseluun on seuraava: 1024x700.",
+    "management": {
+      "collaborator_selector_area": "Pelaajan valitseminen",
+      "collaborator_tab": "Pelaajat",
+      "team_selector_area": "Tiimin valitseminen",
+      "team_tab": "Tiimi",
+      "title": "Palkintojen hallinta"
+    },
+    "order_item_list": {
+      "close_button": "Jatka ostoksia",
+      "empty_text": "Vide",
+      "points_value": "{0}Pts",
+      "quantity_label": "Määrä",
+      "value_label": "Arvo"
+    },
+    "order_list_export": {
+      "title": "Vahvistettujen tilausten vienti"
+    },
+    "order_summary": {
+      "cart_points_label": "Ostoskori yhteensä",
+      "confirm_order_message": "Kun olet vahvistanut, et voi enää peruuttaa tilaustasi, pisteet nostetaan pistesaldostasi ja tilauksesi arvo ilmoitetaan ja niihin sovelletaan työnantajan ja/tai työntekijän maksuja.",
+      "confirm_order_title": "Haluatko varmasti täyttää {0} pts-tilauksesi, jonka arvo on €{ 1}?",
+      "confirm_refuse_message": "Kun se on evätty, sitä ei enää voida aktivoida uudelleen, pisteet kohdennetaan uudelleen käytettävissä olevaan pistesaldoon. Sinun vastuullasi on ilmoittaa käyttäjälle kieltäytymisen syy.",
+      "confirm_refuse_title": "Haluatko varmasti hylätä tilauksen nro {0} yhteensä {1} pistettä arvoltaan {2}?",
+      "confirm_validate_message": "Kun olet vahvistanut, et voi enää peruuttaa tilausta, pisteet nostetaan käytettävissä olevasta pistesaldosta ja tämän tilauksen arvo on ilmoitettava ja siihen sovelletaan työnantajan ja/tai työntekijän maksuja.",
+      "confirm_validate_title": "Haluatko varmasti vahvistaa tilauksen nro {0} yhteensä {1} pistettä arvoltaan {2} €?",
+      "order_button": "Tilaa",
+      "order_points_label": "Tilaus yhteensä",
+      "order_points_value": "{0} Pistettä",
+      "order_value_label": "Arvo yhteensä",
+      "recipient_points_label": "Nykyinen pistesaldo",
+      "recipient_points_value": "{0} Pistettä",
+      "refuse_button": "Hylkää",
+      "remaining_points_label": "Jäljellä oleva pistesaldo",
+      "remaining_points_value": "{0} Pistettä"
+    },
+    "point_tag": "{0} PISTETTÄ",
+    "settings": {
+      "collaborator_reward_activation_option": "Aktivoi \"pelaajan\" palkinnot",
+      "manager_reward_creation": "Anna johtajien tilata palkintoja",
+      "manager_reward_notification": "Ilmoita managerille sähköpostitse heidän joukkueensa pelaajien tekemistä tilauksista.",
+      "team_reward_activation_option": "Aktivoi ”tiimin” palkinnot"
+    },
+    "shopping_cart": {
+      "adding_confirmation_close_button": "Jatka ostoksia",
+      "adding_confirmation_message": "Olet juuri lisännyt tämän tuotteen ostoskoriin:",
+      "adding_confirmation_shopping_cart_button": "Siirry ostoskoriin",
+      "points_area": "Ostoskori yhteensä",
+      "points_area_year": "Vuosi {0}",
+      "rewards_area": "Ostoskorisi",
+      "success": "Tilauksesi on vastaanotettu"
+    },
+    "sort_by": "Lajittele",
+    "sort_options": {
+      "asc": "Lisääntyvä määrä pisteitä",
+      "desc": "Pisteiden määrän väheneminen"
+    },
+    "store": {
+      "empty_state_message": "Jos haluat tarkastella lisää palkintoja, sinun on muokattava käytettyjä suodattimia",
+      "empty_state_title": "Palkintoa ei löytynyt"
+    },
+    "title": "Palkinnot"
+  },
+  "roles": {
+    "A": "Järjestelmänvalvoja",
+    "C": "Pelaaja",
+    "M": "Johtaja",
+    "S": "Super Manager"
+  },
+  "statistics": {
+    "category_title": "Valitse luokka",
+    "empty_state_message": "Jos haluat tarkastella muita tilastoja, sinun on muokattava suodattimia",
+    "empty_state_title": "Tilastoja ei löytynyt",
+    "title": "Tilastot"
+  },
+  "team": {
+    "collaborators_text": "{0} pelaajaa",
+    "detail": {
+      "collaborators_text": "{0} pelaajaa",
+      "manager_text": "Alkaen {0} {1}",
+      "no_manager_text": "Ei johtajaa",
+      "points_text": "{0} PISTETTÄ",
+      "victories_text": "{0} voittoa"
+    },
+    "empty_state_message": "Tiimejä ei ole vielä luotu",
+    "empty_state_title": "Tiimiä ei löytynyt",
+    "form": {
+      "collaborator": "Pelaaja {0}",
+      "collaborators": "Pelaajat",
+      "color": "Väri",
+      "id": "Käyttäjänimi",
+      "manager": "Johtaja",
+      "name": "Nimi",
+      "parent": "Ryhmänjohtajan osasto"
+    },
+    "group_collaborators_text": "{0} Hallinnoijat",
+    "group_team_groups_text": "{0} osastot",
+    "group_teams_text": "{0} tiimi",
+    "manager_text": "Alkaen {0} {1}",
+    "no_manager_text": "Ei johtajaa",
+    "title": "Tiimi",
+    "title_singular": "Tiimi"
+  },
+  "team_group": {
+    "form": {
+      "super_manager": "Superjohtaja",
+      "user": "Käyttäjä {0}",
+      "users": "Käyttäjät"
+    },
+    "thumbnail": {
+      "hide_children": "Piilota {0} tiimit",
+      "hide_children_team_group": "Piilota {0} osastot",
+      "show_children": "Näytä {0} tiimit",
+      "show_children_team_group": "Näytä {0} osastot"
+    },
+    "title_singular": "Osasto"
+  },
+  "transfer_list": {
+    "participants": "Osallistujat",
+    "selection": "Saatavilla",
+    "submit_selection": "Vahvista valinta"
+  },
+  "widget": {
+    "activity": {
+      "inactive_profiles": "Inaktiiviset profiilit",
+      "info_text": "Löydät täältä luettelon henkilöistä, jotka eivät ole olleet aktiivisia tiimeissäsi yli 3 kuukauteen."
+    },
+    "badge": {
+      "count1": "Sinulla on",
+      "count2": "käynnissä",
+      "without_count": "Näytä työntekijän virkamerkit"
+    }
+  }
+}

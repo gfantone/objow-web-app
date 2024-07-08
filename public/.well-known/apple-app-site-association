@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "firetiger.org.reactjs.native.example.firetiger",
+        "paths": [
+          "/universal/*"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+export { default as ChallengeUpdate } from './ChallengeUpdate';

@@ -1,0 +1,29 @@
+.juBESy:focus-within {
+    outline: none !important;
+}
+
+.customFileInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: #0041ac dashed 2px;
+    border-radius: 1rem;
+    padding: 3rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.customFileInputIcon {
+    color: #0041ac;
+    margin-bottom: 1rem;
+}
+
+.customFileInputLabel {
+    font-weight: 600;
+    color: #0041ac;
+    margin-bottom: 0.5rem;
+}
+
+.customFileInputFileType {
+    margin-bottom: 1rem;
+}

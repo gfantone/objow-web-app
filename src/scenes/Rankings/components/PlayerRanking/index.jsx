@@ -1,0 +1,1 @@
+export { default as PlayerRanking } from './PlayerRanking';
