@@ -1,0 +1,61 @@
+import { call, put, takeLatest } from 'redux-saga/effects';
+import {
+  getCollaboratorRewardOrderSummaryListSuccess,
+  getCollaboratorRewardOrderSummaryListError,
+} from './actions';
+import * as types from './actionTypes';
+import api from '../../../data/api/api';
+
+function* getValidatedCollaboratorRewardOrderSummaryList(action) {
+  try {
+    const { data: orders } = yield call(
+      api.collaboratorRewardOrderSummaries.validated,
+    );
+    yield put(getCollaboratorRewardOrderSummaryListSuccess(orders));
+  } catch (e) {
+    yield put(getCollaboratorRewardOrderSummaryListError());
+  }
+}
+
+function* getPendingCollaboratorRewardOrderSummaryList(action) {
+  try {
+    const { data: orders } = yield call(
+      api.collaboratorRewardOrderSummaries.pending,
+    );
+    yield put(getCollaboratorRewardOrderSummaryListSuccess(orders));
+  } catch (e) {
+    yield put(getCollaboratorRewardOrderSummaryListError());
+  }
+}
+
+function* getWaitingCollaboratorRewardOrderSummaryList(action) {
+  try {
+    const { data: orders } = yield call(
+      api.collaboratorRewardOrderSummaries.waiting,
+    );
+    yield put(getCollaboratorRewardOrderSummaryListSuccess(orders));
+  } catch (e) {
+    yield put(getCollaboratorRewardOrderSummaryListError());
+  }
+}
+
+export function* watchValidatedCollaboratorRewardOrderSummaryList() {
+  yield takeLatest(
+    types.GET_VALIDATED_COLLABORATOR_REWARD_ORDER_SUMMARY_LIST,
+    getValidatedCollaboratorRewardOrderSummaryList,
+  );
+}
+
+export function* watchPendingCollaboratorRewardOrderSummaryList() {
+  yield takeLatest(
+    types.GET_PENDING_COLLABORATOR_REWARD_ORDER_SUMMARY_LIST,
+    getPendingCollaboratorRewardOrderSummaryList,
+  );
+}
+
+export function* watchWaitingCollaboratorRewardOrderSummaryList() {
+  yield takeLatest(
+    types.GET_WAITING_COLLABORATOR_REWARD_ORDER_SUMMARY_LIST,
+    getWaitingCollaboratorRewardOrderSummaryList,
+  );
+}

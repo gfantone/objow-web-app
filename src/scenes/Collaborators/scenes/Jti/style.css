@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "VOXMedium";   /*Can be any text*/
+    src: local("Vox-Medium"),
+    url("../../../../assets/fonts/Vox-Medium.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "BarlowRegular";   /*Can be any text*/
+    src: local("Barlow-Regular"),
+    url("../../../../assets/fonts/Barlow-Regular.ttf") format("truetype");
+}
+

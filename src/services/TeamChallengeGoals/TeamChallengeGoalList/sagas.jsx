@@ -1,0 +1,45 @@
+import { call, put, takeLatest } from 'redux-saga/effects';
+import {
+  getTeamChallengeGoalListSuccess,
+  getTeamChallengeGoalListError,
+} from './actions';
+import * as types from './actionTypes';
+import api from '../../../data/api/api';
+
+function* getTeamChallengeGoalList(action) {
+  try {
+    const { data: goals } = yield call(
+      api.teamChallenges.goals,
+      action.challengeId,
+    );
+    yield put(getTeamChallengeGoalListSuccess(goals));
+  } catch (e) {
+    yield put(getTeamChallengeGoalListError());
+  }
+}
+
+function* getTeamChallengeGoalListByTeamGroup(action) {
+  try {
+    const { data: goals } = yield call(
+      api.teamChallenges.goalsByTeamGroup,
+      action.challengeId,
+    );
+    yield put(getTeamChallengeGoalListSuccess(goals));
+  } catch (e) {
+    yield put(getTeamChallengeGoalListError());
+  }
+}
+
+export function* watchTeamChallengeGoalList() {
+  yield takeLatest(
+    types.GET_TEAM_CHALLENGE_GOAL_LIST,
+    getTeamChallengeGoalList,
+  );
+}
+
+export function* watchTeamChallengeGoalListByTeamGroup() {
+  yield takeLatest(
+    types.GET_TEAM_CHALLENGE_GOAL_LIST_BY_TEAM_GROUP,
+    getTeamChallengeGoalListByTeamGroup,
+  );
+}

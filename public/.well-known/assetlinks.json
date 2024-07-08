@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.firetiger",
+      "sha256_cert_fingerprints": [
+        "62:C9:9B:C7:6E:74:76:D2:43:08:80:85:20:F7:35:8C:27:D5:AA:B3:65:FF:44:F9:23:ED:68:71:FC:BB:B9:9C"
+      ]
+    }
+  }
+]

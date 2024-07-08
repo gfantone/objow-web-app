@@ -1,0 +1,949 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Formsy from 'formsy-react';
+import { Grid } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faPlus,
+  faTrashAlt,
+  faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons';
+import { SubHeader, Filters } from './components';
+import ReactDataSheet from 'react-datasheet';
+import {
+  Card,
+  DefaultText,
+  DefaultTitle,
+  BigText,
+  EmptyState,
+  ErrorText,
+  HiddenInput,
+  IconButton,
+  MainLayoutComponent,
+  ProgressButton,
+  TextField,
+  BoldSpan,
+  Tooltip,
+  BlueText,
+} from '../../../../components';
+import { Tag } from '../../../../components/Teams/components/Team/components';
+import * as configListActions from '../../../../services/Configs/ConfigList/actions';
+import * as goalDefinitionDetailActions from '../../../../services/GoalDefinitions/GoalDefinitionDetail/actions';
+import * as goalDefinitionLevelListActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelList/actions';
+import * as goalDefinitionLevelListUpdateActions from '../../../../services/GoalDefinitionLevels/GoalDefinitionLevelListUpdate/actions';
+import * as goalDefinitionPointRepartitionListActions from '../../../../services/GoalDefinitionPointRepartitions/GoalDefinitionPointRepartitionList/actions';
+import * as goalDefinitionPointRepartitionModeListActions from '../../../../services/GoalDefinitionPointRepartitionModes/GoalDefinitionPointRepartitionModeList/actions';
+import * as currentPeriodDetailActions from '../../../../services/Periods/CurrentPeriodDetail/actions';
+import * as periodListActions from '../../../../services/Periods/PeriodList/actions';
+import * as teamListActions from '../../../../services/Teams/TeamList/actions';
+import { withStyles } from '@material-ui/core/styles';
+import './helpers/GoalDefinitionLevelFormsyHelper';
+import '../../../../helpers/FormsyHelper';
+import '../../../../helpers/NumberHelper';
+import * as Resources from '../../../../Resources';
+import { useIntl, injectIntl } from 'react-intl';
+import _ from 'lodash';
+import { toast } from 'react-toastify';
+
+const styles = {
+  headerPoints: {
+    '& p': {
+      fontSize: 22,
+      fontWeight: 'bold',
+    },
+  },
+  usablePoints: {
+    '& p': {
+      color: '#00E58D',
+    },
+  },
+  usedPoints: {
+    '& p': {
+      color: '#f2b666',
+    },
+  },
+  currentPoints: {},
+};
+
+class AdminGoalPointConfig extends MainLayoutComponent {
+  constructor(props) {
+    super(props);
+    this.id = null;
+    this.new = 0;
+    this.definitionInitialized = false;
+    this.levelsInitialized = false;
+    this.removedLevels = [];
+    this.state = {
+      levels: [],
+      maxPoints: 0,
+      usedPoints: 0,
+    };
+    this.props.goalDefinitionLevelListUpdateActions.clearGoalDefinitionLevelListUpdate();
+  }
+
+  loadData = () => {
+    const periodId = this.props.match.params.periodId;
+    const params = new URLSearchParams(window.location.search);
+    const collaborator = params.get('collaborator');
+    const team = params.get('team');
+
+    this.props.teamListActions.getTeamList({ disableCollaborators: true });
+    this.props.currentPeriodDetailActions.getCurrentPeriodDetail();
+
+    this.props.goalDefinitionPointRepartitionModeListActions.getGoalDefinitionPointRepartitionModeList();
+    if (team !== this.team || collaborator !== this.collaborator) {
+      this.team = team;
+      this.collaborator = collaborator;
+      this.props.goalDefinitionDetailActions.getGoalDefinition(
+        this.id,
+        this.team,
+        this.collaborator,
+        true,
+      );
+
+      this.props.goalDefinitionLevelListActions.getGoalDefinitionLevelList(
+        this.id,
+        this.team,
+        this.collaborator,
+      );
+    } else {
+      this.props.goalDefinitionDetailActions.getGoalDefinition(this.id);
+    }
+  };
+
+  handleAdd() {
+    var levels = this.state.levels;
+    this.new++;
+    const id = `new${this.new}`;
+    levels.push({
+      id: id,
+      percentage: 0,
+      points: 0,
+      definition: this.id,
+      isNew: true,
+    });
+    this.setState({
+      ...this.state,
+      levels: levels,
+    });
+  }
+
+  handleRemove = (index) => () => {
+    var levels = this.state.levels;
+    var removedLevels = levels.splice(index, 1);
+    removedLevels = removedLevels.filter((level) => !level.isNew);
+    this.removedLevels = removedLevels.concat(this.removedLevels);
+    this.setState({
+      ...this.state,
+      levels: levels,
+    });
+  };
+
+  handleSubmit() {
+    const model = this.refs.form.getModel();
+    var levels = this.state.levels;
+    levels.map((level) => {
+      const index = levels.indexOf(level);
+      const percentTruncate = _.replace(model.percentage[index], ',', '.')
+        .split('.')
+        .map((numPart, index) => (index === 1 ? numPart.slice(0, 2) : numPart))
+        .join('.');
+
+      level.percentage = parseFloat(
+        (parseFloat(percentTruncate) / 100).toFixed(4),
+      );
+      level.points = model.points[index];
+    });
+    const oldLevels = levels.filter((level) => !level.isNew);
+    const newLevels = levels.filter((level) => level.isNew);
+
+    this.props.goalDefinitionLevelListUpdateActions.updateGoalDefinitionLevelList(
+      this.id,
+      oldLevels,
+      newLevels,
+      this.removedLevels,
+      this.team,
+      this.collaborator,
+    );
+  }
+
+  componentDidMount() {
+    this.id = this.props.match.params.id;
+    this.props.activateReturn();
+    this.props.handleTitle('Administration');
+    this.props.handleSubHeader(<SubHeader />);
+    // this.props.handleButtons(<IconButton onClick={this.handleAdd.bind(this)} size='small'><FontAwesomeIcon icon={faPlus} /></IconButton>);
+    this.props.periodListActions.getPeriodList();
+    this.props.configListActions.getConfigList(
+      this.props.match.params.periodId,
+    );
+    this.loadData();
+  }
+
+  componentDidUpdate(props) {
+    const { levels: previousLevels, loading: previousLevelLoading } =
+      this.props.goalDefinitionLevelList;
+    const { levels, loading: levelLoading } = props.goalDefinitionLevelList;
+    const {
+      definition: previousDefinition,
+      loading: previousDefinitionLoading,
+    } = this.props.goalDefinitionDetail;
+    const { definition, loading: definitionLoading } =
+      props.goalDefinitionDetail;
+    if (
+      (!previousDefinitionLoading || !definitionLoading) &&
+      (_.get(previousDefinition, 'id') !== _.get(definition, 'id') ||
+        !this.definitionInitialized)
+    ) {
+      this.props.goalDefinitionPointRepartitionListActions.getGoalDefinitionPointRepartitionList(
+        _.get(definition, 'id') || _.get(previousDefinition, 'id'),
+      );
+      this.definitionInitialized = true;
+    }
+
+    if (
+      _.differenceWith(levels, previousLevels, _.isEqual).length > 0 ||
+      _.get(levels, 'length') !== _.get(previousLevels, 'length') ||
+      !this.levelsInitialized
+    ) {
+      this.setState({
+        ...this.state,
+        levels: previousLevels || levels || [],
+      });
+      this.levelsInitialized = true;
+    }
+  }
+
+  renderEmptyState() {
+    return (
+      <div>
+        <EmptyState
+          title="Aucun palier trouvé"
+          message="Commencez par ajouter un nouveau palier"
+        />
+      </div>
+    );
+  }
+
+  periodsByDefinition = (definition) => {
+    // const { period: currentPeriod } = this.props.currentPeriodDetail;
+    const { periods, loading: periodsLoading } = this.props.periodList;
+    const currentPeriod = periods.find(
+      (period) => period.id === parseInt(this.props.match.params.periodId),
+    );
+    const year = _.get(currentPeriod, 'name');
+    let now = new Date();
+
+    const endOfYear = new Date(now.getFullYear(), 11, 31);
+
+    let result = {};
+    if (definition.periodicity.code === 'Y') {
+      result = {
+        total: 1,
+        remaining: 1,
+      };
+    } else if (definition.periodicity.code === 'S') {
+      result = {
+        total: endOfYear.getSemesterNumber(),
+        remaining: endOfYear.getSemesterNumber() - now.getSemesterNumber() + 1,
+      };
+    } else if (definition.periodicity.code === 'Q') {
+      result = {
+        total: endOfYear.getQuarterNumber(),
+        remaining: endOfYear.getQuarterNumber() - now.getQuarterNumber() + 1,
+      };
+    } else if (definition.periodicity.code === 'M') {
+      result = {
+        total: endOfYear.getMonth() + 1,
+        remaining: endOfYear.getMonth() - now.getMonth() + 1,
+      };
+    } else if (definition.periodicity.code === 'W') {
+      result = {
+        total: endOfYear.getWeekNumber(),
+        remaining: endOfYear.getWeekNumber() - now.getWeekNumber() + 1,
+      };
+    } else if (definition.periodicity.code === 'C') {
+      const remainingPeriods = definition.kpi.periods.filter(
+        (p) => new Date(p.end * 1000) > now,
+      );
+      result = {
+        total: definition.kpi.periods.length,
+        remaining: remainingPeriods.length,
+      };
+    }
+
+    // handle other years config
+    if (year && now.getFullYear() !== parseInt(year)) {
+      result.remaining = result.total;
+    }
+    return result;
+  };
+
+  renderData() {
+    const { intl } = this.props;
+    const { classes } = this.props;
+    const { configs } = this.props.configList;
+    const { definition } = this.props.goalDefinitionDetail;
+    const baseCollaboratorGoalPoints = parseInt(
+      configs.find((x) => x.code == 'CPG').value,
+    );
+    const baseTeamGoalPoints = configs.find((x) => x.code == 'TPG').value;
+    const baseGoalPoints =
+      definition.type.code === 'T'
+        ? baseTeamGoalPoints
+        : baseCollaboratorGoalPoints;
+    const { teams } = this.props.teamList;
+    const { loading } = this.props.goalDefinitionLevelListUpdate;
+    const { modes: repartitionModes } =
+      this.props.goalDefinitionPointRepartitionModeList;
+    const { period: currentPeriod } = this.props.currentPeriodDetail;
+
+    // const usedPoints = this.state.levels && this.state.levels.length > 0 ? Math.max(...this.state.levels.map(x => x.points)) : 0;
+    // const usablePoints = (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints;
+    const {
+      pointRepartitions,
+      loading: goalDefinitionPointRepartitionLoading,
+    } = this.props.goalDefinitionPointRepartitionList;
+
+    const repartition = pointRepartitions.filter(
+      (pointRepartition) =>
+        (this.team &&
+          !this.collaborator &&
+          pointRepartition.team === parseInt(this.team)) ||
+        (this.collaborator &&
+          pointRepartition.collaborator === parseInt(this.collaborator)),
+    )[0];
+
+    const globalMode = !this.team && !this.collaborator;
+    // const repartitionMode = repartition && repartitionModes.find(mode => mode.id === repartition.mode)
+    // const currentTeam = this.team ? teams.find(team => team.id === parseInt(this.team)) : null
+    // const playersNumber = teams.length && this.team && !this.collaborator ? teams.find(team => team.id === parseInt(this.team)).collaborators.length : null
+    const periods = this.periodsByDefinition(definition);
+    const usedPoints =
+      this.state.levels && this.state.levels.length > 0
+        ? Math.max(...this.state.levels.map((x) => x.points))
+        : 0;
+
+    // const usablePoints = repartition ? Number((repartition.points * baseGoalPoints / 100).toFixed(2)) : (
+    //   (definition.type.code == 'C' ? configs.find(x => x.code == 'CPG').value : definition.type.code == 'T' ? configs.find(x => x.code == 'TPG').value : 0) - definition.points + usedPoints
+    // )
+
+    const usablePoints = repartition
+      ? Number(((repartition.points * baseGoalPoints) / 100).toFixed(2))
+      : 0;
+
+    const dataByPlayer = {
+      currentPoints: globalMode
+        ? definition.currentPoints
+        : usedPoints * periods.remaining,
+    };
+    dataByPlayer['usablePoints'] =
+      usablePoints - dataByPlayer.currentPoints - definition.usedPoints;
+    const maxByLevel = parseInt(
+      (usablePoints - definition.usedPoints) / periods.remaining,
+    );
+    return (
+      <Formsy ref="form" onValidSubmit={this.handleSubmit.bind(this)}>
+        {!globalMode && (
+          <HiddenInput
+            name="usablePoints"
+            value={maxByLevel ? maxByLevel : 0}
+          />
+        )}
+        <Filters
+          onChange={() => {}}
+          team={this.team}
+          collaborator={this.collaborator}
+        />
+
+        <Grid item>
+          <Grid container direction="row" spacing={4}>
+            <Grid item xs={globalMode ? 12 : 8}>
+              <Grid container spacing={1}>
+                <Grid item>
+                  <Grid container spacing={1}>
+                    <Grid item>
+                      <BigText>
+                        {intl
+                          .formatMessage({
+                            id: 'admin.goal.point_config.title',
+                          })
+                          .format(
+                            definition.type.code === 'T'
+                              ? intl
+                                  .formatMessage({ id: 'common.team' })
+                                  .toLowerCase()
+                              : intl
+                                  .formatMessage({ id: 'common.player' })
+                                  .toLowerCase(),
+                          )}
+                      </BigText>
+                    </Grid>
+                    <Grid item style={{ fontSize: '18px' }}>
+                      <Tooltip
+                        title={intl
+                          .formatMessage({
+                            id: 'admin.goal.point_config.title_tooltip',
+                          })
+                          .format(
+                            intl.formatMessage({
+                              id: `admin.goal.point_config_tooltip_${_.get(
+                                definition,
+                                'periodicity.code',
+                                '',
+                              ).toLowerCase()}`,
+                            }),
+                            definition.type.code === 'T'
+                              ? intl
+                                  .formatMessage({ id: 'common.team' })
+                                  .toLowerCase()
+                              : intl
+                                  .formatMessage({ id: 'common.player' })
+                                  .toLowerCase(),
+                            _.get(currentPeriod, 'name', ''),
+                          )}
+                      >
+                        <BlueText>
+                          <FontAwesomeIcon icon={faInfoCircle} />
+                        </BlueText>
+                      </Tooltip>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12}>
+                      <Card>
+                        <Grid container direction="row" spacing={2}>
+                          {!globalMode && (
+                            <Grid item>
+                              <Grid
+                                container
+                                direction="column"
+                                alignItems="center"
+                                spacing={2}
+                              >
+                                <Grid
+                                  item
+                                  className={`${classes.headerPoints} ${classes.usablePoints}`}
+                                >
+                                  <DefaultText>
+                                    {dataByPlayer.usablePoints}
+                                  </DefaultText>
+                                </Grid>
+                                <Grid item>
+                                  <DefaultText>
+                                    {intl
+                                      .formatMessage({
+                                        id: 'admin.goal.point_config.available_points_title',
+                                      })
+                                      .format(
+                                        definition.type.code === 'T'
+                                          ? intl
+                                              .formatMessage({
+                                                id: 'common.team',
+                                              })
+                                              .toLowerCase()
+                                          : intl
+                                              .formatMessage({
+                                                id: 'common.player',
+                                              })
+                                              .toLowerCase(),
+                                      )}
+                                  </DefaultText>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          )}
+                          <Grid item>
+                            <Grid
+                              container
+                              direction="column"
+                              alignItems="center"
+                              spacing={2}
+                            >
+                              <Grid
+                                item
+                                className={`${classes.headerPoints} ${classes.currentPoints}`}
+                              >
+                                <DefaultText>
+                                  {dataByPlayer.currentPoints}
+                                </DefaultText>
+                              </Grid>
+                              <Grid item>
+                                <DefaultText>
+                                  {intl
+                                    .formatMessage({
+                                      id: 'admin.goal.point_config.current_points_title',
+                                    })
+                                    .format(
+                                      definition.type.code === 'T'
+                                        ? intl
+                                            .formatMessage({
+                                              id: 'common.team',
+                                            })
+                                            .toLowerCase()
+                                        : intl
+                                            .formatMessage({
+                                              id: 'common.player',
+                                            })
+                                            .toLowerCase(),
+                                    )}
+                                </DefaultText>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item>
+                            <Grid
+                              container
+                              direction="column"
+                              alignItems="center"
+                              spacing={2}
+                            >
+                              <Grid
+                                item
+                                className={`${classes.headerPoints} ${classes.currentPoints}`}
+                              >
+                                <DefaultText>{periods.remaining}</DefaultText>
+                              </Grid>
+                              <Grid item>
+                                <DefaultText>
+                                  {intl.formatMessage({
+                                    id: `admin.goal.point_config_title_${_.get(
+                                      definition,
+                                      'periodicity.code',
+                                      '',
+                                    ).toLowerCase()}`,
+                                  })}
+                                </DefaultText>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Card>
+                    </Grid>
+
+                    <Grid item container direction="column" spacing={1}>
+                      <React.Fragment>
+                        {!globalMode && (
+                          <Grid item>
+                            <BigText>
+                              {intl
+                                .formatMessage({
+                                  id: 'admin.goal.point_config.max_points_title',
+                                })
+                                .format(
+                                  definition.type.code === 'T'
+                                    ? intl
+                                        .formatMessage({ id: 'common.team' })
+                                        .toLowerCase()
+                                    : intl
+                                        .formatMessage({ id: 'common.player' })
+                                        .toLowerCase(),
+                                )}
+                              <span style={{ fontWeight: 'bold' }}>
+                                {maxByLevel}
+                              </span>
+                            </BigText>
+                          </Grid>
+                        )}
+                      </React.Fragment>
+
+                      <Grid item container spacing={2}>
+                        {this.state.levels.map((level, index) => {
+                          const number = index + 1;
+                          const percentageValidations =
+                            index > 0
+                              ? {
+                                  isMoreThanOrEquals: 0,
+                                  isMoreThan: `percentage[${index - 1}]`,
+                                }
+                              : { isMoreThanOrEquals: 0 };
+                          const pointValidations =
+                            index > 0
+                              ? {
+                                  isMoreThanOrEquals: 0,
+                                  isMoreThan: `points[${index - 1}]`,
+                                  isGoalDefinitionLevelValid: true,
+                                }
+                              : {
+                                  isMoreThanOrEquals: 0,
+                                  isGoalDefinitionLevelValid: true,
+                                };
+
+                          return (
+                            <Grid
+                              key={level.id}
+                              item
+                              xs={6}
+                              container
+                              spacing={1}
+                            >
+                              <Grid item xs={12}>
+                                <DefaultTitle>
+                                  {intl
+                                    .formatMessage({
+                                      id: 'admin.goal.point_config.level_title',
+                                    })
+                                    .format(number)}
+                                </DefaultTitle>
+                              </Grid>
+                              <Grid item xs={12}>
+                                <Card>
+                                  <Grid
+                                    container
+                                    spacing={2}
+                                    alignItems="flex-end"
+                                  >
+                                    <Grid item xs>
+                                      <TextField
+                                        type="number"
+                                        name={`percentage[${index}]`}
+                                        label={intl.formatMessage({
+                                          id: 'admin.goal.point_config.form.percent',
+                                        })}
+                                        initial={level.percentage.toFullPercentage(
+                                          2,
+                                        )}
+                                        fullWidth
+                                        required
+                                        disabled={!definition.isActive}
+                                        validations={percentageValidations}
+                                        validationErrors={{
+                                          isDefaultRequiredValue:
+                                            intl.formatMessage({
+                                              id: 'common.form.required_error',
+                                            }),
+                                          isMoreThanOrEquals:
+                                            intl.formatMessage({
+                                              id: 'admin.goal.point_config.errors.percent_more_equal',
+                                            }),
+                                          isMoreThan: intl.formatMessage({
+                                            id: 'admin.goal.point_config.errors.percent_more_than',
+                                          }),
+                                        }}
+                                      />
+                                    </Grid>
+                                    <Grid item xs>
+                                      <TextField
+                                        type="number"
+                                        name={`points[${index}]`}
+                                        label={intl.formatMessage({
+                                          id: 'admin.goal.point_config.form.points',
+                                        })}
+                                        initial={level.points}
+                                        fullWidth
+                                        required
+                                        disabled={!definition.isActive}
+                                        validations={pointValidations}
+                                        validationErrors={{
+                                          isDefaultRequiredValue:
+                                            intl.formatMessage({
+                                              id: 'common.form.required_error',
+                                            }),
+                                          isMoreThanOrEquals:
+                                            intl.formatMessage({
+                                              id: 'admin.goal.point_config.errors.points_more_equal',
+                                            }),
+                                          isMoreThan: intl.formatMessage({
+                                            id: 'admin.goal.point_config.errors.points_more_than',
+                                          }),
+                                          isGoalDefinitionLevelValid:
+                                            'Le nombre de points restant est insuffisant',
+                                        }}
+                                      />
+                                    </Grid>
+                                    {definition.isActive === true && (
+                                      <Grid item xs="auto">
+                                        <IconButton
+                                          color="secondary"
+                                          size="small"
+                                          onClick={this.handleRemove(
+                                            index,
+                                          ).bind(this)}
+                                        >
+                                          <FontAwesomeIcon icon={faTrashAlt} />
+                                        </IconButton>
+                                      </Grid>
+                                    )}
+                                  </Grid>
+                                </Card>
+                              </Grid>
+                            </Grid>
+                          );
+                        })}
+                        {definition.isActive && (
+                          <Grid item xs={6} container spacing={1}>
+                            <Grid item xs={12}>
+                              <DefaultTitle></DefaultTitle>
+                            </Grid>
+                            <Grid
+                              item
+                              xs={12}
+                              onClick={() => this.handleAdd()}
+                              style={{ cursor: 'pointer', marginTop: '20px' }}
+                            >
+                              <Card>
+                                <Grid
+                                  container
+                                  justify="center"
+                                  alignItems="center"
+                                  style={{ height: '44px' }}
+                                >
+                                  <Grid
+                                    item
+                                    style={{
+                                      fontSize: '30px',
+                                      color: '#00E58D',
+                                    }}
+                                  >
+                                    <FontAwesomeIcon icon={faPlus} />
+                                  </Grid>
+                                </Grid>
+                              </Card>
+                            </Grid>
+                          </Grid>
+                        )}
+                      </Grid>
+                    </Grid>
+                    {this.state.levels.length == 0 && (
+                      <Grid item xs={12}>
+                        <div>
+                          <EmptyState
+                            title={intl.formatMessage({
+                              id: 'admin.goal.point_config.errors.no_level_title',
+                            })}
+                            message={intl.formatMessage({
+                              id: 'admin.goal.point_config.errors.no_level_message',
+                            })}
+                          />
+                        </div>
+                      </Grid>
+                    )}
+                    {!definition.isActive && (
+                      <Grid item container spacing={2} justify="center">
+                        <Grid item>
+                          <ErrorText className={classes.error} align="center">
+                            {intl.formatMessage({
+                              id: 'admin.goal.point_config.errors.archived_goal',
+                            })}
+                          </ErrorText>
+                        </Grid>
+                      </Grid>
+                    )}
+                    <Grid item xs={12}>
+                      <ProgressButton
+                        type="submit"
+                        text={intl.formatMessage({ id: 'common.submit' })}
+                        disabled={!definition.isActive}
+                        loading={loading}
+                        centered
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+            {!globalMode && (
+              <Grid item xs={4}>
+                <Grid container direction="column" spacing={1}>
+                  <Grid item>
+                    <Grid container spacing={1}>
+                      <Grid item>
+                        <BigText>
+                          {intl.formatMessage({
+                            id: 'admin.goal.point_config.general_info_title',
+                          })}
+                        </BigText>
+                      </Grid>
+                      <Grid item style={{ fontSize: '18px' }}>
+                        <Tooltip
+                          title={intl
+                            .formatMessage({
+                              id: 'admin.goal.point_config.allocated_points_year',
+                            })
+                            .format(_.get(currentPeriod, 'name', ''))}
+                        >
+                          <BlueText>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                          </BlueText>
+                        </Tooltip>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item>
+                    <Card>
+                      <Grid container spacing={2} direction="column">
+                        <Grid item>
+                          <Grid container spacing={2}>
+                            <Grid item xs={12} sm>
+                              <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                  <DefaultText>
+                                    {intl.formatMessage({
+                                      id: 'admin.goal.point_config.allocated_points',
+                                    })}
+                                    <BoldSpan component="span">
+                                      {usablePoints}
+                                    </BoldSpan>
+                                  </DefaultText>
+                                </Grid>
+                                {repartition && (
+                                  <Grid item xs={12}>
+                                    <DefaultText>
+                                      {intl.formatMessage({
+                                        id: 'admin.goal.point_config.importance_percent',
+                                      })}
+                                      <BoldSpan component="span">
+                                        {Number(repartition.points).toFixed(2)}%
+                                      </BoldSpan>
+                                    </DefaultText>
+                                  </Grid>
+                                )}
+                                <Grid item xs={12}>
+                                  <DefaultText>
+                                    {intl.formatMessage({
+                                      id: 'admin.goal.point_config.used_points',
+                                    })}
+                                    <BoldSpan component="span">
+                                      {definition.usedPoints}
+                                    </BoldSpan>
+                                  </DefaultText>
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <DefaultText>
+                                    {intl.formatMessage({
+                                      id: 'admin.goal.point_config.remaining_points',
+                                    })}
+                                    <BoldSpan component="span">
+                                      {usablePoints - definition.usedPoints}
+                                    </BoldSpan>
+                                  </DefaultText>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Card>
+                  </Grid>
+                </Grid>
+              </Grid>
+            )}
+          </Grid>
+        </Grid>
+      </Formsy>
+    );
+  }
+
+  render() {
+    const { intl } = this.props;
+    const { configs, loading: configListLoading } = this.props.configList;
+    const { definition, loading: goalDefinitionDetailLoading } =
+      this.props.goalDefinitionDetail;
+    const { levels, loading: goalDefinitionLevelListLoading } =
+      this.props.goalDefinitionLevelList;
+    const { teams, loading: teamsLoading } = this.props.teamList;
+    const {
+      pointRepartitions,
+      loading: goalDefinitionPointRepartitionLoading,
+    } = this.props.goalDefinitionPointRepartitionList;
+    const {
+      modes: repartitionModes,
+      loading: goalDefinitionPointRepartitionModesLoading,
+    } = this.props.goalDefinitionPointRepartitionModeList;
+    const { periods, loading: periodsLoading } = this.props.periodList;
+
+    const loading =
+      configListLoading ||
+      goalDefinitionDetailLoading ||
+      goalDefinitionLevelListLoading ||
+      goalDefinitionPointRepartitionLoading ||
+      goalDefinitionPointRepartitionModesLoading ||
+      periodsLoading ||
+      !this.definitionInitialized ||
+      !this.levelsInitialized;
+
+    const { success } = this.props.goalDefinitionLevelListUpdate;
+
+    if (success) {
+      this.props.goalDefinitionLevelListUpdateActions.clearGoalDefinitionLevelListUpdate();
+      toast.success(
+        intl.formatMessage({ id: 'common.update_success_message' }),
+      );
+      this.props.history.goBack();
+    }
+
+    return (
+      <div>
+        {!loading &&
+          configs &&
+          definition &&
+          levels &&
+          teams &&
+          pointRepartitions &&
+          repartitionModes &&
+          periods &&
+          this.renderData()}
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = ({
+  currentPeriodDetail,
+  configList,
+  goalDefinitionDetail,
+  goalDefinitionLevelList,
+  goalDefinitionLevelListUpdate,
+  goalDefinitionPointRepartitionList,
+  goalDefinitionPointRepartitionModeList,
+  teamList,
+  periodList,
+}) => ({
+  configList,
+  goalDefinitionDetail,
+  goalDefinitionLevelList,
+  goalDefinitionLevelListUpdate,
+  goalDefinitionPointRepartitionList,
+  goalDefinitionPointRepartitionModeList,
+  teamList,
+  currentPeriodDetail,
+  periodList,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  configListActions: bindActionCreators(configListActions, dispatch),
+  teamListActions: bindActionCreators(teamListActions, dispatch),
+  goalDefinitionDetailActions: bindActionCreators(
+    goalDefinitionDetailActions,
+    dispatch,
+  ),
+  goalDefinitionLevelListActions: bindActionCreators(
+    goalDefinitionLevelListActions,
+    dispatch,
+  ),
+  goalDefinitionLevelListUpdateActions: bindActionCreators(
+    goalDefinitionLevelListUpdateActions,
+    dispatch,
+  ),
+  goalDefinitionPointRepartitionListActions: bindActionCreators(
+    goalDefinitionPointRepartitionListActions,
+    dispatch,
+  ),
+  goalDefinitionPointRepartitionModeListActions: bindActionCreators(
+    goalDefinitionPointRepartitionModeListActions,
+    dispatch,
+  ),
+  currentPeriodDetailActions: bindActionCreators(
+    currentPeriodDetailActions,
+    dispatch,
+  ),
+  periodListActions: bindActionCreators(periodListActions, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withStyles(styles)(injectIntl(AdminGoalPointConfig)));

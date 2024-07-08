@@ -1,0 +1,1 @@
+export { default as MainLayoutComponent } from './MainLayoutComponent';

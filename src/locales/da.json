@@ -1,0 +1,1329 @@
+{
+  "account": {
+    "citation_label": "Henvisning",
+    "confirm_password_label": "Bekræft adgangskode",
+    "email_label": "E-mail",
+    "first_name_label": "Navn",
+    "last_name_label": "Efternavn",
+    "password_label": "Ny adgangskode",
+    "success_message": "Ændringerne er blevet foretaget",
+    "title": "Min profil",
+    "title_label": "Titel på profil",
+    "title_label_pseudo": "Kælenavn"
+  },
+  "admin": {
+    "access_rights": {
+      "activate_daily_email": "Aktivér e-mail med daglig opsummering over meddelelser",
+      "activate_notifications": "Aktivér meddelelser",
+      "activate_users_count": "Vis antallet af inaktive brugere på dashboardet",
+      "activate_weekly_email": "Aktivér den ugentlige mail med opsummering",
+      "all_users": "Alle brugere",
+      "badges": "Adgang til badges",
+      "category_rankings": "Synlig placering efter kategorier",
+      "category_rankings_limit": "Rangorden af kategorier begrænset til de første X",
+      "challenge": "Adgang til udfordringer",
+      "challenge_rankings": "Placering synlig pr. udfordring",
+      "coaching_list": "Adgang til coachinglisten",
+      "collaborator_title": "Spiller",
+      "edit_coaching_list": "Rediger coachinglisten",
+      "future_challenge": "Se kommende udfordringer",
+      "future_goals": "Visualiser fremtidige mål",
+      "general_rankings": "Synlig samlet placering",
+      "general_rankings_limit": "Samlet placering begrænset til de første X",
+      "goal_filter": "Standardfilter for målsætninger",
+      "goal_rankings": "Synlig placering for målsætninger",
+      "goals": "Adgang til målsætninger",
+      "help": "Adgang til hjælp",
+      "home": "Adgang til instrumentbrættet",
+      "home_page": "Konfiguration af startsiden",
+      "manager_title": "Leder",
+      "news_feed": "Adgang til nyhedsfeed",
+      "news_feed_comments_creation": "Création de commentaires sur le fil d'actualité",
+      "news_feed_post_creation": "Création de post sur le fil d'actualité",
+      "rankings": "Adgang til placeringerne",
+      "reset_password": "Rediger en spillers profil",
+      "rules": "Adgang til spillereglerne",
+      "stats": "Adgang til statistik",
+      "team_rankings": "Placering for mit hold",
+      "teams": "Adgang til hold",
+      "title": "Administrer adgangsrettigheder",
+      "wording_badge": "Omdøb badge",
+      "wording_challenge": "Omdøb udfordring",
+      "wording_dashboard": "Dashboard-ordlyd",
+      "wording_goal": "Omdøb mål",
+      "wording_rules": "Omdøb spilleregler"
+    },
+    "aircall": {
+      "form_ac_get_calls_activation": "Aktivér KPI for gendannelse af vellykkede opkald",
+      "form_ac_get_calls_duration": "Minimum varighed for et vellykket opkald (sekunder)",
+      "install": {
+        "authorization_error": "Du har ikke de nødvendige tilladelser",
+        "code_label": "Kode firma",
+        "demo_button": "Demo",
+        "email_label": "E-mail",
+        "login_error": "Legitimationsoplysningerne er ikke korrekte",
+        "no_customer_button_1": "Ikke endnu",
+        "no_customer_button_2": "Kunde hos Fire Tiger?",
+        "password_label": "Adgangskode",
+        "submit_button": "Tilslut Aircall",
+        "unknown_error": "Der opstod en ukendt fejl",
+        "website_button": "Se hjemmesiden"
+      }
+    },
+    "badge_config": {
+      "remaining_points_to_award": "Resterende point, der skal tildeles",
+      "title": "Opsætning af badges"
+    },
+    "categories": {
+      "active_tab": "Aktive",
+      "archive_confirm": "Er du sikker på, at du vil arkivere kategorien «{}»?",
+      "archive_confirm2": "Når denne kategori er arkiveret, vil det ikke længere være muligt at genaktivere den.",
+      "archived_tab": "Arkiverede",
+      "columns": {
+        "icon": "Ikon",
+        "name": "Navn"
+      },
+      "creation": {
+        "error": "Der opstod en fejl under oprettelsen af kategorien",
+        "success": "Kategorien er blevet oprettet",
+        "title": "Opret en kategori"
+      },
+      "title": "Konfigurer kategorier",
+      "update": {
+        "error": "Der opstod en fejl under opdatering af kategorien",
+        "success": "Kategorien er blevet opdateret",
+        "title": "Rediger en kategori"
+      }
+    },
+    "collaborator_selector": {
+      "empty_state_message": "Holdene er ikke blevet oprettet endnu",
+      "empty_state_title": "Der blev ikke fundet noget hold"
+    },
+    "goal": {
+      "admin_editable_label": "Målsætninger, der kan ændres af administratorer",
+      "admin_goal_creation_repartition_individual_team": "💡 Ved hjælp af denne fordelingsmetode tildeles målsætningen for holdet automatisk til alle hold, der er valgt blandt de resterende {0} for det igangværende år.\n Efter godkendelsen, vil du kunne tilpasse de målsætninger, der er tildelt alle hold.",
+      "admin_title": "Opsætning af målsætningerne",
+      "allow_over_target_label": "Overskridelse af den tildelte målsætning",
+      "allow_ranking_label": "Vis placeringen",
+      "allow_ranking_latest_value": "Se de seneste resultater for placeringen",
+      "allow_ranking_points": "Se score for placeringen",
+      "category_label": "Kategori",
+      "classic_title": "Klassisk",
+      "creation": {
+        "error": "Der opstod en fejl under oprettelsen af målsætningen",
+        "goal_title": "Konfiguration af målsætningen",
+        "goals_title": "Opsætning af målsætningerne",
+        "kpi_title": "Valg af KPI for målsætningen",
+        "options_title": "Vælg indstillinger",
+        "participants_title": "Vælg deltagere",
+        "success": "Målsætningen er blevet oprettet"
+      },
+      "creation_repartition_global": "💡 Ved hjælp af denne fordelingsmetode tildeles den overordnede målsætning automatisk for de resterende {0} for det igangværende år.\n Efter godkendelsen, vil du kunne tilpasse de målsætninger, der er tildelt alle dine hold.",
+      "creation_repartition_global_team": "💡 Ved hjælp af denne fordelingsmetode tildeles den overordnede målsætning automatisk for de resterende {0} for det igangværende år og fordelt ligeligt i forhold til antallet af deltagere på de valgte hold.\n Efter godkendelsen, vil du kunne tilpasse de målsætninger, der er tildelt alle hold.",
+      "creation_repartition_individual": "💡 Ved hjælp af denne fordelingsmetode tildeles den individuelle målsætning automatisk til alle deltagere, der er valgt blandt de resterende {0} for det igangværende år. \nEfter godkendelsen, vil du kunne tilpasse de individuelle målsætninger, der er tildelt alle dine hold.",
+      "creation_repartition_individual_team": "💡 Ved hjælp af denne fordelingsmetode tildeles målsætningen for holdet automatisk til alle hold, der er valgt blandt de resterende {0} for det igangværende år.\n Efter godkendelsen, vil du kunne tilpasse de målsætninger, der er tildelt alle hold.",
+      "creation_target_label": "Måls. {1} for {0}",
+      "creation_title": "Opret en målsætning",
+      "criticity_label": "Haster",
+      "default_label": "Oprettet som standard",
+      "description_label": "Meddelelse",
+      "detail": {
+        "indication_tab": "Anvisninger",
+        "rank_tab": "Placering"
+      },
+      "disable_info": "Når denne målsætning er arkiveret, vil det ikke længere være muligt at genaktivere den. Alle point tildelt for nuværende og fremtidige målsætninger vil igen være tilgængelige.",
+      "disable_message": "Er du sikker på, at du vil gemme målsætningen «{0}»?",
+      "duplication": {
+        "dialog_confirmation_message": "Er du sikker på, at du automatisk vil anvende målsætningerne for {1} til {0}?",
+        "dialog_message": "Anvend automatisk den næste spillers mål på {0}:",
+        "dialog_title": "Opsætning af målsætningerne"
+      },
+      "edit": {
+        "all_target_label": "Anvendt målsætning",
+        "disable_button": "Luk kontoen",
+        "error": "Der opstod en fejl under opdatering af målsætningen",
+        "error_text": "Overhold den samlede målsætning, der er tildelt for den valgte periode",
+        "max_target_label": "Målsætning tildelt for den valgte periode",
+        "remaining_target_label": "Resterende målsætning",
+        "success": "Målsætningen er blevet opdateret",
+        "title": "Indikatorer"
+      },
+      "editable_label": "Målsætning der kan redigeres af ledere",
+      "import": {
+        "condition1": "Spiller e-mail",
+        "condition2": "Mål ref",
+        "condition3": "Startdato for perioden (format: ÅÅÅÅ-MM-DD 00:00:00)",
+        "condition4": "Periodens slutdato (format: ÅÅÅÅ-MM-DD 23:59:59)",
+        "condition5": "Objektiv værdi",
+        "condition6": "Kontakt en kundesucceschef for at få flere oplysninger om, hvordan objektiv import fungerer",
+        "error1": "Importen er fejlagtig, fordi filen ikke opfylder ovenstående begrænsninger. Nogle linser er muligvis ikke importeret.",
+        "error2": "Importen er i fejl af en ukendt årsag.",
+        "text1": "Importer en kommasepareret CSV-fil. Brug af kommaer er ikke tilladt i filværdier.",
+        "text2": "Hver kolonne i filen skal opfylde nedenstående betingelser:",
+        "title": "Import af mål"
+      },
+      "indication": {
+        "coaching_area": "Trænerens råd",
+        "coaching_empty_state": "Der blev ikke fundet nogen råd",
+        "coaching_item_label": "Råd {0}",
+        "description_area": "Beskrivelse",
+        "level_area": "Etaper",
+        "live_info": "Hvis aktiveret, tildeles point automatisk til deltagerne, før målsætningen udløber.",
+        "live_label": "Point optjent live",
+        "period_text": "Fra {0} til {1}",
+        "unit_with_symbol_text": "Enhed: {0} ({1})",
+        "unit_without_symbol_text": "Enhed: {0}"
+      },
+      "indication_label": "Anvisninger",
+      "kpi_format_label": "Format",
+      "kpi_label": "KPIS",
+      "kpi_name_label": "Titel på KPI",
+      "kpi_period_label": "Periode",
+      "kpi_periods_label": "Perioder",
+      "list": {
+        "active_tab": "Aktive",
+        "archived_tab": "Arkiverede",
+        "columns": {
+          "category": "Kategori",
+          "default": "Standard",
+          "id": "Ref",
+          "name": "Navn",
+          "periodicity": "Hyppighed",
+          "target": "Årlig global målsætning",
+          "type": "Målsætning",
+          "unit": "Enhed"
+        },
+        "empty_state_message": "Hvis du vil have vist andre målsætninger, skal du ændre i eventuelt anvendte filtre",
+        "empty_state_title": "Der blev ikke fundet nogen målsætning"
+      },
+      "live_infos": "Hvis aktiveret, tildeles point automatisk til deltagerne, før målsætningen udløber.",
+      "live_label": "Point optjent live",
+      "name_label": "Navn",
+      "past_editable_label": "Tidligere målsætninger, der kan redigeres af administratorer",
+      "period_label_long": "Periode {0}: fra {1} til {2}",
+      "period_label_short": "Periode {0}",
+      "period_label_short2": "Fra {0} til {1}",
+      "periodicity_label": "Hyppighed",
+      "point_config": {
+        "allocated_points": "Samlet antal tildelte point: ",
+        "allocated_points_year": "Antal point tildelt for årets målsætning {0}",
+        "available_points_title": "{0} point til rådighed",
+        "current_points_title": "{0} point på spil lige nu",
+        "errors": {
+          "archived_goal": "Arkiveret målsætning",
+          "no_level_message": "Opret en første etape",
+          "no_level_title": "Der er ikke blevet fundet nogen etaper",
+          "percent_more_equal": "Procentdelen skal være større end eller lig med 0",
+          "percent_more_than": "Procentdelen skal være højere end den foregående etape",
+          "points_more_equal": "Antallet af point skal være større end eller lig med 0",
+          "points_more_than": "Antallet af point skal være større end for den foregående etape"
+        },
+        "form": {
+          "percent": "% opnåelse af målsætningen",
+          "points": "Points"
+        },
+        "general_info_title": "Generelle oplysninger",
+        "importance_percent": "Procentdel af betydning: ",
+        "level_title": "Etape {0}",
+        "max_points_title": "Maksimalt antal point pr. {0} og pr. periode: ",
+        "remaining_points": "Resterende samlede antal tildelte point: ",
+        "title": "Konfiguration af etaper for {0} og pr. periode",
+        "title_tooltip": "Antal point, der kan bruges på {0}, fra {1} i løbet af året {2}",
+        "used_points": "Samlede point, der allerede er på spil: "
+      },
+      "point_config_title_c": "Antal resterende perioder",
+      "point_config_title_d": "Antal dage tilbage",
+      "point_config_title_m": "Antal måneder tilbage",
+      "point_config_title_q": "Antal kvartaler tilbage",
+      "point_config_title_s": "Antal semestre tilbage",
+      "point_config_title_w": "Antal uger tilbage",
+      "point_config_title_y": "Igangværende år",
+      "point_config_tooltip_c": "den aktuelle periode",
+      "point_config_tooltip_d": "De resterende dage",
+      "point_config_tooltip_m": "De resterende måneder",
+      "point_config_tooltip_q": "de resterende kvartaler",
+      "point_config_tooltip_s": "de resterende semestre",
+      "point_config_tooltip_w": "De resterende uger",
+      "point_config_tooltip_y": "Det igangværende år",
+      "rank_list": {
+        "player_column": "spillere"
+      },
+      "repartition_label": "Fordelingsmetoder",
+      "spreadsheet_title": "Regneark",
+      "target_label": "Årlig global målsætning",
+      "thumbnail": {
+        "collaborator_tag": "Individuel",
+        "counter_text": "Opnået: {0}",
+        "first_rank_text": "{0}°",
+        "max_points_text": "/ {0} Max",
+        "max_rank_text": "/{0}",
+        "other_period": "Fra {0} til {1}",
+        "other_rank_text": "{0}°",
+        "player_text": "{0} spillere",
+        "points_text": "{0} Point",
+        "quarter_period": "Kvartal {0} ({1})",
+        "semester_period": "Semester {0}",
+        "target_text": "/Målsætning: {0}",
+        "team_tag": "Hold",
+        "team_text": "{0} hold",
+        "timer_tag": "G {0}",
+        "week_period": "Uge {0} ({1})",
+        "year_period": "År {0}"
+      },
+      "title": "Målsætninger",
+      "type_label": "Type",
+      "unit_label": "Enhed",
+      "update_base_tab": "Base",
+      "update_base_title": "Redigering af målsætningen «{0}»",
+      "update_confirmation_message": "Er du sikker på, at du vil ændre KPI for denne målsætning? Denne ændring kan få konsekvenser for resultathistorikken. Hvis du har spørgsmål, så tøv ikke med at kontakte os.",
+      "update_custom_tab": "Tilpasning",
+      "update_readonly_title": "Vis målsætning «{0}»"
+    },
+    "home": {
+      "badge_link": "Badge",
+      "category_link": "Kategorier",
+      "data_area": "Integration og styring af data",
+      "goal_level_link": "Point",
+      "import_link": "Importlog",
+      "indicator_area": "Konfiguration af indikatorer",
+      "level_link": "Niveau",
+      "logo_link": "Skift logo",
+      "notification_link": "Administration af underretninger",
+      "organization_link": "Hold/Organisation",
+      "partner_link": "Kan integreres med software fra tredjepart",
+      "permission_link": "Administration af adgangsrettigheder",
+      "point_link": "Samlet fordeling af point",
+      "report_link": "Rapport",
+      "reward_link": "Præmier",
+      "user_area": "Brugere og rettigheder",
+      "user_link": "Abonnementer brugere",
+      "year_label": "År der skal indstilles"
+    },
+    "import_log": {
+      "columns": {
+        "date": "Udførelsesdato",
+        "download": "Download",
+        "error_lines": "Fejl rækker",
+        "file": "Fil",
+        "id": "Ref",
+        "state": "Status",
+        "success_lines": "Gyldige rækker"
+      },
+      "data": "Resultater",
+      "goals": "Målsætninger",
+      "title": "Importlog",
+      "users": "Brugere"
+    },
+    "logo": {
+      "background_color": "Baggrundsfarve",
+      "colors": "Farver",
+      "font_family": {
+        "fonts_select": "Valg af skrifttyper",
+        "title": "Skrifttype"
+      },
+      "primary_color": "Hovedfarve",
+      "reset_colors": "Nulstil farver",
+      "secondary_color": "Sekundær farve",
+      "success_message": "Logoet er blevet opdateret",
+      "title": "Ændring af logo"
+    },
+    "logo_and_colors": {
+      "success_message": "Farverne er blevet opdateret med succes",
+      "title": "Logo ændring og farver"
+    },
+    "notifications_rights": {
+      "explication_badge": "konfigurere meddelelser, der sendes, når badgeniveauet ændres",
+      "explication_challenge": "konfiguration af meddelelser ved opgradering af udfordringer",
+      "explication_email": "E-mail-meddelelser sendes til din indbakke.",
+      "explication_global": "global underretningskonfiguration",
+      "explication_in_app": " Meddelelser i appen sendes til din app.",
+      "explication_newsfeed": "configuration des notifications qui sont envoyées lorsque le niveau du badge change",
+      "explication_push": "Push-underretninger sendes til din mobile enhed (iOS eller Android).",
+      "explication_ranking": "konfiguration af meddelelser til den samarbejdspartner, der er placeret først i udfordringsrangeringen",
+      "explication_type": "Der er tre måder at modtage underretninger på: push, in-app, e-mail.",
+      "generals": "Generaler",
+      "global": "Globalt",
+      "notification_CHBU": "Meddelelse, når dine udfordringer opdateres.",
+      "notification_EWM": "Meddelelse sendt hver uge for at øge motivationen for alle.",
+      "notification_MNL": "Meddelelse til den samarbejdspartner, der passerer et niveau.",
+      "notification_NECH": "Meddelelse sendt, når en ny udfordring starter",
+      "notification_NLB": "Meddelelse, når du når et nyt badge-niveau",
+      "notification_NPE": "Meddelelse, der informerer, hvis meddelelser ikke er blevet læst.",
+      "notification_NPIN": "Notification envoyée quand le nouveau post a été créé dans le fil d'actualité",
+      "notification_NROE": "Meddelelse sendt, hvis belønningsordren er valideret med succes.",
+      "notification_RFCR": "Meddelelse til den samarbejdspartner, der kommer først i udfordringsrangeringen.",
+      "notification_RFGR": "Meddelelse til den medarbejder, der kommer først i den samlede placering.",
+      "notification_RFR": "Meddelelse til den samarbejdspartner, der kommer først i den objektive rangordning.",
+      "notification_SWE": "Ugentlig oversigtsmeddelelse.",
+      "notification_TRCR": "Meddelelse til det hold, der kommer først i udfordringsrangeringen.",
+      "notification_TRFR": "Meddelelse til det hold, der kommer først i den objektive placering.",
+      "notification_TRGR": "Meddelelse til det hold, der kommer først i den samlede stilling.",
+      "notification_update_success": "Meddelelsesændringer accepteret med succes!",
+      "remark_explication": "Bemærk:",
+      "remark_explication_checkbox": "Hvis afkrydsningsfeltet ikke er aktivt, kan du ikke ændre indstillingerne for denne meddelelse",
+      "sub_title": "Administration af underretninger",
+      "title": "Mine notifikationer",
+      "title_email": "E-mail",
+      "title_explication": "Sådan bliver du underrettet:",
+      "title_in_app": "I app",
+      "title_push": "Tryk"
+    },
+    "organization": {
+      "create_team_title": "Oprettelse af holdet ({0})",
+      "title": "Administration af organisationen",
+      "update_company": "Rediger firmanavn",
+      "update_team": "Rediger holdet",
+      "update_team_group": "Rediger afdelingen"
+    },
+    "partner_detail_empty_connection": "For at bruge disse funktioner skal du installere Fire Tiger i dit Aircall-kundeområde.",
+    "partner_detail_subtitle": "Kan integreres med software fra tredjepart",
+    "partner_list_subtitle": "Kan integreres med software fra tredjepart",
+    "point_config": {
+      "budget": "Budget",
+      "point_rule": "Beregningsregel",
+      "total_title": "Samlet opnåelig score pr. spiller",
+      "total_title_team": "Samlet score, der kan opnås pr. hold"
+    },
+    "points": {
+      "columns": {
+        "category": "Kategori",
+        "current_points": "Point, der i øjeblikket er på spil",
+        "custom_individual": "Individuel tilpasning",
+        "custom_team": "Tilpasning af holdet",
+        "id": "Ref",
+        "name": "Titel",
+        "used_points": "Point, der allerede er på spil"
+      },
+      "menu_global": "Global",
+      "menu_individual": "Individuel",
+      "menu_team": "Hold",
+      "title": "Indstilling af point for målsætningerne"
+    },
+    "report": {
+      "columns": {
+        "category": "Kategori",
+        "format": "Format",
+        "format_manual": "Manuelt",
+        "format_standard": "Standard",
+        "kpi_code": "KPI-kode",
+        "kpi_name": "Titel på KPI",
+        "kpi_ref": "Ref KPI",
+        "periodicity": "Opdatering",
+        "result_unit": "Enhed for risultatet"
+      },
+      "dashboard_tab": "Dashboard",
+      "list_tab": "Liste over rapporter",
+      "title": "Liste over rapporter"
+    },
+    "report_details": {
+      "columns": {
+        "id": "ID"
+      },
+      "quarter_period": "Kvartal {0}",
+      "semester_period": "Semester {0}",
+      "title": "Rapport «{0}»",
+      "week_period": "Uge {0}"
+    },
+    "reward_category": {
+      "creation": {
+        "subtitle": "Oprettelse af en præmiekategori"
+      },
+      "list": {
+        "active_tab": "Aktive",
+        "icon_column": "Ikon",
+        "inactive_tab": "Arkiverede",
+        "name_column": "Navn",
+        "subtitle": "Konfiguration af præmiekategorier"
+      },
+      "update": {
+        "subtitle": "Rediger en præmiekategori"
+      }
+    },
+    "title": "Administration",
+    "user": {
+      "archived_tab": "Tilbagekaldte",
+      "creation": {
+        "password_title": "Opret adgangskode",
+        "send_email": "Send en login-e-mail til brugeren",
+        "success": "Brugeren er blevet oprettet",
+        "title": "Opret bruger"
+      },
+      "current_tab": "I gang",
+      "email": "E-mail",
+      "firstname": "Navn",
+      "force_reset_password": "Tvang for ændring af adgangskoden",
+      "force_reset_password_info": "Brugeren skal ændre sin adgangskode, næste gang der logges på",
+      "fullname": "Efternavn",
+      "id": "Ref",
+      "identifier": "Brugernavn {0}",
+      "identifiers": "Brugernavne",
+      "import": {
+        "condition1": "Navn: Højst 30 tegn",
+        "condition2": "Efternavn: Maksimalt 150 tegn",
+        "condition3": "E-mail: Unik, maksimum 254 tegn",
+        "condition4": "Type: C (Spiller), M (Manager), S (Super Manager) eller A (Administrator)",
+        "condition5": "Hold: Brugernavn hold (angivet på holdets udgivelsesformular)",
+        "condition6": "Adgangskode",
+        "condition7": "Status: 1 (Aktiv) eller 0 (Inaktiv)",
+        "condition8": "De sidste 5 kolonner er valgfrie brugernavne",
+        "condition9": "Afdeling Super Manager: P hvis vigtigste ellers tom",
+        "error1": "Importen er mislykket, fordi filen ikke opfylder ovenstående krav. Nogle brugere er muligvis ikke blevet importeret.",
+        "error2": "Importen er mislykket på grund af en ukendt årsag.",
+        "text1": "Importer en fil i .csv-format ved hjælp af et komma som separatorsymbol. Brugen af komma er ikke tilladt i filværdier.",
+        "text2": "Hver kolonne i filen skal opfylde følgende krav:",
+        "title": "Import af brugere"
+      },
+      "information_title": "infomation",
+      "last_login": "Sidste login",
+      "last_login_empty": "Ingen",
+      "lastname": "Efternavn",
+      "locale": "Sprog",
+      "password": "Ny adgangskode",
+      "password_confirm": "Bekræft adgangskode",
+      "password_field": "Adgangskode",
+      "password_info": "Adgangskoden skal indeholde mindst 8 tegn, mindst et lille bogstav og et stort bogstav, mindst et specialtegn (?! &*) og et tal",
+      "profile": {
+        "no_team": "Intet hold"
+      },
+      "role": "Funktion",
+      "search_placeholder": "Søg efter en bruger...",
+      "team": "Hold",
+      "title": "Administration brugere",
+      "type": "Type",
+      "update": {
+        "actions_title": "Handling",
+        "allow_pending_notifications": "Tillad påmindelser om meddelelser via e-mail",
+        "create_new_password": "Send en login-e-mail",
+        "create_new_password_success": "Login-e-mailen er blevet sendt",
+        "disable_button": "Luk kontoen",
+        "enable_button": "Genaktiver konto",
+        "error": "Der opstod en fejl under ændring af brugeren",
+        "notifications_title": "Meddelelser",
+        "password_title": "Skift adgangskode",
+        "success": "Brugeren er blevet ændret",
+        "title": "Rediger en bruger"
+      }
+    }
+  },
+  "aircall": {
+    "install_authorization_error": "Du har ikke de nødvendige tilladelser",
+    "install_code_label": "Kode firma",
+    "install_demo_button": "Demo",
+    "install_email_label": "E-mail",
+    "install_login_error": "Legitimationsoplysningerne er ikke korrekte",
+    "install_no_customer_button_1": "Ikke endnu",
+    "install_no_customer_button_2": "Kunde hos Fire Tiger?",
+    "install_password_label": "Adgangskode",
+    "install_submit_button": "Tilslut Aircall",
+    "install_title": "Forbindelse med Aircall",
+    "install_unknown_error": "Der opstod en ukendt fejl",
+    "install_website_button": "Se hjemmesiden"
+  },
+  "apptour": {
+    "title": "App-rundvisning"
+  },
+  "badge": {
+    "creation": {
+      "badge_creation": "Oprettelse af badge",
+      "error": "Der opstod en fejl under oprettelsen af badgen",
+      "info_title": "infomation",
+      "kpi_title": "Valg af KPI for badgen",
+      "levels_title": "Konfiguration af etaper",
+      "participants_title": "Vælg deltagere",
+      "success": "Badgen er blevet oprettet"
+    },
+    "level": {
+      "condition_text": "Tilstand: lvl {0}",
+      "counter_text": "Opnået: {0}",
+      "point_text": "{0} Point",
+      "rank_text": "Klasse {0}",
+      "target_text": "Målsætning: {0}"
+    },
+    "list": {
+      "completed_tab": "Opnået",
+      "current_tab": "I gang",
+      "empty_state_title": "Der blev ikke fundet nogen badge"
+    },
+    "title": "Badge"
+  },
+  "challenge": {
+    "award_list": {
+      "add_reward": "Belønning skabelse",
+      "collaborator_max_point_label": "Maksimum pr. spiller",
+      "collaborator_point_label": "Vinder spiller # {0}",
+      "list_live_infos": "Hvis aktiveret, tildeles pointene automatisk til deltagerne, før udfordringen udløber.",
+      "list_live_label": "Point optjent live",
+      "points_calculation_message": "Beregning af brugbare point...",
+      "step_point_label": "Etape # {0}",
+      "target_label": "Score der skal opnås",
+      "team_max_point_label": "Maksimum pr. hold",
+      "team_point_label": "Sejre for hold # {0}",
+      "title": "Præmier",
+      "type_label": "Tilstand",
+      "usable_points": "{0} brugbare point"
+    },
+    "awards_title": "Indtjening",
+    "category_list_title": "Valg af kategori",
+    "click_to_view_challenge": "Klik her for at se udfordringen",
+    "collaborators": "{0} spillere",
+    "condition": {
+      "award_area": "Præmier for udfordringen",
+      "award_points": "{0} POINT",
+      "collaborator_max_points_label": "Maksimum pr. spiller",
+      "collaborator_rank": "Spiller nr. {0} #",
+      "condition_area": "Indikatorer",
+      "description_area": "Beskrivelse",
+      "description_label": "Beskrivelse",
+      "goal_info": "Den betingelse, der er indstillet her, kan nås flere gange. Hver gang den nås, giver det dig ret til antallet af de tilknyttede point",
+      "label": "Tilstand",
+      "label_completed": "Realiseret",
+      "last_update": "Sidste opdatering: ",
+      "last_update_time": "{0} til {1}",
+      "period": "Fra {0} til {1}",
+      "point_counter": "{0} POINT",
+      "point_target": "{0} POINT",
+      "race_condition_goal_info": "Hvis målsætningen nås, giver det ret til 1 point",
+      "team_group_max_points_label": "Maksimum pr. afdeling",
+      "team_group_rank": "Afdeling # {0}",
+      "team_max_points_label": "Maksimum pr. hold",
+      "team_rank": "Hold # {0}\n",
+      "type": "Tilstand: {0}"
+    },
+    "creation": {
+      "error": "Der opstod en fejl under oprettelsen af udfordringen",
+      "success": "Udfordringen er blevet oprettet",
+      "title": "Opret udfordring"
+    },
+    "delete_prompt": "Er du sikker på, at du vil slette denne udfordring?",
+    "delete_success": "Udfordringen er blevet annulleret",
+    "detail": {
+      "condition_tab": "Betingelser",
+      "rank_tab": "Placeringer"
+    },
+    "duplication": {
+      "title": "Dupliker udfordring"
+    },
+    "first_rank": "{0}°",
+    "form": {
+      "add_reward": "Tilføj en belønning",
+      "award_error": "Tilføj mindst én præmie",
+      "award_type_description_c": "Præmie til {2} {0}, der når målsætningen for udfordringen",
+      "award_type_description_m": "Hver {1} tjener det antal point, der svarer til dennes score, op til den definerede maksimale grænse",
+      "award_type_description_p": "Præmien opnået af deltagerne afhænger af det opnåede præstationsniveau",
+      "award_type_description_r": "Præmie til {2} {0} ved afslutningen af udfordringen",
+      "award_type_description_single_c": "Præmie til {0} for at have nået målsætningen for udfordringen",
+      "award_type_description_single_m": "Hver {1} tjener det antal point, der svarer til dennes score, op til den definerede maksimale grænse",
+      "award_type_description_single_p": "Præmien opnået af deltagerne afhænger af det opnåede præstationsniveau",
+      "award_type_description_single_r": "Præmie til {0} ved afslutningen af udfordringen",
+      "award_type_minimum_participants": "Denne tilstand kræver mindst {0} {1}",
+      "congratulations": "Tillykke 🎉!",
+      "congratulations_message": "Din udfordring er klar til at blive sendt!",
+      "enable_manager_score_label": "Vis konsolideret score",
+      "first": "Premiere",
+      "first_departments": "første afdelinger",
+      "first_teams": "første hold",
+      "goal_area": "Indikatorer",
+      "goal_category_label": "Kategori",
+      "goal_collaborator_editable_label": "Spiller input",
+      "goal_description_label": "Beskrivelse",
+      "goal_format_label": "Format",
+      "goal_kpi_label": "KPIS",
+      "goal_manager_editable_label": "Indtastning manager",
+      "goal_name_label": "Navn",
+      "goal_periodicity_label": "Hyppighed",
+      "goal_target_info_text": "Den betingelse, der er indstillet her, kan nås flere gange. Hver gang den nås, optjenes det tilknyttede antal point.",
+      "goal_target_label": "Målsætning",
+      "goal_target_label2": "Tilstand",
+      "goal_target_label2_race": "Målsætning",
+      "goal_title": "Indikator {0}",
+      "goal_unit_label": "Enhed",
+      "goals": {
+        "add_button": "Tilføj en indikator",
+        "automatic": "Automatisk",
+        "manual": "Manuel indtastning"
+      },
+      "indicators_title": "Konfiguration af indikatorerne og mekanismerne for udfordringen",
+      "info_area": "infomation",
+      "info_award_type_label": "Tilstand",
+      "info_description_label": "Beskrivelse",
+      "info_end_label": "Slut",
+      "info_image_label": "Vælg et billede...",
+      "info_name_label": "Navn",
+      "info_no_image_text": "Intet billede valgt",
+      "info_start_label": "Start",
+      "info_type_label": "Type udfordring",
+      "infos_title": "Indstilling af oplysninger",
+      "mode": "spilletilstand",
+      "mode_title": "Valg af tilstand for udfordring",
+      "notify_updated_label": "Giv deltagerne besked om opdateringer",
+      "participants_title": "Vælg deltagere",
+      "rewards_title": "Vælg præmier",
+      "soon_available": "Tilgængelig snart",
+      "step_mode_information": "Maksimum 1 præmie pr. deltager (den vundne præmie svarer til den højeste etape)",
+      "steps": {
+        "indicators": "Indikatorer og mekanismer",
+        "infos": "infomation",
+        "mode": "Tilstand",
+        "participant": "Deltager",
+        "participants": "Deltagere",
+        "rewards": "Præmier",
+        "validation": "Bekræft"
+      },
+      "the_first": "Den første",
+      "the_first_department": "Den første afdeling",
+      "the_first_team": "Det første hold"
+    },
+    "kpi_results": {
+      "add_data": "Tilføj data",
+      "add_data_button": "Tilføj data",
+      "add_kpi_title": "Tilføj et resultat for KPI",
+      "back_button": "Tilbage til listen",
+      "collaborator_new_title": "Gem et nyt resultat til KPI",
+      "collaborator_title": "Liste over registrerede resultater for KPI",
+      "columns": {
+        "actions": "Handlinger",
+        "images": "Billeder",
+        "indications": "Indikationer",
+        "result": "Resultat",
+        "results": "Resultater"
+      },
+      "edit_kpi_title": "Ændring af et resultat for KPI",
+      "edit_results": "Indtast resultater",
+      "form": {
+        "data_description": "Anvisninger",
+        "data_description_placeholder": "Indtast din tekst",
+        "data_image": "Vælg fil...",
+        "data_value": "Værdi",
+        "data_value_placeholder": "Indtast den værdi, der skal erklæres",
+        "file_size_error": "Filstørrelsen må ikke overstige 20 MB"
+      },
+      "see_more": "Se mere",
+      "subtitle": "Det kan tage et par minutter, før resultaterne opdateres",
+      "title": "Liste over resultater for KPI"
+    },
+    "list": {
+      "create_button": "Opret udfordring",
+      "empty_state_message": "Hvis du vil se andre udfordringer, skal du ændre de anvendte filtre",
+      "empty_state_title": "Der blev ikke fundet nogen udfordring"
+    },
+    "max_points": "{0} MAX",
+    "modes": {
+      "C": "Race",
+      "M": "Maks. Score",
+      "P": "Lejer",
+      "R": "Podiet"
+    },
+    "modes_full": {
+      "C": "Race tilstand",
+      "M": "Maks Score-tilstand",
+      "P": "Niveau tilstand",
+      "R": "Podium-tilstand"
+    },
+    "no_awards_title": "Ingen gevinster",
+    "other_rank": "{0}°",
+    "points": "Score: {0}",
+    "ranking": {
+      "collaborator_column": "spillere",
+      "collaborator_team_column": "Hold",
+      "collaborator_team_group_column": "Afdeling",
+      "level_column": "Niveau",
+      "points_column": "Score",
+      "team_column": "Hold"
+    },
+    "reward_types": {
+      "G": "Gaver",
+      "P": "Points"
+    },
+    "search_placeholder": "Søg efter en deltager...",
+    "share": {
+      "copy_link": "Kopier link",
+      "copy_success": "Linket er blevet kopieret med succes",
+      "teams_share": "Del på hold",
+      "title": "Del denne udfordring"
+    },
+    "team_groups": "{0} afdeling",
+    "teams": "{0} hold",
+    "title": "Udfordring",
+    "title_plural": "Udfordring",
+    "types": {
+      "CC": "Individuel",
+      "CT": "Team",
+      "TG": "Afdeling"
+    },
+    "update": {
+      "create_reward": "Opret præmier",
+      "edit_participants": "Offentliggørelse af deltagere",
+      "title": "Rediger udfordring"
+    }
+  },
+  "chart": {
+    "collaborator_type_text": "Kun",
+    "counter_text": "Opnået: {0}",
+    "max_points_text": "/{0} max",
+    "points_text": "{0} point",
+    "target_text": "Målsætning: {0}",
+    "team_type_text": "Hold",
+    "x_legend": "Periode"
+  },
+  "coaching_list": {
+    "created_success": "Kortet er blevet oprettet",
+    "delete_prompt": "Er du sikker på, at du vil fjerne dette element?",
+    "delete_prompt2": "Efter annullering vil det ikke længere være muligt at gendanne",
+    "empty_state_collaborator_message": "Prøv igen senere, når din manager yder support",
+    "empty_state_manager_message": "Opret en indledende instruktion til din afspiller",
+    "empty_state_title": "Der er ikke blevet fundet nogen instruktioner",
+    "end_label": "Udløbsdato",
+    "state": {
+      "archived": "Arkiveret",
+      "done": "Udført",
+      "in_progress": "I gang",
+      "pending": "Venter"
+    },
+    "title": "Liste coaching",
+    "title_placeholder": "Indtast en titel for dette kort",
+    "updated_success": "Kortet er blevet opdateret"
+  },
+  "collaborator": {
+    "badge_empty_title": "Ingen fremstillede badges",
+    "dashboard": "Mit instrumentbræt",
+    "detail": {
+      "badge_area": "Badge",
+      "badge_rank": "Klasse {0}",
+      "empty_state_title": "Ingen tilgængelige data ",
+      "info_area": "Generelle oplysninger",
+      "info_current_level": "{0} ",
+      "info_current_level_max": "/{0} POINT",
+      "info_first_rank_text": "{0}°",
+      "info_max_level": "Maksimalt niveau nået",
+      "info_next_level": "Niveau {0}",
+      "info_other_rank_text": "{0}°",
+      "info_total_points": "{0} POINT",
+      "info_victories": "{0} sejr/sejre",
+      "password_button": "Rediger profil"
+    },
+    "reward_order": {
+      "erase_cart_warning": "Er du sikker på, at du vil tilføje denne nye belønning?",
+      "erase_cart_warning2": "Denne handling vil nulstille din kurv, som i øjeblikket er tilknyttet en anden spiller.",
+      "summary_points_area": "Ordre i alt",
+      "summary_points_area_year": "År {0}",
+      "summary_rewards_area": "Ordre # {0} af {1}",
+      "summary_title": "Resumé af en ordre",
+      "tracking": {
+        "email_column": "E-mail",
+        "id_column": "Ref",
+        "name_column": "Navn",
+        "order_date_column": "Ordredato",
+        "sub_header_pending_tab": "I gang",
+        "sub_header_validated_tab": "Skal behandles",
+        "sub_header_validated_title": "Ordrestatus",
+        "sub_header_waiting_tab": "Bekræftede",
+        "team_column": "Hold",
+        "validated_points_column": "Anvendte point",
+        "validation_date_column": "Bekræftelsesdato",
+        "value_column": "Samlet beløb",
+        "waiting_points_column": "Point, der skal godkendes"
+      },
+      "validation": {
+        "error": "Der opstod en fejl under bekræftelse af ordren",
+        "points_area": "Samlet ordre",
+        "points_area_year": "År {0}",
+        "rewards_area": "Ordre # {0} af {1}",
+        "success": "Ordren er blevet bekræftet",
+        "title": "Bekræft en ordre"
+      }
+    },
+    "title": "Spillere",
+    "update": {
+      "title": "Rediger profil"
+    }
+  },
+  "common": {
+    "add": "Tilføj",
+    "archive": "Arkiver",
+    "cache_warning": "Det kan tage op til 5 minutter at opdatere data",
+    "cancel": "Fortryd",
+    "close": "Luk",
+    "collaborator": "Spiller",
+    "collaborators": "Spillere",
+    "create": "Opret",
+    "create_error_message": "Der opstod en fejl under oprettelsen",
+    "create_success_message": "Oprettelsen er blevet gennemført",
+    "csv_export": "Eksporter til CSV",
+    "date": "Dato",
+    "delete": "Slet",
+    "delete_error_message": "Der opstod en fejl under sletning",
+    "delete_success_message": "Er blevet slettet ",
+    "duplicate": "Dupliker",
+    "edit": "Rediger",
+    "edit_participants": "Rediger deltagere",
+    "erase": "Slet",
+    "error_page_message": "Du kan opdatere appen for at løse problemet",
+    "error_page_title": "Der opstod en fejl",
+    "excel_export": "Eksporter som XLS",
+    "export": "Eksport",
+    "form": {
+      "collaborator_points_valid": "Summen af pointene overstiger det maksimale antal point",
+      "decreasing_rewards": "Præmierne skal være faldende",
+      "email_error": "Ugyldig e-mail.",
+      "has_digit_character": "Der kræves mindst et nummer",
+      "has_less_characters_than": "Mindre end {0} tegn kræves",
+      "has_lowercase_character": "Der kræves mindst et lille bogstav",
+      "has_more_characters_than": "Der kræves minimum {0} tegn",
+      "has_special_character": "Der kræves mindst et specialtegn",
+      "has_uppercase_character": "Der kræves mindst et stort bogstav",
+      "increasing_rewards": "Præmierne skal være stigende",
+      "increasing_scores": "De point, der skal opnås, skal være stigende",
+      "is_int_error": "Værdien skal være et helt tal.",
+      "is_more_than_or_equals_0_error": "Værdien skal være større end eller lig med 0.",
+      "max_length_128_error": "Værdien skal være mindre end 128 tegn.",
+      "numeric_error": "Værdien skal være et tal",
+      "password_not_match_error": "Adgangskoderne stemmer ikke overens.",
+      "required_error": "Dette felt er påkrævet."
+    },
+    "gift": "Gave",
+    "home": "Dashboard",
+    "import": "Importer",
+    "level": "Niveau",
+    "next": "Næste",
+    "no": "Nej",
+    "ok": "OK",
+    "player": "Spiller",
+    "players": "spillere",
+    "points": "Points",
+    "previous": "Forrige",
+    "publish": "Offentlig",
+    "refresh_button": "Opdater appen",
+    "report": "Rapport",
+    "rich_text_placeholder": "Indtast din tekst...",
+    "search_placeholder": "Søg efter...",
+    "see_more": "Se mere her",
+    "select": "Vælg",
+    "selection": "Udvalg",
+    "share": "Del",
+    "submit": "Bekræft",
+    "team": "Hold",
+    "team_group": "Afdeling",
+    "team_groups": "Afdelinger",
+    "teams": "Hold",
+    "update_app_prompt_message": "Opdater appen for at fortsætte med at bruge den",
+    "update_app_prompt_title": "En ny version er tilgængelig",
+    "update_error_message": "Der opstod en fejl under ændringen",
+    "update_success_message": "Ændringerne er blevet foretaget",
+    "yes": "Ja"
+  },
+  "contact": {
+    "evolution_form_message_label": "Meddelelse",
+    "evolution_form_submit_button": "Send",
+    "evolution_form_title": "Udfyld denne formular for at anmode om en opgradering",
+    "form_type_evolution_option": "Anmod om en opgradering",
+    "form_type_incident_option": "Rapportér et problem",
+    "form_type_label": "Årsag",
+    "incident_form_title": "Udfyld denne formular for at rapportere dit problem",
+    "question": "Hvordan kan vi hjælpe dig?",
+    "title": "Hjælp"
+  },
+  "data_tables": {
+    "body": {
+      "noMatch": "Der blev ikke fundet nogen matchende elementer",
+      "toolTip": "Bestil"
+    },
+    "filter": {
+      "all": "Alt",
+      "reset": "Nulstil",
+      "title": "Filtre"
+    },
+    "pagination": {
+      "pageOf": "på",
+      "rowsPerPage": "Rækker pr. side"
+    },
+    "toolbar": {
+      "downloadCsv": "Download",
+      "filterTable": "Filtrer",
+      "print": "Udskriv",
+      "search": "Søg",
+      "viewColumns": "Kolonner"
+    },
+    "viewColumns": {
+      "title": "Vis kolonner"
+    }
+  },
+  "filter": {
+    "all_category_label": "Alle kategorier",
+    "all_option_f": "Alle",
+    "all_periods_label": "Alle perioder",
+    "all_team_group_label": "Alle afdelinger",
+    "all_team_label": "Alle hold",
+    "category_all_option": "Alle",
+    "category_label": "Kategori",
+    "collaborator_all_option": "Alle",
+    "collaborator_label": "Spiller",
+    "end_label": "Slutdato",
+    "global_chip": "Global",
+    "goal_label": "Målsætning",
+    "my_team_label": "Mit hold",
+    "period_all_option": "Alle",
+    "period_label": "år",
+    "start_label": "Startdato",
+    "submit_button": "Filtrer",
+    "team_all_option": "Alle",
+    "team_group_label": "Afdeling",
+    "team_label": "Hold",
+    "time": {
+      "current": "I gang",
+      "next": "Fremtidige",
+      "previous": "Forrige"
+    },
+    "title": "Filtre",
+    "type_label": "Tilstand"
+  },
+  "game": {
+    "title": "Spil"
+  },
+  "game_rules": {
+    "code_embed": "Indtast EMBED-koden fra videoen (se Objow-hjælp i tilfælde af vanskeligheder):",
+    "link_url": "Indtast linket URL:",
+    "site_url": "Indtast en websteds-URL:",
+    "title": "Spillets regler",
+    "typeform_url": "Indtast en URL-adresse til typeform:"
+  },
+  "kpi": {
+    "criticity": {
+      "high": "Høj",
+      "low": "Lav",
+      "medium": "Medie"
+    },
+    "periodicity": {
+      "C": "Brugerdefineret",
+      "D": "Dagligt",
+      "M": "MÅNEDLIG",
+      "Q": "Kvartalsvis",
+      "S": "Hvert halve år",
+      "W": "UGENTLIG",
+      "Y": "ÅRLIG",
+      "goal_custom": "Defineret i målsætningen"
+    }
+  },
+  "levels": {
+    "columns": {
+      "citation": "Henvisning",
+      "icon": "Iconen",
+      "level": "Niveau",
+      "name": "Navn",
+      "percent": "% af spillere",
+      "points": "Point, der skal opnås"
+    },
+    "list_title": "Liste over niveauer"
+  },
+  "login": {
+    "code_label": "Kode firma",
+    "code_placeholder": "Indtast din firmakode",
+    "create_password_company_code_invalid": "Den indtastede virksomhedskode er ikke gyldig. Indtast firmakoden sendt i velkomstmailen",
+    "create_password_error": "Dette link er ikke længere gyldigt. Indsend en ny anmodning om nulstilling af adgangskoden",
+    "create_password_invalid": "Dette link er ikke gyldigt",
+    "create_password_missing_user": "Dette link svarer ikke til nogen bruger eller er allerede blevet brugt",
+    "create_password_outdated": "Dette link er ikke længere gyldigt. Indsend en ny anmodning om nulstilling af adgangskoden",
+    "create_password_password_invalid": "Ugyldig adgangskode",
+    "create_password_submit": "Opret adgangskoden",
+    "create_password_success": "Din adgangskode er blevet oprettet",
+    "create_password_title": "Opret din adgangskode",
+    "description_line1": "Spil-løsningen",
+    "description_line2": "for Overvågning og Animation",
+    "description_line3": "af præstationerne",
+    "email_label": "E-mail",
+    "email_placeholder": "Indtast din e-mailadresse",
+    "error": "Legitimationsoplysningerne er ikke korrekte",
+    "error_company_code": "Den indtastede virksomhedskode er ikke gyldig",
+    "force_reset_password_message": "Din adgangskode er udløbet, du skal vælge en ny for at beskytte din konto",
+    "force_reset_password_title": "Skift din adgangskode",
+    "password_label": "Adgangskode",
+    "reset_password": "Jeg har glemt mit kodeord",
+    "reset_password_cancel": "Gå tilbage til login-siden",
+    "reset_password_confirm_error": "Dette link er ikke længere gyldigt. Indsend en ny anmodning om nulstilling af adgangskoden",
+    "reset_password_confirm_success": "Din adgangskode er blevet nulstillet",
+    "reset_password_error": "Der blev ikke fundet nogen konto med denne e-mailadresse",
+    "reset_password_submit": "Nulstil adgangskode",
+    "reset_password_success": "Der er blevet sendt en e-mail til dig med et link til nulstilling af din adgangskode",
+    "reset_password_title": "Glemt adgangskode",
+    "sso_dialog_title": "SSO-forbindelse",
+    "sso_error_message": "SSO er ikke konfigureret. Kontakt en Firetiger-administrator",
+    "sso_submit_button": "eller opret forbindelse med SSO",
+    "store_message_1": "Appen Fire Tiger er tilgængelig til iPhone og Android.",
+    "store_message_2": "Download nu:",
+    "submit_button": "Log ind",
+    "title": "Log ind"
+  },
+  "menu": {
+    "admin_button": "Administration",
+    "administrator_label": "Administrator",
+    "help_button": "Hjælp",
+    "infos_button": "Mine data",
+    "level_label": "Niveau {0}",
+    "logout_button": "Log ud",
+    "manager_label": "Leder",
+    "notifications_button": "Meddelelser",
+    "points_label": "{0} POINT",
+    "rules_button": "Spillets regler"
+  },
+  "newsfeed": {
+    "all_roles": "Alle roller",
+    "comment_action": "Kommentere",
+    "comment_creation_success": "Din anmeldelse er blevet oprettet",
+    "comment_delete_success": "Din kommentar er blevet fjernet",
+    "comment_placeholder": "Skriv din kommentar her",
+    "comment_update_success": "Din anmeldelse er blevet opdateret",
+    "comments": "Bemærkninger",
+    "edit_post_title": "Rediger indlægget",
+    "embed_prompt": "Indsæt videoens integrerede URL her",
+    "empty_state_message": "Opret dit første indlæg",
+    "empty_state_title": "Der blev ikke fundet nogen indlæg",
+    "for_everybody": "Alle",
+    "like": "I like",
+    "likes_list_title": "Reaktioner",
+    "new_post_title": "Nyt indlæg",
+    "no_more_posts": "Slut på nyhedsfeed",
+    "post_content_placeholder": "Skriv din tekst her",
+    "post_creation_success": "Dit indlæg er blevet oprettet",
+    "post_delete_success": "Dit indlæg er blevet slettet",
+    "post_placeholder": "Opret et nyt indlæg",
+    "post_report_success": "Din besked er blevet taget i betragtning",
+    "post_settings": "Udgivelsesindstillinger",
+    "post_update_success": "Dit indlæg er blevet opdateret",
+    "post_visibility_role_tooltip": "Synlig af: {0}",
+    "reply": "Svar",
+    "reported_comment": "Rapporteret kommentar",
+    "reported_post": "Rapporteret publikation",
+    "see_less": "... se mindre",
+    "see_more": "... se mere",
+    "share_button": "Del med",
+    "title": "Nyhedsfeed",
+    "video_size_error": "Størrelsen på videoen ({0}) må ikke overstige 50 MB",
+    "who_can_see_your_post": "Hvem kan se dit indlæg?"
+  },
+  "notification": {
+    "date": {
+      "days": "{0} d",
+      "hours": "{0} t",
+      "minutes": "{0} min"
+    },
+    "empty_message": "Ingen meddelelse modtaget"
+  },
+  "organization_menu": {
+    "hide": "Skjul",
+    "show": "Vis"
+  },
+  "point_summary": {
+    "orders_button": "Ordrer, der skal bekræftes",
+    "panopli_button": "Få adgang til butikken",
+    "panopli_error": "Der blev ikke fundet nogen konto i butikken",
+    "points_label": "Akkumulerede samlede point",
+    "points_value": "{0}Pts",
+    "title": "Generelle oplysninger",
+    "usable_points_label": "Balance point",
+    "usable_points_value": "{0}Pts",
+    "used_points_label": "Brugte antal point i alt",
+    "used_points_value": "{0}Pts",
+    "validated_values_label": "Samlet anvendt værdi",
+    "validated_values_value": "{0} €",
+    "waiting_points_label": "Point, der afventer godkendelse",
+    "waiting_points_value": "{0}Pts"
+  },
+  "ranking": {
+    "challenges_title": "Udfordring",
+    "collaborator_category_title": "Individuel placering",
+    "collaborator_challenge_title": "Placering for individuelle udfordringer",
+    "collaborator_general_title": "Samlet individuel placering",
+    "collaborator_tab": "Individuel",
+    "columns": {
+      "collaborator": "spillere",
+      "name": "Navn",
+      "team": "Hold"
+    },
+    "empty_state_title": "Ingen tilgængelig placering",
+    "general_title": "Samlet placering",
+    "owner_title": "Min placering",
+    "team_category_title": "Placering for holdene",
+    "team_challenge_title": "Placering for holdudfordringer",
+    "team_general_title": "Samlet placering for holdet",
+    "team_tab": "Hold",
+    "title": "Placeringer"
+  },
+  "reward": {
+    "creation": {
+      "error": "Der opstod en fejl under oprettelsen af præmien",
+      "subtitle": "Opret en præmie",
+      "success": "Præmien er blevet oprettet"
+    },
+    "detail": {
+      "delivery_mode_text": "Forsendelsesmetode: {0}",
+      "delivery_place_text": "Sted: {0}",
+      "delivery_time_text": "Anslået leveringstid: {0}",
+      "description_area": "Beskrivelse",
+      "image_close_button": "Luk",
+      "operation_step_1_description": "Kontroller og bekræft din ordre. En meddelelse vil derefter blive sendt til din virksomhedsadministrator, der informerer dem om din anmodning.",
+      "operation_step_1_title": "Når du klikker på tilføj",
+      "operation_step_2_description": "Din ordre afventer behandling/bekræftelse. De point, der blev brugt på ordretidspunktet, trækkes fra din pointsaldo.",
+      "operation_step_2_title": "Afventer ordre",
+      "operation_step_3_description": "Din virksomhedsadministrator vil tage ansvaret for din ordre. Når leverandøren har godkendt og faktureret, trækkes dine point permanent fra din pointsaldo.",
+      "operation_step_3_title": "Ordre i gang",
+      "operation_step_4_description": "Din præmie er på vej! Du vil blive informeret af din virksomhedsadministrator. Din præmie vil blive deklareret og underlagt bidrag betalt af arbejdsgiveren og/eller medarbejderen.",
+      "operation_step_4_number": "Levering",
+      "operation_step_4_title": "Ordre afsendt",
+      "operation_title": "Hvordan virker det?",
+      "value_text": "Værdi: {0} €"
+    },
+    "duplication": {
+      "title": "Dupliker præmie"
+    },
+    "edit": {
+      "title": "Rediger præmie"
+    },
+    "form": {
+      "category_label": "Kategori",
+      "delivery_area": "Levering",
+      "delivery_mode_label": "Leveringsmetode",
+      "delivery_place_label": "Sted",
+      "delivery_time_label": "Leveringstid",
+      "description_label": "Beskrivelse",
+      "empty_image_text": "Intet billede valgt",
+      "image_label": "Vælg et billede...",
+      "infos_area": "infomation",
+      "name_label": "Navn",
+      "points_label": "Antal nødvendige point",
+      "type_label": "Type",
+      "value_label": "Værdi",
+      "value_suffix_label": "€"
+    },
+    "image_input_infos": "Billedet tilpasser sig og ændres i henhold til størrelsen på den anvendte skærm. Det anbefalede billedformat til optimal visning er 1024x700.",
+    "management": {
+      "collaborator_selector_area": "Vælg en spiller",
+      "collaborator_tab": "spillere",
+      "team_selector_area": "Vælg et hold",
+      "team_tab": "Hold",
+      "title": "Administration af præmier"
+    },
+    "order_item_list": {
+      "close_button": "Fortsæt dine køb",
+      "empty_text": "Tom",
+      "points_value": "{0}Pts",
+      "quantity_label": "Antal",
+      "value_label": "Værdi"
+    },
+    "order_list_export": {
+      "title": "Eksporter de bekræftede ordrer"
+    },
+    "order_summary": {
+      "cart_points_label": "Total indkøbskurv",
+      "confirm_order_message": "Efter bekræftelsen, vil det ikke længere være muligt at annullere ordren, pointene fjernes fra din pointsaldo, og værdien af ordren vil blive deklareret og underlagt bidrag betalt af arbejdsgiveren og/eller medarbejderen.",
+      "confirm_order_title": "Bekræfter du din ordre på {0} point til en værdi af {1} €?",
+      "confirm_refuse_message": "Efter afvisning, vil det ikke længere være muligt at genaktivere, pointene genindsættes på den tilgængelige pointsaldo. Det vil være dit ansvar at informere brugeren om årsagen til afslaget.",
+      "confirm_refuse_title": "Er du sikker på, at du vil afvise ordre nr. {0} for i alt {1} point til en værdi af {2} €?",
+      "confirm_validate_message": "Efter bekræftelsen, kan ordren ikke længere annulleres, pointene trækkes fra den tilgængelige pointsaldo, og værdien af denne ordre skal deklareres og underlægges bidrag betalt af arbejdsgiveren og/eller medarbejderen.",
+      "confirm_validate_title": "Er du sikker på, at du vil bekræfte ordrenummer {0} for i alt {1} point til en værd af {2} €?",
+      "order_button": "Bestil",
+      "order_points_label": "Samlet ordre",
+      "order_points_value": "{0} Point",
+      "order_value_label": "Samlet værdi",
+      "recipient_points_label": "Nuværende pointsaldo",
+      "recipient_points_value": "{0} Point",
+      "refuse_button": "Afvis",
+      "remaining_points_label": "Resterende pointsaldo",
+      "remaining_points_value": "{0} Point"
+    },
+    "point_tag": "{0} POINT",
+    "settings": {
+      "collaborator_reward_activation_option": "Aktivér præmier «spiller»",
+      "manager_reward_creation": "Gør det muligt for ledere at bestille belønninger",
+      "manager_reward_notification": "Giv managers besked via e-mail om ordrer afgivet af spillere på deres hold",
+      "team_reward_activation_option": "Aktivér præmier «hold»"
+    },
+    "shopping_cart": {
+      "adding_confirmation_close_button": "Fortsæt dine køb",
+      "adding_confirmation_message": "Du har lige tilføjet dette produkt til din indkøbskurv:",
+      "adding_confirmation_shopping_cart_button": "Gå til indkøbskurven",
+      "points_area": "Total indkøbskurv",
+      "points_area_year": "År {0}",
+      "rewards_area": "Din indkøbskurv",
+      "success": "Din ordre er modtaget"
+    },
+    "sort_by": "Sortér efter",
+    "sort_options": {
+      "asc": "Stigende antal point",
+      "desc": "Faldende antal point"
+    },
+    "store": {
+      "empty_state_message": "Hvis du vil se flere præmier, skal du ændre på eventuelt anvendte filtre ",
+      "empty_state_title": "Der blev ikke fundet nogen præmie "
+    },
+    "title": "Præmier"
+  },
+  "roles": {
+    "A": "Administrator",
+    "C": "Spiller",
+    "M": "Leder",
+    "S": "Super Manager"
+  },
+  "statistics": {
+    "category_title": "Vælg kategori",
+    "empty_state_message": "For at se andre statistikker skal du ændre eventuelle filtre.",
+    "empty_state_title": "Der er ikke blevet fundet nogen statistik",
+    "title": "Statistik"
+  },
+  "team": {
+    "collaborators_text": "{0} Spillere",
+    "detail": {
+      "collaborators_text": "{0} spillere",
+      "manager_text": "Fra {0} {1}",
+      "no_manager_text": "Ingen manager",
+      "points_text": "{0} POINT",
+      "victories_text": "{0} sejre"
+    },
+    "empty_state_message": "Holdene er ikke blevet oprettet endnu",
+    "empty_state_title": "Der blev ikke fundet noget hold",
+    "form": {
+      "collaborator": "Spiller {0}",
+      "collaborators": "Spillere",
+      "color": "Farve",
+      "id": "Brugernavn",
+      "manager": "Leder",
+      "name": "Navn",
+      "parent": "Afdeling gruppeleder"
+    },
+    "group_collaborators_text": "{0} Ledere",
+    "group_team_groups_text": "{0} afdelinger",
+    "group_teams_text": "{0} hold",
+    "manager_text": "Fra {0} {1}",
+    "no_manager_text": "Ingen manager",
+    "title": "Hold",
+    "title_singular": "Hold"
+  },
+  "team_group": {
+    "form": {
+      "super_manager": "Super manager",
+      "user": "Bruger {0}",
+      "users": "Brugere"
+    },
+    "thumbnail": {
+      "hide_children": "Skjul de {0} hold",
+      "hide_children_team_group": "Skjul {0} afdelinger",
+      "show_children": "Viser de {0} hold",
+      "show_children_team_group": "Vis {0} afdelinger"
+    },
+    "title_singular": "Afdeling"
+  },
+  "transfer_list": {
+    "participants": "Deltagere",
+    "selection": "Tilgængelige",
+    "submit_selection": "Valider udvælgelse"
+  },
+  "widget": {
+    "activity": {
+      "inactive_profiles": "Inaktive profiler",
+      "info_text": "Her finder du listen over personer, der har været inaktive i dine teams i mere end 3 måneder."
+    },
+    "badge": {
+      "count1": "Du har",
+      "count2": "I gang",
+      "without_count": "Se medarbejdernes badges"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+import React from 'react';
+import { Grid, CardMedia } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { RewardImage } from './components';
+import { DefaultText, InfoText } from '../../../../components';
+import * as Resources from '../../../../Resources';
+import _ from 'lodash';
+const styles = {
+  icon: {
+    width: 42,
+    height: 42,
+    marginRight: 15,
+  },
+  imageContainer: {
+    width: '100%',
+    position: 'relative',
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    position: 'relative',
+    lineHeight: '1.5em',
+    maxHeight: '3em',
+    textAlign: 'left',
+    '&&:before': {
+      content: '"..."',
+      position: 'absolute',
+      right: 0,
+      bottom: 1,
+      paddingLeft: 2,
+      background: 'white',
+    },
+    '&&:after': {
+      content: '""',
+      position: 'absolute',
+      right: 0,
+      width: '1em',
+      height: '1em',
+      marginTop: '0.2em',
+      background: 'white',
+    },
+  },
+  timerContainer: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+  },
+};
+
+const ChallengeReward = ({ reward, ...props }) => {
+  const { classes } = props;
+  const categoryIcon = _.get(reward, 'category.icon.path');
+  return (
+    <div>
+      <Grid container spacing={1}>
+        <Grid item xs={12}>
+          <div className={classes.imageContainer}>
+            <RewardImage image={_.get(reward, 'image.path', reward.image)} />
+          </div>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container>
+            <Grid item xs={2}>
+              {categoryIcon && (
+                <CardMedia image={categoryIcon} className={classes.icon} />
+              )}
+            </Grid>
+            <Grid item xs={10} style={{ height: '3em' }}>
+              <DefaultText
+                lowercase
+                className={classes.name}
+                style={{ width: '100%' }}
+              >
+                {reward.name}
+              </DefaultText>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
+
+export default withStyles(styles)(ChallengeReward);

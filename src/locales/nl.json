@@ -1,0 +1,1329 @@
+{
+  "account": {
+    "citation_label": "Citatie",
+    "confirm_password_label": "Wachtwoord bevestigen",
+    "email_label": "E-mail",
+    "first_name_label": "Voornaam",
+    "last_name_label": "Achternaam",
+    "password_label": "Nieuw wachtwoord",
+    "success_message": "De wijzigingen zijn succesvol doorgevoerd",
+    "title": "Mijn profiel",
+    "title_label": "Titel van het profiel",
+    "title_label_pseudo": "Bijnaam"
+  },
+  "admin": {
+    "access_rights": {
+      "activate_daily_email": "Activeer dagelijks de e-mails met een meldingenoverzicht",
+      "activate_notifications": "Meldingen activeren",
+      "activate_users_count": "Het aantal inactieve gebruikers weergeven op het dashboard",
+      "activate_weekly_email": "Activeer de e-mail met een wekelijks overzicht",
+      "all_users": "Alle gebruikers",
+      "badges": "Toegang tot de badges",
+      "category_rankings": "Zichtbare ranglijst per categorie",
+      "category_rankings_limit": "De ranglijst van de categorieën is beperkt tot de eerste X's",
+      "challenge": "Toegang tot de uitdagingen",
+      "challenge_rankings": "Zichtbare ranglijst per uitdaging",
+      "coaching_list": "Toegang tot de coachinglijst",
+      "collaborator_title": "Speler",
+      "edit_coaching_list": "De coachinglijst bewerken",
+      "future_challenge": "Bekijk de volgende uitdagingen",
+      "future_goals": "Visualiseer toekomstige doelen",
+      "general_rankings": "Zichtbare algemene ranglijst",
+      "general_rankings_limit": "De algemene ranglijst is beperkt tot de eerste X's",
+      "goal_filter": "Standaardfilter voor de doelen",
+      "goal_rankings": "Zichtbare ranglijst voor de doelen",
+      "goals": "Toegang tot de doelen",
+      "help": "Toegang tot hulp",
+      "home": "Toegang tot het dashboard",
+      "home_page": "Configuratie van de homepage",
+      "manager_title": "Manager",
+      "news_feed": "Toegang tot de nieuwsfeed",
+      "news_feed_comments_creation": "Création de commentaires sur le fil d'actualité",
+      "news_feed_post_creation": "Création de post sur le fil d'actualité",
+      "rankings": "Toegang tot de ranglijsten",
+      "reset_password": "Het profiel van een speler bewerken",
+      "rules": "Toegang tot de spelregels",
+      "stats": "Toegang tot de statistieken",
+      "team_rankings": "Ranglijst van mijn team",
+      "teams": "Toegang tot de teams",
+      "title": "Toegangsrechten beheren",
+      "wording_badge": "Badge hernoemen",
+      "wording_challenge": "Uitdaging hernoemen",
+      "wording_dashboard": "Dashboard-formulering",
+      "wording_goal": "Doelen hernoemen",
+      "wording_rules": "Spelregels hernoemen"
+    },
+    "aircall": {
+      "form_ac_get_calls_activation": "De KPI voor een succesvol herstelgesprek inschakelen",
+      "form_ac_get_calls_duration": "Minimale duur van een succesvol gesprek (seconden)",
+      "install": {
+        "authorization_error": "Je bezit niet de benodigde machtigingen",
+        "code_label": "Bedrijfscode",
+        "demo_button": "Demo",
+        "email_label": "E-mail",
+        "login_error": "De aanmeldgegevens zijn niet correct",
+        "no_customer_button_1": "Nog niet",
+        "no_customer_button_2": "klant van Fire Tiger?",
+        "password_label": "Wachtwoord",
+        "submit_button": "Aircall verbinden",
+        "unknown_error": "Er is een onbekende fout opgetreden",
+        "website_button": "Bekijk de website"
+      }
+    },
+    "badge_config": {
+      "remaining_points_to_award": "Resterende punten die moeten worden toegekend",
+      "title": "Badges instellen"
+    },
+    "categories": {
+      "active_tab": "Actief",
+      "archive_confirm": "Weet je zeker dat je de categorie «{}» wilt archiveren?",
+      "archive_confirm2": "Zodra deze categorie is gearchiveerd, is het niet meer mogelijk om deze opnieuw te activeren.",
+      "archived_tab": "Gearchiveerd",
+      "columns": {
+        "icon": "Pictogram",
+        "name": "Voornaam"
+      },
+      "creation": {
+        "error": "Er is een fout opgetreden bij het maken van de categorie",
+        "success": "Categorie is succesvol aangemaakt",
+        "title": "Een categorie maken"
+      },
+      "title": "Categorieën configureren",
+      "update": {
+        "error": "Er is een fout opgetreden tijdens het updaten van de categorie",
+        "success": "Categorie is succesvol bijgewerkt",
+        "title": "Een categorie bewerken"
+      }
+    },
+    "collaborator_selector": {
+      "empty_state_message": "De teams zijn nog niet gemaakt",
+      "empty_state_title": "Geen team gevonden"
+    },
+    "goal": {
+      "admin_editable_label": "De beheerders kunnen het doel bewerken",
+      "admin_goal_creation_repartition_individual_team": "💡Met deze verdelingsmethode wordt het teamdoel automatisch toegewezen aan alle teams die zijn geselecteerd uit de resterende {0} van het lopende jaar.\nNa validatie kun je de doelen personaliseren die aan alle teams zijn toegewezen.",
+      "admin_title": "Configuratie van de doelen",
+      "allow_over_target_label": "Overschrijding van het toegewezen doel",
+      "allow_ranking_label": "Bekijk de ranglijst",
+      "allow_ranking_latest_value": "Bekijk de laatste resultaten van de ranglijst",
+      "allow_ranking_points": "Bekijk de score op de ranglijst",
+      "category_label": "Categorie",
+      "classic_title": "Classic",
+      "creation": {
+        "error": "Er is een fout opgetreden bij het maken van het doel",
+        "goal_title": "Configuratie van het doel",
+        "goals_title": "Configuratie van de doelen",
+        "kpi_title": "Het KPI-doel selecteren",
+        "options_title": "Opties selecteren",
+        "participants_title": "Deelnemers selecteren",
+        "success": "Het doel is succesvol gemaakt"
+      },
+      "creation_repartition_global": "Met behulp van deze verdelingsmethode wordt het jaarlijkse globale doel automatisch verdeeld over het aantal {0} dat resteert in het lopende jaar en gedeeld door het aantal geselecteerde deelnemers.\nNa validatie kun je de individuele doelen aanpassen die aan al je teams zijn toegewezen.",
+      "creation_repartition_global_team": "💡Met behulp van deze verdelingsmethode wordt het totale jaarlijkse doel automatisch gedeeld door het aantal {0} dat resteert in het lopende jaar en evenredig verdeeld op basis van het aantal deelnemers in de geselecteerde teams.\nNa validatie kun je de doelen aanpassen die aan alle teams zijn toegewezen.",
+      "creation_repartition_individual": "💡 Met behulp van deze verdelingsmethode wordt het individuele doel automatisch toegewezen aan alle geselecteerde deelnemers uit de resterende {0} van het lopende jaar.\nNa validatie kun je de individuele doelen aanpassen die aan al je teams zijn toegewezen.",
+      "creation_repartition_individual_team": "💡 Met deze verdelingsmethode wordt het teamdoel automatisch toegewezen aan alle teams die zijn geselecteerd uit de resterende {0} van het lopende jaar.\nNa validatie kun je de doelen aanpassen die aan alle teams zijn toegewezen.",
+      "creation_target_label": "Doel {1} voor {0}",
+      "creation_title": "Maak een doel",
+      "criticity_label": "Urgentie",
+      "default_label": "Standaard aangemaakt",
+      "description_label": "Bericht",
+      "detail": {
+        "indication_tab": "Indicaties",
+        "rank_tab": "Ranglijst"
+      },
+      "disable_info": "Zodra dit doel is gearchiveerd, is het niet meer mogelijk om het opnieuw te activeren. Alle punten die worden toegekend voor huidige en toekomstige doelen zijn weer beschikbaar.",
+      "disable_message": "Weet je zeker dat je het doel «{0}» wilt archiveren?",
+      "duplication": {
+        "dialog_confirmation_message": "Weet je zeker dat je de doelen van {1} tot {0} automatisch wilt toepassen?",
+        "dialog_message": "Pas de doelpunten van de volgende speler automatisch toe op {0}:",
+        "dialog_title": "Configuratie van de doelen"
+      },
+      "edit": {
+        "all_target_label": "Gebruikt doel",
+        "disable_button": "Account sluiten",
+        "error": "Er is een fout opgetreden tijdens het updaten van het doel",
+        "error_text": "Respecteer alle doelen die zijn toegewezen voor de geselecteerde periode",
+        "max_target_label": "Toegewezen doel voor de geselecteerde periode",
+        "remaining_target_label": "Resterend doel",
+        "success": "Het doel is succesvol bijgewerkt",
+        "title": "Indicatoren"
+      },
+      "editable_label": "Bewerkbaar doel door de manager",
+      "import": {
+        "condition1": "E-mailadres van speler",
+        "condition2": "Objectieve referentie",
+        "condition3": "Begindatum van de periode (formaat: JJJJ-MM-DD 00:00:00)",
+        "condition4": "Einddatum van de periode (formaat: JJJJ-MM-DD 23:59:59)",
+        "condition5": "Objectieve waarde",
+        "condition6": "Neem contact op met een Customer Success Manager voor meer informatie over hoe objectieve import werkt.",
+        "error1": "Er is een fout gemaakt bij het importeren omdat het bestand niet voldoet aan de bovenstaande beperkingen. Sommige lenzen zijn mogelijk niet geïmporteerd.",
+        "error2": "Er is om een onbekende reden een fout gemaakt bij het importeren.",
+        "text1": "Importeer een CSV-bestand met komma's gescheiden. Het gebruik van komma's is niet toegestaan in bestandswaarden.",
+        "text2": "Elke kolom in het bestand moet voldoen aan de onderstaande voorwaarden:",
+        "title": "Doelstellingen importeren"
+      },
+      "indication": {
+        "coaching_area": "De adviezen van de coach",
+        "coaching_empty_state": "Geen advies gevonden",
+        "coaching_item_label": "Advies {0}",
+        "description_area": "Omschrijving",
+        "level_area": "Etappes",
+        "live_info": "Indien ingeschakeld, worden er automatisch punten toegekend aan deelnemers voordat het doel afloopt.",
+        "live_label": "Live verdiende punten",
+        "period_text": "Van {0} tot {1}",
+        "unit_with_symbol_text": "Eenheid: {0} ({1})",
+        "unit_without_symbol_text": "Eenheid: {0}"
+      },
+      "indication_label": "Indicaties",
+      "kpi_format_label": "Formaat",
+      "kpi_label": "KPI",
+      "kpi_name_label": "Titel van de KPI",
+      "kpi_period_label": "Periode",
+      "kpi_periods_label": "Perioden",
+      "list": {
+        "active_tab": "Actief",
+        "archived_tab": "Gearchiveerd",
+        "columns": {
+          "category": "Categorie",
+          "default": "Standaard",
+          "id": "Referentie",
+          "name": "Voornaam",
+          "periodicity": "Periodiciteit",
+          "target": "Jaarlijkse wereldwijde doelen",
+          "type": "Doel",
+          "unit": "Eenheid"
+        },
+        "empty_state_message": "Om andere doelen te bekijken, moet je eventueel de toegepaste filters aanpassen",
+        "empty_state_title": "Geen doelen gevonden"
+      },
+      "live_infos": "Indien ingeschakeld, worden er automatisch punten toegekend aan deelnemers voordat het doel afloopt.",
+      "live_label": "Live verdiende punten",
+      "name_label": "Voornaam",
+      "past_editable_label": "Een doel uit het verleden is aanpasbaar door de beheerders",
+      "period_label_long": "{0} periode: {1} tot {2}",
+      "period_label_short": "Periode {0}",
+      "period_label_short2": "Van {0} tot {1}",
+      "periodicity_label": "Periodiciteit",
+      "point_config": {
+        "allocated_points": "Totaal aantal toegekende punten: ",
+        "allocated_points_year": "Aantal toegekende punten per doel van het jaar {0}",
+        "available_points_title": "Beschikbare punten {0}",
+        "current_points_title": "Punten {0} in de prijzenpot",
+        "errors": {
+          "archived_goal": "Gearchiveerd doel",
+          "no_level_message": "Maak een eerste etappe",
+          "no_level_title": "Geen etappe gevonden",
+          "percent_more_equal": "Het percentage moet groter of gelijk zijn aan 0",
+          "percent_more_than": "Het percentage moet hoger zijn dan dat van de vorige etappe",
+          "points_more_equal": "Het aantal punten moet groter of gelijk zijn aan 0",
+          "points_more_than": "Het aantal punten moet groter zijn dan dat van de vorige etappe"
+        },
+        "form": {
+          "percent": "% van het behalen van het doel",
+          "points": "Punten"
+        },
+        "general_info_title": "Algemene informatie",
+        "importance_percent": "Percentage van belangrijkheid: ",
+        "level_title": "Etappe {0}",
+        "max_points_title": "Maximaal aantal punten per {0} en per periode: ",
+        "remaining_points": "Resterend aantal toegekende punten: ",
+        "title": "Configuratie van de etappes per {0} en per periode",
+        "title_tooltip": "Aantal punten dat kan worden gebruikt op {0}, vanaf {1} gedurende het jaar {2}",
+        "used_points": "Totaal aantal punten in de prijzenpot: "
+      },
+      "point_config_title_c": "Aantal resterende periodes",
+      "point_config_title_d": "Aantal resterende dagen",
+      "point_config_title_m": "Aantal resterende maanden",
+      "point_config_title_q": "Aantal resterende kwartalen",
+      "point_config_title_s": "Aantal resterende semesters",
+      "point_config_title_w": "Aantal resterende weken",
+      "point_config_title_y": "Huidig jaar",
+      "point_config_tooltip_c": "De huidige periode",
+      "point_config_tooltip_d": "de resterende dagen",
+      "point_config_tooltip_m": "de resterende maanden",
+      "point_config_tooltip_q": "de resterende kwartalen",
+      "point_config_tooltip_s": "de resterende semesters",
+      "point_config_tooltip_w": "de resterende weken",
+      "point_config_tooltip_y": "het huidige jaar",
+      "rank_list": {
+        "player_column": "Spelers"
+      },
+      "repartition_label": "Wijze van verdeling",
+      "spreadsheet_title": "Spreadsheet",
+      "target_label": "Jaarlijkse wereldwijde doelen",
+      "thumbnail": {
+        "collaborator_tag": "Individueel",
+        "counter_text": "Bereikt: {0}",
+        "first_rank_text": "{0} °",
+        "max_points_text": "/{0} Maximaal",
+        "max_rank_text": "/{0}",
+        "other_period": "Van {0} tot {1}",
+        "other_rank_text": "{0}°",
+        "player_text": "{0} spelers",
+        "points_text": "{0} Punten",
+        "quarter_period": "Kwartaal {0} ({1})",
+        "semester_period": "Semester {0}",
+        "target_text": "/Doel: {0}",
+        "team_tag": "Team",
+        "team_text": "{0} team",
+        "timer_tag": "G {0}",
+        "week_period": "Week {0} ({1})",
+        "year_period": "Jaar {0}"
+      },
+      "title": "Doelen",
+      "type_label": "Type",
+      "unit_label": "Eenheid",
+      "update_base_tab": "Basis",
+      "update_base_title": "Doel '{0}' wijzigen",
+      "update_confirmation_message": "Weet je zeker dat je de KPI voor dit doel wilt wijzigen? Deze wijziging kan gevolgen hebben voor de historische resultaten. Als je vragen hebt, aarzel dan niet om contact met ons op te nemen.",
+      "update_custom_tab": "Personalisatie",
+      "update_readonly_title": "Doel «{0}» bekijken"
+    },
+    "home": {
+      "badge_link": "Badge",
+      "category_link": "Categorieën",
+      "data_area": "Gegevensintegratie en -beheer",
+      "goal_level_link": "Punten",
+      "import_link": "Logboeken importeren",
+      "indicator_area": "Indicatoren configureren",
+      "level_link": "Niveau",
+      "logo_link": "Logo wijzigen",
+      "notification_link": "Meldingen beheren",
+      "organization_link": "Team/organisatie",
+      "partner_link": "Kan worden geïntegreerd met software van derden",
+      "permission_link": "Toegangsrechten beheren",
+      "point_link": "Algemene verdeling van punten",
+      "report_link": "Rapport",
+      "reward_link": "Prijs",
+      "user_area": "Gebruikers en rechten",
+      "user_link": "Abonnementen voor gebruikers",
+      "year_label": "In te stellen jaar"
+    },
+    "import_log": {
+      "columns": {
+        "date": "Datum van uitvoering",
+        "download": "Downloaden",
+        "error_lines": "Regelfout",
+        "file": "Bestand",
+        "id": "Referentie",
+        "state": "Status",
+        "success_lines": "Geldige regels"
+      },
+      "data": "Resultaten",
+      "goals": "Doelstellingen",
+      "title": "Logboeken importeren",
+      "users": "Gebruikers"
+    },
+    "logo": {
+      "background_color": "Achtergrondkleur",
+      "colors": "Kleuren",
+      "font_family": {
+        "fonts_select": "Keuze van lettertypen",
+        "title": "Lettertype"
+      },
+      "primary_color": "Hoofdkleur",
+      "reset_colors": "Kleuren opnieuw instellen",
+      "secondary_color": "Secundaire kleur",
+      "success_message": "Het logo is bijgewerkt",
+      "title": "Wijziging van het logo"
+    },
+    "logo_and_colors": {
+      "success_message": "De kleuren zijn succesvol bijgewerkt",
+      "title": "Logo-wijziging en kleuren"
+    },
+    "notifications_rights": {
+      "explication_badge": "het configureren van meldingen die worden verzonden wanneer het badgeniveau verandert",
+      "explication_challenge": "meldingen configureren bij het upgraden van uitdagingen",
+      "explication_email": "E-mailmeldingen worden naar je inbox gestuurd.",
+      "explication_global": "globale configuratie van meldingen",
+      "explication_in_app": " Meldingen in de app worden naar je app gestuurd.",
+      "explication_newsfeed": "configuration des notifications qui sont envoyées lorsque le niveau du badge change",
+      "explication_push": "Pushmeldingen worden naar je mobiele apparaat (iOS of Android) gestuurd.",
+      "explication_ranking": "meldingen configureren voor de medewerker die op de eerste plaats staat in het uitdagingsklassement",
+      "explication_type": "Er zijn drie manieren om meldingen te ontvangen: push, in-app, e-mail.",
+      "generals": "Algemeen",
+      "global": "Global",
+      "notification_CHBU": "Melding wanneer je uitdagingen zijn bijgewerkt.",
+      "notification_EWM": "Elke week wordt er een melding gestuurd om de motivatie voor iedereen te vergroten.",
+      "notification_MNL": "Melding voor de medewerker die een niveau heeft gehaald.",
+      "notification_NECH": "Melding verzonden wanneer een nieuwe uitdaging start",
+      "notification_NLB": "Melding wanneer je een nieuw badgeniveau hebt bereikt",
+      "notification_NPE": "Melding met de melding als meldingen niet zijn gelezen.",
+      "notification_NPIN": "Notification envoyée quand le nouveau post a été créé dans le fil d'actualité",
+      "notification_NROE": "Er wordt een melding verzonden als de beloningsopdracht met succes is gevalideerd.",
+      "notification_RFCR": "Melding voor de medewerker die als eerste staat in het uitdagingsklassement.",
+      "notification_RFGR": "Melding voor de werknemer die op de eerste plaats staat in het algemeen klassement.",
+      "notification_RFR": "Melding voor de medewerker die als eerste in de objectieve rangschikking staat.",
+      "notification_SWE": "Wekelijkse samenvattende melding.",
+      "notification_TRCR": "Melding voor het team dat als eerste staat in het uitdagingsklassement.",
+      "notification_TRFR": "Melding voor het team dat als eerste staat in het doelpuntenklassement.",
+      "notification_TRGR": "Melding voor het team dat als eerste staat in het algemeen klassement.",
+      "notification_update_success": "Wijzigingen in de meldingen zijn met succes geaccepteerd!",
+      "remark_explication": "Opmerking:",
+      "remark_explication_checkbox": "Als het selectievakje niet actief is, kunt u de instellingen voor deze melding niet wijzigen",
+      "sub_title": "Meldingen beheren",
+      "title": "Mijn meldingen",
+      "title_email": "Email",
+      "title_explication": "Hoe wordt u op de hoogte gebracht:",
+      "title_in_app": "In app",
+      "title_push": "Duwen"
+    },
+    "organization": {
+      "create_team_title": "Team maken ({0})",
+      "title": "Beheer van de organisatie",
+      "update_company": "Bedrijfsnaam wijzigen",
+      "update_team": "Team bewerken",
+      "update_team_group": "Afdeling bewerken"
+    },
+    "partner_detail_empty_connection": "Om deze functie te gebruiken, moet je Fire Tiger installeren in jouw Aircall-klantenzone.",
+    "partner_detail_subtitle": "Kan worden geïntegreerd met software van derden",
+    "partner_list_subtitle": "Kan worden geïntegreerd met software van derden",
+    "point_config": {
+      "budget": "Budget",
+      "point_rule": "Berekeningsregel",
+      "total_title": "Totaal haalbare score per speler",
+      "total_title_team": "Totaal haalbare score per team"
+    },
+    "points": {
+      "columns": {
+        "category": "Categorie",
+        "current_points": "Huidig aantal punten in de prijzenpot",
+        "custom_individual": "Individuele personalisatie",
+        "custom_team": "Personalisatie van het team",
+        "id": "Referentie",
+        "name": "Titel",
+        "used_points": "Punten die zich al in de prijzenpot bevinden"
+      },
+      "menu_global": "Globaal",
+      "menu_individual": "Individueel",
+      "menu_team": "Team",
+      "title": "Doelpunten instellen"
+    },
+    "report": {
+      "columns": {
+        "category": "Categorie",
+        "format": "Formaat",
+        "format_manual": "Handmatig",
+        "format_standard": "Standaard",
+        "kpi_code": "KPI-code",
+        "kpi_name": "KPI-titel",
+        "kpi_ref": "KPI-referentie",
+        "periodicity": "Update",
+        "result_unit": "Resultaateenheid"
+      },
+      "dashboard_tab": "Dashboard",
+      "list_tab": "Lijst met rapporten",
+      "title": "Lijst met rapporten"
+    },
+    "report_details": {
+      "columns": {
+        "id": "ID"
+      },
+      "quarter_period": "Kwartaal {0}",
+      "semester_period": "Semester {0}",
+      "title": "Rapport «{0}»",
+      "week_period": "Week {0}"
+    },
+    "reward_category": {
+      "creation": {
+        "subtitle": "Een prijscategorie maken"
+      },
+      "list": {
+        "active_tab": "Actief",
+        "icon_column": "Pictogram",
+        "inactive_tab": "Gearchiveerd",
+        "name_column": "Voornaam",
+        "subtitle": "Prijscategorieën configureren"
+      },
+      "update": {
+        "subtitle": "Een prijscategorie bewerken"
+      }
+    },
+    "title": "Administratie",
+    "user": {
+      "archived_tab": "Ingetrokken",
+      "creation": {
+        "password_title": "Wachtwoord aanmaken",
+        "send_email": "Stuur een inlog-e-mail naar de gebruiker",
+        "success": "Gebruiker succesvol aangemaakt",
+        "title": "Gebruiker aanmaken"
+      },
+      "current_tab": "Lopend",
+      "email": "E-mail",
+      "firstname": "Voornaam",
+      "force_reset_password": "Het wachtwoord geforceerd wijzigen",
+      "force_reset_password_info": "De gebruiker moet zijn wachtwoord wijzigen bij de eerstvolgende aanmelding.",
+      "fullname": "Achternaam",
+      "id": "Referentie",
+      "identifier": "Gebruikersnaam {0}",
+      "identifiers": "Gebruikersnamen",
+      "import": {
+        "condition1": "Voornaam: maximaal 30 tekens",
+        "condition2": "Achternaam: maximaal 150 tekens",
+        "condition3": "E-mail: uniek, maximaal 254 tekens",
+        "condition4": "Type: C (speler), M (manager), S (supermanager) of A (beheerder)",
+        "condition5": "Team: gebruikersnaam van het team (vermeld op de publicatiemodule voor het team)",
+        "condition6": "Wachtwoord",
+        "condition7": "Status: 1 (actief) of 0 (inactief)",
+        "condition8": "De laatste 5 kolommen zijn optionele gebruikersnamen",
+        "condition9": "Supermanager van de afdeling: P indien hoofd, anders leeg",
+        "error1": "Het importeren is mislukt omdat het bestand niet voldoet aan de bovenstaande vereisten. Sommige gebruikers zijn mogelijk niet geïmporteerd.",
+        "error2": "Het importeren is mislukt om een onbekende reden.",
+        "text1": "Importeer een bestand in CSV-indeling met een komma als scheidingsteken. Het gebruik van een komma is niet toegestaan in bestandswaarden.",
+        "text2": "Elke kolom in het bestand moet aan de volgende vereisten voldoen:",
+        "title": "Gebruikers importeren"
+      },
+      "information_title": "Informatie",
+      "last_login": "Laatste aanmelding",
+      "last_login_empty": "Geen",
+      "lastname": "Achternaam",
+      "locale": "Taal",
+      "password": "Nieuw wachtwoord",
+      "password_confirm": "Wachtwoord bevestigen",
+      "password_field": "Wachtwoord",
+      "password_info": "Het wachtwoord moet minstens 8 tekens bevatten, minstens één kleine letter en één hoofdletter, minstens één speciaal teken (?! &*) en een nummer",
+      "profile": {
+        "no_team": "Geen team"
+      },
+      "role": "Functie",
+      "search_placeholder": "Zoek naar een gebruiker...",
+      "team": "Team",
+      "title": "Gebruikersbeheer",
+      "type": "Type",
+      "update": {
+        "actions_title": "Acties",
+        "allow_pending_notifications": "Herinneringen voor e-mailmeldingen toestaan",
+        "create_new_password": "Stuur een e-mail om in te loggen",
+        "create_new_password_success": "De aanmeldingsmail is succesvol verzonden",
+        "disable_button": "Account sluiten",
+        "enable_button": "Account opnieuw activeren",
+        "error": "Er is een fout opgetreden tijdens het wijzigen van de gebruiker",
+        "notifications_title": "Notificaties",
+        "password_title": "Wachtwoord wijzigen",
+        "success": "De gebruiker is succesvol gewijzigd",
+        "title": "Een gebruiker bewerken"
+      }
+    }
+  },
+  "aircall": {
+    "install_authorization_error": "Je bezit niet de benodigde machtigingen",
+    "install_code_label": "Bedrijfscode",
+    "install_demo_button": "Demo",
+    "install_email_label": "E-mail",
+    "install_login_error": "De aanmeldgegevens zijn niet correct",
+    "install_no_customer_button_1": "Nog niet",
+    "install_no_customer_button_2": "klant van Fire Tiger?",
+    "install_password_label": "Wachtwoord",
+    "install_submit_button": "Aircall verbinden",
+    "install_title": "Verbinding maken met Aircall",
+    "install_unknown_error": "Er is een onbekende fout opgetreden",
+    "install_website_button": "Bekijk de website"
+  },
+  "apptour": {
+    "title": "App-rondleiding"
+  },
+  "badge": {
+    "creation": {
+      "badge_creation": "Aanmaken van badges",
+      "error": "Er is een fout opgetreden bij het maken van de badge",
+      "info_title": "Informatie",
+      "kpi_title": "De KPI van de badge selecteren",
+      "levels_title": "Etappes configureren",
+      "participants_title": "Deelnemers selecteren",
+      "success": "De badge is succesvol aangemaakt"
+    },
+    "level": {
+      "condition_text": "Voorwaarde: lvl {0}",
+      "counter_text": "Bereikt: {0}",
+      "point_text": "{0} Punten",
+      "rank_text": "Klasse {0}",
+      "target_text": "Doel: {0}"
+    },
+    "list": {
+      "completed_tab": "Verkregen",
+      "current_tab": "Lopend",
+      "empty_state_title": "Geen badges gevonden"
+    },
+    "title": "Badge"
+  },
+  "challenge": {
+    "award_list": {
+      "add_reward": "Creatie van beloningen",
+      "collaborator_max_point_label": "Maximaal per speler",
+      "collaborator_point_label": "Speler wint # {0}",
+      "list_live_infos": "Indien geactiveerd, worden er automatisch punten toegekend aan deelnemers voordat de uitdaging afloopt.",
+      "list_live_label": "Live verdiende punten",
+      "points_calculation_message": "Berekening van bruikbare punten...",
+      "step_point_label": "Etappe # {0}",
+      "target_label": "Te behalen score",
+      "team_max_point_label": "Maximaal per team",
+      "team_point_label": "Teamwinst # {0}",
+      "title": "Prijs",
+      "type_label": "Modus",
+      "usable_points": "{0} bruikbare punten"
+    },
+    "awards_title": "Winsten",
+    "category_list_title": "De categorie selecteren",
+    "click_to_view_challenge": "Klik hier om de uitdaging te bekijken",
+    "collaborators": "{0} spelers",
+    "condition": {
+      "award_area": "Uitdaging-prijzen",
+      "award_points": "{0} PUNTEN",
+      "collaborator_max_points_label": "Maximaal per speler",
+      "collaborator_rank": "Speler n. {0} #",
+      "condition_area": "Indicatoren",
+      "description_area": "Omschrijving",
+      "description_label": "Omschrijving",
+      "goal_info": "De hier ingestelde voorwaarde kan meerdere keren worden bereikt. Elke keer als deze wordt bereikt, geeft het recht op het aantal bijbehorende punten",
+      "label": "Conditie",
+      "label_completed": "Gerealiseerd",
+      "last_update": "Laatste update: ",
+      "last_update_time": "{0} tot {1}",
+      "period": "Van {0} tot {1}",
+      "point_counter": "{0} PUNTEN",
+      "point_target": "{0} PUNTEN",
+      "race_condition_goal_info": "Als het doel is bereikt, geeft dit recht op 1 punt",
+      "team_group_max_points_label": "Maximaal per afdeling",
+      "team_group_rank": "Afdeling #{0}",
+      "team_max_points_label": "Maximaal per team",
+      "team_rank": "Team n. #{0}\n",
+      "type": "Modus: {0}"
+    },
+    "creation": {
+      "error": "Er is een fout opgetreden tijdens het maken van de uitdaging",
+      "success": "De uitdaging is succesvol gemaakt",
+      "title": "Een uitdaging maken"
+    },
+    "delete_prompt": "Weet je zeker dat je deze uitdaging wilt verwijderen?",
+    "delete_success": "De uitdaging is succesvol geannuleerd",
+    "detail": {
+      "condition_tab": "Voorwaarden",
+      "rank_tab": "Ranglijsten"
+    },
+    "duplication": {
+      "title": "Uitdaging dupliceren"
+    },
+    "first_rank": "{0} °",
+    "form": {
+      "add_reward": "Een beloning toevoegen",
+      "award_error": "Voeg minstens één prijs toe",
+      "award_type_description_c": "Prijs voor {2} {0} die de doelen van de challenge zullen bereiken",
+      "award_type_description_m": "Elke {1} verdient het aantal punten dat overeenkomt met zijn score, tot aan de gedefinieerde maximumlimiet",
+      "award_type_description_p": "De prijs die door de deelnemers wordt behaald, is afhankelijk van het behaalde prestatieniveau",
+      "award_type_description_r": "Prijs voor {2} {0} aan het einde van de uitdaging",
+      "award_type_description_single_c": "Prijs voor {0} voor het bereiken van de doelen van de uitdaging",
+      "award_type_description_single_m": "Elke {1} verdient het aantal punten dat overeenkomt met zijn score, tot aan de gedefinieerde maximumlimiet",
+      "award_type_description_single_p": "De prijs die door de deelnemers wordt behaald, is afhankelijk van het behaalde prestatieniveau",
+      "award_type_description_single_r": "Prijs voor {0} aan het einde van de uitdaging",
+      "award_type_minimum_participants": "Voor deze modus is minimaal {0} {1} vereist",
+      "congratulations": "Gefeliciteerd 🎉!",
+      "congratulations_message": "Je uitdaging is klaar om uitgezonden te worden!",
+      "enable_manager_score_label": "Geconsolideerde score bekijken",
+      "first": "premiers",
+      "first_departments": "eerste afdelingen",
+      "first_teams": "eerste teams",
+      "goal_area": "Indicatoren",
+      "goal_category_label": "Categorie",
+      "goal_collaborator_editable_label": "Invoer van de speler",
+      "goal_description_label": "Omschrijving",
+      "goal_format_label": "Formaat",
+      "goal_kpi_label": "KPI",
+      "goal_manager_editable_label": "Manager invoeren",
+      "goal_name_label": "Voornaam",
+      "goal_periodicity_label": "Periodiciteit",
+      "goal_target_info_text": "De hier ingestelde voorwaarde kan meerdere keren worden bereikt. Elke keer dat deze wordt bereikt, verdien je het aantal bijbehorende punten.",
+      "goal_target_label": "Doel",
+      "goal_target_label2": "Voorwaarde",
+      "goal_target_label2_race": "Doel",
+      "goal_title": "indicator {0}",
+      "goal_unit_label": "Eenheid",
+      "goals": {
+        "add_button": "Een indicator toevoegen",
+        "automatic": "Automatisch",
+        "manual": "Handmatige invoer"
+      },
+      "indicators_title": "Configuratie van de indicatoren en mechanismen van de uitdaging",
+      "info_area": "Informatie",
+      "info_award_type_label": "Modus",
+      "info_description_label": "Omschrijving",
+      "info_end_label": "Einde",
+      "info_image_label": "Selecteer een afbeelding...",
+      "info_name_label": "Voornaam",
+      "info_no_image_text": "Geen afbeelding geselecteerd",
+      "info_start_label": "Begin",
+      "info_type_label": "Type uitdaging",
+      "infos_title": "Informatie instellen",
+      "mode": "Modus",
+      "mode_title": "De uitdagingsmodus selecteren",
+      "notify_updated_label": "Deelnemers op de hoogte brengen van updates",
+      "participants_title": "Deelnemers selecteren",
+      "rewards_title": "Prijs selecteren",
+      "soon_available": "Binnenkort beschikbaar",
+      "step_mode_information": "Maximaal 1 prijs per deelnemer (de gewonnen prijs komt overeen met die van de hoogste etappe)",
+      "steps": {
+        "indicators": "Indicatoren en mechanismen",
+        "infos": "Informatie",
+        "mode": "Modus",
+        "participant": "Deelnemer",
+        "participants": "Deelnemers",
+        "rewards": "Prijs",
+        "validation": "Bevestiging"
+      },
+      "the_first": "De eerste",
+      "the_first_department": "De eerste afdeling",
+      "the_first_team": "Het eerste team"
+    },
+    "kpi_results": {
+      "add_data": "Gegevens toevoegen",
+      "add_data_button": "Gegevens toevoegen",
+      "add_kpi_title": "Voeg een resultaat toe voor de KPI",
+      "back_button": "Terug naar de lijst",
+      "collaborator_new_title": "Sla een nieuw resultaat op voor de KPI",
+      "collaborator_title": "Lijst met geregistreerde resultaten voor de KPI",
+      "columns": {
+        "actions": "Acties",
+        "images": "Fotos",
+        "indications": "Indicaties",
+        "result": "Resultaat",
+        "results": "Resultaten"
+      },
+      "edit_kpi_title": "Een resultaat aanpassen voor de KPI",
+      "edit_results": "Resultaten invoeren",
+      "form": {
+        "data_description": "Indicaties",
+        "data_description_placeholder": "Voer je tekst in",
+        "data_image": "Selecteer bestand...",
+        "data_value": "Waarde",
+        "data_value_placeholder": "Voer de aan te geven waarde in",
+        "file_size_error": "De bestandsgrootte mag niet groter zijn dan 20 MB"
+      },
+      "see_more": "Bekijk meer",
+      "subtitle": "Het kan enkele minuten duren voordat de resultaten zijn bijgewerkt",
+      "title": "Lijst met resultaten voor de KPI"
+    },
+    "list": {
+      "create_button": "Creëer een uitdaging",
+      "empty_state_message": "Om andere uitdagingen te bekijken, moet je de toegepaste filters aanpassen",
+      "empty_state_title": "Geen uitdaging gevonden"
+    },
+    "max_points": "{0} MAX",
+    "modes": {
+      "C": "Race",
+      "M": "Maximale score",
+      "P": "Lagers",
+      "R": "Podium"
+    },
+    "modes_full": {
+      "C": "Race-modus",
+      "M": "Max Score-modus",
+      "P": "Level-modus",
+      "R": "Podium-modus"
+    },
+    "no_awards_title": "Geen overwinning behaald",
+    "other_rank": "{0}°",
+    "points": "Score: {0}",
+    "ranking": {
+      "collaborator_column": "Spelers",
+      "collaborator_team_column": "Team",
+      "collaborator_team_group_column": "Afdeling",
+      "level_column": "Niveau",
+      "points_column": "Score",
+      "team_column": "Team"
+    },
+    "reward_types": {
+      "G": "Cadeaus",
+      "P": "Punten"
+    },
+    "search_placeholder": "Zoek een deelnemer...",
+    "share": {
+      "copy_link": "Link kopiëren",
+      "copy_success": "De link is succesvol gekopieerd",
+      "teams_share": "Delen in teams",
+      "title": "Deel deze uitdaging"
+    },
+    "team_groups": "{0} afdeling",
+    "teams": "{0} team",
+    "title": "Uitdaging",
+    "title_plural": "Uitdaging",
+    "types": {
+      "CC": "Individueel",
+      "CT": "Ploeg",
+      "TG": "Afdeling"
+    },
+    "update": {
+      "create_reward": "Prijzen creëren",
+      "edit_participants": "Publicatie van deelnemers",
+      "title": "Uitdaging bewerken"
+    }
+  },
+  "chart": {
+    "collaborator_type_text": "Alleen",
+    "counter_text": "Behaald: {0}",
+    "max_points_text": "/{0} max",
+    "points_text": "{0} punten",
+    "target_text": "Doel: {0}",
+    "team_type_text": "Team",
+    "x_legend": "Periode"
+  },
+  "coaching_list": {
+    "created_success": "De kaart is succesvol aangemaakt",
+    "delete_prompt": "Weet je zeker dat je dit element wilt verwijderen?",
+    "delete_prompt2": "Na annulering is het niet meer mogelijk om deze terug te halen",
+    "empty_state_collaborator_message": "Probeer het later opnieuw wanneer je manager je kan ondersteunen",
+    "empty_state_manager_message": "Maak een eerste instructie voor je speler",
+    "empty_state_title": "Geen instructies gevonden",
+    "end_label": "Vervaldatum",
+    "state": {
+      "archived": "Gearchiveerd",
+      "done": "Voltooid",
+      "in_progress": "Aan de gang",
+      "pending": "Wachten"
+    },
+    "title": "Coachinglijst",
+    "title_placeholder": "Een titel voor deze kaart invoeren",
+    "updated_success": "De kaart is succesvol bijgewerkt"
+  },
+  "collaborator": {
+    "badge_empty_title": "Geen badges gemaakt",
+    "dashboard": "Mijn dashboard",
+    "detail": {
+      "badge_area": "Badge",
+      "badge_rank": "Klasse {0}",
+      "empty_state_title": "Geen gegevens beschikbaar",
+      "info_area": "Algemene informatie",
+      "info_current_level": "{0} ",
+      "info_current_level_max": "/{0} PUNTEN",
+      "info_first_rank_text": "{0} °",
+      "info_max_level": "Maximaal niveau bereikt",
+      "info_next_level": "Niveau {0}",
+      "info_other_rank_text": "{0}°",
+      "info_total_points": "{0} PUNTEN",
+      "info_victories": "{0} overwinning/en",
+      "password_button": "Profiel bewerken"
+    },
+    "reward_order": {
+      "erase_cart_warning": "Weet je zeker dat je deze nieuwe beloning wilt toevoegen?",
+      "erase_cart_warning2": "Met deze actie wordt je winkelwagen, die momenteel aan een andere speler is gekoppeld, gereset",
+      "summary_points_area": "Totaal aantal orders",
+      "summary_points_area_year": "Jaar {0}",
+      "summary_rewards_area": "Ordernummer {0} van {1}",
+      "summary_title": "Samenvatting van een order",
+      "tracking": {
+        "email_column": "E-mail",
+        "id_column": "Referentie",
+        "name_column": "Voornaam",
+        "order_date_column": "Orderdatum",
+        "sub_header_pending_tab": "Lopend",
+        "sub_header_validated_tab": "Uit te voeren",
+        "sub_header_validated_title": "Orderstatus",
+        "sub_header_waiting_tab": "Bevestigd",
+        "team_column": "Team",
+        "validated_points_column": "Gebruikte punten",
+        "validation_date_column": "Datum van bevestiging",
+        "value_column": "Totaalbedrag",
+        "waiting_points_column": "Punten om te valideren"
+      },
+      "validation": {
+        "error": "Er is een fout opgetreden bij het bevestigen van de order",
+        "points_area": "Totale order",
+        "points_area_year": "Jaar {0}",
+        "rewards_area": "Ordernummer {0} van {1}",
+        "success": "De order is succesvol bevestigd",
+        "title": "Een order bevestigen"
+      }
+    },
+    "title": "spelers",
+    "update": {
+      "title": "Profiel bewerken"
+    }
+  },
+  "common": {
+    "add": "Toevoegen",
+    "archive": "Archiveren",
+    "cache_warning": "Het bijwerken van gegevens kan tot 5 minuten duren",
+    "cancel": "Annuleren",
+    "close": "Sluiten",
+    "collaborator": "Speler",
+    "collaborators": "spelers",
+    "create": "Creëren",
+    "create_error_message": "Er is een fout opgetreden tijdens het aanmaken",
+    "create_success_message": "De creatie is succesvol uitgevoerd",
+    "csv_export": "Exporteren naar CSV",
+    "date": "Datum",
+    "delete": "Verwijderen",
+    "delete_error_message": "Er is een fout opgetreden tijdens het verwijderen",
+    "delete_success_message": "Succesvol verwijderd",
+    "duplicate": "Dupliceren",
+    "edit": "Wijzigen",
+    "edit_participants": "Deelnemers bewerken",
+    "erase": "Wissen",
+    "error_page_message": "Je kunt de app updaten om het probleem op te lossen",
+    "error_page_title": "Er is een fout opgetreden",
+    "excel_export": "Exporteren naar XLS",
+    "export": "Exporteren",
+    "form": {
+      "collaborator_points_valid": "De som van de punten is groter dan het maximum aantal punten",
+      "decreasing_rewards": "De prijzen moeten aflopend zijn",
+      "email_error": "Ongeldig e-mailadres.",
+      "has_digit_character": "Minstens één nummer is vereist",
+      "has_less_characters_than": "Minder dan {0} tekens vereist",
+      "has_lowercase_character": "Minstens één kleine letter is vereist",
+      "has_more_characters_than": "Minimaal {0} tekens zijn vereist",
+      "has_special_character": "Minstens één speciaal teken is vereist",
+      "has_uppercase_character": "Minstens één hoofdletter is vereist",
+      "increasing_rewards": "De prijzen moeten oplopend zijn",
+      "increasing_scores": "De te behalen scores moeten oplopend zijn",
+      "is_int_error": "De waarde moet een geheel getal zijn.",
+      "is_more_than_or_equals_0_error": "De waarde moet groter of gelijk zijn aan 0.",
+      "max_length_128_error": "De waarde moet minder dan 128 tekens bevatten.",
+      "numeric_error": "De waarde moet een getal zijn",
+      "password_not_match_error": "De wachtwoorden komen niet overeen.",
+      "required_error": "Dit veld is verplicht."
+    },
+    "gift": "Cadeau",
+    "home": "Dashboard",
+    "import": "Importeer",
+    "level": "Niveau",
+    "next": "Volgend",
+    "no": "Nee",
+    "ok": "oké",
+    "player": "Speler",
+    "players": "Spelers",
+    "points": "Punten",
+    "previous": "Voorgaand",
+    "publish": "Publiceren",
+    "refresh_button": "De app updaten",
+    "report": "Rapport",
+    "rich_text_placeholder": "Voer je tekst in...",
+    "search_placeholder": "Zoek naar...",
+    "see_more": "Zie meer",
+    "select": "Selecteer",
+    "selection": "Selectie",
+    "share": "Delen",
+    "submit": "Bevestiging",
+    "team": "Team",
+    "team_group": "Afdeling",
+    "team_groups": "Afdelingen",
+    "teams": "Team",
+    "update_app_prompt_message": "Update de applicatie om deze te blijven gebruiken",
+    "update_app_prompt_title": "Er is een nieuwe versie beschikbaar",
+    "update_error_message": "Er is een fout opgetreden tijdens de wijziging",
+    "update_success_message": "De wijzigingen zijn succesvol doorgevoerd",
+    "yes": "Ja"
+  },
+  "contact": {
+    "evolution_form_message_label": "Bericht",
+    "evolution_form_submit_button": "Verzenden",
+    "evolution_form_title": "Vul dit formulier in om een upgrade aan te vragen",
+    "form_type_evolution_option": "Een upgrade aanvragen",
+    "form_type_incident_option": "Een probleem melden",
+    "form_type_label": "Reden",
+    "incident_form_title": "Vul dit formulier in om je probleem te melden",
+    "question": "Hoe kunnen we je helpen?",
+    "title": "Hulp"
+  },
+  "data_tables": {
+    "body": {
+      "noMatch": "Geen overeenkomende elementen gevonden",
+      "toolTip": "Sorteren"
+    },
+    "filter": {
+      "all": "Alles",
+      "reset": "Opnieuw instellen",
+      "title": "Filters"
+    },
+    "pagination": {
+      "pageOf": "van",
+      "rowsPerPage": "Regels per pagina"
+    },
+    "toolbar": {
+      "downloadCsv": "Downloaden",
+      "filterTable": "Filter",
+      "print": "Afdrukken",
+      "search": "Zoeken",
+      "viewColumns": "Kolommen"
+    },
+    "viewColumns": {
+      "title": "Kolommen bekijken"
+    }
+  },
+  "filter": {
+    "all_category_label": "Alle categorieën",
+    "all_option_f": "Allen",
+    "all_periods_label": "Alle periodes",
+    "all_team_group_label": "Alle afdelingen",
+    "all_team_label": "Alle teams",
+    "category_all_option": "Alle",
+    "category_label": "Categorie",
+    "collaborator_all_option": "Allen",
+    "collaborator_label": "Speler",
+    "end_label": "Einddatum",
+    "global_chip": "Globaal",
+    "goal_label": "Doel",
+    "my_team_label": "Mijn team",
+    "period_all_option": "Allen",
+    "period_label": "jaar",
+    "start_label": "Startdatum",
+    "submit_button": "Filter",
+    "team_all_option": "Allen",
+    "team_group_label": "Afdeling",
+    "team_label": "Team",
+    "time": {
+      "current": "Lopend",
+      "next": "Toekomsten",
+      "previous": "Voorgaand"
+    },
+    "title": "Filters",
+    "type_label": "Modus"
+  },
+  "game": {
+    "title": "SPEL"
+  },
+  "game_rules": {
+    "code_embed": "Voer de EMBED-code uit de video in (raadpleeg de hulp van Objow in geval van problemen):",
+    "link_url": "Voer de URL van de link in:",
+    "site_url": "Voer een site-URL in:",
+    "title": "Spelregels",
+    "typeform_url": "Voer een Typeform-URL in:"
+  },
+  "kpi": {
+    "criticity": {
+      "high": "Hoog",
+      "low": "Laag",
+      "medium": "Medium"
+    },
+    "periodicity": {
+      "C": "Op maat",
+      "D": "Dagelijks",
+      "M": "Maandelijks",
+      "Q": "Per kwartaal",
+      "S": "Halfjaarlijks",
+      "W": "Weekelijks",
+      "Y": "Jaarlijks",
+      "goal_custom": "Gedefinieerd in de doelstelling"
+    }
+  },
+  "levels": {
+    "columns": {
+      "citation": "Citatie",
+      "icon": "Iconen",
+      "level": "Niveau",
+      "name": "Naam",
+      "percent": "% van de spelers",
+      "points": "Te behalen punten"
+    },
+    "list_title": "Lijst met niveaus"
+  },
+  "login": {
+    "code_label": "Bedrijfscode",
+    "code_placeholder": "Voer je bedrijfscode in",
+    "create_password_company_code_invalid": "De ingevoerde bedrijfscode is niet geldig. Voer de bedrijfscode in die in de welkomstmail is verzonden",
+    "create_password_error": "Deze link is niet langer geldig. Dien een nieuw verzoek in om het wachtwoord opnieuw in te stellen",
+    "create_password_invalid": "Deze link is niet geldig",
+    "create_password_missing_user": "Deze link correspondeert met geen enkele gebruiker of is al gebruikt",
+    "create_password_outdated": "Deze link is niet langer geldig. Dien een nieuw verzoek in om het wachtwoord opnieuw in te stellen",
+    "create_password_password_invalid": "Ongeldig wachtwoord",
+    "create_password_submit": "Wachtwoord maken",
+    "create_password_success": "Je wachtwoord is succesvol aangemaakt",
+    "create_password_title": "Maak je wachtwoord aan",
+    "description_line1": "De gamified-oplossing",
+    "description_line2": "Monitoring en animatie",
+    "description_line3": "van de prestatie",
+    "email_label": "E-mail",
+    "email_placeholder": "Voer je e-mailadres in",
+    "error": "De aanmeldgegevens zijn niet correct",
+    "error_company_code": "De ingevoerde bedrijfscode is niet geldig",
+    "force_reset_password_message": "Je wachtwoord is verlopen, je moet een nieuw wachtwoord kiezen om je account te beschermen",
+    "force_reset_password_title": "Je wachtwoord wijzigen",
+    "password_label": "Wachtwoord",
+    "reset_password": "Ik ben mijn wachtwoord vergeten",
+    "reset_password_cancel": "Ga terug naar de inlogpagina",
+    "reset_password_confirm_error": "Deze link is niet langer geldig. Dien een nieuw verzoek in om het wachtwoord opnieuw in te stellen",
+    "reset_password_confirm_success": "Je wachtwoord is succesvol gereset",
+    "reset_password_error": "Er is geen account gevonden met dit e-mailadres",
+    "reset_password_submit": "Wachtwoord resetten",
+    "reset_password_success": "Er is een e-mail naar je gestuurd met een link om je wachtwoord opnieuw in te stellen",
+    "reset_password_title": "Wachtwoord vergeten",
+    "sso_dialog_title": "SSO-verbinding",
+    "sso_error_message": "SSO is niet geconfigureerd. Neem contact op met een Fire Tiger-beheerder",
+    "sso_submit_button": "Meld je aan met SSO",
+    "store_message_1": "De Fire Tiger-app is beschikbaar voor iPhone en Android.",
+    "store_message_2": "Download hem nu:",
+    "submit_button": "Meld je aan",
+    "title": "Inloggen"
+  },
+  "menu": {
+    "admin_button": "Beheer",
+    "administrator_label": "Beheerder",
+    "help_button": "Hulp",
+    "infos_button": "Mijn gegevens",
+    "level_label": "Niveau {0}",
+    "logout_button": "Uitloggen",
+    "manager_label": "Manager",
+    "notifications_button": "Notificaties",
+    "points_label": "{0} PUNTEN",
+    "rules_button": "Spelregels"
+  },
+  "newsfeed": {
+    "all_roles": "Alle rollen",
+    "comment_action": "Reageren",
+    "comment_creation_success": "Je recensie is gemaakt",
+    "comment_delete_success": "Je reactie is succesvol verwijderd",
+    "comment_placeholder": "Schrijf hier je reactie",
+    "comment_update_success": "Je beoordeling is succesvol bijgewerkt",
+    "comments": "Opmerkingen",
+    "edit_post_title": "Het bericht wijzigen",
+    "embed_prompt": "Plak hier de embed-URL van de video",
+    "empty_state_message": "Maak je eerste bericht",
+    "empty_state_title": "Geen berichten gevonden",
+    "for_everybody": "Iedereen",
+    "like": "Ik vind het leuk",
+    "likes_list_title": "Reacties",
+    "new_post_title": "Nieuwe berichten",
+    "no_more_posts": "Einde van de nieuwsfeed",
+    "post_content_placeholder": "Schrijf hier je tekst",
+    "post_creation_success": "Je bericht is succesvol aangemaakt",
+    "post_delete_success": "Je bericht is succesvol verwijderd",
+    "post_placeholder": "Maak een nieuw bericht",
+    "post_report_success": "Er is rekening gehouden met je melding",
+    "post_settings": "Publicatie-instellingen",
+    "post_update_success": "Je bericht is succesvol bijgewerkt",
+    "post_visibility_role_tooltip": "Zichtbaar door: {0}",
+    "reply": "Beantwoorden",
+    "reported_comment": "Gerapporteerde opmerking",
+    "reported_post": "Gerapporteerde publicatie",
+    "see_less": "... minder zien",
+    "see_more": "... meer zien",
+    "share_button": "Deel met",
+    "title": "Nieuwsfeed",
+    "video_size_error": "De videogrootte ({0}) mag niet groter zijn dan 50 MB",
+    "who_can_see_your_post": "Wie kan je bericht zien?"
+  },
+  "notification": {
+    "date": {
+      "days": "{0} dag",
+      "hours": "{0} uur",
+      "minutes": "{0} min"
+    },
+    "empty_message": "Geen melding ontvangen"
+  },
+  "organization_menu": {
+    "hide": "Verberg de",
+    "show": "Laat het zien"
+  },
+  "point_summary": {
+    "orders_button": "Te bevestigen orders",
+    "panopli_button": "Ga naar de winkel",
+    "panopli_error": "Er is geen account gevonden in de winkel",
+    "points_label": "Totaal aantal verzamelde punten",
+    "points_value": "{0} Punten",
+    "title": "Algemene informatie",
+    "usable_points_label": "Puntensaldo",
+    "usable_points_value": "{0} Punten",
+    "used_points_label": "Totaal aantal gebruikte punten",
+    "used_points_value": "{0} Punten",
+    "validated_values_label": "Totale gebruikte waarde",
+    "validated_values_value": "{0} €",
+    "waiting_points_label": "Punten in afwachting van validatie",
+    "waiting_points_value": "{0} Punten"
+  },
+  "ranking": {
+    "challenges_title": "Uitdaging",
+    "collaborator_category_title": "Individuele ranglijst",
+    "collaborator_challenge_title": "Rangorde van individuele uitdagingen",
+    "collaborator_general_title": "Algemene individuele ranglijst",
+    "collaborator_tab": "Individueel",
+    "columns": {
+      "collaborator": "Spelers",
+      "name": "Voornaam",
+      "team": "Team"
+    },
+    "empty_state_title": "Geen ranglijst beschikbaar",
+    "general_title": "Algemene ranglijst",
+    "owner_title": "Mijn ranglijsten",
+    "team_category_title": "Ranglijst van teams",
+    "team_challenge_title": "Ranglijst van teamuitdagingen",
+    "team_general_title": "Algemene ranglijst van het team",
+    "team_tab": "Team",
+    "title": "Ranglijsten"
+  },
+  "reward": {
+    "creation": {
+      "error": "Er is een fout opgetreden bij het aanmaken van de prijs",
+      "subtitle": "Maak een prijs",
+      "success": "De prijs is succesvol gecreëerd"
+    },
+    "detail": {
+      "delivery_mode_text": "Verzendmethode: {0}",
+      "delivery_place_text": "Plaats: {0}",
+      "delivery_time_text": "Verwachte levertijd: {0}",
+      "description_area": "Omschrijving",
+      "image_close_button": "Sluiten",
+      "operation_step_1_description": "Controleer en bevestig je bestelling. Er wordt vervolgens een melding naar de beheerder van je bedrijf gestuurd om hem of haar op de hoogte te stellen van jouw verzoek.",
+      "operation_step_1_title": "Wanneer je op toevoegen klikt",
+      "operation_step_2_description": "Je order wacht op verwerking/bevestiging. De punten die zijn gebruikt op het moment van de order worden afgetrokken van jouw puntensaldo.",
+      "operation_step_2_title": "Order in behandeling",
+      "operation_step_3_description": "De beheerder van jouw bedrijf neemt jouw order in behandeling. Eenmaal gevalideerd en gefactureerd door de leverancier, worden jouw punten definitief van je puntensaldo afgetrokken.",
+      "operation_step_3_title": "Lopende order",
+      "operation_step_4_description": "Je prijs komt eraan! Je wordt op de hoogte gesteld door de beheerder van jouw bedrijf. Je prijs wordt gedeclareerd en is onderworpen aan bijdragen die worden betaald door de werkgever en/of werknemer.",
+      "operation_step_4_number": "Levering",
+      "operation_step_4_title": "Verzonden order",
+      "operation_title": "Hoe werkt het?",
+      "value_text": "Waarde: {0} €"
+    },
+    "duplication": {
+      "title": "Prijs dupliceren"
+    },
+    "edit": {
+      "title": "Prijs wijzigen"
+    },
+    "form": {
+      "category_label": "Categorie",
+      "delivery_area": "Levering",
+      "delivery_mode_label": "Leveringsmethode",
+      "delivery_place_label": "Plaats",
+      "delivery_time_label": "Levertijd",
+      "description_label": "Omschrijving",
+      "empty_image_text": "Geen afbeelding geselecteerd",
+      "image_label": "Selecteer een afbeelding...",
+      "infos_area": "Informatie",
+      "name_label": "Voornaam",
+      "points_label": "Aantal benodigde punten",
+      "type_label": "Type",
+      "value_label": "Waarde",
+      "value_suffix_label": "€"
+    },
+    "image_input_infos": "De afbeelding past zich aan en verandert afhankelijk van de grootte van het gebruikte scherm. Het aanbevolen beeldformaat voor een optimale weergave is 1024x700.",
+    "management": {
+      "collaborator_selector_area": "Selecteer een speler",
+      "collaborator_tab": "Spelers",
+      "team_selector_area": "Selecteer een team",
+      "team_tab": "Team",
+      "title": "Beheer van de prijzen"
+    },
+    "order_item_list": {
+      "close_button": "Ga verder met je aankopen",
+      "empty_text": "Leeg",
+      "points_value": "{0} Punten",
+      "quantity_label": "Hoeveelheid",
+      "value_label": "Waarde"
+    },
+    "order_list_export": {
+      "title": "Exporteer bevestigde orders"
+    },
+    "order_summary": {
+      "cart_points_label": "Totaal winkelwagentje",
+      "confirm_order_message": "Na bevestiging is het niet meer mogelijk om de order te annuleren, worden de punten van je puntensaldo verwijderd en wordt de waarde van de order gedeclareerd en is onderworpen aan bijdragen die zijn betaald door de werkgever en/of werknemer.",
+      "confirm_order_title": "Bevestig je bestelling van {0} punten ter waarde van {1} €?",
+      "confirm_refuse_message": "Eenmaal geweigerd, is het niet meer mogelijk om het opnieuw te activeren; de punten worden teruggezet naar het beschikbare puntensaldo. Het is jouw verantwoordelijkheid om de gebruiker op de hoogte te stellen van de reden voor de weigering.",
+      "confirm_refuse_title": "Weet je zeker dat je ordernummer {0} wilt weigeren voor een totaal van {1} punten ter waarde van {2} €?",
+      "confirm_validate_message": "Na bevestiging kan de bestelling niet meer worden geannuleerd, worden de punten afgetrokken van het beschikbare puntensaldo en moet de waarde van deze order worden gedeclareerd en is onderworpen aan bijdragen die door de werkgever en/of werknemer worden betaald.",
+      "confirm_validate_title": "Weet je zeker dat je het ordernummer {0} wilt bevestigen voor een totaal van {1} punten ter waarde van {2} €?",
+      "order_button": "Sorteren",
+      "order_points_label": "Totale order",
+      "order_points_value": "{0} Punten",
+      "order_value_label": "Totale waarde",
+      "recipient_points_label": "Huidig puntensaldo",
+      "recipient_points_value": "{0} Punten",
+      "refuse_button": "Weigeren",
+      "remaining_points_label": "Resterend puntensaldo",
+      "remaining_points_value": "{0} Punten"
+    },
+    "point_tag": "{0} PUNTEN",
+    "settings": {
+      "collaborator_reward_activation_option": "Activeer de prijs «speler»",
+      "manager_reward_creation": "Activeer de volgorde van beloningen door managers",
+      "manager_reward_notification": "Stel managers per e-mail op de hoogte van bestellingen die zijn geplaatst door spelers in hun team",
+      "team_reward_activation_option": "Activeer de prijs «team»"
+    },
+    "shopping_cart": {
+      "adding_confirmation_close_button": "Ga verder met je aankopen",
+      "adding_confirmation_message": "Je hebt zojuist dit product aan je winkelwagen toegevoegd:",
+      "adding_confirmation_shopping_cart_button": "Ga naar de winkelwagen",
+      "points_area": "Totaal winkelwagentje",
+      "points_area_year": "Jaar {0}",
+      "rewards_area": "Je winkelwagentje",
+      "success": "Je order is ontvangen"
+    },
+    "sort_by": "Sorteer op",
+    "sort_options": {
+      "asc": "Toenemend aantal punten",
+      "desc": "Afnemend aantal punten"
+    },
+    "store": {
+      "empty_state_message": "Als je meer prijzen wilt bekijken, moet je de filters eventueel aanpassen ",
+      "empty_state_title": "Geen prijs gevonden"
+    },
+    "title": "Prijs"
+  },
+  "roles": {
+    "A": "Administrator",
+    "C": "Speler",
+    "M": "Manager",
+    "S": "Supermanager"
+  },
+  "statistics": {
+    "category_title": "Categorie selecteren",
+    "empty_state_message": "Als je andere statistieken wilt bekijken, moet je eventuele filters aanpassen.",
+    "empty_state_title": "Geen statistieken gevonden",
+    "title": "Statistieken"
+  },
+  "team": {
+    "collaborators_text": "{0} Spelers",
+    "detail": {
+      "collaborators_text": "{0} spelers",
+      "manager_text": "Van {0} {1}",
+      "no_manager_text": "Geen manager",
+      "points_text": "{0} PUNTEN",
+      "victories_text": "{0} overwinning"
+    },
+    "empty_state_message": "De teams zijn nog niet gemaakt",
+    "empty_state_title": "Geen team gevonden",
+    "form": {
+      "collaborator": "Speler {0}",
+      "collaborators": "spelers",
+      "color": "Kleur",
+      "id": "Gebruikersnaam",
+      "manager": "Manager",
+      "name": "Voornaam",
+      "parent": "Afdeling hoofdgroep"
+    },
+    "group_collaborators_text": "{0} Beheerders",
+    "group_team_groups_text": "{0} afdelingen",
+    "group_teams_text": "{0} team",
+    "manager_text": "Van {0} {1}",
+    "no_manager_text": "Geen manager",
+    "title": "Team",
+    "title_singular": "Team"
+  },
+  "team_group": {
+    "form": {
+      "super_manager": "Supermanager",
+      "user": "Gebruiker {0}",
+      "users": "Gebruikers"
+    },
+    "thumbnail": {
+      "hide_children": "{0} teams verbergen",
+      "hide_children_team_group": "{0} afdelingen verbergen",
+      "show_children": "{0} teams bekijken",
+      "show_children_team_group": "{0} afdelingen bekijken"
+    },
+    "title_singular": "Afdeling"
+  },
+  "transfer_list": {
+    "participants": "Deelnemers",
+    "selection": "Beschikbaar",
+    "submit_selection": "Selectie valideren"
+  },
+  "widget": {
+    "activity": {
+      "inactive_profiles": "Inactieve profielen",
+      "info_text": "Hier vind je de lijst met mensen die langer dan 3 maanden niet actief zijn geweest in je teams."
+    },
+    "badge": {
+      "count1": "Je hebt",
+      "count2": "In uitvoering",
+      "without_count": "Badges van werknemers bekijken"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+export { default as TeamPointConfig } from './TeamPointConfig';
