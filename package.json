@@ -35,10 +35,7 @@
     "date-fns": "^2.9.0",
     "dayjs": "^1.11.7",
     "detect-browser": "^4.8.0",
-<<<<<<< HEAD
-=======
     "emoji-picker-react": "^4.11.0",
->>>>>>> dev
     "env-cmd": "^10.1.0",
     "file-saver": "^2.0.5",
     "flag-icons": "^6.1.1",
@@ -61,15 +58,10 @@
     "react-datasheet": "^1.4.9",
     "react-device-detect": "^2.2.3",
     "react-dom": "^17.0.2",
-<<<<<<< HEAD
-    "react-draggable": "^4.4.4",
-    "react-error-boundary": "^3.1.0",
-=======
     "react-drag-drop-files": "^2.3.10",
     "react-draggable": "^4.4.4",
     "react-error-boundary": "^3.1.0",
     "react-giphy-searchbox": "^1.5.4",
->>>>>>> dev
     "react-google-recaptcha": "^2.1.0",
     "react-helmet": "^6.1.0",
     "react-intl": "^5.24.6",
@@ -107,11 +99,8 @@
     "build:sandbox": "NODE_OPTIONS=--openssl-legacy-provider env-cmd -f .env.external-sandbox react-app-rewired --max_old_space_size=4096 build",
     "build:mgen": "NODE_OPTIONS=--openssl-legacy-provider env-cmd -f .env.external-mgen react-app-rewired --max_old_space_size=4096 build",
     "build:jti": "NODE_OPTIONS=--openssl-legacy-provider env-cmd -f .env.external-jti react-app-rewired --max_old_space_size=4096 build",
-<<<<<<< HEAD
-=======
     "build:azure-preprod": "NODE_OPTIONS=--openssl-legacy-provider env-cmd -f .env.azure-preprod react-app-rewired --max_old_space_size=4096 build",
     "build:azure-prod": "NODE_OPTIONS=--openssl-legacy-provider env-cmd -f .env.azure-prod react-app-rewired --max_old_space_size=4096 build",
->>>>>>> dev
     "prebuild": "npm run generate-build-meta",
     "prebuild:local": "npm run generate-build-meta",
     "prebuild:dev": "npm run generate-build-meta",
