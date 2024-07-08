@@ -99,6 +99,8 @@
     "build:sandbox": "NODE_OPTIONS=--openssl-legacy-provider env-cmd -f .env.external-sandbox react-app-rewired --max_old_space_size=4096 build",
     "build:mgen": "NODE_OPTIONS=--openssl-legacy-provider env-cmd -f .env.external-mgen react-app-rewired --max_old_space_size=4096 build",
     "build:jti": "NODE_OPTIONS=--openssl-legacy-provider env-cmd -f .env.external-jti react-app-rewired --max_old_space_size=4096 build",
+    "build:azure-preprod": "NODE_OPTIONS=--openssl-legacy-provider env-cmd -f .env.azure-preprod react-app-rewired --max_old_space_size=4096 build",
+    "build:azure-prod": "NODE_OPTIONS=--openssl-legacy-provider env-cmd -f .env.azure-prod react-app-rewired --max_old_space_size=4096 build",
     "prebuild": "npm run generate-build-meta",
     "prebuild:local": "npm run generate-build-meta",
     "prebuild:dev": "npm run generate-build-meta",
