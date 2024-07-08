@@ -57,7 +57,7 @@ jobs:
       - name: Build the application
         env:
           CI: false
-        run: yarn build:azure-prod
+        run: yarn build:azure-dev
 
       - name: Deploy to Azure Web App - objow-front-dev
         uses: azure/webapps-deploy@v2
