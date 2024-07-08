@@ -31,6 +31,10 @@ const cssBaselineStyles = {
                     flexDirection: 'column',
                 },
                 '& main': {
+<<<<<<< HEAD
+=======
+                    alignItems: 'center',
+>>>>>>> dev
                     display: 'flex',
                     flex: 1,
                     flexDirection: 'column',

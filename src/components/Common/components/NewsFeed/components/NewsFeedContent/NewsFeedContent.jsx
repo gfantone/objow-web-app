@@ -220,6 +220,12 @@ const NewsFeedContent = ({ smallPages, ...props }) => {
     if (post.embed) {
       data.append('embed', post.embed);
     }
+<<<<<<< HEAD
+=======
+    if (post.gif) {
+      data.append('gif', post.gif);
+    }
+>>>>>>> dev
     data.append('description', post.description);
 
     const team = _.get(

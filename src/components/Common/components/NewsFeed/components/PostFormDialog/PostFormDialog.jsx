@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 import React, { useState, useRef, useEffect } from 'react';
 import Formsy from 'formsy-react';
 import { Grid, IconButton, Chip } from '@material-ui/core';
+=======
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import Formsy from 'formsy-react';
+import { Grid, IconButton, Chip } from '@material-ui/core';
+import EmojiPicker from 'emoji-picker-react';
+>>>>>>> dev
 import {
   DefaultText,
   Dialog,
@@ -17,7 +24,11 @@ import {
 } from '../../..';
 import { LinkPreview } from '../LinkPreview';
 import { withStyles } from '@material-ui/core/styles';
+<<<<<<< HEAD
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
+=======
+import withWidth, { isWidthDown, isWidthUp } from '@material-ui/core/withWidth';
+>>>>>>> dev
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,7 +40,14 @@ import {
   faCode,
   faChevronDown,
   faInfoCircle,
+<<<<<<< HEAD
 } from '@fortawesome/free-solid-svg-icons';
+=======
+  faLaughBeam,
+} from '@fortawesome/free-solid-svg-icons';
+import GifBoxIcon from '@mui/icons-material/GifBox';
+import ReactGiphySearchbox from 'react-giphy-searchbox';
+>>>>>>> dev
 import * as roleListActions from '../../../../../../services/Roles/RoleList/actions';
 import { useIntl, injectIntl } from 'react-intl';
 import { toast } from 'react-toastify';
@@ -58,6 +76,10 @@ const styles = (theme) => {
     dialog: {
       width: 700,
       minWidth: 700,
+<<<<<<< HEAD
+=======
+      height: 500,
+>>>>>>> dev
     },
     dialogParams: {
       width: 550,
@@ -113,6 +135,10 @@ const styles = (theme) => {
     },
   };
 };
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
 const PostFormDialog = ({
   loading: creationLoading,
   classes,
@@ -127,12 +153,26 @@ const PostFormDialog = ({
 }) => {
   const { account } = props.accountDetail;
   const { roles } = props.roleList;
+<<<<<<< HEAD
   const isMobile = isWidthDown('sm', width);
+=======
+
+  const isMobile = isWidthDown('xs', width);
+  const isTablet = isWidthUp('sm', width) && isWidthDown('md', width);
+  const isDesktop = isWidthUp('lg', width);
+
+>>>>>>> dev
   const [image, setImage] = useState(_.get(post, 'image'));
   const [video, setVideo] = useState(_.get(post, 'video'));
   const [file, setFile] = useState(_.get(post, 'file'));
   const [embed, setEmbed] = useState(_.get(post, 'embed'));
+<<<<<<< HEAD
   const [description, setDescription] = useState(_.get(post, 'description'));
+=======
+  const [description, setDescription] = useState(
+    _.get(post, 'description', '')
+  );
+>>>>>>> dev
   const [linkPreview, setLinkPreview] = useState(_.get(post, 'link_preview'));
   const [openGraphLoading, setOpenGraphLoading] = useState(false);
   const [visibleOptions, setVisibleOptions] = useState(false);
@@ -161,15 +201,71 @@ const PostFormDialog = ({
     account.team ? account.team : _.get(post, 'visibility.team', {})
   );
   const [selectedRadioButton, setSelectedRadioButton] = useState('');
+<<<<<<< HEAD
 
+=======
+  const [showGiphyPicker, setShowGiphyPicker] = useState(false);
+  const [gif, setGif] = useState(_.get(post, 'gif'));
+  const gifApiKey = process.env.REACT_APP_GIF_API_KEY;
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+>>>>>>> dev
   const isCollaborator = account.role.code === 'C';
   const isAdministrator = account.role.code === 'A';
   const isSuperManager = account.role.code === 'S';
   const isManager = account.role.code === 'M';
+<<<<<<< HEAD
   const imageInput = useRef();
   const videoInput = useRef();
   const fileInput = useRef();
   const intl = useIntl();
+=======
+  const emojiInputRef = useRef();
+  const gifInputRef = useRef();
+  const imageInput = useRef();
+  const videoInput = useRef();
+  const fileInput = useRef();
+  const textFieldRef = useRef();
+  const intl = useIntl();
+  const gifIconRef = useRef(null);
+  const emojiIconRef = useRef(null);
+  const [positions, setPositions] = useState({
+    gif: { top: 0, left: 0 },
+    emoji: { top: 0, left: 0 },
+  });
+
+  const updatePosition = (type) => {
+    const ref = type === 'gif' ? gifIconRef : emojiIconRef;
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      setPositions((prev) => ({
+        ...prev,
+        [type]: {
+          top: rect.top + window.scrollY,
+          left: rect.left + window.scrollX,
+        },
+      }));
+    }
+  };
+
+  useLayoutEffect(() => {
+    updatePosition('emoji');
+  }, [emojiIconRef.current, showEmojiPicker, width]);
+
+  useLayoutEffect(() => {
+    updatePosition('gif');
+  }, [gifIconRef.current, showGiphyPicker, width]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      updatePosition('emoji');
+      updatePosition('gif');
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+>>>>>>> dev
 
   const fullVisibility = intl.formatMessage({ id: 'newsfeed.for_everybody' });
   useEffect(() => {
@@ -182,12 +278,24 @@ const PostFormDialog = ({
 
   const handleOpenOptions = () => {
     setVisibleOptions(!visibleOptions);
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
     if (!visibilityAll) {
       setIsFilterVisible(true);
     }
   };
+<<<<<<< HEAD
 
+=======
+  const openGifPicker = () => {
+    setShowGiphyPicker(!showGiphyPicker);
+  };
+  const openEmojiInput = () => {
+    setShowEmojiPicker(!showEmojiPicker);
+  };
+>>>>>>> dev
   const openImageInput = () => {
     imageInput.current.click();
   };
@@ -222,12 +330,21 @@ const PostFormDialog = ({
       }
     }
   };
+<<<<<<< HEAD
 
   useEffect(() => {
     setDescription(_.get(post, 'description'));
     setImage(_.get(post, 'image'));
     setVideo(_.get(post, 'video'));
     setFile(_.get(post, 'file'));
+=======
+  useEffect(() => {
+    setDescription(_.get(post, 'description', ''));
+    setImage(_.get(post, 'image'));
+    setVideo(_.get(post, 'video'));
+    setFile(_.get(post, 'file'));
+    setGif(_.get(post, 'gif'));
+>>>>>>> dev
     setLinkPreview(_.get(post, 'link_preview'));
     setTeamId(
       _.get(post, 'visibility.team.id') ||
@@ -259,6 +376,10 @@ const PostFormDialog = ({
       setFile();
       setLinkPreview();
       setEmbed();
+<<<<<<< HEAD
+=======
+      setGif();
+>>>>>>> dev
 
       if (video.size > 300000000) {
         const videoSize = `${parseInt(video.size / 1000000)} Mo`;
@@ -278,6 +399,10 @@ const PostFormDialog = ({
       setFile();
       setLinkPreview();
       setEmbed();
+<<<<<<< HEAD
+=======
+      setGif();
+>>>>>>> dev
     }
   }, [image]);
 
@@ -287,6 +412,10 @@ const PostFormDialog = ({
       setImage();
       setLinkPreview();
       setEmbed();
+<<<<<<< HEAD
+=======
+      setGif();
+>>>>>>> dev
     }
   }, [file]);
 
@@ -296,6 +425,10 @@ const PostFormDialog = ({
       setImage();
       setFile();
       setEmbed();
+<<<<<<< HEAD
+=======
+      setGif();
+>>>>>>> dev
     }
   }, [linkPreview]);
 
@@ -305,15 +438,59 @@ const PostFormDialog = ({
       setImage();
       setFile();
       setLinkPreview();
+<<<<<<< HEAD
+=======
+      setGif();
+>>>>>>> dev
     }
   }, [embed]);
 
   useEffect(() => {
+<<<<<<< HEAD
+=======
+    if (gif) {
+      setVideo();
+      setImage();
+      setFile();
+      setLinkPreview();
+      setEmbed();
+    }
+  }, [gif]);
+
+  useEffect(() => {
+>>>>>>> dev
     if (!roles && !props.roleList.loading) {
       props.roleListActions.getRoleList();
     }
   }, []);
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        emojiInputRef.current &&
+        !emojiInputRef.current.contains(event.target)
+      ) {
+        setShowEmojiPicker(false);
+      }
+      if (gifInputRef.current && !gifInputRef.current.contains(event.target)) {
+        setShowGiphyPicker(false);
+      }
+    };
+
+    if (emojiInputRef.current || gifInputRef.current) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showEmojiPicker, showGiphyPicker]);
+
+>>>>>>> dev
   const resetFormState = () => {
     setSelectedRadioButton(fullVisibility);
     setVisibilityAll(true);
@@ -321,6 +498,10 @@ const PostFormDialog = ({
 
   const handleSubmitForm = (model) => {
     const { url, title, image, site_name } = linkPreview || {};
+<<<<<<< HEAD
+=======
+    const gifUrl = gif ? _.get(gif, 'images.fixed_height.url', null) : null;
+>>>>>>> dev
     if (teamId || teamGroupId || visibilityAll) {
       onSubmit(
         Object.assign(
@@ -336,6 +517,10 @@ const PostFormDialog = ({
           },
           {
             link_preview: linkPreview ? { url, title, image, site_name } : null,
+<<<<<<< HEAD
+=======
+            gif: gifUrl,
+>>>>>>> dev
           }
         )
       );
@@ -347,8 +532,14 @@ const PostFormDialog = ({
   };
 
   const onTextChange = (value) => {
+<<<<<<< HEAD
     setDescription(value);
     regexCheck(value);
+=======
+    const newValue = value || '';
+    setDescription(newValue);
+    regexCheck(newValue);
+>>>>>>> dev
   };
 
   const onSubmitTeamAndTeamGroup = (
@@ -380,6 +571,20 @@ const PostFormDialog = ({
     });
   };
 
+<<<<<<< HEAD
+=======
+  const onEmojiClick = (emojiObject, event) => {
+    const currentDescription = description || '';
+    const position = parseInt(textFieldRef.current.selectionStart);
+    const newDescription = `${currentDescription.slice(0, position)}${
+      emojiObject.emoji || ''
+    }${currentDescription.slice(position)}`;
+    setDescription(newDescription);
+    regexCheck(newDescription);
+    setShowEmojiPicker(!showEmojiPicker);
+  };
+
+>>>>>>> dev
   return (
     <div>
       {dialogOpen && (
@@ -598,6 +803,14 @@ const PostFormDialog = ({
                         value={embed}
                         style={{ margin: 0 }}
                       />
+<<<<<<< HEAD
+=======
+                      <HiddenInput
+                        name='gif'
+                        value={gif}
+                        style={{ margin: 0 }}
+                      />
+>>>>>>> dev
                       <Grid container spacing={2}>
                         <Grid
                           item
@@ -623,8 +836,19 @@ const PostFormDialog = ({
                               id: 'newsfeed.post_content_placeholder',
                             })}
                             autoFocus
+<<<<<<< HEAD
                           />
                           {(image || video || file || linkPreview || embed) && (
+=======
+                            inputRef={textFieldRef}
+                          />
+                          {(image ||
+                            video ||
+                            file ||
+                            linkPreview ||
+                            embed ||
+                            gif) && (
+>>>>>>> dev
                             <Grid item xs={12} style={{ position: 'relative' }}>
                               <IconButton
                                 size='medium'
@@ -634,6 +858,10 @@ const PostFormDialog = ({
                                   setFile();
                                   setLinkPreview();
                                   setEmbed();
+<<<<<<< HEAD
+=======
+                                  setGif();
+>>>>>>> dev
                                 }}
                                 className={classes.mediaCloseIcon}
                                 style={{
@@ -709,6 +937,29 @@ const PostFormDialog = ({
                                   />
                                 </Grid>
                               )}
+<<<<<<< HEAD
+=======
+                              {gif && (
+                                <Grid
+                                  item
+                                  xs={12}
+                                  style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                  }}
+                                >
+                                  <img
+                                    src={
+                                      typeof gif === 'string'
+                                        ? gif
+                                        : _.get(gif, 'images.fixed_height.url')
+                                    }
+                                    alt='gif'
+                                    style={{ width: '100%' }}
+                                  />
+                                </Grid>
+                              )}
+>>>>>>> dev
                             </Grid>
                           )}
                         </Grid>
@@ -743,6 +994,30 @@ const PostFormDialog = ({
                                 spacing={1}
                                 alignItems='flex-start'
                               >
+<<<<<<< HEAD
+=======
+                                {isDesktop && (
+                                  <Grid item>
+                                    <IconButton
+                                      size='medium'
+                                      onClick={openEmojiInput}
+                                      className={classes.iconButton}
+                                      ref={emojiIconRef}
+                                    >
+                                      <FontAwesomeIcon icon={faLaughBeam} />
+                                    </IconButton>
+                                  </Grid>
+                                )}
+                                <Grid item ref={gifIconRef}>
+                                  <IconButton
+                                    size='medium'
+                                    onClick={openGifPicker}
+                                    className={classes.iconButton}
+                                  >
+                                    <GifBoxIcon fontSize='large' />
+                                  </IconButton>
+                                </Grid>
+>>>>>>> dev
                                 <Grid item>
                                   <IconButton
                                     size='medium'
@@ -801,6 +1076,61 @@ const PostFormDialog = ({
                             </Grid>
                           </Grid>
                         </Grid>
+<<<<<<< HEAD
+=======
+                        <Grid
+                          item
+                          style={{
+                            position: 'fixed',
+                            top: 225,
+                            left: 503,
+                          }}
+                        >
+                          {showEmojiPicker && (
+                            <Grid
+                              item
+                              style={{
+                                position: 'fixed',
+                                top: positions.emoji.top - 300,
+                                left: positions.emoji.left - 105,
+                              }}
+                              ref={emojiInputRef}
+                            >
+                              <EmojiPicker
+                                // reactionsDefaultOpen
+                                searchDisabled={true}
+                                previewConfig={{ showPreview: false }}
+                                width={250}
+                                height={300}
+                                onEmojiClick={onEmojiClick}
+                              />
+                            </Grid>
+                          )}
+                        </Grid>
+                        {showGiphyPicker && (
+                          <Grid
+                            item
+                            xs={12}
+                            style={{
+                              position: 'fixed',
+                              top: isMobile ? '190px' : positions.gif.top - 365,
+                              left: isMobile
+                                ? '30px'
+                                : positions.gif.left - 110,
+                              zIndex: 1000,
+                            }}
+                            ref={gifInputRef}
+                          >
+                            <ReactGiphySearchbox
+                              apiKey={gifApiKey}
+                              onSelect={(item) => {
+                                setGif(item);
+                                setShowGiphyPicker(false);
+                              }}
+                            />
+                          </Grid>
+                        )}
+>>>>>>> dev
                       </Grid>
                     </Formsy>
                   </Grid>

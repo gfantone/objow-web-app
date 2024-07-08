@@ -775,12 +775,22 @@ class ChallengeUpdate extends MainLayoutComponent {
                   </Grid>
                 </Grid>
                 <Grid item xs={12} container spacing={2}>
+<<<<<<< HEAD
                   {(!this.state.teamPersonalized || !this.state.teamPersonalized.collaborators) && (
+=======
+                  {(!this.state.teamPersonalized || !this.state.teamPersonalized.collaborators ||
+                    !this.state.participantsPersonalized || this.state.participantsPersonalized.length === 0) && (
+>>>>>>> dev
                     <Grid item xs={12}>
                       <Loader centered/>
                     </Grid>
                   )}
+<<<<<<< HEAD
                   {this.state.teamPersonalized && this.state.teamPersonalized.collaborators && (
+=======
+                  {this.state.teamPersonalized && this.state.teamPersonalized.collaborators &&
+                    this.state.participantsPersonalized && this.state.participantsPersonalized.length > 0 && (
+>>>>>>> dev
                     <Grid item xs={12}>
                       <TransferList
                         listIn={teamGroup}

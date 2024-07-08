@@ -46,6 +46,10 @@ import managers from './endpoints/managers';
 import menuNotifications from './endpoints/menuNotifications';
 import metabase from './endpoints/metabase';
 import notifications from './endpoints/notifications';
+<<<<<<< HEAD
+=======
+import hierarchyNodes from './endpoints/hierarchyNodes';
+>>>>>>> dev
 import openGraph from './endpoints/openGraph';
 import posts from './endpoints/posts';
 import postComments from './endpoints/postComments';
@@ -132,6 +136,10 @@ const api = {
     mails,
     managers,
     metabase,
+<<<<<<< HEAD
+=======
+    hierarchyNodes,
+>>>>>>> dev
     notifications,
     openGraph,
     posts,

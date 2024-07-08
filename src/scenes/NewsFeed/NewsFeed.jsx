@@ -57,7 +57,10 @@ class NewsFeed extends MainLayoutComponent {
 
   handleSubmit = (model) => {
     const data = new FormData();
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
     if (model.image) {
       data.append('image', model.image);
     }
@@ -70,6 +73,12 @@ class NewsFeed extends MainLayoutComponent {
     if (model.embed) {
       data.append('embed', model.embed);
     }
+<<<<<<< HEAD
+=======
+    if (model.gif) {
+      data.append('gif', model.gif);
+    }
+>>>>>>> dev
     data.append('description', model.description);
 
     const team = _.get(

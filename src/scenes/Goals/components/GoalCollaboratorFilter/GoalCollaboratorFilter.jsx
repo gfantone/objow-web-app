@@ -414,7 +414,10 @@ class GoalCollaboratorFilter extends Component {
   renderData() {
     const { intl } = this.props;
     const { account } = this.props.accountDetail;
+<<<<<<< HEAD
     console.log('this.props.teamList', this.props.teamList)
+=======
+>>>>>>> dev
     const teams = this.props.teamList.teams.filter((team) => !team.custom);
     // const { categories } = this.props.categoryList;
     const { categories: teamCategories } = this.props.teamGoalCategoryList;

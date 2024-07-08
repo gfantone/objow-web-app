@@ -62,6 +62,15 @@ const styles = {
   image: {
     width: '100%',
   },
+<<<<<<< HEAD
+=======
+  gifImage: {
+    // maxWidth: '500px',
+    // maxHeight: '500px',
+    width: '100%',
+    // height: 'auto',
+  },
+>>>>>>> dev
   postText: {
     padding: 10,
   },
@@ -137,6 +146,10 @@ const Post = ({
   const [imagePath, setImagePath] = React.useState();
   const [videoPath, setVideoPath] = React.useState();
   const [filePath, setFilePath] = React.useState();
+<<<<<<< HEAD
+=======
+  const [gifPath, setGifPath] = React.useState();
+>>>>>>> dev
   const [likeState, setLikeState] = React.useState(post.current_user_like);
   const [likesCount, setLikesCount] = React.useState(post.likes_count);
   const [likes, setLikes] = React.useState(post.likes);
@@ -250,7 +263,10 @@ const Post = ({
     onUpdate(newPost);
     setEdit(false);
   };
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
   useEffect(() => {
     if (post.image) {
       if (typeof post.image === 'string') {
@@ -285,6 +301,16 @@ const Post = ({
         reader.readAsDataURL(post.file);
       }
     }
+<<<<<<< HEAD
+=======
+    if (post.gif) {
+      if (typeof post.gif === 'string') {
+        setGifPath(post.gif);
+      } else {
+        setGifPath(_.get(post.gif, 'images.fixed_height.url'));
+      }
+    }
+>>>>>>> dev
   }, [post]);
 
   useEffect(() => {
@@ -483,6 +509,18 @@ const Post = ({
               </video>
             </Grid>
           )}
+<<<<<<< HEAD
+=======
+          {post.gif && (
+            <Grid
+              item
+              xs={12}
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              <img src={gifPath} className={classes.gifImage} />
+            </Grid>
+          )}
+>>>>>>> dev
 
           {filePath && (
             <Grid item xs={12}>

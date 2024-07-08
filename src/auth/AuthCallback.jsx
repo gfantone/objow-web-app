@@ -2,11 +2,18 @@ import React, {useEffect} from 'react';
 import {useHistory, useLocation} from 'react-router-dom';
 import {CircularProgress} from '@material-ui/core';
 
+<<<<<<< HEAD
 import {useAuth} from './AuthContext';
 import {getQueryParam} from '../helpers/UrlHelper';
 
 const AuthCallback = () => {
     const {loginCallback} = useAuth();
+=======
+import {loginCallback} from './oidc';
+import {getQueryParam} from '../helpers/UrlHelper';
+
+const AuthCallback = () => {
+>>>>>>> dev
     const history = useHistory();
     const location = useLocation();
 

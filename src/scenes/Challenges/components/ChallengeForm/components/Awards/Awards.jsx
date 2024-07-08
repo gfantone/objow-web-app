@@ -235,7 +235,11 @@ const Awards = ({
                   const number = index + 1;
                   const labels = {
                     M:
+<<<<<<< HEAD
                       challengeTypeCode === 'CT'
+=======
+                      challengeTypeCode === 'CT' || challengeTypeCode === 'TP'
+>>>>>>> dev
                         ? intl.formatMessage({
                             id: 'challenge.award_list.team_max_point_label',
                           })
@@ -243,7 +247,11 @@ const Awards = ({
                             id: 'challenge.award_list.collaborator_max_point_label',
                           }),
                     R:
+<<<<<<< HEAD
                       challengeTypeCode === 'CT'
+=======
+                      challengeTypeCode === 'CT' || challengeTypeCode === 'TP'
+>>>>>>> dev
                         ? intl
                             .formatMessage({
                               id: 'challenge.award_list.team_point_label',
@@ -255,7 +263,11 @@ const Awards = ({
                             })
                             .format(number),
                     C:
+<<<<<<< HEAD
                       challengeTypeCode === 'CT'
+=======
+                      challengeTypeCode === 'CT' || challengeTypeCode === 'TP'
+>>>>>>> dev
                         ? intl
                             .formatMessage({
                               id: 'challenge.award_list.team_point_label',

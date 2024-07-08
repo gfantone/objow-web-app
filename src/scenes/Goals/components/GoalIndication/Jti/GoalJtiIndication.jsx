@@ -127,6 +127,29 @@ const GoalIndication = ({
   return (
     <div>
       <Grid container spacing={2}>
+<<<<<<< HEAD
+=======
+        {lastUpdate && (
+          <Grid item xs={12} style={{ paddingTop: 0 }}>
+            <DefaultText
+              isContrast
+              lowercase
+              style={{ fontSize: 12, opacity: 0.8 }}
+            >
+              {intl
+                .formatMessage({ id: 'challenge.condition.last_update' })
+                .format(lastUpdate.toLocaleDateString(), lastUpdateTime)}
+              <span style={{ fontWeight: 'bold' }}>
+                {intl
+                  .formatMessage({
+                    id: 'challenge.condition.last_update_time',
+                  })
+                  .format(lastUpdate.toLocaleDateString(), lastUpdateTime)}
+              </span>
+            </DefaultText>
+          </Grid>
+        )}
+>>>>>>> dev
         {(hasLevels ||
           (customRepartitions && customRepartitions.length > 0)) && (
           <Grid item xs={12}>
@@ -138,6 +161,7 @@ const GoalIndication = ({
                   })}
                 </DefaultTitle>
               </Grid>
+<<<<<<< HEAD
               {lastUpdate && (
                 <Grid item xs={12} style={{ paddingTop: 0 }}>
                   <DefaultText
@@ -161,6 +185,9 @@ const GoalIndication = ({
                   </DefaultText>
                 </Grid>
               )}
+=======
+
+>>>>>>> dev
               <Grid item xs={12}>
                 <Card marginDisabled>
                   <Grid container direction='column' spacing={2}>

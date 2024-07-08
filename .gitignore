@@ -15,6 +15,10 @@
 
 # misc
 .DS_Store
+<<<<<<< HEAD
+=======
+.env
+>>>>>>> dev
 .env.local
 .env.development.local
 .env.development

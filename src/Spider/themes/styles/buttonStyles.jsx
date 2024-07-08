@@ -29,6 +29,17 @@ const buttonStyles = {
                 backgroundColor: neutralColors.neutral200,
                 color: neutralColors.neutral400,
             },
+<<<<<<< HEAD
+=======
+            '&.size-tiny': {
+                borderRadius: '8px',
+                padding: '4px 8px',
+                '&.icon': {
+                    minWidth: 0,
+                    padding: '4px',
+                }
+            }
+>>>>>>> dev
         },
         containedSizeLarge: {
             padding: '16px 24px',

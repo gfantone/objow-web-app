@@ -1261,6 +1261,91 @@
         "validation": "Validation"
       }
     },
+<<<<<<< HEAD
+=======
+    "org": {
+      "contract_selection": {
+        "title": "Sélectionnez votre opération"
+      }
+    },
+    "imageAlt": {
+      "preview": "Aperçu",
+      "banner": "Bannière",
+      "logo": "Votre logo"
+    },
+    "systemFile": {
+      "fileUpload": {
+        "dragAndDropLabel": "Glisser / déposer votre fichier ici",
+        "documentImportedSuccess": "Document bien importé",
+        "importActionLabel": "Importer un fichier",
+        "importActionLabelOnExistingFile": "Ré-importer un fichier",
+        "fileTypesLabel": "Type fichier autorisés:"
+      },
+      "update": {
+        "success": "Le nouveau fichier a bien été enregistré",
+        "error": "Une erreur s'est produite lors de l'enregistrement du nouveau fichier"
+      },
+      "delete": {
+        "success": "La suppression du fichier a réussie",
+        "error": "Une erreur s'est produite lors de la supression du fichier"
+      }
+    },
+    "hierarchy_node": {
+      "platform_customization": {
+        "title": "Administration",
+        "adminTabLabel": {
+          "regulations": "Règlementation",
+          "personalization": "Personnalisation de la plateforme",
+          "parameters": "Paramètres"
+        },
+        "regulations": {
+          "title": "Vos documents",
+          "subtitle": "Vous pouvez mettre à jour l'ensemble des documents réglementaires relatifs à votre opération. Attention, seul le format PDF est accepté.",
+          "updateDocument": "Mettre à jour",
+          "statusActive": "Actif",
+          "statusInactive": "Inactif",
+          "legalNotice": "Mentions légales",
+          "dataProtection": "Protection des données",
+          "platformRegulation": "Règlement de la plateforme"
+        },
+        "personalization": {
+          "title": "Votre personnalisation",
+          "subtitle": "Ce bloc de personnalisation sur la page d'accueil de vos participants.",
+          "rightDialogUploadTitleBanner": "Modifier l'image de fond",
+          "rightDialogUploadTitleLogo": "Modifier le logo",
+          "form": {
+            "title": "Titre",
+            "description": "Description"
+          },
+          "update": {
+            "success": "Les modifications ont bien été enregistrées",
+            "error": "Une erreur s'est produite lors de l'enregistrement des modifications"
+          },
+          "save_method": {
+            "label": "Enregistrer"
+          }
+        },
+        "mainColor": {
+          "title": "Votre couleur principale",
+          "subtitle": "Cette couleur apparaîtra dans le menu, en accentuationsur les différentes pages et sur l'accueil de vos participants.",
+          "form": {
+            "color": "Entrez votre code hexadécimal"
+          },
+          "update": {
+            "success": "La couleur principale a bien été enregistrée",
+            "error": "Une erreur s'est produite lors de l'enregistrement de la couleur"
+          },
+          "save_method": {
+            "label": "Enregistrer"
+          }
+        }
+      }
+    },
+    "data_table": {
+      "number_of_lines_displayed": "Nombre de lignes affichées",
+      "no_data_available": "Pas de données disponibles"
+    },
+>>>>>>> dev
     "errors": {
       "contract_inaccessible": {
         "title": "Plateforme inaccessible",
@@ -1272,6 +1357,15 @@
         "message": "Veuillez contacter votre gestionnaire de compte.",
         "close": "Terminer"
       }
+<<<<<<< HEAD
+=======
+    },
+    "sidebar": {
+      "home": "Accueil",
+      "participants": "Participants",
+      "points": "Points",
+      "administration": "Administration"
+>>>>>>> dev
     }
   },
   "common": {
@@ -1333,6 +1427,10 @@
       "is_int_error": "La valeur doit être un nombre entier.",
       "is_more_than_or_equals_0_error": "La valeur doit être supérieure ou égal à 0.",
       "max_length_128_error": "La valeur doit faire moins de 128 caractères.",
+<<<<<<< HEAD
+=======
+      "max_length_custom_error": "La valeur doit faire moins de {0} caractères.",
+>>>>>>> dev
       "password_not_match_error": "Les mots de passe ne correspondent pas.",
       "required_error": "Ce champ est requis.",
       "increasing_rewards": "Les récompenses doivent être croissantes",

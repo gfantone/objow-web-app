@@ -8,6 +8,10 @@ const Button = ({
                     load = false,
                     onClick,
                     size,
+<<<<<<< HEAD
+=======
+                    type,
+>>>>>>> dev
                     variant
                 }) => {
     const renderContent = () => {
@@ -20,7 +24,11 @@ const Button = ({
 
     return (
         <>
+<<<<<<< HEAD
             <MuiButton disabled={disabled} variant={variant} color={color} size={size} disableRipple onClick={onClick}>
+=======
+            <MuiButton disabled={disabled} variant={variant} color={color} size={size} type={type} disableRipple onClick={onClick}>
+>>>>>>> dev
                 {renderContent()}
             </MuiButton>
         </>

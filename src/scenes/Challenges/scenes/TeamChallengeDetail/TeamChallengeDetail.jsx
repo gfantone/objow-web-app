@@ -454,7 +454,12 @@ class TeamChallengeDetail extends MainLayoutComponent {
 
       const canEdit =
         (account.hasManagerChallengeEditAccess && hasExclusiveManagerTeams) ||
+<<<<<<< HEAD
         account.role.code === 'A';
+=======
+        account.role.code === 'A' ||
+        (challenge.typeCode === 'TP' && account.role.code === 'S');
+>>>>>>> dev
       const canEditParticipants =
         (account.hasManagerChallengeParticipantEditAccess &&
           hasPartialManagerTeams) ||
@@ -496,7 +501,12 @@ class TeamChallengeDetail extends MainLayoutComponent {
                 </Tooltip>
               </React.Fragment>
             )}
+<<<<<<< HEAD
           {canEditParticipants && currentType !== 'TP' &&
+=======
+          {canEditParticipants &&
+            currentType !== 'TP' &&
+>>>>>>> dev
             challenge.end.toDate2().getTime() > new Date().getTime() && (
               <Tooltip
                 title={intl.formatMessage({ id: 'common.edit_participants' })}
@@ -599,7 +609,12 @@ class TeamChallengeDetail extends MainLayoutComponent {
                   </MenuItem>
                 </React.Fragment>
               )}
+<<<<<<< HEAD
             {canEditParticipants && currentType !== 'TP' &&
+=======
+            {canEditParticipants &&
+              currentType !== 'TP' &&
+>>>>>>> dev
               challenge.end.toDate2().getTime() > new Date().getTime() && (
                 <MenuItem onClick={this.handleEditParticipants}>
                   <ListItemIcon
@@ -862,7 +877,11 @@ class TeamChallengeDetail extends MainLayoutComponent {
               justify='flex-start'
               style={{ marginBottom: 5, position: 'relative' }}
             >
+<<<<<<< HEAD
               { currentType !== 'TP' && (
+=======
+              {currentType !== 'TP' && (
+>>>>>>> dev
                 <Grid item>
                   <ChallengeDetailFilter
                     open={this.state.filterOpen}
@@ -875,10 +894,22 @@ class TeamChallengeDetail extends MainLayoutComponent {
                   />
                 </Grid>
               )}
+<<<<<<< HEAD
               { currentType !== 'TP' && (
                 <Grid
                   item
                   style={{ position: 'absolute', left: 90, top: 0, zIndex: 100 }}
+=======
+              {currentType !== 'TP' && (
+                <Grid
+                  item
+                  style={{
+                    position: 'absolute',
+                    left: 90,
+                    top: 0,
+                    zIndex: 100,
+                  }}
+>>>>>>> dev
                 >
                   <ChallengeSearchBar
                     search={this.state.name}
@@ -919,7 +950,13 @@ class TeamChallengeDetail extends MainLayoutComponent {
                 <TeamChallengeRankList
                   ranks={ranks}
                   teamId={challenge.teamId}
+<<<<<<< HEAD
                   displayCollaboratorDepartment={displayCollaboratorDepartment}
+=======
+                  displayCollaboratorDepartment={
+                    displayCollaboratorDepartment && challenge.typeCode !== 'TP'
+                  }
+>>>>>>> dev
                 />
                 <div
                   ref={this.rankLoader}

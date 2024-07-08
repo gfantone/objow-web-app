@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export {default as appBarStyles} from './appBarStyles';
 export {default as buttonStyles} from './buttonStyles';
 export {default as cardStyles} from './cardStyles';
@@ -7,3 +8,20 @@ export {default as linkStyles} from './linkStyles';
 export {default as stepperStyles} from './stepperStyles';
 export {default as tabsStyles} from './tabsStyles';
 export {default as typographyStyles} from './typographyStyles';
+=======
+export { default as appBarStyles } from './appBarStyles';
+export { default as buttonStyles } from './buttonStyles';
+export { default as cardStyles } from './cardStyles';
+export { default as dialogStyles } from './dialogStyles';
+export { default as iconButtonStyles } from './iconButtonStyles';
+export { default as linkStyles } from './linkStyles';
+export { default as stepperStyles } from './stepperStyles';
+export { default as tabsStyles } from './tabsStyles';
+export { default as typographyStyles } from './typographyStyles';
+export { default as sidebarStyles } from './sidebarStyles';
+export { default as textFieldStyles } from './textFieldStyles';
+export { default as tableDataStyles } from './tableDataStyles';
+export { default as paginationStyles } from './paginationStyles';
+export { default as selectStyles } from './selectStyles';
+export { default as paperStyles } from './paperStyles';
+>>>>>>> dev

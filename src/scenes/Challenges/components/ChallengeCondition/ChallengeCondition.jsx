@@ -580,7 +580,12 @@ const ChallengeCondition = ({ challenge, goals, participants, ...props }) => {
                                               id: 'challenge.condition.team_group_rank',
                                             })
                                             .format(award.rank)
+<<<<<<< HEAD
                                         : challenge.typeCode === 'CT'
+=======
+                                        : challenge.typeCode === 'CT' ||
+                                          challenge.typeCode === 'TP'
+>>>>>>> dev
                                         ? intl
                                             .formatMessage({
                                               id: 'challenge.condition.team_rank',
@@ -625,7 +630,12 @@ const ChallengeCondition = ({ challenge, goals, participants, ...props }) => {
                                       id: 'challenge.condition.team_group_rank',
                                     })
                                     .format(award.rank)
+<<<<<<< HEAD
                                 : challenge.typeCode === 'CT'
+=======
+                                : challenge.typeCode === 'CT' ||
+                                  challenge.typeCode === 'TP'
+>>>>>>> dev
                                 ? intl
                                     .formatMessage({
                                       id: 'challenge.condition.team_rank',

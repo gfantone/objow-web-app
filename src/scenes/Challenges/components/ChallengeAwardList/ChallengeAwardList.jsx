@@ -124,14 +124,22 @@ const ChallengeAwardList = ({
               {awards.map((award, index) => {
                 const number = index + 1;
                 const label = isMaxAward
+<<<<<<< HEAD
                   ? challengeTypeCode === 'CT'
+=======
+                  ? challengeTypeCode === 'CT' || challengeTypeCode === 'TP'
+>>>>>>> dev
                     ? intl.formatMessage({
                         id: 'challenge.award_list.team_max_point_label',
                       })
                     : intl.formatMessage({
                         id: 'challenge.award_list.collaborator_max_point_label',
                       })
+<<<<<<< HEAD
                   : challengeTypeCode === 'CT'
+=======
+                  : challengeTypeCode === 'CT' || challengeTypeCode === 'TP'
+>>>>>>> dev
                   ? intl
                       .formatMessage({
                         id: 'challenge.award_list.team_point_label',

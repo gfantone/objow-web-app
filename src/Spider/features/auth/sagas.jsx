@@ -6,4 +6,8 @@ export default function* authSaga() {
     yield all([
         accountActivationSaga(),
     ]);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dev

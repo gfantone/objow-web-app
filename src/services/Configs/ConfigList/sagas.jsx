@@ -5,7 +5,16 @@ import api from '../../../data/api/api';
 
 function* getConfigList(action) {
   try {
+<<<<<<< HEAD
     const { data: configs } = yield call(api.periods.configs, action.periodId);
+=======
+    const { data: configs } = yield call(
+      api.configs.permanent,
+      1,
+      [],
+      action.periodId
+    );
+>>>>>>> dev
 
     yield put(getConfigListSuccess(configs));
   } catch (e) {
